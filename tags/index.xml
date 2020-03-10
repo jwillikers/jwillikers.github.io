@@ -6,9 +6,64 @@
     <description>Recent content in Tags on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Sun, 09 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Networking</title>
+      <link>https://jwillikers.com/tags/networking/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/networking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OpenBSD</title>
+      <link>https://jwillikers.com/tags/openbsd/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/openbsd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OpenBSD 6</title>
+      <link>https://jwillikers.com/tags/openbsd-6/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/openbsd-6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OpenBSD 6.6</title>
+      <link>https://jwillikers.com/tags/openbsd-6.6/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/openbsd-6.6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PPPoE</title>
+      <link>https://jwillikers.com/tags/pppoe/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/pppoe/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Routing</title>
+      <link>https://jwillikers.com/tags/routing/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/routing/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

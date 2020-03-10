@@ -4,14 +4,62 @@
   
   <url>
     <loc>https://jwillikers.com/categories/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/networking/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/categories/networking/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/openbsd/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/openbsd-6/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/openbsd-6.6/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/posts/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/pppoe/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/posts/pppoe_openbsd/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/routing/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/</loc>
+    <lastmod>2020-02-09T00:00:00+00:00</lastmod>
   </url>
   
 </urlset>
