@@ -61,9 +61,9 @@
   "headline": "PPPoE on OpenBSD",
   "description" : "This brief article describes how I setup the internet connection on my PPPoE interface on OpenBSD 6.6.\n   DNS Servers If necessary, configure your system to use your preferred DNS nameservers. The place to do this is resolv.conf. My system uses a couple of nameservers from the list provided by DNSCrypt. The Google nameservers are also quite popular.\n \/etc\/resolv.conf nameserver 176.103.130.132 (1) nameserver 185.228.168.10 (2)     1 adguard-dns-family   2 cleanbrowsing-adult        A common way of connecting to your ISP\x26#8217;s network is through DHCP.",
   "inLanguage" : "en",
-  "wordCount":  312 ,
-  "datePublished" : "2020-03-10T00:00:00",
-  "dateModified" : "2020-03-10T00:00:00",
+  "wordCount":  321 ,
+  "datePublished" : "2020-03-12T00:00:00",
+  "dateModified" : "2020-03-12T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
   "keywords" : [ "BSD, Internet, Network, OpenBSD, OpenBSD 6, OpenBSD 6.6, PPPoE, Router, Routing, Unix" ],
   "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/pppoe_openbsd\/",
@@ -302,14 +302,14 @@ If you are switching from DHCP to PPPoE, be mindful that you may need to set you
 <div class="paragraph">
 <p>The configuration only involves three configuration files and initializing the new network interface.
 I use a <a href="https://man.openbsd.org/OpenBSD-6.6/hostname.if">hostname.if</a> file to initialize the PPPoE interface when the system boots.
-This example is very similar to the one provided in the <a href="https://man.openbsd.org/OpenBSD-6.6/pppoe">PPPOE(4)</a> manpage with two differences.
+This example is very similar to the jumbo frames example provided in the <a href="https://man.openbsd.org/pppoe#MTU/MSS_ISSUES">PPPOE(4)</a> manpage with two differences.
 First, <code>chap</code> replaces <code>pap</code> as the authentication protocal.
 Second, only the relevant IPv4 options are shown since my ISP doesn&#8217;t support IPv6.</p>
 </div>
 <div class="listingblock">
 <div class="title">/etc/hostname.pppoe0</div>
 <div class="content">
-<pre class="rouge highlight"><code>inet 0.0.0.0 255.255.255.255 NONE \ <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="rouge highlight"><code>inet 0.0.0.0 255.255.255.255 NONE mtu 1500 \ <i class="conum" data-value="1"></i><b>(1)</b>
 	pppoedev em0 authproto chap \ <i class="conum" data-value="2"></i><b>(2)</b>
 	authname 'username' authkey 'password' up
 dest 0.0.0.1
@@ -320,7 +320,7 @@ dest 0.0.0.1
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set the IP to <code>0.0.0.0</code>, a wildcard representing whatever IP the PPPoE connection provides.</td>
+<td>Set the IP to <code>0.0.0.0</code>, a wildcard representing whatever IP the PPPoE connection provides, and adjust the frame size.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
