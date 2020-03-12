@@ -6,7 +6,7 @@
     <description>Recent content in PPPoE on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/pppoe/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,11 +14,12 @@
     <item>
       <title>PPPoE on OpenBSD</title>
       <link>https://jwillikers.com/posts/pppoe_openbsd/</link>
-      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 10 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/posts/pppoe_openbsd/</guid>
       <description>This brief article describes how I setup the internet connection on my PPPoE interface on OpenBSD 6.6.
-   PPPoE Configuration The configuration only involves two configuration files and initializing the new network interface. I use a hostname.if file to initialize the PPPoE interface when the system boots. This example is very similar to the one provided in the PPPOE(4) manpage with two differences. First, chap replaces pap as the authentication protocal.</description>
+   DNS Servers If necessary, configure your system to use your preferred DNS nameservers. The place to do this is resolv.conf. My system uses a couple of nameservers from the list provided by DNSCrypt. The Google nameservers are also quite popular.
+ /etc/resolv.conf nameserver 176.103.130.132 (1) nameserver 185.228.168.10 (2)     1 adguard-dns-family   2 cleanbrowsing-adult        A common way of connecting to your ISP&amp;#8217;s network is through DHCP.</description>
     </item>
     
   </channel>

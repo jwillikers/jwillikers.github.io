@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Internet on JWillikers</title>
+    <link>https://jwillikers.com/tags/internet/</link>
+    <description>Recent content in Internet on JWillikers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 10 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jwillikers.com/tags/internet/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PPPoE on OpenBSD</title>
+      <link>https://jwillikers.com/posts/pppoe_openbsd/</link>
+      <pubDate>Tue, 10 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/pppoe_openbsd/</guid>
+      <description>This brief article describes how I setup the internet connection on my PPPoE interface on OpenBSD 6.6.
+   DNS Servers If necessary, configure your system to use your preferred DNS nameservers. The place to do this is resolv.conf. My system uses a couple of nameservers from the list provided by DNSCrypt. The Google nameservers are also quite popular.
+ /etc/resolv.conf nameserver 176.103.130.132 (1) nameserver 185.228.168.10 (2)     1 adguard-dns-family   2 cleanbrowsing-adult        A common way of connecting to your ISP&amp;#8217;s network is through DHCP.</description>
+    </item>
+    
+  </channel>
+</rss>
