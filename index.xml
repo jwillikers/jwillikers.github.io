@@ -6,10 +6,21 @@
     <description>Recent content on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>About</title>
+      <link>https://jwillikers.com/about/</link>
+      <pubDate>Sat, 21 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/about/</guid>
+      <description>Welcome to jwillikers.com, an archive for all of my tech experiments, configurations, and adventures. I hope that you will find something helpful here, something that will make your life a little easier as a developer, system administrator, or self-hoster.
+   Me This is my website, so I get to talk about myself right?
+ On-the-job Current At my current day job, I wrangle C&amp;#43;&amp;#43; and CMake code to create functioning, cross-platform graphical applications.</description>
+    </item>
     
     <item>
       <title>PPPoE on OpenBSD</title>
@@ -17,9 +28,9 @@
       <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/posts/pppoe_openbsd/</guid>
-      <description>This brief article describes how I setup the internet connection on my PPPoE interface on OpenBSD 6.6.
-   DNS Servers If necessary, configure your system to use your preferred DNS nameservers. The place to do this is resolv.conf. My system uses a couple of nameservers from the list provided by DNSCrypt. The Google nameservers are also quite popular.
- /etc/resolv.conf nameserver 176.103.130.132 (1) nameserver 185.228.168.10 (2)     1 adguard-dns-family   2 cleanbrowsing-adult        A common way of connecting to your ISP&amp;#8217;s network is through DHCP.</description>
+      <description>Some ISP&amp;#8217;s establish connections with their customers&#39; networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
+   DNS Servers If necessary, configure your system to use your preferred DNS nameservers.
+     A common way of connecting to your ISP&amp;#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937.</description>
     </item>
     
   </channel>
