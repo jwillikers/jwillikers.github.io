@@ -195,6 +195,74 @@
           
           
             <article class="post-preview">
+    <a href="https://jwillikers.com/posts/unbound_dnssec/">
+        <h2 class="post-title">DNSSEC with Unbound</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on March 28, 2020
+  
+  
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
+    
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
+   Unbound Configuration Use the ftp command to download the Root Hints.
+ ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root   Download the trust anchor file with the unbound-anchor utility.
+ unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
+        <a href="https://jwillikers.com/posts/unbound_dnssec/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/dns/">DNS</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/dnssec/">DNSSEC</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/internet/">Internet</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/network/">Network</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/openbsd-6/">OpenBSD 6</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/openbsd-6.6/">OpenBSD 6.6</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/router/">Router</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/routing/">Routing</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/unbound/">Unbound</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/unix/">Unix</a>&nbsp;
+        
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
     <a href="https://jwillikers.com/posts/unbound_adblock/">
         <h2 class="post-title">Unbound Adblock</h2>
         
@@ -318,76 +386,6 @@
         <a href="https://jwillikers.com//tags/router/">Router</a>&nbsp;
         
         <a href="https://jwillikers.com//tags/routing/">Routing</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unix/">Unix</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/unbound_dnssec/">
-        <h2 class="post-title">DNSSEC with Unbound</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 11, 2020
-  
-    &nbsp;(Last modified on March 28, 2020)
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
-   Unbound Configuration Use the ftp command to download the Root Hints.
- ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root   Download the trust anchor file with the unbound-anchor utility.
- unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
-        <a href="https://jwillikers.com/posts/unbound_dnssec/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dns/">DNS</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dnssec/">DNSSEC</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/internet/">Internet</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/network/">Network</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6/">OpenBSD 6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6.6/">OpenBSD 6.6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/router/">Router</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/routing/">Routing</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unbound/">Unbound</a>&nbsp;
         
         <a href="https://jwillikers.com//tags/unix/">Unix</a>&nbsp;
         

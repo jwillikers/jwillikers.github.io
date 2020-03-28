@@ -12,24 +12,24 @@
     
     
     <item>
-      <title>Unbound Adblock</title>
-      <link>https://jwillikers.com/posts/unbound_adblock/</link>
-      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/unbound_adblock/</guid>
-      <description>Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers.</description>
-    </item>
-    
-    <item>
       <title>DNSSEC with Unbound</title>
       <link>https://jwillikers.com/posts/unbound_dnssec/</link>
-      <pubDate>Wed, 11 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/posts/unbound_dnssec/</guid>
       <description>Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
    Unbound Configuration Use the ftp command to download the Root Hints.
  ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root   Download the trust anchor file with the unbound-anchor utility.
  unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.</description>
+    </item>
+    
+    <item>
+      <title>Unbound Adblock</title>
+      <link>https://jwillikers.com/posts/unbound_adblock/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/unbound_adblock/</guid>
+      <description>Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers.</description>
     </item>
     
   </channel>

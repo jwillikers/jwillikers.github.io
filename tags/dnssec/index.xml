@@ -6,7 +6,7 @@
     <description>Recent content in DNSSEC on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/dnssec/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>DNSSEC with Unbound</title>
       <link>https://jwillikers.com/posts/unbound_dnssec/</link>
-      <pubDate>Wed, 11 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/posts/unbound_dnssec/</guid>
       <description>Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
