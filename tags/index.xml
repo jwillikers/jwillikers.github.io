@@ -6,24 +6,42 @@
     <description>Recent content in Tags on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Adblock</title>
+      <link>https://jwillikers.com/tags/adblock/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/adblock/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>BSD</title>
       <link>https://jwillikers.com/tags/bsd/</link>
-      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/bsd/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>DNS</title>
+      <link>https://jwillikers.com/tags/dns/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/dns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Internet</title>
       <link>https://jwillikers.com/tags/internet/</link>
-      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/internet/</guid>
       <description></description>
@@ -32,7 +50,7 @@
     <item>
       <title>Network</title>
       <link>https://jwillikers.com/tags/network/</link>
-      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/network/</guid>
       <description></description>
@@ -41,7 +59,7 @@
     <item>
       <title>OpenBSD</title>
       <link>https://jwillikers.com/tags/openbsd/</link>
-      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/openbsd/</guid>
       <description></description>
@@ -50,7 +68,7 @@
     <item>
       <title>OpenBSD 6</title>
       <link>https://jwillikers.com/tags/openbsd-6/</link>
-      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/openbsd-6/</guid>
       <description></description>
@@ -59,9 +77,63 @@
     <item>
       <title>OpenBSD 6.6</title>
       <link>https://jwillikers.com/tags/openbsd-6.6/</link>
-      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/openbsd-6.6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pi-hole</title>
+      <link>https://jwillikers.com/tags/pi-hole/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/pi-hole/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Router</title>
+      <link>https://jwillikers.com/tags/router/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/router/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Routing</title>
+      <link>https://jwillikers.com/tags/routing/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/routing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unbound</title>
+      <link>https://jwillikers.com/tags/unbound/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/unbound/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>unbound-adblock</title>
+      <link>https://jwillikers.com/tags/unbound-adblock/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/unbound-adblock/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unix</title>
+      <link>https://jwillikers.com/tags/unix/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/unix/</guid>
       <description></description>
     </item>
     
@@ -75,29 +147,11 @@
     </item>
     
     <item>
-      <title>Router</title>
-      <link>https://jwillikers.com/tags/router/</link>
-      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
+      <title>DNSSEC</title>
+      <link>https://jwillikers.com/tags/dnssec/</link>
+      <pubDate>Wed, 11 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jwillikers.com/tags/router/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Routing</title>
-      <link>https://jwillikers.com/tags/routing/</link>
-      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/routing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Unix</title>
-      <link>https://jwillikers.com/tags/unix/</link>
-      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/unix/</guid>
+      <guid>https://jwillikers.com/tags/dnssec/</guid>
       <description></description>
     </item>
     

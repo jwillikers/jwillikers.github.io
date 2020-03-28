@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>DNSSEC with Unbound - JWillikers</title>
+  <meta name="description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
+   Unbound Configuration Use the ftp command to download the Root Hints.
+ ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root   Download the trust anchor file with the unbound-anchor utility.
+ unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.">
+  <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "JWillikers",
+    
+    "url": "https:\/\/jwillikers.com\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/jwillikers.com\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/posts\/unbound_dnssec\/",
+          "name": "D n s s e c with unbound"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jordan Williams"
+  },
+  "headline": "DNSSEC with Unbound",
+  "description" : "Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.\n   Unbound Configuration Use the ftp command to download the Root Hints.\n ftp -o \/var\/unbound\/etc\/root.hints https:\/\/www.internic.net\/domain\/named.root   Download the trust anchor file with the unbound-anchor utility.\n unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.",
+  "inLanguage" : "en",
+  "wordCount":  334 ,
+  "datePublished" : "2020-03-11T00:00:00",
+  "dateModified" : "2020-03-11T00:00:00",
+  "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+  "keywords" : [ "BSD, DNS, DNSSEC, Internet, Network, OpenBSD, OpenBSD 6, OpenBSD 6.6, Router, Routing, Unbound, Unix" ],
+  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/unbound_dnssec\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jwillikers.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="DNSSEC with Unbound" />
+<meta property="og:description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
+   Unbound Configuration Use the ftp command to download the Root Hints.
+ ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root   Download the trust anchor file with the unbound-anchor utility.
+ unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.">
+<meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+<meta property="og:url" content="https://jwillikers.com/posts/unbound_dnssec/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="JWillikers" />
+
+  <meta name="twitter:title" content="DNSSEC with Unbound" />
+  <meta name="twitter:description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
+   Unbound Configuration Use the ftp command to download the Root Hints. …">
+  <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.68.3" />
+  <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://jwillikers.com/css/syntax.css" /><link rel="stylesheet" href="https://jwillikers.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://jwillikers.com/">JWillikers</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/posts/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about/">About</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="JWillikers" href="https://jwillikers.com/">
+            <img class="avatar-img" src="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" alt="JWillikers" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>DNSSEC with Unbound</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ever want to enable <a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions">DNSSEC</a> on your <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound</a> OpenBSD 6.6 server?
+Me too!
+Using this <a href="http://www.lonecpluspluscoder.com/2020/01/16/building-an-openbsd-wireguard-vpn-server-part-2-unbound-dns-setup/">article</a> as a guide, I document the process.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_unbound_configuration">Unbound Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use the <a href="https://man.openbsd.org/ftp.1">ftp</a> command to download the <a href="https://wiki.archlinux.org/index.php/unbound#Root_hints">Root Hints</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Download the trust anchor file with the <a href="https://man.openbsd.org/unbound-anchor">unbound-anchor</a> utility.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">unbound-anchor</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Configure <a href="https://man.openbsd.org/unbound.conf">unbound.conf</a>.
+Add the location of the <code>root.hints</code> file and uncomment the lines with the keys <code>auto-trust-anchor-file</code> and <code>val-log-level</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">/var/unbound/etc/unbound.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code># Uncomment to enable DNSSEC validation.
+#
+root-hints: "/var/unbound/etc/root.hints" <i class="conum" data-value="1"></i><b>(1)</b>
+auto-trust-anchor-file: "/var/unbound/db/root.key"
+val-log-level: 2</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This line was added, not uncommented&#8230;&#8203; to be fair.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Make sure the upstream resolvers support DNSSEC.
+The <a href="https://dnscrypt.info/public-servers">list provided by DNSCrypt</a> has some good options.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code># Use an upstream forwarder (recursive resolver) for some or all zones.
+#
+forward-zone:
+	name: "." # use for ALL queries
+	forward-addr: 176.103.130.132 # adguard-dns-family
+	forward-addr: 185.228.168.10 # cleanbrowsing-adult</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Verify the configuration of unbound.conf which <a href="http://man.openbsd.org/unbound-checkconf.8">unbound-checkconf</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">unbound-checkconf</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, restart Unbound.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl restart unbound</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify that DNSSEC is working with the <a href="https://man.openbsd.org/OpenBSD-6.6/dig">dig</a> command from a computer using your unbound server.
+This website, <code>jwillikers.com</code>, has DNSSEC enabled and so makes for a good address to test.
+Cloudflare provides a nice write-up about using dig to verify DNSSEC <a href="https://support.cloudflare.com/hc/en-us/articles/360021111972-Troubleshooting-DNSSEC#TroubleshootingDNSSEC-DNSSECinPracticewithDig">here</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">dig jwillikers.com +dnssec</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The example below contains the appropriate response with DNSSEC enabled.
+Look for the <code>ad</code> flag and the <code>RRSIG</code> entry.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1ubuntu2.1-Ubuntu &lt;&lt;&gt;&gt; jwillikers.com +dnssec
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 46922
+;; flags: qr rd ra ad; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1 <i class="conum" data-value="1"></i><b>(1)</b>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags: do; udp: 4096
+;; QUESTION SECTION:
+;jwillikers.com.			IN	A
+
+;; ANSWER SECTION:
+jwillikers.com.		300	IN	A	104.28.26.241
+jwillikers.com.		300	IN	A	104.28.27.241
+jwillikers.com.		300	IN	RRSIG	A 13 2 300 20200329192309 20200327172309 34505 jwillikers.com. DcQzhWhlVflaeqCkZn92X6jRMJvtFySr7wN1AzGaJVk7/b4JbS/lqqZB ZepEA6FP3bHz8g5H6zduVKKv/D8Tqg== <i class="conum" data-value="2"></i><b>(2)</b>
+
+;; Query time: 35 msec
+;; SERVER: 192.168.6.1#53(192.168.6.1)
+;; WHEN: Sat Mar 28 13:23:09 CDT 2020
+;; MSG SIZE  rcvd: 185</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>ad</code> flag is present in the list of flags.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>RRSIG</code> entry.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/dns/">DNS</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/dnssec/">DNSSEC</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/internet/">Internet</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/network/">Network</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/openbsd-6/">OpenBSD 6</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/openbsd-6.6/">OpenBSD 6.6</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/router/">Router</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/routing/">Routing</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/unbound/">Unbound</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/unix/">Unix</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+          
+            <li class="next">
+              <a href="https://jwillikers.com/posts/pppoe_openbsd/" data-toggle="tooltip" data-placement="top" title="PPPoE on OpenBSD">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/jwillikers" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://gitlab.com/jwillikers" title="GitLab">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://bitbucket.org/jwillikers" title="Bitbucket">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-bitbucket fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Jordan Williams
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://jwillikers.com/">JWillikers</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.68.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          &nbsp;&bull;&nbsp;[<a href="4af465425a9c9eb567598fa63d4b092a3f287bfb">4af46542</a>]
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://jwillikers.com/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://jwillikers.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

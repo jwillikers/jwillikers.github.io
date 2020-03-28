@@ -6,10 +6,19 @@
     <description>Recent content in Network on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/network/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Unbound Adblock</title>
+      <link>https://jwillikers.com/posts/unbound_adblock/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/unbound_adblock/</guid>
+      <description>Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers.</description>
+    </item>
     
     <item>
       <title>PPPoE on OpenBSD</title>
@@ -20,6 +29,18 @@
       <description>Some ISP&amp;#8217;s establish connections with their customers&#39; networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
    DNS Servers If necessary, configure your system to use your preferred DNS nameservers.
      A common way of connecting to your ISP&amp;#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937.</description>
+    </item>
+    
+    <item>
+      <title>DNSSEC with Unbound</title>
+      <link>https://jwillikers.com/posts/unbound_dnssec/</link>
+      <pubDate>Wed, 11 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/unbound_dnssec/</guid>
+      <description>Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
+   Unbound Configuration Use the ftp command to download the Root Hints.
+ ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root   Download the trust anchor file with the unbound-anchor utility.
+ unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.</description>
     </item>
     
   </channel>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pi-hole on JWillikers</title>
+    <link>https://jwillikers.com/tags/pi-hole/</link>
+    <description>Recent content in Pi-hole on JWillikers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 28 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jwillikers.com/tags/pi-hole/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Unbound Adblock</title>
+      <link>https://jwillikers.com/posts/unbound_adblock/</link>
+      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/unbound_adblock/</guid>
+      <description>Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers.</description>
+    </item>
+    
+  </channel>
+</rss>
