@@ -59,7 +59,7 @@
   "headline": "Unbound Adblock",
   "description" : "Ever want to get rid of all those annoying internet ads? Me too. I\x26#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google\x26#8217;s DNS servers.",
   "inLanguage" : "en",
-  "wordCount":  642 ,
+  "wordCount":  657 ,
   "datePublished" : "2020-03-28T00:00:00",
   "dateModified" : "2020-03-28T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -273,20 +273,29 @@ Disable any browser-based ad-blockers you might have enabled, otherwise you won&
 <h2 id="_configure">Configure</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Download the <a href="https://www.geoghegan.ca/scripts/unbound-adblock.sh">unbound-adblock.sh script</a> to <code>/usr/local/bin</code>.</p>
+<p>Download the <a href="https://www.geoghegan.ca/scripts/unbound-adblock.sh">unbound-adblock.sh script</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">ftp -o /usr/local/bin/unbound-adblock.sh https://www.geoghegan.ca/scripts/unbound-adblock.sh</span></code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="go">ftp https://www.geoghegan.ca/scripts/unbound-adblock.sh</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Set the appropriate permissions on the script, making it owned by the <em>root</em> user and the <em>bin</em> group.</p>
+<p>Install the script with the appropriate permissions.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">chown root:bin /usr/local/bin/unbound-adblock.sh</span></code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="go">install -g bin -m 644 -o root unbound-adblock.sh /usr/local/bin/ <i class="conum" data-value="1"></i><b>(1)</b>
+</span></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The script will be owned by <em>root</em>, belong to the <em>bin</em> group, and be readable by everyone and writeable by the owner.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Create a new user, <code>_adblock</code>, who will not be allowed to login.</p>
@@ -568,7 +577,7 @@ Those pesky ads should have mystically vanished.</p>
         
         <p class="credits theme-by text-muted">
           <a href="https://gohugo.io">Hugo v0.68.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          &nbsp;&bull;&nbsp;[<a href="4bc0ee6912f522f6f7a582682b1bbe10badeb47c">4bc0ee69</a>]
+          &nbsp;&bull;&nbsp;[<a href="d30a4479e00f64f5024d172ced75b78b7a0c1811">d30a4479</a>]
         </p>
       </div>
     </div>

@@ -3,108 +3,128 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://jwillikers.com/tags/adblock/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jwillikers.com/tags/bsd/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/categories/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/dns/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/dnssec/</loc>
-    <lastmod>2020-03-28T15:56:46-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/posts/unbound_dnssec/</loc>
-    <lastmod>2020-03-28T15:56:46-05:00</lastmod>
+    <loc>https://jwillikers.com/tags/firewall/</loc>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/internet/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/network/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/categories/networking/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/openbsd/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/openbsd-6/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/openbsd-6.6/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/pi-hole/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <loc>https://jwillikers.com/tags/pf/</loc>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/posts/pf_badhost/</loc>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/pf-badhost/</loc>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/posts/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/router/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/routing/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/unbound/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/posts/unbound_adblock/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/unbound-adblock/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/unix/</loc>
-    <lastmod>2020-03-28T15:57:01-05:00</lastmod>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/adblock/</loc>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/dns/</loc>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/dnssec/</loc>
+    <lastmod>2020-03-28T16:00:56-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/posts/unbound_dnssec/</loc>
+    <lastmod>2020-03-28T16:00:56-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/pi-hole/</loc>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/unbound/</loc>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/posts/unbound_adblock/</loc>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/unbound-adblock/</loc>
+    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
   <url>
