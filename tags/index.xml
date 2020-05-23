@@ -6,7 +6,7 @@
     <description>Recent content in Tags on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 23 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,16 +14,34 @@
     <item>
       <title>BSD</title>
       <link>https://jwillikers.com/tags/bsd/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/bsd/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>DHCPCD</title>
+      <link>https://jwillikers.com/tags/dhcpcd/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/dhcpcd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DHCPv6</title>
+      <link>https://jwillikers.com/tags/dhcpv6/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/dhcpv6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Firewall</title>
       <link>https://jwillikers.com/tags/firewall/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/firewall/</guid>
       <description></description>
@@ -32,16 +50,25 @@
     <item>
       <title>Internet</title>
       <link>https://jwillikers.com/tags/internet/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/internet/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>IPv6</title>
+      <link>https://jwillikers.com/tags/ipv6/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/ipv6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Network</title>
       <link>https://jwillikers.com/tags/network/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/network/</guid>
       <description></description>
@@ -50,7 +77,7 @@
     <item>
       <title>OpenBSD</title>
       <link>https://jwillikers.com/tags/openbsd/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/openbsd/</guid>
       <description></description>
@@ -59,9 +86,54 @@
     <item>
       <title>OpenBSD 6</title>
       <link>https://jwillikers.com/tags/openbsd-6/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/openbsd-6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OpenBSD 6.7</title>
+      <link>https://jwillikers.com/tags/openbsd-6.7/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/openbsd-6.7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PF</title>
+      <link>https://jwillikers.com/tags/pf/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/pf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Router</title>
+      <link>https://jwillikers.com/tags/router/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/router/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Routing</title>
+      <link>https://jwillikers.com/tags/routing/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/routing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unix</title>
+      <link>https://jwillikers.com/tags/unix/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/unix/</guid>
       <description></description>
     </item>
     
@@ -75,47 +147,11 @@
     </item>
     
     <item>
-      <title>PF</title>
-      <link>https://jwillikers.com/tags/pf/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/pf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>pf-badhost</title>
       <link>https://jwillikers.com/tags/pf-badhost/</link>
       <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/pf-badhost/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Router</title>
-      <link>https://jwillikers.com/tags/router/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/router/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Routing</title>
-      <link>https://jwillikers.com/tags/routing/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/routing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Unix</title>
-      <link>https://jwillikers.com/tags/unix/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/unix/</guid>
       <description></description>
     </item>
     
