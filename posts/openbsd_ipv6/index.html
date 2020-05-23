@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>IPv6 on OpenBSD - JWillikers</title>
+  <meta name="description" content="Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&#8217;t provide DHCPv6 support in its native DHCP daemon. I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
+   Configure I configured IPv6 on OpenBSD 6.7.
+ PF First was the firewall configuration.">
+  <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "JWillikers",
+    
+    "url": "https:\/\/jwillikers.com\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/jwillikers.com\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/posts\/openbsd_ipv6\/",
+          "name": "I pv6 on open b s d"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jordan Williams"
+  },
+  "headline": "IPv6 on OpenBSD",
+  "description" : "Configuring IPv6 on my OpenBSD home router was a much more difficult task than I\x26#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn\x26#8217;t provide DHCPv6 support in its native DHCP daemon. I\x26#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.\n   Configure I configured IPv6 on OpenBSD 6.7.\n PF First was the firewall configuration.",
+  "inLanguage" : "en",
+  "wordCount":  1177 ,
+  "datePublished" : "2020-05-23T00:00:00",
+  "dateModified" : "2020-05-23T00:00:00",
+  "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+  "keywords" : [ "BSD, DHCPCD, DHCPv6, Firewall, Internet, IPv6, Network, OpenBSD, OpenBSD 6, OpenBSD 6.7, PF, Router, Routing, Unix" ],
+  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/openbsd_ipv6\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jwillikers.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="IPv6 on OpenBSD" />
+<meta property="og:description" content="Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&#8217;t provide DHCPv6 support in its native DHCP daemon. I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
+   Configure I configured IPv6 on OpenBSD 6.7.
+ PF First was the firewall configuration.">
+<meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+<meta property="og:url" content="https://jwillikers.com/posts/openbsd_ipv6/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="JWillikers" />
+
+  <meta name="twitter:title" content="IPv6 on OpenBSD" />
+  <meta name="twitter:description" content="Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&#8217;t …">
+  <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.71.0" />
+  <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://jwillikers.com/css/syntax.css" /><link rel="stylesheet" href="https://jwillikers.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://jwillikers.com/">JWillikers</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/posts/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about/">About</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="JWillikers" href="https://jwillikers.com/">
+            <img class="avatar-img" src="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" alt="JWillikers" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>IPv6 on OpenBSD</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Configuring <a href="https://en.wikipedia.org/wiki/IPv6">IPv6</a> on my <a href="https://www.openbsd.org/">OpenBSD</a> home router was a much more difficult task than I&#8217;d expected.
+While this was mostly due to the steep learning curve of IPv6 and <a href="https://en.wikipedia.org/wiki/DHCPv6">DHCPv6</a>, OpenBSD doesn&#8217;t provide DHCPv6 support in its native <a href="https://man.openbsd.org/dhcpd">DHCP daemon</a>.
+I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configure">Configure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I configured IPv6 on OpenBSD 6.7.</p>
+</div>
+<div class="sect2">
+<h3 id="_pf">PF</h3>
+<div class="paragraph">
+<p>First was the firewall configuration.
+Below are snippets highlighting the required IPv6 packet-filter rules.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/pf.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code>table &lt;martians&gt; { <i class="conum" data-value="1"></i><b>(1)</b>
+    0.0.0.0/8 127.0.0.0/8 169.254.0.0/16 172.16.0.0/12 192.0.0.0/24 \
+    192.0.2.0/24 224.0.0.0/3 192.168.0.0/16 198.18.0.0/15 198.51.100.0/24 \
+    203.0.113.0/24 \
+    ::/128 ::/96 ::1/128 ::ffff:0:0/96 100::/64 2001:10::/28 2001:2::/48 \
+    2001:db8::/32 3ffe::/16 fec0::/10 fc00::/7 }
+
+...
+
+pass out inet6 <i class="conum" data-value="2"></i><b>(2)</b>
+pass in on { secure_lan insecure_lan } inet6
+
+block in on egress from any to &lt;martians&gt;
+
+pass in on egress inet6 proto udp from fe80::/10 port dhcpv6-server \
+  to fe80::/10 port dhcpv6-client no state <i class="conum" data-value="3"></i><b>(3)</b>
+
+pass out on egress inet6 proto udp from any to any port 33433 &gt;&lt; 33626 keep state <i class="conum" data-value="4"></i><b>(4)</b>
+pass on any inet6 proto icmp6 all
+
+pass on secure_lan from secure_lan:network to secure_lan:network
+pass on insecure_lan from insecure_lan:network to insecure_lan:network</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Update the martians table with IPv6 addresses.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Allow IPv6 traffic.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Allow DHCPv6 traffic between link-local IPv6 addresses.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Allow ICMPv6 traffic.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dhcpv6">DHCPv6</h3>
+<div class="paragraph">
+<p>There were two ways to obtain IPv6 address blocks for my home router: <a href="https://tools.ietf.org/html/rfc4862">SLAAC</a> and <a href="https://tools.ietf.org/html/rfc3315">DHCPv6</a>.
+At first, I tried to configure my external interface with OpenBSD&#8217;s IPv6 auto-configuration.
+I successfully received a globally routeable /64 block.
+Of course, my ISP only supplies dynamic IPv6 addresses.
+This put me in a pickle.
+How do I dynamically assign address blocks to my internal interfaces?
+How do I use SLAAC to configure my host machines when SLAAC requires a /64 subnet for the internal interface?
+It took my a long time to realize I needed DHCPv6 to request multiple /64 blocks from my ISP and assign them to my internal network interfaces.
+OpenBSD has yet to natively support DHCPv6, so a third-party package was required.
+I installed <a href="https://roy.marples.name/projects/dhcpcd/">dhcpcd</a>.
+There was a package available for <a href="https://sourceforge.net/projects/wide-dhcpv6/">wide-dhcpv6</a>, but it lacked rc init scripts to conveniently integrate into the startup process.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">pkg_add dhcpcd</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Configuration of dhcpcd was done in <code>/etc/dhcpcd.conf</code>.
+The default configuration required only a few changes, detailed below.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/dhcpcd.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code>ipv6only <i class="conum" data-value="1"></i><b>(1)</b>
+noipv6rs <i class="conum" data-value="2"></i><b>(2)</b>
+waitip 6 <i class="conum" data-value="3"></i><b>(3)</b>
+
+allowinterfaces em0 em1 em2 em3 em4 em5 vlan2 <i class="conum" data-value="4"></i><b>(4)</b>
+
+interface em0 <i class="conum" data-value="5"></i><b>(5)</b>
+  ipv6rs <i class="conum" data-value="6"></i><b>(6)</b>
+  ia_na 1 <i class="conum" data-value="7"></i><b>(7)</b>
+  ia_pd 2 em1/0 em2/1 em3/2 em4/3 em5/4 vlan2/5 <i class="conum" data-value="8"></i><b>(8)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable DHCP services for IPv6 only.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Disable IPv6 router solicitation on all interfaces.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Wait for an IPv6 address to be assigned before forking to the background.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Allow touching these interfaces.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Configure my external interface <code>em0</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Enable router solicitation on <code>em0</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Obtain a normal IPv6 address for <code>em0</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Request a prefix delegation for all of my internal interfaces.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>I then enabled the dhcpcd service at boot.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl enable dhcpcd</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_router_advertisement_daemon">Router Advertisement Daemon</h3>
+<div class="paragraph">
+<p>On OpenBSD, <a href="https://man.openbsd.org/rad.8">rad</a> handles SLAAC on the LAN interfaces.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/rad.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code>dns {
+  nameserver {
+	2606:4700:4700::1111
+	2606:4700:4700::1001
+  }
+}
+
+interface em1
+interface em2
+interface em3
+interface em4
+interface em5
+interface vlan2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Router advertisements will be issued on the listed interfaces.
+Along with the router advertisements, each interface will advertize the globally configured DNS nameservers.
+These are Cloudflare&#8217;s IPv6 DNS namesavers.
+This is quite handy as clients can receive everything they need to connect to the internet.
+Without the DNS servers, a host would need to obtain nameservers through IPv4 DHCP or else configure their DNS servers manually.
+Ideally, my setup would have used my local Unbound instance as the IPv6 nameserver, but I haven&#8217;t quite figured out how to handle that yet.
+Specifically, what IPv6 address should I assign to my Unbound server?</p>
+</div>
+<div class="paragraph">
+<p>Start rad at boot.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl enable rad</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unbound">Unbound</h3>
+<div class="paragraph">
+<p>I enabled IPv6 support on <a href="https://man.openbsd.org/unbound">Unbound</a> and provided upstream IPv6 DNS servers.</p>
+</div>
+<div class="listingblock">
+<div class="title">/var/unbound/etc/unbound.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code>server:
+	interface: 192.168.1.1
+	interface: 192.168.2.1
+	interface: 192.168.3.1
+	interface: 192.168.4.1
+	interface: 192.168.5.1
+	interface: 192.168.6.1
+	interface: 127.0.0.1
+	#interface: 127.0.0.1@5353	# listen on alternative port
+	interface: ::1
+
+	do-ip6: yes
+	prefer-ip6: yes
+
+	access-control: ::0/0 refuse
+	access-control: ::1 allow
+	access-control: fd00::/8 allow
+	access-control: fe80::/10 allow
+
+# Use an upstream forwarder (recursive resolver) for some or all zones.
+#
+forward-zone:
+	name: "."				# use for ALL queries
+	forward-addr: 2606:4700:4700::1111
+	forward-addr: 2606:4700:4700::1001
+	forward-addr: 1.1.1.1
+	forward-addr: 1.0.0.1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prefer_ipv6">Prefer IPv6</h3>
+<div class="paragraph">
+<p>Prefer using IPv6 over IPv4.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/resolv.conf.tail</div>
+<div class="content">
+<pre class="rouge highlight"><code>family inet6 inet4</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ipv6_routing">IPv6 Routing</h3>
+<div class="paragraph">
+<p>Don&#8217;t forget to enable IPv6 routing.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/sysctl.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code>net.inet6.ip6.forwarding=1</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy">Deploy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Reboot for all the changes to take effect.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">reboot</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verify">Verify</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once your router has rebooted, run <a href="https://man.openbsd.org/ifconfig">ifconfig</a> to ensure that your interfaces have public IPv6 addresses.</p>
+</div>
+<div class="paragraph">
+<p>Output interface information.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">ifconfig</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now then, below is some sample output for my configuration.
+The details have been modified for privacy.
+You will want to look for public IPv6 addresses, not <a href="https://en.wikipedia.org/wiki/Link-local_address">link-local IPv6 addresses</a>.
+Public IPv6 addresses indicate you ar properly receiving addresses from your ISP.</p>
+</div>
+<div class="paragraph">
+<p>Link-local addresses will begin with <code>fe80</code>.
+The following shows sample output indicating a link-local address.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">	inet6 fe80::%em0 prefixlen 64 scopeid 0x1</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Notice that some interfaces do not show public IPv6 address block assignments.
+At first, I thought that dhcpcd was not provisioning addresses correctly.
+However, I&#8217;ve come to realize that public IPv6 addresses are only shown for interfaces with active connections.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">em0: flags=808843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST,AUTOCONF4&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:00
+	index 1 priority 0 llprio 3
+	groups: egress
+	media: Ethernet autoselect (1000baseT full-duplex,rxpause,txpause)
+	status: active
+	inet 123.45.67.253 netmask 0xffffff00 broadcast 123.45.67.255
+	inet6 fe80::%em0 prefixlen 64 scopeid 0x1
+	inet6 2001:DB8:face:cafe:abcd🔢5678:39 prefixlen 64 autoconf pltime 604473 vltime 2591673
+</span><span class="gp">em1: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:01
+	index 2 priority 0 llprio 3
+	groups: secure_lan
+	media: Ethernet autoselect (1000baseT full-duplex,rxpause,txpause)
+	status: active
+	inet 192.168.1.1 netmask 0xffffff00 broadcast 192.168.1.255
+	inet6 fe80::0001%em1 prefixlen 64 scopeid 0x2
+</span><span class="gp">em2: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:02
+	index 3 priority 0 llprio 3
+	groups: secure_lan
+	media: Ethernet autoselect (100baseTX full-duplex)
+	status: active
+	inet 192.168.2.1 netmask 0xffffff00 broadcast 192.168.2.255
+	inet6 fe80::1%em2 prefixlen 64 scopeid 0x3
+	inet6 2001:DB8:face:cafe:1::1 prefixlen 64 pltime 205171 vltime 231091
+</span><span class="gp">em3: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:02
+	index 4 priority 0 llprio 3
+	groups: secure_lan
+	media: Ethernet autoselect (none)
+	status: no carrier
+	inet 192.168.3.1 netmask 0xffffff00 broadcast 192.168.3.255
+	inet6 fe80::2%em3 prefixlen 64 scopeid 0x4
+</span><span class="gp">em4: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:03
+	index 5 priority 0 llprio 3
+	groups: secure_lan
+	media: Ethernet autoselect (1000baseT full-duplex,master,rxpause,txpause)
+	status: active
+	inet 192.168.4.1 netmask 0xffffff00 broadcast 192.168.4.255
+	inet6 fe80::3%em4 prefixlen 64 scopeid 0x5
+	inet6 2001:DB8:face:cafe:3::1 prefixlen 64 pltime 205172 vltime 231092
+</span><span class="gp">em5: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:04
+	index 6 priority 0 llprio 3
+	groups: secure_lan
+	media: Ethernet autoselect (none)
+	status: no carrier
+	inet 192.168.5.1 netmask 0xffffff00 broadcast 192.168.5.255
+	inet6 fe80::4%em5 prefixlen 64 scopeid 0x6
+</span><span class="gp">vlan2: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:05
+	index 9 priority 0 llprio 3
+	encap: vnetid 2 parent em1 txprio packet rxprio outer
+	groups: vlan insecure_lan
+	media: Ethernet autoselect (1000baseT full-duplex,rxpause,txpause)
+	status: active
+	inet 192.168.6.1 netmask 0xffffff00 broadcast 192.168.6.255
+	inet6 fe80::5%vlan2 prefixlen 64 scopeid 0x9
+	inet6 2001:DB8:face:cafe:5::1 prefixlen 64 pltime 205172 vltime 231092</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To make sure end-to-end connections are working over IPv6, it&#8217;s easiest to ping an IPv6 address.
+I used my laptop running <a href="https://ubuntu.com/">Ubuntu</a> to ping <a href="https://www.cloudflare.com/">Cloudflare</a>'s DNS server.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="go">ping6 2606:4700:4700::1111</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If your ping is successful, then you have true IPv6 connectivity!</p>
+</div>
+</div>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/dhcpcd/">DHCPCD</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/dhcpv6/">DHCPv6</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/firewall/">Firewall</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/internet/">Internet</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/ipv6/">IPv6</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/network/">Network</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/openbsd-6/">OpenBSD 6</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/openbsd-6.7/">OpenBSD 6.7</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/pf/">PF</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/router/">Router</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/routing/">Routing</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/unix/">Unix</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://jwillikers.com/posts/pf_badhost/" data-toggle="tooltip" data-placement="top" title="PF Badhost">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/jwillikers" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://gitlab.com/jwillikers" title="GitLab">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://bitbucket.org/jwillikers" title="Bitbucket">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-bitbucket fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Jordan Williams
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://jwillikers.com/">JWillikers</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.71.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          &nbsp;&bull;&nbsp;[<a href="3ee8e348aa74d1e7da10bf0b98ed314778af3164">3ee8e348</a>]
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://jwillikers.com/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://jwillikers.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
