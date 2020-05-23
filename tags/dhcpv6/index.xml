@@ -18,8 +18,7 @@
       
       <guid>https://jwillikers.com/posts/openbsd_ipv6/</guid>
       <description>Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&amp;#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&amp;#8217;t provide DHCPv6 support in its native DHCP daemon. I&amp;#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
-   Configure I configured IPv6 on OpenBSD 6.7.
- PF First was the firewall configuration.</description>
+   Configuration I configured IPv6 on on my home router running OpenBSD 6.</description>
     </item>
     
   </channel>
