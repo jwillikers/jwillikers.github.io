@@ -6,18 +6,18 @@
     <description>Recent content in OpenSMTPD on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 24 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/opensmtpd/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>OpenSMTPD Forwarding on Ubuntu</title>
+      <title>OpenSMTPD Relay on Ubuntu</title>
       <link>https://jwillikers.com/posts/opensmtpd_ubuntu/</link>
-      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/posts/opensmtpd_ubuntu/</guid>
-      <description>It is handy to have your system send you an email alert if it detects an issue or potential security risk. Unfortunately, this isn&amp;#8217;t always straightforward, especially if you want to send an email from your desktop computer. Sending an email directly from your desktop to your email provider is likely going to accomplish absolutely nothing. The email will likely be blocked since it is from an unknown source, i.e. your desktop.</description>
+      <description>It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&amp;#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.</description>
     </item>
     
   </channel>

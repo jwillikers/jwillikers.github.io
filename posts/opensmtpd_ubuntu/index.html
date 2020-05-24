@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>OpenSMTPD Relay on Ubuntu - JWillikers</title>
+  <meta name="description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.">
+  <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "JWillikers",
+    
+    "url": "https:\/\/jwillikers.com\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/jwillikers.com\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/posts\/opensmtpd_ubuntu\/",
+          "name": "Open s m t p d relay on ubuntu"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jordan Williams"
+  },
+  "headline": "OpenSMTPD Relay on Ubuntu",
+  "description" : "It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn\x26#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.",
+  "inLanguage" : "en",
+  "wordCount":  675 ,
+  "datePublished" : "2020-05-24T00:00:00",
+  "dateModified" : "2020-05-24T00:00:00",
+  "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+  "keywords" : [ "2FA, Email, GMail, OpenSMTPD, OpenSMTPD 6, OpenSMTPD 6.6, OpenSMTPD 6.6.4, Relay, SMTP, Ubuntu, Ubuntu 20.04" ],
+  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/opensmtpd_ubuntu\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jwillikers.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="OpenSMTPD Relay on Ubuntu" />
+<meta property="og:description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.">
+<meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+<meta property="og:url" content="https://jwillikers.com/posts/opensmtpd_ubuntu/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="JWillikers" />
+
+  <meta name="twitter:title" content="OpenSMTPD Relay on Ubuntu" />
+  <meta name="twitter:description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from …">
+  <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.71.0" />
+  <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://jwillikers.com/css/syntax.css" /><link rel="stylesheet" href="https://jwillikers.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://jwillikers.com/">JWillikers</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/posts/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about/">About</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="JWillikers" href="https://jwillikers.com/">
+            <img class="avatar-img" src="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" alt="JWillikers" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>OpenSMTPD Relay on Ubuntu</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>It can be handy to have your system email you if it detects an issue or potential security risk.
+Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from your desktop computer.
+Sending an email directly from your desktop to your email account is likely going to accomplish nothing.
+The email will likely be blocked since, to your email provider, it is from an unknown source.
+I ran into this problem recently trying to set up <a href="https://www.smartmontools.org/">SmartMonTools</a> to send an email when it detected hard drive errors.
+The <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">Simple Mail Transfer Protocal (SMTP)</a> is perfect for getting around this by <strong>relaying</strong> the email through your account from an established email provider.</p>
+</div>
+<div class="paragraph">
+<p>In my instance, I wanted to relay the alert through my GMail account, which has nice support for SMTP.
+Using an Ubuntu desktop computer, I figured this would be a breeze.
+It wasn&#8217;t.
+It turned out to be much harder than I anticipated because many guides demonstrate SMTP relay using antiquated applications, such as <a href="https://wiki.archlinux.org/index.php/SSMTP">SSMTP</a>.
+Being an <a href="https://www.openbsd.org/">OpenBSD</a> fanboy, I with the modern <a href="https://github.com/OpenSMTPD/OpenSMTPD">OpenSMTPD</a> application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instructions">Instructions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This brief guide will walk you through relaying emails on Ubuntu 20.04 with OpenSMTPD 6.6.4.</p>
+</div>
+<div class="sect2">
+<h3 id="_install">Install</h3>
+<div class="paragraph">
+<p>First, install OpenSMTPD on Ubuntu.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt <span class="nb">install </span>opensmtpd</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This will probably ask you a couple of questions from an ncurses interface, but it should be fairly self explanatory.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Additionally, you will likely want to install the <code>mailutils</code> package to provide the standard system mail commands.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt <span class="nb">install </span>mailutils</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>mailutils</code> package is required for the verification step at the end of this tutorial.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configure">Configure</h3>
+<div class="paragraph">
+<p>Grab your email account&#8217;s password.
+For my use case, I was using a GMail account which required two-factor authentication.
+Because of this, I had to use an <em>App Password</em> instead of my regular password.
+For any GMail users in a similar situation, instructions on how to generate an <em>App Password</em> can be found <a href="https://support.google.com/accounts/answer/185833?hl=en">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>The default configuration file only requires a couple of minor tweaks.
+The gist of the configuration is to relay all mail originating from the local machine to a GMail account.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/smtpd.conf</div>
+<div class="content">
+<pre>#	$OpenBSD: smtpd.conf,v 1.10 2018/05/24 11:40:17 gilles Exp $
+
+# This is the smtpd server system-wide configuration file.
+# See smtpd.conf(5) for more information.
+
+table secrets file:/etc/mail/secrets <i class="conum" data-value="1"></i><b>(1)</b>
+table aliases file:/etc/aliases
+
+# To accept external mail, replace with: listen on all
+#
+listen on localhost
+
+action "local" maildir alias &lt;aliases&gt;
+action "relay" relay host smtp+tls://jdoe@smtp.gmail.com:587 auth &lt;secrets&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+
+# Uncomment the following to accept external mail for domain "example.org"
+#
+# match from any for domain "example.org" action "local"
+match for local action "local"
+match from local for any action "relay"</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use the content of the file <code>/etc/mail/secrets</code>, shown below, for the <code>secrets</code> table.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The rule to forward all mail to GMail&#8217;s SMTP server using TLS.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Your account credentials must be associated with a label in the <code>/etc/mail/secrets</code> file.</p>
+</div>
+<div class="paragraph">
+<p>Create the <code>secrets</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo mkdir</span> /etc/mail
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo touch</span> /etc/mail/secrets</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, make sure the file&#8217;s permissions are tight before putting your plain-text password inside.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chmod </span>640 /etc/mail/secrets <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown </span>root:opensmtpd /etc/mail/secrets <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Permit read and write access for the file&#8217;s owner and read access for the file&#8217;s group.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Set the file&#8217;s ownership such that it belongs to the <code>root</code> user and <code>opensmtpd</code> group.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following example illustrates the file format.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/mail/secrets</div>
+<div class="content">
+<pre>jdoe jdoe@gmail.com:my_app_password <i class="conum" data-value="1"></i><b>(1)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use the label <code>jdoe</code> to represent the account <code>jdoe</code> at <code>gmail.com</code> which has the passphrase <code>my_app_password</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Check that the OpenSMTPD configuration file is valid.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>smtpd <span class="nt">-n</span>
+<span class="go">[sudo] password for jordan:
+configuration OK</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Restart OpenSMTPD to make sure the configuration changes take effect.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>systemctl restart opensmtpd</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enable OpenSMTPD on system startup, if desired.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>opensmtpd</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_verify">Verify</h3>
+<div class="paragraph">
+<p>To test the configuration, you can send an email from your computer and check if the email appears in the receiving account.</p>
+</div>
+<div class="paragraph">
+<p>Send a test email using the <code>mail</code> command from the <code>mailutils</code> package.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"">$ echo "Does it work?" | mail -s "OpenSMTPD Test Email" test@example.com</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If everything works, you should receive an email at the designated address.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://jwillikers.com//tags/2fa/">2FA</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/email/">Email</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/gmail/">GMail</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/opensmtpd/">OpenSMTPD</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/opensmtpd-6/">OpenSMTPD 6</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/opensmtpd-6.6/">OpenSMTPD 6.6</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/opensmtpd-6.6.4/">OpenSMTPD 6.6.4</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/relay/">Relay</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/smtp/">SMTP</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/ubuntu/">Ubuntu</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/ubuntu-20.04/">Ubuntu 20.04</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://jwillikers.com/posts/openbsd_ipv6/" data-toggle="tooltip" data-placement="top" title="IPv6 on OpenBSD">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/jwillikers" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://gitlab.com/jwillikers" title="GitLab">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://bitbucket.org/jwillikers" title="Bitbucket">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-bitbucket fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Jordan Williams
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://jwillikers.com/">JWillikers</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.71.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          &nbsp;&bull;&nbsp;[<a href="9144ad700c0d4d308c9f0d1c58fa7249b7c9364d">9144ad70</a>]
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://jwillikers.com/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://jwillikers.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

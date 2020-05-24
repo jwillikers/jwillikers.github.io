@@ -7,7 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>JWillikers - JWillikers</title>
+  <title>Overview of all pages with the tag #2FA - JWillikers</title>
+  <meta name="description" content="Overview of all pages with the tag #2FA, such as: OpenSMTPD Relay on Ubuntu">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -29,13 +30,13 @@
 }
 </script>
 
-<meta property="og:title" content="JWillikers" />
+<meta property="og:title" content="2FA" />
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
-<meta property="og:url" content="https://jwillikers.com/" />
+<meta property="og:url" content="https://jwillikers.com/tags/2fa/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="JWillikers" />
 
-  <meta name="twitter:title" content="JWillikers" />
+  <meta name="twitter:title" content="2FA" />
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
   <meta name="generator" content="Hugo 0.71.0" />
@@ -164,17 +165,13 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
+            <div class="tags-heading">
               
-                <h1>JWillikers</h1>
+                <h1>2FA</h1>
               
               
                 <hr class="small">
               
-              
-                
-                  <span class="page-subheading">An archive for my development stories, experiences, and setups.</span>
-                
               
               
             </div>
@@ -186,13 +183,11 @@
 
 
     
-  <div role="main" class="container">
+  <div class="container" role="main">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         
-
         <div class="posts-list">
-          
           
             <article class="post-preview">
     <a href="https://jwillikers.com/posts/opensmtpd_ubuntu/">
@@ -259,362 +254,13 @@
 
 </article>
           
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/openbsd_ipv6/">
-        <h2 class="post-title">IPv6 on OpenBSD</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on May 23, 2020
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&#8217;t provide DHCPv6 support in its native DHCP daemon. I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
-   Configuration I configured IPv6 on on my home router running OpenBSD 6.
-        <a href="https://jwillikers.com/posts/openbsd_ipv6/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dhcpcd/">DHCPCD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dhcpv6/">DHCPv6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/firewall/">Firewall</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/internet/">Internet</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/ipv6/">IPv6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/network/">Network</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6/">OpenBSD 6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6.7/">OpenBSD 6.7</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pf/">PF</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/router/">Router</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/routing/">Routing</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unix/">Unix</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/pf_badhost/">
-        <h2 class="post-title">PF Badhost</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 4, 2020
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
-   Configure Download the pf-badhost.sh script.
- ftp https://www.geoghegan.ca/scripts/pf-badhost.sh   Install the script with the appropriate permissions.
- install -g bin -m 644 -o root pf-badhost.
-        <a href="https://jwillikers.com/posts/pf_badhost/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/firewall/">Firewall</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/internet/">Internet</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/network/">Network</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6/">OpenBSD 6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6.6/">OpenBSD 6.6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pf/">PF</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pf-badhost/">pf-badhost</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/router/">Router</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/routing/">Routing</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unix/">Unix</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/unbound_dnssec/">
-        <h2 class="post-title">DNSSEC with Unbound</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 28, 2020
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
-   Unbound Configuration Use the ftp command to download the Root Hints.
- ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root   Download the trust anchor file with the unbound-anchor utility.
- unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
-        <a href="https://jwillikers.com/posts/unbound_dnssec/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dns/">DNS</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dnssec/">DNSSEC</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/internet/">Internet</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/network/">Network</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6/">OpenBSD 6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6.6/">OpenBSD 6.6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/router/">Router</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/routing/">Routing</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unbound/">Unbound</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unix/">Unix</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/unbound_adblock/">
-        <h2 class="post-title">Unbound Adblock</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 28, 2020
-  
-    &nbsp;(Last modified on April 4, 2020)
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Ever want to get rid of all those annoying internet ads? Me too. I&#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers.
-        <a href="https://jwillikers.com/posts/unbound_adblock/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/adblock/">Adblock</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dns/">DNS</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/internet/">Internet</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/network/">Network</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6/">OpenBSD 6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6.6/">OpenBSD 6.6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pi-hole/">Pi-hole</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/router/">Router</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/routing/">Routing</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unbound/">Unbound</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unbound-adblock/">unbound-adblock</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unix/">Unix</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/pppoe_openbsd/">
-        <h2 class="post-title">PPPoE on OpenBSD</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 12, 2020
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Some ISP&#8217;s establish connections with their customers' networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
-   DNS Servers If necessary, configure your system to use your preferred DNS nameservers.
-     A common way of connecting to your ISP&#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937.
-        <a href="https://jwillikers.com/posts/pppoe_openbsd/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/internet/">Internet</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/network/">Network</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6/">OpenBSD 6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd-6.6/">OpenBSD 6.6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pppoe/">PPPoE</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/router/">Router</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/routing/">Routing</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unix/">Unix</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
         </div>
-
         
       </div>
     </div>
   </div>
 
       
-    <div class="page-meta">
-  
-  
-  
-</div>
-
-
-  
 <footer>
   <div class="container">
     <div class="row">
@@ -647,7 +293,7 @@
               </li>
           
           <li>
-            <a href="/index.xml" title="RSS">
+            <a href="/tags/2fa/index.xml" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
