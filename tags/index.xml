@@ -6,10 +6,127 @@
     <description>Recent content in Tags on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 25 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Email</title>
+      <link>https://jwillikers.com/tags/email/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/email/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hard Drive</title>
+      <link>https://jwillikers.com/tags/hard-drive/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/hard-drive/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HDD</title>
+      <link>https://jwillikers.com/tags/hdd/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/hdd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OpenSMTPD</title>
+      <link>https://jwillikers.com/tags/opensmtpd/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/opensmtpd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Relay</title>
+      <link>https://jwillikers.com/tags/relay/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/relay/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SMART</title>
+      <link>https://jwillikers.com/tags/smart/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/smart/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>smartctl</title>
+      <link>https://jwillikers.com/tags/smartctl/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/smartctl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>smartd</title>
+      <link>https://jwillikers.com/tags/smartd/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/smartd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>smartd.conf</title>
+      <link>https://jwillikers.com/tags/smartd.conf/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/smartd.conf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SmartMonTools</title>
+      <link>https://jwillikers.com/tags/smartmontools/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/smartmontools/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SMTP</title>
+      <link>https://jwillikers.com/tags/smtp/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/smtp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu</title>
+      <link>https://jwillikers.com/tags/ubuntu/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 20.04</title>
+      <link>https://jwillikers.com/tags/ubuntu-20.04/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/ubuntu-20.04/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>2FA</title>
@@ -21,29 +138,11 @@
     </item>
     
     <item>
-      <title>Email</title>
-      <link>https://jwillikers.com/tags/email/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/email/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>GMail</title>
       <link>https://jwillikers.com/tags/gmail/</link>
       <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/gmail/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OpenSMTPD</title>
-      <link>https://jwillikers.com/tags/opensmtpd/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/opensmtpd/</guid>
       <description></description>
     </item>
     
@@ -71,42 +170,6 @@
       <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/opensmtpd-6.6.4/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Relay</title>
-      <link>https://jwillikers.com/tags/relay/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/relay/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SMTP</title>
-      <link>https://jwillikers.com/tags/smtp/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/smtp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ubuntu</title>
-      <link>https://jwillikers.com/tags/ubuntu/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/ubuntu/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ubuntu 20.04</title>
-      <link>https://jwillikers.com/tags/ubuntu-20.04/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/ubuntu-20.04/</guid>
       <description></description>
     </item>
     

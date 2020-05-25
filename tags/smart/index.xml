@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SMART on JWillikers</title>
+    <link>https://jwillikers.com/tags/smart/</link>
+    <description>Recent content in SMART on JWillikers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 25 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jwillikers.com/tags/smart/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Automatically Detect &amp; Report Hard Drive Failure</title>
+      <link>https://jwillikers.com/posts/smartd_ubuntu/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/smartd_ubuntu/</guid>
+      <description>I recently fixed my mother-in-law&amp;#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&amp;#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&amp;#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.</description>
+    </item>
+    
+  </channel>
+</rss>
