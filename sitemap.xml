@@ -4,92 +4,102 @@
   
   <url>
     <loc>https://jwillikers.com/posts/smartd_ubuntu/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/categories/</loc>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/contact/</loc>
     <lastmod>2020-05-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/email/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/hard-drive/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/hdd/</loc>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/</loc>
     <lastmod>2020-05-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/categories/networking/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/opensmtpd/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/posts/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/relay/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smart/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smartctl/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smartd/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smartd.conf/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smartmontools/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smtp/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/ubuntu/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/ubuntu-20.04/</loc>
-    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
   </url>
   
   <url>
@@ -254,11 +264,6 @@
   
   <url>
     <loc>https://jwillikers.com/about/</loc>
-    <lastmod>2020-03-21T15:35:49-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/</loc>
     <lastmod>2020-03-21T15:35:49-05:00</lastmod>
   </url>
   
