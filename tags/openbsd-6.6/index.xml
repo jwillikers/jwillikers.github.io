@@ -36,15 +36,6 @@
     </item>
     
     <item>
-      <title>Unbound Adblock</title>
-      <link>https://jwillikers.com/posts/unbound_adblock/</link>
-      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/unbound_adblock/</guid>
-      <description>Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers.</description>
-    </item>
-    
-    <item>
       <title>PPPoE on OpenBSD</title>
       <link>https://jwillikers.com/posts/pppoe_openbsd/</link>
       <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
