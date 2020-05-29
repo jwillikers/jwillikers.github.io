@@ -6,10 +6,19 @@
     <description>Recent content in Networking on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 29 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/categories/networking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DNS over TLS with Unbound</title>
+      <link>https://jwillikers.com/posts/unbound_dns_over_tls/</link>
+      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/unbound_dns_over_tls/</guid>
+      <description>Recently, Firefox announced it&amp;#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&amp;#8230;&amp;#8203; Why don&amp;#8217;t I do that for my home network?&#34; Well, I&amp;#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&amp;#8217;s DNS requests. Unbound has support built-in for DoH&amp;#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.</description>
+    </item>
     
     <item>
       <title>Automatically Detect &amp; Report Hard Drive Failure</title>

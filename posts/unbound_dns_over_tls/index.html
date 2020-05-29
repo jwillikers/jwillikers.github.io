@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>DNS over TLS with Unbound - JWillikers</title>
+  <meta name="description" content="Recently, Firefox announced it&#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&#8230;&#8203; Why don&#8217;t I do that for my home network?&#34; Well, I&#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&#8217;s DNS requests. Unbound has support built-in for DoH&#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.">
+  <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "JWillikers",
+    
+    "url": "https:\/\/jwillikers.com\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/jwillikers.com\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/posts\/unbound_dns_over_tls\/",
+          "name": "D n s over t l s with unbound"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jordan Williams"
+  },
+  "headline": "DNS over TLS with Unbound",
+  "description" : "Recently, Firefox announced it\x26#8217;s roll-out of DNS over HTTPS (DoH). That made me think, \x22Encrypting DNS\x26#8230;\x26#8203; Why don\x26#8217;t I do that for my home network?\x22 Well, I\x26#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it\x26#8217;s DNS requests. Unbound has support built-in for DoH\x26#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.",
+  "inLanguage" : "en",
+  "wordCount":  678 ,
+  "datePublished" : "2020-05-29T00:00:00",
+  "dateModified" : "2020-05-29T00:00:00",
+  "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+  "keywords" : [ "BSD, DNS, DoT, Internet, Network, OpenBSD, OpenBSD 6, OpenBSD 6.7, Router, TLS, Unbound, Unbound 1, Unbound 1.10, Unbound 1.10.1" ],
+  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/unbound_dns_over_tls\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jwillikers.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="DNS over TLS with Unbound" />
+<meta property="og:description" content="Recently, Firefox announced it&#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&#8230;&#8203; Why don&#8217;t I do that for my home network?&#34; Well, I&#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&#8217;s DNS requests. Unbound has support built-in for DoH&#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.">
+<meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+<meta property="og:url" content="https://jwillikers.com/posts/unbound_dns_over_tls/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="JWillikers" />
+
+  <meta name="twitter:title" content="DNS over TLS with Unbound" />
+  <meta name="twitter:description" content="Recently, Firefox announced it&#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&#8230;&#8203; Why don&#8217;t I do that for my home network?&#34; Well, I&#8217;ve now had the …">
+  <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.71.0" />
+  <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://jwillikers.com/css/syntax.css" /><link rel="stylesheet" href="https://jwillikers.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://jwillikers.com/">JWillikers</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/posts/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Contact" href="/contact/">Contact</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="JWillikers" href="https://jwillikers.com/">
+            <img class="avatar-img" src="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" alt="JWillikers" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>DNS over TLS with Unbound</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Recently, <a href="https://blog.mozilla.org/netpolicy/2020/02/25/the-facts-mozillas-dns-over-https-doh/">Firefox announced</a> it&#8217;s roll-out of <a href="https://en.wikipedia.org/wiki/DNS_over_HTTPS">DNS over HTTPS (DoH)</a>.
+That made me think, "Encrypting DNS&#8230;&#8203; Why don&#8217;t I do that for my home network?"
+Well, I&#8217;ve now had the opportunity to configure my <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound DNS resolver</a> to encrypt it&#8217;s DNS requests.
+Unbound has support built-in for DoH&#8217;s sibling protocol, <a href="https://en.wikipedia.org/wiki/DNS_over_TLS">DNS over TLS (DoT)</a>.
+Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial describes the steps required to setup DNS over TLS on <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound</a> 1.10.1 on an <a href="https://www.openbsd.org/">OpenBSD</a> 6.7 system.</p>
+</div>
+<div class="sect2">
+<h3 id="_configure">Configure</h3>
+<div class="paragraph">
+<p>Configuration is done in the <a href="https://man.openbsd.org/unbound.conf">unbound.conf</a> file.
+The vanilla <code>unbound.conf</code> requires little more than un-commenting a few lines.
+Set <code>tls-cert-bundle</code> to the location of the system&#8217;s certificates, which is <code>/etc/ssl/cert.pem</code> on OpenBSD 6.7.</p>
+</div>
+<div class="listingblock">
+<div class="title">/var/unbound/etc/unbound.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code>	# CA Certificates used for forward-tls-upstream (RFC7858) hostname
+	# verification.  Since it's outside the chroot it is only loaded at
+	# startup and thus cannot be changed via a reload.
+	tls-cert-bundle: "/etc/ssl/cert.pem"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Un-comment the DNS-over-TLS forward-zone section, and add your desired DNS entries.</p>
+</div>
+<div class="listingblock">
+<div class="title">/var/unbound/etc/unbound.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code># Use an upstream DNS-over-TLS forwarder and do not fall back to cleartext
+# if that fails.
+forward-zone:
+	name: "."
+	forward-tls-upstream: yes		# use DNS-over-TLS forwarder
+	forward-first: no			# do NOT send direct
+#	# the hostname after "#" is not a comment, it is used for TLS checks:
+	forward-addr: 2606:4700:4700::1111@853#cloudflare-dns.com
+	forward-addr: 1.1.1.1@853#cloudflare-dns.com
+	forward-addr: 2606:4700:4700::1001@853#cloudflare-dns.com
+	forward-addr: 1.0.0.1@853#cloudflare-dns.com</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This configuration uses Cloudflare&#8217;s DNS servers.
+Make sure that whichever servers you choose support DNS over TLS.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>That is all it takes to configure DNS over TLS.
+But before moving on, take a moment to admire those lovely comments from the package maintainers.
+You don&#8217;t see comments that make a task so easy all that often.</p>
+</div>
+<div class="paragraph">
+<p>To be on the safe side, verify the configuration of <code>unbound.conf</code> with <a href="http://man.openbsd.org/unbound-checkconf.8">unbound-checkconf</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>unbound-checkconf
+<span class="go">unbound-checkconf: no errors in /var/unbound/etc/unbound.conf</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Did you read those comments? Restart the machine for the changes to take effect.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>reboot</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_verify">Verify</h3>
+<div class="paragraph">
+<p>Could the configuration really be that easy?
+It&#8217;s probably best to check if DNS requests are truly being encrypted.
+A packet capture can show that.</p>
+</div>
+<div class="paragraph">
+<p>Start capturing all DNS traffic from the Unbound server to the upstream DNS.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>tcpdump <span class="nt">-v</span> <span class="nt">-i</span> em0 <span class="nt">-s</span> 65535 <span class="nt">-w</span> dns.pcap dst port 53 or 853 <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Capture packets on the egress interface, <code>em0</code>.
+Capture all traffic going to the standard DNS and DoT ports, port 53 and 853 respectively.
+Write the capture to the file <code>dns.pcap</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Then do some digging or web browsing from a host using the Unbound resolver.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>dig mozilla.org</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use <code>Ctrl-C</code> to end the packet capture.</p>
+</div>
+<div class="paragraph">
+<p>Next, analyze the packet capture.
+I opened up the packet capture in <a href="https://www.wireshark.org/">Wireshark</a> on my laptop.
+But, it&#8217;s just as easy to view it on the terminal with <a href="https://www.wireshark.org/docs/man-pages/tshark.html">tshark</a>.
+Optionally, install <code>tshark</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>pkg_add wireshark <span class="nt">--no_x11</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Review DNS requests in the packet capture.
+Here I use <code>tshark</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>tshark <span class="nt">-r</span> dns.pcap
+<span class="go">    1   0.000000 2001:DB8::1 ? 2606:4700:4700::1001 TCP 98 38416 ? 853 [SYN] Seq=0 Win=16384 Len=0 MSS=1440 SACK_PERM=1 WS=64 TSval=3906316800 TSecr=0
+    2   0.000105 2001:DB8::1 ? 2606:4700:4700::1001 TCP 98 16888 ? 853 [SYN] Seq=0 Win=16384 Len=0 MSS=1440 SACK_PERM=1 WS=64 TSval=1343386395 TSecr=0
+    3   0.005709 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 38416 ? 853 [ACK] Seq=1 Ack=1 Win=16384 Len=0
+    4   0.005710 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 16888 ? 853 [ACK] Seq=1 Ack=1 Win=16384 Len=0
+    5   0.006150 2001:DB8::1 ? 2606:4700:4700::1001 TLSv1 386 Client Hello
+    6   0.006494 2001:DB8::1 ? 2606:4700:4700::1001 TLSv1 386 Client Hello
+    7   0.012466 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 38416 ? 853 [ACK] Seq=313 Ack=2721 Win=13632 Len=0
+    8   0.012468 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 16888 ? 853 [ACK] Seq=313 Ack=2721 Win=13632 Len=0
+    9   0.013037 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 38416 ? 853 [ACK] Seq=313 Ack=2742 Win=16384 Len=0
+   10   0.019366 2001:DB8::1 ? 2606:4700:4700::1001 TLSv1.2 148 Application Data
+   11   0.019892 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 16888 ? 853 [ACK] Seq=313 Ack=2741 Win=16384 Len=0</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see output similar to that above.
+A TLSv1.2 connection is established between the Unbound server and Cloudflare&#8217;s DNS server <code>2606:4700:4700::1001</code>.
+In this packet capture, un-encrypted DNS traffic over port 53 is entirely absent.
+That means all DNS requests from the router to the DNS server are encrypted!</p>
+</div>
+</div>
+</div>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/dns/">DNS</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/dot/">DoT</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/internet/">Internet</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/network/">Network</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/openbsd-6/">OpenBSD 6</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/openbsd-6.7/">OpenBSD 6.7</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/router/">Router</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/tls/">TLS</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/unbound/">Unbound</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/unbound-1/">Unbound 1</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/unbound-1.10/">Unbound 1.10</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/unbound-1.10.1/">Unbound 1.10.1</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://jwillikers.com/posts/smartd_ubuntu/" data-toggle="tooltip" data-placement="top" title="Automatically Detect &amp; Report Hard Drive Failure">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/jwillikers" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://gitlab.com/jwillikers" title="GitLab">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://bitbucket.org/jwillikers" title="Bitbucket">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-bitbucket fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Jordan Williams
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://jwillikers.com/">JWillikers</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.71.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://jwillikers.com/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://jwillikers.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

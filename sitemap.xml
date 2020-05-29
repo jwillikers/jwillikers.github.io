@@ -3,13 +3,103 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://jwillikers.com/posts/smartd_ubuntu/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <loc>https://jwillikers.com/tags/bsd/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/categories/</loc>
-    <lastmod>2020-05-25T18:10:20-05:00</lastmod>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/dns/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/posts/unbound_dns_over_tls/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/dot/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/internet/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/network/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/categories/networking/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/openbsd/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/openbsd-6/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/openbsd-6.7/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/posts/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/router/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/tls/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/unbound/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/unbound-1/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/unbound-1.10/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/unbound-1.10.1/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/posts/smartd_ubuntu/</loc>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
@@ -19,17 +109,17 @@
   
   <url>
     <loc>https://jwillikers.com/tags/email/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/hard-drive/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/hdd/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
@@ -38,68 +128,53 @@
   </url>
   
   <url>
-    <loc>https://jwillikers.com/categories/networking/</loc>
-    <lastmod>2020-05-25T18:10:20-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jwillikers.com/tags/opensmtpd/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/posts/</loc>
-    <lastmod>2020-05-25T18:10:20-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/relay/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smart/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smartctl/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smartd/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smartd.conf/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smartmontools/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smtp/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/</loc>
-    <lastmod>2020-05-25T18:10:20-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/ubuntu/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/ubuntu-20.04/</loc>
-    <lastmod>2020-05-25T13:02:07-05:00</lastmod>
+    <lastmod>2020-05-25T18:26:43-05:00</lastmod>
   </url>
   
   <url>
@@ -133,11 +208,6 @@
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/bsd/</loc>
-    <lastmod>2020-05-25T18:10:20-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jwillikers.com/tags/dhcpcd/</loc>
     <lastmod>2020-05-25T18:10:20-05:00</lastmod>
   </url>
@@ -153,11 +223,6 @@
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/internet/</loc>
-    <lastmod>2020-05-25T18:10:20-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jwillikers.com/tags/ipv6/</loc>
     <lastmod>2020-05-25T18:10:20-05:00</lastmod>
   </url>
@@ -168,32 +233,7 @@
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/network/</loc>
-    <lastmod>2020-05-25T18:10:20-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/openbsd/</loc>
-    <lastmod>2020-05-25T18:10:20-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/openbsd-6/</loc>
-    <lastmod>2020-05-25T18:10:20-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/openbsd-6.7/</loc>
-    <lastmod>2020-05-25T18:10:20-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jwillikers.com/tags/pf/</loc>
-    <lastmod>2020-05-25T18:10:20-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/router/</loc>
     <lastmod>2020-05-25T18:10:20-05:00</lastmod>
   </url>
   
@@ -228,11 +268,6 @@
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/dns/</loc>
-    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jwillikers.com/tags/dnssec/</loc>
     <lastmod>2020-03-28T16:00:56-05:00</lastmod>
   </url>
@@ -244,11 +279,6 @@
   
   <url>
     <loc>https://jwillikers.com/tags/pi-hole/</loc>
-    <lastmod>2020-04-04T17:30:57-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/unbound/</loc>
     <lastmod>2020-04-04T17:30:57-05:00</lastmod>
   </url>
   
