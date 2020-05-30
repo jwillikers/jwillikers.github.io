@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>UniFi Controller - JWillikers</title>
+  <meta name="description" content="For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
+   Tutorial An existing Docker image makes setting up the UniFi Controller a breeze. Here&#8217;s how.">
+  <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "JWillikers",
+    
+    "url": "https:\/\/jwillikers.com\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/jwillikers.com\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/posts\/unifi_controller\/",
+          "name": "Uni fi controller"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jordan Williams"
+  },
+  "headline": "UniFi Controller",
+  "description" : "For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don\x26#8217;t have a smartphone or need to manage more than one device, you\x26#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.\n   Tutorial An existing Docker image makes setting up the UniFi Controller a breeze. Here\x26#8217;s how.",
+  "inLanguage" : "en",
+  "wordCount":  190 ,
+  "datePublished" : "2020-05-30T00:00:00",
+  "dateModified" : "2020-05-30T00:00:00",
+  "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+  "keywords" : [ "Containers, Docker, Docker Compose, Ubuntu, Ubuntu 20.04, UniFi, UniFi Controller" ],
+  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/unifi_controller\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jwillikers.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="UniFi Controller" />
+<meta property="og:description" content="For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
+   Tutorial An existing Docker image makes setting up the UniFi Controller a breeze. Here&#8217;s how.">
+<meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+<meta property="og:url" content="https://jwillikers.com/posts/unifi_controller/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="JWillikers" />
+
+  <meta name="twitter:title" content="UniFi Controller" />
+  <meta name="twitter:description" content="For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one …">
+  <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.71.0" />
+  <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://jwillikers.com/css/syntax.css" /><link rel="stylesheet" href="https://jwillikers.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://jwillikers.com/">JWillikers</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/posts/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Contact" href="/contact/">Contact</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="JWillikers" href="https://jwillikers.com/">
+            <img class="avatar-img" src="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" alt="JWillikers" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>UniFi Controller</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>For wi-fi, I use use a <a href="https://www.ui.com/unifi/unifi-ap/">UniFi AP</a>.
+One slightly annoying aspect of this the <a href="https://www.ui.com/download/unifi/unifi-ap">UniFi Controller</a>. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up.
+I provide a brief tutorial for setting up the UniFi Controller with <a href="https://docs.docker.com/compose/">Docker Compose</a> here.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An existing <a href="https://hub.docker.com/r/linuxserver/unifi-controller">Docker image</a> makes setting up the UniFi Controller a breeze.
+Here&#8217;s how.</p>
+</div>
+<div class="sect2">
+<h3 id="_install_docker">Install Docker</h3>
+<div class="paragraph">
+<p>Docker should be easy enough to install by following <a href="https://jwillikers.com/posts/docker_ubuntu/">this blog post</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_compose">Compose</h3>
+<div class="paragraph">
+<p>With Docker installed, create a directory for the <code>docker-compose</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir </span>unifi_controller
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>unifi_controller</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The provided <code>docker-compose</code> file requires just one tweak.
+The volume must be configured.</p>
+</div>
+<div class="listingblock">
+<div class="title">docker-compose</div>
+<div class="content">
+<pre>---
+version: "2.1"
+services:
+  unifi-controller:
+    image: linuxserver/unifi-controller
+    container_name: unifi-controller
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MEM_LIMIT=1024M #optional
+    volumes:
+      - data-volume:/var/unifi-controller/config
+    ports:
+      - 3478:3478/udp
+      - 10001:10001/udp
+      - 8080:8080
+      - 8081:8081
+      - 8443:8443
+      - 8843:8843
+      - 8880:8880
+      - 6789:6789
+    restart: unless-stopped
+
+volumes:
+  data-volume:</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>docker-compose</code> should be pretty self-explanatory.
+It really just forwards the necessary ports from the Docker container to the host machine.</p>
+</div>
+<div class="paragraph">
+<p>Once configured, run the container.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker-compose up <span class="nt">-d</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, just open the UniFi Controller&#8217;s web UI.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>xdg-open http://127.0.0.1:8443</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://jwillikers.com//tags/containers/">Containers</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/docker/">Docker</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/docker-compose/">Docker Compose</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/ubuntu/">Ubuntu</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/ubuntu-20.04/">Ubuntu 20.04</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/unifi/">UniFi</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/unifi-controller/">UniFi Controller</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://jwillikers.com/posts/unbound_dns_over_tls/" data-toggle="tooltip" data-placement="top" title="DNS over TLS with Unbound">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://jwillikers.com/posts/docker_ubuntu/" data-toggle="tooltip" data-placement="top" title="Installing Docker on Ubuntu">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/jwillikers" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://gitlab.com/jwillikers" title="GitLab">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://bitbucket.org/jwillikers" title="Bitbucket">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-bitbucket fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Jordan Williams
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://jwillikers.com/">JWillikers</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.71.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          &nbsp;&bull;&nbsp;[<a href="8ef839a27345b2158d52b18fafa1b832e5829d14">8ef839a2</a>]
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://jwillikers.com/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://jwillikers.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

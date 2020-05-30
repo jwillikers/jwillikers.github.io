@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on JWillikers</title>
+    <link>https://jwillikers.com/tags/docker/</link>
+    <description>Recent content in Docker on JWillikers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jwillikers.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installing Docker on Ubuntu</title>
+      <link>https://jwillikers.com/posts/docker_ubuntu/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/docker_ubuntu/</guid>
+      <description>Installing Docker on Ubuntu should be easy, right? Turns out yes&amp;#8230;&amp;#8203; but only if you go about it the right way.
+   The Right (Easy) Way Save yourself some hassle by installing Docker as packaged per your version of Ubuntu. I use docker-compose, and installing its package with apt also installs Docker.
+ $apt install docker-compose   If you just want to install Docker without docker-compose, install the docker.</description>
+    </item>
+    
+    <item>
+      <title>UniFi Controller</title>
+      <link>https://jwillikers.com/posts/unifi_controller/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/unifi_controller/</guid>
+      <description>For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&amp;#8217;t have a smartphone or need to manage more than one device, you&amp;#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
+   Tutorial An existing Docker image makes setting up the UniFi Controller a breeze. Here&amp;#8217;s how.</description>
+    </item>
+    
+  </channel>
+</rss>
