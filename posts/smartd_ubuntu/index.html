@@ -59,7 +59,7 @@
   "headline": "Automatically Detect \x26 Report Hard Drive Failure",
   "description" : "I recently fixed my mother-in-law\x26#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law\x26#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It\x26#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.",
   "inLanguage" : "en",
-  "wordCount":  1141 ,
+  "wordCount":  1136 ,
   "datePublished" : "2020-05-25T00:00:00",
   "dateModified" : "2020-05-25T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -272,7 +272,7 @@ With <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt <span class="nb">install </span>smartmontools</code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>smartmontools</code></pre>
 </div>
 </div>
 </div>
@@ -361,7 +361,7 @@ Don&#8217;t log the skipped test, which could wake-up the disk.</td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>smartd</code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl <span class="nb">enable </span>smartd</code></pre>
 </div>
 </div>
 </div>
@@ -379,7 +379,7 @@ It also shows the total number of tests for each type of self-test for the next 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>smartd <span class="nt">-q</span> showtests
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smartd <span class="nt">-q</span> showtests
 <span class="go">smartd 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-31-generic] (local build)
 Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
 
@@ -426,7 +426,7 @@ The log shows that one short offline test has been run without error.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>smartctl <span class="nt">-d</span> sat <span class="nt">-l</span> xselftest,25,selftest /dev/sda
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smartctl <span class="nt">-d</span> sat <span class="nt">-l</span> xselftest,25,selftest /dev/sda
 <span class="go">smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-31-generic] (local build)
 Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
 
@@ -473,7 +473,7 @@ Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>systemctl restart smartd</code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl restart smartd</code></pre>
 </div>
 </div>
 <div class="paragraph">

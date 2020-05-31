@@ -59,7 +59,7 @@
   "headline": "OpenSMTPD Relay on Ubuntu",
   "description" : "It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn\x26#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.",
   "inLanguage" : "en",
-  "wordCount":  675 ,
+  "wordCount":  662 ,
   "datePublished" : "2020-05-24T00:00:00",
   "dateModified" : "2020-05-24T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -275,7 +275,7 @@ Being an <a href="https://www.openbsd.org/">OpenBSD</a> fanboy, I with the moder
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt <span class="nb">install </span>opensmtpd</code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>opensmtpd</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -295,7 +295,7 @@ This will probably ask you a couple of questions from an ncurses interface, but 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt <span class="nb">install </span>mailutils</code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>mailutils</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -368,8 +368,8 @@ match from local for any action "relay"</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo mkdir</span> /etc/mail
-<span class="gp">$</span><span class="w"> </span><span class="nb">sudo touch</span> /etc/mail/secrets</code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir</span> /etc/mail
+<span class="gp">$</span><span class="w"> </span><span class="nb">touch</span> /etc/mail/secrets</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -377,8 +377,8 @@ match from local for any action "relay"</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chmod </span>640 /etc/mail/secrets <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown </span>root:opensmtpd /etc/mail/secrets <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">chmod </span>640 /etc/mail/secrets <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="gp">$</span><span class="w"> </span><span class="nb">chown </span>root:opensmtpd /etc/mail/secrets <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -415,9 +415,8 @@ match from local for any action "relay"</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>smtpd <span class="nt">-n</span>
-<span class="go">[sudo] password for jordan:
-configuration OK</span></code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smtpd <span class="nt">-n</span>
+<span class="go">configuration OK</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -425,7 +424,7 @@ configuration OK</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>systemctl restart opensmtpd</code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl restart opensmtpd</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -433,7 +432,7 @@ configuration OK</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>opensmtpd</code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl <span class="nb">enable </span>opensmtpd</code></pre>
 </div>
 </div>
 </div>
