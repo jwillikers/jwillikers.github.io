@@ -31,15 +31,6 @@
     </item>
     
     <item>
-      <title>Automatically Detect &amp; Report Hard Drive Failure</title>
-      <link>https://jwillikers.com/posts/smartd_ubuntu/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/smartd_ubuntu/</guid>
-      <description>I recently fixed my mother-in-law&amp;#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&amp;#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&amp;#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.</description>
-    </item>
-    
-    <item>
       <title>OpenSMTPD Relay on Ubuntu</title>
       <link>https://jwillikers.com/posts/opensmtpd_ubuntu/</link>
       <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
