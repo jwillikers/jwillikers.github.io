@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ubuntu2004 on JWillikers</title>
+    <link>https://jwillikers.com/tags/ubuntu2004/</link>
+    <description>Recent content in Ubuntu2004 on JWillikers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 02 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jwillikers.com/tags/ubuntu2004/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Backup Docker Data</title>
+      <link>https://jwillikers.com/posts/backup_docker_data/</link>
+      <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/backup_docker_data/</guid>
+      <description>Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
+   Tutorial My recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
+ Backup Creating backups is done by producing an archive of the important files on the host filesystem from the container&amp;#8217;s data volume.</description>
+    </item>
+    
+    <item>
+      <title>UniFi Controller</title>
+      <link>https://jwillikers.com/posts/unifi_controller/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/unifi_controller/</guid>
+      <description>For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&amp;#8217;t have a smartphone or need to manage more than one device, you&amp;#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
+   Tutorial An existing Docker image makes setting up the UniFi Controller a breeze. Here&amp;#8217;s how.</description>
+    </item>
+    
+    <item>
+      <title>Automatically Detect &amp; Report Hard Drive Failure</title>
+      <link>https://jwillikers.com/posts/smartd_ubuntu/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/smartd_ubuntu/</guid>
+      <description>I recently fixed my mother-in-law&amp;#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&amp;#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&amp;#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.</description>
+    </item>
+    
+    <item>
+      <title>OpenSMTPD Relay on Ubuntu</title>
+      <link>https://jwillikers.com/posts/opensmtpd_ubuntu/</link>
+      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/opensmtpd_ubuntu/</guid>
+      <description>It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&amp;#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.</description>
+    </item>
+    
+  </channel>
+</rss>

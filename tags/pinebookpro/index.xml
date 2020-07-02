@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PinebookPro on JWillikers</title>
+    <link>https://jwillikers.com/tags/pinebookpro/</link>
+    <description>Recent content in PinebookPro on JWillikers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 30 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jwillikers.com/tags/pinebookpro/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Install ZFS on the Pinebook Pro</title>
+      <link>https://jwillikers.com/posts/install_zfs_pinebook_pro/</link>
+      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/install_zfs_pinebook_pro/</guid>
+      <description>Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&amp;#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&amp;#8217;s becoming my main machine, and I&amp;#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine&amp;#8217;s built-in eMMC.</description>
+    </item>
+    
+  </channel>
+</rss>

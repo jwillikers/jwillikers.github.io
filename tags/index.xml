@@ -48,11 +48,11 @@
     </item>
     
     <item>
-      <title>Ubuntu 20.04</title>
-      <link>https://jwillikers.com/tags/ubuntu-20.04/</link>
+      <title>Ubuntu2004</title>
+      <link>https://jwillikers.com/tags/ubuntu2004/</link>
       <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jwillikers.com/tags/ubuntu-20.04/</guid>
+      <guid>https://jwillikers.com/tags/ubuntu2004/</guid>
       <description></description>
     </item>
     
@@ -75,11 +75,11 @@
     </item>
     
     <item>
-      <title>Pinebook Pro</title>
-      <link>https://jwillikers.com/tags/pinebook-pro/</link>
+      <title>PinebookPro</title>
+      <link>https://jwillikers.com/tags/pinebookpro/</link>
       <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jwillikers.com/tags/pinebook-pro/</guid>
+      <guid>https://jwillikers.com/tags/pinebookpro/</guid>
       <description></description>
     </item>
     
@@ -93,11 +93,11 @@
     </item>
     
     <item>
-      <title>Docker Compose</title>
-      <link>https://jwillikers.com/tags/docker-compose/</link>
+      <title>DockerCompose</title>
+      <link>https://jwillikers.com/tags/dockercompose/</link>
       <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jwillikers.com/tags/docker-compose/</guid>
+      <guid>https://jwillikers.com/tags/dockercompose/</guid>
       <description></description>
     </item>
     
@@ -111,11 +111,11 @@
     </item>
     
     <item>
-      <title>UniFi Controller</title>
-      <link>https://jwillikers.com/tags/unifi-controller/</link>
+      <title>UniFiController</title>
+      <link>https://jwillikers.com/tags/unificontroller/</link>
       <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jwillikers.com/tags/unifi-controller/</guid>
+      <guid>https://jwillikers.com/tags/unificontroller/</guid>
       <description></description>
     </item>
     
@@ -174,20 +174,20 @@
     </item>
     
     <item>
-      <title>OpenBSD 6</title>
-      <link>https://jwillikers.com/tags/openbsd-6/</link>
+      <title>OpenBSD6</title>
+      <link>https://jwillikers.com/tags/openbsd6/</link>
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jwillikers.com/tags/openbsd-6/</guid>
+      <guid>https://jwillikers.com/tags/openbsd6/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>OpenBSD 6.7</title>
-      <link>https://jwillikers.com/tags/openbsd-6.7/</link>
+      <title>OpenBSD67</title>
+      <link>https://jwillikers.com/tags/openbsd67/</link>
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jwillikers.com/tags/openbsd-6.7/</guid>
+      <guid>https://jwillikers.com/tags/openbsd67/</guid>
       <description></description>
     </item>
     
@@ -215,33 +215,6 @@
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/unbound/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Unbound 1</title>
-      <link>https://jwillikers.com/tags/unbound-1/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/unbound-1/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Unbound 1.10</title>
-      <link>https://jwillikers.com/tags/unbound-1.10/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/unbound-1.10/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Unbound 1.10.1</title>
-      <link>https://jwillikers.com/tags/unbound-1.10.1/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/unbound-1.10.1/</guid>
       <description></description>
     </item>
     
@@ -318,15 +291,6 @@
     </item>
     
     <item>
-      <title>smartd.conf</title>
-      <link>https://jwillikers.com/tags/smartd.conf/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/smartd.conf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>SmartMonTools</title>
       <link>https://jwillikers.com/tags/smartmontools/</link>
       <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
@@ -363,29 +327,11 @@
     </item>
     
     <item>
-      <title>OpenSMTPD 6</title>
-      <link>https://jwillikers.com/tags/opensmtpd-6/</link>
+      <title>OpenSMTPD6</title>
+      <link>https://jwillikers.com/tags/opensmtpd6/</link>
       <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jwillikers.com/tags/opensmtpd-6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OpenSMTPD 6.6</title>
-      <link>https://jwillikers.com/tags/opensmtpd-6.6/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/opensmtpd-6.6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OpenSMTPD 6.6.4</title>
-      <link>https://jwillikers.com/tags/opensmtpd-6.6.4/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/opensmtpd-6.6.4/</guid>
+      <guid>https://jwillikers.com/tags/opensmtpd6/</guid>
       <description></description>
     </item>
     
@@ -435,15 +381,6 @@
     </item>
     
     <item>
-      <title>Routing</title>
-      <link>https://jwillikers.com/tags/routing/</link>
-      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/routing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Unix</title>
       <link>https://jwillikers.com/tags/unix/</link>
       <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
@@ -480,20 +417,20 @@
     </item>
     
     <item>
-      <title>OpenBSD 6.6</title>
-      <link>https://jwillikers.com/tags/openbsd-6.6/</link>
+      <title>OpenBSD66</title>
+      <link>https://jwillikers.com/tags/openbsd66/</link>
       <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jwillikers.com/tags/openbsd-6.6/</guid>
+      <guid>https://jwillikers.com/tags/openbsd66/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Pi-hole</title>
-      <link>https://jwillikers.com/tags/pi-hole/</link>
+      <title>Pihole</title>
+      <link>https://jwillikers.com/tags/pihole/</link>
       <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jwillikers.com/tags/pi-hole/</guid>
+      <guid>https://jwillikers.com/tags/pihole/</guid>
       <description></description>
     </item>
     
