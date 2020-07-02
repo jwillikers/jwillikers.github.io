@@ -7,8 +7,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Install ZFS on the Pinebook Pro - JWillikers</title>
-  <meta name="description" content="Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&#8217;s becoming my main machine, and I&#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine&#8217;s built-in eMMC.">
+  <title>Backup Docker Data - JWillikers</title>
+  <meta name="description" content="Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
+   Tutorial My recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
+ Backup Creating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -44,8 +46,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/jwillikers.com\/posts\/install_zfs_pinebook_pro\/",
-          "name": "Install z f s on the pinebook pro"
+          "@id": "https:\/\/jwillikers.com\/posts\/backup_docker_data\/",
+          "name": "Backup docker data"
         }
     }]
 }
@@ -56,15 +58,15 @@
   "author": {
     "name" : "Jordan Williams"
   },
-  "headline": "Install ZFS on the Pinebook Pro",
-  "description" : "Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It\u0026#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it\u0026#8217;s becoming my main machine, and I\u0026#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine\u0026#8217;s built-in eMMC.",
+  "headline": "Backup Docker Data",
+  "description" : "Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.\n   Tutorial My recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.\n Backup Creating backups is done by producing an archive of the important files on the host filesystem from the container\u0026#8217;s data volume.",
   "inLanguage" : "en",
-  "wordCount":  249 ,
-  "datePublished" : "2020-06-30T00:00:00",
-  "dateModified" : "2020-06-30T00:00:00",
+  "wordCount":  465 ,
+  "datePublished" : "2020-07-02T00:00:00",
+  "dateModified" : "2020-07-02T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
-  "keywords" : [ "Manjaro, Pinebook, Pinebook Pro, ZFS" ],
-  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/install_zfs_pinebook_pro\/",
+  "keywords" : [ "Backups, Containers, Docker, Ubuntu, Ubuntu 20.04" ],
+  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/backup_docker_data\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/jwillikers.com\/",
@@ -78,15 +80,18 @@
 }
 </script>
 
-<meta property="og:title" content="Install ZFS on the Pinebook Pro" />
-<meta property="og:description" content="Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&#8217;s becoming my main machine, and I&#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine&#8217;s built-in eMMC.">
+<meta property="og:title" content="Backup Docker Data" />
+<meta property="og:description" content="Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
+   Tutorial My recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
+ Backup Creating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.">
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
-<meta property="og:url" content="https://jwillikers.com/posts/install_zfs_pinebook_pro/" />
+<meta property="og:url" content="https://jwillikers.com/posts/backup_docker_data/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="JWillikers" />
 
-  <meta name="twitter:title" content="Install ZFS on the Pinebook Pro" />
-  <meta name="twitter:description" content="Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, …">
+  <meta name="twitter:title" content="Backup Docker Data" />
+  <meta name="twitter:description" content="Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
+   Tutorial …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
   <meta name="generator" content="Hugo 0.73.0" />
@@ -223,7 +228,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="posts-heading">
               
-                <h1>Install ZFS on the Pinebook Pro</h1>
+                <h1>Backup Docker Data</h1>
               
               
                 <hr class="small">
@@ -246,11 +251,8 @@
         <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Recently, I obtained a 64-bit ARM, budget Linux laptop, the <a href="https://www.pine64.org/pinebook-pro/">Pinebook Pro</a>.
-It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency.
-I enjoy using it so much, it&#8217;s becoming my main machine, and I&#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it.
-The only problem being my media takes up a bit more than the 64 GiB available on the machine&#8217;s built-in eMMC.
-With a spacious microSD card in-hand, I knew it was time to get more experience with my new filesystem of choice <a href="https://openzfs.org/wiki/Main_Page">ZFS</a>.</p>
+<p>Backups are super helpful, especially when you like to blow everything away fairly often.
+Backing up the data from a Docker container can help you quickly get things up and running again.</p>
 </div>
 </div>
 </div>
@@ -258,74 +260,223 @@ With a spacious microSD card in-hand, I knew it was time to get more experience 
 <h2 id="_tutorial">Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial describes the steps required to install ZFS on a Pinebook Pro running the tailored version of Manjaro KDE.</p>
+<p>My <a href="../unifi_controller.html">recent post</a> detailed how to setup a UniFi Controller in a Docker container.
+This tutorial uses that container as an example for creating and restoring backups of data volumes.</p>
 </div>
 <div class="sect2">
-<h3 id="_install">Install</h3>
+<h3 id="_backup">Backup</h3>
 <div class="paragraph">
-<p>The ZFS software is readily available as a <a href="https://en.wikipedia.org/wiki/Dynamic_Kernel_Module_Support">DKMS</a> module.
-So first, install DKMS on the Pinebook Pro.
-More in-depth instructions can be found on the <a href="https://wiki.archlinux.org/index.php/Dynamic_Kernel_Module_Support">Arch Linux Wiki</a>.</p>
+<p>Creating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> dkms linux-pinebookpro-headers</code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker run <span class="se">\</span>
+  <span class="nt">--rm</span> <span class="se">\ </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="go">  --volumes-from unifi-controller \ <i class="conum" data-value="2"></i><b>(2)</b>
+</span><span class="gp">  -v $</span><span class="o">(</span><span class="nb">pwd</span><span class="o">)</span>:/backup <span class="se">\ </span><i class="conum" data-value="3"></i><b>(3)</b>
+<span class="gp">  ubuntu tar cvWf /backup/unifi-controller_backup_$</span><span class="o">(</span><span class="nb">date</span> +%F<span class="o">)</span>.tar <span class="nt">-C</span> /config unifi-controller <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Remove the container when finished.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Attach the data volumes for the container named <em>unifi-controller</em>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Mount the current directory to <code>/backup</code> in the container.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Using an Ubuntu image, create an archive of the directory <code>/config/unifi-controller</code> in the <code>/backup</code> directory.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>The <a href="https://github.com/Jguer/yay">yay</a> tool provides a nifty way to install packages from the <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository">AUR</a>.</p>
+<p>Compress the backup.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> yay</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Then, install the <a href="https://aur.archlinux.org/packages/zfs-dkms-any/">zfs-dkms-any</a> package from the AUR.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>yay <span class="nt">-S</span> zfs-dkms-any</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_configure">Configure</h3>
-<div class="paragraph">
-<p>To load the ZFS DKMS module at boot, create the appropriate file for <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/modules-load.d/zfs.conf</div>
-<div class="content">
-<pre># Load ZFS at boot
-zfs</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Enable importing pools and mounting datasets at boot.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs-mount
-<span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs.target</code></pre>
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>xz unifi-controller_backup_2020-07-01.tar</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_next_steps">Next Steps</h3>
+<h3 id="_restore">Restore</h3>
 <div class="paragraph">
-<p>Stay tuned for upcoming posts on setting up a ZPool and ZFS datasets on the microSD card!</p>
+<p>To restore from a backup, just reverse the backup process.</p>
+</div>
+<div class="paragraph">
+<p>Decompress the backup.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>unxz unifi-controller_backup_2020-07-01.tar.xz</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Restore the contents of the archive to the data volume.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker run
+<span class="go">  --rm \ <i class="conum" data-value="1"></i><b>(1)</b>
+  --volumes-from unifi-controller \ <i class="conum" data-value="2"></i><b>(2)</b>
+</span><span class="gp">   -v $</span><span class="o">(</span><span class="nb">pwd</span><span class="o">)</span>:/backup <span class="se">\ </span><i class="conum" data-value="3"></i><b>(3)</b>
+<span class="go">   ubuntu tar xvf /backup/unifi-controller_backup_2020-07-01.tar -C / <i class="conum" data-value="4"></i><b>(4)</b>
+</span></code></pre>
 </div>
 </div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. <a href="https://wiki.archlinux.org/index.php/Kernel_module#Automatic_module_loading_with_systemd">Automatic Module Loading with systemd</a>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Remove the container when finished.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Attach the data volumes for the container named <em>unifi-controller</em>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Mount the current directory to <code>/backup</code> in the container.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Using an Ubuntu image, expand the archive in the <code>/</code> directory.</td>
+</tr>
+</table>
 </div>
-<div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Automatic_Start">ZFS Automatic Start</a>
+</div>
+<div class="sect2">
+<h3 id="_verify">Verify</h3>
+<div class="paragraph">
+<p>It&#8217;s always important to test your backups.
+The simplest way to check the backup is with a fresh instance of the container.</p>
+</div>
+<div class="paragraph">
+<p>For the UniFi Controller, this is trivially accomplished.</p>
+</div>
+<div class="paragraph">
+<p>First, copy the compose file to another directory and give the container a new name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir </span>unifi-controller2
+<span class="gp">$</span><span class="w"> </span><span class="nb">cp </span>unifi-controller/docker-compose.yml unifi-controller2
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>unifi-controller2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The modified yaml file should look like the following.</p>
+</div>
+<div class="listingblock">
+<div class="title">docker-compose.yml</div>
+<div class="content">
+<pre>---
+version: "2.1"
+services:
+  unifi-controller:
+    image: linuxserver/unifi-controller
+    container_name: unifi-controller2 <i class="conum" data-value="1"></i><b>(1)</b>
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MEM_LIMIT=1024M #optional
+    volumes:
+      - data:/config
+    ports:
+      - 3478:3478/udp
+      - 10001:10001/udp
+      - 8080:8080
+      - 8081:8081
+      - 8443:8443
+      - 8843:8843
+      - 8880:8880
+      - 6789:6789
+    restart: unless-stopped
+
+volumes:
+  data:</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Name the container <em>unifi-controller2</em>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Initialize the container.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker-compose up <span class="nt">--no-start</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now follow the backup procedure laid out above.</p>
+</div>
+<div class="paragraph">
+<p>Decompress the backup.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>unxz unifi-controller_backup_2020-07-01.tar.xz</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Restore the contents of the archive to the new container&#8217;s data volume.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker run
+<span class="go">  --rm \
+  --volumes-from unifi-controller2 \ <i class="conum" data-value="1"></i><b>(1)</b>
+</span><span class="gp">   -v $</span><span class="o">(</span><span class="nb">pwd</span><span class="o">)</span>:/backup <span class="se">\</span>
+   ubuntu <span class="nb">tar </span>xvf /backup/unifi-controller_backup_2020-07-01.tar <span class="nt">-C</span> /</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Attach the data volumes for the new <em>unifi-controller2</em> container.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it!
+The data from your original container should now be duplicated in <em>unifi-controller2</em>.</p>
+</div>
+<div class="paragraph">
+<p>Now, run <em>unifi-controller2</em>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker-compose up <span class="nt">-d</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, open the UniFi Controller&#8217;s web UI.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>xdg-open http://127.0.0.1:8443</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should be able to login just as you would on the <em>unifi-controller</em> container.
+All of your controller&#8217;s settings should be intact, verifying the backup and the restore process.</p>
+</div>
+</div>
 </div>
 </div>
 
@@ -333,13 +484,15 @@ zfs</pre>
         
           <div class="blog-tags">
             
-              <a href="https://jwillikers.com//tags/manjaro/">Manjaro</a>&nbsp;
+              <a href="https://jwillikers.com//tags/backups/">Backups</a>&nbsp;
             
-              <a href="https://jwillikers.com//tags/pinebook/">Pinebook</a>&nbsp;
+              <a href="https://jwillikers.com//tags/containers/">Containers</a>&nbsp;
             
-              <a href="https://jwillikers.com//tags/pinebook-pro/">Pinebook Pro</a>&nbsp;
+              <a href="https://jwillikers.com//tags/docker/">Docker</a>&nbsp;
             
-              <a href="https://jwillikers.com//tags/zfs/">ZFS</a>&nbsp;
+              <a href="https://jwillikers.com//tags/ubuntu/">Ubuntu</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/ubuntu-20.04/">Ubuntu 20.04</a>&nbsp;
             
           </div>
         
@@ -353,13 +506,9 @@ zfs</pre>
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://jwillikers.com/posts/unifi_controller/" data-toggle="tooltip" data-placement="top" title="UniFi Controller">&larr; Previous Post</a>
+              <a href="https://jwillikers.com/posts/install_zfs_pinebook_pro/" data-toggle="tooltip" data-placement="top" title="Install ZFS on the Pinebook Pro">&larr; Previous Post</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://jwillikers.com/posts/backup_docker_data/" data-toggle="tooltip" data-placement="top" title="Backup Docker Data">Next Post &rarr;</a>
-            </li>
           
         </ul>
       
@@ -433,7 +582,7 @@ zfs</pre>
         
         <p class="credits theme-by text-muted">
           <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          &nbsp;&bull;&nbsp;[<a href="947f40bc184f66779042d9dec7dd8028f7f5bf6a">947f40bc</a>]
+          &nbsp;&bull;&nbsp;[<a href="4fa36ddcf4ed2d271aefba807e47a4d4069122a0">4fa36ddc</a>]
         </p>
       </div>
     </div>

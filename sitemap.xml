@@ -3,98 +3,113 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jwillikers.com/posts/backup_docker_data/</loc>
+    <lastmod>2020-07-02T12:28:04-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/backups/</loc>
+    <lastmod>2020-07-02T12:28:04-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jwillikers.com/categories/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/posts/install_zfs_pinebook_pro/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/manjaro/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/pinebook/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/pinebook-pro/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/posts/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/categories/security/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/zfs/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-02T12:28:04-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/containers/</loc>
-    <lastmod>2020-05-30T20:11:38-05:00</lastmod>
+    <lastmod>2020-07-02T12:28:04-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/docker/</loc>
-    <lastmod>2020-05-30T20:11:38-05:00</lastmod>
+    <lastmod>2020-07-02T12:28:04-05:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/docker-compose/</loc>
-    <lastmod>2020-05-30T20:11:38-05:00</lastmod>
+    <loc>https://jwillikers.com/</loc>
+    <lastmod>2020-07-02T12:28:04-05:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jwillikers.com/categories/networking/</loc>
-    <lastmod>2020-05-31T10:08:22-05:00</lastmod>
+    <loc>https://jwillikers.com/posts/</loc>
+    <lastmod>2020-07-02T12:28:04-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/</loc>
+    <lastmod>2020-07-02T12:28:04-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/ubuntu/</loc>
-    <lastmod>2020-06-20T14:41:48-05:00</lastmod>
+    <lastmod>2020-07-02T12:28:04-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/ubuntu-20.04/</loc>
-    <lastmod>2020-06-20T14:41:48-05:00</lastmod>
+    <lastmod>2020-07-02T12:28:04-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/categories/virtualization/</loc>
+    <lastmod>2020-07-02T12:28:04-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/posts/install_zfs_pinebook_pro/</loc>
+    <lastmod>2020-06-30T19:07:25-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/manjaro/</loc>
+    <lastmod>2020-06-30T19:07:25-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/pinebook/</loc>
+    <lastmod>2020-06-30T19:07:25-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/pinebook-pro/</loc>
+    <lastmod>2020-06-30T19:07:25-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/categories/security/</loc>
+    <lastmod>2020-06-30T19:07:25-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/zfs/</loc>
+    <lastmod>2020-06-30T19:07:25-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/docker-compose/</loc>
+    <lastmod>2020-07-01T19:44:01-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/categories/networking/</loc>
+    <lastmod>2020-07-01T19:44:01-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/unifi/</loc>
-    <lastmod>2020-05-30T20:11:38-05:00</lastmod>
+    <lastmod>2020-07-01T19:44:01-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/unifi-controller/</loc>
-    <lastmod>2020-05-30T20:11:38-05:00</lastmod>
+    <lastmod>2020-07-01T19:44:01-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/posts/unifi_controller/</loc>
-    <lastmod>2020-05-30T20:11:38-05:00</lastmod>
+    <lastmod>2020-07-01T19:44:01-05:00</lastmod>
   </url>
   
   <url>

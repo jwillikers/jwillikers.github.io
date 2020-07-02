@@ -304,7 +304,7 @@ Here&#8217;s how.</p>
 The volume must be configured.</p>
 </div>
 <div class="listingblock">
-<div class="title">docker-compose</div>
+<div class="title">docker-compose.yml</div>
 <div class="content">
 <pre>---
 version: "2.1"
@@ -317,7 +317,7 @@ services:
       - PGID=1000
       - MEM_LIMIT=1024M #optional
     volumes:
-      - data-volume:/var/unifi-controller/config
+      - data:/config
     ports:
       - 3478:3478/udp
       - 10001:10001/udp
@@ -330,7 +330,7 @@ services:
     restart: unless-stopped
 
 volumes:
-  data-volume:</pre>
+  data:</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -467,7 +467,7 @@ It really just forwards the necessary ports from the Docker container to the hos
         
         <p class="credits theme-by text-muted">
           <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          &nbsp;&bull;&nbsp;[<a href="812e0520f1ce70bd50da66375fac78f667deb829">812e0520</a>]
+          &nbsp;&bull;&nbsp;[<a href="0e7d1cec292de2e4f41ee7ff396109f2c5b7d3b7">0e7d1cec</a>]
         </p>
       </div>
     </div>
