@@ -59,7 +59,7 @@
   "headline": "Install ZFS on the Pinebook Pro",
   "description" : "Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It\u0026#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it\u0026#8217;s becoming my main machine, and I\u0026#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine\u0026#8217;s built-in eMMC.",
   "inLanguage" : "en",
-  "wordCount":  249 ,
+  "wordCount":  259 ,
   "datePublished" : "2020-06-30T00:00:00",
   "dateModified" : "2020-06-30T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -306,7 +306,9 @@ zfs</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs-mount
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs-import-cache
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs-import.target
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs-mount
 <span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs.target</code></pre>
 </div>
 </div>
@@ -433,7 +435,7 @@ zfs</pre>
         
         <p class="credits theme-by text-muted">
           <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          &nbsp;&bull;&nbsp;[<a href="947f40bc184f66779042d9dec7dd8028f7f5bf6a">947f40bc</a>]
+          &nbsp;&bull;&nbsp;[<a href="04598a927d41be1a7afeecff9c9dff2ca8ccd85e">04598a92</a>]
         </p>
       </div>
     </div>
