@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>External Storage on the Pinebook Pro with ZFS - JWillikers</title>
+  <meta name="description" content="The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&#8217;re just dying to use ZFS on that, right?
+   Tutorial Following the previous post, ../install_zfs_pinebook_pro.html, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.">
+  <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "JWillikers",
+    
+    "url": "https:\/\/jwillikers.com\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/jwillikers.com\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/posts\/zfs_external_storage_pinebook_pro\/",
+          "name": "External storage on the pinebook pro with z f s"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jordan Williams"
+  },
+  "headline": "External Storage on the Pinebook Pro with ZFS",
+  "description" : "The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn\u0026#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you\u0026#8217;re just dying to use ZFS on that, right?\n   Tutorial Following the previous post, ..\/install_zfs_pinebook_pro.html, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.",
+  "inLanguage" : "en",
+  "wordCount":  654 ,
+  "datePublished" : "2020-07-03T00:00:00",
+  "dateModified" : "2020-07-03T00:00:00",
+  "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+  "keywords" : [ "Encryption, Manjaro, PinebookPro, ZFS" ],
+  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/zfs_external_storage_pinebook_pro\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jwillikers.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="External Storage on the Pinebook Pro with ZFS" />
+<meta property="og:description" content="The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&#8217;re just dying to use ZFS on that, right?
+   Tutorial Following the previous post, ../install_zfs_pinebook_pro.html, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.">
+<meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+<meta property="og:url" content="https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="JWillikers" />
+
+  <meta name="twitter:title" content="External Storage on the Pinebook Pro with ZFS" />
+  <meta name="twitter:description" content="The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest …">
+  <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.73.0" />
+  <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://jwillikers.com/css/syntax.css" /><link rel="stylesheet" href="https://jwillikers.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://jwillikers.com/">JWillikers</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/posts/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Contact" href="/contact/">Contact</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="JWillikers" href="https://jwillikers.com/">
+            <img class="avatar-img" src="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" alt="JWillikers" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>External Storage on the Pinebook Pro with ZFS</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://www.pine64.org/pinebook-pro/">Pinebook Pro</a> comes with a small amount of internal disk space, only 64 GB.
+While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections.
+The easiest solution is to use a microSD card.
+And now you&#8217;re just dying to use ZFS on that, right?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Following the previous post, <a href="../install_zfs_pinebook_pro.html#Installing ZFS on the Pinebook Pro">../install_zfs_pinebook_pro.html</a>, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.</p>
+</div>
+<div class="sect2">
+<h3 id="_create_the_pool">Create the Pool</h3>
+<div class="paragraph">
+<p>First, determine which device is the microSD card.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>fdisk <span class="nt">-l</span>
+<span class="go">Disk /dev/mmcblk2: 58.25 GiB, 62537072640 bytes, 122142720 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x33192aaf
+
+Device         Boot  Start       End   Sectors   Size Id Type
+/dev/mmcblk2p1       62500    500000    437501 213.6M  c W95 FAT32 (LBA)
+/dev/mmcblk2p2      500001 122142719 121642719    58G 83 Linux
+
+
+Disk /dev/mmcblk1: 238.51 GiB, 256087425024 bytes, 500170752 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x00000000
+
+Device         Boot Start       End   Sectors   Size Id Type
+/dev/mmcblk1p1      65536 500170751 500105216 238.5G  7 HPFS/NTFS/exFAT
+</span><span class="c">...</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, <code>/dev/mmcblk1</code> is the 256GB microSD card.</p>
+</div>
+<div class="paragraph">
+<p>Next, determine the disk id to use when creating the zpool.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-lh</span> /dev/disk/by-id/ | <span class="nb">grep</span> <span class="nt">-w</span> mmcblk1
+<span class="gp">lrwxrwxrwx 1 root root 13 Jun 24 07:33 mmc-AB5CD_0x00000001 -&gt;</span><span class="w"> </span>../../mmcblk1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, check the block size.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>blockdev <span class="nt">--getpbsz</span> /dev/mmcblk1
+<span class="go">512</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The SD card&#8217;s block size is 512 MiB, which means <code>ashift</code> should be set to 12.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+</div>
+<div class="paragraph">
+<p>Create the pool.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool create <span class="nt">-o</span> <span class="nv">ashift</span><span class="o">=</span>12 ext_pool mmc-AB5CD_0x00000001</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Configure the system to automatically import the pool on boot.<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">set </span><span class="nv">cachefile</span><span class="o">=</span>/etc/zfs/zpool.cache ext_pool</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_the_dataset">Create the Dataset</h3>
+<div class="paragraph">
+<p>Create a ZFS dataset for your tunes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs create <span class="se">\</span>
+  <span class="nt">-o</span> <span class="nv">recordsize</span><span class="o">=</span>1M <span class="se">\ </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="go">  -o mountpoint=/home/jordan/Music \
+  ext_pool/music</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A nifty trick here is to use a larger <code>recordsize</code> of 1 MiB which more accurately reflects the filesystem operations for large media files.<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Set the appropriate ownership for the mounted <code>~/Music</code> directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown</span> <span class="nt">-R</span> jordan:jordan /home/jordan/Music</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_copy">Copy</h3>
+<div class="paragraph">
+<p>Now, just copy the music files from wherever they happen to be to the dataset.
+The simplest way is to copy the files over the network.
+Since the pool is on an SD card, you might just want to pop it out and carry it between machines, so I describe that here.</p>
+</div>
+<div class="paragraph">
+<p>Export the pool from the Pinebook Pro.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">export </span>ext_pool</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pop-out the microSD card and pop it into the machine with all of the music.</p>
+</div>
+<div class="paragraph">
+<p>Import the pool.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool import ext_pool
+<span class="go">cannot mount '/home/jordan/Music': directory is not empty</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I keep my music in <code>~/Music</code>, so I will have to mount the dataset somewhere else.</p>
+</div>
+<div class="paragraph">
+<p>Change where the music dataset is mounted.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs <span class="nb">set </span><span class="nv">mountpoint</span><span class="o">=</span>/media/jordan/Music ext_pool/music</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mount the dataset to the updated location.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs mount ext_pool/music</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set the appropriate ownership for the mounted directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown </span>jordan:jordan /media/jordan/Music</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Copy over the music.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-r</span> ~/Music /media/jordan/Music</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then change the mount location back to <code>~/Music</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs <span class="nb">set </span><span class="nv">mountpoint</span><span class="o">=</span>/home/jordan/Music ext_pool/music
+<span class="go">cannot mount '/home/jordan/Music': directory is not empty
+property may be set but unable to remount filesystem</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Export the pool from the machine.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">export </span>ext_pool</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now place the SD card back into the Pinebook Pro, and import the pool again.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool import ext_pool</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_verify">Verify</h3>
+<div class="paragraph">
+<p>If everything is successful, your music should now be available in <code>~/Music</code>.</p>
+</div>
+<div class="paragraph">
+<p>You should also check that the pool and music dataset are automatically mounted at boot.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>reboot</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_enjoy">Enjoy</h3>
+<div class="paragraph">
+<p>You can now enjoy your vast music collection from the comfort of your Pinebook Pro.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Identify_disks">Arch Linux Wiki: Identify Disks</a>
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Advanced_Format_disks">Arch Linux Wiki: ZFS - Advanced Format Disks</a>
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Creating_ZFS_pools">Arch Linux Wiki: ZFS - Creating ZFS Pools</a>
+</div>
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Automatic_Start">Arch Linux Wiki: ZFS - Automatic Start</a>
+</div>
+<div class="footnote" id="_footnotedef_5">
+<a href="#_footnoteref_5">5</a>. <a href="https://jrs-s.net/2019/04/03/on-zfs-recordsize/">JRS Systems: About ZFS recordsize</a>
+</div>
+</div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://jwillikers.com//tags/encryption/">Encryption</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/manjaro/">Manjaro</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/pinebookpro/">PinebookPro</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/zfs/">ZFS</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://jwillikers.com/posts/backup_docker_data/" data-toggle="tooltip" data-placement="top" title="Backup Docker Data">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/jwillikers" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://gitlab.com/jwillikers" title="GitLab">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://bitbucket.org/jwillikers" title="Bitbucket">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-bitbucket fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Jordan Williams
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://jwillikers.com/">JWillikers</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://jwillikers.com/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://jwillikers.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
