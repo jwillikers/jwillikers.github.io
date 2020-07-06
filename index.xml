@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Resources</title>
+      <link>https://jwillikers.com/resources/</link>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/resources/</guid>
+      <description>There&amp;#8217;s always so much to learn in any industry. As a full time Software Engineer, there is more out there for me to learn than neurons in between my ears. Putting networking and systems administration on top of that is downright overwhelming. Fortunately, I&amp;#8217;ve found several priceless resources to help me learn.
+   Software Engineering   Software Engineering at Google - If I had to be stranded on a deserted island with other Software Engineers and could only bring one item, I would bring this book without thinking twice.</description>
+    </item>
+    
+    <item>
       <title>External Storage on the Pinebook Pro with ZFS</title>
       <link>https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>

@@ -3,58 +3,63 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jwillikers.com/resources/</loc>
+    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jwillikers.com/tags/archlinux/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/categories/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/linux/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/manjaro/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/pinebookpro/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/posts/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/categories/systems/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/zfs/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
@@ -74,12 +79,12 @@
   
   <url>
     <loc>https://jwillikers.com/tags/ubuntu/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/ubuntu2004/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
@@ -159,7 +164,7 @@
   
   <url>
     <loc>https://jwillikers.com/posts/smartd_ubuntu/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
@@ -169,32 +174,32 @@
   
   <url>
     <loc>https://jwillikers.com/tags/email/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/opensmtpd/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smart/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smartd/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smartmontools/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/smtp/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
   </url>
   
   <url>
