@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Firewall - JWillikers</title>
+  <title>Linux - JWillikers</title>
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -29,13 +29,13 @@
 }
 </script>
 
-<meta property="og:title" content="Firewall" />
+<meta property="og:title" content="Linux" />
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
-<meta property="og:url" content="https://jwillikers.com/tags/firewall/" />
+<meta property="og:url" content="https://jwillikers.com/tags/linux/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="JWillikers" />
 
-  <meta name="twitter:title" content="Firewall" />
+  <meta name="twitter:title" content="Linux" />
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
   <meta name="generator" content="Hugo 0.73.0" />
@@ -172,7 +172,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="tags-heading">
               
-                <h1>Firewall</h1>
+                <h1>Linux</h1>
               
               
                 <hr class="small">
@@ -195,8 +195,8 @@
         <div class="posts-list">
           
             <article class="post-preview">
-    <a href="https://jwillikers.com/posts/openbsd_ipv6/">
-        <h2 class="post-title">IPv6 on OpenBSD</h2>
+    <a href="https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/">
+        <h2 class="post-title">External Storage on the Pinebook Pro with ZFS</h2>
         
         
         
@@ -206,9 +206,9 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on May 23, 2020
+  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2020
   
-    &nbsp;(Last modified on July 2, 2020)
+    &nbsp;(Last modified on July 4, 2020)
   
   
   
@@ -224,32 +224,24 @@
     </p>
     <div class="post-entry">
         
-        Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&#8217;t provide DHCPv6 support in its native DHCP daemon. I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
-   Configuration I configured IPv6 on on my home router running OpenBSD 6.
-        <a href="https://jwillikers.com/posts/openbsd_ipv6/" class="post-read-more">[Read More]</a>
+        The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&#8217;re just dying to use ZFS on that, right?
+   Tutorial Following the previous post, ../install_zfs_pinebook_pro.html, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.
+        <a href="https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
+        <a href="https://jwillikers.com//tags/archlinux/">ArchLinux</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/dhcpcd/">DHCPCD</a>&nbsp;
+        <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/dhcpv6/">DHCPv6</a>&nbsp;
+        <a href="https://jwillikers.com//tags/manjaro/">Manjaro</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/firewall/">Firewall</a>&nbsp;
+        <a href="https://jwillikers.com//tags/pinebookpro/">PinebookPro</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/ipv6/">IPv6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd6/">OpenBSD6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd67/">OpenBSD67</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pf/">PF</a>&nbsp;
+        <a href="https://jwillikers.com//tags/zfs/">ZFS</a>&nbsp;
         
     </div>
     
@@ -257,8 +249,8 @@
 </article>
           
             <article class="post-preview">
-    <a href="https://jwillikers.com/posts/pf_badhost/">
-        <h2 class="post-title">PF Badhost</h2>
+    <a href="https://jwillikers.com/posts/backup_docker_data/">
+        <h2 class="post-title">Backup Docker Data</h2>
         
         
         
@@ -268,7 +260,115 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 4, 2020
+  <i class="fas fa-calendar"></i>&nbsp;Posted on July 2, 2020
+  
+    &nbsp;(Last modified on July 4, 2020)
+  
+  
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
+    
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
+   Tutorial My recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
+ Backup Creating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.
+        <a href="https://jwillikers.com/posts/backup_docker_data/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+        <a href="https://jwillikers.com//tags/containers/">Containers</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/docker/">Docker</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/ubuntu/">Ubuntu</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/ubuntu2004/">Ubuntu2004</a>&nbsp;
+        
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="https://jwillikers.com/posts/install_zfs_pinebook_pro/">
+        <h2 class="post-title">Install ZFS on the Pinebook Pro</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on June 30, 2020
+  
+    &nbsp;(Last modified on July 4, 2020)
+  
+  
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
+    
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&#8217;s becoming my main machine, and I&#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine&#8217;s built-in eMMC.
+        <a href="https://jwillikers.com/posts/install_zfs_pinebook_pro/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+        <a href="https://jwillikers.com//tags/archlinux/">ArchLinux</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/manjaro/">Manjaro</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/pinebookpro/">PinebookPro</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/zfs/">ZFS</a>&nbsp;
+        
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="https://jwillikers.com/posts/unifi_controller/">
+        <h2 class="post-title">UniFi Controller</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on May 30, 2020
   
     &nbsp;(Last modified on July 2, 2020)
   
@@ -286,30 +386,152 @@
     </p>
     <div class="post-entry">
         
-        Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
-   Configure Download the pf-badhost.sh script.
- ftp https://www.geoghegan.ca/scripts/pf-badhost.sh   Install the script with the appropriate permissions.
- install -g bin -m 644 -o root pf-badhost.
-        <a href="https://jwillikers.com/posts/pf_badhost/" class="post-read-more">[Read More]</a>
+        For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
+   Tutorial An existing Docker image makes setting up the UniFi Controller a breeze. Here&#8217;s how.
+        <a href="https://jwillikers.com/posts/unifi_controller/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
+        <a href="https://jwillikers.com//tags/containers/">Containers</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/firewall/">Firewall</a>&nbsp;
+        <a href="https://jwillikers.com//tags/docker/">Docker</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
+        <a href="https://jwillikers.com//tags/dockercompose/">DockerCompose</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/openbsd6/">OpenBSD6</a>&nbsp;
+        <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/openbsd67/">OpenBSD67</a>&nbsp;
+        <a href="https://jwillikers.com//tags/unifi/">UniFi</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/pf/">PF</a>&nbsp;
+        <a href="https://jwillikers.com//tags/unificontroller/">UniFiController</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/pf-badhost/">pf-badhost</a>&nbsp;
+        <a href="https://jwillikers.com//tags/ubuntu/">Ubuntu</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/ubuntu2004/">Ubuntu2004</a>&nbsp;
+        
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="https://jwillikers.com/posts/smartd_ubuntu/">
+        <h2 class="post-title">Automatically Detect &amp; Report Hard Drive Failure</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on May 25, 2020
+  
+    &nbsp;(Last modified on July 2, 2020)
+  
+  
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
+    
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.
+        <a href="https://jwillikers.com/posts/smartd_ubuntu/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+        <a href="https://jwillikers.com//tags/email/">Email</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/opensmtpd/">OpenSMTPD</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/smart/">SMART</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/smartd/">smartd</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/smartmontools/">SmartMonTools</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/smtp/">SMTP</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/ubuntu/">Ubuntu</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/ubuntu2004/">Ubuntu2004</a>&nbsp;
+        
+    </div>
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="https://jwillikers.com/posts/opensmtpd_ubuntu/">
+        <h2 class="post-title">OpenSMTPD Relay on Ubuntu</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on May 24, 2020
+  
+    &nbsp;(Last modified on July 2, 2020)
+  
+  
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
+    
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.
+        <a href="https://jwillikers.com/posts/opensmtpd_ubuntu/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+    <div class="blog-tags">
+        
+        <a href="https://jwillikers.com//tags/2fa/">2FA</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/email/">Email</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/gmail/">GMail</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/opensmtpd/">OpenSMTPD</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/opensmtpd6/">OpenSMTPD6</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/smtp/">SMTP</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/ubuntu/">Ubuntu</a>&nbsp;
+        
+        <a href="https://jwillikers.com//tags/ubuntu2004/">Ubuntu2004</a>&nbsp;
         
     </div>
     
@@ -355,7 +577,7 @@
               </li>
           
           <li>
-            <a href="/tags/firewall/index.xml" title="RSS">
+            <a href="/tags/linux/index.xml" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>

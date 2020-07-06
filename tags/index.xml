@@ -12,6 +12,24 @@
     
     
     <item>
+      <title>ArchLinux</title>
+      <link>https://jwillikers.com/tags/archlinux/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/archlinux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://jwillikers.com/tags/linux/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Manjaro</title>
       <link>https://jwillikers.com/tags/manjaro/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
@@ -35,15 +53,6 @@
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/zfs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Backups</title>
-      <link>https://jwillikers.com/tags/backups/</link>
-      <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/backups/</guid>
       <description></description>
     </item>
     
@@ -138,24 +147,6 @@
     </item>
     
     <item>
-      <title>Internet</title>
-      <link>https://jwillikers.com/tags/internet/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/internet/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Network</title>
-      <link>https://jwillikers.com/tags/network/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/network/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>OpenBSD</title>
       <link>https://jwillikers.com/tags/openbsd/</link>
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
@@ -179,15 +170,6 @@
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/openbsd67/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Router</title>
-      <link>https://jwillikers.com/tags/router/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/router/</guid>
       <description></description>
     </item>
     
@@ -219,24 +201,6 @@
     </item>
     
     <item>
-      <title>Hard Drive</title>
-      <link>https://jwillikers.com/tags/hard-drive/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/hard-drive/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>HDD</title>
-      <link>https://jwillikers.com/tags/hdd/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/hdd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>OpenSMTPD</title>
       <link>https://jwillikers.com/tags/opensmtpd/</link>
       <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
@@ -246,29 +210,11 @@
     </item>
     
     <item>
-      <title>Relay</title>
-      <link>https://jwillikers.com/tags/relay/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/relay/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>SMART</title>
       <link>https://jwillikers.com/tags/smart/</link>
       <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/smart/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>smartctl</title>
-      <link>https://jwillikers.com/tags/smartctl/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/smartctl/</guid>
       <description></description>
     </item>
     
@@ -368,15 +314,6 @@
       <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/pf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Unix</title>
-      <link>https://jwillikers.com/tags/unix/</link>
-      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/unix/</guid>
       <description></description>
     </item>
     
