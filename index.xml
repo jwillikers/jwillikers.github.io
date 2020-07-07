@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>About</title>
+      <link>https://jwillikers.com/about/</link>
+      <pubDate>Tue, 07 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/about/</guid>
+      <description>Welcome to jwillikers.com, where I like to put all of my handy admin and dev guides from my myriad of tinkering. My posts serve as convenient references for myself, but my hope is that they will help you as well.
+   Me This is my website, so I get to talk about myself right?
+ On-the-job Current At my current day job, I wrangle C&amp;#43;&amp;#43; and CMake code to create functioning, cross-platform graphical applications.</description>
+    </item>
+    
+    <item>
       <title>Resources</title>
       <link>https://jwillikers.com/resources/</link>
       <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
@@ -139,17 +150,6 @@
       
       <guid>https://jwillikers.com/posts/unbound_adblock/</guid>
       <description>Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://jwillikers.com/about/</link>
-      <pubDate>Sat, 21 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/about/</guid>
-      <description>Welcome to jwillikers.com, an archive for all of my tech experiments, configurations, and adventures. I hope that you will find something helpful here, something that will make your life a little easier as a developer, system administrator, or self-hoster.
-   Me This is my website, so I get to talk about myself right?
- On-the-job Current At my current day job, I wrangle C&amp;#43;&amp;#43; and CMake code to create functioning, cross-platform graphical applications.</description>
     </item>
     
     <item>
