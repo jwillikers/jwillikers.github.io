@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jwillikers.com/contact/</loc>
+    <lastmod>2020-07-11T08:58:58-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jwillikers.com/about/</loc>
     <lastmod>2020-07-08T06:21:03-05:00</lastmod>
   </url>
@@ -14,12 +19,12 @@
   
   <url>
     <loc>https://jwillikers.com/tags/archlinux/</loc>
-    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
+    <lastmod>2020-07-11T08:45:58-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/categories/</loc>
-    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
+    <lastmod>2020-07-11T08:45:58-05:00</lastmod>
   </url>
   
   <url>
@@ -29,42 +34,42 @@
   
   <url>
     <loc>https://jwillikers.com/</loc>
-    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
+    <lastmod>2020-07-11T08:45:58-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/linux/</loc>
-    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
+    <lastmod>2020-07-11T08:45:58-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/manjaro/</loc>
-    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
+    <lastmod>2020-07-11T08:45:58-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/pinebookpro/</loc>
-    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
+    <lastmod>2020-07-11T08:45:58-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/posts/</loc>
-    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
+    <lastmod>2020-07-11T08:45:58-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/categories/systems/</loc>
-    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
+    <lastmod>2020-07-11T08:45:58-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/</loc>
-    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
+    <lastmod>2020-07-11T08:45:58-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/zfs/</loc>
-    <lastmod>2020-07-06T10:52:13-05:00</lastmod>
+    <lastmod>2020-07-11T08:45:58-05:00</lastmod>
   </url>
   
   <url>
@@ -94,7 +99,7 @@
   
   <url>
     <loc>https://jwillikers.com/posts/install_zfs_pinebook_pro/</loc>
-    <lastmod>2020-07-06T07:47:35-05:00</lastmod>
+    <lastmod>2020-07-11T08:45:58-05:00</lastmod>
   </url>
   
   <url>
@@ -170,11 +175,6 @@
   <url>
     <loc>https://jwillikers.com/posts/smartd_ubuntu/</loc>
     <lastmod>2020-07-06T10:52:13-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/contact/</loc>
-    <lastmod>2020-05-25T13:36:08-05:00</lastmod>
   </url>
   
   <url>

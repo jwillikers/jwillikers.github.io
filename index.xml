@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Contact</title>
+      <link>https://jwillikers.com/contact/</link>
+      <pubDate>Sat, 11 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/contact/</guid>
+      <description>Notice an error? Have a question? Find something helpful? Your feedback is welcome. Please feel free to contact me via email at jordan@jwillikers.com. You are also welcome to open an issue on this website&amp;#8217;s Github repository.
+ </description>
+    </item>
+    
+    <item>
       <title>About</title>
       <link>https://jwillikers.com/about/</link>
       <pubDate>Wed, 08 Jul 2020 00:00:00 +0000</pubDate>
@@ -88,16 +98,6 @@
       
       <guid>https://jwillikers.com/posts/smartd_ubuntu/</guid>
       <description>I recently fixed my mother-in-law&amp;#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&amp;#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&amp;#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.</description>
-    </item>
-    
-    <item>
-      <title>Contact</title>
-      <link>https://jwillikers.com/contact/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/contact/</guid>
-      <description>Notice an error? Have a question? Find something helpful? Your feedback is welcome. Please feel free to contact me via email: jordan@jwillikers.com
- </description>
     </item>
     
     <item>
