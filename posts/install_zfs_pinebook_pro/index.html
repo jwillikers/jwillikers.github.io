@@ -59,7 +59,7 @@
   "headline": "Install ZFS on the Pinebook Pro",
   "description" : "Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It\u0026#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it\u0026#8217;s becoming my main machine, and I\u0026#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine\u0026#8217;s built-in eMMC.",
   "inLanguage" : "en",
-  "wordCount":  259 ,
+  "wordCount":  310 ,
   "datePublished" : "2020-06-30T00:00:00",
   "dateModified" : "2020-06-30T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -269,37 +269,55 @@ With a spacious microSD card in-hand, I knew it was time to get more experience 
 <div class="sect2">
 <h3 id="_install">Install</h3>
 <div class="paragraph">
-<p>The ZFS software is readily available as a <a href="https://en.wikipedia.org/wiki/Dynamic_Kernel_Module_Support">DKMS</a> module.
-So first, install DKMS on the Pinebook Pro.
-More in-depth instructions can be found on the <a href="https://wiki.archlinux.org/index.php/Dynamic_Kernel_Module_Support">Arch Linux Wiki</a>.</p>
+<p>The ZFS software is readily available as a <a href="https://en.wikipedia.org/wiki/Dynamic_Kernel_Module_Support">DKMS</a> module for the arm64 architecture.
+The following instructions detail how to install the ZFS DKMS module.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First, install DKMS on the Pinebook Pro.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>More in-depth instructions can be found on the <a href="https://wiki.archlinux.org/index.php/Dynamic_Kernel_Module_Support">Arch Linux Wiki</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> dkms linux-pinebookpro-headers</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>The <a href="https://github.com/Jguer/yay">yay</a> tool provides a nifty way to install packages from the <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository">AUR</a>.</p>
 </div>
+</div>
+</li>
+<li>
+<p>The <a href="https://github.com/Jguer/yay">yay</a> tool provides a nifty way to install packages from the <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository">AUR</a>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> yay</code></pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Then, install the <a href="https://aur.archlinux.org/packages/zfs-dkms-any/">zfs-dkms-any</a> package from the AUR.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>yay <span class="nt">-S</span> zfs-dkms-any</code></pre>
 </div>
 </div>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_configure">Configure</h3>
 <div class="paragraph">
-<p>To load the ZFS DKMS module at boot, create the appropriate file for <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<p>It&#8217;s likely you want to have ZFS available without having to explicitly load the DKMS module, import pools, and mount datasets every time you restart your computer.
+These next steps describe exactly how to avoid such nonsense.</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To load the ZFS DKMS module at boot, create the appropriate file for <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 <div class="listingblock">
 <div class="title">/etc/modules-load.d/zfs.conf</div>
 <div class="content">
@@ -307,9 +325,9 @@ More in-depth instructions can be found on the <a href="https://wiki.archlinux.o
 zfs</pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Enable importing pools and mounting datasets at boot.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs-import-cache
@@ -317,6 +335,9 @@ zfs</pre>
 <span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs-mount
 <span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs.target</code></pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
