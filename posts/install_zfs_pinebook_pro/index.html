@@ -59,7 +59,7 @@
   "headline": "Install ZFS on the Pinebook Pro",
   "description" : "Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It\u0026#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it\u0026#8217;s becoming my main machine, and I\u0026#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine\u0026#8217;s built-in eMMC.",
   "inLanguage" : "en",
-  "wordCount":  310 ,
+  "wordCount":  317 ,
   "datePublished" : "2020-06-30T00:00:00",
   "dateModified" : "2020-06-30T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -275,17 +275,10 @@ The following instructions detail how to install the ZFS DKMS module.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>First, install DKMS on the Pinebook Pro.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>More in-depth instructions can be found on the <a href="https://wiki.archlinux.org/index.php/Dynamic_Kernel_Module_Support">Arch Linux Wiki</a>.</p>
-</div>
+<p>First, install DKMS on the Pinebook Pro.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> dkms linux-pinebookpro-headers</code></pre>
-</div>
-</div>
 </div>
 </div>
 </li>
@@ -317,7 +310,7 @@ These next steps describe exactly how to avoid such nonsense.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>To load the ZFS DKMS module at boot, create the appropriate file for <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<p>To load the ZFS DKMS module at boot, create the appropriate file for <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
 <div class="listingblock">
 <div class="title">/etc/modules-load.d/zfs.conf</div>
 <div class="content">
@@ -327,7 +320,7 @@ zfs</pre>
 </div>
 </li>
 <li>
-<p>Enable importing pools and mounting datasets at boot.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+<p>Enable importing pools and mounting datasets at boot.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs-import-cache
@@ -351,10 +344,13 @@ zfs</pre>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. <a href="https://wiki.archlinux.org/index.php/Kernel_module#Automatic_module_loading_with_systemd">Automatic Module Loading with systemd</a>
+<a href="#_footnoteref_1">1</a>. <a href="https://wiki.archlinux.org/index.php/Dynamic_Kernel_Module_Support">Arch Linux Wiki: Dynamic Kernel Module Support</a>
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Automatic_Start">ZFS Automatic Start</a>
+<a href="#_footnoteref_2">2</a>. <a href="https://wiki.archlinux.org/index.php/Kernel_module#Automatic_module_loading_with_systemd">Arch Linux Wiki: Kernel Module - Automatic Module Loading with systemd</a>
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Automatic_Start">Arch Linux Wiki: ZFS - Automatic Start</a>
 </div>
 </div>
 
