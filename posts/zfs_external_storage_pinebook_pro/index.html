@@ -60,7 +60,7 @@
   "headline": "External Storage on the Pinebook Pro with ZFS",
   "description" : "The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn\u0026#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you\u0026#8217;re just dying to use ZFS on that, right?\n   Tutorial Following the previous post, Install ZFS on the Pinebook Pro, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.",
   "inLanguage" : "en",
-  "wordCount":  677 ,
+  "wordCount":  731 ,
   "datePublished" : "2020-07-03T00:00:00",
   "dateModified" : "2020-07-03T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -270,8 +270,15 @@ And now you&#8217;re just dying to use ZFS on that, right?</p>
 <div class="sect2">
 <h3 id="_create_the_pool">Create the Pool</h3>
 <div class="paragraph">
-<p>First, determine which device is the microSD card.</p>
+<p>The microSD card will need to be provisioned as its own pool using ZFS.
+Adding the disk to a pool places it under the control of ZFS, providing all of the necessary ZFS capabilities.</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First, determine which device is the microSD card.</p>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>fdisk <span class="nt">-l</span>
@@ -302,18 +309,22 @@ Device         Boot Start       End   Sectors   Size Id Type
 <div class="paragraph">
 <p>In this case, <code>/dev/mmcblk1</code> is the 256GB microSD card.</p>
 </div>
-<div class="paragraph">
-<p>Next, determine the disk id to use when creating the zpool.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 </div>
+</div>
+</li>
+<li>
+<p>Next, determine the disk id to use when creating the zpool.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-lh</span> /dev/disk/by-id/ | <span class="nb">grep</span> <span class="nt">-w</span> mmcblk1
 <span class="gp">lrwxrwxrwx 1 root root 13 Jun 24 07:33 mmc-AB5CD_0x00000001 -&gt;</span><span class="w"> </span>../../mmcblk1</code></pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Then, check the block size.</p>
-</div>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>blockdev <span class="nt">--getpbsz</span> /dev/mmcblk1
@@ -323,9 +334,11 @@ Device         Boot Start       End   Sectors   Size Id Type
 <div class="paragraph">
 <p>The SD card&#8217;s block size is 512 MiB, which means <code>ashift</code> should be set to 12.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
 </div>
-<div class="paragraph">
-<p>Create the pool.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p>
 </div>
+</div>
+</li>
+<li>
+<p>Create the pool.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool create <span class="se">\</span>
@@ -342,20 +355,27 @@ Device         Boot Start       End   Sectors   Size Id Type
 </tr>
 </table>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Configure the system to automatically import the pool on boot.<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">set </span><span class="nv">cachefile</span><span class="o">=</span>/etc/zfs/zpool.cache ext_pool</code></pre>
 </div>
 </div>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_create_the_dataset">Create the Dataset</h3>
 <div class="paragraph">
-<p>Create a ZFS dataset for your tunes.</p>
+<p>With the microSD card now managed by ZFS, it is now possible to create the ZFS dataset for storing your music.</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the ZFS dataset for your tunes.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs create <span class="se">\</span>
@@ -372,13 +392,16 @@ Device         Boot Start       End   Sectors   Size Id Type
 </tr>
 </table>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Set the appropriate ownership for the mounted <code>~/Music</code> directory.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown</span> <span class="nt">-R</span> jordan:jordan /home/jordan/Music</code></pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -388,64 +411,69 @@ Device         Boot Start       End   Sectors   Size Id Type
 The simplest way is to copy the files over the network.
 Since the pool is on an SD card, you might just want to pop it out and carry it between machines, so I describe that here.</p>
 </div>
-<div class="paragraph">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
 <p>Export the pool from the Pinebook Pro.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">export </span>ext_pool</code></pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Pop-out the microSD card and pop it into the machine with all of the music.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p>Import the pool.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool import ext_pool
 <span class="go">cannot mount '/home/jordan/Music': directory is not empty</span></code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>I keep my music in <code>~/Music</code>, so I will have to mount the dataset somewhere else.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p>Change where the music dataset is mounted.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>I keep my music in <code>~/Music</code>, so I have to mount the dataset somewhere else.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs <span class="nb">set </span><span class="nv">mountpoint</span><span class="o">=</span>/media/jordan/Music ext_pool/music</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Mount the dataset to the updated location.</p>
 </div>
+</div>
+</li>
+<li>
+<p>Mount the dataset to the updated location.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs mount ext_pool/music</code></pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Set the appropriate ownership for the mounted directory.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown </span>jordan:jordan /media/jordan/Music</code></pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Copy over the music.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">tar </span>cfC - /home/jordan/Music <span class="nb">.</span> | <span class="nb">tar </span>xpfC - /media/jordan/Music</code></pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Then change the mount location back to <code>~/Music</code>.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs <span class="nb">set </span><span class="nv">mountpoint</span><span class="o">=</span>/home/jordan/Music ext_pool/music
@@ -453,21 +481,24 @@ Since the pool is on an SD card, you might just want to pop it out and carry it 
 property may be set but unable to remount filesystem</span></code></pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Export the pool from the machine.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">export </span>ext_pool</code></pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Now place the SD card back into the Pinebook Pro, and import the pool again.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool import ext_pool</code></pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
