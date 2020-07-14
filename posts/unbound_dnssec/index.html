@@ -9,7 +9,7 @@
 
   <title>DNSSEC with Unbound - JWillikers</title>
   <meta name="description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
- Unbound ConfigurationUse the ftp command to download the Root Hints.
+Unbound ConfigurationUse the ftp command to download the Root Hints.
 ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
 unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
 /var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.">
@@ -61,7 +61,7 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
     "name" : "Jordan Williams"
   },
   "headline": "DNSSEC with Unbound",
-  "description" : "Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.\n Unbound ConfigurationUse the ftp command to download the Root Hints.\nftp -o \/var\/unbound\/etc\/root.hints https:\/\/www.internic.net\/domain\/named.root Download the trust anchor file with the unbound-anchor utility.\nunbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.\n\/var\/unbound\/etc\/unbound.conf # Uncomment to enable DNSSEC validation.",
+  "description" : "Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.\nUnbound ConfigurationUse the ftp command to download the Root Hints.\nftp -o \/var\/unbound\/etc\/root.hints https:\/\/www.internic.net\/domain\/named.root Download the trust anchor file with the unbound-anchor utility.\nunbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.\n\/var\/unbound\/etc\/unbound.conf # Uncomment to enable DNSSEC validation.",
   "inLanguage" : "en",
   "wordCount":  328 ,
   "datePublished" : "2020-03-28T00:00:00",
@@ -84,7 +84,7 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
 
 <meta property="og:title" content="DNSSEC with Unbound" />
 <meta property="og:description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
- Unbound ConfigurationUse the ftp command to download the Root Hints.
+Unbound ConfigurationUse the ftp command to download the Root Hints.
 ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
 unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
 /var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.">
@@ -95,7 +95,7 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
 
   <meta name="twitter:title" content="DNSSEC with Unbound" />
   <meta name="twitter:description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
- Unbound ConfigurationUse the ftp command to download the Root Hints.
+Unbound ConfigurationUse the ftp command to download the Root Hints.
 ftp …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
@@ -259,9 +259,9 @@ ftp …">
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <section id="preamble" aria-label="Preamble"><p>Ever want to enable <a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions">DNSSEC</a> on your <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound</a> OpenBSD 6.6 server?
+        <p>Ever want to enable <a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions">DNSSEC</a> on your <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound</a> OpenBSD 6.6 server?
 Me too!
-Using this <a href="http://www.lonecpluspluscoder.com/2020/01/16/building-an-openbsd-wireguard-vpn-server-part-2-unbound-dns-setup/">article</a> as a guide, I document the process.</p></section>
+Using this <a href="http://www.lonecpluspluscoder.com/2020/01/16/building-an-openbsd-wireguard-vpn-server-part-2-unbound-dns-setup/">article</a> as a guide, I document the process.</p>
 <section class="doc-section level-1"><h2 id="_unbound_configuration">Unbound Configuration</h2><p>Use the <a href="https://man.openbsd.org/ftp.1">ftp</a> command to download the <a href="https://wiki.archlinux.org/index.php/unbound#Root_hints">Root Hints</a>.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root</span></code></pre></div>
 <p>Download the trust anchor file with the <a href="https://man.openbsd.org/unbound-anchor">unbound-anchor</a> utility.</p>
@@ -425,7 +425,7 @@ jwillikers.com.		300	IN	RRSIG	A 13 2 300 20200329192309 20200327172309 34505 jwi
         
         <p class="credits theme-by text-muted">
           <a href="https://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          &nbsp;&bull;&nbsp;[<a href="11fc006d644107dbe7cc4932d47b798b1e3adf0f">11fc006d</a>]
+          &nbsp;&bull;&nbsp;[<a href="c7f83731f11402beffd3b04ad66caeb06b1fe321">c7f83731</a>]
         </p>
       </div>
     </div>

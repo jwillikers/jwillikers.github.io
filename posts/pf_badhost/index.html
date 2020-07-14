@@ -9,9 +9,9 @@
 
   <title>PF Badhost - JWillikers</title>
   <meta name="description" content="Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
- ConfigureDownload the pf-badhost.sh script.
+ConfigureDownload the pf-badhost.sh script.
 ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
-install -g bin -m 644 -o root pf-badhost.">
+install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1 The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -60,7 +60,7 @@ install -g bin -m 644 -o root pf-badhost.">
     "name" : "Jordan Williams"
   },
   "headline": "PF Badhost",
-  "description" : "Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.\n ConfigureDownload the pf-badhost.sh script.\nftp https:\/\/www.geoghegan.ca\/scripts\/pf-badhost.sh Install the script with the appropriate permissions.\ninstall -g bin -m 644 -o root pf-badhost.",
+  "description" : "Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.\nConfigureDownload the pf-badhost.sh script.\nftp https:\/\/www.geoghegan.ca\/scripts\/pf-badhost.sh Install the script with the appropriate permissions.\ninstall -g bin -m 644 -o root pf-badhost.sh \/usr\/local\/bin\/ 1 The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.",
   "inLanguage" : "en",
   "wordCount":  1009 ,
   "datePublished" : "2020-04-04T00:00:00",
@@ -83,9 +83,9 @@ install -g bin -m 644 -o root pf-badhost.">
 
 <meta property="og:title" content="PF Badhost" />
 <meta property="og:description" content="Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
- ConfigureDownload the pf-badhost.sh script.
+ConfigureDownload the pf-badhost.sh script.
 ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
-install -g bin -m 644 -o root pf-badhost.">
+install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1 The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.">
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
 <meta property="og:url" content="https://jwillikers.com/posts/pf_badhost/" />
 <meta property="og:type" content="website" />
@@ -255,10 +255,10 @@ install -g bin -m 644 -o root pf-badhost.">
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <section id="preamble" aria-label="Preamble"><p>Blocking connections to nefarious IP addresses in your firewall is usually a good idea.
+        <p>Blocking connections to nefarious IP addresses in your firewall is usually a good idea.
 On <a href="https://www.openbsd.org/">OpenBSD</a>, the <a href="https://www.geoghegan.ca/pfbadhost.html">pf-badhost</a> script updates <a href="https://www.openbsd.org/faq/pf/">PF</a> to block traffic to and from such addresses.
 This post walks through my installation and verification of pf-badhost.
-Make sure to check out the well-written <a href="https://www.geoghegan.ca/pfbadhost.html">installation instructions</a>, too.</p></section>
+Make sure to check out the well-written <a href="https://www.geoghegan.ca/pfbadhost.html">installation instructions</a>, too.</p>
 <section class="doc-section level-1"><h2 id="_configure">Configure</h2><p>Download the <a href="https://www.geoghegan.ca/scripts/pf-badhost.sh">pf-badhost.sh script</a>.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ftp https://www.geoghegan.ca/scripts/pf-badhost.sh</span></code></pre></div>
 <p>Install the script with the appropriate permissions.</p>
@@ -489,7 +489,7 @@ If applicable, remember to delete the temporary rule in <code>/etc/pf.conf</code
         
         <p class="credits theme-by text-muted">
           <a href="https://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          &nbsp;&bull;&nbsp;[<a href="11fc006d644107dbe7cc4932d47b798b1e3adf0f">11fc006d</a>]
+          &nbsp;&bull;&nbsp;[<a href="c7f83731f11402beffd3b04ad66caeb06b1fe321">c7f83731</a>]
         </p>
       </div>
     </div>

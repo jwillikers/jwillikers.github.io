@@ -220,7 +220,7 @@
   
   <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2020
   
-    &nbsp;(Last modified on July 11, 2020)
+    &nbsp;(Last modified on July 14, 2020)
   
   
   
@@ -237,7 +237,7 @@
     <div class="post-entry">
         
         The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&#8217;re just dying to use ZFS on that, right?
- TutorialFollowing the previous post, Install ZFS on the Pinebook Pro, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.
+TutorialFollowing the previous post, Install ZFS on the Pinebook Pro, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.
         <a href="https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/" class="post-read-more">[Read More]</a>
         
     </div>
@@ -274,7 +274,7 @@
   
   <i class="fas fa-calendar"></i>&nbsp;Posted on July 2, 2020
   
-    &nbsp;(Last modified on July 11, 2020)
+    &nbsp;(Last modified on July 14, 2020)
   
   
   
@@ -291,7 +291,7 @@
     <div class="post-entry">
         
         Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
- TutorialMy recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
+TutorialMy recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
 BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.
         <a href="https://jwillikers.com/posts/backup_docker_data/" class="post-read-more">[Read More]</a>
         
@@ -329,7 +329,7 @@ BackupCreating backups is done by producing an archive of the important files on
   
   <i class="fas fa-calendar"></i>&nbsp;Posted on June 30, 2020
   
-    &nbsp;(Last modified on July 11, 2020)
+    &nbsp;(Last modified on July 14, 2020)
   
   
   
@@ -382,7 +382,7 @@ BackupCreating backups is done by producing an archive of the important files on
   
   <i class="fas fa-calendar"></i>&nbsp;Posted on May 30, 2020
   
-    &nbsp;(Last modified on July 6, 2020)
+    &nbsp;(Last modified on July 14, 2020)
   
   
   
@@ -399,7 +399,7 @@ BackupCreating backups is done by producing an archive of the important files on
     <div class="post-entry">
         
         For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
- TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&#8217;s how.
+TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&#8217;s how.
 Install DockerInstall Docker Compose.
         <a href="https://jwillikers.com/posts/unifi_controller/" class="post-read-more">[Read More]</a>
         
@@ -443,7 +443,7 @@ Install DockerInstall Docker Compose.
   
   <i class="fas fa-calendar"></i>&nbsp;Posted on May 29, 2020
   
-    &nbsp;(Last modified on July 6, 2020)
+    &nbsp;(Last modified on July 14, 2020)
   
   
   
@@ -502,7 +502,7 @@ Install DockerInstall Docker Compose.
   
   <i class="fas fa-calendar"></i>&nbsp;Posted on May 25, 2020
   
-    &nbsp;(Last modified on July 6, 2020)
+    &nbsp;(Last modified on July 14, 2020)
   
   
   
@@ -563,7 +563,7 @@ Install DockerInstall Docker Compose.
   
   <i class="fas fa-calendar"></i>&nbsp;Posted on May 24, 2020
   
-    &nbsp;(Last modified on July 6, 2020)
+    &nbsp;(Last modified on July 14, 2020)
   
   
   
@@ -624,7 +624,7 @@ Install DockerInstall Docker Compose.
   
   <i class="fas fa-calendar"></i>&nbsp;Posted on May 23, 2020
   
-    &nbsp;(Last modified on July 6, 2020)
+    &nbsp;(Last modified on July 14, 2020)
   
   
   
@@ -641,7 +641,7 @@ Install DockerInstall Docker Compose.
     <div class="post-entry">
         
         Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&#8217;t provide DHCPv6 support in its native DHCP daemon. I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
- ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
+ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
 PFIPv6 packets need to get through the firewall for anything to happen.
         <a href="https://jwillikers.com/posts/openbsd_ipv6/" class="post-read-more">[Read More]</a>
         
@@ -687,7 +687,7 @@ PFIPv6 packets need to get through the firewall for anything to happen.
   
   <i class="fas fa-calendar"></i>&nbsp;Posted on April 4, 2020
   
-    &nbsp;(Last modified on July 6, 2020)
+    &nbsp;(Last modified on July 14, 2020)
   
   
   
@@ -704,9 +704,9 @@ PFIPv6 packets need to get through the firewall for anything to happen.
     <div class="post-entry">
         
         Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
- ConfigureDownload the pf-badhost.sh script.
+ConfigureDownload the pf-badhost.sh script.
 ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
-install -g bin -m 644 -o root pf-badhost.
+install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1 The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.
         <a href="https://jwillikers.com/posts/pf_badhost/" class="post-read-more">[Read More]</a>
         
     </div>
@@ -747,7 +747,7 @@ install -g bin -m 644 -o root pf-badhost.
   
   <i class="fas fa-calendar"></i>&nbsp;Posted on March 28, 2020
   
-    &nbsp;(Last modified on July 6, 2020)
+    &nbsp;(Last modified on July 14, 2020)
   
   
   
@@ -764,7 +764,7 @@ install -g bin -m 644 -o root pf-badhost.
     <div class="post-entry">
         
         Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
- Unbound ConfigurationUse the ftp command to download the Root Hints.
+Unbound ConfigurationUse the ftp command to download the Root Hints.
 ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
 unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
 /var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.
@@ -815,7 +815,7 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
   
   
   
-    (Last modified on July 11, 2020)
+    (Last modified on July 14, 2020)
   
 </div>
 

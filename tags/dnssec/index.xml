@@ -18,7 +18,7 @@
       
       <guid>https://jwillikers.com/posts/unbound_dnssec/</guid>
       <description>Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
- Unbound ConfigurationUse the ftp command to download the Root Hints.
+Unbound ConfigurationUse the ftp command to download the Root Hints.
 ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
 unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
 /var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.</description>
