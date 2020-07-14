@@ -28,9 +28,9 @@ BackupCreating backups is done by producing an archive of the important files on
       <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/posts/unifi_controller/</guid>
-      <description>For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&amp;#8217;t have a smartphone or need to manage more than one device, you&amp;#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
+      <description>For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this is the UniFi Controller. If you don&amp;#8217;t have a smartphone or need to manage more than one device, you&amp;#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
 TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&amp;#8217;s how.
-Install DockerInstall Docker Compose.</description>
+Install DockerFirst, you must install Docker on your system.</description>
     </item>
     
     <item>
