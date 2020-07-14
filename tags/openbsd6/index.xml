@@ -27,7 +27,8 @@
       
       <guid>https://jwillikers.com/posts/openbsd_ipv6/</guid>
       <description>Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&amp;#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&amp;#8217;t provide DHCPv6 support in its native DHCP daemon. I&amp;#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
-   Configuration I configured IPv6 on on my home router running OpenBSD 6.</description>
+ ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
+PFIPv6 packets need to get through the firewall for anything to happen.</description>
     </item>
     
     <item>
@@ -37,9 +38,9 @@
       
       <guid>https://jwillikers.com/posts/pf_badhost/</guid>
       <description>Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
-   Configure Download the pf-badhost.sh script.
- ftp https://www.geoghegan.ca/scripts/pf-badhost.sh   Install the script with the appropriate permissions.
- install -g bin -m 644 -o root pf-badhost.</description>
+ ConfigureDownload the pf-badhost.sh script.
+ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
+install -g bin -m 644 -o root pf-badhost.</description>
     </item>
     
     <item>
@@ -49,9 +50,10 @@
       
       <guid>https://jwillikers.com/posts/unbound_dnssec/</guid>
       <description>Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
-   Unbound Configuration Use the ftp command to download the Root Hints.
- ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root   Download the trust anchor file with the unbound-anchor utility.
- unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.</description>
+ Unbound ConfigurationUse the ftp command to download the Root Hints.
+ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
+unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
+/var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.</description>
     </item>
     
     <item>
@@ -70,8 +72,8 @@
       
       <guid>https://jwillikers.com/posts/pppoe_openbsd/</guid>
       <description>Some ISP&amp;#8217;s establish connections with their customers&#39; networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
-   DNS Servers If necessary, configure your system to use your preferred DNS nameservers.
-     A common way of connecting to your ISP&amp;#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937.</description>
+ DNS ServersIf necessary, configure your system to use your preferred DNS nameservers.
+Tip: A common way of connecting to your ISP&amp;#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937. To my knowledge, this capability is absent from the PPPoE Specification.</description>
     </item>
     
   </channel>

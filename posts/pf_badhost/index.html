@@ -9,9 +9,9 @@
 
   <title>PF Badhost - JWillikers</title>
   <meta name="description" content="Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
-   Configure Download the pf-badhost.sh script.
- ftp https://www.geoghegan.ca/scripts/pf-badhost.sh   Install the script with the appropriate permissions.
- install -g bin -m 644 -o root pf-badhost.">
+ ConfigureDownload the pf-badhost.sh script.
+ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
+install -g bin -m 644 -o root pf-badhost.">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -60,9 +60,9 @@
     "name" : "Jordan Williams"
   },
   "headline": "PF Badhost",
-  "description" : "Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.\n   Configure Download the pf-badhost.sh script.\n ftp https:\/\/www.geoghegan.ca\/scripts\/pf-badhost.sh   Install the script with the appropriate permissions.\n install -g bin -m 644 -o root pf-badhost.",
+  "description" : "Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.\n ConfigureDownload the pf-badhost.sh script.\nftp https:\/\/www.geoghegan.ca\/scripts\/pf-badhost.sh Install the script with the appropriate permissions.\ninstall -g bin -m 644 -o root pf-badhost.",
   "inLanguage" : "en",
-  "wordCount":  1024 ,
+  "wordCount":  1009 ,
   "datePublished" : "2020-04-04T00:00:00",
   "dateModified" : "2020-04-04T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -83,9 +83,9 @@
 
 <meta property="og:title" content="PF Badhost" />
 <meta property="og:description" content="Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
-   Configure Download the pf-badhost.sh script.
- ftp https://www.geoghegan.ca/scripts/pf-badhost.sh   Install the script with the appropriate permissions.
- install -g bin -m 644 -o root pf-badhost.">
+ ConfigureDownload the pf-badhost.sh script.
+ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
+install -g bin -m 644 -o root pf-badhost.">
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
 <meta property="og:url" content="https://jwillikers.com/posts/pf_badhost/" />
 <meta property="og:type" content="website" />
@@ -95,7 +95,7 @@
   <meta name="twitter:description" content="Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.73.0" />
+  <meta name="generator" content="Hugo 0.74.1" />
   <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -255,375 +255,129 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Blocking connections to nefarious IP addresses in your firewall is usually a good idea.
+        <section id="preamble" aria-label="Preamble"><p>Blocking connections to nefarious IP addresses in your firewall is usually a good idea.
 On <a href="https://www.openbsd.org/">OpenBSD</a>, the <a href="https://www.geoghegan.ca/pfbadhost.html">pf-badhost</a> script updates <a href="https://www.openbsd.org/faq/pf/">PF</a> to block traffic to and from such addresses.
 This post walks through my installation and verification of pf-badhost.
-Make sure to check out the well-written <a href="https://www.geoghegan.ca/pfbadhost.html">installation instructions</a>, too.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_configure">Configure</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Download the <a href="https://www.geoghegan.ca/scripts/pf-badhost.sh">pf-badhost.sh script</a>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">ftp https://www.geoghegan.ca/scripts/pf-badhost.sh</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+Make sure to check out the well-written <a href="https://www.geoghegan.ca/pfbadhost.html">installation instructions</a>, too.</p></section>
+<section class="doc-section level-1"><h2 id="_configure">Configure</h2><p>Download the <a href="https://www.geoghegan.ca/scripts/pf-badhost.sh">pf-badhost.sh script</a>.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ftp https://www.geoghegan.ca/scripts/pf-badhost.sh</span></code></pre></div>
 <p>Install the script with the appropriate permissions.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ <i class="conum" data-value="1"></i><b>(1)</b>
-</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The script will be owned by <em>root</em>, belong to the <em>bin</em> group, and be readable by everyone and writeable by the owner.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ <b class="conum">1</b>
+</span></code></pre><ol class="callout-list arabic"><li>The script will be owned by <em>root</em>, belong to the <em>bin</em> group, and be readable by everyone and writeable by the owner.</li></ol></div>
+
 <p>Create a new user, <code>_pfbadhost</code>, who will not be allowed to login.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">useradd -s /sbin/nologin _pfbadhost</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">useradd -s /sbin/nologin _pfbadhost</span></code></pre></div>
 <p>Install an empty <code>pf-badhost.txt</code> file owned by the <code>_pfbadhost</code> user which is readable and writeable by the owner only.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">install -m 600 -o _pfbadhost /dev/null /etc/pf-badhost.txt</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">install -m 600 -o _pfbadhost /dev/null /etc/pf-badhost.txt</span></code></pre></div>
 <p>Give the necessary permissions to the <code>_pfbadhost</code> user.</p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/doas.conf</div>
-<div class="content">
-<pre class="rouge highlight"><code>permit nopass _pfbadhost cmd pfctl args -nf /etc/pf.conf <i class="conum" data-value="1"></i><b>(1)</b>
-permit nopass _pfbadhost cmd pfctl args -t pfbadhost -T replace -f /etc/pf-badhost.txt <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Allow <code>_pfbadhost</code> to reload the PF configuration file without a password.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Allow <code>_pfbadhost</code> to update the <code>pfbadhost</code> PF table from the file <code>/etc/pf-badhost.txt</code>.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+<figure class="listing-block"><figcaption>/etc/doas.conf</figcaption>
+<pre class="rouge highlight"><code>permit nopass _pfbadhost cmd pfctl args -nf /etc/pf.conf <b class="conum">1</b>
+permit nopass _pfbadhost cmd pfctl args -t pfbadhost -T replace -f /etc/pf-badhost.txt <b class="conum">2</b></code></pre><ol class="callout-list arabic"><li>Allow <code>_pfbadhost</code> to reload the PF configuration file without a password.</li><li>Allow <code>_pfbadhost</code> to update the <code>pfbadhost</code> PF table from the file <code>/etc/pf-badhost.txt</code>.</li></ol></figure>
+
 <p>Edit the crontab file for <code>_pfbadhost</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">crontab -u _pfbadhost -e</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">crontab -u _pfbadhost -e</span></code></pre></div>
 <p>Add a rule to run the <code>pf-badhost.sh</code> script every morning at 6:45.</p>
-</div>
-<div class="listingblock">
-<div class="title">/var/cron/tabs/_pfbadhost</div>
-<div class="content">
+<figure class="listing-block"><figcaption>/var/cron/tabs/_pfbadhost</figcaption>
 <pre class="rouge highlight"><code># use /bin/sh to run commands, no matter what /etc/passwd says
 SHELL=/bin/sh
 
 # Update pf-badhost at 6:45 every morning.
-45	6	*	*	*	/usr/local/bin/pf-badhost.sh</code></pre>
-</div>
-</div>
-<div class="paragraph">
+45	6	*	*	*	/usr/local/bin/pf-badhost.sh</code></pre></figure>
 <p>Run the <code>pf-badhost.sh</code> script.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">doas -u _pfbadhost sh /usr/local/bin/pf-badhost.sh</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">doas -u _pfbadhost sh /usr/local/bin/pf-badhost.sh</span></code></pre></div>
 <p>Configure PF to block all traffic to or from the blacklisted addresses.</p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/pf.conf</div>
-<div class="content">
+<figure class="listing-block"><figcaption>/etc/pf.conf</figcaption>
 <pre class="rouge highlight"><code># pf-badhost configuration
-table &lt;pfbadhost&gt; persist file “/etc/pf-badhost.txt” <i class="conum" data-value="1"></i><b>(1)</b>
-block in quick on egress from &lt;pfbadhost&gt; <i class="conum" data-value="2"></i><b>(2)</b>
-block out quick on egress to &lt;pfbadhost&gt; <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Populate the <code>pfbadhost</code> table from the file <code>/etc/pf-badhost.txt</code> and keep the table even if no rules refer to it.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Block any traffic coming in to the gateway from any address in the <code>pfbadhost</code> table.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Block any traffic coming out of the gateway to any address in the <code>pfbadhost</code> table.</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Be careful not to block your internal network&#8217;s traffic here.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+table &lt;pfbadhost&gt; persist file “/etc/pf-badhost.txt” <b class="conum">1</b>
+block in quick on egress from &lt;pfbadhost&gt; <b class="conum">2</b>
+block out quick on egress to &lt;pfbadhost&gt; <b class="conum">3</b></code></pre><ol class="callout-list arabic"><li>Populate the <code>pfbadhost</code> table from the file <code>/etc/pf-badhost.txt</code> and keep the table even if no rules refer to it.</li><li>Block any traffic coming in to the gateway from any address in the <code>pfbadhost</code> table.</li><li>Block any traffic coming out of the gateway to any address in the <code>pfbadhost</code> table.</li></ol></figure>
+
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Be careful not to block your internal network&#8217;s traffic here.</p></aside>
 <p>Reload the PF ruleset.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">pfctl -f /etc/pf.conf</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">pfctl -f /etc/pf.conf</span></code></pre></div>
 <p>Following the original tutorial, run the <code>pf-badhost.sh</code> script once more for good measure.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">doas -u _pfbadhost sh /usr/local/bin/pf-badhost.sh</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_verify">Verify</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Now&#8230;&#8203; did that actually do anything?
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">doas -u _pfbadhost sh /usr/local/bin/pf-badhost.sh</span></code></pre></div></section>
+<section class="doc-section level-1"><h2 id="_verify">Verify</h2><p>Now&#8230;&#8203; did that actually do anything?
 I usually ask myself this question, and I like to be sure sometimes, especially when it comes to network security.</p>
-</div>
-<div class="sect2">
-<h3 id="_outbound">Outbound</h3>
-<div class="paragraph">
-<p>First, test the outbound traffic destined for a blocked IP address.
+<section class="doc-section level-2"><h3 id="_outbound">Outbound</h3><p>First, test the outbound traffic destined for a blocked IP address.
 For the outbound test, you could use any publicly available IP address which is not blacklisted.
 I use the address of one of Google&#8217;s DNS servers, <code>8.8.8.8</code> in this test.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You could just ping a blacklisted server with and without the <code>pfbadhost</code> rules in place.
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>You could just ping a blacklisted server with and without the <code>pfbadhost</code> rules in place.
 I definitely did this on my first go. 😊
-However, I figured that probably wasn&#8217;t the best idea and so devised a safer test.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+However, I figured that probably wasn&#8217;t the best idea and so devised a safer test.</p></aside>
 <p>Make sure that the server is reachable before adding it to the blacklist.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">ping -c 3 8.8.8.8</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ping -c 3 8.8.8.8</span></code></pre></div>
 <p>There should be zero percent packet loss if everything went well, like in the following output.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">PING 8.8.8.8 (8.8.8.8): 56 data bytes
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">PING 8.8.8.8 (8.8.8.8): 56 data bytes
 64 bytes from 8.8.8.8: icmp_seq=0 ttl=52 time=9.906 ms
 64 bytes from 8.8.8.8: icmp_seq=1 ttl=52 time=9.736 ms
 64 bytes from 8.8.8.8: icmp_seq=2 ttl=52 time=10.039 ms
 
 --- 8.8.8.8 ping statistics ---
 3 packets transmitted, 3 packets received, 0.0% packet loss
-round-trip min/avg/max/std-dev = 9.736/9.894/10.039/0.124 ms</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+round-trip min/avg/max/std-dev = 9.736/9.894/10.039/0.124 ms</span></code></pre></div>
 <p>If the packets don&#8217;t reach the server successfully, you&#8217;ll have to troubleshoot.
 A PF rule could be blocking outgoing traffic to the server.
 Hopefully the server your testing against isn&#8217;t already on the blacklist.</p>
-</div>
-<div class="paragraph">
 <p>Now, add the server`s IP address to the blacklist.</p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/pf-badhost.txt</div>
-<div class="content">
+<figure class="listing-block"><figcaption>/etc/pf-badhost.txt</figcaption>
 <pre class="rouge highlight"><code># User Defined Rules:
-8.8.8.8</code></pre>
-</div>
-</div>
-<div class="paragraph">
+8.8.8.8</code></pre></figure>
 <p>Update the table by reloading PF.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">pfctl -f /etc/pf.conf</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">pfctl -f /etc/pf.conf</span></code></pre></div>
 <p>Now, verify that the server is no longer reachable.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">ping -c 50 8.8.8.8</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ping -c 50 8.8.8.8</span></code></pre></div>
 <p>This should take a minute and not have any successful pings.
 Your output should match the following, accounting for the IP address you selected.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
 
 --- 8.8.8.8 ping statistics ---
-50 packets transmitted, 0 received, 100% packet loss, time 50168ms</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+50 packets transmitted, 0 received, 100% packet loss, time 50168ms</span></code></pre></div>
 <p>This means <code>pf-badhost</code> is successfully blocking traffic outbound to this blacklisted IP address.
-Remember to remove <code>8.8.8.8</code> from the list and reload the PF ruleset once again.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_inbound">Inbound</h3>
-<div class="paragraph">
-<p>Verifying the inbound traffic is not as straightforward.
+Remember to remove <code>8.8.8.8</code> from the list and reload the PF ruleset once again.</p></section>
+<section class="doc-section level-2"><h3 id="_inbound">Inbound</h3><p>Verifying the inbound traffic is not as straightforward.
 My AWS server allows me to test the ability of pf-badhost to block incoming traffic from blacklisted IP addresses.
 The IP address <code>1.2.3.4</code> represents the server.</p>
-</div>
-<div class="paragraph">
 <p>First, ensure you can ping the server before it is blacklisted.
 I had to add a temporary rule to my PF configuration to allow the server to ping the router.</p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/pf.conf</div>
-<div class="content">
-<pre class="rouge highlight"><code>pass in on egress from 1.2.3.4 to any <i class="conum" data-value="1"></i><b>(1)</b>
+<figure class="listing-block"><figcaption>/etc/pf.conf</figcaption>
+<pre class="rouge highlight"><code>pass in on egress from 1.2.3.4 to any <b class="conum">1</b>
 
 # pf-badhost configuration
 table &lt;pfbadhost&gt; persist file “/etc/pf-badhost.txt”
 block in quick on egress from &lt;pfbadhost&gt;
-block out quick on egress to &lt;pfbadhost&gt;</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Allow traffic to the router from the server.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+block out quick on egress to &lt;pfbadhost&gt;</code></pre><ol class="callout-list arabic"><li>Allow traffic to the router from the server.</li></ol></figure>
+
 <p>To account for the new rule, reload the PF ruleset.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">pfctl -f /etc/pf.conf</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">pfctl -f /etc/pf.conf</span></code></pre></div>
 <p>The IP address <code>2.2.2.2</code> will represent the router&#8217;s gateway address.
 From the server, ping the router.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">ping -c 3 2.2.2.2</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ping -c 3 2.2.2.2</span></code></pre></div>
 <p>It should be able to ping the server, assuming the server is not one of the blacklisted IPs or impeded by a firewall rule.
 Successful output should look like the following.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">PING 2.2.2.2 (2.2.2.2): 56 data bytes
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">PING 2.2.2.2 (2.2.2.2): 56 data bytes
 64 bytes from 2.2.2.2: icmp_seq=0 ttl=52 time=9.906 ms
 64 bytes from 2.2.2.2: icmp_seq=1 ttl=52 time=9.736 ms
 64 bytes from 2.2.2.2: icmp_seq=2 ttl=52 time=10.039 ms
 
 --- 2.2.2.2 ping statistics ---
 3 packets transmitted, 3 packets received, 0.0% packet loss
-round-trip min/avg/max/std-dev = 9.736/9.894/10.039/0.124 ms</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+round-trip min/avg/max/std-dev = 9.736/9.894/10.039/0.124 ms</span></code></pre></div>
 <p>Now, Add the IP address of the server to <code>/etc/pf-badhost.txt</code></p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/pf-badhost.txt</div>
-<div class="content">
+<figure class="listing-block"><figcaption>/etc/pf-badhost.txt</figcaption>
 <pre class="rouge highlight"><code># User Defined Rules:
-1.2.3.4</code></pre>
-</div>
-</div>
-<div class="paragraph">
+1.2.3.4</code></pre></figure>
 <p>Update the table by reloading PF.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">pfctl -f /etc/pf.conf</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">pfctl -f /etc/pf.conf</span></code></pre></div>
 <p>From the server, ping the router again.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">ping -c 50 2.2.2.2</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ping -c 50 2.2.2.2</span></code></pre></div>
 <p>The packets should all be dropped, printing the output below.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">PING 2.2.2.2 (2.2.2.2) 56(84) bytes of data.
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">PING 2.2.2.2 (2.2.2.2) 56(84) bytes of data.
 
 --- 2.2.2.2 ping statistics ---
-50 packets transmitted, 0 received, 100% packet loss, time 50168ms</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+50 packets transmitted, 0 received, 100% packet loss, time 50168ms</span></code></pre></div>
 <p>To clean up, remove the server&#8217;s IP from the blacklist and reload PF.
-If applicable, remember to delete the temporary rule in <code>/etc/pf.conf</code> if you added it.</p>
-</div>
-</div>
-</div>
-</div>
+If applicable, remember to delete the temporary rule in <code>/etc/pf.conf</code> if you added it.</p></section></section>
 
 
         
@@ -734,7 +488,7 @@ If applicable, remember to delete the temporary rule in <code>/etc/pf.conf</code
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           &nbsp;&bull;&nbsp;[<a href="11fc006d644107dbe7cc4932d47b798b1e3adf0f">11fc006d</a>]
         </p>
       </div>

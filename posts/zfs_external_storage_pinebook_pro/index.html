@@ -9,7 +9,7 @@
 
   <title>External Storage on the Pinebook Pro with ZFS - JWillikers</title>
   <meta name="description" content="The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&#8217;re just dying to use ZFS on that, right?
-   Tutorial Following the previous post, Install ZFS on the Pinebook Pro, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.">
+ TutorialFollowing the previous post, Install ZFS on the Pinebook Pro, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -58,9 +58,9 @@
     "name" : "Jordan Williams"
   },
   "headline": "External Storage on the Pinebook Pro with ZFS",
-  "description" : "The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn\u0026#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you\u0026#8217;re just dying to use ZFS on that, right?\n   Tutorial Following the previous post, Install ZFS on the Pinebook Pro, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.",
+  "description" : "The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn\u0026#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you\u0026#8217;re just dying to use ZFS on that, right?\n TutorialFollowing the previous post, Install ZFS on the Pinebook Pro, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.",
   "inLanguage" : "en",
-  "wordCount":  731 ,
+  "wordCount":  707 ,
   "datePublished" : "2020-07-03T00:00:00",
   "dateModified" : "2020-07-03T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -81,7 +81,7 @@
 
 <meta property="og:title" content="External Storage on the Pinebook Pro with ZFS" />
 <meta property="og:description" content="The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&#8217;re just dying to use ZFS on that, right?
-   Tutorial Following the previous post, Install ZFS on the Pinebook Pro, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.">
+ TutorialFollowing the previous post, Install ZFS on the Pinebook Pro, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.">
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
 <meta property="og:url" content="https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/" />
 <meta property="og:type" content="website" />
@@ -91,7 +91,7 @@
   <meta name="twitter:description" content="The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.73.0" />
+  <meta name="generator" content="Hugo 0.74.1" />
   <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -251,37 +251,14 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>The <a href="https://www.pine64.org/pinebook-pro/">Pinebook Pro</a> comes with a small amount of internal disk space, only 64 GB.
+        <section id="preamble" aria-label="Preamble"><p>The <a href="https://www.pine64.org/pinebook-pro/">Pinebook Pro</a> comes with a small amount of internal disk space, only 64 GB.
 While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections.
 The easiest solution is to use a microSD card.
-And now you&#8217;re just dying to use ZFS on that, right?</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tutorial">Tutorial</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Following the previous post, <a href="../install_zfs_pinebook_pro/">Install ZFS on the Pinebook Pro</a>, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.</p>
-</div>
-<div class="sect2">
-<h3 id="_create_the_pool">Create the Pool</h3>
-<div class="paragraph">
-<p>The microSD card will need to be provisioned as its own pool using ZFS.
+And now you&#8217;re just dying to use ZFS on that, right?</p></section>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>Following the previous post, <a href="../install_zfs_pinebook_pro/">Install ZFS on the Pinebook Pro</a>, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.</p>
+<section class="doc-section level-2"><h3 id="_create_the_pool">Create the Pool</h3><p>The microSD card will need to be provisioned as its own pool using ZFS.
 Adding the disk to a pool places it under the control of ZFS, providing all of the necessary ZFS capabilities.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>First, determine which device is the microSD card.</p>
-<div class="openblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>fdisk <span class="nt">-l</span>
+<div class="olist arabic"><ol class="arabic"><li><p>First, determine which device is the microSD card.</p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>fdisk <span class="nt">-l</span>
 <span class="go">Disk /dev/mmcblk2: 58.25 GiB, 62537072640 bytes, 122142720 sectors
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 512 bytes
@@ -303,244 +280,33 @@ Disk identifier: 0x00000000
 
 Device         Boot Start       End   Sectors   Size Id Type
 /dev/mmcblk1p1      65536 500170751 500105216 238.5G  7 HPFS/NTFS/exFAT
-</span><span class="c">...</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In this case, <code>/dev/mmcblk1</code> is the 256GB microSD card.</p>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>Next, determine the disk id to use when creating the zpool.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-lh</span> /dev/disk/by-id/ | <span class="nb">grep</span> <span class="nt">-w</span> mmcblk1
-<span class="gp">lrwxrwxrwx 1 root root 13 Jun 24 07:33 mmc-AB5CD_0x00000001 -&gt;</span><span class="w"> </span>../../mmcblk1</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Then, check the block size.</p>
-<div class="openblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>blockdev <span class="nt">--getpbsz</span> /dev/mmcblk1
-<span class="go">512</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The SD card&#8217;s block size is 512 MiB, which means <code>ashift</code> should be set to 12.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>Create the pool.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool create <span class="se">\</span>
+</span><span class="c">...</span></code></pre></div>
+<p>In this case, <code>/dev/mmcblk1</code> is the 256GB microSD card.</p></div></div></li><li><p>Next, determine the disk id to use when creating the zpool.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-lh</span> /dev/disk/by-id/ | <span class="nb">grep</span> <span class="nt">-w</span> mmcblk1
+<span class="gp">lrwxrwxrwx 1 root root 13 Jun 24 07:33 mmc-AB5CD_0x00000001 -&gt;</span><span class="w"> </span>../../mmcblk1</code></pre></div></li><li><p>Then, check the block size.</p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>blockdev <span class="nt">--getpbsz</span> /dev/mmcblk1
+<span class="go">512</span></code></pre></div>
+<p>The SD card&#8217;s block size is 512 MiB, which means <code>ashift</code> should be set to 12.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></p></div></div></li><li><p>Create the pool.<a class="footnote-ref" id="_footnoteref_3" href="#_footnote_3" title="View footnote 3" role="doc-noteref">[3]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool create <span class="se">\</span>
   <span class="nt">-o</span> <span class="nv">ashift</span><span class="o">=</span>12 <span class="se">\</span>
-  <span class="nt">-O</span> <span class="nv">compression</span><span class="o">=</span>on <span class="se">\ </span><i class="conum" data-value="1"></i><b>(1)</b>
-<span class="go">  ext_pool mmc-AB5CD_0x00000001</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Turn on compression by default.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Configure the system to automatically import the pool on boot.<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">set </span><span class="nv">cachefile</span><span class="o">=</span>/etc/zfs/zpool.cache ext_pool</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_create_the_dataset">Create the Dataset</h3>
-<div class="paragraph">
-<p>With the microSD card now managed by ZFS, it is now possible to create the ZFS dataset for storing your music.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create the ZFS dataset for your tunes.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs create <span class="se">\</span>
-  <span class="nt">-o</span> <span class="nv">recordsize</span><span class="o">=</span>1M <span class="se">\ </span><i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="nt">-O</span> <span class="nv">compression</span><span class="o">=</span>on <span class="se">\ </span><b class="conum">1</b>
+<span class="go">  ext_pool mmc-AB5CD_0x00000001</span></code></pre><ol class="callout-list arabic"><li>Turn on compression by default.</li></ol></div>
+</li><li><p>Configure the system to automatically import the pool on boot.<a class="footnote-ref" id="_footnoteref_4" href="#_footnote_4" title="View footnote 4" role="doc-noteref">[4]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">set </span><span class="nv">cachefile</span><span class="o">=</span>/etc/zfs/zpool.cache ext_pool</code></pre></div></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_create_the_dataset">Create the Dataset</h3><p>With the microSD card now managed by ZFS, it is now possible to create the ZFS dataset for storing your music.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Create the ZFS dataset for your tunes.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs create <span class="se">\</span>
+  <span class="nt">-o</span> <span class="nv">recordsize</span><span class="o">=</span>1M <span class="se">\ </span><b class="conum">1</b>
 <span class="go">  -o mountpoint=/home/jordan/Music \
-  ext_pool/music</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>A nifty trick here is to use a larger <code>recordsize</code> of 1 MiB which more accurately reflects the filesystem operations for large media files.<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup></td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Set the appropriate ownership for the mounted <code>~/Music</code> directory.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown</span> <span class="nt">-R</span> jordan:jordan /home/jordan/Music</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_copy">Copy</h3>
-<div class="paragraph">
-<p>Now, just copy the music files from wherever they happen to be to the dataset.
+  ext_pool/music</span></code></pre><ol class="callout-list arabic"><li>A nifty trick here is to use a larger <code>recordsize</code> of 1 MiB which more accurately reflects the filesystem operations for large media files.<a class="footnote-ref" id="_footnoteref_5" href="#_footnote_5" title="View footnote 5" role="doc-noteref">[5]</a></li></ol></div>
+</li><li><p>Set the appropriate ownership for the mounted <code>~/Music</code> directory.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown</span> <span class="nt">-R</span> jordan:jordan /home/jordan/Music</code></pre></div></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_copy">Copy</h3><p>Now, just copy the music files from wherever they happen to be to the dataset.
 The simplest way is to copy the files over the network.
 Since the pool is on an SD card, you might just want to pop it out and carry it between machines, so I describe that here.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Export the pool from the Pinebook Pro.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">export </span>ext_pool</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Pop-out the microSD card and pop it into the machine with all of the music.</p>
-</li>
-<li>
-<p>Import the pool.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool import ext_pool
-<span class="go">cannot mount '/home/jordan/Music': directory is not empty</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Change where the music dataset is mounted.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>I keep my music in <code>~/Music</code>, so I have to mount the dataset somewhere else.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs <span class="nb">set </span><span class="nv">mountpoint</span><span class="o">=</span>/media/jordan/Music ext_pool/music</code></pre>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>Mount the dataset to the updated location.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs mount ext_pool/music</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Set the appropriate ownership for the mounted directory.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown </span>jordan:jordan /media/jordan/Music</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Copy over the music.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">tar </span>cfC - /home/jordan/Music <span class="nb">.</span> | <span class="nb">tar </span>xpfC - /media/jordan/Music</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Then change the mount location back to <code>~/Music</code>.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs <span class="nb">set </span><span class="nv">mountpoint</span><span class="o">=</span>/home/jordan/Music ext_pool/music
+<div class="olist arabic"><ol class="arabic"><li><p>Export the pool from the Pinebook Pro.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">export </span>ext_pool</code></pre></div></li><li>Pop-out the microSD card and pop it into the machine with all of the music.</li><li><p>Import the pool.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool import ext_pool
+<span class="go">cannot mount '/home/jordan/Music': directory is not empty</span></code></pre></div></li><li><p>Change where the music dataset is mounted.</p><div class="open-block"><div class="content"><p>I keep my music in <code>~/Music</code>, so I have to mount the dataset somewhere else.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs <span class="nb">set </span><span class="nv">mountpoint</span><span class="o">=</span>/media/jordan/Music ext_pool/music</code></pre></div></div></div></li><li><p>Mount the dataset to the updated location.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs mount ext_pool/music</code></pre></div></li><li><p>Set the appropriate ownership for the mounted directory.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown </span>jordan:jordan /media/jordan/Music</code></pre></div></li><li><p>Copy over the music.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">tar </span>cfC - /home/jordan/Music <span class="nb">.</span> | <span class="nb">tar </span>xpfC - /media/jordan/Music</code></pre></div></li><li><p>Then change the mount location back to <code>~/Music</code>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs <span class="nb">set </span><span class="nv">mountpoint</span><span class="o">=</span>/home/jordan/Music ext_pool/music
 <span class="go">cannot mount '/home/jordan/Music': directory is not empty
-property may be set but unable to remount filesystem</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Export the pool from the machine.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">export </span>ext_pool</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Now place the SD card back into the Pinebook Pro, and import the pool again.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool import ext_pool</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_verify">Verify</h3>
-<div class="paragraph">
-<p>If everything is successful, your music should now be available in <code>~/Music</code>.</p>
-</div>
-<div class="paragraph">
+property may be set but unable to remount filesystem</span></code></pre></div></li><li><p>Export the pool from the machine.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">export </span>ext_pool</code></pre></div></li><li><p>Now place the SD card back into the Pinebook Pro, and import the pool again.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool import ext_pool</code></pre></div></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_verify">Verify</h3><p>If everything is successful, your music should now be available in <code>~/Music</code>.</p>
 <p>You should also check that the pool and music dataset are automatically mounted at boot.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>reboot</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_enjoy">Enjoy</h3>
-<div class="paragraph">
-<p>You can now enjoy your vast music collection from the comfort of your Pinebook Pro.</p>
-</div>
-</div>
-</div>
-</div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Identify_disks">Arch Linux Wiki: Identify Disks</a>
-</div>
-<div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Advanced_Format_disks">Arch Linux Wiki: ZFS - Advanced Format Disks</a>
-</div>
-<div class="footnote" id="_footnotedef_3">
-<a href="#_footnoteref_3">3</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Creating_ZFS_pools">Arch Linux Wiki: ZFS - Creating ZFS Pools</a>
-</div>
-<div class="footnote" id="_footnotedef_4">
-<a href="#_footnoteref_4">4</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Automatic_Start">Arch Linux Wiki: ZFS - Automatic Start</a>
-</div>
-<div class="footnote" id="_footnotedef_5">
-<a href="#_footnoteref_5">5</a>. <a href="https://jrs-s.net/2019/04/03/on-zfs-recordsize/">JRS Systems: About ZFS recordsize</a>
-</div>
-</div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>reboot</code></pre></div></section>
+<section class="doc-section level-2"><h3 id="_enjoy">Enjoy</h3><p>You can now enjoy your vast music collection from the comfort of your Pinebook Pro.</p></section></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://wiki.archlinux.org/index.php/ZFS#Identify_disks">Arch Linux Wiki: Identify Disks</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://wiki.archlinux.org/index.php/ZFS#Advanced_Format_disks">Arch Linux Wiki: ZFS - Advanced Format Disks</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_3" role="doc-endnote"><a href="https://wiki.archlinux.org/index.php/ZFS#Creating_ZFS_pools">Arch Linux Wiki: ZFS - Creating ZFS Pools</a> <a class="footnote-backref" href="#_footnoteref_3" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_4" role="doc-endnote"><a href="https://wiki.archlinux.org/index.php/ZFS#Automatic_Start">Arch Linux Wiki: ZFS - Automatic Start</a> <a class="footnote-backref" href="#_footnoteref_4" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_5" role="doc-endnote"><a href="https://jrs-s.net/2019/04/03/on-zfs-recordsize/">JRS Systems: About ZFS recordsize</a> <a class="footnote-backref" href="#_footnoteref_5" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
 
 
         
@@ -643,7 +409,7 @@ property may be set but unable to remount filesystem</span></code></pre>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           &nbsp;&bull;&nbsp;[<a href="4d28fee38734f58cda66bed0409d18977da9f867">4d28fee3</a>]
         </p>
       </div>

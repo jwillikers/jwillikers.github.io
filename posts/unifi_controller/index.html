@@ -9,7 +9,8 @@
 
   <title>UniFi Controller - JWillikers</title>
   <meta name="description" content="For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
-   Tutorial An existing Docker image makes setting up the UniFi Controller a breeze. Here&#8217;s how.">
+ TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&#8217;s how.
+Install DockerInstall Docker Compose.">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -58,9 +59,9 @@
     "name" : "Jordan Williams"
   },
   "headline": "UniFi Controller",
-  "description" : "For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don\u0026#8217;t have a smartphone or need to manage more than one device, you\u0026#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.\n   Tutorial An existing Docker image makes setting up the UniFi Controller a breeze. Here\u0026#8217;s how.",
+  "description" : "For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don\u0026#8217;t have a smartphone or need to manage more than one device, you\u0026#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.\n TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here\u0026#8217;s how.\nInstall DockerInstall Docker Compose.",
   "inLanguage" : "en",
-  "wordCount":  211 ,
+  "wordCount":  208 ,
   "datePublished" : "2020-05-30T00:00:00",
   "dateModified" : "2020-05-30T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -81,7 +82,8 @@
 
 <meta property="og:title" content="UniFi Controller" />
 <meta property="og:description" content="For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
-   Tutorial An existing Docker image makes setting up the UniFi Controller a breeze. Here&#8217;s how.">
+ TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&#8217;s how.
+Install DockerInstall Docker Compose.">
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
 <meta property="og:url" content="https://jwillikers.com/posts/unifi_controller/" />
 <meta property="og:type" content="website" />
@@ -91,7 +93,7 @@
   <meta name="twitter:description" content="For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.73.0" />
+  <meta name="generator" content="Hugo 0.74.1" />
   <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -251,67 +253,23 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>For wi-fi, I use use a <a href="https://www.ui.com/unifi/unifi-ap/">UniFi AP</a>.
+        <section id="preamble" aria-label="Preamble"><p>For wi-fi, I use use a <a href="https://www.ui.com/unifi/unifi-ap/">UniFi AP</a>.
 One slightly annoying aspect of this the <a href="https://www.ui.com/download/unifi/unifi-ap">UniFi Controller</a>. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up.
-I provide a brief tutorial for setting up the UniFi Controller with <a href="https://docs.docker.com/compose/">Docker Compose</a> here.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tutorial">Tutorial</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>An existing <a href="https://hub.docker.com/r/linuxserver/unifi-controller">Docker image</a> makes setting up the UniFi Controller a breeze.
+I provide a brief tutorial for setting up the UniFi Controller with <a href="https://docs.docker.com/compose/">Docker Compose</a> here.</p></section>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>An existing <a href="https://hub.docker.com/r/linuxserver/unifi-controller">Docker image</a> makes setting up the UniFi Controller a breeze.
 Here&#8217;s how.</p>
-</div>
-<div class="sect2">
-<h3 id="_install_docker">Install Docker</h3>
-<div class="paragraph">
-<p>Install Docker Compose.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>docker-compose</code></pre>
-</div>
-</div>
-<div class="paragraph">
+<section class="doc-section level-2"><h3 id="_install_docker">Install Docker</h3><p>Install Docker Compose.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>docker-compose</code></pre></div>
 <p>Add your user to the <code>docker</code> group if you want to run docker without requiring superuser privileges.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>usermod <span class="nt">-aG</span> docker <span class="nv">$USER</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>usermod <span class="nt">-aG</span> docker <span class="nv">$USER</span></code></pre></div>
 <p>Reboot to complete the installation.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>reboot</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_compose">Compose</h3>
-<div class="paragraph">
-<p>With Docker installed, create a directory for the <code>docker-compose</code> file.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir </span>unifi_controller
-<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>unifi_controller</code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>reboot</code></pre></div></section>
+<section class="doc-section level-2"><h3 id="_compose">Compose</h3><p>With Docker installed, create a directory for the <code>docker-compose</code> file.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir </span>unifi_controller
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>unifi_controller</code></pre></div>
 <p>The provided <code>docker-compose</code> file requires just one tweak.
 The volume must be configured.</p>
-</div>
-<div class="listingblock">
-<div class="title">docker-compose.yml</div>
-<div class="content">
+<figure class="listing-block"><figcaption>docker-compose.yml</figcaption>
 <pre>---
 version: "2.1"
 services:
@@ -336,32 +294,13 @@ services:
     restart: unless-stopped
 
 volumes:
-  data:</pre>
-</div>
-</div>
-<div class="paragraph">
+  data:</pre></figure>
 <p>The <code>docker-compose</code> should be pretty self-explanatory.
 It really just forwards the necessary ports from the Docker container to the host machine.</p>
-</div>
-<div class="paragraph">
 <p>Once configured, run the container.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker-compose up <span class="nt">-d</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker-compose up <span class="nt">-d</span></code></pre></div>
 <p>Then, just open the UniFi Controller&#8217;s web UI.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>xdg-open http://127.0.0.1:8443</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>xdg-open http://127.0.0.1:8443</code></pre></div></section></section>
 
 
         
@@ -474,7 +413,7 @@ It really just forwards the necessary ports from the Docker container to the hos
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           &nbsp;&bull;&nbsp;[<a href="11fc006d644107dbe7cc4932d47b798b1e3adf0f">11fc006d</a>]
         </p>
       </div>

@@ -59,7 +59,7 @@
   "headline": "OpenSMTPD Relay on Ubuntu",
   "description" : "It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn\u0026#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.",
   "inLanguage" : "en",
-  "wordCount":  662 ,
+  "wordCount":  650 ,
   "datePublished" : "2020-05-24T00:00:00",
   "dateModified" : "2020-05-24T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -89,7 +89,7 @@
   <meta name="twitter:description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.73.0" />
+  <meta name="generator" content="Hugo 0.74.1" />
   <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -249,95 +249,37 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>It can be handy to have your system email you if it detects an issue or potential security risk.
+        <section id="preamble" aria-label="Preamble"><p>It can be handy to have your system email you if it detects an issue or potential security risk.
 Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from your desktop computer.
 Sending an email directly from your desktop to your email account is likely going to accomplish nothing.
 The email will likely be blocked since, to your email provider, it is from an unknown source.
 I ran into this problem recently trying to set up <a href="https://www.smartmontools.org/">SmartMonTools</a> to send an email when it detected hard drive errors.
 The <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">Simple Mail Transfer Protocal (SMTP)</a> is perfect for getting around this by <strong>relaying</strong> the email through your account from an established email provider.</p>
-</div>
-<div class="paragraph">
 <p>In my instance, I wanted to relay the alert through my GMail account, which has nice support for SMTP.
 Using an Ubuntu desktop computer, I figured this would be a breeze.
 It wasn&#8217;t.
 It turned out to be much harder than I anticipated because many guides demonstrate SMTP relay using antiquated applications, such as <a href="https://wiki.archlinux.org/index.php/SSMTP">SSMTP</a>.
-Being an <a href="https://www.openbsd.org/">OpenBSD</a> fanboy, I with the modern <a href="https://github.com/OpenSMTPD/OpenSMTPD">OpenSMTPD</a> application.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_instructions">Instructions</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This brief guide will walk you through relaying emails on Ubuntu 20.04 with OpenSMTPD 6.6.4.</p>
-</div>
-<div class="sect2">
-<h3 id="_install">Install</h3>
-<div class="paragraph">
-<p>First, install OpenSMTPD on Ubuntu.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>opensmtpd</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This will probably ask you a couple of questions from an ncurses interface, but it should be fairly self explanatory.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+Being an <a href="https://www.openbsd.org/">OpenBSD</a> fanboy, I with the modern <a href="https://github.com/OpenSMTPD/OpenSMTPD">OpenSMTPD</a> application.</p></section>
+<section class="doc-section level-1"><h2 id="_instructions">Instructions</h2><p>This brief guide will walk you through relaying emails on Ubuntu 20.04 with OpenSMTPD 6.6.4.</p>
+<section class="doc-section level-2"><h3 id="_install">Install</h3><p>First, install OpenSMTPD on Ubuntu.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>opensmtpd</code></pre></div>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>This will probably ask you a couple of questions from an ncurses interface, but it should be fairly self explanatory.</p></aside>
 <p>Additionally, you will likely want to install the <code>mailutils</code> package to provide the standard system mail commands.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>mailutils</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The <code>mailutils</code> package is required for the verification step at the end of this tutorial.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_configure">Configure</h3>
-<div class="paragraph">
-<p>Grab your email account&#8217;s password.
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>mailutils</code></pre></div>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>The <code>mailutils</code> package is required for the verification step at the end of this tutorial.</p></aside></section>
+<section class="doc-section level-2"><h3 id="_configure">Configure</h3><p>Grab your email account&#8217;s password.
 For my use case, I was using a GMail account which required two-factor authentication.
 Because of this, I had to use an <em>App Password</em> instead of my regular password.
 For any GMail users in a similar situation, instructions on how to generate an <em>App Password</em> can be found <a href="https://support.google.com/accounts/answer/185833?hl=en">here</a>.</p>
-</div>
-<div class="paragraph">
 <p>The default configuration file only requires a couple of minor tweaks.
 The gist of the configuration is to relay all mail originating from the local machine to a GMail account.</p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/smtpd.conf</div>
-<div class="content">
+<figure class="listing-block"><figcaption>/etc/smtpd.conf</figcaption>
 <pre>#	$OpenBSD: smtpd.conf,v 1.10 2018/05/24 11:40:17 gilles Exp $
 
 # This is the smtpd server system-wide configuration file.
 # See smtpd.conf(5) for more information.
 
-table secrets file:/etc/mail/secrets <i class="conum" data-value="1"></i><b>(1)</b>
+table secrets file:/etc/mail/secrets <b class="conum">1</b>
 table aliases file:/etc/aliases
 
 # To accept external mail, replace with: listen on all
@@ -345,122 +287,37 @@ table aliases file:/etc/aliases
 listen on localhost
 
 action "local" maildir alias &lt;aliases&gt;
-action "relay" relay host smtp+tls://jdoe@smtp.gmail.com:587 auth &lt;secrets&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+action "relay" relay host smtp+tls://jdoe@smtp.gmail.com:587 auth &lt;secrets&gt; <b class="conum">2</b>
 
 # Uncomment the following to accept external mail for domain "example.org"
 #
 # match from any for domain "example.org" action "local"
 match for local action "local"
-match from local for any action "relay"</pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Use the content of the file <code>/etc/mail/secrets</code>, shown below, for the <code>secrets</code> table.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The rule to forward all mail to GMail&#8217;s SMTP server using TLS.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+match from local for any action "relay"</pre><ol class="callout-list arabic"><li>Use the content of the file <code>/etc/mail/secrets</code>, shown below, for the <code>secrets</code> table.</li><li>The rule to forward all mail to GMail&#8217;s SMTP server using TLS.</li></ol></figure>
+
 <p>Your account credentials must be associated with a label in the <code>/etc/mail/secrets</code> file.</p>
-</div>
-<div class="paragraph">
 <p>Create the <code>secrets</code> file.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir</span> /etc/mail
-<span class="gp">$</span><span class="w"> </span><span class="nb">touch</span> /etc/mail/secrets</code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir</span> /etc/mail
+<span class="gp">$</span><span class="w"> </span><span class="nb">touch</span> /etc/mail/secrets</code></pre></div>
 <p>Now, make sure the file&#8217;s permissions are tight before putting your plain-text password inside.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">chmod </span>640 /etc/mail/secrets <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="gp">$</span><span class="w"> </span><span class="nb">chown </span>root:opensmtpd /etc/mail/secrets <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Permit read and write access for the file&#8217;s owner and read access for the file&#8217;s group.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Set the file&#8217;s ownership such that it belongs to the <code>root</code> user and <code>opensmtpd</code> group.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">chmod </span>640 /etc/mail/secrets <b class="conum">1</b>
+<span class="gp">$</span><span class="w"> </span><span class="nb">chown </span>root:opensmtpd /etc/mail/secrets <b class="conum">2</b></code></pre><ol class="callout-list arabic"><li>Permit read and write access for the file&#8217;s owner and read access for the file&#8217;s group.</li><li>Set the file&#8217;s ownership such that it belongs to the <code>root</code> user and <code>opensmtpd</code> group.</li></ol></div>
+
 <p>The following example illustrates the file format.</p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/mail/secrets</div>
-<div class="content">
-<pre>jdoe jdoe@gmail.com:my_app_password <i class="conum" data-value="1"></i><b>(1)</b></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Use the label <code>jdoe</code> to represent the account <code>jdoe</code> at <code>gmail.com</code> which has the passphrase <code>my_app_password</code>.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+<figure class="listing-block"><figcaption>/etc/mail/secrets</figcaption>
+<pre>jdoe jdoe@gmail.com:my_app_password <b class="conum">1</b></pre><ol class="callout-list arabic"><li>Use the label <code>jdoe</code> to represent the account <code>jdoe</code> at <code>gmail.com</code> which has the passphrase <code>my_app_password</code>.</li></ol></figure>
+
 <p>Check that the OpenSMTPD configuration file is valid.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smtpd <span class="nt">-n</span>
-<span class="go">configuration OK</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smtpd <span class="nt">-n</span>
+<span class="go">configuration OK</span></code></pre></div>
 <p>Restart OpenSMTPD to make sure the configuration changes take effect.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl restart opensmtpd</code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl restart opensmtpd</code></pre></div>
 <p>Enable OpenSMTPD on system startup, if desired.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl <span class="nb">enable </span>opensmtpd</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_verify">Verify</h3>
-<div class="paragraph">
-<p>To test the configuration, you can send an email from your computer and check if the email appears in the receiving account.</p>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl <span class="nb">enable </span>opensmtpd</code></pre></div></section>
+<section class="doc-section level-2"><h3 id="_verify">Verify</h3><p>To test the configuration, you can send an email from your computer and check if the email appears in the receiving account.</p>
 <p>Send a test email using the <code>mail</code> command from the <code>mailutils</code> package.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="bash"">$ echo "Does it work?" | mail -s "OpenSMTPD Test Email" test@example.com</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If everything works, you should receive an email at the designated address.</p>
-</div>
-</div>
-</div>
-</div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="bash"">$ echo "Does it work?" | mail -s "OpenSMTPD Test Email" test@example.com</code></pre></div>
+<p>If everything works, you should receive an email at the designated address.</p></section></section>
 
 
         
@@ -575,7 +432,7 @@ match from local for any action "relay"</pre>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           &nbsp;&bull;&nbsp;[<a href="11fc006d644107dbe7cc4932d47b798b1e3adf0f">11fc006d</a>]
         </p>
       </div>

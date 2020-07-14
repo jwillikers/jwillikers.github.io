@@ -18,8 +18,8 @@
       
       <guid>https://jwillikers.com/posts/backup_docker_data/</guid>
       <description>Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
-   Tutorial My recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
- Backup  Creating backups is done by producing an archive of the important files on the host filesystem from the container&amp;#8217;s data volume.</description>
+ TutorialMy recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
+BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container&amp;#8217;s data volume.</description>
     </item>
     
     <item>
@@ -29,7 +29,8 @@
       
       <guid>https://jwillikers.com/posts/unifi_controller/</guid>
       <description>For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this the UniFi Controller. If you don&amp;#8217;t have a smartphone or need to manage more than one device, you&amp;#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
-   Tutorial An existing Docker image makes setting up the UniFi Controller a breeze. Here&amp;#8217;s how.</description>
+ TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&amp;#8217;s how.
+Install DockerInstall Docker Compose.</description>
     </item>
     
   </channel>

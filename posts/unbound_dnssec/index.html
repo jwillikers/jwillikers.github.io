@@ -9,9 +9,10 @@
 
   <title>DNSSEC with Unbound - JWillikers</title>
   <meta name="description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
-   Unbound Configuration Use the ftp command to download the Root Hints.
- ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root   Download the trust anchor file with the unbound-anchor utility.
- unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.">
+ Unbound ConfigurationUse the ftp command to download the Root Hints.
+ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
+unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
+/var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -60,9 +61,9 @@
     "name" : "Jordan Williams"
   },
   "headline": "DNSSEC with Unbound",
-  "description" : "Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.\n   Unbound Configuration Use the ftp command to download the Root Hints.\n ftp -o \/var\/unbound\/etc\/root.hints https:\/\/www.internic.net\/domain\/named.root   Download the trust anchor file with the unbound-anchor utility.\n unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.",
+  "description" : "Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.\n Unbound ConfigurationUse the ftp command to download the Root Hints.\nftp -o \/var\/unbound\/etc\/root.hints https:\/\/www.internic.net\/domain\/named.root Download the trust anchor file with the unbound-anchor utility.\nunbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.\n\/var\/unbound\/etc\/unbound.conf # Uncomment to enable DNSSEC validation.",
   "inLanguage" : "en",
-  "wordCount":  334 ,
+  "wordCount":  328 ,
   "datePublished" : "2020-03-28T00:00:00",
   "dateModified" : "2020-03-28T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -83,9 +84,10 @@
 
 <meta property="og:title" content="DNSSEC with Unbound" />
 <meta property="og:description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
-   Unbound Configuration Use the ftp command to download the Root Hints.
- ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root   Download the trust anchor file with the unbound-anchor utility.
- unbound-anchor   Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.">
+ Unbound ConfigurationUse the ftp command to download the Root Hints.
+ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
+unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
+/var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.">
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
 <meta property="og:url" content="https://jwillikers.com/posts/unbound_dnssec/" />
 <meta property="og:type" content="website" />
@@ -93,10 +95,11 @@
 
   <meta name="twitter:title" content="DNSSEC with Unbound" />
   <meta name="twitter:description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
-   Unbound Configuration Use the ftp command to download the Root Hints. …">
+ Unbound ConfigurationUse the ftp command to download the Root Hints.
+ftp …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.73.0" />
+  <meta name="generator" content="Hugo 0.74.1" />
   <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -256,118 +259,45 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Ever want to enable <a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions">DNSSEC</a> on your <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound</a> OpenBSD 6.6 server?
+        <section id="preamble" aria-label="Preamble"><p>Ever want to enable <a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions">DNSSEC</a> on your <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound</a> OpenBSD 6.6 server?
 Me too!
-Using this <a href="http://www.lonecpluspluscoder.com/2020/01/16/building-an-openbsd-wireguard-vpn-server-part-2-unbound-dns-setup/">article</a> as a guide, I document the process.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_unbound_configuration">Unbound Configuration</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Use the <a href="https://man.openbsd.org/ftp.1">ftp</a> command to download the <a href="https://wiki.archlinux.org/index.php/unbound#Root_hints">Root Hints</a>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+Using this <a href="http://www.lonecpluspluscoder.com/2020/01/16/building-an-openbsd-wireguard-vpn-server-part-2-unbound-dns-setup/">article</a> as a guide, I document the process.</p></section>
+<section class="doc-section level-1"><h2 id="_unbound_configuration">Unbound Configuration</h2><p>Use the <a href="https://man.openbsd.org/ftp.1">ftp</a> command to download the <a href="https://wiki.archlinux.org/index.php/unbound#Root_hints">Root Hints</a>.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root</span></code></pre></div>
 <p>Download the trust anchor file with the <a href="https://man.openbsd.org/unbound-anchor">unbound-anchor</a> utility.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">unbound-anchor</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">unbound-anchor</span></code></pre></div>
 <p>Configure <a href="https://man.openbsd.org/unbound.conf">unbound.conf</a>.
 Add the location of the <code>root.hints</code> file and uncomment the lines with the keys <code>auto-trust-anchor-file</code> and <code>val-log-level</code>.</p>
-</div>
-<div class="listingblock">
-<div class="title">/var/unbound/etc/unbound.conf</div>
-<div class="content">
+<figure class="listing-block"><figcaption>/var/unbound/etc/unbound.conf</figcaption>
 <pre class="rouge highlight"><code># Uncomment to enable DNSSEC validation.
 #
-root-hints: "/var/unbound/etc/root.hints" <i class="conum" data-value="1"></i><b>(1)</b>
+root-hints: "/var/unbound/etc/root.hints" <b class="conum">1</b>
 auto-trust-anchor-file: "/var/unbound/db/root.key"
-val-log-level: 2</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>This line was added, not uncommented&#8230;&#8203; to be fair.</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Make sure the upstream resolvers support DNSSEC.
+val-log-level: 2</code></pre><ol class="callout-list arabic"><li>This line was added, not uncommented&#8230;&#8203; to be fair.</li></ol></figure>
+
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Make sure the upstream resolvers support DNSSEC.
 The <a href="https://dnscrypt.info/public-servers">list provided by DNSCrypt</a> has some good options.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code># Use an upstream forwarder (recursive resolver) for some or all zones.
+<div class="listing-block"><pre class="rouge highlight"><code># Use an upstream forwarder (recursive resolver) for some or all zones.
 #
 forward-zone:
 	name: "." # use for ALL queries
 	forward-addr: 176.103.130.132 # adguard-dns-family
-	forward-addr: 185.228.168.10 # cleanbrowsing-adult</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+	forward-addr: 185.228.168.10 # cleanbrowsing-adult</code></pre></div></aside>
 <p>Verify the configuration of unbound.conf which <a href="http://man.openbsd.org/unbound-checkconf.8">unbound-checkconf</a>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">unbound-checkconf</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">unbound-checkconf</span></code></pre></div>
 <p>Finally, restart Unbound.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl restart unbound</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl restart unbound</span></code></pre></div>
 <p>Verify that DNSSEC is working with the <a href="https://man.openbsd.org/OpenBSD-6.6/dig">dig</a> command from a computer using your unbound server.
 This website, <code>jwillikers.com</code>, has DNSSEC enabled and so makes for a good address to test.
 Cloudflare provides a nice write-up about using dig to verify DNSSEC <a href="https://support.cloudflare.com/hc/en-us/articles/360021111972-Troubleshooting-DNSSEC#TroubleshootingDNSSEC-DNSSECinPracticewithDig">here</a>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">dig jwillikers.com +dnssec</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">dig jwillikers.com +dnssec</span></code></pre></div>
 <p>The example below contains the appropriate response with DNSSEC enabled.
 Look for the <code>ad</code> flag and the <code>RRSIG</code> entry.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code>; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1ubuntu2.1-Ubuntu &lt;&lt;&gt;&gt; jwillikers.com +dnssec
+<div class="listing-block"><pre class="rouge highlight"><code>; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1ubuntu2.1-Ubuntu &lt;&lt;&gt;&gt; jwillikers.com +dnssec
 ;; global options: +cmd
 ;; Got answer:
 ;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 46922
-;; flags: qr rd ra ad; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1 <i class="conum" data-value="1"></i><b>(1)</b>
+;; flags: qr rd ra ad; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1 <b class="conum">1</b>
 
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags: do; udp: 4096
@@ -377,28 +307,13 @@ Look for the <code>ad</code> flag and the <code>RRSIG</code> entry.</p>
 ;; ANSWER SECTION:
 jwillikers.com.		300	IN	A	104.28.26.241
 jwillikers.com.		300	IN	A	104.28.27.241
-jwillikers.com.		300	IN	RRSIG	A 13 2 300 20200329192309 20200327172309 34505 jwillikers.com. DcQzhWhlVflaeqCkZn92X6jRMJvtFySr7wN1AzGaJVk7/b4JbS/lqqZB ZepEA6FP3bHz8g5H6zduVKKv/D8Tqg== <i class="conum" data-value="2"></i><b>(2)</b>
+jwillikers.com.		300	IN	RRSIG	A 13 2 300 20200329192309 20200327172309 34505 jwillikers.com. DcQzhWhlVflaeqCkZn92X6jRMJvtFySr7wN1AzGaJVk7/b4JbS/lqqZB ZepEA6FP3bHz8g5H6zduVKKv/D8Tqg== <b class="conum">2</b>
 
 ;; Query time: 35 msec
 ;; SERVER: 192.168.6.1#53(192.168.6.1)
 ;; WHEN: Sat Mar 28 13:23:09 CDT 2020
-;; MSG SIZE  rcvd: 185</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The <code>ad</code> flag is present in the list of flags.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The <code>RRSIG</code> entry.</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
+;; MSG SIZE  rcvd: 185</code></pre><ol class="callout-list arabic"><li>The <code>ad</code> flag is present in the list of flags.</li><li>The <code>RRSIG</code> entry.</li></ol></div>
+</section>
 
 
         
@@ -509,7 +424,7 @@ jwillikers.com.		300	IN	RRSIG	A 13 2 300 20200329192309 20200327172309 34505 jwi
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           &nbsp;&bull;&nbsp;[<a href="11fc006d644107dbe7cc4932d47b798b1e3adf0f">11fc006d</a>]
         </p>
       </div>

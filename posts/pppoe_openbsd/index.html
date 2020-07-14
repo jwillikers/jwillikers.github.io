@@ -9,8 +9,8 @@
 
   <title>PPPoE on OpenBSD - JWillikers</title>
   <meta name="description" content="Some ISP&#8217;s establish connections with their customers&#39; networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
-   DNS Servers If necessary, configure your system to use your preferred DNS nameservers.
-     A common way of connecting to your ISP&#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937.">
+ DNS ServersIf necessary, configure your system to use your preferred DNS nameservers.
+Tip: A common way of connecting to your ISP&#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937. To my knowledge, this capability is absent from the PPPoE Specification.">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -59,9 +59,9 @@
     "name" : "Jordan Williams"
   },
   "headline": "PPPoE on OpenBSD",
-  "description" : "Some ISP\u0026#8217;s establish connections with their customers\u0027 networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.\n   DNS Servers If necessary, configure your system to use your preferred DNS nameservers.\n     A common way of connecting to your ISP\u0026#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937.",
+  "description" : "Some ISP\u0026#8217;s establish connections with their customers\u0027 networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.\n DNS ServersIf necessary, configure your system to use your preferred DNS nameservers.\nTip: A common way of connecting to your ISP\u0026#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937. To my knowledge, this capability is absent from the PPPoE Specification.",
   "inLanguage" : "en",
-  "wordCount":  350 ,
+  "wordCount":  342 ,
   "datePublished" : "2020-03-12T00:00:00",
   "dateModified" : "2020-03-12T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -82,8 +82,8 @@
 
 <meta property="og:title" content="PPPoE on OpenBSD" />
 <meta property="og:description" content="Some ISP&#8217;s establish connections with their customers&#39; networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
-   DNS Servers If necessary, configure your system to use your preferred DNS nameservers.
-     A common way of connecting to your ISP&#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937.">
+ DNS ServersIf necessary, configure your system to use your preferred DNS nameservers.
+Tip: A common way of connecting to your ISP&#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937. To my knowledge, this capability is absent from the PPPoE Specification.">
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
 <meta property="og:url" content="https://jwillikers.com/posts/pppoe_openbsd/" />
 <meta property="og:type" content="website" />
@@ -91,10 +91,10 @@
 
   <meta name="twitter:title" content="PPPoE on OpenBSD" />
   <meta name="twitter:description" content="Some ISP&#8217;s establish connections with their customers&#39; networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
-   DNS Servers If necessary, …">
+ DNS ServersIf necessary, configure …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.73.0" />
+  <meta name="generator" content="Hugo 0.74.1" />
   <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -254,137 +254,43 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Some ISP&#8217;s establish connections with their customers' networks through PPPoE.
+        <section id="preamble" aria-label="Preamble"><p>Some ISP&#8217;s establish connections with their customers' networks through PPPoE.
 I recently setup an OpenBSD 6.6 router which required PPPoE.
-This is my story.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_dns_servers">DNS Servers</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If necessary, configure your system to use your preferred DNS nameservers.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>A common way of connecting to your ISP&#8217;s network is through <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">DHCP</a>.
+This is my story.</p></section>
+<section class="doc-section level-1"><h2 id="_dns_servers">DNS Servers</h2><p>If necessary, configure your system to use your preferred DNS nameservers.</p>
+<aside class="admonition-block tip" role="doc-tip"><h6 class="block-title label-only"><span class="title-label">Tip: </span></h6><p>A common way of connecting to your ISP&#8217;s network is through <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">DHCP</a>.
 DHCP is capable of providing your system with DNS nameservers according to <a href="https://tools.ietf.org/html/rfc2132#section-3.8">RFC 2132</a> and <a href="https://tools.ietf.org/html/rfc2937">RFC 2937</a>.
 To my knowledge, this capability is absent from the <a href="https://tools.ietf.org/html/rfc2516">PPPoE Specification</a>.
-If you are switching from DHCP to PPPoE, be mindful that you may need to set your nameservers if you have not explicitly done so.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+If you are switching from DHCP to PPPoE, be mindful that you may need to set your nameservers if you have not explicitly done so.</p></aside>
 <p>The place to do this is <a href="https://man.openbsd.org/resolv.conf.5">resolv.conf</a>.
 My system uses a couple of nameservers from the <a href="https://dnscrypt.info/public-servers">list provided by DNSCrypt</a>.
 The <a href="https://developers.google.com/speed/public-dns">Google nameservers</a> are also quite popular.</p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/resolv.conf</div>
-<div class="content">
-<pre class="rouge highlight"><code>nameserver 176.103.130.132 <i class="conum" data-value="1"></i><b>(1)</b>
-nameserver 185.228.168.10 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>adguard-dns-family</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>cleanbrowsing-adult</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_pppoe_configuration">PPPoE Configuration</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The configuration is fairly straightforward.
+<figure class="listing-block"><figcaption>/etc/resolv.conf</figcaption>
+<pre class="rouge highlight"><code>nameserver 176.103.130.132 <b class="conum">1</b>
+nameserver 185.228.168.10 <b class="conum">2</b></code></pre><ol class="callout-list arabic"><li>adguard-dns-family</li><li>cleanbrowsing-adult</li></ol></figure>
+</section>
+<section class="doc-section level-1"><h2 id="_pppoe_configuration">PPPoE Configuration</h2><p>The configuration is fairly straightforward.
 I use a <a href="https://man.openbsd.org/OpenBSD-6.6/hostname.if">hostname.if</a> file to initialize the PPPoE interface when the system boots.
 This example is very similar to the jumbo frames example provided in the <a href="https://man.openbsd.org/OpenBSD-6.6/pppoe#MTU/MSS_ISSUES">PPPOE(4)</a> manpage.
 Because this is a router, it requires more than the basic setup. PPPoE has an overhead and the incoming LAN connections will not be aware of this.
 My modifications to the example are as follows.
 First, <code>chap</code> replaces <code>pap</code> as the authentication protocol.
 Second, only IPv4 options are present since my ISP doesn&#8217;t support IPv6.</p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/hostname.pppoe0</div>
-<div class="content">
-<pre class="rouge highlight"><code>inet 0.0.0.0 255.255.255.255 NONE mtu 1500 \ <i class="conum" data-value="1"></i><b>(1)</b>
-	pppoedev em0 authproto chap \ <i class="conum" data-value="2"></i><b>(2)</b>
+<figure class="listing-block"><figcaption>/etc/hostname.pppoe0</figcaption>
+<pre class="rouge highlight"><code>inet 0.0.0.0 255.255.255.255 NONE mtu 1500 \ <b class="conum">1</b>
+	pppoedev em0 authproto chap \ <b class="conum">2</b>
 	authname 'username' authkey 'password' up
 dest 0.0.0.1
-!/sbin/route add default -ifp pppoe0 0.0.0.1</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set the IP to <code>0.0.0.0</code>, a wildcard representing whatever IP the PPPoE connection provides, and adjust the frame size.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td><code>em0</code> is the ethernet interface for the router&#8217;s WAN port.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+!/sbin/route add default -ifp pppoe0 0.0.0.1</code></pre><ol class="callout-list arabic"><li>Set the IP to <code>0.0.0.0</code>, a wildcard representing whatever IP the PPPoE connection provides, and adjust the frame size.</li><li><code>em0</code> is the ethernet interface for the router&#8217;s WAN port.</li></ol></figure>
+
 <p>The physical <code>em0</code> interface must be up.</p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/hostname.em0</div>
-<div class="content">
-<pre class="rouge highlight"><code>up mtu 1508</code></pre>
-</div>
-</div>
-<div class="paragraph">
+<figure class="listing-block"><figcaption>/etc/hostname.em0</figcaption>
+<pre class="rouge highlight"><code>up mtu 1508</code></pre></figure>
 <p>Start up the <code>em0</code> and <code>pppoe0</code> interfaces.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">sh /etc/netstart em0 pppoe0</span></code></pre>
-</div>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The <code>/etc/netstart</code> script was not able to successfully establish a PPPoE connection when I changed my configuration from <code>pap</code> to <code>chap</code>.
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">sh /etc/netstart em0 pppoe0</span></code></pre></div>
+<section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>The <code>/etc/netstart</code> script was not able to successfully establish a PPPoE connection when I changed my configuration from <code>pap</code> to <code>chap</code>.
 I had to reboot my system after changing the configuration file for the connection to succeed.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="go">reboot</span></code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">reboot</span></code></pre></div></section></section>
 
 
         
@@ -487,7 +393,7 @@ I had to reboot my system after changing the configuration file for the connecti
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           &nbsp;&bull;&nbsp;[<a href="11fc006d644107dbe7cc4932d47b798b1e3adf0f">11fc006d</a>]
         </p>
       </div>

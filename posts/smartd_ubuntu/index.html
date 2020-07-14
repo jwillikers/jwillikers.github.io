@@ -59,7 +59,7 @@
   "headline": "Automatically Detect \u0026 Report Hard Drive Failure",
   "description" : "I recently fixed my mother-in-law\u0026#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law\u0026#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It\u0026#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.",
   "inLanguage" : "en",
-  "wordCount":  1136 ,
+  "wordCount":  1105 ,
   "datePublished" : "2020-05-25T00:00:00",
   "dateModified" : "2020-05-25T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -89,7 +89,7 @@
   <meta name="twitter:description" content="I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.73.0" />
+  <meta name="generator" content="Hugo 0.74.1" />
   <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -249,143 +249,47 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>I recently fixed my mother-in-law&#8217;s laptop.
+        <section id="preamble" aria-label="Preamble"><p>I recently fixed my mother-in-law&#8217;s laptop.
 Long story short, the hard disk was toast.
 When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future.
 So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility?
 <a href="https://www.smartmontools.org/">SmartMonTools</a> appears to be the best tool for the job.
 It&#8217;s a tool for monitoring and reporting hard disk health with <a href="https://en.wikipedia.org/wiki/S.M.A.R.T">Self-Monitoring, Anlysis, and Reporting Technology (SMART)</a> which is built into most hard drives.
-SmartMonTools is even cross-platform and available in package repositories everywhere.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tutorial">Tutorial</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This tutorial describes the steps required to setup automated hard disk health checks and email notifications using SmartMonTools 7.1 on Ubuntu 20.04.
+SmartMonTools is even cross-platform and available in package repositories everywhere.</p></section>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial describes the steps required to setup automated hard disk health checks and email notifications using SmartMonTools 7.1 on Ubuntu 20.04.
 If you&#8217;re configuring a desktop like me or otherwise configuring a system which doesn&#8217;t have a <a href="https://en.wikipedia.org/wiki/Message_transfer_agent">MTA (Mail Transport Agent)</a> or <a href="https://en.wikipedia.org/wiki/Email_client">MUA (Mail User Agent)</a> setup already and wish to send emails externally, I recommend following my tutorial on setting up an <a href="../opensmtpd_ubuntu/">OpenSMTPD Relay on Ubuntu</a>.
 Emails sent straight from a willy-nilly desktop user account to an online email provider are unlikely to be accepted.
 With <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a>, your system can relay emails through your online email provider to remedy this.</p>
-</div>
-<div class="sect2">
-<h3 id="_install">Install</h3>
-<div class="paragraph">
-<p>First, install SmartMonTools on Ubuntu.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>smartmontools</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_configure">Configure</h3>
-<div class="paragraph">
-<p>The tool to monitor your system is, of course, <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/smartd.8.html">smartd</a>.
+<section class="doc-section level-2"><h3 id="_install">Install</h3><p>First, install SmartMonTools on Ubuntu.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>smartmontools</code></pre></div></section>
+<section class="doc-section level-2"><h3 id="_configure">Configure</h3><p>The tool to monitor your system is, of course, <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/smartd.8.html">smartd</a>.
 Configuration is done in <code>/etc/smartd.conf</code>.
 Consult the <a href="https://manpages.ubuntu.com/manpages/focal/en/man5/smartd.conf.5.html">smartd.conf manpage</a> for more details.
 The <code>smartd.conf</code> below provides a complete configuration example.
 It checks the <a href="https://en.wikipedia.org/wiki/Serial_ATA">SATA</a> disk <code>/dev/sda</code> for various types of failures, schedules regular self-tests, reports any errors via email, and avoids consuming excessive energy by frequently waking the disk.</p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/smartd.conf</div>
-<div class="content">
-<pre>/dev/sda \ <i class="conum" data-value="1"></i><b>(1)</b>
-    -d sat \ <i class="conum" data-value="2"></i><b>(2)</b>
-    -o on \ <i class="conum" data-value="3"></i><b>(3)</b>
-    -S on \ <i class="conum" data-value="4"></i><b>(4)</b>
-    -H \ <i class="conum" data-value="5"></i><b>(5)</b>
-    -l error \ <i class="conum" data-value="6"></i><b>(6)</b>
-    -l selftest \ <i class="conum" data-value="7"></i><b>(7)</b>
-    -f \ <i class="conum" data-value="8"></i><b>(8)</b>
-    -n standby,15,q \ <i class="conum" data-value="9"></i><b>(9)</b>
-    -s (L/../(01|16)/./03|S/../.././01|O/../.././(00|06|12|18)) \ <i class="conum" data-value="10"></i><b>(10)</b>
-    -m jdoe@gmail.com \ <i class="conum" data-value="11"></i><b>(11)</b>
-    -M exec /usr/share/smartmontools/smartd-runner <i class="conum" data-value="12"></i><b>(12)</b></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Run for the device <code>/dev/sda</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Specify that the device uses a <a href="https://en.wikipedia.org/wiki/SCSI_/_ATA_Translation">SCSI to ATA Translation</a> interface.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Enable <a href="https://www.smartmontools.org/wiki/test_offline">SMART Automatic Offline Testing</a>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Automatically save SMART attributes.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Check the health status of the disk for failing health status.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>Report if there are any new SMART errors.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>Report if there are any new SMART errors for any self-tests.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="8"></i><b>8</b></td>
-<td>Check for failure of any Usage Attributes.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="9"></i><b>9</b></td>
-<td>Check the device unless it is in <code>SLEEP</code> or <code>STANDBY</code> mode.
+<figure class="listing-block"><figcaption>/etc/smartd.conf</figcaption>
+<pre>/dev/sda \ <b class="conum">1</b>
+    -d sat \ <b class="conum">2</b>
+    -o on \ <b class="conum">3</b>
+    -S on \ <b class="conum">4</b>
+    -H \ <b class="conum">5</b>
+    -l error \ <b class="conum">6</b>
+    -l selftest \ <b class="conum">7</b>
+    -f \ <b class="conum">8</b>
+    -n standby,15,q \ <b class="conum">9</b>
+    -s (L/../(01|16)/./03|S/../.././01|O/../.././(00|06|12|18)) \ <b class="conum">10</b>
+    -m jdoe@gmail.com \ <b class="conum">11</b>
+    -M exec /usr/share/smartmontools/smartd-runner <b class="conum">12</b></pre><ol class="callout-list arabic"><li>Run for the device <code>/dev/sda</code>.</li><li>Specify that the device uses a <a href="https://en.wikipedia.org/wiki/SCSI_/_ATA_Translation">SCSI to ATA Translation</a> interface.</li><li>Enable <a href="https://www.smartmontools.org/wiki/test_offline">SMART Automatic Offline Testing</a>.</li><li>Automatically save SMART attributes.</li><li>Check the health status of the disk for failing health status.</li><li>Report if there are any new SMART errors.</li><li>Report if there are any new SMART errors for any self-tests.</li><li>Check for failure of any Usage Attributes.</li><li>Check the device unless it is in <code>SLEEP</code> or <code>STANDBY</code> mode.
 Wake it up after 15 skipped checks.
-Don&#8217;t log the skipped test, which could wake-up the disk.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="10"></i><b>10</b></td>
-<td>Schedule long self-tests for the first and sixteenth days of the month at 3 AM, short self-tests daily at 1 AM, and Offline Immediate Tests four times each day at midnight, 6 AM, noon, and 6 PM.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="11"></i><b>11</b></td>
-<td>Email <code>jdoe@gmail.com</code> if any errors are detected.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="12"></i><b>12</b></td>
-<td>Execute <code>/usr/share/smartmontools/smartd-runner</code> instead of the default mail command when sending emails.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+Don&#8217;t log the skipped test, which could wake-up the disk.</li><li>Schedule long self-tests for the first and sixteenth days of the month at 3 AM, short self-tests daily at 1 AM, and Offline Immediate Tests four times each day at midnight, 6 AM, noon, and 6 PM.</li><li>Email <code>jdoe@gmail.com</code> if any errors are detected.</li><li>Execute <code>/usr/share/smartmontools/smartd-runner</code> instead of the default mail command when sending emails.</li></ol></figure>
+
 <p>Enable <code>smartd</code> on system startup.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl <span class="nb">enable </span>smartd</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_verify">Verify</h3>
-<div class="paragraph">
-<p>You will probably want to double check the scheduling and emailing behavior, at the very least.</p>
-</div>
-<div class="sect3">
-<h4 id="_scheduling">Scheduling</h4>
-<div class="paragraph">
-<p>Audit the self-test schedule with <code>smartd -q showtests</code>.
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl <span class="nb">enable </span>smartd</code></pre></div></section>
+<section class="doc-section level-2"><h3 id="_verify">Verify</h3><p>You will probably want to double check the scheduling and emailing behavior, at the very least.</p>
+<section class="doc-section level-3"><h4 id="_scheduling">Scheduling</h4><p>Audit the self-test schedule with <code>smartd -q showtests</code>.
 This will show the next five tests scheduled for each type of self-test.
 It also shows the total number of tests for each type of self-test for the next ninety days.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smartd <span class="nt">-q</span> showtests
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smartd <span class="nt">-q</span> showtests
 <span class="go">smartd 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-31-generic] (local build)
 Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
 
@@ -422,35 +326,20 @@ Totals [Mon May 25 10:25:20 2020 CDT - Sun Aug 23 10:25:20 2020 CDT]:
 Device: /dev/sda, will do   6 tests of type L
 Device: /dev/sda, will do  90 tests of type S
 Device: /dev/sda, will do   0 tests of type C
-Device: /dev/sda, will do 360 tests of type O</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
+Device: /dev/sda, will do 360 tests of type O</span></code></pre></div>
 <p>Further verification can be done to make sure self-tests are running at the scheduled times.
 After an amount of time where <code>smartd</code> is expected to run some self-tests, check the self-test log with <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/smartctl.8.html">smartctl</a>.
 The log shows that one short offline test has been run without error.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smartctl <span class="nt">-d</span> sat <span class="nt">-l</span> xselftest,25,selftest /dev/sda
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smartctl <span class="nt">-d</span> sat <span class="nt">-l</span> xselftest,25,selftest /dev/sda
 <span class="go">smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-31-generic] (local build)
 Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
 
 === START OF READ SMART DATA SECTION ===
 SMART Extended Self-test Log Version: 1 (1 sectors)
 Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
-</span><span class="gp">#</span><span class="w"> </span>1  Short offline       Completed without error       00%       460         -</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_email_alerts">Email Alerts</h4>
-<div class="paragraph">
-<p>To test the email functionality, you can tell <code>smartd</code> to send a test email.</p>
-</div>
-<div class="listingblock">
-<div class="title">/etc/smartd.conf</div>
-<div class="content">
+</span><span class="gp">#</span><span class="w"> </span>1  Short offline       Completed without error       00%       460         -</code></pre></div></section>
+<section class="doc-section level-3"><h4 id="_email_alerts">Email Alerts</h4><p>To test the email functionality, you can tell <code>smartd</code> to send a test email.</p>
+<figure class="listing-block"><figcaption>/etc/smartd.conf</figcaption>
 <pre>/dev/sda \
     -d sat \
     -o on \
@@ -462,45 +351,13 @@ Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA
     -n standby,15,q \
     -s (L/../(01|16)/./03|S/../.././01|O/../.././(00|06|12|18)) \
     -m jdoe@gmail.com \
-    -M test \ <i class="conum" data-value="1"></i><b>(1)</b>
-    -M exec /usr/share/smartmontools/smartd-runner</pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Send a test email when <code>smartd</code> starts.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+    -M test \ <b class="conum">1</b>
+    -M exec /usr/share/smartmontools/smartd-runner</pre><ol class="callout-list arabic"><li>Send a test email when <code>smartd</code> starts.</li></ol></figure>
+
 <p>Restart <code>smartd</code> so that it sends the test email.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl restart smartd</code></pre>
-</div>
-</div>
-<div class="paragraph">
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl restart smartd</code></pre></div>
 <p>If everything works, you should receive an email at the designated address.</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Make sure to remove the <code>-M test</code> directive from the file so you don&#8217;t spam yourself.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
+<section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Make sure to remove the <code>-M test</code> directive from the file so you don&#8217;t spam yourself.</p></section></section></section></section>
 
 
         
@@ -615,7 +472,7 @@ Make sure to remove the <code>-M test</code> directive from the file so you don&
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           &nbsp;&bull;&nbsp;[<a href="cd4b34a03b02c6ee376aec43c8e2965a982dd111">cd4b34a0</a>]
         </p>
       </div>

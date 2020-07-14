@@ -9,8 +9,8 @@
 
   <title>Backup Docker Data - JWillikers</title>
   <meta name="description" content="Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
-   Tutorial My recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
- Backup  Creating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.">
+ TutorialMy recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
+BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -59,9 +59,9 @@
     "name" : "Jordan Williams"
   },
   "headline": "Backup Docker Data",
-  "description" : "Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.\n   Tutorial My recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.\n Backup  Creating backups is done by producing an archive of the important files on the host filesystem from the container\u0026#8217;s data volume.",
+  "description" : "Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.\n TutorialMy recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.\nBackupCreating backups is done by producing an archive of the important files on the host filesystem from the container\u0026#8217;s data volume.",
   "inLanguage" : "en",
-  "wordCount":  464 ,
+  "wordCount":  435 ,
   "datePublished" : "2020-07-02T00:00:00",
   "dateModified" : "2020-07-02T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -82,8 +82,8 @@
 
 <meta property="og:title" content="Backup Docker Data" />
 <meta property="og:description" content="Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
-   Tutorial My recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
- Backup  Creating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.">
+ TutorialMy recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
+BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.">
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
 <meta property="og:url" content="https://jwillikers.com/posts/backup_docker_data/" />
 <meta property="og:type" content="website" />
@@ -91,10 +91,10 @@
 
   <meta name="twitter:title" content="Backup Docker Data" />
   <meta name="twitter:description" content="Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
-   Tutorial …">
+ TutorialMy …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.73.0" />
+  <meta name="generator" content="Hugo 0.74.1" />
   <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -254,149 +254,36 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Backups are super helpful, especially when you like to blow everything away fairly often.
-Backing up the data from a Docker container can help you quickly get things up and running again.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tutorial">Tutorial</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>My <a href="../unifi_controller/">recent post</a> detailed how to setup a UniFi Controller in a Docker container.
+        <section id="preamble" aria-label="Preamble"><p>Backups are super helpful, especially when you like to blow everything away fairly often.
+Backing up the data from a Docker container can help you quickly get things up and running again.</p></section>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>My <a href="../unifi_controller/">recent post</a> detailed how to setup a UniFi Controller in a Docker container.
 This tutorial uses that container as an example for creating and restoring backups of data volumes.</p>
-</div>
-<div class="sect2">
-<h3 id="_backup">Backup</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Creating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker run <span class="se">\</span>
-  <span class="nt">--rm</span> <span class="se">\ </span><i class="conum" data-value="1"></i><b>(1)</b>
-<span class="go">  --volumes-from unifi-controller \ <i class="conum" data-value="2"></i><b>(2)</b>
-</span><span class="gp">  -v $</span><span class="o">(</span><span class="nb">pwd</span><span class="o">)</span>:/backup <span class="se">\ </span><i class="conum" data-value="3"></i><b>(3)</b>
-<span class="gp">  ubuntu tar cvWf /backup/unifi-controller_backup_$</span><span class="o">(</span><span class="nb">date</span> +%F<span class="o">)</span>.tar <span class="nt">-C</span> /config unifi-controller <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Remove the container when finished.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Attach the data volumes for the container named <em>unifi-controller</em>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Mount the current directory to <code>/backup</code> in the container.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Using an Ubuntu image, create an archive of the directory <code>/config/unifi-controller</code> in the <code>/backup</code> directory.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Compress the backup.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>xz unifi-controller_backup_2020-07-01.tar</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_restore">Restore</h3>
-<div class="paragraph">
-<p>To restore from a backup, just reverse the backup process.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Decompress the backup.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>unxz unifi-controller_backup_2020-07-01.tar.xz</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Restore the contents of the archive to the data volume.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker run
-<span class="go">  --rm \ <i class="conum" data-value="1"></i><b>(1)</b>
-  --volumes-from unifi-controller \ <i class="conum" data-value="2"></i><b>(2)</b>
-</span><span class="gp">   -v $</span><span class="o">(</span><span class="nb">pwd</span><span class="o">)</span>:/backup <span class="se">\ </span><i class="conum" data-value="3"></i><b>(3)</b>
-<span class="go">   ubuntu tar xvf /backup/unifi-controller_backup_2020-07-01.tar -C / <i class="conum" data-value="4"></i><b>(4)</b>
-</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Remove the container when finished.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Attach the data volumes for the container named <em>unifi-controller</em>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Mount the current directory to <code>/backup</code> in the container.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Using an Ubuntu image, expand the archive in the <code>/</code> directory.</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_verify">Verify</h3>
-<div class="paragraph">
-<p>It&#8217;s always important to test your backups.
+<section class="doc-section level-2"><h3 id="_backup">Backup</h3><div class="olist arabic"><ol class="arabic"><li><p>Creating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker run <span class="se">\</span>
+  <span class="nt">--rm</span> <span class="se">\ </span><b class="conum">1</b>
+<span class="go">  --volumes-from unifi-controller \ <b class="conum">2</b>
+</span><span class="gp">  -v $</span><span class="o">(</span><span class="nb">pwd</span><span class="o">)</span>:/backup <span class="se">\ </span><b class="conum">3</b>
+<span class="gp">  ubuntu tar cvWf /backup/unifi-controller_backup_$</span><span class="o">(</span><span class="nb">date</span> +%F<span class="o">)</span>.tar <span class="nt">-C</span> /config unifi-controller <b class="conum">4</b></code></pre><ol class="callout-list arabic"><li>Remove the container when finished.</li><li>Attach the data volumes for the container named <em>unifi-controller</em>.</li><li>Mount the current directory to <code>/backup</code> in the container.</li><li>Using an Ubuntu image, create an archive of the directory <code>/config/unifi-controller</code> in the <code>/backup</code> directory.</li></ol></div>
+</li><li><p>Compress the backup.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>xz unifi-controller_backup_2020-07-01.tar</code></pre></div></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_restore">Restore</h3><p>To restore from a backup, just reverse the backup process.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Decompress the backup.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>unxz unifi-controller_backup_2020-07-01.tar.xz</code></pre></div></li><li><p>Restore the contents of the archive to the data volume.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker run
+<span class="go">  --rm \ <b class="conum">1</b>
+  --volumes-from unifi-controller \ <b class="conum">2</b>
+</span><span class="gp">   -v $</span><span class="o">(</span><span class="nb">pwd</span><span class="o">)</span>:/backup <span class="se">\ </span><b class="conum">3</b>
+<span class="go">   ubuntu tar xvf /backup/unifi-controller_backup_2020-07-01.tar -C / <b class="conum">4</b>
+</span></code></pre><ol class="callout-list arabic"><li>Remove the container when finished.</li><li>Attach the data volumes for the container named <em>unifi-controller</em>.</li><li>Mount the current directory to <code>/backup</code> in the container.</li><li>Using an Ubuntu image, expand the archive in the <code>/</code> directory.</li></ol></div>
+</li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_verify">Verify</h3><p>It&#8217;s always important to test your backups.
 The simplest way to check the backup is with a fresh instance of the container.
 For the UniFi Controller, this is trivially accomplished.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>First, copy the compose file to another directory and give the container a new name.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir </span>unifi-controller2
+<div class="olist arabic"><ol class="arabic"><li><p>First, copy the compose file to another directory and give the container a new name.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir </span>unifi-controller2
 <span class="gp">$</span><span class="w"> </span><span class="nb">cp </span>unifi-controller/docker-compose.yml unifi-controller2
-<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>unifi-controller2</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Modify the yaml file to match the following.</p>
-<div class="listingblock">
-<div class="title">docker-compose.yml</div>
-<div class="content">
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>unifi-controller2</code></pre></div></li><li><p>Modify the yaml file to match the following.</p><figure class="listing-block"><figcaption>docker-compose.yml</figcaption>
 <pre>---
 version: "2.1"
 services:
   unifi-controller:
     image: linuxserver/unifi-controller
-    container_name: unifi-controller2 <i class="conum" data-value="1"></i><b>(1)</b>
+    container_name: unifi-controller2 <b class="conum">1</b>
     environment:
       - PUID=1000
       - PGID=1000
@@ -415,89 +302,16 @@ services:
     restart: unless-stopped
 
 volumes:
-  data:</pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Name the container <em>unifi-controller2</em>.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Initialize the container.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker-compose up <span class="nt">--no-start</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Decompress the backup.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>unxz unifi-controller_backup_2020-07-01.tar.xz</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Restore the contents of the archive to the new container&#8217;s data volume.</p>
-<div class="openblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker run
+  data:</pre><ol class="callout-list arabic"><li>Name the container <em>unifi-controller2</em>.</li></ol></figure>
+</li><li><p>Initialize the container.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker-compose up <span class="nt">--no-start</span></code></pre></div></li><li><p>Decompress the backup.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>unxz unifi-controller_backup_2020-07-01.tar.xz</code></pre></div></li><li><p>Restore the contents of the archive to the new container&#8217;s data volume.</p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker run
 <span class="go">  --rm \
-  --volumes-from unifi-controller2 \ <i class="conum" data-value="1"></i><b>(1)</b>
+  --volumes-from unifi-controller2 \ <b class="conum">1</b>
 </span><span class="gp">   -v $</span><span class="o">(</span><span class="nb">pwd</span><span class="o">)</span>:/backup <span class="se">\</span>
-   ubuntu <span class="nb">tar </span>xvf /backup/unifi-controller_backup_2020-07-01.tar <span class="nt">-C</span> /</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Attach the data volumes for the new <em>unifi-controller2</em> container.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
+   ubuntu <span class="nb">tar </span>xvf /backup/unifi-controller_backup_2020-07-01.tar <span class="nt">-C</span> /</code></pre><ol class="callout-list arabic"><li>Attach the data volumes for the new <em>unifi-controller2</em> container.</li></ol></div>
+
 <p>That&#8217;s it!
-The data from your original container should now be duplicated in <em>unifi-controller2</em>.</p>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>Now, start <em>unifi-controller2</em>.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker-compose up <span class="nt">-d</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Then, open the UniFi Controller&#8217;s web UI.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>xdg-open http://127.0.0.1:8443</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Login just as you would on the <em>unifi-controller</em> container and verify that your restored controller&#8217;s configuration matches the original.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>You have now learned how to back up and restore the data in a Docker container&#8217;s data volume.</p>
-</div>
-</div>
-</div>
-</div>
+The data from your original container should now be duplicated in <em>unifi-controller2</em>.</p></div></div></li><li><p>Now, start <em>unifi-controller2</em>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>docker-compose up <span class="nt">-d</span></code></pre></div></li><li><p>Then, open the UniFi Controller&#8217;s web UI.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>xdg-open http://127.0.0.1:8443</code></pre></div></li><li>Login just as you would on the <em>unifi-controller</em> container and verify that your restored controller&#8217;s configuration matches the original.</li></ol></div>
+<p>You have now learned how to back up and restore the data in a Docker container&#8217;s data volume.</p></section></section>
 
 
         
@@ -604,8 +418,8 @@ The data from your original container should now be duplicated in <em>unifi-cont
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.73.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          &nbsp;&bull;&nbsp;[<a href="3aec715403d62c46c3f62fd59d687f0823228348">3aec7154</a>]
+          <a href="https://gohugo.io">Hugo v0.74.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          &nbsp;&bull;&nbsp;[<a href="77af414d5506949d8e3b5ae7f6de6aa6da57fa93">77af414d</a>]
         </p>
       </div>
     </div>
