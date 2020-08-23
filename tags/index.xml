@@ -6,7 +6,7 @@
     <description>Recent content in Tags on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>ArchLinux</title>
       <link>https://jwillikers.com/tags/archlinux/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/archlinux/</guid>
       <description></description>
@@ -23,7 +23,7 @@
     <item>
       <title>Linux</title>
       <link>https://jwillikers.com/tags/linux/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/linux/</guid>
       <description></description>
@@ -32,7 +32,7 @@
     <item>
       <title>Manjaro</title>
       <link>https://jwillikers.com/tags/manjaro/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/manjaro/</guid>
       <description></description>
@@ -41,9 +41,18 @@
     <item>
       <title>PinebookPro</title>
       <link>https://jwillikers.com/tags/pinebookpro/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://jwillikers.com/tags/pinebookpro/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>UBoot</title>
+      <link>https://jwillikers.com/tags/uboot/</link>
+      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/tags/uboot/</guid>
       <description></description>
     </item>
     

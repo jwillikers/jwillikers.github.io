@@ -6,10 +6,19 @@
     <description>Recent content in Posts on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Update U-Boot on the Pinebook Pro</title>
+      <link>https://jwillikers.com/posts/update_uboot_pinebook_pro/</link>
+      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/update_uboot_pinebook_pro/</guid>
+      <description>The other day, Elementary announced elementaryOS 6 preview builds for the Pinebook Pro. I went ahead and flashed an SD card with a build image to try it out. Instead of booting to elmentaryOS on the SD card as the system should have, it booted to Manjaro. While a quick restart from Manjaro caused the system to boot from the SD card, I figured it must be time to upgrade the bootloader, U-Boot.</description>
+    </item>
     
     <item>
       <title>External Storage on the Pinebook Pro with ZFS</title>
