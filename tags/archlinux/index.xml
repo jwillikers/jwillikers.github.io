@@ -6,10 +6,20 @@
     <description>Recent content in ArchLinux on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/archlinux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Update U-Boot on the PinePhone</title>
+      <link>https://jwillikers.com/posts/update_uboot_pinephone/</link>
+      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/update_uboot_pinephone/</guid>
+      <description>As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&amp;#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&amp;#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone&amp;#8217;s bootloader from Manjaro running off of a microSD card.</description>
+    </item>
     
     <item>
       <title>Update U-Boot on the Pinebook Pro</title>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>UBoot on JWillikers</title>
-    <link>https://jwillikers.com/tags/uboot/</link>
-    <description>Recent content in UBoot on JWillikers</description>
+    <title>PinePhone on JWillikers</title>
+    <link>https://jwillikers.com/tags/pinephone/</link>
+    <description>Recent content in PinePhone on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 04 Sep 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://jwillikers.com/tags/uboot/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jwillikers.com/tags/pinephone/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       <guid>https://jwillikers.com/posts/update_uboot_pinephone/</guid>
       <description>As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&amp;#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&amp;#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
 TutorialThis tutorial provides instructions for updating the PinePhone&amp;#8217;s bootloader from Manjaro running off of a microSD card.</description>
-    </item>
-    
-    <item>
-      <title>Update U-Boot on the Pinebook Pro</title>
-      <link>https://jwillikers.com/posts/update_uboot_pinebook_pro/</link>
-      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/update_uboot_pinebook_pro/</guid>
-      <description>The other day, Elementary announced elementaryOS 6 preview builds for the Pinebook Pro. I went ahead and flashed an SD card with a build image to try it out. Instead of booting to elmentaryOS on the SD card as the system should have, it booted to Manjaro. While a quick restart from Manjaro caused the system to boot from the SD card, I figured it must be time to upgrade the bootloader, U-Boot.</description>
     </item>
     
   </channel>

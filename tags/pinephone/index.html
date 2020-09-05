@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Posts - JWillikers</title>
+  <title>PinePhone - JWillikers</title>
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -29,13 +29,13 @@
 }
 </script>
 
-<meta property="og:title" content="Posts" />
+<meta property="og:title" content="PinePhone" />
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
-<meta property="og:url" content="https://jwillikers.com/posts/" />
+<meta property="og:url" content="https://jwillikers.com/tags/pinephone/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="JWillikers" />
 
-  <meta name="twitter:title" content="Posts" />
+  <meta name="twitter:title" content="PinePhone" />
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
   <meta name="generator" content="Hugo 0.74.3" />
@@ -176,9 +176,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="posts-heading">
+            <div class="tags-heading">
               
-                <h1>Posts</h1>
+                <h1>PinePhone</h1>
               
               
                 <hr class="small">
@@ -201,8 +201,8 @@
         <div class="posts-list">
           
             <article class="post-preview">
-    <a href="https://jwillikers.com/posts/pf_badhost/">
-        <h2 class="post-title">PF Badhost</h2>
+    <a href="https://jwillikers.com/posts/update_uboot_pinephone/">
+        <h2 class="post-title">Update U-Boot on the PinePhone</h2>
         
         
         
@@ -212,9 +212,7 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 4, 2020
-  
-    &nbsp;(Last modified on July 14, 2020)
+  <i class="fas fa-calendar"></i>&nbsp;Posted on September 4, 2020
   
   
   
@@ -230,207 +228,24 @@
     </p>
     <div class="post-entry">
         
-        Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
-ConfigureDownload the pf-badhost.sh script.
-ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
-install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1 The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.
-        <a href="https://jwillikers.com/posts/pf_badhost/" class="post-read-more">[Read More]</a>
+        As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&#8217;s why I opted for running Manjaro ARM's alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone&#8217;s bootloader from Manjaro running off of a microSD card.
+        <a href="https://jwillikers.com/posts/update_uboot_pinephone/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
+        <a href="https://jwillikers.com//tags/archlinux/">ArchLinux</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/firewall/">Firewall</a>&nbsp;
+        <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
+        <a href="https://jwillikers.com//tags/manjaro/">Manjaro</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/openbsd6/">OpenBSD6</a>&nbsp;
+        <a href="https://jwillikers.com//tags/pinephone/">PinePhone</a>&nbsp;
         
-        <a href="https://jwillikers.com//tags/openbsd67/">OpenBSD67</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pf/">PF</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pf-badhost/">pf-badhost</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/unbound_dnssec/">
-        <h2 class="post-title">DNSSEC with Unbound</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 28, 2020
-  
-    &nbsp;(Last modified on July 14, 2020)
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
-Unbound ConfigurationUse the ftp command to download the Root Hints.
-ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
-unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
-/var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.
-        <a href="https://jwillikers.com/posts/unbound_dnssec/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dns/">DNS</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dnssec/">DNSSEC</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd6/">OpenBSD6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd66/">OpenBSD66</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unbound/">Unbound</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/unbound_adblock/">
-        <h2 class="post-title">Unbound Adblock</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 28, 2020
-  
-    &nbsp;(Last modified on July 14, 2020)
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Ever want to get rid of all those annoying internet ads? Me too. I&#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers.
-        <a href="https://jwillikers.com/posts/unbound_adblock/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/adblock/">Adblock</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dns/">DNS</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd6/">OpenBSD6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd67/">OpenBSD67</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pihole/">Pihole</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unbound/">Unbound</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unbound-adblock/">unbound-adblock</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/pppoe_openbsd/">
-        <h2 class="post-title">PPPoE on OpenBSD</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 12, 2020
-  
-    &nbsp;(Last modified on July 14, 2020)
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Some ISP&#8217;s establish connections with their customers' networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
-DNS ServersIf necessary, configure your system to use your preferred DNS nameservers.
-Tip: A common way of connecting to your ISP&#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937. To my knowledge, this capability is absent from the PPPoE Specification.
-        <a href="https://jwillikers.com/posts/pppoe_openbsd/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd6/">OpenBSD6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd66/">OpenBSD66</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pppoe/">PPPoE</a>&nbsp;
+        <a href="https://jwillikers.com//tags/uboot/">UBoot</a>&nbsp;
         
     </div>
     
@@ -438,15 +253,6 @@ Tip: A common way of connecting to your ISP&#8217;s network is through DHCP. DHC
 </article>
           
         </div>
-        
-          <ul class="pager main-pager">
-            
-              <li class="previous">
-                <a href="https://jwillikers.com/posts/page/1/">&larr; Newer Posts</a>
-              </li>
-            
-            
-          </ul>
         
       </div>
     </div>
@@ -485,7 +291,7 @@ Tip: A common way of connecting to your ISP&#8217;s network is through DHCP. DHC
               </li>
           
           <li>
-            <a href="/posts/index.xml" title="RSS">
+            <a href="/tags/pinephone/index.xml" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>

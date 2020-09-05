@@ -7,7 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Posts - JWillikers</title>
+  <title>Update U-Boot on the PinePhone - JWillikers</title>
+  <meta name="description" content="As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone&#8217;s bootloader from Manjaro running off of a microSD card.">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -28,14 +30,65 @@
   
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/posts\/update_uboot_pinephone\/",
+          "name": "Update u boot on the pine phone"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jordan Williams"
+  },
+  "headline": "Update U-Boot on the PinePhone",
+  "description" : "As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That\u0026#8217;s why I opted for running Manjaro ARM\u0027s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It\u0026#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.\nTutorialThis tutorial provides instructions for updating the PinePhone\u0026#8217;s bootloader from Manjaro running off of a microSD card.",
+  "inLanguage" : "en",
+  "wordCount":  328 ,
+  "datePublished" : "2020-09-04T00:00:00",
+  "dateModified" : "2020-09-04T00:00:00",
+  "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+  "keywords" : [ "ArchLinux, Linux, Manjaro, PinePhone, UBoot" ],
+  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/update_uboot_pinephone\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jwillikers.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
 
-<meta property="og:title" content="Posts" />
+<meta property="og:title" content="Update U-Boot on the PinePhone" />
+<meta property="og:description" content="As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone&#8217;s bootloader from Manjaro running off of a microSD card.">
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
-<meta property="og:url" content="https://jwillikers.com/posts/" />
+<meta property="og:url" content="https://jwillikers.com/posts/update_uboot_pinephone/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="JWillikers" />
 
-  <meta name="twitter:title" content="Posts" />
+  <meta name="twitter:title" content="Update U-Boot on the PinePhone" />
+  <meta name="twitter:description" content="As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
   <meta name="generator" content="Hugo 0.74.3" />
@@ -178,7 +231,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="posts-heading">
               
-                <h1>Posts</h1>
+                <h1>Update U-Boot on the PinePhone</h1>
               
               
                 <hr class="small">
@@ -194,263 +247,88 @@
 
 
     
-  <div class="container" role="main">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="posts-list">
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/pf_badhost/">
-        <h2 class="post-title">PF Badhost</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on April 4, 2020
-  
-    &nbsp;(Last modified on July 14, 2020)
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
-ConfigureDownload the pf-badhost.sh script.
-ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
-install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1 The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.
-        <a href="https://jwillikers.com/posts/pf_badhost/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/firewall/">Firewall</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd6/">OpenBSD6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd67/">OpenBSD67</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pf/">PF</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pf-badhost/">pf-badhost</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/unbound_dnssec/">
-        <h2 class="post-title">DNSSEC with Unbound</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 28, 2020
-  
-    &nbsp;(Last modified on July 14, 2020)
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>As I big fan of <a href="https://www.gnome.org/">GNOME</a>, I really wanted a similar experience on the <a href="https://www.pine64.org/pinephone/">PinePhone</a>.
+That&#8217;s why I opted for running <a href="https://osdn.net/projects/manjaro-arm/">Manjaro ARM</a>'s alpha for the PinePhone, which comes in a GNOME-like <a href="https://developer.puri.sm/Librem5/Software_Reference/Environments/Phosh.html">Phosh</a> flavor.
+It&#8217;s been running from the SD card great so far, but I thought to update the internal <a href="https://gitlab.manjaro.org/manjaro-arm/packages/core/uboot-pinephone-crust">U-Boot</a> as <a href="../update_uboot_pinebook_pro/">I did on the Pinebook Pro</a>.</p>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial provides instructions for updating the PinePhone&#8217;s bootloader from Manjaro running off of a microSD card.
+This tutorial presumes you are comfortable using the command-line on Linux and the default <a href="https://gitlab.gnome.org/ZanderBrown/kgx">Terminal app</a>.</p>
+<section class="doc-section level-2"><h3 id="_steps">Steps</h3><div class="olist arabic"><ol class="arabic"><li><p>First, ensure the system is up-to-date.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-Syuu</span>
+:: Synchronizing package databases...
+  core is up to <span class="nb">date
+  </span>extra is up to <span class="nb">date
+  </span>community is up to <span class="nb">date</span>
+:: Starting full system upgrade...
+ there is nothing to <span class="k">do</span></code></pre></div></li><li><p>Next, determine which device is the onboard eMMC module.</p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span>lsblk
+NAME         MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+loop0          7:0    0 275.7M  1 loop /var/lib/anbox/rootfs
+mmcblk0      179:0    0 238.5G  0 disk <b class="conum">1</b>
+├─mmcblk0p1  179:1    0 213.6M  0 part /boot
+└─mmcblk0p2  179:2    0 238.3G  0 part /
+mmcblk2      179:32   0  14.7G  0 disk  <b class="conum">2</b>
+├─mmcblk2p1  179:33   0   1.9M  0 part
+├─mmcblk2p2  179:34   0     1M  0 part
+├─mmcblk2p3  179:35   0     8M  0 part
+├─mmcblk2p4  179:36   0    64M  0 part
+├─mmcblk2p5  179:37   0  64.3M  0 part
+├─mmcblk2p6  179:38   0  63.9M  0 part
+├─mmcblk2p7  179:39   0  63.9M  0 part
+├─mmcblk2p8  179:40   0   2.4G  0 part
+├─mmcblk2p9  179:41   0   2.4G  0 part
+└─mmcblk2p10 179:42   0   8.6G  0 part
+mmcblk2boot0 179:64   0     4M  1 disk
+mmcblk2boot1 179:96   0     4M  1 disk</code></pre><ol class="callout-list arabic"><li><code>mmcblk0</code> is the 250 GB SD card running Manjaro.</li><li><code>mmcblk2</code> is the internal 16 GB eMMC module.</li></ol></div>
+</div></div></li></ol></div>
+<section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Flashing to the wrong device could destroy your data.</p></section>
+<div class="olist arabic"><ol class="arabic"><li><p>Flash the <code>bin</code> file to the eMMC.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/boot/u-boot-sunxi-with-spl-pinephone.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk2 <span class="nv">bs</span><span class="o">=</span>8k <span class="nv">seek</span><span class="o">=</span>1
+88+1 records <span class="k">in
+</span>88+1 records out
+725712 bytes <span class="o">(</span>726 kB, 709 KiB<span class="o">)</span> copied, 0.0612089 s, 11.9 MB/s</code></pre></div></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_conclusion">Conclusion</h3><p>That&#8217;s all.
+You should now have the latest U-Boot booting your PinePhone!</p></section></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://gitlab.manjaro.org/manjaro-arm/packages/core/uboot-pinephone-crust">Manjaro ARM Gitlab: uboot-pinephone-crust</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
 
 
-    </p>
-    <div class="post-entry">
         
-        Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
-Unbound ConfigurationUse the ftp command to download the Root Hints.
-ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
-unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
-/var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.
-        <a href="https://jwillikers.com/posts/unbound_dnssec/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dns/">DNS</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dnssec/">DNSSEC</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd6/">OpenBSD6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd66/">OpenBSD66</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unbound/">Unbound</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/unbound_adblock/">
-        <h2 class="post-title">Unbound Adblock</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 28, 2020
-  
-    &nbsp;(Last modified on July 14, 2020)
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Ever want to get rid of all those annoying internet ads? Me too. I&#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers.
-        <a href="https://jwillikers.com/posts/unbound_adblock/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/adblock/">Adblock</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/dns/">DNS</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd6/">OpenBSD6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd67/">OpenBSD67</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pihole/">Pihole</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unbound/">Unbound</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/unbound-adblock/">unbound-adblock</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/pppoe_openbsd/">
-        <h2 class="post-title">PPPoE on OpenBSD</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 12, 2020
-  
-    &nbsp;(Last modified on July 14, 2020)
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        Some ISP&#8217;s establish connections with their customers' networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
-DNS ServersIf necessary, configure your system to use your preferred DNS nameservers.
-Tip: A common way of connecting to your ISP&#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937. To my knowledge, this capability is absent from the PPPoE Specification.
-        <a href="https://jwillikers.com/posts/pppoe_openbsd/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/bsd/">BSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd/">OpenBSD</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd6/">OpenBSD6</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/openbsd66/">OpenBSD66</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/pppoe/">PPPoE</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-        </div>
-        
-          <ul class="pager main-pager">
+          <div class="blog-tags">
             
-              <li class="previous">
-                <a href="https://jwillikers.com/posts/page/1/">&larr; Newer Posts</a>
-              </li>
+              <a href="https://jwillikers.com//tags/archlinux/">ArchLinux</a>&nbsp;
             
+              <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
             
-          </ul>
+              <a href="https://jwillikers.com//tags/manjaro/">Manjaro</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/pinephone/">PinePhone</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/uboot/">UBoot</a>&nbsp;
+            
+          </div>
         
-      </div>
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://jwillikers.com/posts/update_uboot_pinebook_pro/" data-toggle="tooltip" data-placement="top" title="Update U-Boot on the Pinebook Pro">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
     </div>
   </div>
+</div>
 
       
 <footer>
@@ -485,7 +363,7 @@ Tip: A common way of connecting to your ISP&#8217;s network is through DHCP. DHC
               </li>
           
           <li>
-            <a href="/posts/index.xml" title="RSS">
+            <a href="" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
