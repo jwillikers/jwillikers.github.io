@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Virtualize Ubuntu Desktop on macOS with QEMU - JWillikers</title>
+  <meta name="description" content="Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&#8217;s open-source and not controlled by Oracle. I also recommend checking out xhyve, a port of FreeBSDs hypervisor bhyve to macOS, and multipass, a cross-platform application for running Linux VMs.">
+  <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "JWillikers",
+    
+    "url": "https:\/\/jwillikers.com\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/jwillikers.com\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/posts\/virtualize_ubuntu_desktop_on_macos_with_qemu\/",
+          "name": "Virtualize ubuntu desktop on mac o s with q e m u"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jordan Williams"
+  },
+  "headline": "Virtualize Ubuntu Desktop on macOS with QEMU",
+  "description" : "Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I\u0026#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it\u0026#8217;s open-source and not controlled by Oracle. I also recommend checking out xhyve, a port of FreeBSDs hypervisor bhyve to macOS, and multipass, a cross-platform application for running Linux VMs.",
+  "inLanguage" : "en",
+  "wordCount":  654 ,
+  "datePublished" : "2020-09-07T00:00:00",
+  "dateModified" : "2020-09-07T00:00:00",
+  "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+  "keywords" : [ "HomeBrew, Linux, macOS, MacPorts, QEMU, Ubuntu, Ubuntu2004, virtio, Virtualization" ],
+  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/virtualize_ubuntu_desktop_on_macos_with_qemu\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jwillikers.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Virtualize Ubuntu Desktop on macOS with QEMU" />
+<meta property="og:description" content="Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&#8217;s open-source and not controlled by Oracle. I also recommend checking out xhyve, a port of FreeBSDs hypervisor bhyve to macOS, and multipass, a cross-platform application for running Linux VMs.">
+<meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+<meta property="og:url" content="https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="JWillikers" />
+
+  <meta name="twitter:title" content="Virtualize Ubuntu Desktop on macOS with QEMU" />
+  <meta name="twitter:description" content="Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get …">
+  <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.74.3" />
+  <link rel="alternate" href="https://jwillikers.com/index.xml" type="application/rss+xml" title="JWillikers"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jwillikers.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://jwillikers.com/css/syntax.css" /><link rel="stylesheet" href="https://jwillikers.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://jwillikers.com/">JWillikers</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/posts/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Resources" href="/resources/">Resources</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Contact" href="/contact/">Contact</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="JWillikers" href="https://jwillikers.com/">
+            <img class="avatar-img" src="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" alt="JWillikers" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>Virtualize Ubuntu Desktop on macOS with QEMU</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>Recently, I discovered that the Linux hypervisor, <a href="https://www.qemu.org/">QEMU</a>, is available on macOS.
+This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU.
+QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines.
+Additionally, it&#8217;s open-source and <em>not</em> controlled by Oracle.
+I also recommend checking out <a href="https://github.com/machyve/xhyve">xhyve</a>, a port of FreeBSDs hypervisor <a href="https://bhyve.org/">bhyve</a> to macOS, and <a href="https://multipass.run/">multipass</a>, a cross-platform application for running Linux VMs.</p>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This is a quick run-through on how to create and run a virtual Ubuntu 20.04 desktop machine on macOS Catalina using either <a href="https://www.qemu.org/2020/08/11/qemu-5-1-0/">QEMU 5.1</a> via <a href="https://brew.sh">HomeBrew</a> or <a href="https://www.qemu.org/2020/04/29/qemu-5-0-0/">QEMU 5.0</a> via <a href="https://www.macports.org/">MacPorts</a>.
+This guide assumes you have familiarity with the command-line, virtual machines, ssh, port-forwarding, and graphical Linux installers.</p>
+<div class="olist arabic"><ol class="arabic"><li>Install either <a href="https://docs.brew.sh/Installation">HomeBrew</a> or <a href="https://www.macports.org/install.php">MacPorts</a> according to their installation instructions.</li><li><p>Pull down the <a href="https://www.qemu.org/download/#macos">qemu package</a>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="c"># For HomeBrew</span>
+<span class="nv">$ </span>brew <span class="nb">install </span>qemu
+
+<span class="c"># For MacPorts</span>
+<span class="nv">$ </span><span class="nb">sudo </span>port <span class="nb">install </span>qemu</code></pre></div></li><li><p>Create a 60 Gigabyte image to use as the VMs hard disk.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-img create <span class="nt">-f</span> qcow2 ubuntu2004.qcow2 60G
+Formatting <span class="s1">'ubuntu2004.qcow2'</span>, <span class="nb">fmt</span><span class="o">=</span>qcow2 <span class="nv">size</span><span class="o">=</span>64424509440 <span class="nv">cluster_size</span><span class="o">=</span>65536 <span class="nv">lazy_refcounts</span><span class="o">=</span>off <span class="nv">refcount_bits</span><span class="o">=</span>16</code></pre></div></li><li><p>Download the Ubuntu 20.04 desktop installer.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>curl <span class="nt">-L</span> <span class="nt">-o</span> ubuntu-20.04.1-desktop-amd64.iso https://releases.ubuntu.com/20.04/ubuntu-20.04.1-desktop-amd64.iso
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 2656M  100 2656M    0     0  8070k      0  0:05:37  0:05:37 <span class="nt">--</span>:--:-- 7717k</code></pre></div></li><li>Verify the ISO by following <a href="https://ubuntu.com/tutorials/how-to-verify-ubuntu#1-overview">Canonical&#8217;s detailed tutorial</a>.</li><li><p>Boot the ISO installer</p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
+  <span class="nt">-accel</span> hvf <span class="se">\</span>
+  <span class="nt">-cpu</span> qemu64 <span class="se">\</span>
+  <span class="nt">-smp</span> 2 <span class="se">\</span>
+  <span class="nt">-m</span> 4G <span class="se">\</span>
+  <span class="nt">-usb</span> <span class="se">\</span>
+  <span class="nt">-device</span> usb-tablet <span class="se">\</span>
+  <span class="nt">-vga</span> virtio <span class="se">\</span>
+  <span class="nt">-display</span> default,show-cursor<span class="o">=</span>on <span class="se">\</span>
+  <span class="nt">-device</span> virtio-net,netdev<span class="o">=</span>vmnic <span class="nt">-netdev</span> user,id<span class="o">=</span>vmnic <span class="se">\</span>
+  <span class="nt">-device</span> intel-hda <span class="nt">-device</span> hda-duplex <span class="se">\</span>
+  <span class="nt">-cdrom</span> ubuntu-20.04.1-desktop-amd64.iso <span class="se">\</span>
+  <span class="nt">-drive</span> <span class="nv">file</span><span class="o">=</span>ubuntu2004.qcow2,if<span class="o">=</span>virtio</code></pre></div>
+<p>That&#8217;s a long command-line, so I&#8217;ve broken it down option-by-option below.
+For more details, refer to the <a href="https://www.qemu.org/docs/master/system/index.html">QEMU System Emulation User’s Guide</a>.</p>
+<div class="dlist"><dl><dt><code>-accel hvf</code></dt><dd>Accelerate the machine by taking advantage of the macOS hypervisor, <code>hvf</code>.
+<code>kvm</code> is available for Linux and <code>whpx</code> for Windows.</dd><dt><code>-cpu qemu64</code></dt><dd>Ideally, you would use the <code>host</code> option and get better performance by taking advantage of CPU passthrough.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a>
+However, this inevitably lead to a kernel panic when booting the ISO, unless the CPU was emulated.
+The default <code>cpu</code> option, <code>qemu64</code>, emulates the CPU instead of using passthrough.</dd><dt><code>-smp 2</code></dt><dd>Allocate two threads for the VM.</dd><dt><code>-m 4G</code></dt><dd>Allocate 4 GB of RAM for the VM.</dd><dt><code>-usb</code></dt><dd>Enable a USB bus.</dd><dt><code>-device usb-tablet</code></dt><dd>Avoid having to <em>grab</em> the mouse, making it easier to switch between interacting with the VM and the host.</dd><dt><code>-vga virtio</code></dt><dd>Use the virtio display card.</dd><dt><code>-display default,show-cursor=on</code></dt><dd>Don&#8217;t hide the cursor.</dd><dt><code>-device virtio-net,netdev=vmnic -netdev user,id=vmnic</code></dt><dd>Pass-through networking with virtio.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></dd><dt><code>-device intel-hda -device hda-duplex</code></dt><dd>Emulate Intel HD audio, enabling sound output from the guest.</dd><dt><code>-cdrom ubuntu-20.04.1-desktop-amd64.iso</code></dt><dd>Attach the Boot ISO in the VM as a CD.</dd><dt><code>-drive file=ubuntu2004.qcow2,if=virtio</code></dt><dd>Attach the hard-disk created earlier, using virtio drivers.</dd></dl></div>
+<p>The <a href="https://wiki.libvirt.org/page/Virtio">virtio</a> options effectively pass-through directly to the hardware instead of emulating physical devices.
+Skipping this layer of emulation can significantly improve VM performance.</p></div></div></li><li>Complete the installation in the virtual machine window which should appear after starting the VM.</li><li><p>After the installation, run the virtual machine from the hard disk.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
+  <span class="nt">-accel</span> hvf <span class="se">\</span>
+  <span class="nt">-cpu</span> qemu64 <span class="se">\</span>
+  <span class="nt">-smp</span> 2 <span class="se">\</span>
+  <span class="nt">-m</span> 4G <span class="se">\</span>
+  <span class="nt">-device</span> usb-tablet <span class="se">\</span>
+  <span class="nt">-vga</span> virtio <span class="se">\</span>
+  <span class="nt">-display</span> default,show-cursor<span class="o">=</span>on <span class="se">\</span>
+  <span class="nt">-usb</span> <span class="se">\</span>
+  <span class="nt">-device</span> virtio-net,netdev<span class="o">=</span>vmnic <span class="nt">-netdev</span> user,id<span class="o">=</span>vmnic <span class="se">\</span>
+  <span class="nt">-device</span> intel-hda <span class="nt">-device</span> hda-duplex <span class="se">\</span>
+  <span class="nt">-drive</span> <span class="nv">file</span><span class="o">=</span>ubuntu2004.qcow2,if<span class="o">=</span>virtio</code></pre></div></li></ol></div>
+<section class="doc-section level-2"><h3 id="_ssh">SSH</h3><p>It&#8217;s a small step away to run the virtual machine headless and access it through ssh.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Run the virtual machine headless, forwarding ssh over port <code>9001</code> on the host.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
+  <span class="nt">-accel</span> hvf <span class="se">\</span>
+  <span class="nt">-cpu</span> qemu64 <span class="se">\</span>
+  <span class="nt">-smp</span> 2 <span class="se">\</span>
+  <span class="nt">-m</span> 4G <span class="se">\</span>
+  <span class="nt">-device</span> usb-tablet <span class="se">\</span>
+  <span class="nt">-usb</span> <span class="se">\</span>
+  <span class="nt">-nographic</span> <span class="se">\</span>
+  <span class="nt">-device</span> virtio-net,netdev<span class="o">=</span>vmnic <span class="se">\</span>
+  <span class="nt">-netdev</span> user,id<span class="o">=</span>vmnic,hostfwd<span class="o">=</span>tcp:127.0.0.1:9001-:22 <span class="se">\</span>
+  <span class="nt">-device</span> virtio-net,netdev<span class="o">=</span>vmnic <span class="nt">-netdev</span> user,id<span class="o">=</span>vmnic <span class="se">\</span>
+  <span class="nt">-drive</span> <span class="nv">file</span><span class="o">=</span>ubuntu2004.qcow2,if<span class="o">=</span>virtio</code></pre></div></li><li>Enable SSH in the guest OS.</li><li><p>ssh into the machine from the host.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>ssh <span class="nt">-p</span> 9001 localhost</code></pre></div></li></ol></div></section></section>
+<section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>You should now be able to easily build and run Linux desktop virtual machines with QEMU on macOS.</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://www.qemu.org/docs/master/system/qemu-cpu-models.html">QEMU System Emulation Users Guide: QEMU CPU Models</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://wiki.gentoo.org/wiki/QEMU/Options#Pass-through">Gentoo Wiki: QEMU/Options - Networking Pass-through</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://jwillikers.com//tags/homebrew/">HomeBrew</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/macos/">macOS</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/macports/">MacPorts</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/qemu/">QEMU</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/ubuntu/">Ubuntu</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/ubuntu2004/">Ubuntu2004</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/virtio/">virtio</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/virtualization/">Virtualization</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://jwillikers.com/posts/update_uboot_pinephone/" data-toggle="tooltip" data-placement="top" title="Update U-Boot on the PinePhone">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/jwillikers" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://gitlab.com/jwillikers" title="GitLab">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://bitbucket.org/jwillikers" title="Bitbucket">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-bitbucket fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              Jordan Williams
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://jwillikers.com/">JWillikers</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.74.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://jwillikers.com/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://jwillikers.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
