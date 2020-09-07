@@ -63,7 +63,7 @@
   "datePublished" : "2020-09-07T00:00:00",
   "dateModified" : "2020-09-07T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
-  "keywords" : [ "HomeBrew, Linux, macOS, MacPorts, QEMU, Ubuntu, Ubuntu2004, virtio, Virtualization" ],
+  "keywords" : [ "Homebrew, Linux, macOS, MacPorts, QEMU, Ubuntu, Ubuntu2004, virtio, Virtualization" ],
   "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/virtualize_ubuntu_desktop_on_macos_with_qemu\/",
   "publisher" : {
     "@type": "Organization",
@@ -254,9 +254,9 @@ This is particularly exciting because I have to spin-up Linux VMs on macs at my 
 QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines.
 Additionally, it&#8217;s open-source and <em>not</em> controlled by Oracle.
 I also recommend checking out <a href="https://github.com/machyve/xhyve">xhyve</a>, a port of FreeBSDs hypervisor <a href="https://bhyve.org/">bhyve</a> to macOS, and <a href="https://multipass.run/">multipass</a>, a cross-platform application for running Linux VMs.</p>
-<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This is a quick run-through on how to create and run a virtual Ubuntu 20.04 desktop machine on macOS Catalina using either <a href="https://www.qemu.org/2020/08/11/qemu-5-1-0/">QEMU 5.1</a> via <a href="https://brew.sh">HomeBrew</a> or <a href="https://www.qemu.org/2020/04/29/qemu-5-0-0/">QEMU 5.0</a> via <a href="https://www.macports.org/">MacPorts</a>.
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This is a quick run-through on how to create and run a virtual Ubuntu 20.04 desktop machine on macOS Catalina using either <a href="https://www.qemu.org/2020/08/11/qemu-5-1-0/">QEMU 5.1</a> via <a href="https://brew.sh">Homebrew</a> or <a href="https://www.qemu.org/2020/04/29/qemu-5-0-0/">QEMU 5.0</a> via <a href="https://www.macports.org/">MacPorts</a>.
 This guide assumes you have familiarity with the command-line, virtual machines, ssh, port-forwarding, and graphical Linux installers.</p>
-<div class="olist arabic"><ol class="arabic"><li>Install either <a href="https://docs.brew.sh/Installation">HomeBrew</a> or <a href="https://www.macports.org/install.php">MacPorts</a> according to their installation instructions.</li><li><p>Pull down the <a href="https://www.qemu.org/download/#macos">qemu package</a>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="c"># For HomeBrew</span>
+<div class="olist arabic"><ol class="arabic"><li>Install either <a href="https://docs.brew.sh/Installation">Homebrew</a> or <a href="https://www.macports.org/install.php">MacPorts</a> according to their installation instructions.</li><li><p>Pull down the <a href="https://www.qemu.org/download/#macos">qemu package</a>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="c"># For Homebrew</span>
 <span class="nv">$ </span>brew <span class="nb">install </span>qemu
 
 <span class="c"># For MacPorts</span>
@@ -315,7 +315,7 @@ Skipping this layer of emulation can significantly improve VM performance.</p></
         
           <div class="blog-tags">
             
-              <a href="https://jwillikers.com//tags/homebrew/">HomeBrew</a>&nbsp;
+              <a href="https://jwillikers.com//tags/homebrew/">Homebrew</a>&nbsp;
             
               <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
             
@@ -421,7 +421,7 @@ Skipping this layer of emulation can significantly improve VM performance.</p></
         
         <p class="credits theme-by text-muted">
           <a href="https://gohugo.io">Hugo v0.74.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
+          &nbsp;&bull;&nbsp;[<a href="f8733dd7b65739e5b89b5e1c572851c61a1a08bc">f8733dd7</a>]
         </p>
       </div>
     </div>
