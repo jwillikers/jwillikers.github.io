@@ -59,7 +59,7 @@
   "headline": "Virtualize Ubuntu Desktop on macOS with QEMU",
   "description" : "Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I\u0026#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it\u0026#8217;s open-source and not controlled by Oracle. I also recommend checking out xhyve, a port of FreeBSDs hypervisor bhyve to macOS, and multipass, a cross-platform application for running Linux VMs.",
   "inLanguage" : "en",
-  "wordCount":  654 ,
+  "wordCount":  649 ,
   "datePublished" : "2020-09-07T00:00:00",
   "dateModified" : "2020-09-07T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -307,7 +307,6 @@ Skipping this layer of emulation can significantly improve VM performance.</p></
   <span class="nt">-nographic</span> <span class="se">\</span>
   <span class="nt">-device</span> virtio-net,netdev<span class="o">=</span>vmnic <span class="se">\</span>
   <span class="nt">-netdev</span> user,id<span class="o">=</span>vmnic,hostfwd<span class="o">=</span>tcp:127.0.0.1:9001-:22 <span class="se">\</span>
-  <span class="nt">-device</span> virtio-net,netdev<span class="o">=</span>vmnic <span class="nt">-netdev</span> user,id<span class="o">=</span>vmnic <span class="se">\</span>
   <span class="nt">-drive</span> <span class="nv">file</span><span class="o">=</span>ubuntu2004.qcow2,if<span class="o">=</span>virtio</code></pre></div></li><li>Enable SSH in the guest OS.</li><li><p>ssh into the machine from the host.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>ssh <span class="nt">-p</span> 9001 localhost</code></pre></div></li></ol></div></section></section>
 <section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>You should now be able to easily build and run Linux desktop virtual machines with QEMU on macOS.</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://www.qemu.org/docs/master/system/qemu-cpu-models.html">QEMU System Emulation Users Guide: QEMU CPU Models</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://wiki.gentoo.org/wiki/QEMU/Options#Pass-through">Gentoo Wiki: QEMU/Options - Networking Pass-through</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
 
@@ -421,7 +420,7 @@ Skipping this layer of emulation can significantly improve VM performance.</p></
         
         <p class="credits theme-by text-muted">
           <a href="https://gohugo.io">Hugo v0.74.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          &nbsp;&bull;&nbsp;[<a href="f8733dd7b65739e5b89b5e1c572851c61a1a08bc">f8733dd7</a>]
+          &nbsp;&bull;&nbsp;[<a href="9af82e7d4a4d9fbfe0d95c11945e90d99dd3942e">9af82e7d</a>]
         </p>
       </div>
     </div>
