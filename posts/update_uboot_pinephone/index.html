@@ -281,9 +281,8 @@ mmcblk2      179:32   0  14.7G  0 disk  <b class="conum">2</b>
 └─mmcblk2p10 179:42   0   8.6G  0 part
 mmcblk2boot0 179:64   0     4M  1 disk
 mmcblk2boot1 179:96   0     4M  1 disk</code></pre><ol class="callout-list arabic"><li><code>mmcblk0</code> is the 250 GB SD card running Manjaro.</li><li><code>mmcblk2</code> is the internal 16 GB eMMC module.</li></ol></div>
-</div></div></li></ol></div>
-<section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Flashing to the wrong device could destroy your data.</p></section>
-<div class="olist arabic"><ol class="arabic"><li><p>Flash the <code>bin</code> file to the eMMC.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/boot/u-boot-sunxi-with-spl-pinephone.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk2 <span class="nv">bs</span><span class="o">=</span>8k <span class="nv">seek</span><span class="o">=</span>1
+
+<section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Flashing to the wrong device could destroy your data.</p></section></div></div></li><li><p>Flash the <code>bin</code> file to the eMMC.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/boot/u-boot-sunxi-with-spl-pinephone.bin <span class="nv">of</span><span class="o">=</span>/dev/mmcblk2 <span class="nv">bs</span><span class="o">=</span>8k <span class="nv">seek</span><span class="o">=</span>1
 88+1 records <span class="k">in
 </span>88+1 records out
 725712 bytes <span class="o">(</span>726 kB, 709 KiB<span class="o">)</span> copied, 0.0612089 s, 11.9 MB/s</code></pre></div></li></ol></div></section>
