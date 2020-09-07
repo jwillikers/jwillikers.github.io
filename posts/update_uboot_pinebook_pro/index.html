@@ -59,7 +59,7 @@
   "headline": "Update U-Boot on the Pinebook Pro",
   "description" : "The other day, Elementary announced elementaryOS 6 preview builds for the Pinebook Pro. I went ahead and flashed an SD card with a build image to try it out. Instead of booting to elmentaryOS on the SD card as the system should have, it booted to Manjaro. While a quick restart from Manjaro caused the system to boot from the SD card, I figured it must be time to upgrade the bootloader, U-Boot.",
   "inLanguage" : "en",
-  "wordCount":  379 ,
+  "wordCount":  384 ,
   "datePublished" : "2020-08-23T00:00:00",
   "dateModified" : "2020-08-23T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -282,7 +282,7 @@ zram0        252:0    0   5.6G  0 disk <span class="o">[</span>SWAP]</code></pre
 </div></div></li></ol></div>
 <section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Flashing to the wrong device could destroy your data.
 If you have an SD card connected, you might want to unplug it to be safe.</p></section>
-<div class="olist arabic"><ol class="arabic"><li><p>Flash <code>idbloader.img</code> to the eMMC.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/boot/idbloader.img <span class="nv">of</span><span class="o">=</span>/dev/mmcblk2 <span class="nv">seek</span><span class="o">=</span>64 <span class="nv">conv</span><span class="o">=</span>notrunc,fsync
+<div class="olist arabic"><ol class="arabic"><li><p>Flash <code>idbloader.img</code> to the eMMC.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/boot/idbloader.img <span class="nv">of</span><span class="o">=</span>/dev/mmcblk2 <span class="nv">seek</span><span class="o">=</span>64 <span class="nv">conv</span><span class="o">=</span>notrunc,fsync
 322+1 records <span class="k">in
 </span>322+1 records out
 164958 bytes <span class="o">(</span>165 kB, 161 KiB<span class="o">)</span> copied, 0.00663394 s, 24.9 MB/s</code></pre></div></li><li><p>Flash <code>u-boot.itb</code> to the eMMC.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/boot/u-boot.itb <span class="nv">of</span><span class="o">=</span>/dev/mmcblk2 <span class="nv">seek</span><span class="o">=</span>16384 <span class="nv">conv</span><span class="o">=</span>notrunc,fsync
@@ -290,7 +290,7 @@ If you have an SD card connected, you might want to unplug it to be safe.</p></s
 </span>1801+1 records out
 922192 bytes <span class="o">(</span>922 kb, 901 KiB<span class="o">)</span> copied, 0.0833926 s, 11.1 MB/s</code></pre></div></li></ol></div></section>
 <section class="doc-section level-2"><h3 id="_conclusion">Conclusion</h3><p>That&#8217;s all.
-You should now have the latest U-Boot booting your system!</p></section></section>
+You should now have the latest U-Boot booting your system!</p></section></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://gitlab.manjaro.org/manjaro-arm/packages/core/uboot-pinebookpro/-/blob/master/uboot-pinebookpro.install">Manjaro ARM Gitlab: uboot-pinebookpro</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
 
 
         
