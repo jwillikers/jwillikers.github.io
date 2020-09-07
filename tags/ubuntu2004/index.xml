@@ -6,10 +6,19 @@
     <description>Recent content in Ubuntu2004 on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/ubuntu2004/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>QEMU on macOS</title>
+      <link>https://jwillikers.com/posts/qemu_on_macos/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/qemu_on_macos/</guid>
+      <description>Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&amp;#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&amp;#8217;s open-source and not controlled by Oracle. I also recommend checking out xhyve, a port of FreeBSDs hypervisor bhyve to macOS, and multipass, a cross-platform application for running Linux VMs.</description>
+    </item>
     
     <item>
       <title>Backup Docker Data</title>

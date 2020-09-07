@@ -6,20 +6,18 @@
     <description>Recent content in Virtualization on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/virtualization/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Installing Docker on Ubuntu</title>
-      <link>https://jwillikers.com/posts/docker_ubuntu/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      <title>QEMU on macOS</title>
+      <link>https://jwillikers.com/posts/qemu_on_macos/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://jwillikers.com/posts/docker_ubuntu/</guid>
-      <description>Installing Docker on Ubuntu should be easy, right? Turns out yes&amp;#8230;&amp;#8203; but only if you go about it the right way.
-   The Right (Easy) Way Save yourself some hassle by installing Docker as packaged per your version of Ubuntu. I use docker-compose, and installing its package with apt also installs Docker.
- $apt install docker-compose   If you just want to install Docker without docker-compose, install the docker.</description>
+      <guid>https://jwillikers.com/posts/qemu_on_macos/</guid>
+      <description>Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&amp;#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&amp;#8217;s open-source and not controlled by Oracle. I also recommend checking out xhyve, a port of FreeBSDs hypervisor bhyve to macOS, and multipass, a cross-platform application for running Linux VMs.</description>
     </item>
     
   </channel>
