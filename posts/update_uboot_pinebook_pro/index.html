@@ -279,10 +279,9 @@ mmcblk2boot0 179:32   0     4M  1 disk
 mmcblk2boot1 179:64   0     4M  1 disk
 mmcblk1      179:96   0 238.5G  0 disk <b class="conum">2</b>
 zram0        252:0    0   5.6G  0 disk <span class="o">[</span>SWAP]</code></pre><ol class="callout-list arabic"><li>In this case, <code>mmcblk2</code> is the internal 64 GB eMMC module.</li><li><code>mmcblk1</code> happens to be a connected 250 GB SD card.</li></ol></div>
-</div></div></li></ol></div>
+
 <section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Flashing to the wrong device could destroy your data.
-If you have an SD card connected, you might want to unplug it to be safe.</p></section>
-<div class="olist arabic"><ol class="arabic"><li><p>Flash <code>idbloader.img</code> to the eMMC.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/boot/idbloader.img <span class="nv">of</span><span class="o">=</span>/dev/mmcblk2 <span class="nv">seek</span><span class="o">=</span>64 <span class="nv">conv</span><span class="o">=</span>notrunc,fsync
+If you have an SD card connected, you might want to unplug it to be safe.</p></section></div></div></li><li><p>Flash <code>idbloader.img</code> to the eMMC.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/boot/idbloader.img <span class="nv">of</span><span class="o">=</span>/dev/mmcblk2 <span class="nv">seek</span><span class="o">=</span>64 <span class="nv">conv</span><span class="o">=</span>notrunc,fsync
 322+1 records <span class="k">in
 </span>322+1 records out
 164958 bytes <span class="o">(</span>165 kB, 161 KiB<span class="o">)</span> copied, 0.00663394 s, 24.9 MB/s</code></pre></div></li><li><p>Flash <code>u-boot.itb</code> to the eMMC.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/boot/u-boot.itb <span class="nv">of</span><span class="o">=</span>/dev/mmcblk2 <span class="nv">seek</span><span class="o">=</span>16384 <span class="nv">conv</span><span class="o">=</span>notrunc,fsync
@@ -398,7 +397,7 @@ You should now have the latest U-Boot booting your system!</p></section></sectio
         
         <p class="credits theme-by text-muted">
           <a href="https://gohugo.io">Hugo v0.74.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          &nbsp;&bull;&nbsp;[<a href="0ada7d078df92f0ac7d13c97745a799fb4a46f23">0ada7d07</a>]
+          &nbsp;&bull;&nbsp;[<a href="a0930da29c29aa9125917e0c4ea1737921031580">a0930da2</a>]
         </p>
       </div>
     </div>
