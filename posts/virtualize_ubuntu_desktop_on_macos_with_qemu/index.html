@@ -59,7 +59,7 @@
   "headline": "Virtualize Ubuntu Desktop on macOS with QEMU",
   "description" : "Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I\u0026#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it\u0026#8217;s open-source and not controlled by Oracle. I also recommend checking out xhyve, a port of FreeBSDs hypervisor bhyve to macOS, and multipass, a cross-platform application for running Linux VMs.",
   "inLanguage" : "en",
-  "wordCount":  649 ,
+  "wordCount":  675 ,
   "datePublished" : "2020-09-07T00:00:00",
   "dateModified" : "2020-09-07T00:00:00",
   "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
@@ -274,7 +274,8 @@ Formatting <span class="s1">'ubuntu2004.qcow2'</span>, <span class="nb">fmt</spa
   <span class="nt">-vga</span> virtio <span class="se">\</span>
   <span class="nt">-display</span> default,show-cursor<span class="o">=</span>on <span class="se">\</span>
   <span class="nt">-device</span> virtio-net,netdev<span class="o">=</span>vmnic <span class="nt">-netdev</span> user,id<span class="o">=</span>vmnic <span class="se">\</span>
-  <span class="nt">-device</span> intel-hda <span class="nt">-device</span> hda-duplex <span class="se">\</span>
+  <span class="nt">-audiodev</span> coreaudio,id<span class="o">=</span>coreaudio <span class="se">\</span>
+  <span class="nt">-device</span> ich9-intel-hda <span class="nt">-device</span> hda-output,audiodev<span class="o">=</span>coreaudio <span class="se">\</span>
   <span class="nt">-cdrom</span> ubuntu-20.04.1-desktop-amd64.iso <span class="se">\</span>
   <span class="nt">-drive</span> <span class="nv">file</span><span class="o">=</span>ubuntu2004.qcow2,if<span class="o">=</span>virtio</code></pre></div>
 <p>That&#8217;s a long command-line, so I&#8217;ve broken it down option-by-option below.
@@ -282,7 +283,7 @@ For more details, refer to the <a href="https://www.qemu.org/docs/master/system/
 <div class="dlist"><dl><dt><code>-accel hvf</code></dt><dd>Accelerate the machine by taking advantage of the macOS hypervisor, <code>hvf</code>.
 <code>kvm</code> is available for Linux and <code>whpx</code> for Windows.</dd><dt><code>-cpu qemu64</code></dt><dd>Ideally, you would use the <code>host</code> option and get better performance by taking advantage of CPU passthrough.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a>
 However, this inevitably lead to a kernel panic when booting the ISO, unless the CPU was emulated.
-The default <code>cpu</code> option, <code>qemu64</code>, emulates the CPU instead of using passthrough.</dd><dt><code>-smp 2</code></dt><dd>Allocate two threads for the VM.</dd><dt><code>-m 4G</code></dt><dd>Allocate 4 GB of RAM for the VM.</dd><dt><code>-usb</code></dt><dd>Enable a USB bus.</dd><dt><code>-device usb-tablet</code></dt><dd>Avoid having to <em>grab</em> the mouse, making it easier to switch between interacting with the VM and the host.</dd><dt><code>-vga virtio</code></dt><dd>Use the virtio display card.</dd><dt><code>-display default,show-cursor=on</code></dt><dd>Don&#8217;t hide the cursor.</dd><dt><code>-device virtio-net,netdev=vmnic -netdev user,id=vmnic</code></dt><dd>Pass-through networking with virtio.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></dd><dt><code>-device intel-hda -device hda-duplex</code></dt><dd>Emulate Intel HD audio, enabling sound output from the guest.</dd><dt><code>-cdrom ubuntu-20.04.1-desktop-amd64.iso</code></dt><dd>Attach the Boot ISO in the VM as a CD.</dd><dt><code>-drive file=ubuntu2004.qcow2,if=virtio</code></dt><dd>Attach the hard-disk created earlier, using virtio drivers.</dd></dl></div>
+The default <code>cpu</code> option, <code>qemu64</code>, emulates the CPU instead of using passthrough.</dd><dt><code>-smp 2</code></dt><dd>Allocate two threads for the VM.</dd><dt><code>-m 4G</code></dt><dd>Allocate 4 GB of RAM for the VM.</dd><dt><code>-usb</code></dt><dd>Enable a USB bus.</dd><dt><code>-device usb-tablet</code></dt><dd>Avoid having to <em>grab</em> the mouse, making it easier to switch between interacting with the VM and the host.</dd><dt><code>-vga virtio</code></dt><dd>Use the virtio display card.</dd><dt><code>-display default,show-cursor=on</code></dt><dd>Don&#8217;t hide the cursor.</dd><dt><code>-device virtio-net,netdev=vmnic -netdev user,id=vmnic</code></dt><dd>Pass-through networking with virtio.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></dd><dt><code>-audiodev coreaudio,id=coreaudio</code></dt><dd>Add a backend audio driver for <a href="https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/WhatisCoreAudio/WhatisCoreAudio.html">Apple&#8217;s Core Audio</a>.</dd><dt><code>-device ich9-intel-hda -device hda-output,audiodev=coreaudio</code></dt><dd>Add an audio bus and an output device utilizing the <code>coreaudio</code> driver created previously. This enables audio output from the guest.</dd><dt><code>-cdrom ubuntu-20.04.1-desktop-amd64.iso</code></dt><dd>Attach the Boot ISO in the VM as a CD.</dd><dt><code>-drive file=ubuntu2004.qcow2,if=virtio</code></dt><dd>Attach the hard-disk created earlier, using virtio drivers.</dd></dl></div>
 <p>The <a href="https://wiki.libvirt.org/page/Virtio">virtio</a> options effectively pass-through directly to the hardware instead of emulating physical devices.
 Skipping this layer of emulation can significantly improve VM performance.</p></div></div></li><li>Complete the installation in the virtual machine window which should appear after starting the VM.</li><li><p>After the installation, run the virtual machine from the hard disk.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
   <span class="nt">-accel</span> hvf <span class="se">\</span>
@@ -294,7 +295,8 @@ Skipping this layer of emulation can significantly improve VM performance.</p></
   <span class="nt">-display</span> default,show-cursor<span class="o">=</span>on <span class="se">\</span>
   <span class="nt">-usb</span> <span class="se">\</span>
   <span class="nt">-device</span> virtio-net,netdev<span class="o">=</span>vmnic <span class="nt">-netdev</span> user,id<span class="o">=</span>vmnic <span class="se">\</span>
-  <span class="nt">-device</span> intel-hda <span class="nt">-device</span> hda-duplex <span class="se">\</span>
+  <span class="nt">-audiodev</span> coreaudio,id<span class="o">=</span>coreaudio <span class="se">\</span>
+  <span class="nt">-device</span> ich9-intel-hda <span class="nt">-device</span> hda-output,audiodev<span class="o">=</span>coreaudio <span class="se">\</span>
   <span class="nt">-drive</span> <span class="nv">file</span><span class="o">=</span>ubuntu2004.qcow2,if<span class="o">=</span>virtio</code></pre></div></li></ol></div>
 <section class="doc-section level-2"><h3 id="_ssh">SSH</h3><p>It&#8217;s a small step away to run the virtual machine headless and access it through ssh.</p>
 <div class="olist arabic"><ol class="arabic"><li><p>Run the virtual machine headless, forwarding ssh over port <code>9001</code> on the host.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
@@ -420,7 +422,7 @@ Skipping this layer of emulation can significantly improve VM performance.</p></
         
         <p class="credits theme-by text-muted">
           <a href="https://gohugo.io">Hugo v0.74.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          &nbsp;&bull;&nbsp;[<a href="9af82e7d4a4d9fbfe0d95c11945e90d99dd3942e">9af82e7d</a>]
+          &nbsp;&bull;&nbsp;[<a href="317a4e2d712d8b2e625a5890242bc3daba91e8e6">317a4e2d</a>]
         </p>
       </div>
     </div>
