@@ -6,10 +6,19 @@
     <description>Recent content in macOS on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/macos/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Easily Virtualize Ubuntu MATE on macOS with Multipass</title>
+      <link>https://jwillikers.com/posts/easily_virtualize_ubuntu_mate_on_macos_with_multipass/</link>
+      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/easily_virtualize_ubuntu_mate_on_macos_with_multipass/</guid>
+      <description>It&amp;#8217;s Always Greener on the MATE Side  While I was working on my recent post Virtualize Ubuntu Desktop on macOS with QEMU, I came across Canonical&amp;#8217;s Multipass utility. Multipass makes it extremely simple to spin up Ubuntu instances on the fly whether your on Linux, macOS, and Windows. While your VM may not be as speedy as with QEMU, I would be remiss for not doing a quick write-up on this tool which makes it so easy to get up and running.</description>
+    </item>
     
     <item>
       <title>Virtualize Ubuntu Desktop on macOS with QEMU</title>
