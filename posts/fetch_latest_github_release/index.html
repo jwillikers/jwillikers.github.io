@@ -7,7 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>virtio - JWillikers</title>
+  <title>One-liner to Fetch the Latest Github Release - JWillikers</title>
+  <meta name="description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively.">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -28,14 +29,64 @@
   
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/posts\/fetch_latest_github_release\/",
+          "name": "One liner to fetch the latest github release"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jordan Williams"
+  },
+  "headline": "One-liner to Fetch the Latest Github Release",
+  "description" : "Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project\u0026#8217;s name, and the desired file extension for the \u0026lt;user\u0026gt;, \u0026lt;repo\u0026gt;, and \u0026lt;extension\u0026gt; fields respectively.",
+  "inLanguage" : "en",
+  "wordCount":  284 ,
+  "datePublished" : "2020-09-19T00:00:00",
+  "dateModified" : "2020-09-19T00:00:00",
+  "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+  "keywords" : [ "awk, curl, git, Github" ],
+  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/fetch_latest_github_release\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jwillikers.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
 
-<meta property="og:title" content="virtio" />
+<meta property="og:title" content="One-liner to Fetch the Latest Github Release" />
+<meta property="og:description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively.">
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
-<meta property="og:url" content="https://jwillikers.com/tags/virtio/" />
+<meta property="og:url" content="https://jwillikers.com/posts/fetch_latest_github_release/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="JWillikers" />
 
-  <meta name="twitter:title" content="virtio" />
+  <meta name="twitter:title" content="One-liner to Fetch the Latest Github Release" />
+  <meta name="twitter:description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
   <meta name="generator" content="Hugo 0.74.3" />
@@ -176,9 +227,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="tags-heading">
+            <div class="posts-heading">
               
-                <h1>virtio</h1>
+                <h1>One-liner to Fetch the Latest Github Release</h1>
               
               
                 <hr class="small">
@@ -194,78 +245,68 @@
 
 
     
-  <div class="container" role="main">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line.
+And if it could incorporate <a href="https://en.wikipedia.org/wiki/AWK">awk</a>, that would be great too.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a>
+Well, the following command-line is a pretty nifty template to do just that!
+You will need <a href="https://curl.haxx.se/">curl</a> for this to work.
+Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the <em>&lt;user&gt;</em>, <em>&lt;repo&gt;</em>, and <em>&lt;extension&gt;</em> fields respectively.</p>
+<figure class="listing-block"><figcaption>Install the latest Github release</figcaption>
+<pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/&lt;user&gt;/&lt;repo&gt;/releases/latest | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /\.&lt;file extension&gt;/ {gsub(/"/, "", $(NF)); system("curl -LO " $(NF))}'</span></code></pre></figure>
+<p>Here is a quick explanation.
+First, <code>curl</code> obtains the response from an HTTP GET request.footnote[<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">RFC 2616</a>]
+This response contains the URLs for the various artifacts for the latest release of the project.
+Next, <code>awk</code> processes the response, finding the line containing a download URL and matching the given file extension.
+It then removes the quotation marks surrounding the URL and downloads the file directly with <code>curl</code>.</p>
+<p>It&#8217;s also easy enough to modify the match pattern for the file extension to make it more specific if need be.
+The following example demonstrates this by fetching the latest Linux release zip file of the <a href="https://ninja-build.org/">Ninja build system</a>.</p>
+<figure class="listing-block"><figcaption>Install the latest Ninja release</figcaption>
+<pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/ninja-build/ninja/releases/latest | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /linux\.zip/ {gsub(/"/, "", $(NF)); system("curl -LO " $(NF))}'</span>
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   637  100   637    0     0   1103      0 <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:--  1105
+100 99913  100 99913    0     0   101k      0 <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:--  372k</code></pre></figure><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8#gistcomment-3457870">Github Gist: One Liner to Download the Latest Release from Github Repo</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+
+
         
-        <div class="posts-list">
+          <div class="blog-tags">
+            
+              <a href="https://jwillikers.com//tags/awk/">awk</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/curl/">curl</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/git/">git</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/github/">Github</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
           
-            <article class="post-preview">
-    <a href="https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/">
-        <h2 class="post-title">Virtualize Ubuntu Desktop on macOS with QEMU</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on September 7, 2020
-  
-    &nbsp;(Last modified on September 19, 2020)
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Jordan Williams
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&#8217;s open-source and not controlled by Oracle.
-        <a href="https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://jwillikers.com//tags/homebrew/">Homebrew</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/macos/">macOS</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/macports/">MacPorts</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/qemu/">QEMU</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/ubuntu/">Ubuntu</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/ubuntu2004/">Ubuntu2004</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/virtio/">virtio</a>&nbsp;
-        
-        <a href="https://jwillikers.com//tags/virtualization/">Virtualization</a>&nbsp;
-        
-    </div>
-    
-
-</article>
+            <li class="previous">
+              <a href="https://jwillikers.com/posts/passwordless_sudo/" data-toggle="tooltip" data-placement="top" title="Password-less Sudo">&larr; Previous Post</a>
+            </li>
           
-        </div>
-        
-      </div>
+          
+        </ul>
+      
+
+
+      
+
     </div>
   </div>
+</div>
 
       
 <footer>
@@ -300,7 +341,7 @@
               </li>
           
           <li>
-            <a href="/tags/virtio/index.xml" title="RSS">
+            <a href="" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
