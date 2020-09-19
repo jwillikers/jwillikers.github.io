@@ -6,10 +6,19 @@
     <description>Recent content on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 19 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Password-less Sudo</title>
+      <link>https://jwillikers.com/posts/passwordless_sudo/</link>
+      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jwillikers.com/posts/passwordless_sudo/</guid>
+      <description>Typing a password to login is repetitive enough, isn&amp;#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&amp;#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it&amp;#8217;s super easy and cross-platform. For whatever reason, I learned and forgot about doing this sometime ago, so here&amp;#8217;s the gist.</description>
+    </item>
     
     <item>
       <title>Easily Virtualize Ubuntu MATE on macOS with Multipass</title>

@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Overview of all pages with the category #Categories - JWillikers</title>
-  <meta name="description" content="Overview of all pages with the category #Categories, such as: Systems">
+  <title>Password-less Sudo - JWillikers</title>
+  <meta name="description" content="Typing a password to login is repetitive enough, isn&#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it&#8217;s super easy and cross-platform. For whatever reason, I learned and forgot about doing this sometime ago, so here&#8217;s the gist.">
   <meta name="author" content="Jordan Williams"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -29,14 +29,64 @@
   
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/jwillikers.com\/posts\/passwordless_sudo\/",
+          "name": "Password less sudo"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Jordan Williams"
+  },
+  "headline": "Password-less Sudo",
+  "description" : "Typing a password to login is repetitive enough, isn\u0026#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don\u0026#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it\u0026#8217;s super easy and cross-platform. For whatever reason, I learned and forgot about doing this sometime ago, so here\u0026#8217;s the gist.",
+  "inLanguage" : "en",
+  "wordCount":  152 ,
+  "datePublished" : "2020-09-19T00:00:00",
+  "dateModified" : "2020-09-19T00:00:00",
+  "image" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+  "keywords" : [ "Linux, macOS, sudo" ],
+  "mainEntityOfPage" : "https:\/\/jwillikers.com\/posts\/passwordless_sudo\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/jwillikers.com\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/www.gravatar.com\/avatar\/e3189498d000ca4eb4e893739fd63636?s=500",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
 
-<meta property="og:title" content="Categories" />
+<meta property="og:title" content="Password-less Sudo" />
+<meta property="og:description" content="Typing a password to login is repetitive enough, isn&#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it&#8217;s super easy and cross-platform. For whatever reason, I learned and forgot about doing this sometime ago, so here&#8217;s the gist.">
 <meta property="og:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
-<meta property="og:url" content="https://jwillikers.com/categories/" />
+<meta property="og:url" content="https://jwillikers.com/posts/passwordless_sudo/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="JWillikers" />
 
-  <meta name="twitter:title" content="Categories" />
+  <meta name="twitter:title" content="Password-less Sudo" />
+  <meta name="twitter:description" content="Typing a password to login is repetitive enough, isn&#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&#8217;t need that extra bit of protection, …">
   <meta name="twitter:image" content="https://www.gravatar.com/avatar/e3189498d000ca4eb4e893739fd63636?s=500" />
   <meta name="twitter:card" content="summary" />
   <meta name="generator" content="Hugo 0.74.3" />
@@ -177,9 +227,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="categories-heading">
+            <div class="posts-heading">
               
-                <h1>Categories</h1>
+                <h1>Password-less Sudo</h1>
               
               
                 <hr class="small">
@@ -195,94 +245,56 @@
 
 
     
-
-
-
 <div class="container" role="main">
-  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> 
-    <article class="post-preview">
-      <div class="panel-group" id="accordion">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>Typing a password to login is repetitive enough, isn&#8217;t it?
+Entering the password for <a href="https://www.sudo.ws/sudo.html">Sudo</a> on the command-line can be downright irritating.
+If you don&#8217;t need that extra bit of protection, why enter your password more than you have to?<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a>
+You can forever skip entering your <code>sudo</code> password, and it&#8217;s super easy and cross-platform.
+For whatever reason, I learned and forgot about doing this sometime ago, so here&#8217;s the gist.</p>
+<p>To disable password authentication for <code>sudo</code> for a user, in this case <code>jordan</code>, just run the following command.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"jordan  ALL=(ALL) NOPASSWD:ALL"</span> | <span class="nb">sudo tee</span> /etc/sudoers.d/jordan</code></pre></div>
+<p>This just adds the line shown in <a href="#/etc/sudoers.d/jordan">[/etc/sudoers.d/jordan]</a>, which allows the given user to run any command with <code>sudo</code> without having to enter a password.</p>
+<figure class="listing-block"><figcaption>/etc/sudoers.d/jordan</figcaption>
+<pre class="rouge highlight"><code>jordan  ALL=(ALL) NOPASSWD:ALL</code></pre></figure><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://security.stackexchange.com/a/45728">Security StackExchange: How secure is NOPASSWD in passwordless sudo mode?</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://linuxize.com/post/how-to-add-user-to-sudoers-in-ubuntu/#adding-user-to-the-sudoers-file">Linuxize: How to Add User to Sudoers in Ubuntu - Adding User to the sudoers File</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+
+
         
-          <div class="panel panel-default">
-            <a class="collapsed" role="button" data-toggle="collapse" data-target="#collapsesystems" data-parent="#accordion">
-                <div class="panel-heading" id="headersystems">
-                  <h4 class="panel-title">
-                      systems
-                    <span class="badge">9</span>
-                  </h4>
-                </div>
-            </a>
-            <div id="collapsesystems" class="panel-collapse collapse">
-              <div class="panel-body">
-                <a href="https://jwillikers.com//categories/systems/" class="list-group-item view-all">
-                View all</a>
-                <div class="list-group">
-                  
-                    <a href="https://jwillikers.com/posts/passwordless_sudo/" class="list-group-item">Password-less Sudo</a>
-                  
-                    <a href="https://jwillikers.com/posts/easily_virtualize_ubuntu_mate_on_macos_with_multipass/" class="list-group-item">Easily Virtualize Ubuntu MATE on macOS with Multipass</a>
-                  
-                    <a href="https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/" class="list-group-item">Virtualize Ubuntu Desktop on macOS with QEMU</a>
-                  
-                    <a href="https://jwillikers.com/posts/update_uboot_pinephone/" class="list-group-item">Update U-Boot on the PinePhone</a>
-                  
-                    <a href="https://jwillikers.com/posts/update_uboot_pinebook_pro/" class="list-group-item">Update U-Boot on the Pinebook Pro</a>
-                  
-                    <a href="https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/" class="list-group-item">External Storage on the Pinebook Pro with ZFS</a>
-                  
-                    <a href="https://jwillikers.com/posts/backup_docker_data/" class="list-group-item">Backup Docker Data</a>
-                  
-                    <a href="https://jwillikers.com/posts/install_zfs_pinebook_pro/" class="list-group-item">Install ZFS on the Pinebook Pro</a>
-                  
-                    <a href="https://jwillikers.com/posts/smartd_ubuntu/" class="list-group-item">Automatically Detect &amp; Report Hard Drive Failure</a>
-                  
-                </div>
-              </div>
-            </div>
+          <div class="blog-tags">
+            
+              <a href="https://jwillikers.com//tags/linux/">Linux</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/macos/">macOS</a>&nbsp;
+            
+              <a href="https://jwillikers.com//tags/sudo/">sudo</a>&nbsp;
+            
           </div>
         
-          <div class="panel panel-default">
-            <a class="collapsed" role="button" data-toggle="collapse" data-target="#collapsenetworking" data-parent="#accordion">
-                <div class="panel-heading" id="headernetworking">
-                  <h4 class="panel-title">
-                      networking
-                    <span class="badge">8</span>
-                  </h4>
-                </div>
-            </a>
-            <div id="collapsenetworking" class="panel-collapse collapse">
-              <div class="panel-body">
-                <a href="https://jwillikers.com//categories/networking/" class="list-group-item view-all">
-                View all</a>
-                <div class="list-group">
-                  
-                    <a href="https://jwillikers.com/posts/unifi_controller/" class="list-group-item">UniFi Controller</a>
-                  
-                    <a href="https://jwillikers.com/posts/unbound_dns_over_tls/" class="list-group-item">DNS over TLS with Unbound</a>
-                  
-                    <a href="https://jwillikers.com/posts/opensmtpd_ubuntu/" class="list-group-item">OpenSMTPD Relay on Ubuntu</a>
-                  
-                    <a href="https://jwillikers.com/posts/openbsd_ipv6/" class="list-group-item">IPv6 on OpenBSD</a>
-                  
-                    <a href="https://jwillikers.com/posts/pf_badhost/" class="list-group-item">PF Badhost</a>
-                  
-                    <a href="https://jwillikers.com/posts/unbound_dnssec/" class="list-group-item">DNSSEC with Unbound</a>
-                  
-                    <a href="https://jwillikers.com/posts/unbound_adblock/" class="list-group-item">Unbound Adblock</a>
-                  
-                    <a href="https://jwillikers.com/posts/pppoe_openbsd/" class="list-group-item">PPPoE on OpenBSD</a>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
+
         
-      </div>
-    </article>
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://jwillikers.com/posts/easily_virtualize_ubuntu_mate_on_macos_with_multipass/" data-toggle="tooltip" data-placement="top" title="Easily Virtualize Ubuntu MATE on macOS with Multipass">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
   </div>
 </div>
-
-
 
       
 <footer>
@@ -317,7 +329,7 @@
               </li>
           
           <li>
-            <a href="/categories/index.xml" title="RSS">
+            <a href="" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
