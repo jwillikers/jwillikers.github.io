@@ -1,37 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Docker on JWillikers</title>
-    <link>https://jwillikers.com/tags/docker/</link>
-    <description>Recent content in Docker on JWillikers</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 02 Jul 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Backup Docker Data</title>
-      <link>https://jwillikers.com/posts/backup_docker_data/</link>
-      <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/backup_docker_data/</guid>
-      <description>Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Docker - Tag - JWillikers</title>
+        <link>https://jwillikers.com/tags/docker/</link>
+        <description>Docker - Tag - JWillikers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+            <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster><lastBuildDate>Thu, 02 Jul 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/docker/" rel="self" type="application/rss+xml" /><item>
+    <title>Backup Docker Data</title>
+    <link>https://jwillikers.com/posts/backup_docker_data/</link>
+    <pubDate>Thu, 02 Jul 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/backup_docker_data/</guid>
+    <description><![CDATA[Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
 TutorialMy recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
-BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container&amp;#8217;s data volume.</description>
-    </item>
-    
-    <item>
-      <title>UniFi Controller</title>
-      <link>https://jwillikers.com/posts/unifi_controller/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/unifi_controller/</guid>
-      <description>For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this is the UniFi Controller. If you don&amp;#8217;t have a smartphone or need to manage more than one device, you&amp;#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
-TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&amp;#8217;s how.
-Install DockerFirst, you must install Docker on your system.</description>
-    </item>
-    
-  </channel>
+BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.]]></description>
+</item><item>
+    <title>UniFi Controller</title>
+    <link>https://jwillikers.com/posts/unifi_controller/</link>
+    <pubDate>Sat, 30 May 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/unifi_controller/</guid>
+    <description><![CDATA[For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this is the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
+TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&#8217;s how.
+Install DockerFirst, you must install Docker on your system.]]></description>
+</item></channel>
 </rss>

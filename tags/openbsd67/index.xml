@@ -1,56 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>OpenBSD67 on JWillikers</title>
-    <link>https://jwillikers.com/tags/openbsd67/</link>
-    <description>Recent content in OpenBSD67 on JWillikers</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 29 May 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/openbsd67/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>DNS over TLS with Unbound</title>
-      <link>https://jwillikers.com/posts/unbound_dns_over_tls/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/unbound_dns_over_tls/</guid>
-      <description>Recently, Firefox announced it&amp;#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&amp;#8230;&amp;#8203; Why don&amp;#8217;t I do that for my home network?&#34; Well, I&amp;#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&amp;#8217;s DNS requests. Unbound has support built-in for DoH&amp;#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.</description>
-    </item>
-    
-    <item>
-      <title>IPv6 on OpenBSD</title>
-      <link>https://jwillikers.com/posts/openbsd_ipv6/</link>
-      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/openbsd_ipv6/</guid>
-      <description>Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&amp;#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&amp;#8217;t provide DHCPv6 support in its native DHCP daemon. I&amp;#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>OpenBSD67 - Tag - JWillikers</title>
+        <link>https://jwillikers.com/tags/openbsd67/</link>
+        <description>OpenBSD67 - Tag - JWillikers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+            <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster><lastBuildDate>Fri, 29 May 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/openbsd67/" rel="self" type="application/rss+xml" /><item>
+    <title>DNS over TLS with Unbound</title>
+    <link>https://jwillikers.com/posts/unbound_dns_over_tls/</link>
+    <pubDate>Fri, 29 May 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/unbound_dns_over_tls/</guid>
+    <description><![CDATA[Recently, Firefox announced it&#8217;s roll-out of DNS over HTTPS (DoH). That made me think, "Encrypting DNS&#8230;&#8203; Why don&#8217;t I do that for my home network?" Well, I&#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&#8217;s DNS requests. Unbound has support built-in for DoH&#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.]]></description>
+</item><item>
+    <title>IPv6 on OpenBSD</title>
+    <link>https://jwillikers.com/posts/openbsd_ipv6/</link>
+    <pubDate>Sat, 23 May 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/openbsd_ipv6/</guid>
+    <description><![CDATA[Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&#8217;t provide DHCPv6 support in its native DHCP daemon. I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
 ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
-PFIPv6 packets need to get through the firewall for anything to happen.</description>
-    </item>
-    
-    <item>
-      <title>PF Badhost</title>
-      <link>https://jwillikers.com/posts/pf_badhost/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/pf_badhost/</guid>
-      <description>Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
+PFIPv6 packets need to get through the firewall for anything to happen.]]></description>
+</item><item>
+    <title>PF Badhost</title>
+    <link>https://jwillikers.com/posts/pf_badhost/</link>
+    <pubDate>Sat, 04 Apr 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/pf_badhost/</guid>
+    <description><![CDATA[Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
 ConfigureDownload the pf-badhost.sh script.
 ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
-install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1 The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.</description>
-    </item>
-    
-    <item>
-      <title>Unbound Adblock</title>
-      <link>https://jwillikers.com/posts/unbound_adblock/</link>
-      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/unbound_adblock/</guid>
-      <description>Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers.</description>
-    </item>
-    
-  </channel>
+install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1 The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.]]></description>
+</item><item>
+    <title>Unbound Adblock</title>
+    <link>https://jwillikers.com/posts/unbound_adblock/</link>
+    <pubDate>Sat, 28 Mar 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/unbound_adblock/</guid>
+    <description><![CDATA[Ever want to get rid of all those annoying internet ads? Me too. I&#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers.]]></description>
+</item></channel>
 </rss>

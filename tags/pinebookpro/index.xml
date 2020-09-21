@@ -1,43 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>PinebookPro on JWillikers</title>
-    <link>https://jwillikers.com/tags/pinebookpro/</link>
-    <description>Recent content in PinebookPro on JWillikers</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 23 Aug 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/pinebookpro/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Update U-Boot on the Pinebook Pro</title>
-      <link>https://jwillikers.com/posts/update_uboot_pinebook_pro/</link>
-      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/update_uboot_pinebook_pro/</guid>
-      <description>The other day, Elementary announced elementaryOS 6 preview builds for the Pinebook Pro. I went ahead and flashed an SD card with a build image to try it out. Instead of booting to elmentaryOS on the SD card as the system should have, it booted to Manjaro. While a quick restart from Manjaro caused the system to boot from the SD card, I figured it must be time to upgrade the bootloader, U-Boot.</description>
-    </item>
-    
-    <item>
-      <title>External Storage on the Pinebook Pro with ZFS</title>
-      <link>https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/</guid>
-      <description>Note: This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro.
- The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&amp;#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&amp;#8217;re just dying to use ZFS on that, right?</description>
-    </item>
-    
-    <item>
-      <title>Install ZFS on the Pinebook Pro</title>
-      <link>https://jwillikers.com/posts/install_zfs_pinebook_pro/</link>
-      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/install_zfs_pinebook_pro/</guid>
-      <description>Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&amp;#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&amp;#8217;s becoming my main machine, and I&amp;#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine&amp;#8217;s built-in eMMC.</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>PinebookPro - Tag - JWillikers</title>
+        <link>https://jwillikers.com/tags/pinebookpro/</link>
+        <description>PinebookPro - Tag - JWillikers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+            <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster><lastBuildDate>Sun, 23 Aug 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/pinebookpro/" rel="self" type="application/rss+xml" /><item>
+    <title>Update U-Boot on the Pinebook Pro</title>
+    <link>https://jwillikers.com/posts/update_uboot_pinebook_pro/</link>
+    <pubDate>Sun, 23 Aug 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/update_uboot_pinebook_pro/</guid>
+    <description><![CDATA[The other day, Elementary announced elementaryOS 6 preview builds for the Pinebook Pro. I went ahead and flashed an SD card with a build image to try it out. Instead of booting to elmentaryOS on the SD card as the system should have, it booted to Manjaro. While a quick restart from Manjaro caused the system to boot from the SD card, I figured it must be time to upgrade the bootloader, U-Boot.]]></description>
+</item><item>
+    <title>External Storage on the Pinebook Pro with ZFS</title>
+    <link>https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/</link>
+    <pubDate>Fri, 03 Jul 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/</guid>
+    <description><![CDATA[Note: This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro.
+ The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&#8217;re just dying to use ZFS on that, right?]]></description>
+</item><item>
+    <title>Install ZFS on the Pinebook Pro</title>
+    <link>https://jwillikers.com/posts/install_zfs_pinebook_pro/</link>
+    <pubDate>Tue, 30 Jun 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/install_zfs_pinebook_pro/</guid>
+    <description><![CDATA[Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&#8217;s becoming my main machine, and I&#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine&#8217;s built-in eMMC.]]></description>
+</item></channel>
 </rss>

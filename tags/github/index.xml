@@ -1,24 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Github on JWillikers</title>
-    <link>https://jwillikers.com/tags/github/</link>
-    <description>Recent content in Github on JWillikers</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 19 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/github/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>One-liner to Fetch the Latest Github Release</title>
-      <link>https://jwillikers.com/posts/fetch_latest_github_release/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/fetch_latest_github_release/</guid>
-      <description>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&amp;#8217;s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively.</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Github - Tag - JWillikers</title>
+        <link>https://jwillikers.com/tags/github/</link>
+        <description>Github - Tag - JWillikers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+            <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster><lastBuildDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/github/" rel="self" type="application/rss+xml" /><item>
+    <title>One-liner to Fetch the Latest Github Release</title>
+    <link>https://jwillikers.com/posts/fetch_latest_github_release/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/fetch_latest_github_release/</guid>
+    <description><![CDATA[Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively.]]></description>
+</item></channel>
 </rss>

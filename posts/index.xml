@@ -1,194 +1,84 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Posts on JWillikers</title>
-    <link>https://jwillikers.com/posts/</link>
-    <description>Recent content in Posts on JWillikers</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 19 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/posts/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>One-liner to Fetch the Latest Github Release</title>
-      <link>https://jwillikers.com/posts/fetch_latest_github_release/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/fetch_latest_github_release/</guid>
-      <description>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&amp;#8217;s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively.</description>
-    </item>
-    
-    <item>
-      <title>Password-less Sudo</title>
-      <link>https://jwillikers.com/posts/passwordless_sudo/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/passwordless_sudo/</guid>
-      <description>Typing a password to login is repetitive enough, isn&amp;#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&amp;#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it&amp;#8217;s super easy and cross-platform. For whatever reason, I learned and forgot about doing this sometime ago, so here&amp;#8217;s the gist.</description>
-    </item>
-    
-    <item>
-      <title>Easily Virtualize Ubuntu MATE on macOS with Multipass</title>
-      <link>https://jwillikers.com/posts/easily_virtualize_ubuntu_mate_on_macos_with_multipass/</link>
-      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/easily_virtualize_ubuntu_mate_on_macos_with_multipass/</guid>
-      <description>It&amp;#8217;s Always Greener on the MATE Side  While I was working on my recent post Virtualize Ubuntu Desktop on macOS with QEMU, I came across Canonical&amp;#8217;s Multipass utility. Multipass makes it extremely simple to spin up Ubuntu instances on the fly whether your on Linux, macOS, and Windows. While your VM may not be as speedy as with QEMU, I would be remiss for not doing a quick write-up on this tool which makes it so easy to get up and running.</description>
-    </item>
-    
-    <item>
-      <title>Virtualize Ubuntu Desktop on macOS with QEMU</title>
-      <link>https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/</link>
-      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/</guid>
-      <description>The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&amp;#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&amp;#8217;s open-source and not controlled by Oracle.</description>
-    </item>
-    
-    <item>
-      <title>Update U-Boot on the PinePhone</title>
-      <link>https://jwillikers.com/posts/update_uboot_pinephone/</link>
-      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/update_uboot_pinephone/</guid>
-      <description>As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&amp;#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&amp;#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
-TutorialThis tutorial provides instructions for updating the PinePhone&amp;#8217;s bootloader from Manjaro running off of a microSD card.</description>
-    </item>
-    
-    <item>
-      <title>Update U-Boot on the Pinebook Pro</title>
-      <link>https://jwillikers.com/posts/update_uboot_pinebook_pro/</link>
-      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/update_uboot_pinebook_pro/</guid>
-      <description>The other day, Elementary announced elementaryOS 6 preview builds for the Pinebook Pro. I went ahead and flashed an SD card with a build image to try it out. Instead of booting to elmentaryOS on the SD card as the system should have, it booted to Manjaro. While a quick restart from Manjaro caused the system to boot from the SD card, I figured it must be time to upgrade the bootloader, U-Boot.</description>
-    </item>
-    
-    <item>
-      <title>External Storage on the Pinebook Pro with ZFS</title>
-      <link>https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/</guid>
-      <description>Note: This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro.
- The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&amp;#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&amp;#8217;re just dying to use ZFS on that, right?</description>
-    </item>
-    
-    <item>
-      <title>Backup Docker Data</title>
-      <link>https://jwillikers.com/posts/backup_docker_data/</link>
-      <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/backup_docker_data/</guid>
-      <description>Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>All Posts - JWillikers</title>
+        <link>https://jwillikers.com/posts/</link>
+        <description>All Posts | JWillikers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+            <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster><lastBuildDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://jwillikers.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>One-liner to Fetch the Latest Github Release</title>
+    <link>https://jwillikers.com/posts/fetch_latest_github_release/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/fetch_latest_github_release/</guid>
+    <description><![CDATA[Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively.]]></description>
+</item><item>
+    <title>Password-less Sudo</title>
+    <link>https://jwillikers.com/posts/passwordless_sudo/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/passwordless_sudo/</guid>
+    <description><![CDATA[Typing a password to login is repetitive enough, isn&#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it&#8217;s super easy and cross-platform. For whatever reason, I learned and forgot about doing this sometime ago, so here&#8217;s the gist.]]></description>
+</item><item>
+    <title>Easily Virtualize Ubuntu MATE on macOS with Multipass</title>
+    <link>https://jwillikers.com/posts/easily_virtualize_ubuntu_mate_on_macos_with_multipass/</link>
+    <pubDate>Sun, 13 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/easily_virtualize_ubuntu_mate_on_macos_with_multipass/</guid>
+    <description><![CDATA[It&#8217;s Always Greener on the MATE Side  While I was working on my recent post Virtualize Ubuntu Desktop on macOS with QEMU, I came across Canonical&#8217;s Multipass utility. Multipass makes it extremely simple to spin up Ubuntu instances on the fly whether your on Linux, macOS, and Windows. While your VM may not be as speedy as with QEMU, I would be remiss for not doing a quick write-up on this tool which makes it so easy to get up and running.]]></description>
+</item><item>
+    <title>Virtualize Ubuntu Desktop on macOS with QEMU</title>
+    <link>https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/</link>
+    <pubDate>Mon, 07 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/</guid>
+    <description><![CDATA[The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&#8217;s open-source and not controlled by Oracle.]]></description>
+</item><item>
+    <title>Update U-Boot on the PinePhone</title>
+    <link>https://jwillikers.com/posts/update_uboot_pinephone/</link>
+    <pubDate>Fri, 04 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/update_uboot_pinephone/</guid>
+    <description><![CDATA[As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&#8217;s why I opted for running Manjaro ARM's alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone&#8217;s bootloader from Manjaro running off of a microSD card.]]></description>
+</item><item>
+    <title>Update U-Boot on the Pinebook Pro</title>
+    <link>https://jwillikers.com/posts/update_uboot_pinebook_pro/</link>
+    <pubDate>Sun, 23 Aug 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/update_uboot_pinebook_pro/</guid>
+    <description><![CDATA[The other day, Elementary announced elementaryOS 6 preview builds for the Pinebook Pro. I went ahead and flashed an SD card with a build image to try it out. Instead of booting to elmentaryOS on the SD card as the system should have, it booted to Manjaro. While a quick restart from Manjaro caused the system to boot from the SD card, I figured it must be time to upgrade the bootloader, U-Boot.]]></description>
+</item><item>
+    <title>External Storage on the Pinebook Pro with ZFS</title>
+    <link>https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/</link>
+    <pubDate>Fri, 03 Jul 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/zfs_external_storage_pinebook_pro/</guid>
+    <description><![CDATA[Note: This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro.
+ The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&#8217;re just dying to use ZFS on that, right?]]></description>
+</item><item>
+    <title>Backup Docker Data</title>
+    <link>https://jwillikers.com/posts/backup_docker_data/</link>
+    <pubDate>Thu, 02 Jul 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/backup_docker_data/</guid>
+    <description><![CDATA[Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
 TutorialMy recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
-BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container&amp;#8217;s data volume.</description>
-    </item>
-    
-    <item>
-      <title>Install ZFS on the Pinebook Pro</title>
-      <link>https://jwillikers.com/posts/install_zfs_pinebook_pro/</link>
-      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/install_zfs_pinebook_pro/</guid>
-      <description>Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&amp;#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&amp;#8217;s becoming my main machine, and I&amp;#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine&amp;#8217;s built-in eMMC.</description>
-    </item>
-    
-    <item>
-      <title>UniFi Controller</title>
-      <link>https://jwillikers.com/posts/unifi_controller/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/unifi_controller/</guid>
-      <description>For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this is the UniFi Controller. If you don&amp;#8217;t have a smartphone or need to manage more than one device, you&amp;#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
-TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&amp;#8217;s how.
-Install DockerFirst, you must install Docker on your system.</description>
-    </item>
-    
-    <item>
-      <title>DNS over TLS with Unbound</title>
-      <link>https://jwillikers.com/posts/unbound_dns_over_tls/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/unbound_dns_over_tls/</guid>
-      <description>Recently, Firefox announced it&amp;#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&amp;#8230;&amp;#8203; Why don&amp;#8217;t I do that for my home network?&#34; Well, I&amp;#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&amp;#8217;s DNS requests. Unbound has support built-in for DoH&amp;#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.</description>
-    </item>
-    
-    <item>
-      <title>Automatically Detect &amp; Report Hard Drive Failure</title>
-      <link>https://jwillikers.com/posts/smartd_ubuntu/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/smartd_ubuntu/</guid>
-      <description>I recently fixed my mother-in-law&amp;#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&amp;#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&amp;#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.</description>
-    </item>
-    
-    <item>
-      <title>OpenSMTPD Relay on Ubuntu</title>
-      <link>https://jwillikers.com/posts/opensmtpd_ubuntu/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/opensmtpd_ubuntu/</guid>
-      <description>It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&amp;#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.</description>
-    </item>
-    
-    <item>
-      <title>IPv6 on OpenBSD</title>
-      <link>https://jwillikers.com/posts/openbsd_ipv6/</link>
-      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/openbsd_ipv6/</guid>
-      <description>Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&amp;#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&amp;#8217;t provide DHCPv6 support in its native DHCP daemon. I&amp;#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
-ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
-PFIPv6 packets need to get through the firewall for anything to happen.</description>
-    </item>
-    
-    <item>
-      <title>PF Badhost</title>
-      <link>https://jwillikers.com/posts/pf_badhost/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/pf_badhost/</guid>
-      <description>Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
-ConfigureDownload the pf-badhost.sh script.
-ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
-install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1 The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.</description>
-    </item>
-    
-    <item>
-      <title>DNSSEC with Unbound</title>
-      <link>https://jwillikers.com/posts/unbound_dnssec/</link>
-      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/unbound_dnssec/</guid>
-      <description>Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
-Unbound ConfigurationUse the ftp command to download the Root Hints.
-ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
-unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
-/var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.</description>
-    </item>
-    
-    <item>
-      <title>Unbound Adblock</title>
-      <link>https://jwillikers.com/posts/unbound_adblock/</link>
-      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/unbound_adblock/</guid>
-      <description>Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers.</description>
-    </item>
-    
-    <item>
-      <title>PPPoE on OpenBSD</title>
-      <link>https://jwillikers.com/posts/pppoe_openbsd/</link>
-      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/pppoe_openbsd/</guid>
-      <description>Some ISP&amp;#8217;s establish connections with their customers&#39; networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
-DNS ServersIf necessary, configure your system to use your preferred DNS nameservers.
-Tip: A common way of connecting to your ISP&amp;#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937. To my knowledge, this capability is absent from the PPPoE Specification.</description>
-    </item>
-    
-  </channel>
+BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container&#8217;s data volume.]]></description>
+</item><item>
+    <title>Install ZFS on the Pinebook Pro</title>
+    <link>https://jwillikers.com/posts/install_zfs_pinebook_pro/</link>
+    <pubDate>Tue, 30 Jun 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/install_zfs_pinebook_pro/</guid>
+    <description><![CDATA[Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&#8217;s becoming my main machine, and I&#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine&#8217;s built-in eMMC.]]></description>
+</item><item>
+    <title>UniFi Controller</title>
+    <link>https://jwillikers.com/posts/unifi_controller/</link>
+    <pubDate>Sat, 30 May 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/unifi_controller/</guid>
+    <description><![CDATA[For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this is the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
+TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&#8217;s how.
+Install DockerFirst, you must install Docker on your system.]]></description>
+</item></channel>
 </rss>

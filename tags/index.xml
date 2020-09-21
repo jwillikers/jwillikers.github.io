@@ -1,519 +1,78 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on JWillikers</title>
-    <link>https://jwillikers.com/tags/</link>
-    <description>Recent content in Tags on JWillikers</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 19 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>awk</title>
-      <link>https://jwillikers.com/tags/awk/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/awk/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>curl</title>
-      <link>https://jwillikers.com/tags/curl/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/curl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>git</title>
-      <link>https://jwillikers.com/tags/git/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Github</title>
-      <link>https://jwillikers.com/tags/github/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/github/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux</title>
-      <link>https://jwillikers.com/tags/linux/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>macOS</title>
-      <link>https://jwillikers.com/tags/macos/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/macos/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>sudo</title>
-      <link>https://jwillikers.com/tags/sudo/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/sudo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Homebrew</title>
-      <link>https://jwillikers.com/tags/homebrew/</link>
-      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/homebrew/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MacPorts</title>
-      <link>https://jwillikers.com/tags/macports/</link>
-      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/macports/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MATE</title>
-      <link>https://jwillikers.com/tags/mate/</link>
-      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/mate/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Multipass</title>
-      <link>https://jwillikers.com/tags/multipass/</link>
-      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/multipass/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ubuntu</title>
-      <link>https://jwillikers.com/tags/ubuntu/</link>
-      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/ubuntu/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ubuntu2004</title>
-      <link>https://jwillikers.com/tags/ubuntu2004/</link>
-      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/ubuntu2004/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Virtualization</title>
-      <link>https://jwillikers.com/tags/virtualization/</link>
-      <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/virtualization/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>QEMU</title>
-      <link>https://jwillikers.com/tags/qemu/</link>
-      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/qemu/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>virtio</title>
-      <link>https://jwillikers.com/tags/virtio/</link>
-      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/virtio/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ArchLinux</title>
-      <link>https://jwillikers.com/tags/archlinux/</link>
-      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/archlinux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Manjaro</title>
-      <link>https://jwillikers.com/tags/manjaro/</link>
-      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/manjaro/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>PinePhone</title>
-      <link>https://jwillikers.com/tags/pinephone/</link>
-      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/pinephone/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>UBoot</title>
-      <link>https://jwillikers.com/tags/uboot/</link>
-      <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/uboot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>PinebookPro</title>
-      <link>https://jwillikers.com/tags/pinebookpro/</link>
-      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/pinebookpro/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ZFS</title>
-      <link>https://jwillikers.com/tags/zfs/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/zfs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Containers</title>
-      <link>https://jwillikers.com/tags/containers/</link>
-      <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/containers/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Docker</title>
-      <link>https://jwillikers.com/tags/docker/</link>
-      <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DockerCompose</title>
-      <link>https://jwillikers.com/tags/dockercompose/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/dockercompose/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>UniFi</title>
-      <link>https://jwillikers.com/tags/unifi/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/unifi/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>UniFiController</title>
-      <link>https://jwillikers.com/tags/unificontroller/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/unificontroller/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>BSD</title>
-      <link>https://jwillikers.com/tags/bsd/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/bsd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DNS</title>
-      <link>https://jwillikers.com/tags/dns/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/dns/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DoT</title>
-      <link>https://jwillikers.com/tags/dot/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/dot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OpenBSD</title>
-      <link>https://jwillikers.com/tags/openbsd/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/openbsd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OpenBSD6</title>
-      <link>https://jwillikers.com/tags/openbsd6/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/openbsd6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OpenBSD67</title>
-      <link>https://jwillikers.com/tags/openbsd67/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/openbsd67/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>TLS</title>
-      <link>https://jwillikers.com/tags/tls/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/tls/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Unbound</title>
-      <link>https://jwillikers.com/tags/unbound/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/unbound/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Email</title>
-      <link>https://jwillikers.com/tags/email/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/email/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OpenSMTPD</title>
-      <link>https://jwillikers.com/tags/opensmtpd/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/opensmtpd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SMART</title>
-      <link>https://jwillikers.com/tags/smart/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/smart/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>smartd</title>
-      <link>https://jwillikers.com/tags/smartd/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/smartd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SmartMonTools</title>
-      <link>https://jwillikers.com/tags/smartmontools/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/smartmontools/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SMTP</title>
-      <link>https://jwillikers.com/tags/smtp/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/smtp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>2FA</title>
-      <link>https://jwillikers.com/tags/2fa/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/2fa/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>GMail</title>
-      <link>https://jwillikers.com/tags/gmail/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/gmail/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OpenSMTPD6</title>
-      <link>https://jwillikers.com/tags/opensmtpd6/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/opensmtpd6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DHCPCD</title>
-      <link>https://jwillikers.com/tags/dhcpcd/</link>
-      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/dhcpcd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DHCPv6</title>
-      <link>https://jwillikers.com/tags/dhcpv6/</link>
-      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/dhcpv6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Firewall</title>
-      <link>https://jwillikers.com/tags/firewall/</link>
-      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/firewall/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>IPv6</title>
-      <link>https://jwillikers.com/tags/ipv6/</link>
-      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/ipv6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>PF</title>
-      <link>https://jwillikers.com/tags/pf/</link>
-      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/pf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>pf-badhost</title>
-      <link>https://jwillikers.com/tags/pf-badhost/</link>
-      <pubDate>Sat, 04 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/pf-badhost/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Adblock</title>
-      <link>https://jwillikers.com/tags/adblock/</link>
-      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/adblock/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DNSSEC</title>
-      <link>https://jwillikers.com/tags/dnssec/</link>
-      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/dnssec/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OpenBSD66</title>
-      <link>https://jwillikers.com/tags/openbsd66/</link>
-      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/openbsd66/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Pihole</title>
-      <link>https://jwillikers.com/tags/pihole/</link>
-      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/pihole/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>unbound-adblock</title>
-      <link>https://jwillikers.com/tags/unbound-adblock/</link>
-      <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/unbound-adblock/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>PPPoE</title>
-      <link>https://jwillikers.com/tags/pppoe/</link>
-      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/tags/pppoe/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - JWillikers</title>
+        <link>https://jwillikers.com/tags/</link>
+        <description>Tags - Tag - JWillikers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+            <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster><lastBuildDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>awk</title>
+    <link>https://jwillikers.com/tags/awk/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/tags/awk/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>curl</title>
+    <link>https://jwillikers.com/tags/curl/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/tags/curl/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>git</title>
+    <link>https://jwillikers.com/tags/git/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/tags/git/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Github</title>
+    <link>https://jwillikers.com/tags/github/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/tags/github/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Linux</title>
+    <link>https://jwillikers.com/tags/linux/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/tags/linux/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>macOS</title>
+    <link>https://jwillikers.com/tags/macos/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/tags/macos/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>sudo</title>
+    <link>https://jwillikers.com/tags/sudo/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/tags/sudo/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Homebrew</title>
+    <link>https://jwillikers.com/tags/homebrew/</link>
+    <pubDate>Sun, 13 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/tags/homebrew/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>MacPorts</title>
+    <link>https://jwillikers.com/tags/macports/</link>
+    <pubDate>Sun, 13 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/tags/macports/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>MATE</title>
+    <link>https://jwillikers.com/tags/mate/</link>
+    <pubDate>Sun, 13 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/tags/mate/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
 </rss>

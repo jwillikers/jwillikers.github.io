@@ -1,24 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>virtio on JWillikers</title>
-    <link>https://jwillikers.com/tags/virtio/</link>
-    <description>Recent content in virtio on JWillikers</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/virtio/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Virtualize Ubuntu Desktop on macOS with QEMU</title>
-      <link>https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/</link>
-      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/</guid>
-      <description>The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&amp;#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&amp;#8217;s open-source and not controlled by Oracle.</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>virtio - Tag - JWillikers</title>
+        <link>https://jwillikers.com/tags/virtio/</link>
+        <description>virtio - Tag - JWillikers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+            <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster><lastBuildDate>Mon, 07 Sep 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/virtio/" rel="self" type="application/rss+xml" /><item>
+    <title>Virtualize Ubuntu Desktop on macOS with QEMU</title>
+    <link>https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/</link>
+    <pubDate>Mon, 07 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://jwillikers.com/posts/virtualize_ubuntu_desktop_on_macos_with_qemu/</guid>
+    <description><![CDATA[The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&#8217;s open-source and not controlled by Oracle.]]></description>
+</item></channel>
 </rss>
