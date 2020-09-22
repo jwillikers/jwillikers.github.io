@@ -22,10 +22,20 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Sat, 19 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Configure ZSH</title>
+      <link>https://jwillikers.com/post/configure_zsh/</link>
+      <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/configure_zsh/</guid>
+      <description>I&amp;#8217;ve been using ZSH for years now as my shell. In that time, I&amp;#8217;ve learned a few niceties to make the experience better. Namely, I&amp;#8217;ve found the minimal oh-my-zsh prompt keeps out of the way and the git aliases super convenient. Plugins for autosuggestions, like in the fish shell, and syntax highlighting are also quite helpful. Antigen makes keeping plugins up-to-date a breeze.
+TutorialThis tutorial explains how to install ZSH and set it as your default shell on Ubuntu 20.</description>
+    </item>
     
     <item>
       <title>One-liner to Fetch the Latest Github Release</title>
@@ -204,6 +214,18 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
       <description>Some ISP&amp;#8217;s establish connections with their customers&#39; networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
 DNS ServersIf necessary, configure your system to use your preferred DNS nameservers.
 Tip: A common way of connecting to your ISP&amp;#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937. To my knowledge, this capability is absent from the PPPoE Specification.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://jwillikers.com/post/auto_mount_nextcloud/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/auto_mount_nextcloud/</guid>
+      <description>https://wiki.archlinux.org/index.php/Davfs2#Using_systemd
+/etc/systemd/system/mnt-webdav-service.mount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Mount] What=http(s)://address:&amp;lt;port&amp;gt;/path Where=/mnt/webdav/service Options=uid=1000,file_mode=0664,dir_mode=2775,grpid Type=davfs TimeoutSec=15 [Install] WantedBy=multi-user.target /etc/systemd/system/mnt-webdav-service.automount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Automount] Where=/mnt/webdav/service TimeoutIdleSec=300 [Install] WantedBy=remote-fs.target https://wiki.archlinux.org/index.php/Fstab#Automount_with_systemd
+https://wiki.archlinux.org/index.php/Davfs2#Storing_credentials
+/etc/fstab https://webdav.example/path /mnt/webdav davfs rw,user,uid=username,noauto 0 0 /etc/davfs2/secrets https://webdav.example/path davusername davpassword $ chmod 600 /etc/davfs2/secrets $ chown root:root /etc/davfs2/secrets $ chmod 600 ~/.davfs2/secrets </description>
     </item>
     
   </channel>

@@ -22,10 +22,20 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Sat, 19 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Configure ZSH</title>
+      <link>https://jwillikers.com/post/configure_zsh/</link>
+      <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/configure_zsh/</guid>
+      <description>I&amp;#8217;ve been using ZSH for years now as my shell. In that time, I&amp;#8217;ve learned a few niceties to make the experience better. Namely, I&amp;#8217;ve found the minimal oh-my-zsh prompt keeps out of the way and the git aliases super convenient. Plugins for autosuggestions, like in the fish shell, and syntax highlighting are also quite helpful. Antigen makes keeping plugins up-to-date a breeze.
+TutorialThis tutorial explains how to install ZSH and set it as your default shell on Ubuntu 20.</description>
+    </item>
     
     <item>
       <title>Password-less Sudo</title>

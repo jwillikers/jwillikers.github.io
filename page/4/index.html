@@ -46,7 +46,7 @@
 <meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jwillikers.com/" />
-<meta property="og:updated_time" content="2020-09-22T09:58:49-05:00" />
+<meta property="og:updated_time" content="2020-09-22T10:01:22-05:00" />
 <meta itemprop="name" content="JWillikers">
 <meta itemprop="description" content="Handy admin and dev guides from my myriad of tinkering">
 <meta name="twitter:card" content="summary"/>
@@ -118,6 +118,30 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/pf_badhost/">PF Badhost</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-04-04 </span>
+      <div class="post-category">
+          <a href="/categories/networking/"> Networking </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
+ConfigureDownload the pf-badhost.sh script.
+ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
+install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1 The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.
+    </div>
+    <div class="read-more">
+      <a href="/post/pf_badhost/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/unbound_dnssec/">DNSSEC with Unbound</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-03-28 </span>
@@ -181,6 +205,28 @@ Tip: A common way of connecting to your ISP&#8217;s network is through DHCP. DHC
     </div>
     <div class="read-more">
       <a href="/post/pppoe_openbsd/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/auto_mount_nextcloud/"></a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 0001-01-01 </span>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      https://wiki.archlinux.org/index.php/Davfs2#Using_systemd
+/etc/systemd/system/mnt-webdav-service.mount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Mount] What=http(s)://address:&lt;port&gt;/path Where=/mnt/webdav/service Options=uid=1000,file_mode=0664,dir_mode=2775,grpid Type=davfs TimeoutSec=15 [Install] WantedBy=multi-user.target /etc/systemd/system/mnt-webdav-service.automount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Automount] Where=/mnt/webdav/service TimeoutIdleSec=300 [Install] WantedBy=remote-fs.target https://wiki.archlinux.org/index.php/Fstab#Automount_with_systemd
+https://wiki.archlinux.org/index.php/Davfs2#Storing_credentials
+/etc/fstab https://webdav.example/path /mnt/webdav davfs rw,user,uid=username,noauto 0 0 /etc/davfs2/secrets https://webdav.example/path davusername davpassword $ chmod 600 /etc/davfs2/secrets $ chown root:root /etc/davfs2/secrets $ chmod 600 ~/.davfs2/secrets 
+    </div>
+    <div class="read-more">
+      <a href="/post/auto_mount_nextcloud/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>

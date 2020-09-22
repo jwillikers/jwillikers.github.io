@@ -2,43 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jwillikers.com/tags/awk/</loc>
-    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
+    <loc>https://jwillikers.com/tags/antigen/</loc>
+    <lastmod>2020-09-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jwillikers.com/categories/</loc>
-    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
+    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/curl/</loc>
-    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
+    <loc>https://jwillikers.com/categories/command-line/</loc>
+    <lastmod>2020-09-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/git/</loc>
-    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
+    <loc>https://jwillikers.com/post/configure_zsh/</loc>
+    <lastmod>2020-09-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/github/</loc>
-    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
+    <loc>https://jwillikers.com/tags/debian/</loc>
+    <lastmod>2020-09-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jwillikers.com/</loc>
-    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
+    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -46,6 +46,69 @@
   <url>
     <loc>https://jwillikers.com/tags/linux/</loc>
     <lastmod>2020-09-22T09:58:49-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/oh-my-zsh/</loc>
+    <lastmod>2020-09-22T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/post/</loc>
+    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/</loc>
+    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/ubuntu/</loc>
+    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/zsh/</loc>
+    <lastmod>2020-09-22T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/awk/</loc>
+    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/curl/</loc>
+    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/git/</loc>
+    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/github/</loc>
+    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -59,20 +122,13 @@
   
   <url>
     <loc>https://jwillikers.com/post/fetch_latest_github_release/</loc>
-    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
+    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jwillikers.com/post/passwordless_sudo/</loc>
-    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/post/</loc>
     <lastmod>2020-09-22T09:58:49-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -87,14 +143,7 @@
   
   <url>
     <loc>https://jwillikers.com/categories/systems/</loc>
-    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/</loc>
-    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
+    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -129,13 +178,6 @@
   
   <url>
     <loc>https://jwillikers.com/tags/multipass/</loc>
-    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://jwillikers.com/tags/ubuntu/</loc>
     <lastmod>2020-09-22T09:58:49-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -571,6 +613,12 @@
   <url>
     <loc>https://jwillikers.com/post/pppoe_openbsd/</loc>
     <lastmod>2020-09-22T09:58:49-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/post/auto_mount_nextcloud/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
