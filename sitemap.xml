@@ -10,14 +10,14 @@
   
   <url>
     <loc>https://jwillikers.com/categories/</loc>
-    <lastmod>2020-09-22T13:49:11-05:00</lastmod>
+    <lastmod>2020-09-22T13:57:31-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jwillikers.com/categories/command-line/</loc>
-    <lastmod>2020-09-22T13:49:11-05:00</lastmod>
+    <lastmod>2020-09-22T13:57:31-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -38,7 +38,7 @@
   
   <url>
     <loc>https://jwillikers.com/</loc>
-    <lastmod>2020-09-22T13:49:11-05:00</lastmod>
+    <lastmod>2020-09-22T13:57:31-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -59,14 +59,14 @@
   
   <url>
     <loc>https://jwillikers.com/post/</loc>
-    <lastmod>2020-09-22T13:49:11-05:00</lastmod>
+    <lastmod>2020-09-22T13:57:31-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/</loc>
-    <lastmod>2020-09-22T13:49:11-05:00</lastmod>
+    <lastmod>2020-09-22T13:57:31-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -87,28 +87,28 @@
   
   <url>
     <loc>https://jwillikers.com/tags/awk/</loc>
-    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
+    <lastmod>2020-09-22T13:57:31-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/curl/</loc>
-    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
+    <lastmod>2020-09-22T13:57:31-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/git/</loc>
-    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
+    <lastmod>2020-09-22T13:57:31-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://jwillikers.com/tags/github/</loc>
-    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
+    <lastmod>2020-09-22T13:57:31-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -122,7 +122,7 @@
   
   <url>
     <loc>https://jwillikers.com/post/fetch_latest_github_release/</loc>
-    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
+    <lastmod>2020-09-22T13:57:31-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -143,7 +143,7 @@
   
   <url>
     <loc>https://jwillikers.com/categories/systems/</loc>
-    <lastmod>2020-09-22T10:01:22-05:00</lastmod>
+    <lastmod>2020-09-22T09:58:49-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
