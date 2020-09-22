@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Automatically Detect &amp; Report Hard Drive Failure - JWillikers</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jordan Williams" /><meta name="description" content="I recently fixed my mother-in-law&amp;#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&amp;#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&amp;#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives." /><meta name="keywords" content="Blog, BSD, Linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://jwillikers.com/post/smartd_ubuntu/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+<meta property="og:title" content="Automatically Detect &amp; Report Hard Drive Failure" />
+<meta property="og:description" content="I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jwillikers.com/post/smartd_ubuntu/" />
+<meta property="article:published_time" content="2020-05-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-25T00:00:00+00:00" />
+<meta itemprop="name" content="Automatically Detect &amp; Report Hard Drive Failure">
+<meta itemprop="description" content="I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.">
+<meta itemprop="datePublished" content="2020-05-25T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-05-25T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1105">
+
+
+
+<meta itemprop="keywords" content="Email,Linux,OpenSMTPD,SMART,smartd,SmartMonTools,SMTP,Ubuntu,Ubuntu2004," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Automatically Detect &amp; Report Hard Drive Failure"/>
+<meta name="twitter:description" content="I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">JWillikers</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">JWillikers</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Automatically Detect &amp; Report Hard Drive Failure</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-25 </span>
+        <div class="post-category">
+            <a href="/categories/systems/"> Systems </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+    <div class="post-content">
+      <p>I recently fixed my mother-in-law&#8217;s laptop.
+Long story short, the hard disk was toast.
+When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future.
+So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility?
+<a href="https://www.smartmontools.org/">SmartMonTools</a> appears to be the best tool for the job.
+It&#8217;s a tool for monitoring and reporting hard disk health with <a href="https://en.wikipedia.org/wiki/S.M.A.R.T">Self-Monitoring, Anlysis, and Reporting Technology (SMART)</a> which is built into most hard drives.
+SmartMonTools is even cross-platform and available in package repositories everywhere.</p>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial describes the steps required to setup automated hard disk health checks and email notifications using SmartMonTools 7.1 on Ubuntu 20.04.
+If you&#8217;re configuring a desktop like me or otherwise configuring a system which doesn&#8217;t have a <a href="https://en.wikipedia.org/wiki/Message_transfer_agent">MTA (Mail Transport Agent)</a> or <a href="https://en.wikipedia.org/wiki/Email_client">MUA (Mail User Agent)</a> setup already and wish to send emails externally, I recommend following my tutorial on setting up an <a href="../opensmtpd_ubuntu/">OpenSMTPD Relay on Ubuntu</a>.
+Emails sent straight from a willy-nilly desktop user account to an online email provider are unlikely to be accepted.
+With <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a>, your system can relay emails through your online email provider to remedy this.</p>
+<section class="doc-section level-2"><h3 id="_install">Install</h3><p>First, install SmartMonTools on Ubuntu.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>smartmontools</code></pre></div></section>
+<section class="doc-section level-2"><h3 id="_configure">Configure</h3><p>The tool to monitor your system is, of course, <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/smartd.8.html">smartd</a>.
+Configuration is done in <code>/etc/smartd.conf</code>.
+Consult the <a href="https://manpages.ubuntu.com/manpages/focal/en/man5/smartd.conf.5.html">smartd.conf manpage</a> for more details.
+The <code>smartd.conf</code> below provides a complete configuration example.
+It checks the <a href="https://en.wikipedia.org/wiki/Serial_ATA">SATA</a> disk <code>/dev/sda</code> for various types of failures, schedules regular self-tests, reports any errors via email, and avoids consuming excessive energy by frequently waking the disk.</p>
+<figure class="listing-block"><figcaption>/etc/smartd.conf</figcaption>
+<pre>/dev/sda \ <b class="conum">1</b>
+    -d sat \ <b class="conum">2</b>
+    -o on \ <b class="conum">3</b>
+    -S on \ <b class="conum">4</b>
+    -H \ <b class="conum">5</b>
+    -l error \ <b class="conum">6</b>
+    -l selftest \ <b class="conum">7</b>
+    -f \ <b class="conum">8</b>
+    -n standby,15,q \ <b class="conum">9</b>
+    -s (L/../(01|16)/./03|S/../.././01|O/../.././(00|06|12|18)) \ <b class="conum">10</b>
+    -m jdoe@gmail.com \ <b class="conum">11</b>
+    -M exec /usr/share/smartmontools/smartd-runner <b class="conum">12</b></pre><ol class="callout-list arabic"><li>Run for the device <code>/dev/sda</code>.</li><li>Specify that the device uses a <a href="https://en.wikipedia.org/wiki/SCSI_/_ATA_Translation">SCSI to ATA Translation</a> interface.</li><li>Enable <a href="https://www.smartmontools.org/wiki/test_offline">SMART Automatic Offline Testing</a>.</li><li>Automatically save SMART attributes.</li><li>Check the health status of the disk for failing health status.</li><li>Report if there are any new SMART errors.</li><li>Report if there are any new SMART errors for any self-tests.</li><li>Check for failure of any Usage Attributes.</li><li>Check the device unless it is in <code>SLEEP</code> or <code>STANDBY</code> mode.
+Wake it up after 15 skipped checks.
+Don&#8217;t log the skipped test, which could wake-up the disk.</li><li>Schedule long self-tests for the first and sixteenth days of the month at 3 AM, short self-tests daily at 1 AM, and Offline Immediate Tests four times each day at midnight, 6 AM, noon, and 6 PM.</li><li>Email <code>jdoe@gmail.com</code> if any errors are detected.</li><li>Execute <code>/usr/share/smartmontools/smartd-runner</code> instead of the default mail command when sending emails.</li></ol></figure>
+
+<p>Enable <code>smartd</code> on system startup.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl <span class="nb">enable </span>smartd</code></pre></div></section>
+<section class="doc-section level-2"><h3 id="_verify">Verify</h3><p>You will probably want to double check the scheduling and emailing behavior, at the very least.</p>
+<section class="doc-section level-3"><h4 id="_scheduling">Scheduling</h4><p>Audit the self-test schedule with <code>smartd -q showtests</code>.
+This will show the next five tests scheduled for each type of self-test.
+It also shows the total number of tests for each type of self-test for the next ninety days.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smartd <span class="nt">-q</span> showtests
+<span class="go">smartd 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-31-generic] (local build)
+Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
+
+Opened configuration file /etc/smartd.conf
+Configuration file /etc/smartd.conf parsed.
+Device: /dev/sda, opened
+Device: /dev/sda, CT2000MX500SSD1, S/N:000000000001, WWN:0-000000-000000000, FW:M3CR023, 2.00 TB
+Device: /dev/sda, found in smartd database: Crucial/Micron MX500 SSDs
+Device: /dev/sda, WARNING: This firmware returns bogus raw values in attribute 197
+Device: /dev/sda, enabled SMART Attribute Autosave.
+Device: /dev/sda, enabled SMART Automatic Offline Testing.
+Device: /dev/sda, is SMART capable. Adding to "monitor" list.
+Device: /dev/sda, state read from /var/lib/smartmontools/smartd.CT2000MX500SSD1-000000000001.ata.state
+Monitoring 1 ATA/SATA, 0 SCSI/SAS and 0 NVMe devices
+
+Next scheduled self tests (at most 5 of each type per device):
+Device: /dev/sda, will do test 1 of type O at Mon May 25 12:25:20 2020 CDT
+Device: /dev/sda, will do test 2 of type O at Mon May 25 18:25:20 2020 CDT
+Device: /dev/sda, will do test 3 of type O at Tue May 26 00:25:20 2020 CDT
+Device: /dev/sda, will do test 1 of type S at Tue May 26 01:25:20 2020 CDT
+Device: /dev/sda, will do test 4 of type O at Tue May 26 06:25:20 2020 CDT
+Device: /dev/sda, will do test 5 of type O at Tue May 26 12:25:20 2020 CDT
+Device: /dev/sda, will do test 2 of type S at Wed May 27 01:25:20 2020 CDT
+Device: /dev/sda, will do test 3 of type S at Thu May 28 01:25:20 2020 CDT
+Device: /dev/sda, will do test 4 of type S at Fri May 29 01:25:20 2020 CDT
+Device: /dev/sda, will do test 5 of type S at Sat May 30 01:25:20 2020 CDT
+Device: /dev/sda, will do test 1 of type L at Mon Jun  1 03:25:20 2020 CDT
+Device: /dev/sda, will do test 2 of type L at Tue Jun 16 03:25:20 2020 CDT
+Device: /dev/sda, will do test 3 of type L at Wed Jul  1 03:25:20 2020 CDT
+Device: /dev/sda, will do test 4 of type L at Thu Jul 16 03:25:20 2020 CDT
+Device: /dev/sda, will do test 5 of type L at Sat Aug  1 03:25:20 2020 CDT
+
+Totals [Mon May 25 10:25:20 2020 CDT - Sun Aug 23 10:25:20 2020 CDT]:
+Device: /dev/sda, will do   6 tests of type L
+Device: /dev/sda, will do  90 tests of type S
+Device: /dev/sda, will do   0 tests of type C
+Device: /dev/sda, will do 360 tests of type O</span></code></pre></div>
+<p>Further verification can be done to make sure self-tests are running at the scheduled times.
+After an amount of time where <code>smartd</code> is expected to run some self-tests, check the self-test log with <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/smartctl.8.html">smartctl</a>.
+The log shows that one short offline test has been run without error.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smartctl <span class="nt">-d</span> sat <span class="nt">-l</span> xselftest,25,selftest /dev/sda
+<span class="go">smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-31-generic] (local build)
+Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF READ SMART DATA SECTION ===
+SMART Extended Self-test Log Version: 1 (1 sectors)
+Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
+</span><span class="gp">#</span><span class="w"> </span>1  Short offline       Completed without error       00%       460         -</code></pre></div></section>
+<section class="doc-section level-3"><h4 id="_email_alerts">Email Alerts</h4><p>To test the email functionality, you can tell <code>smartd</code> to send a test email.</p>
+<figure class="listing-block"><figcaption>/etc/smartd.conf</figcaption>
+<pre>/dev/sda \
+    -d sat \
+    -o on \
+    -S on \
+    -H \
+    -l error \
+    -l selftest \
+    -f \
+    -n standby,15,q \
+    -s (L/../(01|16)/./03|S/../.././01|O/../.././(00|06|12|18)) \
+    -m jdoe@gmail.com \
+    -M test \ <b class="conum">1</b>
+    -M exec /usr/share/smartmontools/smartd-runner</pre><ol class="callout-list arabic"><li>Send a test email when <code>smartd</code> starts.</li></ol></figure>
+
+<p>Restart <code>smartd</code> so that it sends the test email.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl restart smartd</code></pre></div>
+<p>If everything works, you should receive an email at the designated address.</p>
+<section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Make sure to remove the <code>-M test</code> directive from the file so you don&#8217;t spam yourself.</p></section></section></section></section>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/email/">Email</a>
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/opensmtpd/">OpenSMTPD</a>
+          <a href="/tags/smart/">SMART</a>
+          <a href="/tags/smartd/">smartd</a>
+          <a href="/tags/smartmontools/">SmartMonTools</a>
+          <a href="/tags/smtp/">SMTP</a>
+          <a href="/tags/ubuntu/">Ubuntu</a>
+          <a href="/tags/ubuntu2004/">Ubuntu2004</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unbound_dns_over_tls/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">DNS over TLS with Unbound</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/opensmtpd_ubuntu/">
+            <span class="next-text nav-default">OpenSMTPD Relay on Ubuntu</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
+      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br />
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

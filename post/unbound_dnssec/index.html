@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>DNSSEC with Unbound - JWillikers</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jordan Williams" /><meta name="description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
+Unbound ConfigurationUse the ftp command to download the Root Hints.
+ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
+unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
+/var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation." /><meta name="keywords" content="Blog, BSD, Linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://jwillikers.com/post/unbound_dnssec/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+<meta property="og:title" content="DNSSEC with Unbound" />
+<meta property="og:description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
+Unbound ConfigurationUse the ftp command to download the Root Hints.
+ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
+unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
+/var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jwillikers.com/post/unbound_dnssec/" />
+<meta property="article:published_time" content="2020-03-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-03-28T00:00:00+00:00" />
+<meta itemprop="name" content="DNSSEC with Unbound">
+<meta itemprop="description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
+Unbound ConfigurationUse the ftp command to download the Root Hints.
+ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
+unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
+/var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.">
+<meta itemprop="datePublished" content="2020-03-28T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-03-28T00:00:00+00:00" />
+<meta itemprop="wordCount" content="328">
+
+
+
+<meta itemprop="keywords" content="BSD,DNS,DNSSEC,OpenBSD,OpenBSD6,OpenBSD66,Unbound," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DNSSEC with Unbound"/>
+<meta name="twitter:description" content="Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
+Unbound ConfigurationUse the ftp command to download the Root Hints.
+ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
+unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
+/var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">JWillikers</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">JWillikers</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">DNSSEC with Unbound</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-28 </span>
+        <div class="post-category">
+            <a href="/categories/networking/"> Networking </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+    <div class="post-content">
+      <p>Ever want to enable <a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions">DNSSEC</a> on your <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound</a> OpenBSD 6.6 server?
+Me too!
+Using this <a href="http://www.lonecpluspluscoder.com/2020/01/16/building-an-openbsd-wireguard-vpn-server-part-2-unbound-dns-setup/">article</a> as a guide, I document the process.</p>
+<section class="doc-section level-1"><h2 id="_unbound_configuration">Unbound Configuration</h2><p>Use the <a href="https://man.openbsd.org/ftp.1">ftp</a> command to download the <a href="https://wiki.archlinux.org/index.php/unbound#Root_hints">Root Hints</a>.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root</span></code></pre></div>
+<p>Download the trust anchor file with the <a href="https://man.openbsd.org/unbound-anchor">unbound-anchor</a> utility.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">unbound-anchor</span></code></pre></div>
+<p>Configure <a href="https://man.openbsd.org/unbound.conf">unbound.conf</a>.
+Add the location of the <code>root.hints</code> file and uncomment the lines with the keys <code>auto-trust-anchor-file</code> and <code>val-log-level</code>.</p>
+<figure class="listing-block"><figcaption>/var/unbound/etc/unbound.conf</figcaption>
+<pre class="rouge highlight"><code># Uncomment to enable DNSSEC validation.
+#
+root-hints: "/var/unbound/etc/root.hints" <b class="conum">1</b>
+auto-trust-anchor-file: "/var/unbound/db/root.key"
+val-log-level: 2</code></pre><ol class="callout-list arabic"><li>This line was added, not uncommented&#8230;&#8203; to be fair.</li></ol></figure>
+
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Make sure the upstream resolvers support DNSSEC.
+The <a href="https://dnscrypt.info/public-servers">list provided by DNSCrypt</a> has some good options.</p>
+<div class="listing-block"><pre class="rouge highlight"><code># Use an upstream forwarder (recursive resolver) for some or all zones.
+#
+forward-zone:
+	name: "." # use for ALL queries
+	forward-addr: 176.103.130.132 # adguard-dns-family
+	forward-addr: 185.228.168.10 # cleanbrowsing-adult</code></pre></div></aside>
+<p>Verify the configuration of unbound.conf which <a href="http://man.openbsd.org/unbound-checkconf.8">unbound-checkconf</a>.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">unbound-checkconf</span></code></pre></div>
+<p>Finally, restart Unbound.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl restart unbound</span></code></pre></div>
+<p>Verify that DNSSEC is working with the <a href="https://man.openbsd.org/OpenBSD-6.6/dig">dig</a> command from a computer using your unbound server.
+This website, <code>jwillikers.com</code>, has DNSSEC enabled and so makes for a good address to test.
+Cloudflare provides a nice write-up about using dig to verify DNSSEC <a href="https://support.cloudflare.com/hc/en-us/articles/360021111972-Troubleshooting-DNSSEC#TroubleshootingDNSSEC-DNSSECinPracticewithDig">here</a>.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">dig jwillikers.com +dnssec</span></code></pre></div>
+<p>The example below contains the appropriate response with DNSSEC enabled.
+Look for the <code>ad</code> flag and the <code>RRSIG</code> entry.</p>
+<div class="listing-block"><pre class="rouge highlight"><code>; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1ubuntu2.1-Ubuntu &lt;&lt;&gt;&gt; jwillikers.com +dnssec
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 46922
+;; flags: qr rd ra ad; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1 <b class="conum">1</b>
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags: do; udp: 4096
+;; QUESTION SECTION:
+;jwillikers.com.			IN	A
+
+;; ANSWER SECTION:
+jwillikers.com.		300	IN	A	104.28.26.241
+jwillikers.com.		300	IN	A	104.28.27.241
+jwillikers.com.		300	IN	RRSIG	A 13 2 300 20200329192309 20200327172309 34505 jwillikers.com. DcQzhWhlVflaeqCkZn92X6jRMJvtFySr7wN1AzGaJVk7/b4JbS/lqqZB ZepEA6FP3bHz8g5H6zduVKKv/D8Tqg== <b class="conum">2</b>
+
+;; Query time: 35 msec
+;; SERVER: 192.168.6.1#53(192.168.6.1)
+;; WHEN: Sat Mar 28 13:23:09 CDT 2020
+;; MSG SIZE  rcvd: 185</code></pre><ol class="callout-list arabic"><li>The <code>ad</code> flag is present in the list of flags.</li><li>The <code>RRSIG</code> entry.</li></ol></div>
+</section>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/bsd/">BSD</a>
+          <a href="/tags/dns/">DNS</a>
+          <a href="/tags/dnssec/">DNSSEC</a>
+          <a href="/tags/openbsd/">OpenBSD</a>
+          <a href="/tags/openbsd6/">OpenBSD6</a>
+          <a href="/tags/openbsd66/">OpenBSD66</a>
+          <a href="/tags/unbound/">Unbound</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/pf_badhost/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">PF Badhost</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/unbound_adblock/">
+            <span class="next-text nav-default">Unbound Adblock</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
+      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br />
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

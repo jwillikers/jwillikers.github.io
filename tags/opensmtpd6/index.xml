@@ -1,15 +1,40 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>OpenSMTPD6 - Tag - JWillikers</title>
-        <link>https://jwillikers.com/tags/opensmtpd6/</link>
-        <description>OpenSMTPD6 - Tag - JWillikers</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
-            <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster><lastBuildDate>Sun, 24 May 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/opensmtpd6/" rel="self" type="application/rss+xml" /><item>
-    <title>OpenSMTPD Relay on Ubuntu</title>
-    <link>https://jwillikers.com/posts/opensmtpd_ubuntu/</link>
-    <pubDate>Sun, 24 May 2020 00:00:00 &#43;0000</pubDate>
-    <author>Author</author>
-    <guid>https://jwillikers.com/posts/opensmtpd_ubuntu/</guid>
-    <description><![CDATA[It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.]]></description>
-</item></channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenSMTPD6 on JWillikers</title>
+    <link>https://jwillikers.com/tags/opensmtpd6/</link>
+    <description>Recent content in OpenSMTPD6 on JWillikers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+    <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster>
+    <copyright>Jordan Williams
+&lt;br /&gt;
+&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
+&lt;img alt=&#34;Creative Commons License&#34; style=&#34;border-width:0&#34;
+  src=&#34;https://i.creativecommons.org/l/by-sa/4.0/88x31.png&#34; /&gt;&lt;/a&gt;
+&lt;br /&gt;
+&lt;span xmlns:dct=&#34;http://purl.org/dc/terms/&#34; href=&#34;http://purl.org/dc/dcmitype/Text&#34;
+  property=&#34;dct:title&#34; rel=&#34;dct:type&#34;&gt;JWillikers&lt;/span&gt; by 
+  &lt;a xmlns:cc=&#34;http://creativecommons.org/ns#&#34; href=&#34;https://jwillikers.com&#34;
+  property=&#34;cc:attributionName&#34; rel=&#34;cc:attributionURL&#34;&gt;Jordan Williams&lt;/a&gt;
+  is licensed under a 
+  &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
+  Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
+</copyright>
+    <lastBuildDate>Sun, 24 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jwillikers.com/tags/opensmtpd6/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>OpenSMTPD Relay on Ubuntu</title>
+      <link>https://jwillikers.com/post/opensmtpd_ubuntu/</link>
+      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/opensmtpd_ubuntu/</guid>
+      <description>It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&amp;#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.</description>
+    </item>
+    
+  </channel>
 </rss>

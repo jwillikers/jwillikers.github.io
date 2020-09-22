@@ -1,0 +1,19 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>ZSH - Tag - JWillikers</title>
+        <link>http://localhost:1313/tags/zsh/</link>
+        <description>ZSH - Tag - JWillikers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+            <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster><lastBuildDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/zsh/" rel="self" type="application/rss+xml" /><item>
+    <title>Configuring ZSH on Linux</title>
+    <link>http://localhost:1313/posts/configuring_zsh_on_linux/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>http://localhost:1313/posts/configuring_zsh_on_linux/</guid>
+    <description><![CDATA[Install ZSH.[1]
+$ sudo dnf install -y zshAdd /usr/bin/zsh to /etc/shells.[2]
+$ command -v zsh | sudo tee -a /etc/shells /usr/bin/zshSet the default shell to zsh.
+$ chsh -s `which zsh` Changing shell for jordan. Password: Shell changed.Now, open up a fresh terminal session to start using zsh. oh-my-zshIf you don&#8217;t already have git install it in order to retrieve oh-my-zsh.
+$ sudo dnf install -y gitInstall the oh-my-zsh git repository.]]></description>
+</item></channel>
+</rss>

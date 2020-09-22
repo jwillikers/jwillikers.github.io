@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>One-liner to Fetch the Latest Github Release - JWillikers</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jordan Williams" /><meta name="description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&amp;#8217;s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively." /><meta name="keywords" content="Blog, BSD, Linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://jwillikers.com/post/fetch_latest_github_release/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+<meta property="og:title" content="One-liner to Fetch the Latest Github Release" />
+<meta property="og:description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jwillikers.com/post/fetch_latest_github_release/" />
+<meta property="article:published_time" content="2020-09-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-19T00:00:00+00:00" />
+<meta itemprop="name" content="One-liner to Fetch the Latest Github Release">
+<meta itemprop="description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively.">
+<meta itemprop="datePublished" content="2020-09-19T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-19T00:00:00+00:00" />
+<meta itemprop="wordCount" content="284">
+
+
+
+<meta itemprop="keywords" content="awk,curl,git,Github," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="One-liner to Fetch the Latest Github Release"/>
+<meta name="twitter:description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">JWillikers</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">JWillikers</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">One-liner to Fetch the Latest Github Release</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-09-19 </span>
+        <div class="post-category">
+            <a href="/categories/systems/"> Systems </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+    <div class="post-content">
+      <p>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line.
+And if it could incorporate <a href="https://en.wikipedia.org/wiki/AWK">awk</a>, that would be great too.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a>
+Well, the following command-line is a pretty nifty template to do just that!
+You will need <a href="https://curl.haxx.se/">curl</a> for this to work.
+Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the <em>&lt;user&gt;</em>, <em>&lt;repo&gt;</em>, and <em>&lt;extension&gt;</em> fields respectively.</p>
+<figure class="listing-block"><figcaption>Install the latest Github release</figcaption>
+<pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/&lt;user&gt;/&lt;repo&gt;/releases/latest | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /\.&lt;file extension&gt;/ {gsub(/"/, "", $(NF)); system("curl -LO " $(NF))}'</span></code></pre></figure>
+<p>Here is a quick explanation.
+First, <code>curl</code> obtains the response from an HTTP GET request.footnote[<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">RFC 2616</a>]
+This response contains the URLs for the various artifacts for the latest release of the project.
+Next, <code>awk</code> processes the response, finding the line containing a download URL and matching the given file extension.
+It then removes the quotation marks surrounding the URL and downloads the file directly with <code>curl</code>.</p>
+<p>It&#8217;s also easy enough to modify the match pattern for the file extension to make it more specific if need be.
+The following example demonstrates this by fetching the latest Linux release zip file of the <a href="https://ninja-build.org/">Ninja build system</a>.</p>
+<figure class="listing-block"><figcaption>Install the latest Ninja release</figcaption>
+<pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/ninja-build/ninja/releases/latest | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /linux\.zip/ {gsub(/"/, "", $(NF)); system("curl -LO " $(NF))}'</span>
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   637  100   637    0     0   1103      0 <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:--  1105
+100 99913  100 99913    0     0   101k      0 <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:--  372k</code></pre></figure><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8#gistcomment-3457870">Github Gist: One Liner to Download the Latest Release from Github Repo</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/awk/">awk</a>
+          <a href="/tags/curl/">curl</a>
+          <a href="/tags/git/">git</a>
+          <a href="/tags/github/">Github</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/passwordless_sudo/">
+            <span class="next-text nav-default">Password-less Sudo</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
+      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br />
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

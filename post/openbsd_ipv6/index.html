@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>IPv6 on OpenBSD - JWillikers</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jordan Williams" /><meta name="description" content="Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&amp;#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&amp;#8217;t provide DHCPv6 support in its native DHCP daemon. I&amp;#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
+ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
+PFIPv6 packets need to get through the firewall for anything to happen." /><meta name="keywords" content="Blog, BSD, Linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://jwillikers.com/post/openbsd_ipv6/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+<meta property="og:title" content="IPv6 on OpenBSD" />
+<meta property="og:description" content="Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&#8217;t provide DHCPv6 support in its native DHCP daemon. I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
+ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
+PFIPv6 packets need to get through the firewall for anything to happen." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jwillikers.com/post/openbsd_ipv6/" />
+<meta property="article:published_time" content="2020-05-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-23T00:00:00+00:00" />
+<meta itemprop="name" content="IPv6 on OpenBSD">
+<meta itemprop="description" content="Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&#8217;t provide DHCPv6 support in its native DHCP daemon. I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
+ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
+PFIPv6 packets need to get through the firewall for anything to happen.">
+<meta itemprop="datePublished" content="2020-05-23T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-05-23T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1148">
+
+
+
+<meta itemprop="keywords" content="BSD,DHCPCD,DHCPv6,Firewall,IPv6,OpenBSD,OpenBSD6,OpenBSD67,PF," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="IPv6 on OpenBSD"/>
+<meta name="twitter:description" content="Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&#8217;t provide DHCPv6 support in its native DHCP daemon. I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
+ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
+PFIPv6 packets need to get through the firewall for anything to happen."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">JWillikers</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">JWillikers</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">IPv6 on OpenBSD</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-23 </span>
+        <div class="post-category">
+            <a href="/categories/networking/"> Networking </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+    <div class="post-content">
+      <p>Configuring <a href="https://en.wikipedia.org/wiki/IPv6">IPv6</a> on my <a href="https://www.openbsd.org/">OpenBSD</a> home router was a much more difficult task than I&#8217;d expected.
+While this was mostly due to the steep learning curve of IPv6 and <a href="https://en.wikipedia.org/wiki/DHCPv6">DHCPv6</a>, OpenBSD doesn&#8217;t provide DHCPv6 support in its native <a href="https://man.openbsd.org/dhcpd">DHCP daemon</a>.
+I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.</p>
+<section class="doc-section level-1"><h2 id="_configuration">Configuration</h2><p>I configured IPv6 on on my home router running OpenBSD 6.7.</p>
+<section class="doc-section level-2"><h3 id="_pf">PF</h3><p>IPv6 packets need to get through the firewall for anything to happen.
+Below are snippets of my IPv6 packet-filter rules to allow the necessary traffic.</p>
+<figure class="listing-block"><figcaption>/etc/pf.conf</figcaption>
+<pre class="rouge highlight"><code>table &lt;martians&gt; { <b class="conum">1</b>
+    0.0.0.0/8 127.0.0.0/8 169.254.0.0/16 172.16.0.0/12 192.0.0.0/24 \
+    192.0.2.0/24 224.0.0.0/3 192.168.0.0/16 198.18.0.0/15 198.51.100.0/24 \
+    203.0.113.0/24 \
+    ::/128 ::/96 ::1/128 ::ffff:0:0/96 100::/64 2001:10::/28 2001:2::/48 \
+    2001:db8::/32 3ffe::/16 fec0::/10 fc00::/7 }
+
+...
+
+pass out inet6 <b class="conum">2</b>
+pass in on { secure_lan insecure_lan } inet6
+
+block in on egress from any to &lt;martians&gt;
+
+pass in on egress inet6 proto udp from fe80::/10 port dhcpv6-server \
+  to fe80::/10 port dhcpv6-client no state <b class="conum">3</b>
+
+pass out on egress inet6 proto udp from any to any port 33433 &gt;&lt; 33626 keep state <b class="conum">4</b>
+pass on any inet6 proto icmp6 all
+
+pass on secure_lan from secure_lan:network to secure_lan:network
+pass on insecure_lan from insecure_lan:network to insecure_lan:network</code></pre><ol class="callout-list arabic"><li>Update the martians table with IPv6 addresses.</li><li>Allow IPv6 traffic.</li><li>Allow DHCPv6 traffic between link-local IPv6 addresses.</li><li>Allow ICMPv6 traffic.</li></ol></figure>
+</section>
+<section class="doc-section level-2"><h3 id="_dhcpv6">DHCPv6</h3><p>There are two ways to obtain IPv6 address blocks: <a href="https://tools.ietf.org/html/rfc4862">SLAAC</a> and <a href="https://tools.ietf.org/html/rfc3315">DHCPv6</a>.
+At first, I tried to configure my external interface with OpenBSD&#8217;s IPv6 auto-configuration.
+I successfully received a globally reachable /64 block.
+Of course, my ISP only supplies dynamic IPv6 addresses.
+This put me in a pickle.
+How do I dynamically assign address blocks to my internal interfaces?
+How do I use SLAAC to configure my host machines when SLAAC requires a /64 subnet for the internal interface?
+It took me a while to realize I needed DHCPv6 to request multiple /64 blocks from my ISP and assign them to my internal network interfaces.
+OpenBSD has yet to natively support DHCPv6, so a third-party package was required.
+I decided on <a href="https://roy.marples.name/projects/dhcpcd/">dhcpcd</a>.
+There is a package available for <a href="https://sourceforge.net/projects/wide-dhcpv6/">wide-dhcpv6</a>, but it lacks rc init scripts to conveniently integrate into the system&#8217;s startup process.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">pkg_add dhcpcd</span></code></pre></div>
+<p>Configuration of dhcpcd was done in <code>/etc/dhcpcd.conf</code>.
+The default configuration required only a few changes, detailed below.</p>
+<figure class="listing-block"><figcaption>/etc/dhcpcd.conf</figcaption>
+<pre class="rouge highlight"><code>ipv6only <b class="conum">1</b>
+noipv6rs <b class="conum">2</b>
+waitip 6 <b class="conum">3</b>
+
+allowinterfaces em0 em1 em2 em3 em4 em5 vlan2 <b class="conum">4</b>
+
+interface em0 <b class="conum">5</b>
+  ipv6rs <b class="conum">6</b>
+  ia_na 1 <b class="conum">7</b>
+  ia_pd 2 em1/0 em2/1 em3/2 em4/3 em5/4 vlan2/5 <b class="conum">8</b></code></pre><ol class="callout-list arabic"><li>Enable DHCP services for IPv6 only.</li><li>Disable IPv6 router solicitation on all interfaces.</li><li>Wait for an IPv6 address to be assigned before forking to the background.</li><li>Allow touching these interfaces.</li><li>Configure my external interface <code>em0</code>.</li><li>Enable router solicitation on <code>em0</code>.</li><li>Obtain a normal IPv6 address for <code>em0</code>.</li><li>Request a prefix delegation for all of my internal interfaces.</li></ol></figure>
+
+<p>I then enabled the dhcpcd service at boot.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl enable dhcpcd</span></code></pre></div></section>
+<section class="doc-section level-2"><h3 id="_router_advertisement_daemon">Router Advertisement Daemon</h3><p>On OpenBSD, <a href="https://man.openbsd.org/rad.8">rad</a> handles SLAAC on the LAN interfaces.
+Configuration of rad is done in <a href="https://man.openbsd.org/rad.conf.5">rad.conf</a>.</p>
+<figure class="listing-block"><figcaption>/etc/rad.conf</figcaption>
+<pre class="rouge highlight"><code>dns {
+  nameserver {
+	2606:4700:4700::1111
+	2606:4700:4700::1001
+  }
+}
+
+interface em1
+interface em2
+interface em3
+interface em4
+interface em5
+interface vlan2</code></pre></figure>
+<p>Router advertisements will be issued on the listed interfaces.
+Along with the router advertisements, each interface will advertize the DNS nameservers configured globally at the top of the file.
+These are Cloudflare&#8217;s IPv6 DNS nameservers, in this instance.
+This is quite handy as clients can receive everything they need to connect to the internet.
+Without the DNS servers, a host would need to obtain nameservers through IPv4 DHCP or else configure their DNS servers manually.
+Ideally, my setup would have used my local Unbound instance for IPv6 DNS lookups, but I haven&#8217;t quite figured out how to handle that yet.
+Specifically, I&#8217;m at a loss for how to dynamically assign an IPv6 address to the Unbound server.</p>
+<p>I enabled rad to start at boot.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl enable rad</span></code></pre></div></section>
+<section class="doc-section level-2"><h3 id="_unbound">Unbound</h3><p>While I did not bind <a href="https://man.openbsd.org/unbound">Unbound</a> to any public IPv6 addresses, it can still do IPv6 DNS lookups.
+I enabled IPv6 support on Unbound and provided upstream IPv6 DNS servers.</p>
+<figure class="listing-block"><figcaption>/var/unbound/etc/unbound.conf</figcaption>
+<pre class="rouge highlight"><code>server:
+	interface: 192.168.1.1
+	interface: 192.168.2.1
+	interface: 192.168.3.1
+	interface: 192.168.4.1
+	interface: 192.168.5.1
+	interface: 192.168.6.1
+	interface: 127.0.0.1
+	#interface: 127.0.0.1@5353	# listen on alternative port
+	interface: ::1
+
+	do-ip6: yes
+	prefer-ip6: yes
+
+	access-control: ::0/0 refuse
+	access-control: ::1 allow
+	access-control: fd00::/8 allow
+	access-control: fe80::/10 allow
+
+# Use an upstream forwarder (recursive resolver) for some or all zones.
+#
+forward-zone:
+	name: "."				# use for ALL queries
+	forward-addr: 2606:4700:4700::1111
+	forward-addr: 2606:4700:4700::1001
+	forward-addr: 1.1.1.1
+	forward-addr: 1.0.0.1</code></pre></figure></section>
+<section class="doc-section level-2"><h3 id="_prefer_ipv6">Prefer IPv6</h3><p>I configured my router to prefer using IPv6 over IPv4.</p>
+<figure class="listing-block"><figcaption>/etc/resolv.conf.tail</figcaption>
+<pre class="rouge highlight"><code>family inet6 inet4</code></pre></figure></section>
+<section class="doc-section level-2"><h3 id="_ipv6_routing">IPv6 Routing</h3><p>Of course, I enabled IPv6 routing.</p>
+<figure class="listing-block"><figcaption>/etc/sysctl.conf</figcaption>
+<pre class="rouge highlight"><code>net.inet6.ip6.forwarding=1</code></pre></figure></section></section>
+<section class="doc-section level-1"><h2 id="_deployment">Deployment</h2><p>Last of all, the system was rebooted to put all the changes in to take effect.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">reboot</span></code></pre></div></section>
+<section class="doc-section level-1"><h2 id="_verification">Verification</h2><p>Once my router had rebooted, I ran <a href="https://man.openbsd.org/ifconfig">ifconfig</a> to ensure that my interfaces had public IPv6 addresses.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ifconfig</span></code></pre></div>
+<p>The resultant output is below.
+The details have been modified for privacy.</p>
+<p>At first, I noticed that some interfaces were not showing public IPv6 address assignments.
+They only had <a href="https://en.wikipedia.org/wiki/Link-local_address">link-local IPv6 addresses</a>, i.e. addresses beginning with 'fe80::'.
+I thought that dhcpcd was not provisioning addresses correctly.
+Eventually, I realized that public IPv6 addresses are only shown for interfaces with active connections.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">em0: flags=808843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST,AUTOCONF4&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:00
+	index 1 priority 0 llprio 3
+	groups: egress
+	media: Ethernet autoselect (1000baseT full-duplex,rxpause,txpause)
+	status: active
+	inet 123.45.67.253 netmask 0xffffff00 broadcast 123.45.67.255
+	inet6 fe80::%em0 prefixlen 64 scopeid 0x1
+	inet6 2001:DB8:face:cafe:abcd:1111:2222:33 prefixlen 64 autoconf pltime 604473 vltime 2591673
+</span><span class="gp">em1: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:01
+	index 2 priority 0 llprio 3
+	groups: secure_lan
+	media: Ethernet autoselect (1000baseT full-duplex,rxpause,txpause)
+	status: active
+	inet 192.168.1.1 netmask 0xffffff00 broadcast 192.168.1.255
+	inet6 fe80::0001%em1 prefixlen 64 scopeid 0x2
+</span><span class="gp">em2: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:02
+	index 3 priority 0 llprio 3
+	groups: secure_lan
+	media: Ethernet autoselect (100baseTX full-duplex)
+	status: active
+	inet 192.168.2.1 netmask 0xffffff00 broadcast 192.168.2.255
+	inet6 fe80::1%em2 prefixlen 64 scopeid 0x3
+	inet6 2001:DB8:face:cafe:1::1 prefixlen 64 pltime 205171 vltime 231091
+</span><span class="gp">em3: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:02
+	index 4 priority 0 llprio 3
+	groups: secure_lan
+	media: Ethernet autoselect (none)
+	status: no carrier
+	inet 192.168.3.1 netmask 0xffffff00 broadcast 192.168.3.255
+	inet6 fe80::2%em3 prefixlen 64 scopeid 0x4
+</span><span class="gp">em4: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:03
+	index 5 priority 0 llprio 3
+	groups: secure_lan
+	media: Ethernet autoselect (1000baseT full-duplex,master,rxpause,txpause)
+	status: active
+	inet 192.168.4.1 netmask 0xffffff00 broadcast 192.168.4.255
+	inet6 fe80::3%em4 prefixlen 64 scopeid 0x5
+	inet6 2001:DB8:face:cafe:3::1 prefixlen 64 pltime 205172 vltime 231092
+</span><span class="gp">em5: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:04
+	index 6 priority 0 llprio 3
+	groups: secure_lan
+	media: Ethernet autoselect (none)
+	status: no carrier
+	inet 192.168.5.1 netmask 0xffffff00 broadcast 192.168.5.255
+	inet6 fe80::4%em5 prefixlen 64 scopeid 0x6
+</span><span class="gp">vlan2: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
+<span class="go">	lladdr 00:00:00:00:00:05
+	index 9 priority 0 llprio 3
+	encap: vnetid 2 parent em1 txprio packet rxprio outer
+	groups: vlan insecure_lan
+	media: Ethernet autoselect (1000baseT full-duplex,rxpause,txpause)
+	status: active
+	inet 192.168.6.1 netmask 0xffffff00 broadcast 192.168.6.255
+	inet6 fe80::5%vlan2 prefixlen 64 scopeid 0x9
+	inet6 2001:DB8:face:cafe:5::1 prefixlen 64 pltime 205172 vltime 231092</span></code></pre></div>
+<p>To make sure end-to-end connections were working over IPv6, I pinged <a href="https://www.cloudflare.com/">Cloudflare</a>'s DNS server from my laptop.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ping6 2606:4700:4700::1111</span></code></pre></div></section>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/bsd/">BSD</a>
+          <a href="/tags/dhcpcd/">DHCPCD</a>
+          <a href="/tags/dhcpv6/">DHCPv6</a>
+          <a href="/tags/firewall/">Firewall</a>
+          <a href="/tags/ipv6/">IPv6</a>
+          <a href="/tags/openbsd/">OpenBSD</a>
+          <a href="/tags/openbsd6/">OpenBSD6</a>
+          <a href="/tags/openbsd67/">OpenBSD67</a>
+          <a href="/tags/pf/">PF</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/opensmtpd_ubuntu/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">OpenSMTPD Relay on Ubuntu</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/pf_badhost/">
+            <span class="next-text nav-default">PF Badhost</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
+      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br />
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,17 +1,42 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>DHCPv6 - Tag - JWillikers</title>
-        <link>https://jwillikers.com/tags/dhcpv6/</link>
-        <description>DHCPv6 - Tag - JWillikers</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
-            <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster><lastBuildDate>Sat, 23 May 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/dhcpv6/" rel="self" type="application/rss+xml" /><item>
-    <title>IPv6 on OpenBSD</title>
-    <link>https://jwillikers.com/posts/openbsd_ipv6/</link>
-    <pubDate>Sat, 23 May 2020 00:00:00 &#43;0000</pubDate>
-    <author>Author</author>
-    <guid>https://jwillikers.com/posts/openbsd_ipv6/</guid>
-    <description><![CDATA[Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&#8217;t provide DHCPv6 support in its native DHCP daemon. I&#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DHCPv6 on JWillikers</title>
+    <link>https://jwillikers.com/tags/dhcpv6/</link>
+    <description>Recent content in DHCPv6 on JWillikers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+    <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster>
+    <copyright>Jordan Williams
+&lt;br /&gt;
+&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
+&lt;img alt=&#34;Creative Commons License&#34; style=&#34;border-width:0&#34;
+  src=&#34;https://i.creativecommons.org/l/by-sa/4.0/88x31.png&#34; /&gt;&lt;/a&gt;
+&lt;br /&gt;
+&lt;span xmlns:dct=&#34;http://purl.org/dc/terms/&#34; href=&#34;http://purl.org/dc/dcmitype/Text&#34;
+  property=&#34;dct:title&#34; rel=&#34;dct:type&#34;&gt;JWillikers&lt;/span&gt; by 
+  &lt;a xmlns:cc=&#34;http://creativecommons.org/ns#&#34; href=&#34;https://jwillikers.com&#34;
+  property=&#34;cc:attributionName&#34; rel=&#34;cc:attributionURL&#34;&gt;Jordan Williams&lt;/a&gt;
+  is licensed under a 
+  &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
+  Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
+</copyright>
+    <lastBuildDate>Sat, 23 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://jwillikers.com/tags/dhcpv6/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>IPv6 on OpenBSD</title>
+      <link>https://jwillikers.com/post/openbsd_ipv6/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/openbsd_ipv6/</guid>
+      <description>Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&amp;#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&amp;#8217;t provide DHCPv6 support in its native DHCP daemon. I&amp;#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
 ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
-PFIPv6 packets need to get through the firewall for anything to happen.]]></description>
-</item></channel>
+PFIPv6 packets need to get through the firewall for anything to happen.</description>
+    </item>
+    
+  </channel>
 </rss>

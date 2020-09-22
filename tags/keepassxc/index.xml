@@ -1,0 +1,31 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>KeePassXC - Tag - JWillikers</title>
+        <link>http://localhost:1313/tags/keepassxc/</link>
+        <description>KeePassXC - Tag - JWillikers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+            <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster><lastBuildDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/keepassxc/" rel="self" type="application/rss+xml" /><item>
+    <title>Unlock KeePassXC on Login</title>
+    <link>http://localhost:1313/posts/keepassxc_setup/</link>
+    <pubDate>Sat, 19 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>http://localhost:1313/posts/keepassxc_setup/</guid>
+    <description><![CDATA[Install KeePassXC.
+$ sudo snap install keepassxcInstall the libsecret-tools package.
+$ sudo apt install libsecret-toolsCreate a secret
+$ secret-tool store --label="KeePass Passwords" keepass Passwords Password: $ which keepassxc /snap/bin/keepassxc $ secret-tool lookup keepass Passwords | /snap/bin/keepassxc --pw-stdin /home/jordan/Documents/Passwords.kdbx https://askubuntu.com/a/1210421
+https://gist.github.com/dAnjou/b99f55de34b90246f381e71e3c8f9262
+https://github.com/keepassxreboot/keepassxc/wiki/Using-DBus-with-KeePassXC
+https://avaldes.co/2020/01/28/secret-service-keepassxc.html
+https://c3pb.de/blog/keepassxc-secrets-service.html
+https://grabski.me/tech,/linux/2020/09/02/automatically-unlock-keepassxc-on-startup-and-after-lock-screen/
+https://github.com/swick/mozilla-gnome-keyring
+https://askubuntu.com/questions/106724/syncing-a-gnome-keyring-across-devices-w-ubuntu-one
+https://gist.github.com/innerand/405025e7fbae1b270025666418655d8b
+https://askubuntu.com/questions/96798/where-does-seahorse-gnome-keyring-store-its-keyrings
+$ kill 9012
+https://launchpad.net/~phoerious/+archive/ubuntu/keepassxc $ sudo add-apt-repository ppa:phoerious/keepassxc $ sudo apt-get update
+$ sudo apt install -y keepassxc
+➜ blog git:(master) ✗ ps -e | grep goa-daemon 9078 ?]]></description>
+</item></channel>
+</rss>

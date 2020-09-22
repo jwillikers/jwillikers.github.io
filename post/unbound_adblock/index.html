@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Unbound Adblock - JWillikers</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jordan Williams" /><meta name="description" content="Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers." /><meta name="keywords" content="Blog, BSD, Linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://jwillikers.com/post/unbound_adblock/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+<meta property="og:title" content="Unbound Adblock" />
+<meta property="og:description" content="Ever want to get rid of all those annoying internet ads? Me too. I&#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jwillikers.com/post/unbound_adblock/" />
+<meta property="article:published_time" content="2020-03-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-03-28T00:00:00+00:00" />
+<meta itemprop="name" content="Unbound Adblock">
+<meta itemprop="description" content="Ever want to get rid of all those annoying internet ads? Me too. I&#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers.">
+<meta itemprop="datePublished" content="2020-03-28T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-03-28T00:00:00+00:00" />
+<meta itemprop="wordCount" content="655">
+
+
+
+<meta itemprop="keywords" content="Adblock,BSD,DNS,OpenBSD,OpenBSD6,OpenBSD67,Pihole,Unbound,unbound-adblock," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Unbound Adblock"/>
+<meta name="twitter:description" content="Ever want to get rid of all those annoying internet ads? Me too. I&#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">JWillikers</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">JWillikers</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Unbound Adblock</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-28 </span>
+        <div class="post-category">
+            <a href="/categories/networking/"> Networking </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+    <div class="post-content">
+      <p>Ever want to get rid of all those <a href="https://ads-blocker.com/testing/#ad-blocker-test-steps">annoying internet ads</a>?
+Me too.
+I&#8217;d been planning on using something like <a href="https://pi-hole.net/">Pi-hole</a>, but recently stumbled upon <a href="https://www.geoghegan.ca/unbound-adblock.html">unbound-adblock</a>, which is perfect for my OpenBSD home router.
+The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here.
+Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers.</p>
+<section class="doc-section level-1"><h2 id="_prepare">Prepare</h2><p>First, set your expectations.
+Get a base-line of what ads should be blocked by working through the <a href="https://ads-blocker.com/testing/#ad-blocker-test-steps">test steps</a> on <a class="bare" href="https://ads-blocker.com/testing">https://ads-blocker.com/testing</a>.</p>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Disable any browser-based ad-blockers you might have enabled, otherwise you won&#8217;t be able to verify your setup actually blocks ads.</p></aside></section>
+<section class="doc-section level-1"><h2 id="_configure">Configure</h2><p>Download the <a href="https://www.geoghegan.ca/scripts/unbound-adblock.sh">unbound-adblock.sh script</a>.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ftp https://www.geoghegan.ca/scripts/unbound-adblock.sh</span></code></pre></div>
+<p>Install the script with the appropriate permissions.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">install -g bin -m 644 -o root unbound-adblock.sh /usr/local/bin/ <b class="conum">1</b>
+</span></code></pre><ol class="callout-list arabic"><li>The script will be owned by <em>root</em>, belong to the <em>bin</em> group, and be readable by everyone and writeable by the owner.</li></ol></div>
+
+<p>Create a new user, <code>_adblock</code>, who will not be allowed to login.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">useradd -s /sbin/nologin _adblock</span></code></pre></div>
+<p>Install an empty <code>adblock.conf</code> file owned by the <code>_adblock</code> user which is readable by everyone but only writeable by the owner.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">install -m 644 -o _adblock /dev/null /var/unbound/etc/adblock.conf</span></code></pre></div>
+<p>Include the <code>adblock.conf</code> file at the end of the <code>server</code> section.</p>
+<figure class="listing-block"><figcaption>/var/unbound/etc/unbound.conf</figcaption>
+<pre class="rouge highlight"><code>server:
+	...
+	# Include the unbound-adblock configuration file.
+	include: /var/unbound/etc/adblock.conf</code></pre></figure>
+<p>Allow the <code>_adblock</code> user to reload the unbound service without requiring a password.</p>
+<figure class="listing-block"><figcaption>/etc/doas.conf</figcaption>
+<pre class="rouge highlight"><code># Allow the unbound-adblock user / script to reload the unbound service.
+permit nopass _adblock cmd rcctl args reload unbound</code></pre></figure>
+<p>Edit the <code>_adblock</code> users crontab file.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">crontab -u _adblock -e</span></code></pre></div>
+<p>Add a rule to run the <code>unbound-adblock.sh</code> script every morning at 6:30.</p>
+<figure class="listing-block"><figcaption>/var/cron/tabs/_adblock</figcaption>
+<pre class="rouge highlight"><code># use /bin/sh to run commands, no matter what /etc/passwd says
+SHELL=/bin/sh
+
+# Update unbound-adblock at 6:30 every morning.
+30	6	*	*	*	/usr/local/bin/unbound-adblock.sh</code></pre></figure>
+<p>Run the <code>unbound-adblock.sh</code> script once.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">doas -u _adblock sh /usr/local/bin/unbound-adblock.sh</span></code></pre></div>
+<p>Restart the unbound service.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl restart unbound</span></code></pre></div>
+<p>Add a PF rule to redirect all DNS queries bound for Google&#8217;s DNS servers, <code>8.8.8.8</code> and <code>8.8.4.4</code> to your unbound DNS server, i.e. <code>192.168.1.1</code>.
+The example below uses a macro <code>lan_if</code> to represent the LAN network interface, <code>em1</code>.</p>
+<figure class="listing-block"><figcaption>/etc/pf.conf</figcaption>
+<pre class="rouge highlight"><code># Redirect any DNS requests to Google's DNS servers to the LAN's unbound server.
+lan_if = "em1"
+lan_dns_server = 192.168.1.1
+table &lt;google_dns_servers&gt; { 8.8.8.8 8.8.4.4 }
+...
+pass in quick on $lan_if quick inet proto { tcp udp } to &lt;google_dns_servers&gt; port domain rdr-to $lan_dns_server port domain</code></pre></figure>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Be careful to position this rule in a place where it is not superceded by a preceding <code>quick</code> rule.</p></aside>
+<p>My actual configuration is a bit more complex, but I have included it here for reference.</p>
+<figure class="listing-block"><figcaption>/etc/pf.conf</figcaption>
+<pre class="rouge highlight"><code>lan1_if = "em1"
+lan2_if = "em2"
+lan3_if = "em3"
+lan4_if = "em4"
+lan5_if = "em5"
+secure_wifi_if = "vlan2"
+guest_wifi_if = "vlan3"
+
+lan1_dns_server = 192.168.1.1
+lan2_dns_server = 192.168.2.1
+lan3_dns_server = 192.168.3.1
+lan4_dns_server = 192.168.4.1
+lan5_dns_server = 192.168.5.1
+secure_wifi_dns_server = 192.168.6.1
+guest_wifi_dns_server = 192.168.7.1
+
+table &lt;google_dns_servers&gt; { 8.8.8.8 8.8.4.4 }
+...
+pass in quick on $lan1_if inet proto { tcp udp } to &lt;google_dns_servers&gt; port domain rdr-to $lan1_dns_server port domain
+pass in quick on $lan2_if inet proto { tcp udp } to &lt;google_dns_servers&gt; port domain rdr-to $lan2_dns_server port domain
+pass in quick on $lan3_if inet proto { tcp udp } to &lt;google_dns_servers&gt; port domain rdr-to $lan3_dns_server port domain
+pass in quick on $lan4_if inet proto { tcp udp } to &lt;google_dns_servers&gt; port domain rdr-to $lan4_dns_server port domain
+pass in quick on $lan5_if inet proto { tcp udp } to &lt;google_dns_servers&gt; port domain rdr-to $lan5_dns_server port domain
+pass in quick on $secure_wifi_if inet proto { tcp udp } to &lt;google_dns_servers&gt; port domain rdr-to $secure_wifi_dns_server port domain
+pass in quick on $guest_wifi_if inet proto { tcp udp } to &lt;google_dns_servers&gt; port domain rdr-to $guest_wifi_dns_server port domain
+...</code></pre></figure>
+<p>Reload the updated PF rules.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">pfctl -f /etc/pf.conf</span></code></pre></div></section>
+<section class="doc-section level-1"><h2 id="_verify">Verify</h2><p>Test your new-found adblocking by revisiting the <a href="https://ads-blocker.com/testing/#ad-blocker-test-steps">test steps</a>.
+Those pesky ads should have mystically vanished.</p></section>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/adblock/">Adblock</a>
+          <a href="/tags/bsd/">BSD</a>
+          <a href="/tags/dns/">DNS</a>
+          <a href="/tags/openbsd/">OpenBSD</a>
+          <a href="/tags/openbsd6/">OpenBSD6</a>
+          <a href="/tags/openbsd67/">OpenBSD67</a>
+          <a href="/tags/pihole/">Pihole</a>
+          <a href="/tags/unbound/">Unbound</a>
+          <a href="/tags/unbound-adblock/">unbound-adblock</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/unbound_dnssec/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">DNSSEC with Unbound</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/pppoe_openbsd/">
+            <span class="next-text nav-default">PPPoE on OpenBSD</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
+      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br />
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

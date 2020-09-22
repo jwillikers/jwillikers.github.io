@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>External Storage on the Pinebook Pro with ZFS - JWillikers</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jordan Williams" /><meta name="description" content="Note: This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro.
+ The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&amp;#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&amp;#8217;re just dying to use ZFS on that, right?" /><meta name="keywords" content="Blog, BSD, Linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://jwillikers.com/post/zfs_external_storage_pinebook_pro/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+<meta property="og:title" content="External Storage on the Pinebook Pro with ZFS" />
+<meta property="og:description" content="Note: This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro.
+ The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&#8217;re just dying to use ZFS on that, right?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jwillikers.com/post/zfs_external_storage_pinebook_pro/" />
+<meta property="article:published_time" content="2020-07-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-07-03T00:00:00+00:00" />
+<meta itemprop="name" content="External Storage on the Pinebook Pro with ZFS">
+<meta itemprop="description" content="Note: This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro.
+ The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&#8217;re just dying to use ZFS on that, right?">
+<meta itemprop="datePublished" content="2020-07-03T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-07-03T00:00:00+00:00" />
+<meta itemprop="wordCount" content="726">
+
+
+
+<meta itemprop="keywords" content="ArchLinux,Linux,Manjaro,PinebookPro,ZFS," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="External Storage on the Pinebook Pro with ZFS"/>
+<meta name="twitter:description" content="Note: This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro.
+ The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&#8217;re just dying to use ZFS on that, right?"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">JWillikers</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">JWillikers</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">External Storage on the Pinebook Pro with ZFS</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-07-03 </span>
+        <div class="post-category">
+            <a href="/categories/systems/"> Systems </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+    <div class="post-content">
+      <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro.</p></aside>
+<p>The <a href="https://www.pine64.org/pinebook-pro/">Pinebook Pro</a> comes with a small amount of internal disk space, only 64 GB.
+While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections.
+The easiest solution is to use a microSD card.
+And now you&#8217;re just dying to use ZFS on that, right?</p>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>Following the previous post, <a href="../install_zfs_pinebook_pro/">Install ZFS on the Pinebook Pro</a>, this tutorial describes the steps required to setup a microSD card for your music files with ZFS on the Pinebook Pro.</p>
+<section class="doc-section level-2"><h3 id="_create_the_pool">Create the Pool</h3><p>The microSD card will need to be provisioned as its own pool using ZFS.
+Adding the disk to a pool places it under the control of ZFS, providing all of the necessary ZFS capabilities.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>First, determine which device is the microSD card.</p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>fdisk <span class="nt">-l</span>
+<span class="go">Disk /dev/mmcblk2: 58.25 GiB, 62537072640 bytes, 122142720 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x33192aaf
+
+Device         Boot  Start       End   Sectors   Size Id Type
+/dev/mmcblk2p1       62500    500000    437501 213.6M  c W95 FAT32 (LBA)
+/dev/mmcblk2p2      500001 122142719 121642719    58G 83 Linux
+
+
+Disk /dev/mmcblk1: 238.51 GiB, 256087425024 bytes, 500170752 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x00000000
+
+Device         Boot Start       End   Sectors   Size Id Type
+/dev/mmcblk1p1      65536 500170751 500105216 238.5G  7 HPFS/NTFS/exFAT
+</span><span class="c">...</span></code></pre></div>
+<p>In this case, <code>/dev/mmcblk1</code> is the 256GB microSD card.</p></div></div></li><li><p>Next, determine the disk id to use when creating the zpool.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">ls</span> <span class="nt">-lh</span> /dev/disk/by-id/ | <span class="nb">grep</span> <span class="nt">-w</span> mmcblk1
+<span class="gp">lrwxrwxrwx 1 root root 13 Jun 24 07:33 mmc-AB5CD_0x00000001 -&gt;</span><span class="w"> </span>../../mmcblk1</code></pre></div></li><li><p>Then, check the block size.</p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>blockdev <span class="nt">--getpbsz</span> /dev/mmcblk1
+<span class="go">512</span></code></pre></div>
+<p>The SD card&#8217;s block size is 512 MiB, which means <code>ashift</code> should be set to 12.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></p></div></div></li><li><p>Create the pool.<a class="footnote-ref" id="_footnoteref_3" href="#_footnote_3" title="View footnote 3" role="doc-noteref">[3]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool create <span class="se">\</span>
+  <span class="nt">-o</span> <span class="nv">ashift</span><span class="o">=</span>12 <span class="se">\</span>
+  <span class="nt">-O</span> <span class="nv">compression</span><span class="o">=</span>on <span class="se">\ </span><b class="conum">1</b>
+<span class="go">  ext_pool mmc-AB5CD_0x00000001</span></code></pre><ol class="callout-list arabic"><li>Turn on compression by default.</li></ol></div>
+</li><li><p>Configure the system to automatically import the pool on boot.<a class="footnote-ref" id="_footnoteref_4" href="#_footnote_4" title="View footnote 4" role="doc-noteref">[4]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">set </span><span class="nv">cachefile</span><span class="o">=</span>/etc/zfs/zpool.cache ext_pool</code></pre></div></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_create_the_dataset">Create the Dataset</h3><p>With the microSD card now managed by ZFS, it is now possible to create the ZFS dataset for storing your music.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Create the ZFS dataset for your tunes.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs create <span class="se">\</span>
+  <span class="nt">-o</span> <span class="nv">recordsize</span><span class="o">=</span>1M <span class="se">\ </span><b class="conum">1</b>
+<span class="go">  -o mountpoint=/home/jordan/Music \
+  ext_pool/music</span></code></pre><ol class="callout-list arabic"><li>A nifty trick here is to use a larger <code>recordsize</code> of 1 MiB which more accurately reflects the filesystem operations for large media files.<a class="footnote-ref" id="_footnoteref_5" href="#_footnote_5" title="View footnote 5" role="doc-noteref">[5]</a></li></ol></div>
+</li><li><p>Set the appropriate ownership for the mounted <code>~/Music</code> directory.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown</span> <span class="nt">-R</span> jordan:jordan /home/jordan/Music</code></pre></div></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_copy">Copy</h3><p>Now, just copy the music files from wherever they happen to be to the dataset.
+The simplest way is to copy the files over the network.
+Since the pool is on an SD card, you might just want to pop it out and carry it between machines, so I describe that here.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Export the pool from the Pinebook Pro.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">export </span>ext_pool</code></pre></div></li><li>Pop-out the microSD card and pop it into the machine with all of the music.</li><li><p>Import the pool.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool import ext_pool
+<span class="go">cannot mount '/home/jordan/Music': directory is not empty</span></code></pre></div></li><li><p>Change where the music dataset is mounted.</p><div class="open-block"><div class="content"><p>I keep my music in <code>~/Music</code>, so I have to mount the dataset somewhere else.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs <span class="nb">set </span><span class="nv">mountpoint</span><span class="o">=</span>/media/jordan/Music ext_pool/music</code></pre></div></div></div></li><li><p>Mount the dataset to the updated location.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs mount ext_pool/music</code></pre></div></li><li><p>Set the appropriate ownership for the mounted directory.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chown </span>jordan:jordan /media/jordan/Music</code></pre></div></li><li><p>Copy over the music.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">tar </span>cfC - /home/jordan/Music <span class="nb">.</span> | <span class="nb">tar </span>xpfC - /media/jordan/Music</code></pre></div></li><li><p>Then change the mount location back to <code>~/Music</code>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zfs <span class="nb">set </span><span class="nv">mountpoint</span><span class="o">=</span>/home/jordan/Music ext_pool/music
+<span class="go">cannot mount '/home/jordan/Music': directory is not empty
+property may be set but unable to remount filesystem</span></code></pre></div></li><li><p>Export the pool from the machine.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool <span class="nb">export </span>ext_pool</code></pre></div></li><li><p>Now place the SD card back into the Pinebook Pro, and import the pool again.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>zpool import ext_pool</code></pre></div></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_verify">Verify</h3><p>If everything is successful, your music should now be available in <code>~/Music</code>.</p>
+<p>You should also check that the pool and music dataset are automatically mounted at boot.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>reboot</code></pre></div></section>
+<section class="doc-section level-2"><h3 id="_enjoy">Enjoy</h3><p>You can now enjoy your vast music collection from the comfort of your Pinebook Pro.</p></section></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://wiki.archlinux.org/index.php/ZFS#Identify_disks">Arch Linux Wiki: Identify Disks</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://wiki.archlinux.org/index.php/ZFS#Advanced_Format_disks">Arch Linux Wiki: ZFS - Advanced Format Disks</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_3" role="doc-endnote"><a href="https://wiki.archlinux.org/index.php/ZFS#Creating_ZFS_pools">Arch Linux Wiki: ZFS - Creating ZFS Pools</a> <a class="footnote-backref" href="#_footnoteref_3" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_4" role="doc-endnote"><a href="https://wiki.archlinux.org/index.php/ZFS#Automatic_Start">Arch Linux Wiki: ZFS - Automatic Start</a> <a class="footnote-backref" href="#_footnoteref_4" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_5" role="doc-endnote"><a href="https://jrs-s.net/2019/04/03/on-zfs-recordsize/">JRS Systems: About ZFS recordsize</a> <a class="footnote-backref" href="#_footnoteref_5" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/archlinux/">ArchLinux</a>
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/manjaro/">Manjaro</a>
+          <a href="/tags/pinebookpro/">PinebookPro</a>
+          <a href="/tags/zfs/">ZFS</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/update_uboot_pinebook_pro/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Update U-Boot on the Pinebook Pro</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/backup_docker_data/">
+            <span class="next-text nav-default">Backup Docker Data</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
+      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br />
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
