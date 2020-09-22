@@ -50,13 +50,13 @@ https://wiki.archlinux.org/index.php/Davfs2#Storing_credentials
 /etc/fstab https://webdav.example/path /mnt/webdav davfs rw,user,uid=username,noauto 0 0 /etc/davfs2/secrets https://webdav.example/path davusername davpassword $ chmod 600 /etc/davfs2/secrets $ chown root:root /etc/davfs2/secrets $ chmod 600 ~/.davfs2/secrets " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jwillikers.com/post/auto_mount_nextcloud/" />
-
+<meta property="article:modified_time" content="2020-09-22T13:49:11-05:00" />
 <meta itemprop="name" content="">
 <meta itemprop="description" content="https://wiki.archlinux.org/index.php/Davfs2#Using_systemd
 /etc/systemd/system/mnt-webdav-service.mount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Mount] What=http(s)://address:&lt;port&gt;/path Where=/mnt/webdav/service Options=uid=1000,file_mode=0664,dir_mode=2775,grpid Type=davfs TimeoutSec=15 [Install] WantedBy=multi-user.target /etc/systemd/system/mnt-webdav-service.automount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Automount] Where=/mnt/webdav/service TimeoutIdleSec=300 [Install] WantedBy=remote-fs.target https://wiki.archlinux.org/index.php/Fstab#Automount_with_systemd
 https://wiki.archlinux.org/index.php/Davfs2#Storing_credentials
 /etc/fstab https://webdav.example/path /mnt/webdav davfs rw,user,uid=username,noauto 0 0 /etc/davfs2/secrets https://webdav.example/path davusername davpassword $ chmod 600 /etc/davfs2/secrets $ chown root:root /etc/davfs2/secrets $ chmod 600 ~/.davfs2/secrets ">
-
+<meta itemprop="dateModified" content="2020-09-22T13:49:11-05:00" />
 <meta itemprop="wordCount" content="53">
 
 

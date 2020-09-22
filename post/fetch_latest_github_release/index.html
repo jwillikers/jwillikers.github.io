@@ -50,7 +50,7 @@
 <meta itemprop="description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively.">
 <meta itemprop="datePublished" content="2020-09-19T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T10:01:22-05:00" />
-<meta itemprop="wordCount" content="285">
+<meta itemprop="wordCount" content="287">
 
 
 
@@ -148,7 +148,8 @@ Well, the following command-line is a pretty nifty template to do just that!
 You will need <a href="https://curl.haxx.se/">curl</a> for this to work.
 Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the <em>&lt;user&gt;</em>, <em>&lt;repo&gt;</em>, and <em>&lt;extension&gt;</em> fields respectively.</p>
 <figure class="listing-block"><figcaption>Install the latest Github release</figcaption>
-<pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/&lt;user&gt;/&lt;repo&gt;/releases/latest | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /\.&lt;file extension&gt;/ {gsub(/"/, "", $(NF)); system("curl -LO " $(NF))}'</span></code></pre></figure>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/&lt;user&gt;/&lt;repo&gt;/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /\.&lt;file extension&gt;/ {gsub(/"/, "", $(NF)); system("curl -LO " $(NF))}'</span></code></pre></figure>
 <p>Here is a quick explanation.
 First, <code>curl</code> obtains the response from an HTTP GET request.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a>
 This response contains the URLs for the various artifacts for the latest release of the project.
@@ -157,7 +158,8 @@ It then removes the quotation marks surrounding the URL and downloads the file d
 <p>It&#8217;s also easy enough to modify the match pattern for the file extension to make it more specific if need be.
 The following example demonstrates this by fetching the latest Linux release zip file of the <a href="https://ninja-build.org/">Ninja build system</a>.</p>
 <figure class="listing-block"><figcaption>Install the latest Ninja release</figcaption>
-<pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/ninja-build/ninja/releases/latest | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /linux\.zip/ {gsub(/"/, "", $(NF)); system("curl -LO " $(NF))}'</span>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/ninja-build/ninja/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /linux\.zip/ {gsub(/"/, "", $(NF)); system("curl -LO " $(NF))}'</span>
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   637  100   637    0     0   1103      0 <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:--  1105
