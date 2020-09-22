@@ -46,5 +46,14 @@ TutorialThis tutorial explains how to install ZSH and set it as your default she
       <description>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&amp;#8217;s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively.</description>
     </item>
     
+    <item>
+      <title>Password-less Sudo</title>
+      <link>https://jwillikers.com/post/passwordless_sudo/</link>
+      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/passwordless_sudo/</guid>
+      <description>Typing a password to login is repetitive enough, isn&amp;#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&amp;#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it&amp;#8217;s super easy and cross-platform. For whatever reason, I learned and forgot about doing this sometime ago, so here&amp;#8217;s the gist.</description>
+    </item>
+    
   </channel>
 </rss>
