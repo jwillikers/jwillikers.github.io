@@ -50,7 +50,7 @@
 <meta itemprop="description" content="Recently, Firefox announced it&#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&#8230;&#8203; Why don&#8217;t I do that for my home network?&#34; Well, I&#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&#8217;s DNS requests. Unbound has support built-in for DoH&#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.">
 <meta itemprop="datePublished" content="2020-05-29T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T09:58:49-05:00" />
-<meta itemprop="wordCount" content="674">
+<meta itemprop="wordCount" content="680">
 
 
 
@@ -175,40 +175,40 @@ Make sure that whichever servers you choose support DNS over TLS.</p></aside>
 But before moving on, take a moment to admire those lovely comments from the package maintainers.
 You don&#8217;t see comments that make a task so easy all that often.</p>
 <p>To be on the safe side, verify the configuration of <code>unbound.conf</code> with <a href="http://man.openbsd.org/unbound-checkconf.8">unbound-checkconf</a>.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>unbound-checkconf
-<span class="go">unbound-checkconf: no errors in /var/unbound/etc/unbound.conf</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>unbound-checkconf
+unbound-checkconf: no errors <span class="k">in</span> /var/unbound/etc/unbound.conf</code></pre></div>
 <p>Did you read those comments? Restart the machine for the changes to take effect.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>reboot</code></pre></div></section>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>reboot</code></pre></div></section>
 <section class="doc-section level-2"><h3 id="_verify">Verify</h3><p>Could the configuration really be that easy?
 It&#8217;s probably best to check if DNS requests are truly being encrypted.
 A packet capture can show that.</p>
 <p>Start capturing all DNS traffic from the Unbound server to the upstream DNS.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>tcpdump <span class="nt">-v</span> <span class="nt">-i</span> em0 <span class="nt">-s</span> 65535 <span class="nt">-w</span> dns.pcap dst port 53 or 853 <b class="conum">1</b></code></pre><ol class="callout-list arabic"><li>Capture packets on the egress interface, <code>em0</code>.
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>tcpdump <span class="nt">-v</span> <span class="nt">-i</span> em0 <span class="nt">-s</span> 65535 <span class="nt">-w</span> dns.pcap dst port 53 or 853 <b class="conum">1</b></code></pre><ol class="callout-list arabic"><li>Capture packets on the egress interface, <code>em0</code>.
 Capture all traffic going to the standard DNS and DoT ports, port 53 and 853 respectively.
 Write the capture to the file <code>dns.pcap</code></li></ol></div>
 
 <p>Then do some digging or web browsing from a host using the Unbound resolver.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>dig mozilla.org</code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>dig mozilla.org</code></pre></div>
 <p>Use <code>Ctrl-C</code> to end the packet capture.</p>
 <p>Next, analyze the packet capture.
 I opened up the packet capture in <a href="https://www.wireshark.org/">Wireshark</a> on my laptop.
 But, it&#8217;s just as easy to view it on the terminal with <a href="https://www.wireshark.org/docs/man-pages/tshark.html">tshark</a>.
 Optionally, install <code>tshark</code>.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>pkg_add wireshark <span class="nt">--no_x11</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>pkg_add wireshark <span class="nt">--no_x11</span></code></pre></div>
 <p>Review DNS requests in the packet capture.
 Here I use <code>tshark</code>.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>tshark <span class="nt">-r</span> dns.pcap
-<span class="go">    1   0.000000 2001:DB8::1 ? 2606:4700:4700::1001 TCP 98 38416 ? 853 [SYN] Seq=0 Win=16384 Len=0 MSS=1440 SACK_PERM=1 WS=64 TSval=3906316800 TSecr=0
-    2   0.000105 2001:DB8::1 ? 2606:4700:4700::1001 TCP 98 16888 ? 853 [SYN] Seq=0 Win=16384 Len=0 MSS=1440 SACK_PERM=1 WS=64 TSval=1343386395 TSecr=0
-    3   0.005709 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 38416 ? 853 [ACK] Seq=1 Ack=1 Win=16384 Len=0
-    4   0.005710 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 16888 ? 853 [ACK] Seq=1 Ack=1 Win=16384 Len=0
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>tshark <span class="nt">-r</span> dns.pcap
+    1   0.000000 2001:DB8::1 ? 2606:4700:4700::1001 TCP 98 38416 ? 853 <span class="o">[</span>SYN] <span class="nv">Seq</span><span class="o">=</span>0 <span class="nv">Win</span><span class="o">=</span>16384 <span class="nv">Len</span><span class="o">=</span>0 <span class="nv">MSS</span><span class="o">=</span>1440 <span class="nv">SACK_PERM</span><span class="o">=</span>1 <span class="nv">WS</span><span class="o">=</span>64 <span class="nv">TSval</span><span class="o">=</span>3906316800 <span class="nv">TSecr</span><span class="o">=</span>0
+    2   0.000105 2001:DB8::1 ? 2606:4700:4700::1001 TCP 98 16888 ? 853 <span class="o">[</span>SYN] <span class="nv">Seq</span><span class="o">=</span>0 <span class="nv">Win</span><span class="o">=</span>16384 <span class="nv">Len</span><span class="o">=</span>0 <span class="nv">MSS</span><span class="o">=</span>1440 <span class="nv">SACK_PERM</span><span class="o">=</span>1 <span class="nv">WS</span><span class="o">=</span>64 <span class="nv">TSval</span><span class="o">=</span>1343386395 <span class="nv">TSecr</span><span class="o">=</span>0
+    3   0.005709 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 38416 ? 853 <span class="o">[</span>ACK] <span class="nv">Seq</span><span class="o">=</span>1 <span class="nv">Ack</span><span class="o">=</span>1 <span class="nv">Win</span><span class="o">=</span>16384 <span class="nv">Len</span><span class="o">=</span>0
+    4   0.005710 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 16888 ? 853 <span class="o">[</span>ACK] <span class="nv">Seq</span><span class="o">=</span>1 <span class="nv">Ack</span><span class="o">=</span>1 <span class="nv">Win</span><span class="o">=</span>16384 <span class="nv">Len</span><span class="o">=</span>0
     5   0.006150 2001:DB8::1 ? 2606:4700:4700::1001 TLSv1 386 Client Hello
     6   0.006494 2001:DB8::1 ? 2606:4700:4700::1001 TLSv1 386 Client Hello
-    7   0.012466 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 38416 ? 853 [ACK] Seq=313 Ack=2721 Win=13632 Len=0
-    8   0.012468 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 16888 ? 853 [ACK] Seq=313 Ack=2721 Win=13632 Len=0
-    9   0.013037 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 38416 ? 853 [ACK] Seq=313 Ack=2742 Win=16384 Len=0
+    7   0.012466 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 38416 ? 853 <span class="o">[</span>ACK] <span class="nv">Seq</span><span class="o">=</span>313 <span class="nv">Ack</span><span class="o">=</span>2721 <span class="nv">Win</span><span class="o">=</span>13632 <span class="nv">Len</span><span class="o">=</span>0
+    8   0.012468 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 16888 ? 853 <span class="o">[</span>ACK] <span class="nv">Seq</span><span class="o">=</span>313 <span class="nv">Ack</span><span class="o">=</span>2721 <span class="nv">Win</span><span class="o">=</span>13632 <span class="nv">Len</span><span class="o">=</span>0
+    9   0.013037 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 38416 ? 853 <span class="o">[</span>ACK] <span class="nv">Seq</span><span class="o">=</span>313 <span class="nv">Ack</span><span class="o">=</span>2742 <span class="nv">Win</span><span class="o">=</span>16384 <span class="nv">Len</span><span class="o">=</span>0
    10   0.019366 2001:DB8::1 ? 2606:4700:4700::1001 TLSv1.2 148 Application Data
-   11   0.019892 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 16888 ? 853 [ACK] Seq=313 Ack=2741 Win=16384 Len=0</span></code></pre></div>
+   11   0.019892 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 16888 ? 853 <span class="o">[</span>ACK] <span class="nv">Seq</span><span class="o">=</span>313 <span class="nv">Ack</span><span class="o">=</span>2741 <span class="nv">Win</span><span class="o">=</span>16384 <span class="nv">Len</span><span class="o">=</span>0</code></pre></div>
 <p>You should see output similar to that above.
 A TLSv1.2 connection is established between the Unbound server and Cloudflare&#8217;s DNS server <code>2606:4700:4700::1001</code>.
 In this packet capture, un-encrypted DNS traffic over port 53 is entirely absent.

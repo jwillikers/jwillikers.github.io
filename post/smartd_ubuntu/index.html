@@ -50,7 +50,7 @@
 <meta itemprop="description" content="I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.">
 <meta itemprop="datePublished" content="2020-05-25T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T09:58:49-05:00" />
-<meta itemprop="wordCount" content="1105">
+<meta itemprop="wordCount" content="1111">
 
 
 
@@ -154,7 +154,7 @@ If you&#8217;re configuring a desktop like me or otherwise configuring a system 
 Emails sent straight from a willy-nilly desktop user account to an online email provider are unlikely to be accepted.
 With <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a>, your system can relay emails through your online email provider to remedy this.</p>
 <section class="doc-section level-2"><h3 id="_install">Install</h3><p>First, install SmartMonTools on Ubuntu.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>smartmontools</code></pre></div></section>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>apt <span class="nb">install </span>smartmontools</code></pre></div></section>
 <section class="doc-section level-2"><h3 id="_configure">Configure</h3><p>The tool to monitor your system is, of course, <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/smartd.8.html">smartd</a>.
 Configuration is done in <code>/etc/smartd.conf</code>.
 Consult the <a href="https://manpages.ubuntu.com/manpages/focal/en/man5/smartd.conf.5.html">smartd.conf manpage</a> for more details.
@@ -177,60 +177,60 @@ Wake it up after 15 skipped checks.
 Don&#8217;t log the skipped test, which could wake-up the disk.</li><li>Schedule long self-tests for the first and sixteenth days of the month at 3 AM, short self-tests daily at 1 AM, and Offline Immediate Tests four times each day at midnight, 6 AM, noon, and 6 PM.</li><li>Email <code>jdoe@gmail.com</code> if any errors are detected.</li><li>Execute <code>/usr/share/smartmontools/smartd-runner</code> instead of the default mail command when sending emails.</li></ol></figure>
 
 <p>Enable <code>smartd</code> on system startup.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl <span class="nb">enable </span>smartd</code></pre></div></section>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nb">enable </span>smartd</code></pre></div></section>
 <section class="doc-section level-2"><h3 id="_verify">Verify</h3><p>You will probably want to double check the scheduling and emailing behavior, at the very least.</p>
 <section class="doc-section level-3"><h4 id="_scheduling">Scheduling</h4><p>Audit the self-test schedule with <code>smartd -q showtests</code>.
 This will show the next five tests scheduled for each type of self-test.
 It also shows the total number of tests for each type of self-test for the next ninety days.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smartd <span class="nt">-q</span> showtests
-<span class="go">smartd 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-31-generic] (local build)
-Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>smartd <span class="nt">-q</span> showtests
+smartd 7.1 2019-12-30 r5022 <span class="o">[</span>x86_64-linux-5.4.0-31-generic] <span class="o">(</span><span class="nb">local </span>build<span class="o">)</span>
+Copyright <span class="o">(</span>C<span class="o">)</span> 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
 
 Opened configuration file /etc/smartd.conf
 Configuration file /etc/smartd.conf parsed.
 Device: /dev/sda, opened
 Device: /dev/sda, CT2000MX500SSD1, S/N:000000000001, WWN:0-000000-000000000, FW:M3CR023, 2.00 TB
-Device: /dev/sda, found in smartd database: Crucial/Micron MX500 SSDs
-Device: /dev/sda, WARNING: This firmware returns bogus raw values in attribute 197
+Device: /dev/sda, found <span class="k">in </span>smartd database: Crucial/Micron MX500 SSDs
+Device: /dev/sda, WARNING: This firmware returns bogus raw values <span class="k">in </span>attribute 197
 Device: /dev/sda, enabled SMART Attribute Autosave.
 Device: /dev/sda, enabled SMART Automatic Offline Testing.
-Device: /dev/sda, is SMART capable. Adding to "monitor" list.
-Device: /dev/sda, state read from /var/lib/smartmontools/smartd.CT2000MX500SSD1-000000000001.ata.state
+Device: /dev/sda, is SMART capable. Adding to <span class="s2">"monitor"</span> list.
+Device: /dev/sda, state <span class="nb">read </span>from /var/lib/smartmontools/smartd.CT2000MX500SSD1-000000000001.ata.state
 Monitoring 1 ATA/SATA, 0 SCSI/SAS and 0 NVMe devices
 
-Next scheduled self tests (at most 5 of each type per device):
-Device: /dev/sda, will do test 1 of type O at Mon May 25 12:25:20 2020 CDT
-Device: /dev/sda, will do test 2 of type O at Mon May 25 18:25:20 2020 CDT
-Device: /dev/sda, will do test 3 of type O at Tue May 26 00:25:20 2020 CDT
-Device: /dev/sda, will do test 1 of type S at Tue May 26 01:25:20 2020 CDT
-Device: /dev/sda, will do test 4 of type O at Tue May 26 06:25:20 2020 CDT
-Device: /dev/sda, will do test 5 of type O at Tue May 26 12:25:20 2020 CDT
-Device: /dev/sda, will do test 2 of type S at Wed May 27 01:25:20 2020 CDT
-Device: /dev/sda, will do test 3 of type S at Thu May 28 01:25:20 2020 CDT
-Device: /dev/sda, will do test 4 of type S at Fri May 29 01:25:20 2020 CDT
-Device: /dev/sda, will do test 5 of type S at Sat May 30 01:25:20 2020 CDT
-Device: /dev/sda, will do test 1 of type L at Mon Jun  1 03:25:20 2020 CDT
-Device: /dev/sda, will do test 2 of type L at Tue Jun 16 03:25:20 2020 CDT
-Device: /dev/sda, will do test 3 of type L at Wed Jul  1 03:25:20 2020 CDT
-Device: /dev/sda, will do test 4 of type L at Thu Jul 16 03:25:20 2020 CDT
-Device: /dev/sda, will do test 5 of type L at Sat Aug  1 03:25:20 2020 CDT
+Next scheduled self tests <span class="o">(</span>at most 5 of each <span class="nb">type </span>per device<span class="o">)</span>:
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>1 of <span class="nb">type </span>O at Mon May 25 12:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>2 of <span class="nb">type </span>O at Mon May 25 18:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>3 of <span class="nb">type </span>O at Tue May 26 00:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>1 of <span class="nb">type </span>S at Tue May 26 01:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>4 of <span class="nb">type </span>O at Tue May 26 06:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>5 of <span class="nb">type </span>O at Tue May 26 12:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>2 of <span class="nb">type </span>S at Wed May 27 01:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>3 of <span class="nb">type </span>S at Thu May 28 01:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>4 of <span class="nb">type </span>S at Fri May 29 01:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>5 of <span class="nb">type </span>S at Sat May 30 01:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>1 of <span class="nb">type </span>L at Mon Jun  1 03:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>2 of <span class="nb">type </span>L at Tue Jun 16 03:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>3 of <span class="nb">type </span>L at Wed Jul  1 03:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>4 of <span class="nb">type </span>L at Thu Jul 16 03:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>5 of <span class="nb">type </span>L at Sat Aug  1 03:25:20 2020 CDT
 
-Totals [Mon May 25 10:25:20 2020 CDT - Sun Aug 23 10:25:20 2020 CDT]:
-Device: /dev/sda, will do   6 tests of type L
-Device: /dev/sda, will do  90 tests of type S
-Device: /dev/sda, will do   0 tests of type C
-Device: /dev/sda, will do 360 tests of type O</span></code></pre></div>
+Totals <span class="o">[</span>Mon May 25 10:25:20 2020 CDT - Sun Aug 23 10:25:20 2020 CDT]:
+Device: /dev/sda, will <span class="k">do   </span>6 tests of <span class="nb">type </span>L
+Device: /dev/sda, will <span class="k">do  </span>90 tests of <span class="nb">type </span>S
+Device: /dev/sda, will <span class="k">do   </span>0 tests of <span class="nb">type </span>C
+Device: /dev/sda, will <span class="k">do </span>360 tests of <span class="nb">type </span>O</code></pre></div>
 <p>Further verification can be done to make sure self-tests are running at the scheduled times.
 After an amount of time where <code>smartd</code> is expected to run some self-tests, check the self-test log with <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/smartctl.8.html">smartctl</a>.
 The log shows that one short offline test has been run without error.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smartctl <span class="nt">-d</span> sat <span class="nt">-l</span> xselftest,25,selftest /dev/sda
-<span class="go">smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.0-31-generic] (local build)
-Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>smartctl <span class="nt">-d</span> sat <span class="nt">-l</span> xselftest,25,selftest /dev/sda
+smartctl 7.1 2019-12-30 r5022 <span class="o">[</span>x86_64-linux-5.4.0-31-generic] <span class="o">(</span><span class="nb">local </span>build<span class="o">)</span>
+Copyright <span class="o">(</span>C<span class="o">)</span> 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
 
-=== START OF READ SMART DATA SECTION ===
-SMART Extended Self-test Log Version: 1 (1 sectors)
-Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
-</span><span class="gp">#</span><span class="w"> </span>1  Short offline       Completed without error       00%       460         -</code></pre></div></section>
+<span class="o">===</span> START OF READ SMART DATA SECTION <span class="o">===</span>
+SMART Extended Self-test Log Version: 1 <span class="o">(</span>1 sectors<span class="o">)</span>
+Num  Test_Description    Status                  Remaining  LifeTime<span class="o">(</span>hours<span class="o">)</span>  LBA_of_first_error
+<span class="c"># 1  Short offline       Completed without error       00%       460         -</span></code></pre></div></section>
 <section class="doc-section level-3"><h4 id="_email_alerts">Email Alerts</h4><p>To test the email functionality, you can tell <code>smartd</code> to send a test email.</p>
 <figure class="listing-block"><figcaption>/etc/smartd.conf</figcaption>
 <pre>/dev/sda \
@@ -248,7 +248,7 @@ Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA
     -M exec /usr/share/smartmontools/smartd-runner</pre><ol class="callout-list arabic"><li>Send a test email when <code>smartd</code> starts.</li></ol></figure>
 
 <p>Restart <code>smartd</code> so that it sends the test email.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl restart smartd</code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl restart smartd</code></pre></div>
 <p>If everything works, you should receive an email at the designated address.</p>
 <section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Make sure to remove the <code>-M test</code> directive from the file so you don&#8217;t spam yourself.</p></section></section></section></section>
 

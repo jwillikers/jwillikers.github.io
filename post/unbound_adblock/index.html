@@ -50,7 +50,7 @@
 <meta itemprop="description" content="Ever want to get rid of all those annoying internet ads? Me too. I&#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers.">
 <meta itemprop="datePublished" content="2020-03-28T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T09:58:49-05:00" />
-<meta itemprop="wordCount" content="655">
+<meta itemprop="wordCount" content="654">
 
 
 
@@ -151,15 +151,14 @@ Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF r
 Get a base-line of what ads should be blocked by working through the <a href="https://ads-blocker.com/testing/#ad-blocker-test-steps">test steps</a> on <a class="bare" href="https://ads-blocker.com/testing">https://ads-blocker.com/testing</a>.</p>
 <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Disable any browser-based ad-blockers you might have enabled, otherwise you won&#8217;t be able to verify your setup actually blocks ads.</p></aside></section>
 <section class="doc-section level-1"><h2 id="_configure">Configure</h2><p>Download the <a href="https://www.geoghegan.ca/scripts/unbound-adblock.sh">unbound-adblock.sh script</a>.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ftp https://www.geoghegan.ca/scripts/unbound-adblock.sh</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">ftp https://www.geoghegan.ca/scripts/unbound-adblock.sh</code></pre></div>
 <p>Install the script with the appropriate permissions.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">install -g bin -m 644 -o root unbound-adblock.sh /usr/local/bin/ <b class="conum">1</b>
-</span></code></pre><ol class="callout-list arabic"><li>The script will be owned by <em>root</em>, belong to the <em>bin</em> group, and be readable by everyone and writeable by the owner.</li></ol></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nb">install</span> <span class="nt">-g</span> bin <span class="nt">-m</span> 644 <span class="nt">-o</span> root unbound-adblock.sh /usr/local/bin/ <b class="conum">1</b></code></pre><ol class="callout-list arabic"><li>The script will be owned by <em>root</em>, belong to the <em>bin</em> group, and be readable by everyone and writeable by the owner.</li></ol></div>
 
 <p>Create a new user, <code>_adblock</code>, who will not be allowed to login.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">useradd -s /sbin/nologin _adblock</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">useradd <span class="nt">-s</span> /sbin/nologin _adblock</code></pre></div>
 <p>Install an empty <code>adblock.conf</code> file owned by the <code>_adblock</code> user which is readable by everyone but only writeable by the owner.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">install -m 644 -o _adblock /dev/null /var/unbound/etc/adblock.conf</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nb">install</span> <span class="nt">-m</span> 644 <span class="nt">-o</span> _adblock /dev/null /var/unbound/etc/adblock.conf</code></pre></div>
 <p>Include the <code>adblock.conf</code> file at the end of the <code>server</code> section.</p>
 <figure class="listing-block"><figcaption>/var/unbound/etc/unbound.conf</figcaption>
 <pre class="rouge highlight"><code>server:
@@ -171,7 +170,7 @@ Get a base-line of what ads should be blocked by working through the <a href="ht
 <pre class="rouge highlight"><code># Allow the unbound-adblock user / script to reload the unbound service.
 permit nopass _adblock cmd rcctl args reload unbound</code></pre></figure>
 <p>Edit the <code>_adblock</code> users crontab file.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">crontab -u _adblock -e</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">crontab <span class="nt">-u</span> _adblock <span class="nt">-e</span></code></pre></div>
 <p>Add a rule to run the <code>unbound-adblock.sh</code> script every morning at 6:30.</p>
 <figure class="listing-block"><figcaption>/var/cron/tabs/_adblock</figcaption>
 <pre class="rouge highlight"><code># use /bin/sh to run commands, no matter what /etc/passwd says
@@ -180,13 +179,13 @@ SHELL=/bin/sh
 # Update unbound-adblock at 6:30 every morning.
 30	6	*	*	*	/usr/local/bin/unbound-adblock.sh</code></pre></figure>
 <p>Run the <code>unbound-adblock.sh</code> script once.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">doas -u _adblock sh /usr/local/bin/unbound-adblock.sh</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">doas <span class="nt">-u</span> _adblock sh /usr/local/bin/unbound-adblock.sh</code></pre></div>
 <p>Restart the unbound service.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl restart unbound</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">rcctl restart unbound</code></pre></div>
 <p>Add a PF rule to redirect all DNS queries bound for Google&#8217;s DNS servers, <code>8.8.8.8</code> and <code>8.8.4.4</code> to your unbound DNS server, i.e. <code>192.168.1.1</code>.
 The example below uses a macro <code>lan_if</code> to represent the LAN network interface, <code>em1</code>.</p>
 <figure class="listing-block"><figcaption>/etc/pf.conf</figcaption>
-<pre class="rouge highlight"><code># Redirect any DNS requests to Google's DNS servers to the LAN's unbound server.
+<pre class="rouge highlight"><code data-lang="pf"># Redirect any DNS requests to Google's DNS servers to the LAN's unbound server.
 lan_if = "em1"
 lan_dns_server = 192.168.1.1
 table &lt;google_dns_servers&gt; { 8.8.8.8 8.8.4.4 }
@@ -195,7 +194,7 @@ pass in quick on $lan_if quick inet proto { tcp udp } to &lt;google_dns_servers&
 <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Be careful to position this rule in a place where it is not superceded by a preceding <code>quick</code> rule.</p></aside>
 <p>My actual configuration is a bit more complex, but I have included it here for reference.</p>
 <figure class="listing-block"><figcaption>/etc/pf.conf</figcaption>
-<pre class="rouge highlight"><code>lan1_if = "em1"
+<pre class="rouge highlight"><code data-lang="pf">lan1_if = "em1"
 lan2_if = "em2"
 lan3_if = "em3"
 lan4_if = "em4"
@@ -222,7 +221,7 @@ pass in quick on $secure_wifi_if inet proto { tcp udp } to &lt;google_dns_server
 pass in quick on $guest_wifi_if inet proto { tcp udp } to &lt;google_dns_servers&gt; port domain rdr-to $guest_wifi_dns_server port domain
 ...</code></pre></figure>
 <p>Reload the updated PF rules.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">pfctl -f /etc/pf.conf</span></code></pre></div></section>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">pfctl <span class="nt">-f</span> /etc/pf.conf</code></pre></div></section>
 <section class="doc-section level-1"><h2 id="_verify">Verify</h2><p>Test your new-found adblocking by revisiting the <a href="https://ads-blocker.com/testing/#ad-blocker-test-steps">test steps</a>.
 Those pesky ads should have mystically vanished.</p></section>
 

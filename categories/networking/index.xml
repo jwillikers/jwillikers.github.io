@@ -76,7 +76,7 @@ PFIPv6 packets need to get through the firewall for anything to happen.</descrip
       <description>Blocking connections to nefarious IP addresses in your firewall is usually a good idea. On OpenBSD, the pf-badhost script updates PF to block traffic to and from such addresses. This post walks through my installation and verification of pf-badhost. Make sure to check out the well-written installation instructions, too.
 ConfigureDownload the pf-badhost.sh script.
 ftp https://www.geoghegan.ca/scripts/pf-badhost.sh Install the script with the appropriate permissions.
-install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1 The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.</description>
+install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1The script will be owned by root, belong to the bin group, and be readable by everyone and writeable by the owner.</description>
     </item>
     
     <item>

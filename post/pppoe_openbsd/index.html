@@ -183,10 +183,10 @@ dest 0.0.0.1
 <figure class="listing-block"><figcaption>/etc/hostname.em0</figcaption>
 <pre class="rouge highlight"><code>up mtu 1508</code></pre></figure>
 <p>Start up the <code>em0</code> and <code>pppoe0</code> interfaces.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">sh /etc/netstart em0 pppoe0</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">sh /etc/netstart em0 pppoe0</code></pre></div>
 <section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>The <code>/etc/netstart</code> script was not able to successfully establish a PPPoE connection when I changed my configuration from <code>pap</code> to <code>chap</code>.
 I had to reboot my system after changing the configuration file for the connection to succeed.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">reboot</span></code></pre></div></section></section>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">reboot</code></pre></div></section></section>
 
     </div>
 

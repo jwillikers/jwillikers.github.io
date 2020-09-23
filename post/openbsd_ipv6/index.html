@@ -56,7 +56,7 @@ ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
 PFIPv6 packets need to get through the firewall for anything to happen.">
 <meta itemprop="datePublished" content="2020-05-23T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T09:58:49-05:00" />
-<meta itemprop="wordCount" content="1148">
+<meta itemprop="wordCount" content="1155">
 
 
 
@@ -157,7 +157,7 @@ I&#8217;ve documented my setup and difficulties here in the hope it saves some t
 <section class="doc-section level-2"><h3 id="_pf">PF</h3><p>IPv6 packets need to get through the firewall for anything to happen.
 Below are snippets of my IPv6 packet-filter rules to allow the necessary traffic.</p>
 <figure class="listing-block"><figcaption>/etc/pf.conf</figcaption>
-<pre class="rouge highlight"><code>table &lt;martians&gt; { <b class="conum">1</b>
+<pre class="rouge highlight"><code data-lang="pf">table &lt;martians&gt; { <b class="conum">1</b>
     0.0.0.0/8 127.0.0.0/8 169.254.0.0/16 172.16.0.0/12 192.0.0.0/24 \
     192.0.2.0/24 224.0.0.0/3 192.168.0.0/16 198.18.0.0/15 198.51.100.0/24 \
     203.0.113.0/24 \
@@ -191,7 +191,7 @@ It took me a while to realize I needed DHCPv6 to request multiple /64 blocks fro
 OpenBSD has yet to natively support DHCPv6, so a third-party package was required.
 I decided on <a href="https://roy.marples.name/projects/dhcpcd/">dhcpcd</a>.
 There is a package available for <a href="https://sourceforge.net/projects/wide-dhcpv6/">wide-dhcpv6</a>, but it lacks rc init scripts to conveniently integrate into the system&#8217;s startup process.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">pkg_add dhcpcd</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">pkg_add dhcpcd</code></pre></div>
 <p>Configuration of dhcpcd was done in <code>/etc/dhcpcd.conf</code>.
 The default configuration required only a few changes, detailed below.</p>
 <figure class="listing-block"><figcaption>/etc/dhcpcd.conf</figcaption>
@@ -207,7 +207,7 @@ interface em0 <b class="conum">5</b>
   ia_pd 2 em1/0 em2/1 em3/2 em4/3 em5/4 vlan2/5 <b class="conum">8</b></code></pre><ol class="callout-list arabic"><li>Enable DHCP services for IPv6 only.</li><li>Disable IPv6 router solicitation on all interfaces.</li><li>Wait for an IPv6 address to be assigned before forking to the background.</li><li>Allow touching these interfaces.</li><li>Configure my external interface <code>em0</code>.</li><li>Enable router solicitation on <code>em0</code>.</li><li>Obtain a normal IPv6 address for <code>em0</code>.</li><li>Request a prefix delegation for all of my internal interfaces.</li></ol></figure>
 
 <p>I then enabled the dhcpcd service at boot.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl enable dhcpcd</span></code></pre></div></section>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">rcctl <span class="nb">enable </span>dhcpcd</code></pre></div></section>
 <section class="doc-section level-2"><h3 id="_router_advertisement_daemon">Router Advertisement Daemon</h3><p>On OpenBSD, <a href="https://man.openbsd.org/rad.8">rad</a> handles SLAAC on the LAN interfaces.
 Configuration of rad is done in <a href="https://man.openbsd.org/rad.conf.5">rad.conf</a>.</p>
 <figure class="listing-block"><figcaption>/etc/rad.conf</figcaption>
@@ -232,7 +232,7 @@ Without the DNS servers, a host would need to obtain nameservers through IPv4 DH
 Ideally, my setup would have used my local Unbound instance for IPv6 DNS lookups, but I haven&#8217;t quite figured out how to handle that yet.
 Specifically, I&#8217;m at a loss for how to dynamically assign an IPv6 address to the Unbound server.</p>
 <p>I enabled rad to start at boot.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl enable rad</span></code></pre></div></section>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">rcctl <span class="nb">enable </span>rad</code></pre></div></section>
 <section class="doc-section level-2"><h3 id="_unbound">Unbound</h3><p>While I did not bind <a href="https://man.openbsd.org/unbound">Unbound</a> to any public IPv6 addresses, it can still do IPv6 DNS lookups.
 I enabled IPv6 support on Unbound and provided upstream IPv6 DNS servers.</p>
 <figure class="listing-block"><figcaption>/var/unbound/etc/unbound.conf</figcaption>
@@ -270,78 +270,78 @@ forward-zone:
 <figure class="listing-block"><figcaption>/etc/sysctl.conf</figcaption>
 <pre class="rouge highlight"><code>net.inet6.ip6.forwarding=1</code></pre></figure></section></section>
 <section class="doc-section level-1"><h2 id="_deployment">Deployment</h2><p>Last of all, the system was rebooted to put all the changes in to take effect.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">reboot</span></code></pre></div></section>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">reboot</code></pre></div></section>
 <section class="doc-section level-1"><h2 id="_verification">Verification</h2><p>Once my router had rebooted, I ran <a href="https://man.openbsd.org/ifconfig">ifconfig</a> to ensure that my interfaces had public IPv6 addresses.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ifconfig</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">ifconfig</code></pre></div>
 <p>The resultant output is below.
 The details have been modified for privacy.</p>
 <p>At first, I noticed that some interfaces were not showing public IPv6 address assignments.
 They only had <a href="https://en.wikipedia.org/wiki/Link-local_address">link-local IPv6 addresses</a>, i.e. addresses beginning with 'fe80::'.
 I thought that dhcpcd was not provisioning addresses correctly.
 Eventually, I realized that public IPv6 addresses are only shown for interfaces with active connections.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">em0: flags=808843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST,AUTOCONF4&gt;</span><span class="w"> </span>mtu 1500
-<span class="go">	lladdr 00:00:00:00:00:00
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">em0: <span class="nv">flags</span><span class="o">=</span>808843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST,AUTOCONF4&gt; mtu 1500
+	lladdr 00:00:00:00:00:00
 	index 1 priority 0 llprio 3
-	groups: egress
-	media: Ethernet autoselect (1000baseT full-duplex,rxpause,txpause)
+	<span class="nb">groups</span>: egress
+	media: Ethernet autoselect <span class="o">(</span>1000baseT full-duplex,rxpause,txpause<span class="o">)</span>
 	status: active
 	inet 123.45.67.253 netmask 0xffffff00 broadcast 123.45.67.255
 	inet6 fe80::%em0 prefixlen 64 scopeid 0x1
 	inet6 2001:DB8:face:cafe:abcd:1111:2222:33 prefixlen 64 autoconf pltime 604473 vltime 2591673
-</span><span class="gp">em1: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
-<span class="go">	lladdr 00:00:00:00:00:01
+em1: <span class="nv">flags</span><span class="o">=</span>8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	lladdr 00:00:00:00:00:01
 	index 2 priority 0 llprio 3
-	groups: secure_lan
-	media: Ethernet autoselect (1000baseT full-duplex,rxpause,txpause)
+	<span class="nb">groups</span>: secure_lan
+	media: Ethernet autoselect <span class="o">(</span>1000baseT full-duplex,rxpause,txpause<span class="o">)</span>
 	status: active
 	inet 192.168.1.1 netmask 0xffffff00 broadcast 192.168.1.255
 	inet6 fe80::0001%em1 prefixlen 64 scopeid 0x2
-</span><span class="gp">em2: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
-<span class="go">	lladdr 00:00:00:00:00:02
+em2: <span class="nv">flags</span><span class="o">=</span>8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	lladdr 00:00:00:00:00:02
 	index 3 priority 0 llprio 3
-	groups: secure_lan
-	media: Ethernet autoselect (100baseTX full-duplex)
+	<span class="nb">groups</span>: secure_lan
+	media: Ethernet autoselect <span class="o">(</span>100baseTX full-duplex<span class="o">)</span>
 	status: active
 	inet 192.168.2.1 netmask 0xffffff00 broadcast 192.168.2.255
 	inet6 fe80::1%em2 prefixlen 64 scopeid 0x3
 	inet6 2001:DB8:face:cafe:1::1 prefixlen 64 pltime 205171 vltime 231091
-</span><span class="gp">em3: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
-<span class="go">	lladdr 00:00:00:00:00:02
+em3: <span class="nv">flags</span><span class="o">=</span>8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	lladdr 00:00:00:00:00:02
 	index 4 priority 0 llprio 3
-	groups: secure_lan
-	media: Ethernet autoselect (none)
+	<span class="nb">groups</span>: secure_lan
+	media: Ethernet autoselect <span class="o">(</span>none<span class="o">)</span>
 	status: no carrier
 	inet 192.168.3.1 netmask 0xffffff00 broadcast 192.168.3.255
 	inet6 fe80::2%em3 prefixlen 64 scopeid 0x4
-</span><span class="gp">em4: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
-<span class="go">	lladdr 00:00:00:00:00:03
+em4: <span class="nv">flags</span><span class="o">=</span>8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	lladdr 00:00:00:00:00:03
 	index 5 priority 0 llprio 3
-	groups: secure_lan
-	media: Ethernet autoselect (1000baseT full-duplex,master,rxpause,txpause)
+	<span class="nb">groups</span>: secure_lan
+	media: Ethernet autoselect <span class="o">(</span>1000baseT full-duplex,master,rxpause,txpause<span class="o">)</span>
 	status: active
 	inet 192.168.4.1 netmask 0xffffff00 broadcast 192.168.4.255
 	inet6 fe80::3%em4 prefixlen 64 scopeid 0x5
 	inet6 2001:DB8:face:cafe:3::1 prefixlen 64 pltime 205172 vltime 231092
-</span><span class="gp">em5: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
-<span class="go">	lladdr 00:00:00:00:00:04
+em5: <span class="nv">flags</span><span class="o">=</span>8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	lladdr 00:00:00:00:00:04
 	index 6 priority 0 llprio 3
-	groups: secure_lan
-	media: Ethernet autoselect (none)
+	<span class="nb">groups</span>: secure_lan
+	media: Ethernet autoselect <span class="o">(</span>none<span class="o">)</span>
 	status: no carrier
 	inet 192.168.5.1 netmask 0xffffff00 broadcast 192.168.5.255
 	inet6 fe80::4%em5 prefixlen 64 scopeid 0x6
-</span><span class="gp">vlan2: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt;</span><span class="w"> </span>mtu 1500
-<span class="go">	lladdr 00:00:00:00:00:05
+vlan2: <span class="nv">flags</span><span class="o">=</span>8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	lladdr 00:00:00:00:00:05
 	index 9 priority 0 llprio 3
 	encap: vnetid 2 parent em1 txprio packet rxprio outer
-	groups: vlan insecure_lan
-	media: Ethernet autoselect (1000baseT full-duplex,rxpause,txpause)
+	<span class="nb">groups</span>: vlan insecure_lan
+	media: Ethernet autoselect <span class="o">(</span>1000baseT full-duplex,rxpause,txpause<span class="o">)</span>
 	status: active
 	inet 192.168.6.1 netmask 0xffffff00 broadcast 192.168.6.255
 	inet6 fe80::5%vlan2 prefixlen 64 scopeid 0x9
-	inet6 2001:DB8:face:cafe:5::1 prefixlen 64 pltime 205172 vltime 231092</span></code></pre></div>
+	inet6 2001:DB8:face:cafe:5::1 prefixlen 64 pltime 205172 vltime 231092</code></pre></div>
 <p>To make sure end-to-end connections were working over IPv6, I pinged <a href="https://www.cloudflare.com/">Cloudflare</a>'s DNS server from my laptop.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ping6 2606:4700:4700::1111</span></code></pre></div></section>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">ping6 2606:4700:4700::1111</code></pre></div></section>
 
     </div>
 

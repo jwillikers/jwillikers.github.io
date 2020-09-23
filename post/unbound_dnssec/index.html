@@ -162,9 +162,9 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
 Me too!
 Using this <a href="http://www.lonecpluspluscoder.com/2020/01/16/building-an-openbsd-wireguard-vpn-server-part-2-unbound-dns-setup/">article</a> as a guide, I document the process.</p>
 <section class="doc-section level-1"><h2 id="_unbound_configuration">Unbound Configuration</h2><p>Use the <a href="https://man.openbsd.org/ftp.1">ftp</a> command to download the <a href="https://wiki.archlinux.org/index.php/unbound#Root_hints">Root Hints</a>.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">ftp <span class="nt">-o</span> /var/unbound/etc/root.hints https://www.internic.net/domain/named.root</code></pre></div>
 <p>Download the trust anchor file with the <a href="https://man.openbsd.org/unbound-anchor">unbound-anchor</a> utility.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">unbound-anchor</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">unbound-anchor</code></pre></div>
 <p>Configure <a href="https://man.openbsd.org/unbound.conf">unbound.conf</a>.
 Add the location of the <code>root.hints</code> file and uncomment the lines with the keys <code>auto-trust-anchor-file</code> and <code>val-log-level</code>.</p>
 <figure class="listing-block"><figcaption>/var/unbound/etc/unbound.conf</figcaption>
@@ -183,13 +183,13 @@ forward-zone:
 	forward-addr: 176.103.130.132 # adguard-dns-family
 	forward-addr: 185.228.168.10 # cleanbrowsing-adult</code></pre></div></aside>
 <p>Verify the configuration of unbound.conf which <a href="http://man.openbsd.org/unbound-checkconf.8">unbound-checkconf</a>.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">unbound-checkconf</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">unbound-checkconf</code></pre></div>
 <p>Finally, restart Unbound.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">rcctl restart unbound</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">rcctl restart unbound</code></pre></div>
 <p>Verify that DNSSEC is working with the <a href="https://man.openbsd.org/OpenBSD-6.6/dig">dig</a> command from a computer using your unbound server.
 This website, <code>jwillikers.com</code>, has DNSSEC enabled and so makes for a good address to test.
 Cloudflare provides a nice write-up about using dig to verify DNSSEC <a href="https://support.cloudflare.com/hc/en-us/articles/360021111972-Troubleshooting-DNSSEC#TroubleshootingDNSSEC-DNSSECinPracticewithDig">here</a>.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="go">dig jwillikers.com +dnssec</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">dig jwillikers.com +dnssec</code></pre></div>
 <p>The example below contains the appropriate response with DNSSEC enabled.
 Look for the <code>ad</code> flag and the <code>RRSIG</code> entry.</p>
 <div class="listing-block"><pre class="rouge highlight"><code>; &lt;&lt;&gt;&gt; DiG 9.11.5-P4-5.1ubuntu2.1-Ubuntu &lt;&lt;&gt;&gt; jwillikers.com +dnssec

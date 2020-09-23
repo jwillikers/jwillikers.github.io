@@ -50,7 +50,7 @@
 <meta itemprop="description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.">
 <meta itemprop="datePublished" content="2020-05-24T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T09:58:49-05:00" />
-<meta itemprop="wordCount" content="650">
+<meta itemprop="wordCount" content="659">
 
 
 
@@ -155,10 +155,10 @@ It turned out to be much harder than I anticipated because many guides demonstra
 Being an <a href="https://www.openbsd.org/">OpenBSD</a> fanboy, I with the modern <a href="https://github.com/OpenSMTPD/OpenSMTPD">OpenSMTPD</a> application.</p>
 <section class="doc-section level-1"><h2 id="_instructions">Instructions</h2><p>This brief guide will walk you through relaying emails on Ubuntu 20.04 with OpenSMTPD 6.6.4.</p>
 <section class="doc-section level-2"><h3 id="_install">Install</h3><p>First, install OpenSMTPD on Ubuntu.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>opensmtpd</code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>apt <span class="nb">install </span>opensmtpd</code></pre></div>
 <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>This will probably ask you a couple of questions from an ncurses interface, but it should be fairly self explanatory.</p></aside>
 <p>Additionally, you will likely want to install the <code>mailutils</code> package to provide the standard system mail commands.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>apt <span class="nb">install </span>mailutils</code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>apt <span class="nb">install </span>mailutils</code></pre></div>
 <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>The <code>mailutils</code> package is required for the verification step at the end of this tutorial.</p></aside></section>
 <section class="doc-section level-2"><h3 id="_configure">Configure</h3><p>Grab your email account&#8217;s password.
 For my use case, I was using a GMail account which required two-factor authentication.
@@ -190,23 +190,23 @@ match from local for any action "relay"</pre><ol class="callout-list arabic"><li
 
 <p>Your account credentials must be associated with a label in the <code>/etc/mail/secrets</code> file.</p>
 <p>Create the <code>secrets</code> file.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir</span> /etc/mail
-<span class="gp">$</span><span class="w"> </span><span class="nb">touch</span> /etc/mail/secrets</code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">mkdir</span> /etc/mail
+<span class="nv">$ </span><span class="nb">touch</span> /etc/mail/secrets</code></pre></div>
 <p>Now, make sure the file&#8217;s permissions are tight before putting your plain-text password inside.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">chmod </span>640 /etc/mail/secrets <b class="conum">1</b>
-<span class="gp">$</span><span class="w"> </span><span class="nb">chown </span>root:opensmtpd /etc/mail/secrets <b class="conum">2</b></code></pre><ol class="callout-list arabic"><li>Permit read and write access for the file&#8217;s owner and read access for the file&#8217;s group.</li><li>Set the file&#8217;s ownership such that it belongs to the <code>root</code> user and <code>opensmtpd</code> group.</li></ol></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">chmod </span>640 /etc/mail/secrets <b class="conum">1</b>
+<span class="nv">$ </span><span class="nb">chown </span>root:opensmtpd /etc/mail/secrets <b class="conum">2</b></code></pre><ol class="callout-list arabic"><li>Permit read and write access for the file&#8217;s owner and read access for the file&#8217;s group.</li><li>Set the file&#8217;s ownership such that it belongs to the <code>root</code> user and <code>opensmtpd</code> group.</li></ol></div>
 
 <p>The following example illustrates the file format.</p>
 <figure class="listing-block"><figcaption>/etc/mail/secrets</figcaption>
 <pre>jdoe jdoe@gmail.com:my_app_password <b class="conum">1</b></pre><ol class="callout-list arabic"><li>Use the label <code>jdoe</code> to represent the account <code>jdoe</code> at <code>gmail.com</code> which has the passphrase <code>my_app_password</code>.</li></ol></figure>
 
 <p>Check that the OpenSMTPD configuration file is valid.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>smtpd <span class="nt">-n</span>
-<span class="go">configuration OK</span></code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>smtpd <span class="nt">-n</span>
+configuration OK</code></pre></div>
 <p>Restart OpenSMTPD to make sure the configuration changes take effect.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl restart opensmtpd</code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl restart opensmtpd</code></pre></div>
 <p>Enable OpenSMTPD on system startup, if desired.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="console"><span class="gp">$</span><span class="w"> </span>systemctl <span class="nb">enable </span>opensmtpd</code></pre></div></section>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nb">enable </span>opensmtpd</code></pre></div></section>
 <section class="doc-section level-2"><h3 id="_verify">Verify</h3><p>To test the configuration, you can send an email from your computer and check if the email appears in the receiving account.</p>
 <p>Send a test email using the <code>mail</code> command from the <code>mailutils</code> package.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="bash"">$ echo "Does it work?" | mail -s "OpenSMTPD Test Email" test@example.com</code></pre></div>
