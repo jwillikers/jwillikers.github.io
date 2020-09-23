@@ -22,10 +22,22 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Tue, 22 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/oh-my-zsh/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Automatically Update Antigen</title>
+      <link>https://jwillikers.com/post/automatically_update_antigen/</link>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/automatically_update_antigen/</guid>
+      <description>There&amp;#8217;s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
+According to the Antigen documentation: This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.
+&amp;#8212; Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
+Completely forget to do it ever.</description>
+    </item>
     
     <item>
       <title>Configure ZSH</title>
