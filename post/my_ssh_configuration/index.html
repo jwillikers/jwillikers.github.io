@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>My SSH Configuration - JWillikers</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jordan Williams" /><meta name="description" content="The OpenSSH client and server applications are ubiquitous. Like many a software dev, I&amp;#8217;m `ssh&amp;#8217;ing all over the place. And you know what? I&amp;#8217;ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That&amp;#8217;s exactly why I&amp;#8217;ve written this post to exemplify the configuration options I&amp;#8217;m now using.
+SSH ConfigurationThe file ~/." /><meta name="keywords" content="Blog, BSD, Linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://jwillikers.com/post/my_ssh_configuration/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+<meta property="og:title" content="My SSH Configuration" />
+<meta property="og:description" content="The OpenSSH client and server applications are ubiquitous. Like many a software dev, I&#8217;m `ssh&#8217;ing all over the place. And you know what? I&#8217;ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That&#8217;s exactly why I&#8217;ve written this post to exemplify the configuration options I&#8217;m now using.
+SSH ConfigurationThe file ~/." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jwillikers.com/post/my_ssh_configuration/" />
+<meta property="article:published_time" content="2020-09-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-29T17:44:53-05:00" />
+<meta itemprop="name" content="My SSH Configuration">
+<meta itemprop="description" content="The OpenSSH client and server applications are ubiquitous. Like many a software dev, I&#8217;m `ssh&#8217;ing all over the place. And you know what? I&#8217;ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That&#8217;s exactly why I&#8217;ve written this post to exemplify the configuration options I&#8217;m now using.
+SSH ConfigurationThe file ~/.">
+<meta itemprop="datePublished" content="2020-09-29T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-29T17:44:53-05:00" />
+<meta itemprop="wordCount" content="1062">
+
+
+
+<meta itemprop="keywords" content="BSD,KeePassXC,Linux,macOS,OpenSSH,ssh," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="My SSH Configuration"/>
+<meta name="twitter:description" content="The OpenSSH client and server applications are ubiquitous. Like many a software dev, I&#8217;m `ssh&#8217;ing all over the place. And you know what? I&#8217;ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That&#8217;s exactly why I&#8217;ve written this post to exemplify the configuration options I&#8217;m now using.
+SSH ConfigurationThe file ~/."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">JWillikers</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">JWillikers</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">My SSH Configuration</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-09-29 </span>
+        <div class="post-category">
+            <a href="/categories/networking/"> Networking </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+    <div class="post-content">
+      <p>The <a href="https://www.openssh.com/">OpenSSH</a> client and server applications are ubiquitous.
+Like many a software dev, I&#8217;m `ssh&#8217;ing all over the place.
+And you know what?
+I&#8217;ve put off learning the ins and outs of its configuration for far too long.
+I learned that a little bit of know-how can simplify my day-to-day use of SSH.
+That&#8217;s exactly why I&#8217;ve written this post to exemplify the configuration options I&#8217;m now using.</p>
+<section class="doc-section level-1"><h2 id="_ssh_configuration">SSH Configuration</h2><p>The file <code>~/.ssh/config</code> contains a user&#8217;s SSH configuration.
+Settings here can be defined per-host.
+General configuration options include aliases, SSH agent behavior, and jump hosts to name a few.
+Different sections of a sample <code>~/.ssh/config</code> are discussed in detail below.
+Further documentation is available from the <a href="https://man.openbsd.org/ssh_config"><code>ssh_config</code> manpage</a>.
+This article assumes the reader is familiar with the basics of SSH and the syntax of SSH configuration files.</p>
+<section class="doc-section level-2"><h3 id="_localhost">Localhost</h3><p>The first option does not reside in a <a href="https://man.openbsd.org/ssh_config#Host"><code>Host</code></a> or <a href="https://man.openbsd.org/ssh_config#Match"><code>Match</code></a> block because it only refers to one host, <code>localhost</code> on the current machine.</p>
+<figure class="listing-block"><figcaption>~/.ssh/config</figcaption>
+<pre class="rouge highlight"><code>NoHostAuthenticationForLocalhost yes</code></pre></figure>
+<p>Normally, SSH consults the <code>~/.ssh/known_hosts</code> when connecting to a host.
+The known hosts file stores an identifying key for each host it has connected to previously.
+As connections are made to new hosts, keys are registered in the user&#8217;s known hosts file.
+Each time SSH establishes a connection to a known host, the key is checked, and the connection is aborted if it does not match.</p>
+<p>When running multiple SSH servers from a single host, the key will fail to match whenever switching servers.
+If you connect to various VMs through <code>localhost</code>, SSH will throw an error whenever switching between machines.
+Setting <a href="https://man.openbsd.org/ssh_config#NoHostAuthenticationForLocalhost"><code>NoHostAuthenticationForLocalhost</code></a> to <code>yes</code> is a convenient way to workaround by skipping host checking is skipped for <code>localhost</code> altogether.</p>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>This does not skip host checking for the <code>localhost</code> address available on jump hosts.
+See the section below on <code>HostKeyAlias</code> for such a use case.</p></aside></section>
+<section class="doc-section level-2"><h3 id="_a_humble_host_alias">A Humble Host Alias</h3><p>The following section contains only one option which applies to <code>vm_host</code>.
+As an example, <code>vm_host</code> represents a computer dedicated for running multiple virtual machines.</p>
+<figure class="listing-block"><figcaption>~/.ssh/config</figcaption>
+<pre class="rouge highlight"><code>Host vm_host
+  Hostname vm_host.local</code></pre></figure>
+<p>The option, <a href="https://man.openbsd.org/ssh_config#Hostname"><code>Hostname</code></a>, indicates the true hostname of this host which means <code>vm_host</code> is really just an alias.
+The alias <code>vm_host</code> can be used on the command-line instead of having to type out <code>vm_host.local</code>.</p></section>
+<section class="doc-section level-2"><h3 id="_jump_hosts_and_multiple_servers_on_a_single_host">Jump Hosts and Multiple Servers on a Single Host</h3><p>Next, several configuration options are given for the hosts <code>vm1</code> and <code>vm2</code>.</p>
+<figure class="listing-block"><figcaption>~/.ssh/config</figcaption>
+<pre class="rouge highlight"><code>Host vm1
+  HostKeyAlias vm1.localhost
+
+Host vm2
+  HostKeyAlias vm2.localhost
+
+Host vm1 vm2
+  Hostname localhost
+  Port 9001
+  ProxyJump vm_host</code></pre></figure>
+<p>Starting with the shared configuration options, the <code>Hostname</code> and <a href="https://man.openbsd.org/ssh_config#Port"><code>Port</code></a> options indicate that both hosts are available on the port <code>9001</code> at the reserved <code>localhost</code> address.
+Since both <code>vm1</code> and <code>vm2</code> use the same hostname and port, they can&#8217;t both be available simultaneously.
+In this scenario, either virtual machine <code>vm1</code> or <code>vm2</code> would be available at any one time.</p>
+<p>The <a href="https://man.openbsd.org/ssh_config#ProxyJump"><code>ProxyJump</code></a> key is used here with one intermediate host, <code>vm_host</code>, defined previously.
+This means that the SSH connection will connect to the <code>localhost</code> address on <code>vm_host</code>.
+So, instead of executing <code>ssh vm_host</code> followed by <code>ssh -p 9001 localhost</code> to access either of the VMs, use just one command either <code>ssh vm1</code> or <code>ssh vm2</code>.</p>
+<p>The individual host blocks provide a distinct <a href="https://man.openbsd.org/ssh_config#HostKeyAlias"><code>HostKeyAlias</code></a> for each host.
+This is critical because these virtual machines will have different host keys but share the same hostname <code>localhost</code>.
+When checking the known hosts file, instead of looking for an entry for <code>localhost</code>, SSH will look for an entry for the value provided to <code>HostKeyAlias</code>.
+The configuration line <code>NoHostAuthenticationForLocalhost yes</code> from the beginning of the file <em>only</em> works for the <code>localhost</code> address on the <em>current</em> machine.
+In other words, this option has no effect when connecting to <code>localhost</code> on any other machine, including a jump host.
+According to the <a href="https://man.openbsd.org/ssh_config#HostKeyAlias"><code>ssh_config</code> manpage</a>, <code>HostKeyAlias</code> should be used for handling multiple servers running on a single host.</p></section>
+<section class="doc-section level-2"><h3 id="_multicast_dns">Multicast DNS</h3><p>The following configuration accommodates the variability of the IP address associated with a given hostname on networks using <a href="http://www.multicastdns.org/">multicast DNS</a>.</p>
+<figure class="listing-block"><figcaption>~/.ssh/config</figcaption>
+<pre class="rouge highlight"><code>Host *.local
+  CheckHostIP no</code></pre></figure>
+<p>Multicast DNS uses the ".local" top-level domain exclusively for hosts on a network.
+Setting <a href="https://man.openbsd.org/ssh_config#CheckHostIP"><code>CheckHostIP</code></a> to <code>no</code> here allows IP addresses for any ".local" hosts to change.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>It might be worth setting this option for all users in the system-wide configuration file <code>/etc/ssh/ssh_config</code>.</p></aside></section>
+<section class="doc-section level-2"><h3 id="_the_ssh_agent">The SSH Agent</h3><p>The last section contains a few defaults for all hosts, which boil down to a few quality-of-life improvements.</p>
+<figure class="listing-block"><figcaption>~/.ssh/config</figcaption>
+<pre class="rouge highlight"><code>Host *
+  AddKeysToAgent yes
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/id_rsa_catalina-build.pub
+  PreferredAuthentications publickey,keyboard-interactive,password,gssapi-with-mic,hostbased
+
+  # Specific to macOS
+  UseKeychain yes</code></pre></figure>
+<p>The meanings of these options are described one-by-one below.</p>
+<div class="dlist"><dl><dt><a href="https://man.openbsd.org/ssh_config#AddKeysToAgent"><code>AddKeysToAgent</code></a></dt><dd>Automatically registers SSH keys with the <a href="https://man.openbsd.org/ssh-agent">SSH Agent</a> as they are loaded.</dd><dt><a href="https://man.openbsd.org/ssh_config#IdentitiesOnly"><code>IdentitiesOnly</code></a></dt><dd>Limits the identities that will be used to authenticate.
+Because I use <a href="https://keepassxc.org/">KeePassXC</a> to handle my SSH keys, the SSH Agent may have lots of other keys loaded which can lead to <a href="https://keepassxc.org/docs/#faq-ssh-agent-auth-errors">authentication problems</a>.</dd><dt><a href="https://man.openbsd.org/ssh_config#IdentityFile"><code>IdentityFile</code></a></dt><dd>Provides the path to an authentication identity.
+The private key file is often provided for this option, but providing the public key works when storing the private key itself directly within KeePassXC.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a>.</dd><dt><a href="https://man.openbsd.org/ssh_config#PreferredAuthentications"><code>PreferredAuthentications</code></a></dt><dd>Sets the order of preference for the various authentication methods.
+Here, public key cryptography is preferred first because I use this most often.</dd><dt><code>UseKeychain</code></dt><dd>On macOS, this allows storing and accessing keys from the user&#8217;s Keychain so they are automatically available after logging on.<a class="footnote-ref" id="_footnoteref_3" href="#_footnote_3" title="View footnote 3" role="doc-noteref">[3]</a></dd></dl></div>
+<section class="doc-section level-3"><h4 id="_ssh_agent_forwarding">SSH Agent Forwarding</h4><p>It is possible to forward the SSH Agent to avoid typing passwords so much.
+You can forward the SSH Agent by setting <a href="https://man.openbsd.org/ssh_config#ForwardAgent"><code>ForwardAgent</code></a> to <code>yes</code>, shown in the following example.</p>
+<figure class="listing-block"><figcaption>~/.ssh/ssh_config</figcaption>
+<pre class="rouge highlight"><code>Host server
+  ForwardAgent yes</code></pre></figure>
+<section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Be wary when using agent forwarding.
+Those with administrative access on the forwarded machine will be able to use the keys from your agent to authenticate as you.<a class="footnote-ref" id="_footnoteref_4" href="#_footnote_4" title="View footnote 4" role="doc-noteref">[4]</a></p></section></section></section></section>
+<section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>That was a bit of configuration.
+Assuming I didn&#8217;t just cover topics you already knew, you should have a better understanding of SSH and its configuration options.
+Hopefully you&#8217;ll be able to capitalize on this knowledge by simplifying your SSH workflow.
+If you&#8217;re interested in smoothing out even more wrinkles in your SSH use, you might checkout the <a href="https://mosh.org/">Mosh</a> project.</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://superuser.com/a/1399855/1220231">superuser: OpenSSH - Any way to keep strict host key checking but check only the key and ignore server&#8217;s name?</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://keepassxc.org/docs/#faq-ssh-agent-auth-errors">KeePassXC FAQ: SSH Agent - I&#8217;m getting a "Too many authentication failures" error, what shall I do?</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_3" role="doc-endnote"><a href="https://apple.stackexchange.com/a/250572/361122">AskDifferent: How can I permanently add my SSH private key to Keychain so it is automatically available to ssh?</a> <a class="footnote-backref" href="#_footnoteref_3" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_4" role="doc-endnote"><a href="https://smallstep.com/blog/ssh-agent-explained/">smallstep Blog: SSH Agent Explained</a> <a class="footnote-backref" href="#_footnoteref_4" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/bsd/">BSD</a>
+          <a href="/tags/keepassxc/">KeePassXC</a>
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/macos/">macOS</a>
+          <a href="/tags/openssh/">OpenSSH</a>
+          <a href="/tags/ssh/">ssh</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/automatically_update_antigen/">
+            <span class="next-text nav-default">Automatically Update Antigen</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
+      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br />
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

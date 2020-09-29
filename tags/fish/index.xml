@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>KeePassXC on JWillikers</title>
-    <link>https://jwillikers.com/tags/keepassxc/</link>
-    <description>Recent content in KeePassXC on JWillikers</description>
+    <title>fish on JWillikers</title>
+    <link>https://jwillikers.com/tags/fish/</link>
+    <description>Recent content in fish on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
@@ -22,19 +22,19 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Tue, 29 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 26 Sep 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://jwillikers.com/tags/keepassxc/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jwillikers.com/tags/fish/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>My SSH Configuration</title>
-      <link>https://jwillikers.com/post/my_ssh_configuration/</link>
-      <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+      <title>Configure Fish</title>
+      <link>https://jwillikers.com/post/configure_fish/</link>
+      <pubDate>Sat, 26 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/post/my_ssh_configuration/</guid>
-      <description>The OpenSSH client and server applications are ubiquitous. Like many a software dev, I&amp;#8217;m `ssh&amp;#8217;ing all over the place. And you know what? I&amp;#8217;ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That&amp;#8217;s exactly why I&amp;#8217;ve written this post to exemplify the configuration options I&amp;#8217;m now using.
-SSH ConfigurationThe file ~/.</description>
+      <guid>https://jwillikers.com/post/configure_fish/</guid>
+      <description>I&amp;#8217;ve been using ZSH for years now as my shell. In that time, I&amp;#8217;ve learned a few niceties to make the experience better. Namely, I&amp;#8217;ve found the minimal oh-my-zsh prompt keeps out of the way and the git aliases super convenient. Plugins for autosuggestions, like in the fish shell, and syntax highlighting are also quite helpful. Antigen makes keeping plugins up-to-date a breeze.
+TutorialThis tutorial explains how to install ZSH and set it as your default shell on Ubuntu 20.</description>
     </item>
     
   </channel>

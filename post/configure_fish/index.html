@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Configure ZSH - JWillikers</title>
+  <title>Configure Fish - JWillikers</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -27,7 +27,7 @@ TutorialThis tutorial explains how to install ZSH and set it as your default she
 <meta name="generator" content="Hugo 0.74.3 with theme even" />
 
 
-<link rel="canonical" href="https://jwillikers.com/post/configure_zsh/" />
+<link rel="canonical" href="https://jwillikers.com/post/configure_fish/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,25 +41,25 @@ TutorialThis tutorial explains how to install ZSH and set it as your default she
 <link rel="stylesheet" href="/css/syntax.css">
 
 
-<meta property="og:title" content="Configure ZSH" />
+<meta property="og:title" content="Configure Fish" />
 <meta property="og:description" content="I&#8217;ve been using ZSH for years now as my shell. In that time, I&#8217;ve learned a few niceties to make the experience better. Namely, I&#8217;ve found the minimal oh-my-zsh prompt keeps out of the way and the git aliases super convenient. Plugins for autosuggestions, like in the fish shell, and syntax highlighting are also quite helpful. Antigen makes keeping plugins up-to-date a breeze.
 TutorialThis tutorial explains how to install ZSH and set it as your default shell on Ubuntu 20." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jwillikers.com/post/configure_zsh/" />
-<meta property="article:published_time" content="2020-09-22T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-09-23T18:09:56-05:00" />
-<meta itemprop="name" content="Configure ZSH">
+<meta property="og:url" content="https://jwillikers.com/post/configure_fish/" />
+<meta property="article:published_time" content="2020-09-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-26T00:00:00+00:00" />
+<meta itemprop="name" content="Configure Fish">
 <meta itemprop="description" content="I&#8217;ve been using ZSH for years now as my shell. In that time, I&#8217;ve learned a few niceties to make the experience better. Namely, I&#8217;ve found the minimal oh-my-zsh prompt keeps out of the way and the git aliases super convenient. Plugins for autosuggestions, like in the fish shell, and syntax highlighting are also quite helpful. Antigen makes keeping plugins up-to-date a breeze.
 TutorialThis tutorial explains how to install ZSH and set it as your default shell on Ubuntu 20.">
-<meta itemprop="datePublished" content="2020-09-22T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2020-09-23T18:09:56-05:00" />
-<meta itemprop="wordCount" content="398">
+<meta itemprop="datePublished" content="2020-09-26T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-09-26T00:00:00+00:00" />
+<meta itemprop="wordCount" content="488">
 
 
 
-<meta itemprop="keywords" content="Antigen,Debian,Linux,oh-my-zsh,Ubuntu,ZSH," />
+<meta itemprop="keywords" content="Debian,fish,Linux,Ubuntu," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Configure ZSH"/>
+<meta name="twitter:title" content="Configure Fish"/>
 <meta name="twitter:description" content="I&#8217;ve been using ZSH for years now as my shell. In that time, I&#8217;ve learned a few niceties to make the experience better. Namely, I&#8217;ve found the minimal oh-my-zsh prompt keeps out of the way and the git aliases super convenient. Plugins for autosuggestions, like in the fish shell, and syntax highlighting are also quite helpful. Antigen makes keeping plugins up-to-date a breeze.
 TutorialThis tutorial explains how to install ZSH and set it as your default shell on Ubuntu 20."/>
 
@@ -128,10 +128,10 @@ TutorialThis tutorial explains how to install ZSH and set it as your default she
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Configure ZSH</h1>
+      <h1 class="post-title">Configure Fish</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2020-09-22 </span>
+        <span class="post-time"> 2020-09-26 </span>
         <div class="post-category">
             <a href="/categories/command-line/"> Command-line </a>
             </div>
@@ -153,67 +153,65 @@ Plugins for <a href="https://github.com/zsh-users/zsh-autosuggestions">autosugge
 <a href="http://antigen.sharats.me/">Antigen</a> makes keeping plugins up-to-date a breeze.</p>
 <section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial explains how to install ZSH and set it as your default shell on Ubuntu 20.04.
 Plus, it details how to install and configure Antigen, oh-my-zsh, autosuggestions, and syntax highlighting.</p>
-<div class="olist arabic"><ol class="arabic"><li><p>Install ZSH.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> zsh</code></pre></div></li><li><p>Add <code>/usr/bin/zsh</code> to <code>/etc/shells</code> so that is can be used as the default shell.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">command</span> <span class="nt">-v</span> zsh | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/shells
-/usr/bin/zsh</code></pre></div></li><li><p>Set the default shell to <code>zsh</code>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>chsh <span class="nt">-s</span> <span class="sb">`</span>which zsh<span class="sb">`</span>
+<div class="olist arabic"><ol class="arabic"><li><p>Install the <a href="https://launchpad.net/~fish-shell/+archive/ubuntu/release-3/+packages">fish package</a>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> fish</code></pre></div></li><li><p>Add <code>/usr/bin/fish</code> to <code>/etc/shells</code> so that is can be used as the default shell.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">command</span> <span class="nt">-v</span> fish | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/shells
+/usr/bin/fish</code></pre></div></li><li><p>Set the default shell to fish.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>chsh <span class="nt">-s</span> <span class="sb">`</span>which fish<span class="sb">`</span>
 Changing shell <span class="k">for </span>jordan.
 Password:
-Shell changed.</code></pre></div></li><li>Now, open up a fresh terminal session to start using .</li><li><p>Download and install Antigen.<a class="footnote-ref" id="_footnoteref_3" href="#_footnote_3" title="View footnote 3" role="doc-noteref">[3]</a>
-There is a <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=906757">bug</a> in the <a href="https://bugs.debian.org/cgi-bin/pkgreport.cgi?pkg=zsh-antigen;dist=unstable">debian package</a> at this time, so manually download and install it.<a class="footnote-ref" id="_footnoteref_4" href="#_footnote_4" title="View footnote 4" role="doc-noteref">[4]</a></p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>wget <span class="nt">-q</span> git.io/antigen
-<span class="nv">$ </span><span class="nb">sudo mkdir</span> /usr/share/zsh-antigen
-<span class="nv">$ </span><span class="nb">sudo mv </span>antigen /usr/share/zsh-antigen/antigen.zsh</code></pre></div>
-<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>When the bug is fixed, you can simply install the package with <a href="https://wiki.debian.org/Aptitude">Aptitude</a> as follows.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> zsh-antigen</code></pre></div></aside></div></div></li><li><p>Create the <code>.antigenrc</code> configuration file.<a class="footnote-ref" id="_footnoteref_5" href="#_footnote_5" title="View footnote 5" role="doc-noteref">[5]</a></p><figure class="listing-block"><figcaption>~/.antigenrc</figcaption>
-<pre class="rouge highlight"><code data-lang="bash"><span class="c"># Load the oh-my-zsh library</span>
-antigen use oh-my-zsh
-
-antigen bundles <span class="o">&lt;&lt;</span><span class="no">EOBUNDLES</span><span class="sh">
-    # Bundles from the default repo (robbyrussell's oh-my-zsh)
-    git
-
-    # Fish-like auto suggestions
-    zsh-users/zsh-autosuggestions
-
-    # Extra zsh completions
-    zsh-users/zsh-completions
-
-    # Syntax highlighting bundle.
-    zsh-users/zsh-syntax-highlighting
-</span><span class="no">EOBUNDLES
-
-</span><span class="c"># Load the theme</span>
-antigen theme robbyrussell
-
-<span class="c"># Tell antigen that you're done</span>
-antigen apply</code></pre></figure></li><li><p>Now, from the <code>.zshrc</code> file load Antigen and the <code>.antigenrc</code> configuration file.</p><figure class="listing-block"><figcaption>~/.zshrc</figcaption>
-<pre class="rouge highlight"><code data-lang="bash"><span class="c"># Load Antigen</span>
-<span class="nb">source</span> /usr/share/zsh-antigen/antigen.zsh
-
-<span class="c"># Load Antigen configurations</span>
-antigen init ~/.antigenrc</code></pre></figure></li><li><p>Load the updated <code>.zshrc</code> configuration file.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">source</span> ~/.zshrc</code></pre></div></li><li><p>Update the plugins as needed.<a class="footnote-ref" id="_footnoteref_6" href="#_footnote_6" title="View footnote 6" role="doc-noteref">[6]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>antigen update</code></pre></div></li></ol></div></section>
+Shell changed.</code></pre></div></li><li><p>Now, open up a fresh terminal session to start using the fish shell.</p><div class="open-block"><div class="content"><p>You should see a fresh, vanilla shell prompt like the following.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">Welcome to fish, the friendly interactive shell
+Type <span class="nb">help </span><span class="k">for </span>instructions on how to use fish
+jordan@jwillkers ~&gt;</code></pre></div></div></div></li><li><p>Configure your new shell from the convenient web interface.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>fish_config</code></pre></div></li><li><p>If you like that <a href="https://ohmyz.sh/">oh-my-zsh</a> feel like I do, you might want to use <a href="https://github.com/ohmyzsh/ohmyzsh/wiki/Themes#robbyrussell">robbyrussell&#8217;s theme</a>.</p><div class="open-block"><div class="content"><p>If you like doing things the old fashion way, you can make sure the appropriate directory exists and then copy over the prompt configuration straight from the command-line.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/functions
+<span class="nv">$ </span><span class="nb">cp</span> /usr/share/fish/tools/web_config/sample_prompts/robbyrussell.fish ~/.config/fish/functions/fish_prompt.fish</code></pre></div></div></div></li><li><p>The <a href="https://ethanschoonover.com/solarized/">Solarized</a> color scheme is my favorite.</p><div class="open-block"><div class="content"><p>Setting the color theme to solarized dark can be accomplished directly from the command-line if need be.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">set</span> <span class="nt">-U</span> fish_color_normal normal <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_command 93a1a1 <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_quote 657b83 <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_redirection 6c71c4 <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_error dc322f <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_end 268bd2 <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_selection white <span class="nt">--bold</span> <span class="nt">--background</span><span class="o">=</span>brblack <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_search_match bryellow <span class="nt">--background</span><span class="o">=</span>black <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_history_current <span class="nt">--bold</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_operator 00a6b2 <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_param 839496 <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_cwd green <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_cwd_root red <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_valid_path <span class="nt">--underline</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_autosuggestion 586e75 <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_user brgreen <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_escape 00a6b2 <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_cancel <span class="nt">-r</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_pager_color_completion B3A06D
+  <span class="nb">set</span> <span class="nt">-U</span> fish_pager_color_description B3A06D <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_pager_color_prefix cyan <span class="nt">--underline</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_pager_color_progress brwhite <span class="nt">--background</span><span class="o">=</span>cyan <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_host normal <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_match <span class="nt">--background</span><span class="o">=</span>brblue <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_comment 586e75</code></pre></div></div></div></li><li>Update the PATH variable in fish.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></li></ol></div>
+<p>$ set -U fish_user_paths /usr/local/bin $fish_user_paths</p>
+<div class="olist arabic"><ol class="arabic"><li>Take advantage of <a href="https://fishshell.com/docs/current/tutorial.html#wildcards">recursive wildcards</a>.</li><li>Forget about <code>.fishrc</code>.<a class="footnote-ref" id="_footnoteref_3" href="#_footnote_3" title="View footnote 3" role="doc-noteref">[3]</a></li><li>Use up and down arrow keys instead of <code>Ctrl-R</code> for reverse history search.</li></ol></div></section>
 <section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>You should now be able to install and configure ZSH as your default shell in Ubuntu.
 You should also be able to setup Antigen to use oh-my-zsh and a couple of convenient plugins.
-If you want to automate updating your Antigen plugins with <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>, checkout the post <a href="../automatically_update_antigen/">Automatically Update Antigen</a>.</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH">oh-my-zsh Wiki: Installing ZSH</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://unix.stackexchange.com/a/111367/395084">Unix StackExchange: How to change default shell to ZSH - chsh says “invalid shell”</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_3" role="doc-endnote"><a href="https://github.com/zsh-users/antigen/wiki/Installation">Antigen Wiki: Installation</a> <a class="footnote-backref" href="#_footnoteref_3" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_4" role="doc-endnote">There is also an <a href="https://bugs.launchpad.net/ubuntu/+source/zsh-antigen/+bug/1770915">Ubuntu bug report</a> and an <a href="https://github.com/zsh-users/antigen/issues/659">Antigen bug report.</a> <a class="footnote-backref" href="#_footnoteref_4" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_5" role="doc-endnote"><a href="https://github.com/zsh-users/antigen/wiki/Quick-start#configure-zshrc">Antigen Wiki: Quich start - Configure <code>.zshrc</code></a> <a class="footnote-backref" href="#_footnoteref_5" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_6" role="doc-endnote"><a href="https://github.com/zsh-users/antigen/wiki/Commands#antigen-update">Antigen Wiki: Commands - antigen update</a> <a class="footnote-backref" href="#_footnoteref_6" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+If you want to automate updating your Antigen plugins with <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>, checkout the post <a href="../automatically_update_antigen/">Automatically Update Antigen</a>.</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://fishshell.com/docs/current/tutorial.html#switching-to-fish">fish Tutorial: Switching to fish?</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://fishshell.com/docs/current/tutorial.html#path">fish Tutorial: $PATH</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_3" role="doc-endnote"><a class="bare" href="https://fishshell.com/docs/current/tutorial.html#startup-where-s-bashrc">https://fishshell.com/docs/current/tutorial.html#startup-where-s-bashrc</a> <a class="footnote-backref" href="#_footnoteref_3" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
 
     </div>
 
     
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/antigen/">Antigen</a>
           <a href="/tags/debian/">Debian</a>
+          <a href="/tags/fish/">fish</a>
           <a href="/tags/linux/">Linux</a>
-          <a href="/tags/oh-my-zsh/">oh-my-zsh</a>
           <a href="/tags/ubuntu/">Ubuntu</a>
-          <a href="/tags/zsh/">ZSH</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/automatically_update_antigen/">
+        <a class="prev" href="/post/my_ssh_configuration/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Automatically Update Antigen</span>
+            <span class="prev-text nav-default">My SSH Configuration</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/post/fetch_latest_github_release/">
-            <span class="next-text nav-default">One-liner to Fetch the Latest Github Release</span>
+        <a class="next" href="/post/automatically_update_antigen/">
+            <span class="next-text nav-default">Automatically Update Antigen</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
