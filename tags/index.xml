@@ -22,7 +22,7 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Tue, 29 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 01 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -30,9 +30,54 @@
     <item>
       <title>BSD</title>
       <link>https://jwillikers.com/tags/bsd/</link>
-      <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/tags/bsd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fish</title>
+      <link>https://jwillikers.com/tags/fish/</link>
+      <pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/fish/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://jwillikers.com/tags/linux/</link>
+      <pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>macOS</title>
+      <link>https://jwillikers.com/tags/macos/</link>
+      <pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/macos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shell</title>
+      <link>https://jwillikers.com/tags/shell/</link>
+      <pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu</title>
+      <link>https://jwillikers.com/tags/ubuntu/</link>
+      <pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/ubuntu/</guid>
       <description></description>
     </item>
     
@@ -42,24 +87,6 @@
       <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/tags/keepassxc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux</title>
-      <link>https://jwillikers.com/tags/linux/</link>
-      <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
-      <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>macOS</title>
-      <link>https://jwillikers.com/tags/macos/</link>
-      <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
-      <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/tags/macos/</guid>
       <description></description>
     </item>
     
@@ -123,15 +150,6 @@
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/tags/systemd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ubuntu</title>
-      <link>https://jwillikers.com/tags/ubuntu/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/tags/ubuntu/</guid>
       <description></description>
     </item>
     

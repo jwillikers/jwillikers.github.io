@@ -22,10 +22,21 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Tue, 29 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 01 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Change your Shell</title>
+      <link>https://jwillikers.com/post/change_your_shell/</link>
+      <pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/change_your_shell/</guid>
+      <description>Sometimes, you just want to switch to a better shell for your terminal - like fish.
+TutorialHere&amp;#8217;s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
+Install the fish package.</description>
+    </item>
     
     <item>
       <title>My SSH Configuration</title>
