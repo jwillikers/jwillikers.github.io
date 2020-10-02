@@ -46,7 +46,7 @@
 <meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jwillikers.com/" />
-<meta property="og:updated_time" content="2020-10-01T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-10-02T00:00:00+00:00" />
 <meta itemprop="name" content="JWillikers">
 <meta itemprop="description" content="Handy admin and dev guides from my myriad of tinkering">
 <meta name="twitter:card" content="summary"/>
@@ -116,6 +116,27 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/unbound_dns_over_tls/">DNS over TLS with Unbound</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-05-29 </span>
+      <div class="post-category">
+          <a href="/categories/networking/"> Networking </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Recently, Firefox announced it&#8217;s roll-out of DNS over HTTPS (DoH). That made me think, "Encrypting DNS&#8230;&#8203; Why don&#8217;t I do that for my home network?" Well, I&#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&#8217;s DNS requests. Unbound has support built-in for DoH&#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.
+    </div>
+    <div class="read-more">
+      <a href="/post/unbound_dns_over_tls/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/smartd_ubuntu/">Automatically Detect &amp; Report Hard Drive Failure</a></h1>
@@ -201,31 +222,6 @@ install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1The script will be 
     </div>
     <div class="read-more">
       <a href="/post/pf_badhost/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/unbound_dnssec/">DNSSEC with Unbound</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-03-28 </span>
-      <div class="post-category">
-          <a href="/categories/networking/"> Networking </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Ever want to enable DNSSEC on your Unbound OpenBSD 6.6 server? Me too! Using this article as a guide, I document the process.
-Unbound ConfigurationUse the ftp command to download the Root Hints.
-ftp -o /var/unbound/etc/root.hints https://www.internic.net/domain/named.root Download the trust anchor file with the unbound-anchor utility.
-unbound-anchor Configure unbound.conf. Add the location of the root.hints file and uncomment the lines with the keys auto-trust-anchor-file and val-log-level.
-/var/unbound/etc/unbound.conf # Uncomment to enable DNSSEC validation.
-    </div>
-    <div class="read-more">
-      <a href="/post/unbound_dnssec/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>

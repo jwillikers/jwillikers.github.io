@@ -46,7 +46,7 @@
 <meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jwillikers.com/" />
-<meta property="og:updated_time" content="2020-10-01T00:00:00+00:00" />
+<meta property="og:updated_time" content="2020-10-02T00:00:00+00:00" />
 <meta itemprop="name" content="JWillikers">
 <meta itemprop="description" content="Handy admin and dev guides from my myriad of tinkering">
 <meta name="twitter:card" content="summary"/>
@@ -116,6 +116,29 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/too_many_open_files_on_macos_when_compiling/">&#34;Too many open files&#34; when Compiling on macOS</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-10-02 </span>
+      <div class="post-category">
+          <a href="/categories/command-line/"> Command-line </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Occasionally things just go wrong during large builds. One such occurrence is on macOS when compiling a large C&#43;&#43; project.
+ProblemThe following error message is output by LLVM Clang 10.0.1 when compiling from the command-line. The Clion IDE builds the project just fine, of course.
+$ cmake --build build ... In file included from /opt/local/include/boost/spirit/home/x3.hpp:19: In file included from /opt/local/include/boost/spirit/home/x3/operator.hpp:10: In file included from /opt/local/include/boost/spirit/home/x3/operator/sequence.hpp:12: /opt/local/include/boost/spirit/home/x3/operator/detail/sequence.hpp:25:10: fatal error: cannot open file '/opt/local/include/boost/fusion/include/as_deque.
+    </div>
+    <div class="read-more">
+      <a href="/post/too_many_open_files_on_macos_when_compiling/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/change_your_shell/">Change your Shell</a></h1>
@@ -203,27 +226,6 @@ TutorialThis tutorial explains how to install ZSH and set it as your default she
     </div>
     <div class="read-more">
       <a href="/post/configure_zsh/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/fetch_latest_github_release/">One-liner to Fetch the Latest Github Release</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-09-19 </span>
-      <div class="post-category">
-          <a href="/categories/command-line/"> Command-line </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively.
-    </div>
-    <div class="read-more">
-      <a href="/post/fetch_latest_github_release/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
