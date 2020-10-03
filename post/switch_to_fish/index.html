@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Switch to fish - JWillikers</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jordan Williams" /><meta name="description" content="I&amp;#8217;ve finally made the switch from ZSH to the fish shell. Unlike ZSH, I don&amp;#8217;t need to install and manage a whole host of plugins. Everything I want comes packaged right in as part of the shell itself.
+The SwitchIn this post, I describe how to switch to the fish shell and some of the interesting features it offers.
+InstallInstalling fish is a piece of cake. On Ubuntu, a fish package is readily available." /><meta name="keywords" content="Blog, BSD, Linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://jwillikers.com/post/switch_to_fish/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+<meta property="og:title" content="Switch to fish" />
+<meta property="og:description" content="I&#8217;ve finally made the switch from ZSH to the fish shell. Unlike ZSH, I don&#8217;t need to install and manage a whole host of plugins. Everything I want comes packaged right in as part of the shell itself.
+The SwitchIn this post, I describe how to switch to the fish shell and some of the interesting features it offers.
+InstallInstalling fish is a piece of cake. On Ubuntu, a fish package is readily available." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jwillikers.com/post/switch_to_fish/" />
+<meta property="article:published_time" content="2020-10-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-03T14:46:16-05:00" />
+<meta itemprop="name" content="Switch to fish">
+<meta itemprop="description" content="I&#8217;ve finally made the switch from ZSH to the fish shell. Unlike ZSH, I don&#8217;t need to install and manage a whole host of plugins. Everything I want comes packaged right in as part of the shell itself.
+The SwitchIn this post, I describe how to switch to the fish shell and some of the interesting features it offers.
+InstallInstalling fish is a piece of cake. On Ubuntu, a fish package is readily available.">
+<meta itemprop="datePublished" content="2020-10-03T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-10-03T14:46:16-05:00" />
+<meta itemprop="wordCount" content="1158">
+
+
+
+<meta itemprop="keywords" content="Debian,fish,Linux,shell,Ubuntu," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Switch to fish"/>
+<meta name="twitter:description" content="I&#8217;ve finally made the switch from ZSH to the fish shell. Unlike ZSH, I don&#8217;t need to install and manage a whole host of plugins. Everything I want comes packaged right in as part of the shell itself.
+The SwitchIn this post, I describe how to switch to the fish shell and some of the interesting features it offers.
+InstallInstalling fish is a piece of cake. On Ubuntu, a fish package is readily available."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">JWillikers</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">JWillikers</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Switch to fish</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-10-03 </span>
+        <div class="post-category">
+            <a href="/categories/command-line/"> Command-line </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+    <div class="post-content">
+      <p>I&#8217;ve finally made the switch from <a href="https://www.zsh.org/">ZSH</a> to the <a href="https://fishshell.com/">fish shell</a>.
+Unlike ZSH, I don&#8217;t need to install and manage a whole host of plugins.
+Everything I want comes packaged right in as part of the shell itself.</p>
+<section class="doc-section level-1"><h2 id="_the_switch">The Switch</h2><p>In this post, I describe how to switch to the fish shell and some of the interesting features it offers.</p>
+<section class="doc-section level-2"><h3 id="_install">Install</h3><p>Installing fish is a piece of cake.
+On <a href="https://ubuntu.com/">Ubuntu</a>, a fish package is readily available.
+An additional <a href="https://help.launchpad.net/Packaging/PPA">PPA</a> supplies newer versions of fish than those that ship with the distribution.
+The following steps install fish through the PPA.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Add the <a href="https://launchpad.net/~fish-shell/+archive/ubuntu/release-3">fish PPA</a>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt-add-repository ppa:fish-shell/release-3</code></pre></div></li><li><p>Update <a href="https://wiki.debian.org/Aptitude">Aptitude</a> with the new PPA.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt update</code></pre></div></li><li><p>Install the fish package.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> fish</code></pre></div></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_switch">Switch</h3><p>Once installed, switching is just a matter of updating the login shell.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p>
+<div class="olist arabic"><ol class="arabic"><li><p>Register <code>/usr/bin/fish</code> as a login shell by adding its path to <a href="https://manpages.ubuntu.com/manpages/en/man5/shells.5.html"><code>/etc/shells</code></a>.</p><div class="open-block"><div class="content"><p>Debian provides a convenient <a href="https://manpages.ubuntu.com/manpages/en/man8/add-shell.8.html"><code>add-shell</code></a> command to accomplish this.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>add-shell /usr/bin/fish</code></pre></div></div></div></li><li><p>Set the current user&#8217;s login shell to fish with <a href="https://manpages.ubuntu.com/manpages/en/man1/chsh.1.html"><code>chsh</code></a>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ chsh <span class="nt">-s</span> /usr/bin/fish
+Password:</code></pre></div></li><li><p>Now, open up a fresh terminal session to start using fish.</p><div class="open-block"><div class="content"><p>You should see a fresh, vanilla shell prompt like the following.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">Welcome to fish, the friendly interactive shell
+Type <span class="nb">help </span><span class="k">for </span>instructions on how to use fish
+jordan@jwillkers ~&gt;</code></pre></div></div></div></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_configure">Configure</h3><p>Adjusting basic configuration options is quick ang easy with fish.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Configuring the fish shell is as easy as selecting options the provided by the web interface.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ fish_config</code></pre></div></li><li><p>Style the prompt.</p><div class="open-block"><div class="content"><p>If you like that <a href="https://ohmyz.sh/">oh-my-zsh</a> feel as I do, you might want to use <a href="https://github.com/ohmyzsh/ohmyzsh/wiki/Themes#robbyrussell">robbyrussell&#8217;s theme</a> for your shell prompt.
+If you like doing things the old fashion way - or want to set the prompt remotely, here&#8217;s a quick rundown.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Make sure the <code>~/.config/fish/functions</code> directory exists.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/functions</code></pre></div></li><li><p>Then copy over the desired prompt configuration, <code>robbyrussell.fish</code> in this case, from <code>/usr/share/fish/tools/web_config/sample_prompts/</code>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cp</span> /usr/share/fish/tools/web_config/sample_prompts/robbyrussell.fish ~/.config/fish/functions/fish_prompt.fish</code></pre></div></li></ol></div></div></div></li><li><p>Adjust the color theme.</p><div class="open-block"><div class="content"><p>The color theme can be important when your terminal&#8217;s color theme obscures autosuggestions.
+<a href="https://ethanschoonover.com/solarized/">Solarized</a> is my color scheme of choice.
+The <code>fish_config</code> web tool outputs the commands that set the various variables for a color theme when one is selected.
+This is  easy to translate to a command-line which can be quite helpful when configuring remotely.
+As an example, the following command sets the color scheme to solarized dark.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-U</span> fish_color_normal normal<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_command 93a1a1<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_quote 657b83<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_redirection 6c71c4<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_error dc322f<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_end 268bd2<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_selection white <span class="nt">--bold</span> <span class="nt">--background</span><span class="o">=</span>brblack<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_search_match bryellow <span class="nt">--background</span><span class="o">=</span>black<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_history_current <span class="nt">--bold</span><span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_operator 00a6b2<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_param 839496<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_cwd green<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_cwd_root red<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_valid_path <span class="nt">--underline</span><span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_autosuggestion 586e75<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_user brgreen<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_escape 00a6b2<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_cancel <span class="nt">-r</span><span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_pager_color_completion B3A06D<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_pager_color_description B3A06D<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_pager_color_prefix cyan <span class="nt">--underline</span><span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_pager_color_progress brwhite <span class="nt">--background</span><span class="o">=</span>cyan<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_host normal<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_match <span class="nt">--background</span><span class="o">=</span>brblue<span class="p">;</span> <span class="se">\</span>
+  <span class="nb">set</span> <span class="nt">-U</span> fish_color_comment 586e75</code></pre></div></div></div></li><li>Now, if you&#8217;re thinking about <code>.fishrc</code>, forget about it.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a>
+The equivalent of <code>~/.bashrc</code> and <code>~/.zshrc</code> is <code>~/.config/fish/config.fish</code> but a lot of configuration is better achieved - and organized - through <a href="https://fishshell.com/docs/current/tutorial.html#universal-variables"><em>universal variables</em></a> and <a href="https://fishshell.com/docs/current/tutorial.html#autoloading-functions"><em>autoloading functions</em></a>.</li><li><p>Update the <code>PATH</code> environment variable in fish to suit your needs.<a class="footnote-ref" id="_footnoteref_3" href="#_footnote_3" title="View footnote 3" role="doc-noteref">[3]</a></p><div class="open-block"><div class="content"><p>When messing with <code>PATH</code>, use fish&#8217;s dedicated internal variable <code>fish_user_paths</code>.
+This variable is special and populates <code>PATH</code>.
+Some Linux distributions don&#8217;t include <code>/usr/local/bin</code> in <code>PATH</code> by default.
+With the <a href="https://fishshell.com/docs/current/cmds/set.html"><code>set</code></a> command, prepend <code>/usr/local/bin</code> to <code>PATH</code> as follows.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-p</span> fish_user_paths /usr/local/bin</code></pre></div>
+<p>The <code>-p</code> option prepends a value to the given variable.
+The <code>-U</code> option signifies a <a href="https://fishshell.com/docs/current/tutorial.html#universal-variables"><em>universal variable</em></a>, which persists the variable in the future and across any currently running fish sessions.
+This reduces the overhead of having to mess about with shell startup files.
+These variables can be managed in the file <code>~/.config/fish/fish_variables</code>.</p></div></div></li></ol></div></section>
+<section class="doc-section level-2"><h3 id="_learn">Learn</h3><p>A lot of fish functionality has been covered already, but "there&#8217;s always more to learn" as they say.
+A few additional fish topics are covered here.</p>
+<div class="ulist"><ul><li><p>Export shell variables with the <code>-x</code> flag.</p><div class="open-block"><div class="content"><p>This makes the variables accessible to other programs.
+<code>PATH</code> is automatically exported from the contents of the un-exported <code>fish_user_paths</code> variable, making this an exception.
+For everything else, export the variable by calling <code>set</code> with the <code>-x</code> flag.
+To add a value to the beginning of the <code>LD_LIBRARY_PATH</code> environment variable and export it, use <code>set</code> as follows.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-px</span> LD_LIBRARY_PATH /usr/local/lib</code></pre></div></div></div></li><li><p>Understand how fish handles <a href="https://fishshell.com/docs/current/index.html#path-variables"><em>PATH variables</em></a>.</p><div class="open-block"><div class="content"><p>The fish shell stores lists internally as arrays of strings.
+This is fundamentally different from how shells typically represent many fundamental variables which contain lists of paths, such as <code>PATH</code> and <code>LD_LIBRARY_PATH</code>.
+Classic shells store these "lists" as a single string of colon-separated paths.
+Many applications and programs expect the incumbent formatting, so fish treats these as special variables called <em>PATH variables</em>.
+When printing or joining <em>PATH variables</em>, colons are used to delimit values when the variables are <em>quoted</em>.
+Otherwise, spaces separate each path in the list.
+Any variable ending in <code>PATH</code> is automatically treated as a <em>PATH variable</em>.
+So, when using <code>set</code> to deal a <em>PATH variable</em>, you can still treat it as you would any other list in fish.<a class="footnote-ref" id="_footnoteref_4" href="#_footnote_4" title="View footnote 4" role="doc-noteref">[4]</a>
+As an example, the following command adds <code>/usr/local/lib</code> to the beginning of the classic <code>LD_LIBRARY_PATH</code> variable and appends <code>~/lib</code> to the end.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-x</span> LD_LIBRARY_PATH /usr/local/lib <span class="nv">$LD_LIBRARY_PATH</span> ~/lib</code></pre></div>
+<p>When quoting the variable, it must be modified like so to achieve the same result.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-x</span> LD_LIBRARY_PATH /usr/local/lib:<span class="s2">"</span><span class="nv">$LD_LIBRARY_PATH</span><span class="s2">"</span>:~/lib</code></pre></div></div></div></li><li><p>Use <a href="https://fishshell.com/docs/current/index.html#autosuggestions">autosuggestions</a> instead of Bash&#8217;s <a href="https://www.gnu.org/software/bash/manual/html_node/Commands-For-History.html">reverse-search-history</a>.</p><div class="open-block"><div class="content"><p>This one has required a little bit of learning curve since I&#8217;m so used to finding previous commands with <kbd class="keyseq"><kbd class="key">Ctrl</kbd>+<kbd class="key">R</kbd></kbd>.
+While not a one-to-one correlation, the autosuggestions in fish can be used instead.
+Just start typing a command and fish will provide suggestions on your prompt.
+As autosuggestion appear from your history, choose the suggested line with <kbd class="key">→</kbd>.
+To select only the next word of the suggestion, use <kbd class="keyseq"><kbd class="key">Alt</kbd>+<kbd class="key">→</kbd></kbd>.</p></div></div></li><li>Another nifty feature is the <a href="https://fishshell.com/docs/current/tutorial.html#wildcards">recursive wildcard</a> which automatically descends into subdirectories for matching a particular pattern.</li></ul></div>
+<div class="open-block"><div class="content"><p>The following example recursively searches and lists all files ending in <code>.fish</code> in <code>~/.config</code>.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">ls</span> ~/.config/<span class="k">**</span>.fish
+/home/jordan/.config/fish/functions/fish_prompt.fish</code></pre></div></div></div></section></section>
+<section class="doc-section level-1"><h2 id="_troubleshoot">Troubleshoot</h2><p>Common issues involve various environment variables and initialization functionality which assumes the default login shell is Bash.
+Some people place <code>fish</code> in their <code>~/.bashrc</code> file to start fish from within Bash so that all environment variables are correctly configured.
+I prefer to use <code>fish</code> as my login shell and file bugs as necessary for projects to properly support it, but this is definitely a bit a of a pain but thus is progress, eh?</p></section>
+<section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>There&#8217;s a lot to learn about the fish shell.
+It provides an extremely convenient feature set and is attempting to solve issues inherited from shells of generations past.
+I love it, and its a great improvement to my workflow.</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://fishshell.com/docs/current/tutorial.html#switching-to-fish">fish Tutorial: Switching to fish?</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://fishshell.com/docs/current/index.html#initialization-files">fish Documentation: Initialization files</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_3" role="doc-endnote"><a href="https://fishshell.com/docs/current/tutorial.html#path">fish Tutorial: $PATH</a> <a class="footnote-backref" href="#_footnoteref_3" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_4" role="doc-endnote"><a href="https://fishshell.com/docs/current/index.html#lists">fish Documentation: Lists</a> <a class="footnote-backref" href="#_footnoteref_4" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/debian/">Debian</a>
+          <a href="/tags/fish/">fish</a>
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/shell/">shell</a>
+          <a href="/tags/ubuntu/">Ubuntu</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/too_many_open_files_on_macos_when_compiling/">
+            <span class="next-text nav-default">&#34;Too many open files&#34; when Compiling on macOS</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
+      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br />
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

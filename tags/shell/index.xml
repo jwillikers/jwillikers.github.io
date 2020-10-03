@@ -22,10 +22,21 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Fri, 02 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jwillikers.com/tags/shell/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Switch to fish</title>
+      <link>https://jwillikers.com/post/switch_to_fish/</link>
+      <pubDate>Sat, 03 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/switch_to_fish/</guid>
+      <description>I&amp;#8217;ve finally made the switch from ZSH to the fish shell. Unlike ZSH, I don&amp;#8217;t need to install and manage a whole host of plugins. Everything I want comes packaged right in as part of the shell itself.
+The SwitchIn this post, I describe how to switch to the fish shell and some of the interesting features it offers.
+InstallInstalling fish is a piece of cake. On Ubuntu, a fish package is readily available.</description>
+    </item>
     
     <item>
       <title>&#34;Too many open files&#34; when Compiling on macOS</title>
