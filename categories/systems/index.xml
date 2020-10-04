@@ -22,18 +22,14 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/categories/systems/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/categories/systems/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Easily Virtualize Ubuntu MATE on macOS with Multipass</title>
       <link>https://jwillikers.com/post/easily_virtualize_ubuntu_mate_on_macos_with_multipass/</link>
       <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/easily_virtualize_ubuntu_mate_on_macos_with_multipass/</guid>
-      <description>It&amp;#8217;s Always Greener on the MATE Side  While I was working on my recent post Virtualize Ubuntu Desktop on macOS with QEMU, I came across Canonical&amp;#8217;s Multipass utility. Multipass makes it extremely simple to spin up Ubuntu instances on the fly whether your on Linux, macOS, and Windows. While your VM may not be as speedy as with QEMU, I would be remiss for not doing a quick write-up on this tool which makes it so easy to get up and running.</description>
+      <description>It’s Always Greener on the MATE Side  While I was working on my recent post Virtualize Ubuntu Desktop on macOS with QEMU, I came across Canonical’s Multipass utility. Multipass makes it extremely simple to spin up Ubuntu instances on the fly whether your on Linux, macOS, and Windows. While your VM may not be as speedy as with QEMU, I would be remiss for not doing a quick write-up on this tool which makes it so easy to get up and running.</description>
     </item>
     
     <item>
@@ -42,7 +38,7 @@
       <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/virtualize_ubuntu_desktop_on_macos_with_qemu/</guid>
-      <description>The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&amp;#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&amp;#8217;s open-source and not controlled by Oracle.</description>
+      <description>The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I’ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it’s open-source and not controlled by Oracle.</description>
     </item>
     
     <item>
@@ -51,8 +47,8 @@
       <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/update_uboot_pinephone/</guid>
-      <description>As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&amp;#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&amp;#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
-TutorialThis tutorial provides instructions for updating the PinePhone&amp;#8217;s bootloader from Manjaro running off of a microSD card.</description>
+      <description>As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That’s why I opted for running Manjaro ARM&amp;#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It’s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone’s bootloader from Manjaro running off of a microSD card.</description>
     </item>
     
     <item>
@@ -71,7 +67,7 @@ TutorialThis tutorial provides instructions for updating the PinePhone&amp;#8217
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/zfs_external_storage_pinebook_pro/</guid>
       <description>Note: This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro.
- The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&amp;#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&amp;#8217;re just dying to use ZFS on that, right?</description>
+ The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn’t enough for those with large media collections. The easiest solution is to use a microSD card. And now you’re just dying to use ZFS on that, right?</description>
     </item>
     
     <item>
@@ -82,7 +78,7 @@ TutorialThis tutorial provides instructions for updating the PinePhone&amp;#8217
       <guid>https://jwillikers.com/post/backup_docker_data/</guid>
       <description>Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
 TutorialMy recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
-BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container&amp;#8217;s data volume.</description>
+BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container’s data volume.</description>
     </item>
     
     <item>
@@ -91,7 +87,7 @@ BackupCreating backups is done by producing an archive of the important files on
       <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/install_zfs_pinebook_pro/</guid>
-      <description>Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&amp;#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&amp;#8217;s becoming my main machine, and I&amp;#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine&amp;#8217;s built-in eMMC.</description>
+      <description>Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It’s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it’s becoming my main machine, and I’d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine’s built-in eMMC.</description>
     </item>
     
     <item>
@@ -100,7 +96,7 @@ BackupCreating backups is done by producing an archive of the important files on
       <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/smartd_ubuntu/</guid>
-      <description>I recently fixed my mother-in-law&amp;#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&amp;#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&amp;#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.</description>
+      <description>I recently fixed my mother-in-law’s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law’s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It’s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.</description>
     </item>
     
   </channel>

@@ -26,7 +26,7 @@ install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1The script will be 
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/pf_badhost/" />
@@ -150,7 +150,7 @@ install -g bin -m 644 -o root pf-badhost.sh /usr/local/bin/ 1The script will be 
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents"></nav>
   </div>
 </div>
     <div class="post-content">
@@ -190,19 +190,19 @@ table &lt;pfbadhost&gt; persist file “/etc/pf-badhost.txt” <b class="conum">
 block in quick on egress from &lt;pfbadhost&gt; <b class="conum">2</b>
 block out quick on egress to &lt;pfbadhost&gt; <b class="conum">3</b></code></pre><ol class="callout-list arabic"><li>Populate the <code>pfbadhost</code> table from the file <code>/etc/pf-badhost.txt</code> and keep the table even if no rules refer to it.</li><li>Block any traffic coming in to the gateway from any address in the <code>pfbadhost</code> table.</li><li>Block any traffic coming out of the gateway to any address in the <code>pfbadhost</code> table.</li></ol></figure>
 
-<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Be careful not to block your internal network&#8217;s traffic here.</p></aside>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Be careful not to block your internal network’s traffic here.</p></aside>
 <p>Reload the PF ruleset.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">pfctl <span class="nt">-f</span> /etc/pf.conf</code></pre></div>
 <p>Following the original tutorial, run the <code>pf-badhost.sh</code> script once more for good measure.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">doas <span class="nt">-u</span> _pfbadhost sh /usr/local/bin/pf-badhost.sh</code></pre></div></section>
-<section class="doc-section level-1"><h2 id="_verify">Verify</h2><p>Now&#8230;&#8203; did that actually do anything?
+<section class="doc-section level-1"><h2 id="_verify">Verify</h2><p>Now…​ did that actually do anything?
 I usually ask myself this question, and I like to be sure sometimes, especially when it comes to network security.</p>
 <section class="doc-section level-2"><h3 id="_outbound">Outbound</h3><p>First, test the outbound traffic destined for a blocked IP address.
 For the outbound test, you could use any publicly available IP address which is not blacklisted.
-I use the address of one of Google&#8217;s DNS servers, <code>8.8.8.8</code> in this test.</p>
+I use the address of one of Google’s DNS servers, <code>8.8.8.8</code> in this test.</p>
 <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>You could just ping a blacklisted server with and without the <code>pfbadhost</code> rules in place.
 I definitely did this on my first go. 😊
-However, I figured that probably wasn&#8217;t the best idea and so devised a safer test.</p></aside>
+However, I figured that probably wasn’t the best idea and so devised a safer test.</p></aside>
 <p>Make sure that the server is reachable before adding it to the blacklist.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">ping <span class="nt">-c</span> 3 8.8.8.8</code></pre></div>
 <p>There should be zero percent packet loss if everything went well, like in the following output.</p>
@@ -214,9 +214,9 @@ However, I figured that probably wasn&#8217;t the best idea and so devised a saf
 <span class="nt">---</span> 8.8.8.8 ping statistics <span class="nt">---</span>
 3 packets transmitted, 3 packets received, 0.0% packet loss
 round-trip min/avg/max/std-dev <span class="o">=</span> 9.736/9.894/10.039/0.124 ms</code></pre></div>
-<p>If the packets don&#8217;t reach the server successfully, you&#8217;ll have to troubleshoot.
+<p>If the packets don’t reach the server successfully, you’ll have to troubleshoot.
 A PF rule could be blocking outgoing traffic to the server.
-Hopefully the server your testing against isn&#8217;t already on the blacklist.</p>
+Hopefully the server your testing against isn’t already on the blacklist.</p>
 <p>Now, add the server`s IP address to the blacklist.</p>
 <figure class="listing-block"><figcaption>/etc/pf-badhost.txt</figcaption>
 <pre class="rouge highlight"><code># User Defined Rules:
@@ -248,7 +248,7 @@ block out quick on egress to &lt;pfbadhost&gt;</code></pre><ol class="callout-li
 
 <p>To account for the new rule, reload the PF ruleset.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">pfctl <span class="nt">-f</span> /etc/pf.conf</code></pre></div>
-<p>The IP address <code>2.2.2.2</code> will represent the router&#8217;s gateway address.
+<p>The IP address <code>2.2.2.2</code> will represent the router’s gateway address.
 From the server, ping the router.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">ping <span class="nt">-c</span> 3 2.2.2.2</code></pre></div>
 <p>It should be able to ping the server, assuming the server is not one of the blacklisted IPs or impeded by a firewall rule.
@@ -274,7 +274,7 @@ round-trip min/avg/max/std-dev <span class="o">=</span> 9.736/9.894/10.039/0.124
 
 <span class="nt">---</span> 2.2.2.2 ping statistics <span class="nt">---</span>
 50 packets transmitted, 0 received, 100% packet loss, <span class="nb">time </span>50168ms</code></pre></div>
-<p>To clean up, remove the server&#8217;s IP from the blacklist and reload PF.
+<p>To clean up, remove the server’s IP from the blacklist and reload PF.
 If applicable, remember to delete the temporary rule in <code>/etc/pf.conf</code> if you added it.</p></section></section>
 
     </div>

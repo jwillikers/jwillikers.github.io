@@ -22,18 +22,14 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/virtio/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/virtio/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Virtualize Ubuntu Desktop on macOS with QEMU</title>
       <link>https://jwillikers.com/post/virtualize_ubuntu_desktop_on_macos_with_qemu/</link>
       <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/virtualize_ubuntu_desktop_on_macos_with_qemu/</guid>
-      <description>The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&amp;#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&amp;#8217;s open-source and not controlled by Oracle.</description>
+      <description>The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I’ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it’s open-source and not controlled by Oracle.</description>
     </item>
     
   </channel>

@@ -22,18 +22,14 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Sat, 23 May 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/firewall/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 23 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/firewall/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>IPv6 on OpenBSD</title>
       <link>https://jwillikers.com/post/openbsd_ipv6/</link>
       <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/openbsd_ipv6/</guid>
-      <description>Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&amp;#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&amp;#8217;t provide DHCPv6 support in its native DHCP daemon. I&amp;#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
+      <description>Configuring IPv6 on my OpenBSD home router was a much more difficult task than I’d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn’t provide DHCPv6 support in its native DHCP daemon. I’ve documented my setup and difficulties here in the hope it saves some time for someone else.
 ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
 PFIPv6 packets need to get through the firewall for anything to happen.</description>
     </item>

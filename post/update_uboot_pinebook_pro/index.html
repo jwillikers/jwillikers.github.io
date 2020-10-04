@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/update_uboot_pinebook_pro/" />
@@ -138,7 +138,7 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents"></nav>
   </div>
 </div>
     <div class="post-content">
@@ -147,7 +147,7 @@ I went ahead and flashed an SD card with a build image to try it out.
 Instead of booting to elmentaryOS on the SD card as the system should have, it booted to Manjaro.
 While a quick restart from Manjaro caused the system to boot from the SD card, I figured it must be time to upgrade the bootloader, <a href="https://www.denx.de/wiki/U-Boot">U-Boot</a>.
 As it turns out, it was time because this solved my boot issue.</p>
-<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial provides instructions for updating the Pinebook Pro&#8217;s bootloader from Manjaro Linux.</p>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial provides instructions for updating the Pinebook Pro’s bootloader from Manjaro Linux.</p>
 <section class="doc-section level-2"><h3 id="_steps">Steps</h3><div class="olist arabic"><ol class="arabic"><li><p>First, ensure the system is up-to-date.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-Syuu</span>
 :: Synchronizing package databases...
   core is up to <span class="nb">date
@@ -181,8 +181,8 @@ If you have an SD card connected, you might want to unplug it to be safe.</p></s
 1801+1 records <span class="k">in
 </span>1801+1 records out
 922192 bytes <span class="o">(</span>922 kb, 901 KiB<span class="o">)</span> copied, 0.0833926 s, 11.1 MB/s</code></pre></div></li></ol></div></section>
-<section class="doc-section level-2"><h3 id="_conclusion">Conclusion</h3><p>That&#8217;s all.
-You should now have the latest U-Boot booting your system!</p></section></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://gitlab.manjaro.org/manjaro-arm/packages/core/uboot-pinebookpro/-/blob/master/uboot-pinebookpro.install">Manjaro ARM Gitlab: uboot-pinebookpro</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+<section class="doc-section level-2"><h3 id="_conclusion">Conclusion</h3><p>That’s all.
+You should now have the latest U-Boot booting your system!</p></section></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr/><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://gitlab.manjaro.org/manjaro-arm/packages/core/uboot-pinebookpro/-/blob/master/uboot-pinebookpro.install">Manjaro ARM Gitlab: uboot-pinebookpro</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li></ol></section>
 
     </div>
 

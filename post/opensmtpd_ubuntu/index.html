@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Jordan Williams" /><meta name="description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&amp;#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors." /><meta name="keywords" content="Blog, BSD, Linux" />
+<meta name="author" content="Jordan Williams" /><meta name="description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn’t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors." /><meta name="keywords" content="Blog, BSD, Linux" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/opensmtpd_ubuntu/" />
@@ -41,13 +41,13 @@
 
 
 <meta property="og:title" content="OpenSMTPD Relay on Ubuntu" />
-<meta property="og:description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors." />
+<meta property="og:description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn’t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jwillikers.com/post/opensmtpd_ubuntu/" />
 <meta property="article:published_time" content="2020-05-24T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-09-22T19:30:22-05:00" />
 <meta itemprop="name" content="OpenSMTPD Relay on Ubuntu">
-<meta itemprop="description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.">
+<meta itemprop="description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn’t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.">
 <meta itemprop="datePublished" content="2020-05-24T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T19:30:22-05:00" />
 <meta itemprop="wordCount" content="659">
@@ -57,7 +57,7 @@
 <meta itemprop="keywords" content="2FA,Email,GMail,Linux,OpenSMTPD,OpenSMTPD6,SMTP,Ubuntu,Ubuntu2004," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="OpenSMTPD Relay on Ubuntu"/>
-<meta name="twitter:description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors."/>
+<meta name="twitter:description" content="It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn’t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -138,19 +138,19 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents"></nav>
   </div>
 </div>
     <div class="post-content">
       <p>It can be handy to have your system email you if it detects an issue or potential security risk.
-Unfortunately, this isn&#8217;t always straightforward, especially when you want to send an email from your desktop computer.
+Unfortunately, this isn’t always straightforward, especially when you want to send an email from your desktop computer.
 Sending an email directly from your desktop to your email account is likely going to accomplish nothing.
 The email will likely be blocked since, to your email provider, it is from an unknown source.
 I ran into this problem recently trying to set up <a href="https://www.smartmontools.org/">SmartMonTools</a> to send an email when it detected hard drive errors.
 The <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">Simple Mail Transfer Protocal (SMTP)</a> is perfect for getting around this by <strong>relaying</strong> the email through your account from an established email provider.</p>
 <p>In my instance, I wanted to relay the alert through my GMail account, which has nice support for SMTP.
 Using an Ubuntu desktop computer, I figured this would be a breeze.
-It wasn&#8217;t.
+It wasn’t.
 It turned out to be much harder than I anticipated because many guides demonstrate SMTP relay using antiquated applications, such as <a href="https://wiki.archlinux.org/index.php/SSMTP">SSMTP</a>.
 Being an <a href="https://www.openbsd.org/">OpenBSD</a> fanboy, I with the modern <a href="https://github.com/OpenSMTPD/OpenSMTPD">OpenSMTPD</a> application.</p>
 <section class="doc-section level-1"><h2 id="_instructions">Instructions</h2><p>This brief guide will walk you through relaying emails on Ubuntu 20.04 with OpenSMTPD 6.6.4.</p>
@@ -160,7 +160,7 @@ Being an <a href="https://www.openbsd.org/">OpenBSD</a> fanboy, I with the moder
 <p>Additionally, you will likely want to install the <code>mailutils</code> package to provide the standard system mail commands.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>apt <span class="nb">install </span>mailutils</code></pre></div>
 <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>The <code>mailutils</code> package is required for the verification step at the end of this tutorial.</p></aside></section>
-<section class="doc-section level-2"><h3 id="_configure">Configure</h3><p>Grab your email account&#8217;s password.
+<section class="doc-section level-2"><h3 id="_configure">Configure</h3><p>Grab your email account’s password.
 For my use case, I was using a GMail account which required two-factor authentication.
 Because of this, I had to use an <em>App Password</em> instead of my regular password.
 For any GMail users in a similar situation, instructions on how to generate an <em>App Password</em> can be found <a href="https://support.google.com/accounts/answer/185833?hl=en">here</a>.</p>
@@ -179,22 +179,22 @@ table aliases file:/etc/aliases
 #
 listen on localhost
 
-action "local" maildir alias &lt;aliases&gt;
-action "relay" relay host smtp+tls://jdoe@smtp.gmail.com:587 auth &lt;secrets&gt; <b class="conum">2</b>
+action &#34;local&#34; maildir alias &lt;aliases&gt;
+action &#34;relay&#34; relay host smtp+tls://jdoe@smtp.gmail.com:587 auth &lt;secrets&gt; <b class="conum">2</b>
 
-# Uncomment the following to accept external mail for domain "example.org"
+# Uncomment the following to accept external mail for domain &#34;example.org&#34;
 #
-# match from any for domain "example.org" action "local"
-match for local action "local"
-match from local for any action "relay"</pre><ol class="callout-list arabic"><li>Use the content of the file <code>/etc/mail/secrets</code>, shown below, for the <code>secrets</code> table.</li><li>The rule to forward all mail to GMail&#8217;s SMTP server using TLS.</li></ol></figure>
+# match from any for domain &#34;example.org&#34; action &#34;local&#34;
+match for local action &#34;local&#34;
+match from local for any action &#34;relay&#34;</pre><ol class="callout-list arabic"><li>Use the content of the file <code>/etc/mail/secrets</code>, shown below, for the <code>secrets</code> table.</li><li>The rule to forward all mail to GMail’s SMTP server using TLS.</li></ol></figure>
 
 <p>Your account credentials must be associated with a label in the <code>/etc/mail/secrets</code> file.</p>
 <p>Create the <code>secrets</code> file.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">mkdir</span> /etc/mail
 <span class="nv">$ </span><span class="nb">touch</span> /etc/mail/secrets</code></pre></div>
-<p>Now, make sure the file&#8217;s permissions are tight before putting your plain-text password inside.</p>
+<p>Now, make sure the file’s permissions are tight before putting your plain-text password inside.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">chmod </span>640 /etc/mail/secrets <b class="conum">1</b>
-<span class="nv">$ </span><span class="nb">chown </span>root:opensmtpd /etc/mail/secrets <b class="conum">2</b></code></pre><ol class="callout-list arabic"><li>Permit read and write access for the file&#8217;s owner and read access for the file&#8217;s group.</li><li>Set the file&#8217;s ownership such that it belongs to the <code>root</code> user and <code>opensmtpd</code> group.</li></ol></div>
+<span class="nv">$ </span><span class="nb">chown </span>root:opensmtpd /etc/mail/secrets <b class="conum">2</b></code></pre><ol class="callout-list arabic"><li>Permit read and write access for the file’s owner and read access for the file’s group.</li><li>Set the file’s ownership such that it belongs to the <code>root</code> user and <code>opensmtpd</code> group.</li></ol></div>
 
 <p>The following example illustrates the file format.</p>
 <figure class="listing-block"><figcaption>/etc/mail/secrets</figcaption>
@@ -209,7 +209,7 @@ configuration OK</code></pre></div>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nb">enable </span>opensmtpd</code></pre></div></section>
 <section class="doc-section level-2"><h3 id="_verify">Verify</h3><p>To test the configuration, you can send an email from your computer and check if the email appears in the receiving account.</p>
 <p>Send a test email using the <code>mail</code> command from the <code>mailutils</code> package.</p>
-<div class="listing-block"><pre class="rouge highlight"><code data-lang="bash"">$ echo "Does it work?" | mail -s "OpenSMTPD Test Email" test@example.com</code></pre></div>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="bash" "="">$ echo &#34;Does it work?&#34; | mail -s &#34;OpenSMTPD Test Email&#34; test@example.com</code></pre></div>
 <p>If everything works, you should receive an email at the designated address.</p></section></section>
 
     </div>

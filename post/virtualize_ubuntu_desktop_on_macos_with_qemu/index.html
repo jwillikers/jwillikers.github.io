@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Jordan Williams" /><meta name="description" content="The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&amp;#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&amp;#8217;s open-source and not controlled by Oracle." /><meta name="keywords" content="Blog, BSD, Linux" />
+<meta name="author" content="Jordan Williams" /><meta name="description" content="The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I’ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it’s open-source and not controlled by Oracle." /><meta name="keywords" content="Blog, BSD, Linux" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/virtualize_ubuntu_desktop_on_macos_with_qemu/" />
@@ -41,13 +41,13 @@
 
 
 <meta property="og:title" content="Virtualize Ubuntu Desktop on macOS with QEMU" />
-<meta property="og:description" content="The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&#8217;s open-source and not controlled by Oracle." />
+<meta property="og:description" content="The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I’ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it’s open-source and not controlled by Oracle." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jwillikers.com/post/virtualize_ubuntu_desktop_on_macos_with_qemu/" />
 <meta property="article:published_time" content="2020-09-07T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-09-22T09:58:49-05:00" />
 <meta itemprop="name" content="Virtualize Ubuntu Desktop on macOS with QEMU">
-<meta itemprop="description" content="The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&#8217;s open-source and not controlled by Oracle.">
+<meta itemprop="description" content="The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I’ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it’s open-source and not controlled by Oracle.">
 <meta itemprop="datePublished" content="2020-09-07T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T09:58:49-05:00" />
 <meta itemprop="wordCount" content="684">
@@ -57,7 +57,7 @@
 <meta itemprop="keywords" content="Homebrew,Linux,macOS,MacPorts,QEMU,Ubuntu,Ubuntu2004,virtio,Virtualization," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Virtualize Ubuntu Desktop on macOS with QEMU"/>
-<meta name="twitter:description" content="The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&#8217;s open-source and not controlled by Oracle."/>
+<meta name="twitter:description" content="The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I’ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it’s open-source and not controlled by Oracle."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -138,17 +138,17 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents"></nav>
   </div>
 </div>
     <div class="post-content">
-      <figure class="image-block"><img src="virtualize_ubuntu_desktop_on_macos_with_qemu_compressed.jpg" alt="An Ubuntu Desktop on macOS Catalina">
+      <figure class="image-block"><img src="virtualize_ubuntu_desktop_on_macos_with_qemu_compressed.jpg" alt="An Ubuntu Desktop on macOS Catalina"/>
 <figcaption>The Focal Fossa nestles in on Santa Catalina Island</figcaption></figure>
-<hr>
+<hr/>
 <p>Recently, I discovered that the Linux hypervisor, <a href="https://www.qemu.org/">QEMU</a>, is available on macOS.
-This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU.
+This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I’ve wanted to get some more hands-on experience with QEMU.
 QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines.
-Additionally, it&#8217;s open-source and <em>not</em> controlled by Oracle.
+Additionally, it’s open-source and <em>not</em> controlled by Oracle.
 I also recommend checking out <a href="https://github.com/machyve/xhyve">xhyve</a>, a port of FreeBSDs hypervisor <a href="https://bhyve.org/">bhyve</a> to macOS, and <a href="https://multipass.run/">multipass</a>, a cross-platform application for running Linux VMs.</p>
 <section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This is a quick run-through on how to create and run a virtual Ubuntu 20.04 desktop machine on macOS Catalina using either <a href="https://www.qemu.org/2020/08/11/qemu-5-1-0/">QEMU 5.1</a> via <a href="https://brew.sh">Homebrew</a> or <a href="https://www.qemu.org/2020/04/29/qemu-5-0-0/">QEMU 5.0</a> via <a href="https://www.macports.org/">MacPorts</a>.
 This guide assumes you have familiarity with the command-line, virtual machines, ssh, port-forwarding, and graphical Linux installers.</p>
@@ -157,10 +157,10 @@ This guide assumes you have familiarity with the command-line, virtual machines,
 
 <span class="c"># For MacPorts</span>
 <span class="nv">$ </span><span class="nb">sudo </span>port <span class="nb">install </span>qemu</code></pre></div></li><li><p>Create a 60 Gigabyte image to use as the VMs hard disk.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-img create <span class="nt">-f</span> qcow2 ubuntu2004.qcow2 60G
-Formatting <span class="s1">'ubuntu2004.qcow2'</span>, <span class="nb">fmt</span><span class="o">=</span>qcow2 <span class="nv">size</span><span class="o">=</span>64424509440 <span class="nv">cluster_size</span><span class="o">=</span>65536 <span class="nv">lazy_refcounts</span><span class="o">=</span>off <span class="nv">refcount_bits</span><span class="o">=</span>16</code></pre></div></li><li><p>Download the Ubuntu 20.04 desktop installer.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>curl <span class="nt">-L</span> <span class="nt">-o</span> ubuntu-20.04.1-desktop-amd64.iso https://releases.ubuntu.com/20.04/ubuntu-20.04.1-desktop-amd64.iso
+Formatting <span class="s1">&#39;ubuntu2004.qcow2&#39;</span>, <span class="nb">fmt</span><span class="o">=</span>qcow2 <span class="nv">size</span><span class="o">=</span>64424509440 <span class="nv">cluster_size</span><span class="o">=</span>65536 <span class="nv">lazy_refcounts</span><span class="o">=</span>off <span class="nv">refcount_bits</span><span class="o">=</span>16</code></pre></div></li><li><p>Download the Ubuntu 20.04 desktop installer.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>curl <span class="nt">-L</span> <span class="nt">-o</span> ubuntu-20.04.1-desktop-amd64.iso https://releases.ubuntu.com/20.04/ubuntu-20.04.1-desktop-amd64.iso
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100 2656M  100 2656M    0     0  8070k      0  0:05:37  0:05:37 <span class="nt">--</span>:--:-- 7717k</code></pre></div></li><li>Verify the ISO by following <a href="https://ubuntu.com/tutorials/how-to-verify-ubuntu#1-overview">Canonical&#8217;s detailed tutorial</a>.</li><li><p>Boot the ISO installer</p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
+100 2656M  100 2656M    0     0  8070k      0  0:05:37  0:05:37 <span class="nt">--</span>:--:-- 7717k</code></pre></div></li><li>Verify the ISO by following <a href="https://ubuntu.com/tutorials/how-to-verify-ubuntu#1-overview">Canonical’s detailed tutorial</a>.</li><li><p>Boot the ISO installer</p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
   <span class="nt">-accel</span> hvf <span class="se">\</span>
   <span class="nt">-cpu</span> qemu64 <span class="se">\</span>
   <span class="nt">-smp</span> 2 <span class="se">\</span>
@@ -174,12 +174,12 @@ Formatting <span class="s1">'ubuntu2004.qcow2'</span>, <span class="nb">fmt</spa
   <span class="nt">-device</span> ich9-intel-hda <span class="nt">-device</span> hda-output,audiodev<span class="o">=</span>coreaudio <span class="se">\</span>
   <span class="nt">-cdrom</span> ubuntu-20.04.1-desktop-amd64.iso <span class="se">\</span>
   <span class="nt">-drive</span> <span class="nv">file</span><span class="o">=</span>ubuntu2004.qcow2,if<span class="o">=</span>virtio</code></pre></div>
-<p>That&#8217;s a long command-line, so I&#8217;ve broken it down option-by-option below.
+<p>That’s a long command-line, so I’ve broken it down option-by-option below.
 For more details, refer to the <a href="https://www.qemu.org/docs/master/system/index.html">QEMU System Emulation User’s Guide</a>.</p>
 <div class="dlist"><dl><dt><code>-accel hvf</code></dt><dd>Accelerate the machine by taking advantage of the macOS hypervisor, <code>hvf</code>.
 <code>kvm</code> is available for Linux and <code>whpx</code> for Windows.</dd><dt><code>-cpu qemu64</code></dt><dd>Ideally, you would use the <code>host</code> option and get better performance by taking advantage of CPU passthrough.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a>
 However, this inevitably lead to a kernel panic when booting the ISO, unless the CPU was emulated.
-The default <code>cpu</code> option, <code>qemu64</code>, emulates the CPU instead of using passthrough.</dd><dt><code>-smp 2</code></dt><dd>Allocate two threads for the VM.</dd><dt><code>-m 4G</code></dt><dd>Allocate 4 GB of RAM for the VM.</dd><dt><code>-usb</code></dt><dd>Enable a USB bus.</dd><dt><code>-device usb-tablet</code></dt><dd>Avoid having to <em>grab</em> the mouse, making it easier to switch between interacting with the VM and the host.</dd><dt><code>-vga virtio</code></dt><dd>Use the virtio display card.</dd><dt><code>-display default,show-cursor=on</code></dt><dd>Don&#8217;t hide the cursor.</dd><dt><code>-device virtio-net,netdev=vmnic -netdev user,id=vmnic</code></dt><dd>Pass-through networking with virtio.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></dd><dt><code>-audiodev coreaudio,id=coreaudio</code></dt><dd>Add a backend audio driver for <a href="https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/WhatisCoreAudio/WhatisCoreAudio.html">Apple&#8217;s Core Audio</a>.</dd><dt><code>-device ich9-intel-hda -device hda-output,audiodev=coreaudio</code></dt><dd>Add an audio bus and an output device utilizing the <code>coreaudio</code> driver created previously. This enables audio output from the guest.</dd><dt><code>-cdrom ubuntu-20.04.1-desktop-amd64.iso</code></dt><dd>Attach the Boot ISO in the VM as a CD.</dd><dt><code>-drive file=ubuntu2004.qcow2,if=virtio</code></dt><dd>Attach the hard-disk created earlier, using virtio drivers.</dd></dl></div>
+The default <code>cpu</code> option, <code>qemu64</code>, emulates the CPU instead of using passthrough.</dd><dt><code>-smp 2</code></dt><dd>Allocate two threads for the VM.</dd><dt><code>-m 4G</code></dt><dd>Allocate 4 GB of RAM for the VM.</dd><dt><code>-usb</code></dt><dd>Enable a USB bus.</dd><dt><code>-device usb-tablet</code></dt><dd>Avoid having to <em>grab</em> the mouse, making it easier to switch between interacting with the VM and the host.</dd><dt><code>-vga virtio</code></dt><dd>Use the virtio display card.</dd><dt><code>-display default,show-cursor=on</code></dt><dd>Don’t hide the cursor.</dd><dt><code>-device virtio-net,netdev=vmnic -netdev user,id=vmnic</code></dt><dd>Pass-through networking with virtio.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></dd><dt><code>-audiodev coreaudio,id=coreaudio</code></dt><dd>Add a backend audio driver for <a href="https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/WhatisCoreAudio/WhatisCoreAudio.html">Apple’s Core Audio</a>.</dd><dt><code>-device ich9-intel-hda -device hda-output,audiodev=coreaudio</code></dt><dd>Add an audio bus and an output device utilizing the <code>coreaudio</code> driver created previously. This enables audio output from the guest.</dd><dt><code>-cdrom ubuntu-20.04.1-desktop-amd64.iso</code></dt><dd>Attach the Boot ISO in the VM as a CD.</dd><dt><code>-drive file=ubuntu2004.qcow2,if=virtio</code></dt><dd>Attach the hard-disk created earlier, using virtio drivers.</dd></dl></div>
 <p>The <a href="https://wiki.libvirt.org/page/Virtio">virtio</a> options effectively pass-through directly to the hardware instead of emulating physical devices.
 Skipping this layer of emulation can significantly improve VM performance.</p></div></div></li><li>Complete the installation in the virtual machine window which should appear after starting the VM.</li><li><p>After the installation, run the virtual machine from the hard disk.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
   <span class="nt">-accel</span> hvf <span class="se">\</span>
@@ -194,7 +194,7 @@ Skipping this layer of emulation can significantly improve VM performance.</p></
   <span class="nt">-audiodev</span> coreaudio,id<span class="o">=</span>coreaudio <span class="se">\</span>
   <span class="nt">-device</span> ich9-intel-hda <span class="nt">-device</span> hda-output,audiodev<span class="o">=</span>coreaudio <span class="se">\</span>
   <span class="nt">-drive</span> <span class="nv">file</span><span class="o">=</span>ubuntu2004.qcow2,if<span class="o">=</span>virtio</code></pre></div></li></ol></div>
-<section class="doc-section level-2"><h3 id="_ssh">SSH</h3><p>It&#8217;s a small step away to run the virtual machine headless and access it through ssh.</p>
+<section class="doc-section level-2"><h3 id="_ssh">SSH</h3><p>It’s a small step away to run the virtual machine headless and access it through ssh.</p>
 <div class="olist arabic"><ol class="arabic"><li><p>Run the virtual machine headless, forwarding ssh over port <code>9001</code> on the host.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
   <span class="nt">-accel</span> hvf <span class="se">\</span>
   <span class="nt">-cpu</span> qemu64 <span class="se">\</span>
@@ -206,7 +206,7 @@ Skipping this layer of emulation can significantly improve VM performance.</p></
   <span class="nt">-device</span> virtio-net,netdev<span class="o">=</span>vmnic <span class="se">\</span>
   <span class="nt">-netdev</span> user,id<span class="o">=</span>vmnic,hostfwd<span class="o">=</span>tcp:127.0.0.1:9001-:22 <span class="se">\</span>
   <span class="nt">-drive</span> <span class="nv">file</span><span class="o">=</span>ubuntu2004.qcow2,if<span class="o">=</span>virtio</code></pre></div></li><li>Enable SSH in the guest OS.</li><li><p>ssh into the machine from the host.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>ssh <span class="nt">-p</span> 9001 localhost</code></pre></div></li></ol></div></section></section>
-<section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>You should now be able to easily build and run Linux desktop virtual machines with QEMU on macOS.</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://www.qemu.org/docs/master/system/qemu-cpu-models.html">QEMU System Emulation Users Guide: QEMU CPU Models</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://wiki.gentoo.org/wiki/QEMU/Options#Pass-through">Gentoo Wiki: QEMU/Options - Networking Pass-through</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+<section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>You should now be able to easily build and run Linux desktop virtual machines with QEMU on macOS.</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr/><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://www.qemu.org/docs/master/system/qemu-cpu-models.html">QEMU System Emulation Users Guide: QEMU CPU Models</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://wiki.gentoo.org/wiki/QEMU/Options#Pass-through">Gentoo Wiki: QEMU/Options - Networking Pass-through</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li></ol></section>
 
     </div>
 

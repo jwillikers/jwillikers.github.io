@@ -22,18 +22,14 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Fri, 29 May 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/unbound/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 29 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/unbound/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DNS over TLS with Unbound</title>
       <link>https://jwillikers.com/post/unbound_dns_over_tls/</link>
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/unbound_dns_over_tls/</guid>
-      <description>Recently, Firefox announced it&amp;#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&amp;#8230;&amp;#8203; Why don&amp;#8217;t I do that for my home network?&#34; Well, I&amp;#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&amp;#8217;s DNS requests. Unbound has support built-in for DoH&amp;#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.</description>
+      <description>Recently, Firefox announced it’s roll-out of DNS over HTTPS (DoH). That made me think, &amp;#34;Encrypting DNS…​ Why don’t I do that for my home network?&amp;#34; Well, I’ve now had the opportunity to configure my Unbound DNS resolver to encrypt it’s DNS requests. Unbound has support built-in for DoH’s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.</description>
     </item>
     
     <item>
@@ -55,7 +51,7 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
       <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/unbound_adblock/</guid>
-      <description>Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers.</description>
+      <description>Ever want to get rid of all those annoying internet ads? Me too. I’d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google’s DNS servers.</description>
     </item>
     
   </channel>

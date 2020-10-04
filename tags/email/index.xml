@@ -22,18 +22,14 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Mon, 25 May 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/email/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 25 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/email/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Automatically Detect &amp; Report Hard Drive Failure</title>
       <link>https://jwillikers.com/post/smartd_ubuntu/</link>
       <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/smartd_ubuntu/</guid>
-      <description>I recently fixed my mother-in-law&amp;#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&amp;#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&amp;#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.</description>
+      <description>I recently fixed my mother-in-law’s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law’s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It’s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.</description>
     </item>
     
     <item>
@@ -42,7 +38,7 @@
       <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/opensmtpd_ubuntu/</guid>
-      <description>It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&amp;#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.</description>
+      <description>It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn’t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.</description>
     </item>
     
   </channel>

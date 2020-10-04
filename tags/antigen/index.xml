@@ -22,20 +22,16 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Wed, 23 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/antigen/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 23 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/antigen/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Automatically Update Antigen</title>
       <link>https://jwillikers.com/post/automatically_update_antigen/</link>
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/automatically_update_antigen/</guid>
-      <description>There&amp;#8217;s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
+      <description>There’s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
 According to the Antigen documentation: This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.
-&amp;#8212; Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
+— Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
 Completely forget to do it ever.</description>
     </item>
     
@@ -45,7 +41,7 @@ Completely forget to do it ever.</description>
       <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/configure_zsh/</guid>
-      <description>I&amp;#8217;ve been using ZSH for years now as my shell. In that time, I&amp;#8217;ve learned a few niceties to make the experience better. Namely, I&amp;#8217;ve found the minimal oh-my-zsh prompt keeps out of the way and the git aliases super convenient. Plugins for autosuggestions, like in the fish shell, and syntax highlighting are also quite helpful. Antigen makes keeping plugins up-to-date a breeze.
+      <description>I’ve been using ZSH for years now as my shell. In that time, I’ve learned a few niceties to make the experience better. Namely, I’ve found the minimal oh-my-zsh prompt keeps out of the way and the git aliases super convenient. Plugins for autosuggestions, like in the fish shell, and syntax highlighting are also quite helpful. Antigen makes keeping plugins up-to-date a breeze.
 TutorialThis tutorial explains how to install ZSH and set it as your default shell on Ubuntu 20.</description>
     </item>
     

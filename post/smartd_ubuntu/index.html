@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Jordan Williams" /><meta name="description" content="I recently fixed my mother-in-law&amp;#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&amp;#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&amp;#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives." /><meta name="keywords" content="Blog, BSD, Linux" />
+<meta name="author" content="Jordan Williams" /><meta name="description" content="I recently fixed my mother-in-law’s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law’s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It’s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives." /><meta name="keywords" content="Blog, BSD, Linux" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/smartd_ubuntu/" />
@@ -41,13 +41,13 @@
 
 
 <meta property="og:title" content="Automatically Detect &amp; Report Hard Drive Failure" />
-<meta property="og:description" content="I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives." />
+<meta property="og:description" content="I recently fixed my mother-in-law’s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law’s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It’s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jwillikers.com/post/smartd_ubuntu/" />
 <meta property="article:published_time" content="2020-05-25T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-09-22T19:30:22-05:00" />
 <meta itemprop="name" content="Automatically Detect &amp; Report Hard Drive Failure">
-<meta itemprop="description" content="I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.">
+<meta itemprop="description" content="I recently fixed my mother-in-law’s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law’s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It’s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.">
 <meta itemprop="datePublished" content="2020-05-25T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T19:30:22-05:00" />
 <meta itemprop="wordCount" content="1111">
@@ -57,7 +57,7 @@
 <meta itemprop="keywords" content="Email,Linux,OpenSMTPD,SMART,smartd,SmartMonTools,SMTP,Ubuntu,Ubuntu2004," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Automatically Detect &amp; Report Hard Drive Failure"/>
-<meta name="twitter:description" content="I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives."/>
+<meta name="twitter:description" content="I recently fixed my mother-in-law’s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law’s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It’s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -138,19 +138,19 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents"></nav>
   </div>
 </div>
     <div class="post-content">
-      <p>I recently fixed my mother-in-law&#8217;s laptop.
+      <p>I recently fixed my mother-in-law’s laptop.
 Long story short, the hard disk was toast.
 When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future.
-So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility?
+So, how does one know if his or her mother-in-law’s hard disk is reaching senility?
 <a href="https://www.smartmontools.org/">SmartMonTools</a> appears to be the best tool for the job.
-It&#8217;s a tool for monitoring and reporting hard disk health with <a href="https://en.wikipedia.org/wiki/S.M.A.R.T">Self-Monitoring, Anlysis, and Reporting Technology (SMART)</a> which is built into most hard drives.
+It’s a tool for monitoring and reporting hard disk health with <a href="https://en.wikipedia.org/wiki/S.M.A.R.T">Self-Monitoring, Anlysis, and Reporting Technology (SMART)</a> which is built into most hard drives.
 SmartMonTools is even cross-platform and available in package repositories everywhere.</p>
 <section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial describes the steps required to setup automated hard disk health checks and email notifications using SmartMonTools 7.1 on Ubuntu 20.04.
-If you&#8217;re configuring a desktop like me or otherwise configuring a system which doesn&#8217;t have a <a href="https://en.wikipedia.org/wiki/Message_transfer_agent">MTA (Mail Transport Agent)</a> or <a href="https://en.wikipedia.org/wiki/Email_client">MUA (Mail User Agent)</a> setup already and wish to send emails externally, I recommend following my tutorial on setting up an <a href="../opensmtpd_ubuntu/">OpenSMTPD Relay on Ubuntu</a>.
+If you’re configuring a desktop like me or otherwise configuring a system which doesn’t have a <a href="https://en.wikipedia.org/wiki/Message_transfer_agent">MTA (Mail Transport Agent)</a> or <a href="https://en.wikipedia.org/wiki/Email_client">MUA (Mail User Agent)</a> setup already and wish to send emails externally, I recommend following my tutorial on setting up an <a href="../opensmtpd_ubuntu/">OpenSMTPD Relay on Ubuntu</a>.
 Emails sent straight from a willy-nilly desktop user account to an online email provider are unlikely to be accepted.
 With <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a>, your system can relay emails through your online email provider to remedy this.</p>
 <section class="doc-section level-2"><h3 id="_install">Install</h3><p>First, install SmartMonTools on Ubuntu.</p>
@@ -174,7 +174,7 @@ It checks the <a href="https://en.wikipedia.org/wiki/Serial_ATA">SATA</a> disk <
     -m jdoe@gmail.com \ <b class="conum">11</b>
     -M exec /usr/share/smartmontools/smartd-runner <b class="conum">12</b></pre><ol class="callout-list arabic"><li>Run for the device <code>/dev/sda</code>.</li><li>Specify that the device uses a <a href="https://en.wikipedia.org/wiki/SCSI_/_ATA_Translation">SCSI to ATA Translation</a> interface.</li><li>Enable <a href="https://www.smartmontools.org/wiki/test_offline">SMART Automatic Offline Testing</a>.</li><li>Automatically save SMART attributes.</li><li>Check the health status of the disk for failing health status.</li><li>Report if there are any new SMART errors.</li><li>Report if there are any new SMART errors for any self-tests.</li><li>Check for failure of any Usage Attributes.</li><li>Check the device unless it is in <code>SLEEP</code> or <code>STANDBY</code> mode.
 Wake it up after 15 skipped checks.
-Don&#8217;t log the skipped test, which could wake-up the disk.</li><li>Schedule long self-tests for the first and sixteenth days of the month at 3 AM, short self-tests daily at 1 AM, and Offline Immediate Tests four times each day at midnight, 6 AM, noon, and 6 PM.</li><li>Email <code>jdoe@gmail.com</code> if any errors are detected.</li><li>Execute <code>/usr/share/smartmontools/smartd-runner</code> instead of the default mail command when sending emails.</li></ol></figure>
+Don’t log the skipped test, which could wake-up the disk.</li><li>Schedule long self-tests for the first and sixteenth days of the month at 3 AM, short self-tests daily at 1 AM, and Offline Immediate Tests four times each day at midnight, 6 AM, noon, and 6 PM.</li><li>Email <code>jdoe@gmail.com</code> if any errors are detected.</li><li>Execute <code>/usr/share/smartmontools/smartd-runner</code> instead of the default mail command when sending emails.</li></ol></figure>
 
 <p>Enable <code>smartd</code> on system startup.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nb">enable </span>smartd</code></pre></div></section>
@@ -194,7 +194,7 @@ Device: /dev/sda, found <span class="k">in </span>smartd database: Crucial/Micro
 Device: /dev/sda, WARNING: This firmware returns bogus raw values <span class="k">in </span>attribute 197
 Device: /dev/sda, enabled SMART Attribute Autosave.
 Device: /dev/sda, enabled SMART Automatic Offline Testing.
-Device: /dev/sda, is SMART capable. Adding to <span class="s2">"monitor"</span> list.
+Device: /dev/sda, is SMART capable. Adding to <span class="s2">&#34;monitor&#34;</span> list.
 Device: /dev/sda, state <span class="nb">read </span>from /var/lib/smartmontools/smartd.CT2000MX500SSD1-000000000001.ata.state
 Monitoring 1 ATA/SATA, 0 SCSI/SAS and 0 NVMe devices
 
@@ -250,7 +250,7 @@ Num  Test_Description    Status                  Remaining  LifeTime<span class=
 <p>Restart <code>smartd</code> so that it sends the test email.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl restart smartd</code></pre></div>
 <p>If everything works, you should receive an email at the designated address.</p>
-<section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Make sure to remove the <code>-M test</code> directive from the file so you don&#8217;t spam yourself.</p></section></section></section></section>
+<section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Make sure to remove the <code>-M test</code> directive from the file so you don’t spam yourself.</p></section></section></section></section>
 
     </div>
 

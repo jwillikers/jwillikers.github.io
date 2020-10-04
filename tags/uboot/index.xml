@@ -22,19 +22,15 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Fri, 04 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/uboot/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 04 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/uboot/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Update U-Boot on the PinePhone</title>
       <link>https://jwillikers.com/post/update_uboot_pinephone/</link>
       <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/update_uboot_pinephone/</guid>
-      <description>As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&amp;#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&amp;#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
-TutorialThis tutorial provides instructions for updating the PinePhone&amp;#8217;s bootloader from Manjaro running off of a microSD card.</description>
+      <description>As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That’s why I opted for running Manjaro ARM&amp;#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It’s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone’s bootloader from Manjaro running off of a microSD card.</description>
     </item>
     
     <item>

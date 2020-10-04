@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Jordan Williams" /><meta name="description" content="Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers." /><meta name="keywords" content="Blog, BSD, Linux" />
+<meta name="author" content="Jordan Williams" /><meta name="description" content="Ever want to get rid of all those annoying internet ads? Me too. I’d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google’s DNS servers." /><meta name="keywords" content="Blog, BSD, Linux" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/unbound_adblock/" />
@@ -41,13 +41,13 @@
 
 
 <meta property="og:title" content="Unbound Adblock" />
-<meta property="og:description" content="Ever want to get rid of all those annoying internet ads? Me too. I&#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers." />
+<meta property="og:description" content="Ever want to get rid of all those annoying internet ads? Me too. I’d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google’s DNS servers." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jwillikers.com/post/unbound_adblock/" />
 <meta property="article:published_time" content="2020-03-28T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-09-22T19:30:22-05:00" />
 <meta itemprop="name" content="Unbound Adblock">
-<meta itemprop="description" content="Ever want to get rid of all those annoying internet ads? Me too. I&#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers.">
+<meta itemprop="description" content="Ever want to get rid of all those annoying internet ads? Me too. I’d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google’s DNS servers.">
 <meta itemprop="datePublished" content="2020-03-28T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T19:30:22-05:00" />
 <meta itemprop="wordCount" content="654">
@@ -57,7 +57,7 @@
 <meta itemprop="keywords" content="Adblock,BSD,DNS,OpenBSD,OpenBSD6,OpenBSD67,Pihole,Unbound,unbound-adblock," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Unbound Adblock"/>
-<meta name="twitter:description" content="Ever want to get rid of all those annoying internet ads? Me too. I&#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers."/>
+<meta name="twitter:description" content="Ever want to get rid of all those annoying internet ads? Me too. I’d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google’s DNS servers."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -138,18 +138,18 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents"></nav>
   </div>
 </div>
     <div class="post-content">
       <p>Ever want to get rid of all those <a href="https://ads-blocker.com/testing/#ad-blocker-test-steps">annoying internet ads</a>?
 Me too.
-I&#8217;d been planning on using something like <a href="https://pi-hole.net/">Pi-hole</a>, but recently stumbled upon <a href="https://www.geoghegan.ca/unbound-adblock.html">unbound-adblock</a>, which is perfect for my OpenBSD home router.
+I’d been planning on using something like <a href="https://pi-hole.net/">Pi-hole</a>, but recently stumbled upon <a href="https://www.geoghegan.ca/unbound-adblock.html">unbound-adblock</a>, which is perfect for my OpenBSD home router.
 The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here.
-Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&#8217;s DNS servers.</p>
+Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google’s DNS servers.</p>
 <section class="doc-section level-1"><h2 id="_prepare">Prepare</h2><p>First, set your expectations.
 Get a base-line of what ads should be blocked by working through the <a href="https://ads-blocker.com/testing/#ad-blocker-test-steps">test steps</a> on <a class="bare" href="https://ads-blocker.com/testing">https://ads-blocker.com/testing</a>.</p>
-<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Disable any browser-based ad-blockers you might have enabled, otherwise you won&#8217;t be able to verify your setup actually blocks ads.</p></aside></section>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Disable any browser-based ad-blockers you might have enabled, otherwise you won’t be able to verify your setup actually blocks ads.</p></aside></section>
 <section class="doc-section level-1"><h2 id="_configure">Configure</h2><p>Download the <a href="https://www.geoghegan.ca/scripts/unbound-adblock.sh">unbound-adblock.sh script</a>.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">ftp https://www.geoghegan.ca/scripts/unbound-adblock.sh</code></pre></div>
 <p>Install the script with the appropriate permissions.</p>
@@ -182,11 +182,11 @@ SHELL=/bin/sh
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">doas <span class="nt">-u</span> _adblock sh /usr/local/bin/unbound-adblock.sh</code></pre></div>
 <p>Restart the unbound service.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">rcctl restart unbound</code></pre></div>
-<p>Add a PF rule to redirect all DNS queries bound for Google&#8217;s DNS servers, <code>8.8.8.8</code> and <code>8.8.4.4</code> to your unbound DNS server, i.e. <code>192.168.1.1</code>.
+<p>Add a PF rule to redirect all DNS queries bound for Google’s DNS servers, <code>8.8.8.8</code> and <code>8.8.4.4</code> to your unbound DNS server, i.e. <code>192.168.1.1</code>.
 The example below uses a macro <code>lan_if</code> to represent the LAN network interface, <code>em1</code>.</p>
 <figure class="listing-block"><figcaption>/etc/pf.conf</figcaption>
-<pre class="rouge highlight"><code data-lang="pf"># Redirect any DNS requests to Google's DNS servers to the LAN's unbound server.
-lan_if = "em1"
+<pre class="rouge highlight"><code data-lang="pf"># Redirect any DNS requests to Google&#39;s DNS servers to the LAN&#39;s unbound server.
+lan_if = &#34;em1&#34;
 lan_dns_server = 192.168.1.1
 table &lt;google_dns_servers&gt; { 8.8.8.8 8.8.4.4 }
 ...
@@ -194,13 +194,13 @@ pass in quick on $lan_if quick inet proto { tcp udp } to &lt;google_dns_servers&
 <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Be careful to position this rule in a place where it is not superceded by a preceding <code>quick</code> rule.</p></aside>
 <p>My actual configuration is a bit more complex, but I have included it here for reference.</p>
 <figure class="listing-block"><figcaption>/etc/pf.conf</figcaption>
-<pre class="rouge highlight"><code data-lang="pf">lan1_if = "em1"
-lan2_if = "em2"
-lan3_if = "em3"
-lan4_if = "em4"
-lan5_if = "em5"
-secure_wifi_if = "vlan2"
-guest_wifi_if = "vlan3"
+<pre class="rouge highlight"><code data-lang="pf">lan1_if = &#34;em1&#34;
+lan2_if = &#34;em2&#34;
+lan3_if = &#34;em3&#34;
+lan4_if = &#34;em4&#34;
+lan5_if = &#34;em5&#34;
+secure_wifi_if = &#34;vlan2&#34;
+guest_wifi_if = &#34;vlan3&#34;
 
 lan1_dns_server = 192.168.1.1
 lan2_dns_server = 192.168.2.1

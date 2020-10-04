@@ -22,19 +22,15 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Sat, 30 May 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/unifi/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 30 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/unifi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>UniFi Controller</title>
       <link>https://jwillikers.com/post/unifi_controller/</link>
       <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/unifi_controller/</guid>
-      <description>For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this is the UniFi Controller. If you don&amp;#8217;t have a smartphone or need to manage more than one device, you&amp;#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
-TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&amp;#8217;s how.
+      <description>For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this is the UniFi Controller. If you don’t have a smartphone or need to manage more than one device, you’ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
+TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here’s how.
 Install DockerFirst, you must install Docker on your system.</description>
     </item>
     

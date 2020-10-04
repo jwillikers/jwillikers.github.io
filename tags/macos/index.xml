@@ -22,20 +22,16 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Fri, 02 Oct 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/macos/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 02 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/macos/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>&#34;Too many open files&#34; when Compiling on macOS</title>
       <link>https://jwillikers.com/post/too_many_open_files_on_macos_when_compiling/</link>
       <pubDate>Fri, 02 Oct 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/too_many_open_files_on_macos_when_compiling/</guid>
-      <description>Occasionally things just go wrong during large builds. One such occurrence is on macOS when compiling a large C&amp;#43;&amp;#43; project.
+      <description>Occasionally things just go wrong during large builds. One such occurrence is on macOS when compiling a large C++ project.
 ProblemThe following error message is output by LLVM Clang 10.0.1 when compiling from the command-line. The Clion IDE builds the project just fine, of course.
-$ cmake --build build ... In file included from /opt/local/include/boost/spirit/home/x3.hpp:19: In file included from /opt/local/include/boost/spirit/home/x3/operator.hpp:10: In file included from /opt/local/include/boost/spirit/home/x3/operator/sequence.hpp:12: /opt/local/include/boost/spirit/home/x3/operator/detail/sequence.hpp:25:10: fatal error: cannot open file &#39;/opt/local/include/boost/fusion/include/as_deque.</description>
+$ cmake --build build ... In file included from /opt/local/include/boost/spirit/home/x3.hpp:19: In file included from /opt/local/include/boost/spirit/home/x3/operator.hpp:10: In file included from /opt/local/include/boost/spirit/home/x3/operator/sequence.hpp:12: /opt/local/include/boost/spirit/home/x3/operator/detail/sequence.hpp:25:10: fatal error: cannot open file &amp;#39;/opt/local/include/boost/fusion/include/as_deque.</description>
     </item>
     
     <item>
@@ -45,7 +41,7 @@ $ cmake --build build ... In file included from /opt/local/include/boost/spirit/
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/change_your_shell/</guid>
       <description>Sometimes, you just want to switch to a better shell for your terminal - like fish.
-TutorialHere&amp;#8217;s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
+TutorialHere’s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
 Install the fish package.</description>
     </item>
     
@@ -55,7 +51,7 @@ Install the fish package.</description>
       <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/my_ssh_configuration/</guid>
-      <description>The OpenSSH client and server applications are ubiquitous. Like many a software dev, I&amp;#8217;m `ssh&amp;#8217;ing all over the place. And you know what? I&amp;#8217;ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That&amp;#8217;s exactly why I&amp;#8217;ve written this post to exemplify the configuration options I&amp;#8217;m now using.
+      <description>The OpenSSH client and server applications are ubiquitous. Like many a software dev, I’m `ssh’ing all over the place. And you know what? I’ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That’s exactly why I’ve written this post to exemplify the configuration options I’m now using.
 SSH ConfigurationThe file ~/.</description>
     </item>
     
@@ -65,7 +61,7 @@ SSH ConfigurationThe file ~/.</description>
       <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/passwordless_sudo/</guid>
-      <description>Typing a password to login is repetitive enough, isn&amp;#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&amp;#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it&amp;#8217;s super easy and cross-platform. For whatever reason, I learned and forgot about doing this sometime ago, so here&amp;#8217;s the gist.</description>
+      <description>Typing a password to login is repetitive enough, isn’t it? Entering the password for Sudo on the command-line can be downright irritating. If you don’t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it’s super easy and cross-platform. For whatever reason, I learned and forgot about doing this sometime ago, so here’s the gist.</description>
     </item>
     
     <item>
@@ -74,7 +70,7 @@ SSH ConfigurationThe file ~/.</description>
       <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/easily_virtualize_ubuntu_mate_on_macos_with_multipass/</guid>
-      <description>It&amp;#8217;s Always Greener on the MATE Side  While I was working on my recent post Virtualize Ubuntu Desktop on macOS with QEMU, I came across Canonical&amp;#8217;s Multipass utility. Multipass makes it extremely simple to spin up Ubuntu instances on the fly whether your on Linux, macOS, and Windows. While your VM may not be as speedy as with QEMU, I would be remiss for not doing a quick write-up on this tool which makes it so easy to get up and running.</description>
+      <description>It’s Always Greener on the MATE Side  While I was working on my recent post Virtualize Ubuntu Desktop on macOS with QEMU, I came across Canonical’s Multipass utility. Multipass makes it extremely simple to spin up Ubuntu instances on the fly whether your on Linux, macOS, and Windows. While your VM may not be as speedy as with QEMU, I would be remiss for not doing a quick write-up on this tool which makes it so easy to get up and running.</description>
     </item>
     
     <item>
@@ -83,7 +79,7 @@ SSH ConfigurationThe file ~/.</description>
       <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/virtualize_ubuntu_desktop_on_macos_with_qemu/</guid>
-      <description>The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&amp;#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&amp;#8217;s open-source and not controlled by Oracle.</description>
+      <description>The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I’ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it’s open-source and not controlled by Oracle.</description>
     </item>
     
   </channel>

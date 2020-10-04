@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Jordan Williams" /><meta name="description" content="Sometimes, you just want to switch to a better shell for your terminal - like fish.
-TutorialHere&amp;#8217;s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
+TutorialHere’s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
 Install the fish package." /><meta name="keywords" content="Blog, BSD, Linux" />
 
 
@@ -25,7 +25,7 @@ Install the fish package." /><meta name="keywords" content="Blog, BSD, Linux" />
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/change_your_shell/" />
@@ -44,7 +44,7 @@ Install the fish package." /><meta name="keywords" content="Blog, BSD, Linux" />
 
 <meta property="og:title" content="Change your Shell" />
 <meta property="og:description" content="Sometimes, you just want to switch to a better shell for your terminal - like fish.
-TutorialHere&#8217;s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
+TutorialHere’s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
 Install the fish package." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jwillikers.com/post/change_your_shell/" />
@@ -52,7 +52,7 @@ Install the fish package." />
 <meta property="article:modified_time" content="2020-10-01T18:59:26-05:00" />
 <meta itemprop="name" content="Change your Shell">
 <meta itemprop="description" content="Sometimes, you just want to switch to a better shell for your terminal - like fish.
-TutorialHere&#8217;s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
+TutorialHere’s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
 Install the fish package.">
 <meta itemprop="datePublished" content="2020-10-01T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-10-01T18:59:26-05:00" />
@@ -64,7 +64,7 @@ Install the fish package.">
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Change your Shell"/>
 <meta name="twitter:description" content="Sometimes, you just want to switch to a better shell for your terminal - like fish.
-TutorialHere&#8217;s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
+TutorialHere’s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
 Install the fish package."/>
 
 <!--[if lte IE 9]>
@@ -146,19 +146,19 @@ Install the fish package."/>
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents"></nav>
   </div>
 </div>
     <div class="post-content">
       <p>Sometimes, you just want to switch to a better shell for your terminal - like <a href="https://fishshell.com/">fish</a>.</p>
-<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>Here&#8217;s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems.
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>Here’s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems.
 These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.</p>
 <div class="olist arabic"><ol class="arabic"><li><p>Install the fish package.</p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> fish</code></pre></div>
 <p>This debian package installs the <code>fish</code> executable in <code>/usr/bin</code>.</p></div></div></li><li><p>Register fish as a valid login shell by adding its file path to the <code>/etc/shells</code> file.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> /usr/bin/fish | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/shells
 /usr/bin/fish</code></pre></div></li><li><p>Set the default login shell of the current user to fish.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ chsh <span class="nt">-s</span> /usr/bin/fish
 Password:</code></pre></div></li></ol></div></section>
 <section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>Nice and simple, right?
-It should be a piece of cake to change your login shell now.</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://man7.org/linux/man-pages/man5/shells.5.html">shells(5) — Linux manual page</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://fishshell.com/docs/current/tutorial.html#switching-to-fish">Fish Shell Tutorial - Switching to fish?</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+It should be a piece of cake to change your login shell now.</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr/><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://man7.org/linux/man-pages/man5/shells.5.html">shells(5) — Linux manual page</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://fishshell.com/docs/current/tutorial.html#switching-to-fish">Fish Shell Tutorial - Switching to fish?</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li></ol></section>
 
     </div>
 

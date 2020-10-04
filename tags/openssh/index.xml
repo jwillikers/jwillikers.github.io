@@ -22,18 +22,14 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Tue, 29 Sep 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/tags/openssh/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 29 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/openssh/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My SSH Configuration</title>
       <link>https://jwillikers.com/post/my_ssh_configuration/</link>
       <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/my_ssh_configuration/</guid>
-      <description>The OpenSSH client and server applications are ubiquitous. Like many a software dev, I&amp;#8217;m `ssh&amp;#8217;ing all over the place. And you know what? I&amp;#8217;ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That&amp;#8217;s exactly why I&amp;#8217;ve written this post to exemplify the configuration options I&amp;#8217;m now using.
+      <description>The OpenSSH client and server applications are ubiquitous. Like many a software dev, I’m `ssh’ing all over the place. And you know what? I’ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That’s exactly why I’ve written this post to exemplify the configuration options I’m now using.
 SSH ConfigurationThe file ~/.</description>
     </item>
     

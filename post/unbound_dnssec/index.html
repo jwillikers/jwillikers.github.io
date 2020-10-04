@@ -27,7 +27,7 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/unbound_dnssec/" />
@@ -154,7 +154,7 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents"></nav>
   </div>
 </div>
     <div class="post-content">
@@ -170,16 +170,16 @@ Add the location of the <code>root.hints</code> file and uncomment the lines wit
 <figure class="listing-block"><figcaption>/var/unbound/etc/unbound.conf</figcaption>
 <pre class="rouge highlight"><code># Uncomment to enable DNSSEC validation.
 #
-root-hints: "/var/unbound/etc/root.hints" <b class="conum">1</b>
-auto-trust-anchor-file: "/var/unbound/db/root.key"
-val-log-level: 2</code></pre><ol class="callout-list arabic"><li>This line was added, not uncommented&#8230;&#8203; to be fair.</li></ol></figure>
+root-hints: &#34;/var/unbound/etc/root.hints&#34; <b class="conum">1</b>
+auto-trust-anchor-file: &#34;/var/unbound/db/root.key&#34;
+val-log-level: 2</code></pre><ol class="callout-list arabic"><li>This line was added, not uncommented…​ to be fair.</li></ol></figure>
 
 <aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>Make sure the upstream resolvers support DNSSEC.
 The <a href="https://dnscrypt.info/public-servers">list provided by DNSCrypt</a> has some good options.</p>
 <div class="listing-block"><pre class="rouge highlight"><code># Use an upstream forwarder (recursive resolver) for some or all zones.
 #
 forward-zone:
-	name: "." # use for ALL queries
+	name: &#34;.&#34; # use for ALL queries
 	forward-addr: 176.103.130.132 # adguard-dns-family
 	forward-addr: 185.228.168.10 # cleanbrowsing-adult</code></pre></div></aside>
 <p>Verify the configuration of unbound.conf which <a href="http://man.openbsd.org/unbound-checkconf.8">unbound-checkconf</a>.</p>

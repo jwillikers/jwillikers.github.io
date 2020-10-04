@@ -16,15 +16,15 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Jordan Williams" /><meta name="description" content="As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&amp;#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&amp;#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
-TutorialThis tutorial provides instructions for updating the PinePhone&amp;#8217;s bootloader from Manjaro running off of a microSD card." /><meta name="keywords" content="Blog, BSD, Linux" />
+<meta name="author" content="Jordan Williams" /><meta name="description" content="As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That’s why I opted for running Manjaro ARM&amp;#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It’s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone’s bootloader from Manjaro running off of a microSD card." /><meta name="keywords" content="Blog, BSD, Linux" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/update_uboot_pinephone/" />
@@ -42,15 +42,15 @@ TutorialThis tutorial provides instructions for updating the PinePhone&amp;#8217
 
 
 <meta property="og:title" content="Update U-Boot on the PinePhone" />
-<meta property="og:description" content="As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
-TutorialThis tutorial provides instructions for updating the PinePhone&#8217;s bootloader from Manjaro running off of a microSD card." />
+<meta property="og:description" content="As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That’s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It’s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone’s bootloader from Manjaro running off of a microSD card." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jwillikers.com/post/update_uboot_pinephone/" />
 <meta property="article:published_time" content="2020-09-04T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-09-22T09:58:49-05:00" />
 <meta itemprop="name" content="Update U-Boot on the PinePhone">
-<meta itemprop="description" content="As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
-TutorialThis tutorial provides instructions for updating the PinePhone&#8217;s bootloader from Manjaro running off of a microSD card.">
+<meta itemprop="description" content="As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That’s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It’s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone’s bootloader from Manjaro running off of a microSD card.">
 <meta itemprop="datePublished" content="2020-09-04T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T09:58:49-05:00" />
 <meta itemprop="wordCount" content="328">
@@ -60,8 +60,8 @@ TutorialThis tutorial provides instructions for updating the PinePhone&#8217;s b
 <meta itemprop="keywords" content="ArchLinux,Linux,Manjaro,PinePhone,UBoot," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Update U-Boot on the PinePhone"/>
-<meta name="twitter:description" content="As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
-TutorialThis tutorial provides instructions for updating the PinePhone&#8217;s bootloader from Manjaro running off of a microSD card."/>
+<meta name="twitter:description" content="As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That’s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It’s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone’s bootloader from Manjaro running off of a microSD card."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -142,14 +142,14 @@ TutorialThis tutorial provides instructions for updating the PinePhone&#8217;s b
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents"></nav>
   </div>
 </div>
     <div class="post-content">
       <p>As I big fan of <a href="https://www.gnome.org/">GNOME</a>, I really wanted a similar experience on the <a href="https://www.pine64.org/pinephone/">PinePhone</a>.
-That&#8217;s why I opted for running <a href="https://osdn.net/projects/manjaro-arm/">Manjaro ARM</a>'s alpha for the PinePhone, which comes in a GNOME-like <a href="https://developer.puri.sm/Librem5/Software_Reference/Environments/Phosh.html">Phosh</a> flavor.
-It&#8217;s been running from the SD card great so far, but I thought to update the internal <a href="https://gitlab.manjaro.org/manjaro-arm/packages/core/uboot-pinephone-crust">U-Boot</a> as <a href="../update_uboot_pinebook_pro/">I did on the Pinebook Pro</a>.</p>
-<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial provides instructions for updating the PinePhone&#8217;s bootloader from Manjaro running off of a microSD card.
+That’s why I opted for running <a href="https://osdn.net/projects/manjaro-arm/">Manjaro ARM</a>&#39;s alpha for the PinePhone, which comes in a GNOME-like <a href="https://developer.puri.sm/Librem5/Software_Reference/Environments/Phosh.html">Phosh</a> flavor.
+It’s been running from the SD card great so far, but I thought to update the internal <a href="https://gitlab.manjaro.org/manjaro-arm/packages/core/uboot-pinephone-crust">U-Boot</a> as <a href="../update_uboot_pinebook_pro/">I did on the Pinebook Pro</a>.</p>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial provides instructions for updating the PinePhone’s bootloader from Manjaro running off of a microSD card.
 This tutorial presumes you are comfortable using the command-line on Linux and the default <a href="https://gitlab.gnome.org/ZanderBrown/kgx">Terminal app</a>.</p>
 <section class="doc-section level-2"><h3 id="_steps">Steps</h3><div class="olist arabic"><ol class="arabic"><li><p>First, ensure the system is up-to-date.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="shell"><span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-Syuu</span>
 :: Synchronizing package databases...
@@ -181,8 +181,8 @@ mmcblk2boot1 179:96   0     4M  1 disk</code></pre><ol class="callout-list arabi
 88+1 records <span class="k">in
 </span>88+1 records out
 725712 bytes <span class="o">(</span>726 kB, 709 KiB<span class="o">)</span> copied, 0.0612089 s, 11.9 MB/s</code></pre></div></li></ol></div></section>
-<section class="doc-section level-2"><h3 id="_conclusion">Conclusion</h3><p>That&#8217;s all.
-You should now have the latest U-Boot booting your PinePhone!</p></section></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://gitlab.manjaro.org/manjaro-arm/packages/core/uboot-pinephone-crust">Manjaro ARM Gitlab: uboot-pinephone-crust</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+<section class="doc-section level-2"><h3 id="_conclusion">Conclusion</h3><p>That’s all.
+You should now have the latest U-Boot booting your PinePhone!</p></section></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr/><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://gitlab.manjaro.org/manjaro-arm/packages/core/uboot-pinephone-crust">Manjaro ARM Gitlab: uboot-pinephone-crust</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li></ol></section>
 
     </div>
 

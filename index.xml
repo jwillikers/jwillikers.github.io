@@ -22,18 +22,14 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Sat, 03 Oct 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://jwillikers.com/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 03 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Switch to fish</title>
       <link>https://jwillikers.com/post/switch_to_fish/</link>
       <pubDate>Sat, 03 Oct 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/switch_to_fish/</guid>
-      <description>I&amp;#8217;ve finally made the switch from ZSH to the fish shell. Unlike ZSH, I don&amp;#8217;t need to install and manage a whole host of plugins. Everything I want comes packaged right in as part of the shell itself.
+      <description>I’ve finally made the switch from ZSH to the fish shell. Unlike ZSH, I don’t need to install and manage a whole host of plugins. Everything I want comes packaged right in as part of the shell itself.
 The SwitchIn this post, I describe how to switch to the fish shell and some of the interesting features it offers.
 InstallInstalling fish is a piece of cake. On Ubuntu, a fish package is readily available.</description>
     </item>
@@ -44,9 +40,9 @@ InstallInstalling fish is a piece of cake. On Ubuntu, a fish package is readily 
       <pubDate>Fri, 02 Oct 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/too_many_open_files_on_macos_when_compiling/</guid>
-      <description>Occasionally things just go wrong during large builds. One such occurrence is on macOS when compiling a large C&amp;#43;&amp;#43; project.
+      <description>Occasionally things just go wrong during large builds. One such occurrence is on macOS when compiling a large C++ project.
 ProblemThe following error message is output by LLVM Clang 10.0.1 when compiling from the command-line. The Clion IDE builds the project just fine, of course.
-$ cmake --build build ... In file included from /opt/local/include/boost/spirit/home/x3.hpp:19: In file included from /opt/local/include/boost/spirit/home/x3/operator.hpp:10: In file included from /opt/local/include/boost/spirit/home/x3/operator/sequence.hpp:12: /opt/local/include/boost/spirit/home/x3/operator/detail/sequence.hpp:25:10: fatal error: cannot open file &#39;/opt/local/include/boost/fusion/include/as_deque.</description>
+$ cmake --build build ... In file included from /opt/local/include/boost/spirit/home/x3.hpp:19: In file included from /opt/local/include/boost/spirit/home/x3/operator.hpp:10: In file included from /opt/local/include/boost/spirit/home/x3/operator/sequence.hpp:12: /opt/local/include/boost/spirit/home/x3/operator/detail/sequence.hpp:25:10: fatal error: cannot open file &amp;#39;/opt/local/include/boost/fusion/include/as_deque.</description>
     </item>
     
     <item>
@@ -56,7 +52,7 @@ $ cmake --build build ... In file included from /opt/local/include/boost/spirit/
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/change_your_shell/</guid>
       <description>Sometimes, you just want to switch to a better shell for your terminal - like fish.
-TutorialHere&amp;#8217;s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
+TutorialHere’s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
 Install the fish package.</description>
     </item>
     
@@ -66,7 +62,7 @@ Install the fish package.</description>
       <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/my_ssh_configuration/</guid>
-      <description>The OpenSSH client and server applications are ubiquitous. Like many a software dev, I&amp;#8217;m `ssh&amp;#8217;ing all over the place. And you know what? I&amp;#8217;ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That&amp;#8217;s exactly why I&amp;#8217;ve written this post to exemplify the configuration options I&amp;#8217;m now using.
+      <description>The OpenSSH client and server applications are ubiquitous. Like many a software dev, I’m `ssh’ing all over the place. And you know what? I’ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That’s exactly why I’ve written this post to exemplify the configuration options I’m now using.
 SSH ConfigurationThe file ~/.</description>
     </item>
     
@@ -76,9 +72,9 @@ SSH ConfigurationThe file ~/.</description>
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/automatically_update_antigen/</guid>
-      <description>There&amp;#8217;s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
+      <description>There’s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
 According to the Antigen documentation: This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.
-&amp;#8212; Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
+— Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
 Completely forget to do it ever.</description>
     </item>
     
@@ -88,7 +84,7 @@ Completely forget to do it ever.</description>
       <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/configure_zsh/</guid>
-      <description>I&amp;#8217;ve been using ZSH for years now as my shell. In that time, I&amp;#8217;ve learned a few niceties to make the experience better. Namely, I&amp;#8217;ve found the minimal oh-my-zsh prompt keeps out of the way and the git aliases super convenient. Plugins for autosuggestions, like in the fish shell, and syntax highlighting are also quite helpful. Antigen makes keeping plugins up-to-date a breeze.
+      <description>I’ve been using ZSH for years now as my shell. In that time, I’ve learned a few niceties to make the experience better. Namely, I’ve found the minimal oh-my-zsh prompt keeps out of the way and the git aliases super convenient. Plugins for autosuggestions, like in the fish shell, and syntax highlighting are also quite helpful. Antigen makes keeping plugins up-to-date a breeze.
 TutorialThis tutorial explains how to install ZSH and set it as your default shell on Ubuntu 20.</description>
     </item>
     
@@ -98,7 +94,7 @@ TutorialThis tutorial explains how to install ZSH and set it as your default she
       <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/fetch_latest_github_release/</guid>
-      <description>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project&amp;#8217;s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively.</description>
+      <description>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively.</description>
     </item>
     
     <item>
@@ -107,7 +103,7 @@ TutorialThis tutorial explains how to install ZSH and set it as your default she
       <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/passwordless_sudo/</guid>
-      <description>Typing a password to login is repetitive enough, isn&amp;#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&amp;#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it&amp;#8217;s super easy and cross-platform. For whatever reason, I learned and forgot about doing this sometime ago, so here&amp;#8217;s the gist.</description>
+      <description>Typing a password to login is repetitive enough, isn’t it? Entering the password for Sudo on the command-line can be downright irritating. If you don’t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it’s super easy and cross-platform. For whatever reason, I learned and forgot about doing this sometime ago, so here’s the gist.</description>
     </item>
     
     <item>
@@ -116,7 +112,7 @@ TutorialThis tutorial explains how to install ZSH and set it as your default she
       <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/easily_virtualize_ubuntu_mate_on_macos_with_multipass/</guid>
-      <description>It&amp;#8217;s Always Greener on the MATE Side  While I was working on my recent post Virtualize Ubuntu Desktop on macOS with QEMU, I came across Canonical&amp;#8217;s Multipass utility. Multipass makes it extremely simple to spin up Ubuntu instances on the fly whether your on Linux, macOS, and Windows. While your VM may not be as speedy as with QEMU, I would be remiss for not doing a quick write-up on this tool which makes it so easy to get up and running.</description>
+      <description>It’s Always Greener on the MATE Side  While I was working on my recent post Virtualize Ubuntu Desktop on macOS with QEMU, I came across Canonical’s Multipass utility. Multipass makes it extremely simple to spin up Ubuntu instances on the fly whether your on Linux, macOS, and Windows. While your VM may not be as speedy as with QEMU, I would be remiss for not doing a quick write-up on this tool which makes it so easy to get up and running.</description>
     </item>
     
     <item>
@@ -125,7 +121,7 @@ TutorialThis tutorial explains how to install ZSH and set it as your default she
       <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/virtualize_ubuntu_desktop_on_macos_with_qemu/</guid>
-      <description>The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&amp;#8217;ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it&amp;#8217;s open-source and not controlled by Oracle.</description>
+      <description>The Focal Fossa nestles in on Santa Catalina Island  Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I’ve wanted to get some more hands-on experience with QEMU. QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines. Additionally, it’s open-source and not controlled by Oracle.</description>
     </item>
     
     <item>
@@ -134,8 +130,8 @@ TutorialThis tutorial explains how to install ZSH and set it as your default she
       <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/update_uboot_pinephone/</guid>
-      <description>As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&amp;#8217;s why I opted for running Manjaro ARM&#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&amp;#8217;s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
-TutorialThis tutorial provides instructions for updating the PinePhone&amp;#8217;s bootloader from Manjaro running off of a microSD card.</description>
+      <description>As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That’s why I opted for running Manjaro ARM&amp;#39;s alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It’s been running from the SD card great so far, but I thought to update the internal U-Boot as I did on the Pinebook Pro.
+TutorialThis tutorial provides instructions for updating the PinePhone’s bootloader from Manjaro running off of a microSD card.</description>
     </item>
     
     <item>
@@ -154,7 +150,7 @@ TutorialThis tutorial provides instructions for updating the PinePhone&amp;#8217
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/about/</guid>
       <description>Welcome to jwillikers.com, where I like to put all of my handy admin and dev guides from my myriad of tinkering. My posts serve as convenient references for myself, but my hope is that they will help you as well.
-MeThis is my personal developer blog, so I&amp;#8217;m taking the opportunity to talk a bit about myself.
+MeThis is my personal developer blog, so I’m taking the opportunity to talk a bit about myself.
 CareerThe reasons I pursue a career in software, engineering have continued to grow and evolve over time.</description>
     </item>
     
@@ -164,7 +160,7 @@ CareerThe reasons I pursue a career in software, engineering have continued to g
       <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/resources/</guid>
-      <description>There&amp;#8217;s always so much to learn in any industry. As a full time Software Engineer, there is more out there for me to learn than neurons in between my ears. Putting networking and systems administration on top of that is downright overwhelming. Fortunately, I&amp;#8217;ve found several priceless resources to help me learn.
+      <description>There’s always so much to learn in any industry. As a full time Software Engineer, there is more out there for me to learn than neurons in between my ears. Putting networking and systems administration on top of that is downright overwhelming. Fortunately, I’ve found several priceless resources to help me learn.
 Software EngineeringSoftware Engineering at Google - If I had to be stranded on a deserted island with other Software Engineers and could only bring one item, I would bring this book without thinking twice.</description>
     </item>
     
@@ -175,7 +171,7 @@ Software EngineeringSoftware Engineering at Google - If I had to be stranded on 
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/zfs_external_storage_pinebook_pro/</guid>
       <description>Note: This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro.
- The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&amp;#8217;t enough for those with large media collections. The easiest solution is to use a microSD card. And now you&amp;#8217;re just dying to use ZFS on that, right?</description>
+ The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn’t enough for those with large media collections. The easiest solution is to use a microSD card. And now you’re just dying to use ZFS on that, right?</description>
     </item>
     
     <item>
@@ -186,7 +182,7 @@ Software EngineeringSoftware Engineering at Google - If I had to be stranded on 
       <guid>https://jwillikers.com/post/backup_docker_data/</guid>
       <description>Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again.
 TutorialMy recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses that container as an example for creating and restoring backups of data volumes.
-BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container&amp;#8217;s data volume.</description>
+BackupCreating backups is done by producing an archive of the important files on the host filesystem from the container’s data volume.</description>
     </item>
     
     <item>
@@ -195,7 +191,7 @@ BackupCreating backups is done by producing an archive of the important files on
       <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/install_zfs_pinebook_pro/</guid>
-      <description>Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&amp;#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&amp;#8217;s becoming my main machine, and I&amp;#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine&amp;#8217;s built-in eMMC.</description>
+      <description>Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It’s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it’s becoming my main machine, and I’d love love to put all of my music, audiobooks, pictures, and ebooks on it. The only problem being my media takes up a bit more than the 64 GiB available on the machine’s built-in eMMC.</description>
     </item>
     
     <item>
@@ -204,8 +200,8 @@ BackupCreating backups is done by producing an archive of the important files on
       <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/unifi_controller/</guid>
-      <description>For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this is the UniFi Controller. If you don&amp;#8217;t have a smartphone or need to manage more than one device, you&amp;#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
-TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here&amp;#8217;s how.
+      <description>For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this is the UniFi Controller. If you don’t have a smartphone or need to manage more than one device, you’ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with Docker Compose here.
+TutorialAn existing Docker image makes setting up the UniFi Controller a breeze. Here’s how.
 Install DockerFirst, you must install Docker on your system.</description>
     </item>
     
@@ -215,7 +211,7 @@ Install DockerFirst, you must install Docker on your system.</description>
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/unbound_dns_over_tls/</guid>
-      <description>Recently, Firefox announced it&amp;#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&amp;#8230;&amp;#8203; Why don&amp;#8217;t I do that for my home network?&#34; Well, I&amp;#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&amp;#8217;s DNS requests. Unbound has support built-in for DoH&amp;#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.</description>
+      <description>Recently, Firefox announced it’s roll-out of DNS over HTTPS (DoH). That made me think, &amp;#34;Encrypting DNS…​ Why don’t I do that for my home network?&amp;#34; Well, I’ve now had the opportunity to configure my Unbound DNS resolver to encrypt it’s DNS requests. Unbound has support built-in for DoH’s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.</description>
     </item>
     
     <item>
@@ -224,7 +220,7 @@ Install DockerFirst, you must install Docker on your system.</description>
       <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/smartd_ubuntu/</guid>
-      <description>I recently fixed my mother-in-law&amp;#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&amp;#8217;s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It&amp;#8217;s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.</description>
+      <description>I recently fixed my mother-in-law’s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law’s hard disk is reaching senility? SmartMonTools appears to be the best tool for the job. It’s a tool for monitoring and reporting hard disk health with Self-Monitoring, Anlysis, and Reporting Technology (SMART) which is built into most hard drives.</description>
     </item>
     
     <item>
@@ -233,7 +229,7 @@ Install DockerFirst, you must install Docker on your system.</description>
       <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/opensmtpd_ubuntu/</guid>
-      <description>It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn&amp;#8217;t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.</description>
+      <description>It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn’t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.</description>
     </item>
     
     <item>
@@ -242,7 +238,7 @@ Install DockerFirst, you must install Docker on your system.</description>
       <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/openbsd_ipv6/</guid>
-      <description>Configuring IPv6 on my OpenBSD home router was a much more difficult task than I&amp;#8217;d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn&amp;#8217;t provide DHCPv6 support in its native DHCP daemon. I&amp;#8217;ve documented my setup and difficulties here in the hope it saves some time for someone else.
+      <description>Configuring IPv6 on my OpenBSD home router was a much more difficult task than I’d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn’t provide DHCPv6 support in its native DHCP daemon. I’ve documented my setup and difficulties here in the hope it saves some time for someone else.
 ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
 PFIPv6 packets need to get through the firewall for anything to happen.</description>
     </item>
@@ -278,7 +274,7 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
       <pubDate>Sat, 28 Mar 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/unbound_adblock/</guid>
-      <description>Ever want to get rid of all those annoying internet ads? Me too. I&amp;#8217;d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google&amp;#8217;s DNS servers.</description>
+      <description>Ever want to get rid of all those annoying internet ads? Me too. I’d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google’s DNS servers.</description>
     </item>
     
     <item>
@@ -287,9 +283,9 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
       <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/pppoe_openbsd/</guid>
-      <description>Some ISP&amp;#8217;s establish connections with their customers&#39; networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
+      <description>Some ISP’s establish connections with their customers&amp;#39; networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
 DNS ServersIf necessary, configure your system to use your preferred DNS nameservers.
-Tip: A common way of connecting to your ISP&amp;#8217;s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937. To my knowledge, this capability is absent from the PPPoE Specification.</description>
+Tip: A common way of connecting to your ISP’s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937. To my knowledge, this capability is absent from the PPPoE Specification.</description>
     </item>
     
     <item>

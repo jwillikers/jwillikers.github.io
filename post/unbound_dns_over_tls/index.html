@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Jordan Williams" /><meta name="description" content="Recently, Firefox announced it&amp;#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&amp;#8230;&amp;#8203; Why don&amp;#8217;t I do that for my home network?&#34; Well, I&amp;#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&amp;#8217;s DNS requests. Unbound has support built-in for DoH&amp;#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853." /><meta name="keywords" content="Blog, BSD, Linux" />
+<meta name="author" content="Jordan Williams" /><meta name="description" content="Recently, Firefox announced it’s roll-out of DNS over HTTPS (DoH). That made me think, &amp;#34;Encrypting DNS…​ Why don’t I do that for my home network?&amp;#34; Well, I’ve now had the opportunity to configure my Unbound DNS resolver to encrypt it’s DNS requests. Unbound has support built-in for DoH’s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853." /><meta name="keywords" content="Blog, BSD, Linux" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/unbound_dns_over_tls/" />
@@ -41,13 +41,13 @@
 
 
 <meta property="og:title" content="DNS over TLS with Unbound" />
-<meta property="og:description" content="Recently, Firefox announced it&#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&#8230;&#8203; Why don&#8217;t I do that for my home network?&#34; Well, I&#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&#8217;s DNS requests. Unbound has support built-in for DoH&#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853." />
+<meta property="og:description" content="Recently, Firefox announced it’s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS…​ Why don’t I do that for my home network?&#34; Well, I’ve now had the opportunity to configure my Unbound DNS resolver to encrypt it’s DNS requests. Unbound has support built-in for DoH’s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jwillikers.com/post/unbound_dns_over_tls/" />
 <meta property="article:published_time" content="2020-05-29T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-09-22T19:30:22-05:00" />
 <meta itemprop="name" content="DNS over TLS with Unbound">
-<meta itemprop="description" content="Recently, Firefox announced it&#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&#8230;&#8203; Why don&#8217;t I do that for my home network?&#34; Well, I&#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&#8217;s DNS requests. Unbound has support built-in for DoH&#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.">
+<meta itemprop="description" content="Recently, Firefox announced it’s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS…​ Why don’t I do that for my home network?&#34; Well, I’ve now had the opportunity to configure my Unbound DNS resolver to encrypt it’s DNS requests. Unbound has support built-in for DoH’s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.">
 <meta itemprop="datePublished" content="2020-05-29T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-22T19:30:22-05:00" />
 <meta itemprop="wordCount" content="680">
@@ -57,7 +57,7 @@
 <meta itemprop="keywords" content="BSD,DNS,DoT,OpenBSD,OpenBSD6,OpenBSD67,TLS,Unbound," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="DNS over TLS with Unbound"/>
-<meta name="twitter:description" content="Recently, Firefox announced it&#8217;s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS&#8230;&#8203; Why don&#8217;t I do that for my home network?&#34; Well, I&#8217;ve now had the opportunity to configure my Unbound DNS resolver to encrypt it&#8217;s DNS requests. Unbound has support built-in for DoH&#8217;s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853."/>
+<meta name="twitter:description" content="Recently, Firefox announced it’s roll-out of DNS over HTTPS (DoH). That made me think, &#34;Encrypting DNS…​ Why don’t I do that for my home network?&#34; Well, I’ve now had the opportunity to configure my Unbound DNS resolver to encrypt it’s DNS requests. Unbound has support built-in for DoH’s sibling protocol, DNS over TLS (DoT). Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -138,49 +138,49 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents"></nav>
   </div>
 </div>
     <div class="post-content">
-      <p>Recently, <a href="https://blog.mozilla.org/netpolicy/2020/02/25/the-facts-mozillas-dns-over-https-doh/">Firefox announced</a> it&#8217;s roll-out of <a href="https://en.wikipedia.org/wiki/DNS_over_HTTPS">DNS over HTTPS (DoH)</a>.
-That made me think, "Encrypting DNS&#8230;&#8203; Why don&#8217;t I do that for my home network?"
-Well, I&#8217;ve now had the opportunity to configure my <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound DNS resolver</a> to encrypt it&#8217;s DNS requests.
-Unbound has support built-in for DoH&#8217;s sibling protocol, <a href="https://en.wikipedia.org/wiki/DNS_over_TLS">DNS over TLS (DoT)</a>.
+      <p>Recently, <a href="https://blog.mozilla.org/netpolicy/2020/02/25/the-facts-mozillas-dns-over-https-doh/">Firefox announced</a> it’s roll-out of <a href="https://en.wikipedia.org/wiki/DNS_over_HTTPS">DNS over HTTPS (DoH)</a>.
+That made me think, &#34;Encrypting DNS…​ Why don’t I do that for my home network?&#34;
+Well, I’ve now had the opportunity to configure my <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound DNS resolver</a> to encrypt it’s DNS requests.
+Unbound has support built-in for DoH’s sibling protocol, <a href="https://en.wikipedia.org/wiki/DNS_over_TLS">DNS over TLS (DoT)</a>.
 Instead of encrypting DNS traffic and masking it as standard HTTPS traffic, it uses the dedicated port 853.</p>
 <section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial describes the steps required to setup DNS over TLS on <a href="https://nlnetlabs.nl/projects/unbound/about/">Unbound</a> 1.10.1 on an <a href="https://www.openbsd.org/">OpenBSD</a> 6.7 system.</p>
 <section class="doc-section level-2"><h3 id="_configure">Configure</h3><p>Configuration is done in the <a href="https://man.openbsd.org/unbound.conf">unbound.conf</a> file.
 The vanilla <code>unbound.conf</code> requires little more than un-commenting a few lines.
-Set <code>tls-cert-bundle</code> to the location of the system&#8217;s certificates, which is <code>/etc/ssl/cert.pem</code> on OpenBSD 6.7.</p>
+Set <code>tls-cert-bundle</code> to the location of the system’s certificates, which is <code>/etc/ssl/cert.pem</code> on OpenBSD 6.7.</p>
 <figure class="listing-block"><figcaption>/var/unbound/etc/unbound.conf</figcaption>
 <pre class="rouge highlight"><code>	# CA Certificates used for forward-tls-upstream (RFC7858) hostname
-	# verification.  Since it's outside the chroot it is only loaded at
+	# verification.  Since it&#39;s outside the chroot it is only loaded at
 	# startup and thus cannot be changed via a reload.
-	tls-cert-bundle: "/etc/ssl/cert.pem"</code></pre></figure>
+	tls-cert-bundle: &#34;/etc/ssl/cert.pem&#34;</code></pre></figure>
 <p>Un-comment the DNS-over-TLS forward-zone section, and add your desired DNS entries.</p>
 <figure class="listing-block"><figcaption>/var/unbound/etc/unbound.conf</figcaption>
 <pre class="rouge highlight"><code># Use an upstream DNS-over-TLS forwarder and do not fall back to cleartext
 # if that fails.
 forward-zone:
-	name: "."
+	name: &#34;.&#34;
 	forward-tls-upstream: yes		# use DNS-over-TLS forwarder
 	forward-first: no			# do NOT send direct
-#	# the hostname after "#" is not a comment, it is used for TLS checks:
+#	# the hostname after &#34;#&#34; is not a comment, it is used for TLS checks:
 	forward-addr: 2606:4700:4700::1111@853#cloudflare-dns.com
 	forward-addr: 1.1.1.1@853#cloudflare-dns.com
 	forward-addr: 2606:4700:4700::1001@853#cloudflare-dns.com
 	forward-addr: 1.0.0.1@853#cloudflare-dns.com</code></pre></figure>
-<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>This configuration uses Cloudflare&#8217;s DNS servers.
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>This configuration uses Cloudflare’s DNS servers.
 Make sure that whichever servers you choose support DNS over TLS.</p></aside>
 <p>That is all it takes to configure DNS over TLS.
 But before moving on, take a moment to admire those lovely comments from the package maintainers.
-You don&#8217;t see comments that make a task so easy all that often.</p>
+You don’t see comments that make a task so easy all that often.</p>
 <p>To be on the safe side, verify the configuration of <code>unbound.conf</code> with <a href="http://man.openbsd.org/unbound-checkconf.8">unbound-checkconf</a>.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>unbound-checkconf
 unbound-checkconf: no errors <span class="k">in</span> /var/unbound/etc/unbound.conf</code></pre></div>
 <p>Did you read those comments? Restart the machine for the changes to take effect.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>reboot</code></pre></div></section>
 <section class="doc-section level-2"><h3 id="_verify">Verify</h3><p>Could the configuration really be that easy?
-It&#8217;s probably best to check if DNS requests are truly being encrypted.
+It’s probably best to check if DNS requests are truly being encrypted.
 A packet capture can show that.</p>
 <p>Start capturing all DNS traffic from the Unbound server to the upstream DNS.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>tcpdump <span class="nt">-v</span> <span class="nt">-i</span> em0 <span class="nt">-s</span> 65535 <span class="nt">-w</span> dns.pcap dst port 53 or 853 <b class="conum">1</b></code></pre><ol class="callout-list arabic"><li>Capture packets on the egress interface, <code>em0</code>.
@@ -192,7 +192,7 @@ Write the capture to the file <code>dns.pcap</code></li></ol></div>
 <p>Use <code>Ctrl-C</code> to end the packet capture.</p>
 <p>Next, analyze the packet capture.
 I opened up the packet capture in <a href="https://www.wireshark.org/">Wireshark</a> on my laptop.
-But, it&#8217;s just as easy to view it on the terminal with <a href="https://www.wireshark.org/docs/man-pages/tshark.html">tshark</a>.
+But, it’s just as easy to view it on the terminal with <a href="https://www.wireshark.org/docs/man-pages/tshark.html">tshark</a>.
 Optionally, install <code>tshark</code>.</p>
 <div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>pkg_add wireshark <span class="nt">--no_x11</span></code></pre></div>
 <p>Review DNS requests in the packet capture.
@@ -210,7 +210,7 @@ Here I use <code>tshark</code>.</p>
    10   0.019366 2001:DB8::1 ? 2606:4700:4700::1001 TLSv1.2 148 Application Data
    11   0.019892 2001:DB8::1 ? 2606:4700:4700::1001 TCP 74 16888 ? 853 <span class="o">[</span>ACK] <span class="nv">Seq</span><span class="o">=</span>313 <span class="nv">Ack</span><span class="o">=</span>2741 <span class="nv">Win</span><span class="o">=</span>16384 <span class="nv">Len</span><span class="o">=</span>0</code></pre></div>
 <p>You should see output similar to that above.
-A TLSv1.2 connection is established between the Unbound server and Cloudflare&#8217;s DNS server <code>2606:4700:4700::1001</code>.
+A TLSv1.2 connection is established between the Unbound server and Cloudflare’s DNS server <code>2606:4700:4700::1001</code>.
 In this packet capture, un-encrypted DNS traffic over port 53 is entirely absent.
 That means all DNS requests from the router to the DNS server are encrypted!</p></section></section>
 

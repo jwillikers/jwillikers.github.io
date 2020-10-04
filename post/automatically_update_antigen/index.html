@@ -16,9 +16,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Jordan Williams" /><meta name="description" content="There&amp;#8217;s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
+<meta name="author" content="Jordan Williams" /><meta name="description" content="There’s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
 According to the Antigen documentation: This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.
-&amp;#8212; Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
+— Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
 Completely forget to do it ever." /><meta name="keywords" content="Blog, BSD, Linux" />
 
 
@@ -26,7 +26,7 @@ Completely forget to do it ever." /><meta name="keywords" content="Blog, BSD, Li
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/automatically_update_antigen/" />
@@ -44,18 +44,18 @@ Completely forget to do it ever." /><meta name="keywords" content="Blog, BSD, Li
 
 
 <meta property="og:title" content="Automatically Update Antigen" />
-<meta property="og:description" content="There&#8217;s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
+<meta property="og:description" content="There’s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
 According to the Antigen documentation: This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.
-&#8212; Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
+— Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
 Completely forget to do it ever." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jwillikers.com/post/automatically_update_antigen/" />
 <meta property="article:published_time" content="2020-09-23T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-09-23T18:09:56-05:00" />
 <meta itemprop="name" content="Automatically Update Antigen">
-<meta itemprop="description" content="There&#8217;s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
+<meta itemprop="description" content="There’s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
 According to the Antigen documentation: This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.
-&#8212; Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
+— Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
 Completely forget to do it ever.">
 <meta itemprop="datePublished" content="2020-09-23T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-09-23T18:09:56-05:00" />
@@ -66,9 +66,9 @@ Completely forget to do it ever.">
 <meta itemprop="keywords" content="Antigen,CentOS,Linux,oh-my-zsh,RedHat,systemd,Ubuntu,ZSH," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Automatically Update Antigen"/>
-<meta name="twitter:description" content="There&#8217;s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
+<meta name="twitter:description" content="There’s a catch when it comes to managing plugins with Antigen as done in Configure ZSH.
 According to the Antigen documentation: This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.
-&#8212; Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
+— Antigen Wiki: Commands - antigen update I hate having to do any form of maintenance occasionally, especially simple maintenance. This has two potential outcomes:
 Completely forget to do it ever."/>
 
 <!--[if lte IE 9]>
@@ -150,20 +150,20 @@ Completely forget to do it ever."/>
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents"></nav>
   </div>
 </div>
     <div class="post-content">
-      <p>There&#8217;s a catch when it comes to managing plugins with <a href="http://antigen.sharats.me/">Antigen</a> as done in <a href="../configure_zsh/">Configure ZSH</a>.</p>
+      <p>There’s a catch when it comes to managing plugins with <a href="http://antigen.sharats.me/">Antigen</a> as done in <a href="../configure_zsh/">Configure ZSH</a>.</p>
 <section class="quote-block"><h6 class="block-title">According to the Antigen documentation:</h6>
-<blockquote><p>This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.</p><footer>&#8212; <cite>Antigen Wiki: Commands - antigen update</cite></footer></blockquote></section>
+<blockquote><p>This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.</p><footer>— <cite>Antigen Wiki: Commands - antigen update</cite></footer></blockquote></section>
 <p>I hate having to do any form of maintenance <em>occasionally</em>, especially simple maintenance.
 This has two potential outcomes:</p>
 <div class="olist arabic"><ol class="arabic"><li>Completely forget to do it ever.</li><li>Do it incessantly.</li></ol></div>
 <p>Okay, there are more than just those two options.
 You could create some sort of <em>plan</em> for how often to do this.
 But, if you are going to so much work you might just want to automate it.</p>
-<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial explains how to configure <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a> services and timers to automatically update a user&#8217;s ZSH plugins with Antigen once a week.
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial explains how to configure <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a> services and timers to automatically update a user’s ZSH plugins with Antigen once a week.
 This tutorial is broken into two sections, each of which accomplishes the same goal.
 The first describes how to use systemd user service and the second a system service for those unfortunate enough to be using Red Hat Enterprise Linux 7 and CentOS 7.</p>
 <section class="doc-section level-2"><h3 id="_user_level_update_service">User-level Update Service</h3><p>This particular use-case is a good fit for <a href="https://wiki.archlinux.org/index.php/Systemd/User">systemd user services</a> because an Antigen and ZSH setup is a user-specific configuration.</p>
@@ -173,18 +173,18 @@ The first describes how to use systemd user service and the second a system serv
 
 <span class="nn">[Service]</span>
 <span class="py">Type</span><span class="p">=</span><span class="s">oneshot</span>
-<span class="py">ExecStart</span><span class="p">=</span><span class="s">/usr/bin/zsh -c '. "$0" &amp;&amp; exec "$@"' /home/jordan/.zshrc antigen update</span>
+<span class="py">ExecStart</span><span class="p">=</span><span class="s">/usr/bin/zsh -c &#39;. &#34;$0&#34; &amp;&amp; exec &#34;$@&#34;&#39; /home/jordan/.zshrc antigen update</span>
 
 <span class="nn">[Install]</span>
 <span class="py">WantedBy</span><span class="p">=</span><span class="s">default.target</span></code></pre></figure>
-<p>The command-line here is tricky because the <code>antigen update</code> command requires that the user&#8217;s Antigen functions and configuration be loaded.
+<p>The command-line here is tricky because the <code>antigen update</code> command requires that the user’s Antigen functions and configuration be loaded.
 Of course, systemd is not going to run a command from this context automatically because it throws reproducibility right out the window.
 Thankfully some bash magic can make it happen.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p></div></div></li><li><p>Test run the new systemd unit.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nt">--user</span> start update-antigen.service</code></pre></div></li><li><p>Check the output of the command to make sure everything worked.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nt">--user</span> status update-antigen.service
 ● update-antigen.service - Update Antigen
      Loaded: loaded <span class="o">(</span>/home/jordan/.config/systemd/user/update-antigen.service<span class="p">;</span> disabled<span class="p">;</span> vendor preset: enabled<span class="o">)</span>
      Active: inactive <span class="o">(</span>dead<span class="o">)</span> since Tue 2020-09-22 15:36:26 CDT<span class="p">;</span> 2min 51s ago
 TriggeredBy: ● update-antigen.timer
-    Process: 557748 <span class="nv">ExecStart</span><span class="o">=</span>/usr/bin/zsh <span class="nt">-c</span> <span class="nb">.</span> <span class="s2">"</span><span class="nv">$0</span><span class="s2">"</span> <span class="o">&amp;&amp;</span> <span class="nb">exec</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span> /home/jordan/.zshrc antigen update <span class="o">(</span><span class="nv">code</span><span class="o">=</span>exited, <span class="nv">status</span><span class="o">=</span>0/SUCCESS<span class="o">)</span>
+    Process: 557748 <span class="nv">ExecStart</span><span class="o">=</span>/usr/bin/zsh <span class="nt">-c</span> <span class="nb">.</span> <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> <span class="nb">exec</span> <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span> /home/jordan/.zshrc antigen update <span class="o">(</span><span class="nv">code</span><span class="o">=</span>exited, <span class="nv">status</span><span class="o">=</span>0/SUCCESS<span class="o">)</span>
    Main PID: 557748 <span class="o">(</span><span class="nv">code</span><span class="o">=</span>exited, <span class="nv">status</span><span class="o">=</span>0/SUCCESS<span class="o">)</span>
 
 Sep 22 15:36:23 jwillikers systemd[7678]: Starting Update Antigen...
@@ -206,10 +206,10 @@ Sep 22 15:36:26 jwillikers systemd[7678]: Finished Update Antigen.</code></pre><
 <p>This timer has <code>Persistent=true</code> to account for the situation when the timer would fire but the user has no session running.
 With this option, the timer will just fire the next time the user logs on.</p></div></div></li><li><p>Set the the Antigen update timer to start when logging in.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nt">--user</span> <span class="nb">enable </span>update-antigen.timer
 Created symlink /home/jordan/.config/systemd/user/timers.target.wants/update-antigen.timer → /home/jordan/.config/systemd/user/update-antigen.timer.</code></pre></div></li></ol></div></section>
-<section class="doc-section level-2"><h3 id="_system_level_update_service">System-level Update Service</h3><p>The Red Hat Enterprise Linux 7 and CentOS 7 distributions don&#8217;t support user-level systemd services, but a system-level service is still possible, as this section describes.<a class="footnote-ref" id="_footnoteref_3" href="#_footnote_3" title="View footnote 3" role="doc-noteref">[3]</a></p>
+<section class="doc-section level-2"><h3 id="_system_level_update_service">System-level Update Service</h3><p>The Red Hat Enterprise Linux 7 and CentOS 7 distributions don’t support user-level systemd services, but a system-level service is still possible, as this section describes.<a class="footnote-ref" id="_footnoteref_3" href="#_footnote_3" title="View footnote 3" role="doc-noteref">[3]</a></p>
 <div class="olist arabic"><ol class="arabic"><li><p>Add a <code>systemd</code> service to update the Antigen plugins.</p><div class="open-block"><div class="content"><figure class="listing-block"><figcaption>/etc/systemd/system/update-jordan-antigen.service</figcaption>
 <pre class="rouge highlight"><code data-lang="ini"><span class="nn">[Unit]</span>
-<span class="py">Description</span><span class="p">=</span><span class="s">Update Jordan's Antigen plugins for ZSH</span>
+<span class="py">Description</span><span class="p">=</span><span class="s">Update Jordan&#39;s Antigen plugins for ZSH</span>
 <span class="py">After</span><span class="p">=</span><span class="s">network-online.target</span>
 <span class="py">Wants</span><span class="p">=</span><span class="s">network-online.target</span>
 
@@ -217,23 +217,23 @@ Created symlink /home/jordan/.config/systemd/user/timers.target.wants/update-ant
 <span class="py">Type</span><span class="p">=</span><span class="s">oneshot</span>
 <span class="py">User</span><span class="p">=</span><span class="s">jordan</span>
 <span class="py">Group</span><span class="p">=</span><span class="s">jordan</span>
-<span class="py">ExecStart</span><span class="p">=</span><span class="s">/usr/bin/zsh -c '. "$0" &amp;&amp; exec "$@"' /home/jordan/.zshrc antigen update</span>
+<span class="py">ExecStart</span><span class="p">=</span><span class="s">/usr/bin/zsh -c &#39;. &#34;$0&#34; &amp;&amp; exec &#34;$@&#34;&#39; /home/jordan/.zshrc antigen update</span>
 
 <span class="nn">[Install]</span>
 <span class="py">WantedBy</span><span class="p">=</span><span class="s">multi-user.target</span></code></pre></figure>
 <p>This systemd unit executes the <code>antigen update</code> command after loading the <code>.zshrc</code> file for the user <code>jordan</code>.<a class="footnote-ref" id="_footnoteref_4" href="#_footnote_4" title="View footnote 4" role="doc-noteref">[4]</a>
 This is run as the user <code>jordan</code> and it requires the network be online in order to update.</p></div></div></li><li><p>Verify the <code>network-online.target</code> exists.<a class="footnote-ref" id="_footnoteref_5" href="#_footnote_5" title="View footnote 5" role="doc-noteref">[5]</a></p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl is-enabled NetworkManager-wait-online.service
 enabled</code></pre></div></li><li><p>Test run the new <code>systemd</code> unit.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl start update-jordan-antigen.service</code></pre></div></li><li><p>Check the output of the command to make sure everything worked.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl status update-jordan-antigen.service
-● update-jordan-antigen.service - Update Jordan<span class="se">\'</span>s Antigen plugins <span class="k">for </span>ZSH
+● update-jordan-antigen.service - Update Jordan<span class="se">\&#39;</span>s Antigen plugins <span class="k">for </span>ZSH
    Loaded: loaded <span class="o">(</span>/etc/systemd/system/update-jordan-antigen.service<span class="p">;</span> disabled<span class="p">;</span> vendor preset: disabled<span class="o">)</span>
    Active: inactive <span class="o">(</span>dead<span class="o">)</span>
 
-Sep 16 14:12:36 jwillikers systemd[1]: Starting Update Jordan<span class="se">\'</span>s Antigen plugins <span class="k">for </span>ZSH...
+Sep 16 14:12:36 jwillikers systemd[1]: Starting Update Jordan<span class="se">\&#39;</span>s Antigen plugins <span class="k">for </span>ZSH...
 Sep 16 14:12:37 jwillikers zsh[315]: Updating robbyrussell/oh-my-zsh@master... Done. Took 1s.
 Sep 16 14:12:38 jwillikers zsh[315]: Updating zsh-users/zsh-autosuggestions@master... Done. Took 1s.
 Sep 16 14:12:38 jwillikers zsh[315]: Updating zsh-users/zsh-completions@master... Done. Took 0s.
 Sep 16 14:12:39 jwillikers zsh[315]: Updating zsh-users/zsh-syntax-highlighting@master... Done. Took 1s.
-Sep 16 14:12:39 jwillikers systemd[1]: Started Update Jordan<span class="se">\'</span>s Antigen plugins <span class="k">for </span>ZSH.</code></pre></div></li><li><p>Add a systemd timer to update the Antigen plugins once per week.</p><figure class="listing-block"><figcaption>/etc/systemd/system/update-jordan-antigen.timer</figcaption>
+Sep 16 14:12:39 jwillikers systemd[1]: Started Update Jordan<span class="se">\&#39;</span>s Antigen plugins <span class="k">for </span>ZSH.</code></pre></div></li><li><p>Add a systemd timer to update the Antigen plugins once per week.</p><figure class="listing-block"><figcaption>/etc/systemd/system/update-jordan-antigen.timer</figcaption>
 <pre class="rouge highlight"><code data-lang="ini"><span class="nn">[Unit]</span>
 <span class="py">Description</span><span class="p">=</span><span class="s">Update Antigen weekly</span>
 
@@ -246,9 +246,9 @@ Sep 16 14:12:39 jwillikers systemd[1]: Started Update Jordan<span class="se">\'<
 Created symlink from /etc/systemd/system/timers.target.wants/update-jordan-antigen.timer to /etc/systemd/system/update-jordan-antigen.timer.</code></pre></div>
 <p>This timer has <code>Persistent=true</code> to account for the situation when the timer would fire but the system is not powered on.
 With this option, the timer will just fire the next the system boots.</p></div></div></li></ol></div></section></section>
-<section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>That&#8217;s the tutorial.
+<section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>That’s the tutorial.
 You should now have a working systemd service to automatically update your ZSH plugins for you each week.
-Don&#8217;t forget to disable your update service when you decide to make the switch to the <a href="https://fishshell.com/">Fish shell</a>. 🐟</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://stackoverflow.com/a/49765275/9835303">StackOverflow: Using a user&#8217;s .bashrc in a systemd service</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://wiki.archlinux.org/index.php/Systemd/User#Basic_setup">Arch Wiki: systemd/user - Basic Setup</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_3" role="doc-endnote"><a href="https://help.tableau.com/current/server-linux/en-us/systemd_user_service_error.htm">Tableau Help: systemd User Service Failures</a> <a class="footnote-backref" href="#_footnoteref_3" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_4" role="doc-endnote"><a href="https://stackoverflow.com/a/49765275/9835303">StackOverflow: Using a user&#8217;s .bashrc in a systemd service</a> <a class="footnote-backref" href="#_footnoteref_4" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li><li class="footnote" id="_footnote_5" role="doc-endnote"><a href="https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/">Running Services After the Network is up</a> <a class="footnote-backref" href="#_footnoteref_5" role="doc-backlink" title="Jump to the first occurrence in the text">&#8617;</a></li></ol></section>
+Don’t forget to disable your update service when you decide to make the switch to the <a href="https://fishshell.com/">Fish shell</a>. 🐟</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr/><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://stackoverflow.com/a/49765275/9835303">StackOverflow: Using a user’s .bashrc in a systemd service</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://wiki.archlinux.org/index.php/Systemd/User#Basic_setup">Arch Wiki: systemd/user - Basic Setup</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li><li class="footnote" id="_footnote_3" role="doc-endnote"><a href="https://help.tableau.com/current/server-linux/en-us/systemd_user_service_error.htm">Tableau Help: systemd User Service Failures</a> <a class="footnote-backref" href="#_footnoteref_3" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li><li class="footnote" id="_footnote_4" role="doc-endnote"><a href="https://stackoverflow.com/a/49765275/9835303">StackOverflow: Using a user’s .bashrc in a systemd service</a> <a class="footnote-backref" href="#_footnoteref_4" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li><li class="footnote" id="_footnote_5" role="doc-endnote"><a href="https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/">Running Services After the Network is up</a> <a class="footnote-backref" href="#_footnoteref_5" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li></ol></section>
 
     </div>
 
