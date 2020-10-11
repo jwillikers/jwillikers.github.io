@@ -46,7 +46,7 @@
 <meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jwillikers.com/" />
-<meta property="og:updated_time" content="2020-10-03T14:46:16-05:00" />
+<meta property="og:updated_time" content="2020-10-09T09:24:26-05:00" />
 <meta itemprop="name" content="JWillikers">
 <meta itemprop="description" content="Handy admin and dev guides from my myriad of tinkering">
 <meta name="twitter:card" content="summary"/>
@@ -116,6 +116,29 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/openbsd_ipv6/">IPv6 on OpenBSD</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-05-23 </span>
+      <div class="post-category">
+          <a href="/categories/networking/"> Networking </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Configuring IPv6 on my OpenBSD home router was a much more difficult task than I’d expected. While this was mostly due to the steep learning curve of IPv6 and DHCPv6, OpenBSD doesn’t provide DHCPv6 support in its native DHCP daemon. I’ve documented my setup and difficulties here in the hope it saves some time for someone else.
+ConfigurationI configured IPv6 on on my home router running OpenBSD 6.7.
+PFIPv6 packets need to get through the firewall for anything to happen.
+    </div>
+    <div class="read-more">
+      <a href="/post/openbsd_ipv6/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/pf_badhost/">PF Badhost</a></h1>
@@ -209,28 +232,6 @@ Tip: A common way of connecting to your ISP’s network is through DHCP. DHCP is
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/auto_mount_nextcloud/"></a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 0001-01-01 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      https://wiki.archlinux.org/index.php/Davfs2#Using_systemd
-/etc/systemd/system/mnt-webdav-service.mount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Mount] What=http(s)://address:&lt;port&gt;/path Where=/mnt/webdav/service Options=uid=1000,file_mode=0664,dir_mode=2775,grpid Type=davfs TimeoutSec=15 [Install] WantedBy=multi-user.target /etc/systemd/system/mnt-webdav-service.automount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Automount] Where=/mnt/webdav/service TimeoutIdleSec=300 [Install] WantedBy=remote-fs.target https://wiki.archlinux.org/index.php/Fstab#Automount_with_systemd
-https://wiki.archlinux.org/index.php/Davfs2#Storing_credentials
-/etc/fstab https://webdav.example/path /mnt/webdav davfs rw,user,uid=username,noauto 0 0 /etc/davfs2/secrets https://webdav.example/path davusername davpassword $ chmod 600 /etc/davfs2/secrets $ chown root:root /etc/davfs2/secrets $ chmod 600 ~/.davfs2/secrets 
-    </div>
-    <div class="read-more">
-      <a href="/post/auto_mount_nextcloud/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -238,7 +239,10 @@ https://wiki.archlinux.org/index.php/Davfs2#Storing_credentials
         <i class="iconfont icon-left"></i>
         <span class="prev-text">Prev</span>
       </a>
-    
+    <a class="next" href="/page/6/">
+        <span class="next-text">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
   </nav>
         </div>
         

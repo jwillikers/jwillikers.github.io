@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>JWillikers</title>
+  <title>Vim · JWillikers</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -26,9 +26,9 @@
 <meta name="generator" content="Hugo 0.75.1 with theme even" />
 
 
-<link rel="canonical" href="https://jwillikers.com/" />
-  <link href="https://jwillikers.com/index.xml" rel="alternate" type="application/rss+xml" title="JWillikers" />
-  <link href="https://jwillikers.com/index.xml" rel="feed" type="application/rss+xml" title="JWillikers" />
+<link rel="canonical" href="https://jwillikers.com/tags/vim/" />
+  <link href="https://jwillikers.com/tags/vim/index.xml" rel="alternate" type="application/rss+xml" title="JWillikers" />
+  <link href="https://jwillikers.com/tags/vim/index.xml" rel="feed" type="application/rss+xml" title="JWillikers" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -42,15 +42,15 @@
 <link rel="stylesheet" href="/css/syntax.css">
 
 
-<meta property="og:title" content="JWillikers" />
+<meta property="og:title" content="Vim" />
 <meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://jwillikers.com/" />
+<meta property="og:url" content="https://jwillikers.com/tags/vim/" />
 <meta property="og:updated_time" content="2020-10-09T09:24:26-05:00" />
-<meta itemprop="name" content="JWillikers">
+<meta itemprop="name" content="Vim">
 <meta itemprop="description" content="Handy admin and dev guides from my myriad of tinkering">
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="JWillikers"/>
+<meta name="twitter:title" content="Vim"/>
 <meta name="twitter:description" content="Handy admin and dev guides from my myriad of tinkering"/>
 
 <!--[if lte IE 9]>
@@ -115,128 +115,27 @@
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
-          <section id="posts" class="posts">
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/solarized_vim/">Solarized Vim</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-08 </span>
-      <div class="post-category">
-          <a href="/categories/command-line/"> Command-line </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      I enjoy the Solarized color scheme, so I figured out how to set it up in Vim. The Solarized color scheme provides a plugin for Vim, which makes this pretty straightfoward. The following instructions detail how to do this on Ubuntu 20.04, but other than the installation step, this should work on any Unix-like system so long as Vim is at least version eight. This guide assumes you are familiar with installing packages from the command-line on Ubuntu, git, configuring Vim, and using Vim packages.
-    </div>
-    <div class="read-more">
-      <a href="/post/solarized_vim/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
+          <section id="archive" class="archive">
+  <div class="archive-title tag">
+        <h2 class="archive-name">Vim</h2>
+      </div>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/switch_to_fish/">Switch to fish</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-03 </span>
-      <div class="post-category">
-          <a href="/categories/command-line/"> Command-line </a>
-          </div>
+  <div class="archive-post">
+      <span class="archive-post-time">
+        2020-10-08
+      </span>
+      <span class="archive-post-title">
+        <a href="/post/solarized_vim/" class="archive-post-link">
+          Solarized Vim
+        </a>
+      </span>
     </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      I’ve finally made the switch from ZSH to the fish shell. Unlike ZSH, I don’t need to install and manage a whole host of plugins. Everything I want comes packaged right in as part of the shell itself.
-The SwitchIn this post, I describe how to switch to the fish shell and some of the interesting features it offers.
-InstallInstalling fish is a piece of cake. On Ubuntu, a fish package is readily available.
-    </div>
-    <div class="read-more">
-      <a href="/post/switch_to_fish/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
+</section>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/too_many_open_files_on_macos_when_compiling/">&#34;Too many open files&#34; when Compiling on macOS</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-02 </span>
-      <div class="post-category">
-          <a href="/categories/command-line/"> Command-line </a>
-          </div>
-    </div>
-  </header>
+<nav class="pagination">
   
-  <div class="post-content">
-    <div class="post-summary">
-      Occasionally things just go wrong during large builds. One such occurrence is on macOS when compiling a large C++ project.
-ProblemThe following error message is output by LLVM Clang 10.0.1 when compiling from the command-line. The Clion IDE builds the project just fine, of course.
-$ cmake --build build ... In file included from /opt/local/include/boost/spirit/home/x3.hpp:19: In file included from /opt/local/include/boost/spirit/home/x3/operator.hpp:10: In file included from /opt/local/include/boost/spirit/home/x3/operator/sequence.hpp:12: /opt/local/include/boost/spirit/home/x3/operator/detail/sequence.hpp:25:10: fatal error: cannot open file &#39;/opt/local/include/boost/fusion/include/as_deque.
-    </div>
-    <div class="read-more">
-      <a href="/post/too_many_open_files_on_macos_when_compiling/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/change_your_shell/">Change your Shell</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-01 </span>
-      <div class="post-category">
-          <a href="/categories/command-line/"> Command-line </a>
-          </div>
-    </div>
-  </header>
   
-  <div class="post-content">
-    <div class="post-summary">
-      Sometimes, you just want to switch to a better shell for your terminal - like fish.
-TutorialHere’s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems. These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.
-Install the fish package.
-    </div>
-    <div class="read-more">
-      <a href="/post/change_your_shell/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/my_ssh_configuration/">My SSH Configuration</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-09-29 </span>
-      <div class="post-category">
-          <a href="/categories/networking/"> Networking </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      The OpenSSH client and server applications are ubiquitous. Like many a software dev, I’m `ssh’ing all over the place. And you know what? I’ve put off learning the ins and outs of its configuration for far too long. I learned that a little bit of know-how can simplify my day-to-day use of SSH. That’s exactly why I’ve written this post to exemplify the configuration options I’m now using.
-SSH ConfigurationThe file ~/.
-    </div>
-    <div class="read-more">
-      <a href="/post/my_ssh_configuration/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    </section>
-  
-  <nav class="pagination">
-    
-    <a class="next" href="/page/2/">
-        <span class="next-text">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-  </nav>
+</nav>
         </div>
         
 

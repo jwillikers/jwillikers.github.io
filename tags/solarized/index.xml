@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Unix on JWillikers</title>
-    <link>https://jwillikers.com/tags/unix/</link>
-    <description>Recent content in Unix on JWillikers</description>
+    <title>Solarized on JWillikers</title>
+    <link>https://jwillikers.com/tags/solarized/</link>
+    <description>Recent content in Solarized on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
@@ -22,7 +22,7 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Thu, 08 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/unix/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/solarized/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Solarized Vim</title>
       <link>https://jwillikers.com/post/solarized_vim/</link>

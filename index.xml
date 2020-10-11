@@ -22,7 +22,16 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Sat, 03 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solarized Vim</title>
+      <link>https://jwillikers.com/post/solarized_vim/</link>
+      <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/solarized_vim/</guid>
+      <description>I enjoy the Solarized color scheme, so I figured out how to set it up in Vim. The Solarized color scheme provides a plugin for Vim, which makes this pretty straightfoward. The following instructions detail how to do this on Ubuntu 20.04, but other than the installation step, this should work on any Unix-like system so long as Vim is at least version eight. This guide assumes you are familiar with installing packages from the command-line on Ubuntu, git, configuring Vim, and using Vim packages.</description>
+    </item>
+    
     <item>
       <title>Switch to fish</title>
       <link>https://jwillikers.com/post/switch_to_fish/</link>
@@ -298,6 +307,16 @@ Tip: A common way of connecting to your ISP’s network is through DHCP. DHCP is
 /etc/systemd/system/mnt-webdav-service.mount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Mount] What=http(s)://address:&amp;lt;port&amp;gt;/path Where=/mnt/webdav/service Options=uid=1000,file_mode=0664,dir_mode=2775,grpid Type=davfs TimeoutSec=15 [Install] WantedBy=multi-user.target /etc/systemd/system/mnt-webdav-service.automount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Automount] Where=/mnt/webdav/service TimeoutIdleSec=300 [Install] WantedBy=remote-fs.target https://wiki.archlinux.org/index.php/Fstab#Automount_with_systemd
 https://wiki.archlinux.org/index.php/Davfs2#Storing_credentials
 /etc/fstab https://webdav.example/path /mnt/webdav davfs rw,user,uid=username,noauto 0 0 /etc/davfs2/secrets https://webdav.example/path davusername davpassword $ chmod 600 /etc/davfs2/secrets $ chown root:root /etc/davfs2/secrets $ chmod 600 ~/.davfs2/secrets </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://jwillikers.com/post/pager_syntax_highlighting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/pager_syntax_highlighting/</guid>
+      <description>Terminal Pager Syntax Highlighting
+ title = &amp;#34;Terminal Pager Syntax Highlighting&amp;#34; categories = [&amp;#34;Command-line&amp;#34;] tags = [&amp;#34;bat&amp;#34;, &amp;#34;BSD&amp;#34;, &amp;#34;delta&amp;#34;, &amp;#34;Linux&amp;#34;, &amp;#34;git&amp;#34;, &amp;#34;less&amp;#34;, &amp;#34;macOS&amp;#34;, &amp;#34;source-highlight&amp;#34;, &amp;#34;Ubuntu&amp;#34;, &amp;#34;Unix&amp;#34;, &amp;#34;Vim&amp;#34;, &amp;#34;vimpager&amp;#34;, &amp;#34;vimcat&amp;#34;] date = &amp;#34;2020-10-11&amp;#34; draft = true The default pager in most Unix terminals, usually less, works great for a scrolling through text. It’s certainly a great improvement over its predecessor [more], though this doesn’t mean it can’t be improved.[1] One such area for enhancement is syntax highlighting, which can make scanning through code a bit less tedious.</description>
     </item>
     
   </channel>

@@ -22,7 +22,16 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Sat, 03 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solarized Vim</title>
+      <link>https://jwillikers.com/post/solarized_vim/</link>
+      <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/solarized_vim/</guid>
+      <description>I enjoy the Solarized color scheme, so I figured out how to set it up in Vim. The Solarized color scheme provides a plugin for Vim, which makes this pretty straightfoward. The following instructions detail how to do this on Ubuntu 20.04, but other than the installation step, this should work on any Unix-like system so long as Vim is at least version eight. This guide assumes you are familiar with installing packages from the command-line on Ubuntu, git, configuring Vim, and using Vim packages.</description>
+    </item>
+    
     <item>
       <title>Switch to fish</title>
       <link>https://jwillikers.com/post/switch_to_fish/</link>

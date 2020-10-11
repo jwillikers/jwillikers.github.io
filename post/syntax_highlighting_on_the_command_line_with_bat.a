@@ -1,0 +1,76 @@
++++
+title = "Syntax Highlighting on the Command-line with bat"
+categories = ["Command-line"]
+tags = ["bat", "BSD", "Linux", "less", "macOS", "Ubuntu", "Unix", "Vim]
+date = "2020-10-11"
+draft = true
++++
+
+https://github.com/sharkdp/bat[`bat`] is a helpful alternative to `cat` when you want peruse files on the command-line with the added convenience of syntax highlighting.
+The Rust program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with `git`.
+It is a wonderful tool, though it won't replace your general pager, like vimpager, or your `git` pager, like `delta`.
+
+== Tutorial
+
+This tutorial walks through installing and configuring `bat`, version 0.16.0 at the time of writing, on an amd64 system running Ubuntu 20.04.
+It assumes you are familiar with common command-line utilities on Ubuntu and the `less` pager.
+
+. Download the deb file for the latest version of `bat` for your particular computer's CPU architecture.
++
+[source,sh]
+----
+➜ wget -q -nv -O - https://api.github.com/repos/sharkdp/bat/releases/latest \
+   | awk -F': ' '/browser_download_url/ && /_amd64\.deb/ && !/musl/ {gsub(/"/, "", $(NF)); system("wget -qi -L " $(NF))}'
+----
+
+. Install the `bat` deb package.
++
+. Install
+[source,sh]
+----
+➜ sudo apt install -y ./bat_*_amd64.deb
+----
+
+. Initialize configuration file.
++
+[source,sh]
+----
+➜ bat --generate-config-file
+Success! Config file written to /home/jordan/.config/bat/config
+----
+
+. Set the default color theme to Solarized Dark.
++
+[source]
+.\~/.config/bat/config
+----
+--theme="Solarized (dark)"
+----
+
+. Incorporate `bat`'s syntax highlighting in `less`.
++
+[source]
+.\~/.pam_environment
+----
+set -Ux LESS "-R"
+set -Ux LESSOPEN "| bat --color always %s"
+----
+
+// todo Use user's pam_env to set environment variables.
+. Use `bat` as the pager for `man` pages.
++
+[source,sh]
+----
+➜ set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
+----
+
+. Alias `cat` to `bat` because old habits die hard.
++
+[source,sh]
+----
+➜ alias -s cat /usr/bin/bat
+----
+
+. Swap out `less` for `bat` as the default pager by using PAGER
+
+➜ man 2 select

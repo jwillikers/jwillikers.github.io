@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - JWillikers</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jordan Williams" /><meta name="description" content="Terminal Pager Syntax Highlighting
+ title = &amp;#34;Terminal Pager Syntax Highlighting&amp;#34; categories = [&amp;#34;Command-line&amp;#34;] tags = [&amp;#34;bat&amp;#34;, &amp;#34;BSD&amp;#34;, &amp;#34;delta&amp;#34;, &amp;#34;Linux&amp;#34;, &amp;#34;git&amp;#34;, &amp;#34;less&amp;#34;, &amp;#34;macOS&amp;#34;, &amp;#34;source-highlight&amp;#34;, &amp;#34;Ubuntu&amp;#34;, &amp;#34;Unix&amp;#34;, &amp;#34;Vim&amp;#34;, &amp;#34;vimpager&amp;#34;, &amp;#34;vimcat&amp;#34;] date = &amp;#34;2020-10-11&amp;#34; draft = true The default pager in most Unix terminals, usually less, works great for a scrolling through text. It’s certainly a great improvement over its predecessor [more], though this doesn’t mean it can’t be improved.[1] One such area for enhancement is syntax highlighting, which can make scanning through code a bit less tedious." /><meta name="keywords" content="Blog, BSD, Linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.75.1 with theme even" />
+
+
+<link rel="canonical" href="https://jwillikers.com/post/pager_syntax_highlighting/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="Terminal Pager Syntax Highlighting
+ title = &#34;Terminal Pager Syntax Highlighting&#34; categories = [&#34;Command-line&#34;] tags = [&#34;bat&#34;, &#34;BSD&#34;, &#34;delta&#34;, &#34;Linux&#34;, &#34;git&#34;, &#34;less&#34;, &#34;macOS&#34;, &#34;source-highlight&#34;, &#34;Ubuntu&#34;, &#34;Unix&#34;, &#34;Vim&#34;, &#34;vimpager&#34;, &#34;vimcat&#34;] date = &#34;2020-10-11&#34; draft = true The default pager in most Unix terminals, usually less, works great for a scrolling through text. It’s certainly a great improvement over its predecessor [more], though this doesn’t mean it can’t be improved.[1] One such area for enhancement is syntax highlighting, which can make scanning through code a bit less tedious." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jwillikers.com/post/pager_syntax_highlighting/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="Terminal Pager Syntax Highlighting
+ title = &#34;Terminal Pager Syntax Highlighting&#34; categories = [&#34;Command-line&#34;] tags = [&#34;bat&#34;, &#34;BSD&#34;, &#34;delta&#34;, &#34;Linux&#34;, &#34;git&#34;, &#34;less&#34;, &#34;macOS&#34;, &#34;source-highlight&#34;, &#34;Ubuntu&#34;, &#34;Unix&#34;, &#34;Vim&#34;, &#34;vimpager&#34;, &#34;vimcat&#34;] date = &#34;2020-10-11&#34; draft = true The default pager in most Unix terminals, usually less, works great for a scrolling through text. It’s certainly a great improvement over its predecessor [more], though this doesn’t mean it can’t be improved.[1] One such area for enhancement is syntax highlighting, which can make scanning through code a bit less tedious.">
+
+<meta itemprop="wordCount" content="450">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Terminal Pager Syntax Highlighting
+ title = &#34;Terminal Pager Syntax Highlighting&#34; categories = [&#34;Command-line&#34;] tags = [&#34;bat&#34;, &#34;BSD&#34;, &#34;delta&#34;, &#34;Linux&#34;, &#34;git&#34;, &#34;less&#34;, &#34;macOS&#34;, &#34;source-highlight&#34;, &#34;Ubuntu&#34;, &#34;Unix&#34;, &#34;Vim&#34;, &#34;vimpager&#34;, &#34;vimcat&#34;] date = &#34;2020-10-11&#34; draft = true The default pager in most Unix terminals, usually less, works great for a scrolling through text. It’s certainly a great improvement over its predecessor [more], though this doesn’t mean it can’t be improved.[1] One such area for enhancement is syntax highlighting, which can make scanning through code a bit less tedious."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">JWillikers</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">JWillikers</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 0001-01-01 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Terminal Pager Syntax Highlighting</p>
+<p>
+title = &#34;Terminal Pager Syntax Highlighting&#34;
+categories = [&#34;Command-line&#34;]
+tags = [&#34;bat&#34;, &#34;BSD&#34;, &#34;delta&#34;, &#34;Linux&#34;, &#34;git&#34;, &#34;less&#34;, &#34;macOS&#34;, &#34;source-highlight&#34;, &#34;Ubuntu&#34;, &#34;Unix&#34;, &#34;Vim&#34;, &#34;vimpager&#34;, &#34;vimcat&#34;]
+date = &#34;2020-10-11&#34;
+draft = true
+</p>
+<p>The default pager in most Unix terminals, usually <a href="http://greenwoodsoftware.com/less/index.html"><code>less</code></a>, works great for a scrolling through text.
+It’s certainly a great improvement over its predecessor [<code>more</code>], though this doesn’t mean it can’t be improved.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a>
+One such area for enhancement is syntax highlighting, which can make scanning through code a bit less tedious.</p>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>There is more than one way to get pager syntax highlighting.
+The methods here include incorporating this functionality on top of <code>less</code> as well as switching to a different pager.</p>
+<section class="doc-section level-2"><h3 id="_gnu_source_highlight">GNU Source-highlight</h3><p>One popular choice is <a class="bare" href="https://www.gnu.org/software/src-highlite/source-highlight.html">https://www.gnu.org/software/src-highlite/source-highlight.html</a> [GNU Source-highlight], a general tool for applying source highlighting to a file.</p>
+<p><a href="https://superuser.com/a/71593/1220231">superuser: How to syntax highlight via Less</a></p>
+<p><a href="https://wiki.archlinux.org/index.php/Color_output_in_console#source-highlight">Arch Wiki: Color output in console - source highlight</a></p></section>
+<section class="doc-section level-2"><h3 id="_bat">bat</h3></section>
+<section class="doc-section level-2"><h3 id="_delta">delta</h3><p><a href="https://github.com/dandavison/delta"><code>delta</code></a> is a pager dedicated to providing syntax highlighting for git diffs.</p></section>
+<section class="doc-section level-2"><h3 id="_vim">Vim</h3><p>Install Vim.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> vim</code></pre></div>
+<section class="doc-section level-3"><h4 id="_less_sh">less.sh</h4><p><code>/usr/share/vim/vim82/macros/less.sh</code></p>
+<p>Create an alias for the less command which calls Vim’s <code>less.sh</code> script.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">alias</span> <span class="nt">-s</span> less /usr/share/vim/vim81/macros/less.sh</code></pre></div>
+<figure class="listing-block"><figcaption>\~/.pam_environment</figcaption>
+<pre class="rouge highlight"><code>PATH DEFAULT=PAGER=/usr/share/vim/vim81/macros/less.sh</code></pre></figure>
+<p>This command uses the <code>alias</code> command provided by fish.</p></section></section>
+<section class="doc-section level-2"><h3 id="_vimpager">vimpager</h3><p><a href="https://wiki.archlinux.org/index.php/vim#Vim_as_a_pager">Arch Wiki - Vim: Vim as a pager</a>
+<a href="https://github.com/rkitover/vimpager">vimpager</a></p>
+<p>vimpager and vimcat</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Grab the latest source code.</p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ git clone git://github.com/rkitover/vimpager</code></pre></div>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>While packages may be available, the last release was five years ago depite the source code continuing to receive updates.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></p></aside></div></div></li><li><p>Install.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="c"># Debian / Ubuntu</span>
+➜ <span class="nb">sudo </span>make install-deb
+
+<span class="c"># Everything else.</span>
+➜ <span class="nb">sudo </span>make <span class="nb">install</span></code></pre></div></li><li><p>Register <code>bat</code> as an available pager for <code>update-alternatives</code>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>update-alternatives <span class="nt">--install</span> /usr/bin/pager pager /usr/bin/bat 0</code></pre></div></li><li><p>Choose <code>bat</code> as the default pager for <code>update-alternatives</code>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ update-alternatives <span class="nt">--set</span> pager /usr/bin/bat</code></pre></div></li></ol></div>
+<section class="doc-section level-3"><h4 id="_vimpager_2">vimpager</h4><div class="olist arabic"><ol class="arabic"><li><p>Use vimpager as the default pager.</p><div class="open-block"><div class="content"><p>For systemd-homed users, use <code>homectl</code> to set the <code>PAGER</code> environment variable.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ homectl update jordan <span class="nt">--setenv</span><span class="o">=</span><span class="nv">PAGER</span><span class="o">=</span>/usr/local/bin/vimpager</code></pre></div>
+<p>Otherwise, use <code>pam_env</code> to set the <code>PAGER</code> environment variable.</p>
+<figure class="listing-block"><figcaption>\~/.pam_environment</figcaption>
+<pre class="rouge highlight"><code>PATH DEFAULT=PAGER=/usr/local/bin/vimpager</code></pre></figure>
+<p>Otherwise, set the pager directly in your shell as shown here for fish.</p>
+<p>+</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-Ux</span> PAGER vimpager</code></pre></div></div></div></li><li><p>Configure git to use vimpager.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> core.pager /usr/local/bin/vimpager</code></pre></div></li><li><p>Use vimpager instead of less.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">alias</span> <span class="nt">-s</span> less <span class="s2">&#34;</span><span class="nv">$PAGER</span><span class="s2">&#34;</span></code></pre></div></li></ol></div>
+<p>update-alternatives?</p></section>
+<section class="doc-section level-3"><h4 id="_vimcat">vimcat</h4><p>Alternatively,</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Enable colored output in <code>less</code>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-Ux</span> LESS <span class="s2">&#34;-R&#34;</span></code></pre></div></li><li><p>Imbue less with <a href="https://github.com/rkitover/vimpager/blob/master/markdown/vimcat.md">vimcat</a>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-Ux</span> LESSOPEN <span class="s2">&#34;|vimcat -o - %s&#34;</span></code></pre></div></li></ol></div></section></section>
+<section class="doc-section level-2"><h3 id="_notable_mentions">Notable Mentions</h3><p>Vim isn’t the only command-line editor that can be used as a syntax highlighting pager.
+Both Nano and Emacs are capable of this as well,</p></section></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr/><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote">If you’re so iclined towards command-line pagers, there’s also <a href="http://www.jedsoft.org/most/"><code>most</code></a> which boasts support for multiple windows plus horizontal scrolling, and then there’s <a href="https://sourceforge.net/projects/w3m/">w3m</a> for when you get that itch to browse the web from your pager. <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://github.com/rkitover/vimpager/issues/249">vimpager Issue #249: new git release tag</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li></ol></section>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/auto_mount_nextcloud/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default"></span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
+      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br />
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
