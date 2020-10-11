@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jwillikers.com/tags/bsd/</loc>
+    <loc>https://jwillikers.com/tags/bat/</loc>
     <lastmod>2020-10-09T09:24:26-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -23,14 +23,14 @@
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/editor/</loc>
+    <loc>https://jwillikers.com/</loc>
     <lastmod>2020-10-09T09:24:26-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://jwillikers.com/</loc>
+    <loc>https://jwillikers.com/tags/less/</loc>
     <lastmod>2020-10-09T09:24:26-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -44,14 +44,14 @@
   </url>
   
   <url>
-    <loc>https://jwillikers.com/tags/macos/</loc>
+    <loc>https://jwillikers.com/post/</loc>
     <lastmod>2020-10-09T09:24:26-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://jwillikers.com/post/</loc>
+    <loc>https://jwillikers.com/tags/rust/</loc>
     <lastmod>2020-10-09T09:24:26-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://jwillikers.com/post/solarized_vim/</loc>
+    <loc>https://jwillikers.com/post/syntax_highlighting_on_the_command_line_with_bat/</loc>
     <lastmod>2020-10-09T09:24:26-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -87,6 +87,34 @@
   
   <url>
     <loc>https://jwillikers.com/tags/unix/</loc>
+    <lastmod>2020-10-09T09:24:26-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/bsd/</loc>
+    <lastmod>2020-10-09T09:24:26-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/editor/</loc>
+    <lastmod>2020-10-09T09:24:26-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/tags/macos/</loc>
+    <lastmod>2020-10-09T09:24:26-05:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jwillikers.com/post/solarized_vim/</loc>
     <lastmod>2020-10-09T09:24:26-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

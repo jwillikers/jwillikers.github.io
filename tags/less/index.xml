@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>less on JWillikers</title>
+    <link>https://jwillikers.com/tags/less/</link>
+    <description>Recent content in less on JWillikers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+    <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster>
+    <copyright>Jordan Williams
+&lt;br /&gt;
+&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
+&lt;img alt=&#34;Creative Commons License&#34; style=&#34;border-width:0&#34;
+  src=&#34;https://i.creativecommons.org/l/by-sa/4.0/88x31.png&#34; /&gt;&lt;/a&gt;
+&lt;br /&gt;
+&lt;span xmlns:dct=&#34;http://purl.org/dc/terms/&#34; href=&#34;http://purl.org/dc/dcmitype/Text&#34;
+  property=&#34;dct:title&#34; rel=&#34;dct:type&#34;&gt;JWillikers&lt;/span&gt; by 
+  &lt;a xmlns:cc=&#34;http://creativecommons.org/ns#&#34; href=&#34;https://jwillikers.com&#34;
+  property=&#34;cc:attributionName&#34; rel=&#34;cc:attributionURL&#34;&gt;Jordan Williams&lt;/a&gt;
+  is licensed under a 
+  &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
+  Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
+</copyright>
+    <lastBuildDate>Sun, 11 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/less/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Syntax Highlighting on the Command-line with bat</title>
+      <link>https://jwillikers.com/post/syntax_highlighting_on_the_command_line_with_bat/</link>
+      <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/syntax_highlighting_on_the_command_line_with_bat/</guid>
+      <description>bat is a helpful alternative to cat when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer. The Rust program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with git. It is a wonderful tool, though it won’t replace your general pager, like vimpager, or your git pager, like delta.</description>
+    </item>
+    
+  </channel>
+</rss>

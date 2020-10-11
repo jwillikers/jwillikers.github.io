@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.75.1 with theme even" />
+<meta name="generator" content="Hugo 0.76.3 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/" />
@@ -118,6 +118,27 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/opensmtpd_ubuntu/">OpenSMTPD Relay on Ubuntu</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-05-24 </span>
+      <div class="post-category">
+          <a href="/categories/networking/"> Networking </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      It can be handy to have your system email you if it detects an issue or potential security risk. Unfortunately, this isn’t always straightforward, especially when you want to send an email from your desktop computer. Sending an email directly from your desktop to your email account is likely going to accomplish nothing. The email will likely be blocked since, to your email provider, it is from an unknown source. I ran into this problem recently trying to set up SmartMonTools to send an email when it detected hard drive errors.
+    </div>
+    <div class="read-more">
+      <a href="/post/opensmtpd_ubuntu/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/openbsd_ipv6/">IPv6 on OpenBSD</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-05-23 </span>
@@ -205,29 +226,6 @@ unbound-anchor Configure unbound.conf. Add the location of the root.hints file a
     </div>
     <div class="read-more">
       <a href="/post/unbound_adblock/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/pppoe_openbsd/">PPPoE on OpenBSD</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-03-12 </span>
-      <div class="post-category">
-          <a href="/categories/networking/"> Networking </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Some ISP’s establish connections with their customers&#39; networks through PPPoE. I recently setup an OpenBSD 6.6 router which required PPPoE. This is my story.
-DNS ServersIf necessary, configure your system to use your preferred DNS nameservers.
-Tip: A common way of connecting to your ISP’s network is through DHCP. DHCP is capable of providing your system with DNS nameservers according to RFC 2132 and RFC 2937. To my knowledge, this capability is absent from the PPPoE Specification.
-    </div>
-    <div class="read-more">
-      <a href="/post/pppoe_openbsd/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
