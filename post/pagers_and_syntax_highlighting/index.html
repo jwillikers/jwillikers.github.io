@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Pagers and Syntax Highlighting - JWillikers</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jordan Williams" /><meta name="description" content="bat is a helpful alternative to cat when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer. The Rust program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with git. It is a wonderful tool, though it won’t replace your general pager, like vimpager, or your git pager, like delta." /><meta name="keywords" content="Blog, BSD, Linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.76.4 with theme even" />
+
+
+<link rel="canonical" href="https://jwillikers.com/post/pagers_and_syntax_highlighting/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+<meta property="og:title" content="Pagers and Syntax Highlighting" />
+<meta property="og:description" content="bat is a helpful alternative to cat when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer. The Rust program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with git. It is a wonderful tool, though it won’t replace your general pager, like vimpager, or your git pager, like delta." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jwillikers.com/post/pagers_and_syntax_highlighting/" />
+<meta property="article:published_time" content="2020-10-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-14T12:17:07-05:00" />
+<meta itemprop="name" content="Pagers and Syntax Highlighting">
+<meta itemprop="description" content="bat is a helpful alternative to cat when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer. The Rust program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with git. It is a wonderful tool, though it won’t replace your general pager, like vimpager, or your git pager, like delta.">
+<meta itemprop="datePublished" content="2020-10-11T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-10-14T12:17:07-05:00" />
+<meta itemprop="wordCount" content="325">
+
+
+
+<meta itemprop="keywords" content="bat,Linux,less,Rust,Solarized,Ubuntu,Unix," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pagers and Syntax Highlighting"/>
+<meta name="twitter:description" content="bat is a helpful alternative to cat when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer. The Rust program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with git. It is a wonderful tool, though it won’t replace your general pager, like vimpager, or your git pager, like delta."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">JWillikers</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">JWillikers</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Pagers and Syntax Highlighting</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-10-11 </span>
+        <div class="post-category">
+            <a href="/categories/command-line/"> Command-line </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><a href="https://github.com/sharkdp/bat"><code>bat</code></a> is a helpful alternative to <a href="https://www.gnu.org/software/coreutils/manual/html_node/cat-invocation.html#cat-invocation"><code>cat</code></a> when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer.
+The <a href="https://www.rust-lang.org/">Rust</a> program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with <a href="https://git-scm.com/"><code>git</code></a>.
+It is a wonderful tool, though it won’t replace your general pager, like <a href="https://github.com/rkitover/vimpager"><code>vimpager</code></a>, or your <code>git</code> pager, like <a href="https://github.com/dandavison/delta"><code>delta</code></a>.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial walks through installing and configuring <code>bat</code>, version 0.16.0 at the time of writing, on an amd64 system running <a href="https://ubuntu.com/">Ubuntu</a> 20.04.
+It assumes you are familiar with common command-line utilities on Ubuntu and the <code>less</code> pager.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Download the deb file for the latest version of <code>bat</code> for your particular computer’s CPU architecture.</p><div class="open-block"><div class="content"><p>Releases can be found <a href="https://github.com/sharkdp/bat/releases/">here</a>.
+The following one-liner downloads the amd64 deb installer for the latest release.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-q</span> <span class="nt">-nv</span> <span class="nt">-O</span> - https://api.github.com/repos/sharkdp/bat/releases/latest <span class="se">\</span>
+   | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">&#39;: &#39;</span> <span class="s1">&#39;/browser_download_url/ &amp;&amp; /_amd64\.deb/ &amp;&amp; !/musl/ {gsub(/&#34;/, &#34;&#34;, $(NF)); system(&#34;wget -qi -L &#34; $(NF))}&#39;</span></code></pre></div></div></div></li><li><p>Install the <code>bat</code> deb package.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> ./bat_<span class="k">*</span>_amd64.deb</code></pre></div></li><li><p>Clean up the remaining deb package since it is no longer needed.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rm </span>bat_<span class="k">*</span>_amd64.deb</code></pre></div></li><li><p>Create an initial configuration file.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ bat <span class="nt">--generate-config-file</span>
+Success! Config file written to /home/jordan/.config/bat/config</code></pre></div></li><li><p>Set the default color theme.</p><div class="open-block"><div class="content"><figure class="listing-block"><figcaption>~/.config/bat/config</figcaption>
+<pre class="rouge highlight"><code>--theme=&#34;Solarized (dark)&#34;</code></pre></figure>
+<p>This sets the theme to <a href="https://ethanschoonover.com/solarized/">Solarized</a> Dark, my favorite color scheme.</p></div></div></li><li><p>Highlight syntax with <code>bat</code> when using <a href="http://greenwoodsoftware.com/less/index.html"><code>less</code></a>.</p><div class="open-block"><div class="content"><figure class="listing-block"><figcaption>~/.pam_environment</figcaption>
+<pre class="rouge highlight"><code>LESS DEFAULT=&#34;-R&#34;
+LESSOPEN DEFAULT=&#34;| bat --color always %s&#34;</code></pre></figure>
+<aside class="admonition-block note" role="note"><h6 class="block-title label-only"><span class="title-label">Note: </span></h6><p>You will have to log out and back in again for changes in <code>~/.pam_environment</code> to take effect.</p></aside></div></div></li><li><p>Alias <code>cat</code> to <code>bat</code> because old habits die hard.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">alias</span> <span class="nt">-s</span> <span class="nb">cat</span> <span class="o">(</span>which bat<span class="o">)</span></code></pre></div></li><li><p>Highlight syntax within <code>man</code> pages.</p><figure class="listing-block"><figcaption>~/.pam_environment</figcaption>
+<pre class="rouge highlight"><code>MANPAGER DEFAULT=&#34;sh -c &#39;col -bx | bat -l man -p&#39;&#34;</code></pre></figure></li><li><p>Behold that beautiful syntax highlighting.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ man 2 <span class="k">select</span></code></pre></div></li></ol></div></section>
+<section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>Reading code from the command-line should be a little bit more pleasant now.
+Enjoy!</p></section><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr/><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote">According to <a href="https://github.com/sharkdp/bat/issues/1053">this issue</a>, <code>bat</code> might just be it’s own pager before long. <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li></ol></section>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/bat/">bat</a>
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/less/">less</a>
+          <a href="/tags/rust/">Rust</a>
+          <a href="/tags/solarized/">Solarized</a>
+          <a href="/tags/ubuntu/">Ubuntu</a>
+          <a href="/tags/unix/">Unix</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/git_syntax_highlighting/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Git Syntax Highlighting</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/solarized_vim/">
+            <span class="next-text nav-default">Solarized Vim</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
+      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br />
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

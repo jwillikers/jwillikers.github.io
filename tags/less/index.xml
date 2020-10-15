@@ -24,11 +24,11 @@
 </copyright>
     <lastBuildDate>Sun, 11 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/less/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Syntax Highlighting on the Command-line with bat</title>
-      <link>https://jwillikers.com/post/syntax_highlighting_on_the_command_line_with_bat/</link>
+      <title>Pagers and Syntax Highlighting</title>
+      <link>https://jwillikers.com/post/pagers_and_syntax_highlighting/</link>
       <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/post/syntax_highlighting_on_the_command_line_with_bat/</guid>
+      <guid>https://jwillikers.com/post/pagers_and_syntax_highlighting/</guid>
       <description>bat is a helpful alternative to cat when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer. The Rust program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with git. It is a wonderful tool, though it won’t replace your general pager, like vimpager, or your git pager, like delta.</description>
     </item>
     

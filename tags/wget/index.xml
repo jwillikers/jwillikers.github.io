@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wget on JWillikers</title>
+    <link>https://jwillikers.com/tags/wget/</link>
+    <description>Recent content in Wget on JWillikers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
+    <webMaster>jordan@jwillikers.com (Jordan Williams)</webMaster>
+    <copyright>Jordan Williams
+&lt;br /&gt;
+&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
+&lt;img alt=&#34;Creative Commons License&#34; style=&#34;border-width:0&#34;
+  src=&#34;https://i.creativecommons.org/l/by-sa/4.0/88x31.png&#34; /&gt;&lt;/a&gt;
+&lt;br /&gt;
+&lt;span xmlns:dct=&#34;http://purl.org/dc/terms/&#34; href=&#34;http://purl.org/dc/dcmitype/Text&#34;
+  property=&#34;dct:title&#34; rel=&#34;dct:type&#34;&gt;JWillikers&lt;/span&gt; by 
+  &lt;a xmlns:cc=&#34;http://creativecommons.org/ns#&#34; href=&#34;https://jwillikers.com&#34;
+  property=&#34;cc:attributionName&#34; rel=&#34;cc:attributionURL&#34;&gt;Jordan Williams&lt;/a&gt;
+  is licensed under a 
+  &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
+  Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
+</copyright>
+    <lastBuildDate>Sat, 19 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/wget/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>One-liner to Fetch the Latest Github Release</title>
+      <link>https://jwillikers.com/post/fetch_latest_github_release/</link>
+      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/fetch_latest_github_release/</guid>
+      <description>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need cURL, shipped with macOS, or Wget, shipped with Linux, for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively.</description>
+    </item>
+    
+  </channel>
+</rss>

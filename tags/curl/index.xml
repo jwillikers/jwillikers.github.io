@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>curl on JWillikers</title>
+    <title>cURL on JWillikers</title>
     <link>https://jwillikers.com/tags/curl/</link>
-    <description>Recent content in curl on JWillikers</description>
+    <description>Recent content in cURL on JWillikers</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>jordan@jwillikers.com (Jordan Williams)</managingEditor>
@@ -29,7 +29,7 @@
       <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/fetch_latest_github_release/</guid>
-      <description>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively.</description>
+      <description>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need cURL, shipped with macOS, or Wget, shipped with Linux, for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively.</description>
     </item>
     
   </channel>

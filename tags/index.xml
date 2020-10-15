@@ -22,7 +22,70 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Sun, 11 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 14 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>delta</title>
+      <link>https://jwillikers.com/tags/delta/</link>
+      <pubDate>Wed, 14 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/delta/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://jwillikers.com/tags/git/</link>
+      <pubDate>Wed, 14 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://jwillikers.com/tags/linux/</link>
+      <pubDate>Wed, 14 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>https://jwillikers.com/tags/rust/</link>
+      <pubDate>Wed, 14 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Solarized</title>
+      <link>https://jwillikers.com/tags/solarized/</link>
+      <pubDate>Wed, 14 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/solarized/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu</title>
+      <link>https://jwillikers.com/tags/ubuntu/</link>
+      <pubDate>Wed, 14 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unix</title>
+      <link>https://jwillikers.com/tags/unix/</link>
+      <pubDate>Wed, 14 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/unix/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>bat</title>
       <link>https://jwillikers.com/tags/bat/</link>
@@ -38,51 +101,6 @@
       <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/tags/less/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux</title>
-      <link>https://jwillikers.com/tags/linux/</link>
-      <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
-      <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
-      <link>https://jwillikers.com/tags/rust/</link>
-      <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
-      <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/tags/rust/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Solarized</title>
-      <link>https://jwillikers.com/tags/solarized/</link>
-      <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
-      <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/tags/solarized/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ubuntu</title>
-      <link>https://jwillikers.com/tags/ubuntu/</link>
-      <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
-      <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/tags/ubuntu/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Unix</title>
-      <link>https://jwillikers.com/tags/unix/</link>
-      <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
-      <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/tags/unix/</guid>
       <description></description>
     </item>
     
@@ -267,20 +285,11 @@
     </item>
     
     <item>
-      <title>curl</title>
+      <title>cURL</title>
       <link>https://jwillikers.com/tags/curl/</link>
       <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/tags/curl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>git</title>
-      <link>https://jwillikers.com/tags/git/</link>
-      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
-      <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/tags/git/</guid>
       <description></description>
     </item>
     
@@ -299,6 +308,15 @@
       <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/tags/sudo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Wget</title>
+      <link>https://jwillikers.com/tags/wget/</link>
+      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/tags/wget/</guid>
       <description></description>
     </item>
     

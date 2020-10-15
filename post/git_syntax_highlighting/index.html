@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Git Syntax Highlighting - JWillikers</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Jordan Williams" /><meta name="description" content="If you like to use git from the command-line and enjoy syntax highlighting, you might be interested in delta, which adds this functionality and more to git.
+TutorialThis tutorial walks through installing and configuring delta, version 0.4.4 at the time of writing, on an amd64 system running Ubuntu 20.04. It assumes you are familiar with common command-line utilities on Ubuntu, including git.
+Download the deb file for the latest version of delta specific to your computer’s CPU architecture." /><meta name="keywords" content="Blog, BSD, Linux" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.76.4 with theme even" />
+
+
+<link rel="canonical" href="https://jwillikers.com/post/git_syntax_highlighting/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/syntax.css">
+
+
+<meta property="og:title" content="Git Syntax Highlighting" />
+<meta property="og:description" content="If you like to use git from the command-line and enjoy syntax highlighting, you might be interested in delta, which adds this functionality and more to git.
+TutorialThis tutorial walks through installing and configuring delta, version 0.4.4 at the time of writing, on an amd64 system running Ubuntu 20.04. It assumes you are familiar with common command-line utilities on Ubuntu, including git.
+Download the deb file for the latest version of delta specific to your computer’s CPU architecture." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jwillikers.com/post/git_syntax_highlighting/" />
+<meta property="article:published_time" content="2020-10-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-15T10:21:03-05:00" />
+<meta itemprop="name" content="Git Syntax Highlighting">
+<meta itemprop="description" content="If you like to use git from the command-line and enjoy syntax highlighting, you might be interested in delta, which adds this functionality and more to git.
+TutorialThis tutorial walks through installing and configuring delta, version 0.4.4 at the time of writing, on an amd64 system running Ubuntu 20.04. It assumes you are familiar with common command-line utilities on Ubuntu, including git.
+Download the deb file for the latest version of delta specific to your computer’s CPU architecture.">
+<meta itemprop="datePublished" content="2020-10-14T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-10-15T10:21:03-05:00" />
+<meta itemprop="wordCount" content="254">
+
+
+
+<meta itemprop="keywords" content="delta,git,Linux,Rust,Solarized,Ubuntu,Unix," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git Syntax Highlighting"/>
+<meta name="twitter:description" content="If you like to use git from the command-line and enjoy syntax highlighting, you might be interested in delta, which adds this functionality and more to git.
+TutorialThis tutorial walks through installing and configuring delta, version 0.4.4 at the time of writing, on an amd64 system running Ubuntu 20.04. It assumes you are familiar with common command-line utilities on Ubuntu, including git.
+Download the deb file for the latest version of delta specific to your computer’s CPU architecture."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">JWillikers</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/resources/">
+        <li class="mobile-menu-item">Resources</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">JWillikers</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/resources/">Resources</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Git Syntax Highlighting</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-10-14 </span>
+        <div class="post-category">
+            <a href="/categories/command-line/"> Command-line </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>If you like to use <a href="https://github.com/dandavison/delta"><code>git</code></a> from the command-line and enjoy syntax highlighting, you might be interested in <a href="https://github.com/dandavison/delta"><code>delta</code></a>, which adds this functionality and more to <code>git</code>.</p>
+<section class="doc-section level-1"><h2 id="_tutorial">Tutorial</h2><p>This tutorial walks through installing and configuring <code>delta</code>, version 0.4.4 at the time of writing, on an amd64 system running <a href="https://ubuntu.com/">Ubuntu</a> 20.04.
+It assumes you are familiar with common command-line utilities on Ubuntu, including <code>git</code>.</p>
+<div class="olist arabic"><ol class="arabic"><li><p>Download the deb file for the latest version of <code>delta</code> specific to your computer’s CPU architecture.</p><div class="open-block"><div class="content"><p>Releases can be found <a href="https://github.com/dandavison/delta/releases">here</a>.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-q</span> <span class="nt">-nv</span> <span class="nt">-O</span> - https://api.github.com/repos/dandavison/delta/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">&#39;: &#39;</span> <span class="s1">&#39;/browser_download_url/ &amp;&amp; /_amd64\.deb/ &amp;&amp; !/musl/ {gsub(/&#34;/, &#34;&#34;, $(NF)); system(&#34;wget -qi -L &#34; $(NF))}&#39;</span></code></pre></div>
+<p>This one-liner downloads the amd64 deb installer for the latest release.</p></div></div></li><li><p>Install the <code>delta</code> deb package.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nb">install</span> ./git-delta_<span class="k">*</span>_amd64.deb</code></pre></div></li><li><p>Clean up the remaining deb package since it is no longer needed.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rm </span>git-delta_<span class="k">*</span>_amd64.deb</code></pre></div></li><li><p>Use <code>delta</code> as the pager for <code>git</code>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> core.pager delta</code></pre></div></li><li><p>Stylize diff output with <code>delta</code>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> interactive.diffFilter <span class="s2">&#34;delta --color-only&#34;</span></code></pre></div></li><li><p>Style moved blocks of code appropriately.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> diff.colorMoved default</code></pre></div></li><li><p>Customize your color scheme.</p><div class="open-block"><div class="content"><p>This command sets the color scheme to <a href="https://ethanschoonover.com/solarized/">Solarized</a> Dark.</p>
+<div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> delta.syntax-theme <span class="s2">&#34;Solarized (dark)&#34;</span></code></pre></div></div></div></li><li><p>View diffs side-by-side so that they are easier to compare.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> delta.side-by-side <span class="nb">true</span></code></pre></div></li><li><p>Show line numbers for reference.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> delta.line-numbers <span class="nb">true</span></code></pre></div></li><li><p>Turn on extra decorations to emphasize important details, such as the file and commit information.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> delta.decorations <span class="nb">true</span></code></pre></div></li></ol></div></section>
+<section class="doc-section level-1"><h2 id="_conclusion">Conclusion</h2><p>Hopefully this improves your experience analyzing <code>git</code> output and diffs from the command-line.</p></section>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/delta/">delta</a>
+          <a href="/tags/git/">git</a>
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/rust/">Rust</a>
+          <a href="/tags/solarized/">Solarized</a>
+          <a href="/tags/ubuntu/">Ubuntu</a>
+          <a href="/tags/unix/">Unix</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/pagers_and_syntax_highlighting/">
+            <span class="next-text nav-default">Pagers and Syntax Highlighting</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
+      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
+  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
+<br />
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br />
+<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

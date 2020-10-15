@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.76.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.4 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/" />
@@ -46,7 +46,7 @@
 <meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jwillikers.com/" />
-<meta property="og:updated_time" content="2020-10-09T09:24:26-05:00" />
+<meta property="og:updated_time" content="2020-10-15T10:21:03-05:00" />
 <meta itemprop="name" content="JWillikers">
 <meta itemprop="description" content="Handy admin and dev guides from my myriad of tinkering">
 <meta name="twitter:card" content="summary"/>
@@ -118,6 +118,27 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/unbound_adblock/">Unbound Adblock</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-03-28 </span>
+      <div class="post-category">
+          <a href="/categories/networking/"> Networking </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Ever want to get rid of all those annoying internet ads? Me too. I’d been planning on using something like Pi-hole, but recently stumbled upon unbound-adblock, which is perfect for my OpenBSD home router. The setup is very well-documented there, but I provide my own, slightly-modified setup instructions here. Most notably, the cron-job runs at 6:30 AM, not midnight, and I refined the PF rule which redirects DNS requests to Google’s DNS servers.
+    </div>
+    <div class="read-more">
+      <a href="/post/unbound_adblock/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/pppoe_openbsd/">PPPoE on OpenBSD</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-03-12 </span>
@@ -157,26 +178,6 @@ https://wiki.archlinux.org/index.php/Davfs2#Storing_credentials
     </div>
     <div class="read-more">
       <a href="/post/auto_mount_nextcloud/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/pager_syntax_highlighting/"></a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 0001-01-01 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Terminal Pager Syntax Highlighting
- title = &#34;Terminal Pager Syntax Highlighting&#34; categories = [&#34;Command-line&#34;] tags = [&#34;bat&#34;, &#34;BSD&#34;, &#34;delta&#34;, &#34;Linux&#34;, &#34;git&#34;, &#34;less&#34;, &#34;macOS&#34;, &#34;source-highlight&#34;, &#34;Ubuntu&#34;, &#34;Unix&#34;, &#34;Vim&#34;, &#34;vimpager&#34;, &#34;vimcat&#34;] date = &#34;2020-10-11&#34; draft = true The default pager in most Unix terminals, usually less, works great for a scrolling through text. It’s certainly a great improvement over its predecessor [more], though this doesn’t mean it can’t be improved.[1] One such area for enhancement is syntax highlighting, which can make scanning through code a bit less tedious.
-    </div>
-    <div class="read-more">
-      <a href="/post/pager_syntax_highlighting/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>

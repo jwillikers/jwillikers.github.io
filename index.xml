@@ -22,13 +22,24 @@
   &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;
   Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
 </copyright>
-    <lastBuildDate>Sun, 11 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 14 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://jwillikers.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Syntax Highlighting on the Command-line with bat</title>
-      <link>https://jwillikers.com/post/syntax_highlighting_on_the_command_line_with_bat/</link>
+      <title>Git Syntax Highlighting</title>
+      <link>https://jwillikers.com/post/git_syntax_highlighting/</link>
+      <pubDate>Wed, 14 Oct 2020 00:00:00 +0000</pubDate>
+      <author>jordan@jwillikers.com (Jordan Williams)</author>
+      <guid>https://jwillikers.com/post/git_syntax_highlighting/</guid>
+      <description>If you like to use git from the command-line and enjoy syntax highlighting, you might be interested in delta, which adds this functionality and more to git.
+TutorialThis tutorial walks through installing and configuring delta, version 0.4.4 at the time of writing, on an amd64 system running Ubuntu 20.04. It assumes you are familiar with common command-line utilities on Ubuntu, including git.
+Download the deb file for the latest version of delta specific to your computer’s CPU architecture.</description>
+    </item>
+    
+    <item>
+      <title>Pagers and Syntax Highlighting</title>
+      <link>https://jwillikers.com/post/pagers_and_syntax_highlighting/</link>
       <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/post/syntax_highlighting_on_the_command_line_with_bat/</guid>
+      <guid>https://jwillikers.com/post/pagers_and_syntax_highlighting/</guid>
       <description>bat is a helpful alternative to cat when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer. The Rust program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with git. It is a wonderful tool, though it won’t replace your general pager, like vimpager, or your git pager, like delta.</description>
     </item>
     
@@ -112,7 +123,7 @@ TutorialThis tutorial explains how to install ZSH and set it as your default she
       <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
       <author>jordan@jwillikers.com (Jordan Williams)</author>
       <guid>https://jwillikers.com/post/fetch_latest_github_release/</guid>
-      <description>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively.</description>
+      <description>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need cURL, shipped with macOS, or Wget, shipped with Linux, for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively.</description>
     </item>
     
     <item>
@@ -316,16 +327,6 @@ Tip: A common way of connecting to your ISP’s network is through DHCP. DHCP is
 /etc/systemd/system/mnt-webdav-service.mount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Mount] What=http(s)://address:&amp;lt;port&amp;gt;/path Where=/mnt/webdav/service Options=uid=1000,file_mode=0664,dir_mode=2775,grpid Type=davfs TimeoutSec=15 [Install] WantedBy=multi-user.target /etc/systemd/system/mnt-webdav-service.automount [Unit] Description=Mount WebDAV Service After=network-online.target Wants=network-online.target [Automount] Where=/mnt/webdav/service TimeoutIdleSec=300 [Install] WantedBy=remote-fs.target https://wiki.archlinux.org/index.php/Fstab#Automount_with_systemd
 https://wiki.archlinux.org/index.php/Davfs2#Storing_credentials
 /etc/fstab https://webdav.example/path /mnt/webdav davfs rw,user,uid=username,noauto 0 0 /etc/davfs2/secrets https://webdav.example/path davusername davpassword $ chmod 600 /etc/davfs2/secrets $ chown root:root /etc/davfs2/secrets $ chmod 600 ~/.davfs2/secrets </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://jwillikers.com/post/pager_syntax_highlighting/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>jordan@jwillikers.com (Jordan Williams)</author>
-      <guid>https://jwillikers.com/post/pager_syntax_highlighting/</guid>
-      <description>Terminal Pager Syntax Highlighting
- title = &amp;#34;Terminal Pager Syntax Highlighting&amp;#34; categories = [&amp;#34;Command-line&amp;#34;] tags = [&amp;#34;bat&amp;#34;, &amp;#34;BSD&amp;#34;, &amp;#34;delta&amp;#34;, &amp;#34;Linux&amp;#34;, &amp;#34;git&amp;#34;, &amp;#34;less&amp;#34;, &amp;#34;macOS&amp;#34;, &amp;#34;source-highlight&amp;#34;, &amp;#34;Ubuntu&amp;#34;, &amp;#34;Unix&amp;#34;, &amp;#34;Vim&amp;#34;, &amp;#34;vimpager&amp;#34;, &amp;#34;vimcat&amp;#34;] date = &amp;#34;2020-10-11&amp;#34; draft = true The default pager in most Unix terminals, usually less, works great for a scrolling through text. It’s certainly a great improvement over its predecessor [more], though this doesn’t mean it can’t be improved.[1] One such area for enhancement is syntax highlighting, which can make scanning through code a bit less tedious.</description>
     </item>
     
   </channel>

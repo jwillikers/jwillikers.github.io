@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Jordan Williams" /><meta name="description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively." /><meta name="keywords" content="Blog, BSD, Linux" />
+<meta name="author" content="Jordan Williams" /><meta name="description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need cURL, shipped with macOS, or Wget, shipped with Linux, for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &amp;lt;user&amp;gt;, &amp;lt;repo&amp;gt;, and &amp;lt;extension&amp;gt; fields respectively." /><meta name="keywords" content="Blog, BSD, Linux" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.76.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.4 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/fetch_latest_github_release/" />
@@ -41,23 +41,23 @@
 
 
 <meta property="og:title" content="One-liner to Fetch the Latest Github Release" />
-<meta property="og:description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively." />
+<meta property="og:description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need cURL, shipped with macOS, or Wget, shipped with Linux, for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jwillikers.com/post/fetch_latest_github_release/" />
 <meta property="article:published_time" content="2020-09-19T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-09-22T13:59:49-05:00" />
+<meta property="article:modified_time" content="2020-10-14T18:55:27-05:00" />
 <meta itemprop="name" content="One-liner to Fetch the Latest Github Release">
-<meta itemprop="description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively.">
+<meta itemprop="description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need cURL, shipped with macOS, or Wget, shipped with Linux, for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively.">
 <meta itemprop="datePublished" content="2020-09-19T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2020-09-22T13:59:49-05:00" />
-<meta itemprop="wordCount" content="287">
+<meta itemprop="dateModified" content="2020-10-14T18:55:27-05:00" />
+<meta itemprop="wordCount" content="362">
 
 
 
-<meta itemprop="keywords" content="awk,curl,git,Github," />
+<meta itemprop="keywords" content="awk,cURL,Linux,macOS,git,Github,Wget," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="One-liner to Fetch the Latest Github Release"/>
-<meta name="twitter:description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need curl for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively."/>
+<meta name="twitter:description" content="Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line. And if it could incorporate awk, that would be great too.[1] Well, the following command-line is a pretty nifty template to do just that! You will need cURL, shipped with macOS, or Wget, shipped with Linux, for this to work. Substitute in the user or organization name, the project’s name, and the desired file extension for the &lt;user&gt;, &lt;repo&gt;, and &lt;extension&gt; fields respectively."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,25 +145,33 @@
       <p>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line.
 And if it could incorporate <a href="https://en.wikipedia.org/wiki/AWK">awk</a>, that would be great too.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a>
 Well, the following command-line is a pretty nifty template to do just that!
-You will need <a href="https://curl.haxx.se/">curl</a> for this to work.
+You will need <a href="https://curl.haxx.se/">cURL</a>, shipped with macOS, or <a href="https://www.gnu.org/software/wget/">Wget</a>, shipped with Linux, for this to work.
 Substitute in the user or organization name, the project’s name, and the desired file extension for the <em>&lt;user&gt;</em>, <em>&lt;repo&gt;</em>, and <em>&lt;extension&gt;</em> fields respectively.</p>
-<figure class="listing-block"><figcaption>Install the latest Github release</figcaption>
+<figure class="listing-block"><figcaption>Download the latest Github release (cURL)</figcaption>
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/&lt;user&gt;/&lt;repo&gt;/releases/latest <span class="se">\</span>
   | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">&#39;: &#39;</span> <span class="s1">&#39;/browser_download_url/ &amp;&amp; /\.&lt;file extension&gt;/ {gsub(/&#34;/, &#34;&#34;, $(NF)); system(&#34;curl -LO &#34; $(NF))}&#39;</span></code></pre></figure>
+<figure class="listing-block"><figcaption>Download the latest Github release (Wget)</figcaption>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>wget <span class="nt">-q</span> <span class="nt">-nv</span> <span class="nt">-O</span> - https://api.github.com/repos/&lt;user&gt;/&lt;repo&gt;/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">&#39;: &#39;</span> <span class="s1">&#39;/browser_download_url/ &amp;&amp; /\.&lt;file extension&gt;/ \
+  {gsub(/&#34;/, &#34;&#34;, $(NF)); system(&#34;wget -qi -L &#34; $(NF))}&#39;</span></code></pre></figure>
 <p>Here is a quick explanation.
-First, <code>curl</code> obtains the response from an HTTP GET request.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a>
+First, cURL or Wget obtains the response from an HTTP GET request.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a>
 This response contains the URLs for the various artifacts for the latest release of the project.
 Next, <code>awk</code> processes the response, finding the line containing a download URL and matching the given file extension.
-It then removes the quotation marks surrounding the URL and downloads the file directly with <code>curl</code>.</p>
+It then removes the quotation marks surrounding the URL and downloads the file directly with cURL or Wget.</p>
 <p>It’s also easy enough to modify the match pattern for the file extension to make it more specific if need be.
 The following example demonstrates this by fetching the latest Linux release zip file of the <a href="https://ninja-build.org/">Ninja build system</a>.</p>
-<figure class="listing-block"><figcaption>Install the latest Ninja release</figcaption>
+<figure class="listing-block"><figcaption>Download the latest Ninja release (cURL)</figcaption>
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/ninja-build/ninja/releases/latest <span class="se">\</span>
   | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">&#39;: &#39;</span> <span class="s1">&#39;/browser_download_url/ &amp;&amp; /linux\.zip/ {gsub(/&#34;/, &#34;&#34;, $(NF)); system(&#34;curl -LO &#34; $(NF))}&#39;</span>
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   637  100   637    0     0   1103      0 <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:--  1105
-100 99913  100 99913    0     0   101k      0 <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:--  372k</code></pre></figure><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr/><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8#gistcomment-3457870">Github Gist: One Liner to Download the Latest Release from Github Repo</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">RFC 2616</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li></ol></section>
+100 99913  100 99913    0     0   101k      0 <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:--  372k</code></pre></figure>
+<figure class="listing-block"><figcaption>Download the latest Ninja release (Wget)</figcaption>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>wget <span class="nt">-q</span> <span class="nt">-nv</span> <span class="nt">-O</span> - https://api.github.com/repos/ninja-build/ninja/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">&#39;: &#39;</span> <span class="s1">&#39;/browser_download_url/ &amp;&amp; /linux\.zip/ \
+  {gsub(/&#34;/, &#34;&#34;, $(NF)); system(&#34;wget -qi -L &#34; $(NF))}&#39;</span></code></pre></figure><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr/><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8#gistcomment-3457870">Github Gist: One Liner to Download the Latest Release from Github Repo</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">RFC 2616</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li></ol></section>
 
     </div>
 
@@ -171,9 +179,12 @@ The following example demonstrates this by fetching the latest Linux release zip
 <footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/awk/">awk</a>
-          <a href="/tags/curl/">curl</a>
+          <a href="/tags/curl/">cURL</a>
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/macos/">macOS</a>
           <a href="/tags/git/">git</a>
           <a href="/tags/github/">Github</a>
+          <a href="/tags/wget/">Wget</a>
           </div>
       <nav class="post-nav">
         <a class="prev" href="/post/configure_zsh/">

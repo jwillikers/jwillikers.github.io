@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.76.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.4 with theme even" />
 
 
 <link rel="canonical" href="https://jwillikers.com/post/solarized_vim/" />
@@ -45,11 +45,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jwillikers.com/post/solarized_vim/" />
 <meta property="article:published_time" content="2020-10-08T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-10-09T09:24:26-05:00" />
+<meta property="article:modified_time" content="2020-10-13T09:04:38-05:00" />
 <meta itemprop="name" content="Solarized Vim">
 <meta itemprop="description" content="I enjoy the Solarized color scheme, so I figured out how to set it up in Vim. The Solarized color scheme provides a plugin for Vim, which makes this pretty straightfoward. The following instructions detail how to do this on Ubuntu 20.04, but other than the installation step, this should work on any Unix-like system so long as Vim is at least version eight. This guide assumes you are familiar with installing packages from the command-line on Ubuntu, git, configuring Vim, and using Vim packages.">
 <meta itemprop="datePublished" content="2020-10-08T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2020-10-09T09:24:26-05:00" />
+<meta itemprop="dateModified" content="2020-10-13T09:04:38-05:00" />
 <meta itemprop="wordCount" content="204">
 
 
@@ -148,7 +148,7 @@ The following instructions detail how to do this on <a href="https://ubuntu.com/
 This guide assumes you are familiar with installing packages from the command-line on Ubuntu, <a href="https://git-scm.com/">git</a>, configuring Vim, and <a href="https://github.com/vim/vim/blob/856c1110c1cf0d6e44e387b70732/runtime/doc/repeat.txt#L525">using Vim packages</a>.<a class="footnote-ref" id="_footnoteref_1" href="#_footnote_1" title="View footnote 1" role="doc-noteref">[1]</a></p>
 <div class="olist arabic"><ol class="arabic"><li><p>First, install Vim if you haven’t already done so.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh"><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> vim</code></pre></div></li><li><p>Create a <code>plugins</code> directory according to Vim’s plugin directory scheme for autoloaded plugins, i.e. <code>\~/.vim/pack/\*/start</code>.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.vim/pack/plugins/start</code></pre></div></li><li><p>Download the Solarized plugin’s git repository in this directory.</p><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ git clone https://github.com/altercation/vim-colors-solarized.git <span class="se">\</span>
   ~/.vim/pack/plugins/start/vim-colors-solarized</code></pre></div></li><li><p>Optionally, update the help index with the new plugin’s documentation.<a class="footnote-ref" id="_footnoteref_2" href="#_footnote_2" title="View footnote 2" role="doc-noteref">[2]</a></p><div class="open-block"><div class="content"><div class="listing-block"><pre class="rouge highlight"><code data-lang="sh">➜ vim <span class="nt">-u</span> NONE <span class="nt">-c</span> <span class="s2">&#34;helptags vim-colors-solarized/doc&#34;</span> <span class="nt">-c</span> q</code></pre></div>
-<aside class="admonition-block tip" role="doc-tip"><h6 class="block-title label-only"><span class="title-label">Tip: </span></h6><p>From within Vim, access the plugin’s help documentation with <code>:help solarized</code>.</p></aside></div></div></li><li><p>Enable the Solarized Dark color scheme in your Vim configuration file.</p><figure class="listing-block"><figcaption>\~/.vim/vimrc</figcaption>
+<aside class="admonition-block tip" role="doc-tip"><h6 class="block-title label-only"><span class="title-label">Tip: </span></h6><p>From within Vim, access the plugin’s help documentation with <code>:help solarized</code>.</p></aside></div></div></li><li><p>Enable the Solarized Dark color scheme in your Vim configuration file.</p><figure class="listing-block"><figcaption>~/.vim/vimrc</figcaption>
 <pre class="rouge highlight"><code>syntax enable
 set background=dark
 colorscheme solarized</code></pre></figure></li></ol></div><section class="footnotes" aria-label="Footnotes" role="doc-endnotes"><hr/><ol class="footnotes"><li class="footnote" id="_footnote_1" role="doc-endnote"><a href="https://vi.stackexchange.com/a/9523">Vi and Vim StackExchange: What is the Vim8 package feature and how should I use it?</a> <a class="footnote-backref" href="#_footnoteref_1" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li><li class="footnote" id="_footnote_2" role="doc-endnote"><a href="https://wiki.archlinux.org/index.php/vim#Using_the_built-in_package_manager">Arch Wiki: Vim - Using the built-in package manager</a> <a class="footnote-backref" href="#_footnoteref_2" role="doc-backlink" title="Jump to the first occurrence in the text">↩</a></li></ol></section>
@@ -168,9 +168,9 @@ colorscheme solarized</code></pre></figure></li></ol></div><section class="footn
           <a href="/tags/vim/">Vim</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/syntax_highlighting_on_the_command_line_with_bat/">
+        <a class="prev" href="/post/pagers_and_syntax_highlighting/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Syntax Highlighting on the Command-line with bat</span>
+            <span class="prev-text nav-default">Pagers and Syntax Highlighting</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         <a class="next" href="/post/switch_to_fish/">
