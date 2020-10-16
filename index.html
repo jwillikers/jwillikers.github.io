@@ -1,307 +1,171 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>JWillikers</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Jordan Williams" /><meta name="description" content="Handy admin and dev guides from my myriad of tinkering" /><meta name="keywords" content="Blog, BSD, Linux" />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.76.3 with theme even" />
-
-
-<link rel="canonical" href="https://jwillikers.com/" />
-  <link href="https://jwillikers.com/index.xml" rel="alternate" type="application/rss+xml" title="JWillikers" />
-  <link href="https://jwillikers.com/index.xml" rel="feed" type="application/rss+xml" title="JWillikers" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/css/syntax.css">
-
-
-<meta property="og:title" content="JWillikers" />
-<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://jwillikers.com/" />
-<meta property="og:updated_time" content="2020-10-15T10:21:03-05:00" />
-<meta itemprop="name" content="JWillikers">
-<meta itemprop="description" content="Handy admin and dev guides from my myriad of tinkering">
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="JWillikers"/>
-<meta name="twitter:description" content="Handy admin and dev guides from my myriad of tinkering"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jekyll AsciiDoc Quickstart</title>
+    <meta name="description" content="A forkable blog-ready Jekyll site using AsciiDoc">
+    <meta name="author" content="Your name goes here">
+    <meta name="copyright" content="Maybe consider a Creative Commons license">
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/coderay.css">
+    <link rel="stylesheet" href="css/asciidoctor.css">
+    <script src="js/vendor/modernizr.js"></script>
+    <script src="js/toc.js"></script>
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">JWillikers</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/resources/">
-        <li class="mobile-menu-item">Resources</li>
-      </a><a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a>
-  </ul>
+
+
+<!-- Nav Bar -->
+
+<nav class="top-bar" data-topbar>
+    <ul class="title-area">
+        <!-- Title Area -->
+        <li class="name">
+            <h1>
+                <a href="">JWillikers</a>
+            </h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
 </nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">JWillikers</a>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Jekyll AsciiDoc Quickstart</h1>
+  </header>
+
+  <div class="post-content">
+    <h1>Congratulations!</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#8217;ve successfully set up and deployed an Jekyll website powered by AsciiDoc using the <a href="https://github.com/asciidoctor/jekyll-asciidoc-quickstart"><strong>Jekyll AsciiDoc Quickstart</strong></a> project. If everything is in order then changes to the AsciiDoc content will be automatically published to your <code>gh_pages</code> branch and hosted via Jekyll and Github.</p>
 </div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/resources/">Resources</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <section id="posts" class="posts">
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/git_syntax_highlighting/">Git Syntax Highlighting</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-14 </span>
-      <div class="post-category">
-          <a href="/categories/command-line/"> Command-line </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      If you like to use git from the command-line and enjoy syntax highlighting, you might be interested in delta, which adds this functionality and more to git.
-TutorialThis tutorial walks through installing and configuring delta, version 0.4.4 at the time of writing, on an amd64 system running Ubuntu 20.04. It assumes you are familiar with common command-line utilities on Ubuntu, including git.
-Download the deb file for the latest version of delta specific to your computer’s CPU architecture.
-    </div>
-    <div class="read-more">
-      <a href="/post/git_syntax_highlighting/" class="read-more-link">Read more...</a>
-    </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what_do_i_do_now">What do I do now?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you&#8217;ve set up your website to run with AsciiDoc, you have a ton of options available to you.</p>
+</div>
+<div class="sect2">
+<h3 id="edit_content">Edit content</h3>
+<div class="paragraph">
+<p>Editing content is very simple. The easiest way to update your blog is to clone your repository, fire up your favorite text editor and run the content locally. To do this run the <code>jekyll serve</code> command and open a web browser to <a href="http://localhost:4000" class="bare">http://localhost:4000</a>. Jekyll will automatically process and host changes to the content. Also make sure that your <code>Gemfile</code> is up-to-date with the current version of your gem sources, e.g. with <code>gem list --local | grep "jekyll"</code>.</p>
+</div>
+<div class="paragraph">
+<p>You may also edit your content directly on Github. To do this, navigate the browser the file you wish to edit, click the pensil (edit) button in the upper right hand corner of the view and make your changes. When you&#8217;re finished, commit your changes. This will trigger Travis to generate and publish a new website including your changes.</p>
+</div>
+<div class="paragraph">
+<p>For blog posts, Jekyll will recognize files under the <code>_post</code> directory, parse the name and place it in the list of posts. These will show up under the <code>site.posts</code> variable.</p>
+</div>
+<div class="paragraph">
+<p>To display a list of posts, use Jekyll syntax similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="html">{% for post in site.posts limit: 5 %}
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">".{{ post.url }}"</span><span class="nt">&gt;</span>{{ post.navtitle }}<span class="nt">&lt;/a&gt;</span>
+{% endfor %}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="update_look_and_feel">Update Look and feel</h3>
+<div class="paragraph">
+<p>The layout provided with the <a href="https://github.com/asciidoctor/jekyll-asciidoc-quickstart">Jekyll AsciiDoc Quickstart</a> project is based on <a href="http://foundation.zurb.com">Foundation</a>, a responsive design css framework. You&#8217;re free to update the layout by editing the <code>_layouts/default.html</code> file and css under the <code>css</code> directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="reference_documentation">Reference documentation</h3>
+<div class="paragraph">
+<p>The following links will help with detailed explanations on Jekyll and AsciiDoc.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://jekyllrb.com">Jekyll</a></p>
+</li>
+<li>
+<p><a href="http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/">AsciiDoc Quick Reference</a></p>
+</li>
+<li>
+<p><a href="http://asciidoctor.org">Asciidoctor</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
   </div>
+
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/pagers_and_syntax_highlighting/">Pagers and Syntax Highlighting</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-11 </span>
-      <div class="post-category">
-          <a href="/categories/command-line/"> Command-line </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      bat is a helpful alternative to cat when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer. The Rust program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with git. It is a wonderful tool, though it won’t replace your general pager, like vimpager, or your git pager, like delta.
-    </div>
-    <div class="read-more">
-      <a href="/post/pagers_and_syntax_highlighting/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/solarized_vim/">Solarized Vim</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-08 </span>
-      <div class="post-category">
-          <a href="/categories/command-line/"> Command-line </a>
-          </div>
     </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      I enjoy the Solarized color scheme, so I figured out how to set it up in Vim. The Solarized color scheme provides a plugin for Vim, which makes this pretty straightfoward. The following instructions detail how to do this on Ubuntu 20.04, but other than the installation step, this should work on any Unix-like system so long as Vim is at least version eight. This guide assumes you are familiar with installing packages from the command-line on Ubuntu, git, configuring Vim, and using Vim packages.
-    </div>
-    <div class="read-more">
-      <a href="/post/solarized_vim/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/switch_to_fish/">Switch to fish</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-03 </span>
-      <div class="post-category">
-          <a href="/categories/command-line/"> Command-line </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      I’ve finally made the switch from ZSH to the fish shell. Unlike ZSH, I don’t need to install and manage a whole host of plugins. Everything I want comes packaged right in as part of the shell itself.
-The SwitchIn this post, I describe how to switch to the fish shell and some of the interesting features it offers.
-InstallInstalling fish is a piece of cake. On Ubuntu, a fish package is readily available.
-    </div>
-    <div class="read-more">
-      <a href="/post/switch_to_fish/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
+    <!-- End Main Content -->
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/too_many_open_files_on_macos_when_compiling/">&#34;Too many open files&#34; when Compiling on macOS</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-02 </span>
-      <div class="post-category">
-          <a href="/categories/command-line/"> Command-line </a>
-          </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Occasionally things just go wrong during large builds. One such occurrence is on macOS when compiling a large C++ project.
-ProblemThe following error message is output by LLVM Clang 10.0.1 when compiling from the command-line. The Clion IDE builds the project just fine, of course.
-$ cmake --build build ... In file included from /opt/local/include/boost/spirit/home/x3.hpp:19: In file included from /opt/local/include/boost/spirit/home/x3/operator.hpp:10: In file included from /opt/local/include/boost/spirit/home/x3/operator/sequence.hpp:12: /opt/local/include/boost/spirit/home/x3/operator/detail/sequence.hpp:25:10: fatal error: cannot open file &#39;/opt/local/include/boost/fusion/include/as_deque.
-    </div>
-    <div class="read-more">
-      <a href="/post/too_many_open_files_on_macos_when_compiling/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
+    <!-- Sidebar -->
 
-    </section>
-  
-  <nav class="pagination">
-    
-    <a class="next" href="/page/2/">
-        <span class="next-text">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-  </nav>
+    <aside class="large-3 columns">
+
+        <h4>Posts</h4>
+        <ul id="posts" class="posts nav">
+            
+            <li><a href="/2015/01/01/first-entry.html">First Entry</a></li>
+            
+        </ul>
+
+        <div class="panel">
+            <h5>Featured</h5>
+
+            <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon
+                nulla pork belly cupidatat meatloaf cow.</p>
         </div>
-        
 
-      </div>
-    </main>
+    </aside>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="https://github.com/jwillikers" class="iconfont icon-github" title="github"></a>
-      <a href="https://gitlab.com/jwillikers" class="iconfont icon-gitlab" title="gitlab"></a>
-      <a href="https://stackoverflow.com/users/9835303/" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
-      <a href="mailto:jordan@jwillikers.com" class="iconfont icon-email" title="email"></a>
-  <a href="https://jwillikers.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+    <!-- End Sidebar -->
 </div>
 
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
+<!-- End Main Content and Sidebar -->
 
-  
 
-  <span class="copyright-year">
-    &copy; 
-    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Jordan Williams
-<br />
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-<img alt="Creative Commons License" style="border-width:0"
-  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
-<br />
-<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
-  property="dct:title" rel="dct:type">JWillikers</span> by 
-  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
-  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
-  is licensed under a 
-  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-  Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-</span>
-  </span>
-</div>
+<!-- Footer -->
 
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+<footer class="row">
+    <div class="large-12 columns">
+        <hr>
+        <div class="row">
+            <div class="large-12 columns">
+                <p>Footer</p>
+            </div>
+        </div>
     </div>
-  </div>
-  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+</footer>
 
-
-
-<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
-
-
-
-
-
-
-
-
+<script src="js/vendor/jquery.js"></script>
+<script src="js/foundation.min.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
 </body>
 </html>
