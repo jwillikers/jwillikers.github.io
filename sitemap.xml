@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://jwillikers.com/2020/05/unifi-controller.html</loc>
+<loc>https://jwillikers.com/UniFi-Controller</loc>
 <lastmod>2020-05-30T00:00:00+00:00</lastmod>
 </url>
 <url>
-<loc>https://jwillikers.com/2020/09/automatically-update-antigen.html</loc>
+<loc>https://jwillikers.com/Backup-Docker-Data</loc>
+<lastmod>2020-07-02T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>https://jwillikers.com/Configure-ZSH</loc>
+<lastmod>2020-09-22T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>https://jwillikers.com/Automatically-Update-Antigen</loc>
 <lastmod>2020-09-23T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>https://jwillikers.com/Change-Your-Shell</loc>
+<lastmod>2020-10-01T00:00:00+00:00</lastmod>
 </url>
 <url>
 <loc>https://jwillikers.com/about</loc>

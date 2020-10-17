@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Configure ZSH | JWillikers</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Configure ZSH" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering" />
+<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
+<link rel="canonical" href="https://jwillikers.com/Configure-ZSH" />
+<meta property="og:url" content="https://jwillikers.com/Configure-ZSH" />
+<meta property="og:site_name" content="JWillikers" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-22T00:00:00+00:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-09-22T00:00:00+00:00","description":"Handy admin and dev guides from my myriad of tinkering","mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/Configure-ZSH"},"url":"https://jwillikers.com/Configure-ZSH","@type":"BlogPosting","headline":"Configure ZSH","dateModified":"2020-09-22T00:00:00+00:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">JWillikers</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Configure ZSH</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-09-22T00:00:00+00:00" itemprop="datePublished">
+        Sep 22, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I&#8217;ve been using <a href="https://www.zsh.org/">ZSH</a> for years now as my shell.
+In that time, I&#8217;ve learned a few niceties to make the experience better.
+Namely, I&#8217;ve found the minimal <a href="https://ohmyz.sh/">oh-my-zsh</a> prompt keeps out of the way and the git aliases super convenient.
+Plugins for <a href="https://github.com/zsh-users/zsh-autosuggestions">autosuggestions</a>, like in the <a href="https://fishshell.com/">fish shell</a>, and <a href="https://github.com/zsh-users/zsh-syntax-highlighting">syntax highlighting</a> are also quite helpful.
+<a href="http://antigen.sharats.me/">Antigen</a> makes keeping plugins up-to-date a breeze.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial explains how to install ZSH and set it as your default shell on Ubuntu 20.04.
+Plus, it details how to install and configure Antigen, oh-my-zsh, autosuggestions, and syntax highlighting.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install ZSH.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> zsh</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add <code>/usr/bin/zsh</code> to <code>/etc/shells</code> so that is can be used as the default shell.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">command</span> <span class="nt">-v</span> zsh | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/shells
+/usr/bin/zsh</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the default shell to <code>zsh</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>chsh <span class="nt">-s</span> <span class="sb">`</span>which zsh<span class="sb">`</span>
+Changing shell <span class="k">for </span>jordan.
+Password:
+Shell changed.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now, open up a fresh terminal session to start using .</p>
+</li>
+<li>
+<p>Download and install Antigen.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>
+There is a <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=906757">bug</a> in the <a href="https://bugs.debian.org/cgi-bin/pkgreport.cgi?pkg=zsh-antigen;dist=unstable">debian package</a> at this time, so manually download and install it.<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>wget <span class="nt">-q</span> git.io/antigen
+<span class="nv">$ </span><span class="nb">sudo mkdir</span> /usr/share/zsh-antigen
+<span class="nv">$ </span><span class="nb">sudo mv </span>antigen /usr/share/zsh-antigen/antigen.zsh</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When the bug is fixed, you can simply install the package with <a href="https://wiki.debian.org/Aptitude">Aptitude</a> as follows.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> zsh-antigen</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Create the <code>.antigenrc</code> configuration file.<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup></p>
+<div class="listingblock">
+<div class="title">~/.antigenrc</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="c"># Load the oh-my-zsh library</span>
+antigen use oh-my-zsh
+
+antigen bundles <span class="o">&lt;&lt;</span><span class="no">EOBUNDLES</span><span class="sh">
+    # Bundles from the default repo (robbyrussell's oh-my-zsh)
+    git
+
+    # Fish-like auto suggestions
+    zsh-users/zsh-autosuggestions
+
+    # Extra zsh completions
+    zsh-users/zsh-completions
+
+    # Syntax highlighting bundle.
+    zsh-users/zsh-syntax-highlighting
+</span><span class="no">EOBUNDLES
+
+</span><span class="c"># Load the theme</span>
+antigen theme robbyrussell
+
+<span class="c"># Tell antigen that you're done</span>
+antigen apply</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now, from the <code>.zshrc</code> file load Antigen and the <code>.antigenrc</code> configuration file.</p>
+<div class="listingblock">
+<div class="title">~/.zshrc</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="c"># Load Antigen</span>
+<span class="nb">source</span> /usr/share/zsh-antigen/antigen.zsh
+
+<span class="c"># Load Antigen configurations</span>
+antigen init ~/.antigenrc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Load the updated <code>.zshrc</code> configuration file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">source</span> ~/.zshrc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Update the plugins as needed.<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnotedef_6" title="View footnote.">6</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>antigen update</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now be able to install and configure ZSH as your default shell in Ubuntu.
+You should also be able to setup Antigen to use oh-my-zsh and a couple of convenient plugins.
+If you want to automate updating your Antigen plugins with <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>, checkout the post <a href="automatically_update_antigen.html">Automatically Update Antigen</a>.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <a href="https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH">oh-my-zsh Wiki: Installing ZSH</a>
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. <a href="https://unix.stackexchange.com/a/111367/395084">Unix StackExchange: How to change default shell to ZSH - chsh says “invalid shell”</a>
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. <a href="https://github.com/zsh-users/antigen/wiki/Installation">Antigen Wiki: Installation</a>
+</div>
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. There is also an <a href="https://bugs.launchpad.net/ubuntu/+source/zsh-antigen/+bug/1770915">Ubuntu bug report</a> and an <a href="https://github.com/zsh-users/antigen/issues/659">Antigen bug report.</a>
+</div>
+<div class="footnote" id="_footnotedef_5">
+<a href="#_footnoteref_5">5</a>. <a href="https://github.com/zsh-users/antigen/wiki/Quick-start#configure-zshrc">Antigen Wiki: Quich start - Configure <code>.zshrc</code></a>
+</div>
+<div class="footnote" id="_footnotedef_6">
+<a href="#_footnoteref_6">6</a>. <a href="https://github.com/zsh-users/antigen/wiki/Commands#antigen-update">Antigen Wiki: Commands - antigen update</a>
+</div>
+</div>
+  </div><a class="u-url" href="/Configure-ZSH" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Handy admin and dev guides from my myriad of tinkering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jwillikers" title="jwillikers"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/9835303" title="9835303"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
