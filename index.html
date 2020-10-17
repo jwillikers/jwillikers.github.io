@@ -27,7 +27,7 @@
 <meta property="og:url" content="https://jwillikers.com/" />
 <meta property="og:site_name" content="JWillikers" />
 <script type="application/ld+json">
-{"url":"https://jwillikers.com/","@type":"WebSite","description":"The Jekyll AsciiDoc Quickstart project is a leg-up in starting your own website hosted on GitHub with content based in AsciiDoc.","headline":"JWillikers","name":"JWillikers","@context":"https://schema.org"}</script>
+{"url":"https://jwillikers.com/","headline":"JWillikers","@type":"WebSite","name":"JWillikers","description":"The Jekyll AsciiDoc Quickstart project is a leg-up in starting your own website hosted on GitHub with content based in AsciiDoc.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -57,22 +57,20 @@
     <!-- Main Blog Content -->
     <div class="large-9 columns" role="content">
 
-        <article class="post">
-
-  <header class="post-header">
-    <h1 class="post-title">JWillikers</h1>
-  </header>
-
-  <div class="post-content">
-    <h1>Congratulations!</h1>
+        <div class="home"><h1 class="page-heading">JWillikers</h1><h1>JWillikers</h1>
 <div class="paragraph">
 <p>{% for post in site.posts limit: 5 %}
 &lt;a href=".{{ post.url }}"&gt;{{ post.navtitle }}&lt;/a&gt;
 {% endfor %}</p>
-</div>
-  </div>
+</div><h2 class="post-list-heading">Posts</h2>
+    <ul class="post-list"><li><span class="post-meta">Jan 1, 2015</span>
+        <h3>
+          <a class="post-link" href="/2015/01/first-entry.html">
+            First Entry
+          </a>
+        </h3></li></ul>
 
-</article>
+    <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p></div>
 
 
     </div>
@@ -86,7 +84,7 @@
         <h4>Posts</h4>
         <ul id="posts" class="posts nav">
             
-            <li><a href="/2015/01/01/first-entry.html">First Entry</a></li>
+            <li><a href="/2015/01/first-entry.html">First Entry</a></li>
             
         </ul>
 
