@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Automatically Update Antigen | JWillikers</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Automatically Update Antigen" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering" />
+<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
+<link rel="canonical" href="https://jwillikers.com/2020/09/automatically-update-antigen.html" />
+<meta property="og:url" content="https://jwillikers.com/2020/09/automatically-update-antigen.html" />
+<meta property="og:site_name" content="JWillikers" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-23T00:00:00+00:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-09-23T00:00:00+00:00","description":"Handy admin and dev guides from my myriad of tinkering","mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/2020/09/automatically-update-antigen.html"},"url":"https://jwillikers.com/2020/09/automatically-update-antigen.html","@type":"BlogPosting","headline":"Automatically Update Antigen","dateModified":"2020-09-23T00:00:00+00:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">JWillikers</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Automatically Update Antigen</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-09-23T00:00:00+00:00" itemprop="datePublished">
+        Sep 23, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>There&#8217;s a catch when it comes to managing plugins with <a href="http://antigen.sharats.me/">Antigen</a> as done in <a href="configure_zsh.html">Configure ZSH</a>.</p>
+</div>
+<div class="quoteblock">
+<div class="title">According to the Antigen documentation:</div>
+<blockquote>
+This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.
+</blockquote>
+<div class="attribution">
+&#8212; Antigen Wiki: Commands - antigen update
+</div>
+</div>
+<div class="paragraph">
+<p>I hate having to do any form of maintenance <em>occasionally</em>, especially simple maintenance.
+This has two potential outcomes:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Completely forget to do it ever.</p>
+</li>
+<li>
+<p>Do it incessantly.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Okay, there are more than just those two options.
+You could create some sort of <em>plan</em> for how often to do this.
+But, if you are going to so much work you might just want to automate it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial explains how to configure <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a> services and timers to automatically update a user&#8217;s ZSH plugins with Antigen once a week.
+This tutorial is broken into two sections, each of which accomplishes the same goal.
+The first describes how to use systemd user service and the second a system service for those unfortunate enough to be using Red Hat Enterprise Linux 7 and CentOS 7.</p>
+</div>
+<div class="sect2">
+<h3 id="user_level_update_service">User-level Update Service</h3>
+<div class="paragraph">
+<p>This particular use-case is a good fit for <a href="https://wiki.archlinux.org/index.php/Systemd/User">systemd user services</a> because an Antigen and ZSH setup is a user-specific configuration.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the systemd user configuration directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/systemd/user</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a systemd service to update the Antigen plugins.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">~/.config/systemd/user/update-antigen.service</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[Unit]</span>
+<span class="py">Description</span><span class="p">=</span><span class="s">Update Antigen</span>
+
+<span class="nn">[Service]</span>
+<span class="py">Type</span><span class="p">=</span><span class="s">oneshot</span>
+<span class="py">ExecStart</span><span class="p">=</span><span class="s">/usr/bin/zsh -c '. "$0" &amp;&amp; exec "$@"' /home/jordan/.zshrc antigen update</span>
+
+<span class="nn">[Install]</span>
+<span class="py">WantedBy</span><span class="p">=</span><span class="s">default.target</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command-line here is tricky because the <code>antigen update</code> command requires that the user&#8217;s Antigen functions and configuration be loaded.
+Of course, systemd is not going to run a command from this context automatically because it throws reproducibility right out the window.
+Thankfully some bash magic can make it happen.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Test run the new systemd unit.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nt">--user</span> start update-antigen.service</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the output of the command to make sure everything worked.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nt">--user</span> status update-antigen.service
+● update-antigen.service - Update Antigen
+     Loaded: loaded <span class="o">(</span>/home/jordan/.config/systemd/user/update-antigen.service<span class="p">;</span> disabled<span class="p">;</span> vendor preset: enabled<span class="o">)</span>
+     Active: inactive <span class="o">(</span>dead<span class="o">)</span> since Tue 2020-09-22 15:36:26 CDT<span class="p">;</span> 2min 51s ago
+TriggeredBy: ● update-antigen.timer
+    Process: 557748 <span class="nv">ExecStart</span><span class="o">=</span>/usr/bin/zsh <span class="nt">-c</span> <span class="nb">.</span> <span class="s2">"</span><span class="nv">$0</span><span class="s2">"</span> <span class="o">&amp;&amp;</span> <span class="nb">exec</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span> /home/jordan/.zshrc antigen update <span class="o">(</span><span class="nv">code</span><span class="o">=</span>exited, <span class="nv">status</span><span class="o">=</span>0/SUCCESS<span class="o">)</span>
+   Main PID: 557748 <span class="o">(</span><span class="nv">code</span><span class="o">=</span>exited, <span class="nv">status</span><span class="o">=</span>0/SUCCESS<span class="o">)</span>
+
+Sep 22 15:36:23 jwillikers systemd[7678]: Starting Update Antigen...
+Sep 22 15:36:24 jwillikers zsh[557748]: Updating robbyrussell/oh-my-zsh@master... Done. Took 0s.
+Sep 22 15:36:25 jwillikers zsh[557748]: Updating zsh-users/zsh-autosuggestions@master... Done. Took 1s.
+Sep 22 15:36:25 jwillikers zsh[557748]: Updating zsh-users/zsh-completions@master... Done. Took 0s.
+Sep 22 15:36:26 jwillikers zsh[557748]: Updating zsh-users/zsh-syntax-highlighting@master... Done. Took 1s.
+Sep 22 15:36:26 jwillikers systemd[7678]: update-antigen.service: Succeeded.
+Sep 22 15:36:26 jwillikers systemd[7678]: Finished Update Antigen.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add a systemd timer to update the Antigen plugins once per week.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">~/.config/systemd/user/update-antigen.timer</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[Unit]</span>
+<span class="py">Description</span><span class="p">=</span><span class="s">Update Antigen weekly</span>
+
+<span class="nn">[Timer]</span>
+<span class="py">Persistent</span><span class="p">=</span><span class="s">true</span>
+<span class="py">OnCalendar</span><span class="p">=</span><span class="s">weekly</span>
+
+<span class="nn">[Install]</span>
+<span class="py">WantedBy</span><span class="p">=</span><span class="s">timers.target</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This timer has <code>Persistent=true</code> to account for the situation when the timer would fire but the user has no session running.
+With this option, the timer will just fire the next time the user logs on.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Set the the Antigen update timer to start when logging in.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nt">--user</span> <span class="nb">enable </span>update-antigen.timer
+Created symlink /home/jordan/.config/systemd/user/timers.target.wants/update-antigen.timer → /home/jordan/.config/systemd/user/update-antigen.timer.</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="system_level_update_service">System-level Update Service</h3>
+<div class="paragraph">
+<p>The Red Hat Enterprise Linux 7 and CentOS 7 distributions don&#8217;t support user-level systemd services, but a system-level service is still possible, as this section describes.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add a <code>systemd</code> service to update the Antigen plugins.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">/etc/systemd/system/update-jordan-antigen.service</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[Unit]</span>
+<span class="py">Description</span><span class="p">=</span><span class="s">Update Jordan's Antigen plugins for ZSH</span>
+<span class="py">After</span><span class="p">=</span><span class="s">network-online.target</span>
+<span class="py">Wants</span><span class="p">=</span><span class="s">network-online.target</span>
+
+<span class="nn">[Service]</span>
+<span class="py">Type</span><span class="p">=</span><span class="s">oneshot</span>
+<span class="py">User</span><span class="p">=</span><span class="s">jordan</span>
+<span class="py">Group</span><span class="p">=</span><span class="s">jordan</span>
+<span class="py">ExecStart</span><span class="p">=</span><span class="s">/usr/bin/zsh -c '. "$0" &amp;&amp; exec "$@"' /home/jordan/.zshrc antigen update</span>
+
+<span class="nn">[Install]</span>
+<span class="py">WantedBy</span><span class="p">=</span><span class="s">multi-user.target</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This systemd unit executes the <code>antigen update</code> command after loading the <code>.zshrc</code> file for the user <code>jordan</code>.<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup>
+This is run as the user <code>jordan</code> and it requires the network be online in order to update.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the <code>network-online.target</code> exists.<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl is-enabled NetworkManager-wait-online.service
+enabled</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Test run the new <code>systemd</code> unit.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl start update-jordan-antigen.service</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the output of the command to make sure everything worked.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl status update-jordan-antigen.service
+● update-jordan-antigen.service - Update Jordan<span class="se">\'</span>s Antigen plugins <span class="k">for </span>ZSH
+   Loaded: loaded <span class="o">(</span>/etc/systemd/system/update-jordan-antigen.service<span class="p">;</span> disabled<span class="p">;</span> vendor preset: disabled<span class="o">)</span>
+   Active: inactive <span class="o">(</span>dead<span class="o">)</span>
+
+Sep 16 14:12:36 jwillikers systemd[1]: Starting Update Jordan<span class="se">\'</span>s Antigen plugins <span class="k">for </span>ZSH...
+Sep 16 14:12:37 jwillikers zsh[315]: Updating robbyrussell/oh-my-zsh@master... Done. Took 1s.
+Sep 16 14:12:38 jwillikers zsh[315]: Updating zsh-users/zsh-autosuggestions@master... Done. Took 1s.
+Sep 16 14:12:38 jwillikers zsh[315]: Updating zsh-users/zsh-completions@master... Done. Took 0s.
+Sep 16 14:12:39 jwillikers zsh[315]: Updating zsh-users/zsh-syntax-highlighting@master... Done. Took 1s.
+Sep 16 14:12:39 jwillikers systemd[1]: Started Update Jordan<span class="se">\'</span>s Antigen plugins <span class="k">for </span>ZSH.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add a systemd timer to update the Antigen plugins once per week.</p>
+<div class="listingblock">
+<div class="title">/etc/systemd/system/update-jordan-antigen.timer</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[Unit]</span>
+<span class="py">Description</span><span class="p">=</span><span class="s">Update Antigen weekly</span>
+
+<span class="nn">[Timer]</span>
+<span class="py">Persistent</span><span class="p">=</span><span class="s">true</span>
+<span class="py">OnCalendar</span><span class="p">=</span><span class="s">weekly</span>
+
+<span class="nn">[Install]</span>
+<span class="py">WantedBy</span><span class="p">=</span><span class="s">timers.target</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Activate the Antigen update timer on system startup.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>update-jordan-antigen.timer
+Created symlink from /etc/systemd/system/timers.target.wants/update-jordan-antigen.timer to /etc/systemd/system/update-jordan-antigen.timer.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This timer has <code>Persistent=true</code> to account for the situation when the timer would fire but the system is not powered on.
+With this option, the timer will just fire the next the system boots.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>That&#8217;s the tutorial.
+You should now have a working systemd service to automatically update your ZSH plugins for you each week.
+Don&#8217;t forget to disable your update service when you decide to make the switch to the <a href="https://fishshell.com/">Fish shell</a>. 🐟</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <a href="https://stackoverflow.com/a/49765275/9835303">StackOverflow: Using a user&#8217;s .bashrc in a systemd service</a>
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. <a href="https://wiki.archlinux.org/index.php/Systemd/User#Basic_setup">Arch Wiki: systemd/user - Basic Setup</a>
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. <a href="https://help.tableau.com/current/server-linux/en-us/systemd_user_service_error.htm">Tableau Help: systemd User Service Failures</a>
+</div>
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. <a href="https://stackoverflow.com/a/49765275/9835303">StackOverflow: Using a user&#8217;s .bashrc in a systemd service</a>
+</div>
+<div class="footnote" id="_footnotedef_5">
+<a href="#_footnoteref_5">5</a>. <a href="https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/">Running Services After the Network is up</a>
+</div>
+</div>
+  </div><a class="u-url" href="/2020/09/automatically-update-antigen.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Handy admin and dev guides from my myriad of tinkering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jwillikers" title="jwillikers"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/9835303" title="9835303"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

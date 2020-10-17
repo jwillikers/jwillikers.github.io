@@ -1,4 +1,292 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-17T12:48:20+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">UniFi Controller</title><link href="https://jwillikers.com/2020/05/unifi-controller.html" rel="alternate" type="text/html" title="UniFi Controller" /><published>2020-05-30T00:00:00+00:00</published><updated>2020-05-30T00:00:00+00:00</updated><id>https://jwillikers.com/2020/05/unifi-controller</id><content type="html" xml:base="https://jwillikers.com/2020/05/unifi-controller.html">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-17T14:01:03+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Automatically Update Antigen</title><link href="https://jwillikers.com/2020/09/automatically-update-antigen.html" rel="alternate" type="text/html" title="Automatically Update Antigen" /><published>2020-09-23T00:00:00+00:00</published><updated>2020-09-23T00:00:00+00:00</updated><id>https://jwillikers.com/2020/09/automatically-update-antigen</id><content type="html" xml:base="https://jwillikers.com/2020/09/automatically-update-antigen.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There&amp;#8217;s a catch when it comes to managing plugins with &lt;a href=&quot;http://antigen.sharats.me/&quot;&gt;Antigen&lt;/a&gt; as done in &lt;a href=&quot;configure_zsh.html&quot;&gt;Configure ZSH&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;According to the Antigen documentation:&lt;/div&gt;
+&lt;blockquote&gt;
+This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.
+&lt;/blockquote&gt;
+&lt;div class=&quot;attribution&quot;&gt;
+&amp;#8212; Antigen Wiki: Commands - antigen update
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I hate having to do any form of maintenance &lt;em&gt;occasionally&lt;/em&gt;, especially simple maintenance.
+This has two potential outcomes:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Completely forget to do it ever.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Do it incessantly.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Okay, there are more than just those two options.
+You could create some sort of &lt;em&gt;plan&lt;/em&gt; for how often to do this.
+But, if you are going to so much work you might just want to automate it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial explains how to configure &lt;a href=&quot;https://www.freedesktop.org/wiki/Software/systemd/&quot;&gt;systemd&lt;/a&gt; services and timers to automatically update a user&amp;#8217;s ZSH plugins with Antigen once a week.
+This tutorial is broken into two sections, each of which accomplishes the same goal.
+The first describes how to use systemd user service and the second a system service for those unfortunate enough to be using Red Hat Enterprise Linux 7 and CentOS 7.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;user_level_update_service&quot;&gt;User-level Update Service&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This particular use-case is a good fit for &lt;a href=&quot;https://wiki.archlinux.org/index.php/Systemd/User&quot;&gt;systemd user services&lt;/a&gt; because an Antigen and ZSH setup is a user-specific configuration.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Create the systemd user configuration directory.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/.config/systemd/user&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a systemd service to update the Antigen plugins.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.config/systemd/user/update-antigen.service&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[Unit]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Update Antigen&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[Service]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;oneshot&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;ExecStart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/usr/bin/zsh -c '. &quot;$0&quot; &amp;amp;&amp;amp; exec &quot;$@&quot;' /home/jordan/.zshrc antigen update&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[Install]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;default.target&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The command-line here is tricky because the &lt;code&gt;antigen update&lt;/code&gt; command requires that the user&amp;#8217;s Antigen functions and configuration be loaded.
+Of course, systemd is not going to run a command from this context automatically because it throws reproducibility right out the window.
+Thankfully some bash magic can make it happen.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Test run the new systemd unit.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; start update-antigen.service&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Check the output of the command to make sure everything worked.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; status update-antigen.service
+● update-antigen.service - Update Antigen
+     Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/home/jordan/.config/systemd/user/update-antigen.service&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; disabled&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; vendor preset: enabled&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+     Active: inactive &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;dead&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; since Tue 2020-09-22 15:36:26 CDT&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 2min 51s ago
+TriggeredBy: ● update-antigen.timer
+    Process: 557748 &lt;span class=&quot;nv&quot;&gt;ExecStart&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/bin/zsh &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$@&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; /home/jordan/.zshrc antigen update &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;exited, &lt;span class=&quot;nv&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0/SUCCESS&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   Main PID: 557748 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;exited, &lt;span class=&quot;nv&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0/SUCCESS&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+Sep 22 15:36:23 jwillikers systemd[7678]: Starting Update Antigen...
+Sep 22 15:36:24 jwillikers zsh[557748]: Updating robbyrussell/oh-my-zsh@master... Done. Took 0s.
+Sep 22 15:36:25 jwillikers zsh[557748]: Updating zsh-users/zsh-autosuggestions@master... Done. Took 1s.
+Sep 22 15:36:25 jwillikers zsh[557748]: Updating zsh-users/zsh-completions@master... Done. Took 0s.
+Sep 22 15:36:26 jwillikers zsh[557748]: Updating zsh-users/zsh-syntax-highlighting@master... Done. Took 1s.
+Sep 22 15:36:26 jwillikers systemd[7678]: update-antigen.service: Succeeded.
+Sep 22 15:36:26 jwillikers systemd[7678]: Finished Update Antigen.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add a systemd timer to update the Antigen plugins once per week.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.config/systemd/user/update-antigen.timer&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[Unit]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Update Antigen weekly&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[Timer]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;Persistent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;OnCalendar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;weekly&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[Install]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;timers.target&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This timer has &lt;code&gt;Persistent=true&lt;/code&gt; to account for the situation when the timer would fire but the user has no session running.
+With this option, the timer will just fire the next time the user logs on.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the the Antigen update timer to start when logging in.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;update-antigen.timer
+Created symlink /home/jordan/.config/systemd/user/timers.target.wants/update-antigen.timer → /home/jordan/.config/systemd/user/update-antigen.timer.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;system_level_update_service&quot;&gt;System-level Update Service&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The Red Hat Enterprise Linux 7 and CentOS 7 distributions don&amp;#8217;t support user-level systemd services, but a system-level service is still possible, as this section describes.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Add a &lt;code&gt;systemd&lt;/code&gt; service to update the Antigen plugins.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;/etc/systemd/system/update-jordan-antigen.service&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[Unit]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Update Jordan's Antigen plugins for ZSH&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;After&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;network-online.target&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;Wants&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;network-online.target&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[Service]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;oneshot&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;jordan&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;Group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;jordan&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;ExecStart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/usr/bin/zsh -c '. &quot;$0&quot; &amp;amp;&amp;amp; exec &quot;$@&quot;' /home/jordan/.zshrc antigen update&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[Install]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;multi-user.target&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This systemd unit executes the &lt;code&gt;antigen update&lt;/code&gt; command after loading the &lt;code&gt;.zshrc&lt;/code&gt; file for the user &lt;code&gt;jordan&lt;/code&gt;.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt;
+This is run as the user &lt;code&gt;jordan&lt;/code&gt; and it requires the network be online in order to update.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verify the &lt;code&gt;network-online.target&lt;/code&gt; exists.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_5&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_5&quot; title=&quot;View footnote.&quot;&gt;5&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;systemctl is-enabled NetworkManager-wait-online.service
+enabled&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Test run the new &lt;code&gt;systemd&lt;/code&gt; unit.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl start update-jordan-antigen.service&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Check the output of the command to make sure everything worked.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status update-jordan-antigen.service
+● update-jordan-antigen.service - Update Jordan&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;s Antigen plugins &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;ZSH
+   Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/etc/systemd/system/update-jordan-antigen.service&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; disabled&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; vendor preset: disabled&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   Active: inactive &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;dead&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+Sep 16 14:12:36 jwillikers systemd[1]: Starting Update Jordan&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;s Antigen plugins &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;ZSH...
+Sep 16 14:12:37 jwillikers zsh[315]: Updating robbyrussell/oh-my-zsh@master... Done. Took 1s.
+Sep 16 14:12:38 jwillikers zsh[315]: Updating zsh-users/zsh-autosuggestions@master... Done. Took 1s.
+Sep 16 14:12:38 jwillikers zsh[315]: Updating zsh-users/zsh-completions@master... Done. Took 0s.
+Sep 16 14:12:39 jwillikers zsh[315]: Updating zsh-users/zsh-syntax-highlighting@master... Done. Took 1s.
+Sep 16 14:12:39 jwillikers systemd[1]: Started Update Jordan&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;s Antigen plugins &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;ZSH.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add a systemd timer to update the Antigen plugins once per week.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;/etc/systemd/system/update-jordan-antigen.timer&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[Unit]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Update Antigen weekly&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[Timer]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;Persistent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;OnCalendar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;weekly&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[Install]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;timers.target&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Activate the Antigen update timer on system startup.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;update-jordan-antigen.timer
+Created symlink from /etc/systemd/system/timers.target.wants/update-jordan-antigen.timer to /etc/systemd/system/update-jordan-antigen.timer.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This timer has &lt;code&gt;Persistent=true&lt;/code&gt; to account for the situation when the timer would fire but the system is not powered on.
+With this option, the timer will just fire the next the system boots.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That&amp;#8217;s the tutorial.
+You should now have a working systemd service to automatically update your ZSH plugins for you each week.
+Don&amp;#8217;t forget to disable your update service when you decide to make the switch to the &lt;a href=&quot;https://fishshell.com/&quot;&gt;Fish shell&lt;/a&gt;. 🐟&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://stackoverflow.com/a/49765275/9835303&quot;&gt;StackOverflow: Using a user&amp;#8217;s .bashrc in a systemd service&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://wiki.archlinux.org/index.php/Systemd/User#Basic_setup&quot;&gt;Arch Wiki: systemd/user - Basic Setup&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
+&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://help.tableau.com/current/server-linux/en-us/systemd_user_service_error.htm&quot;&gt;Tableau Help: systemd User Service Failures&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
+&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://stackoverflow.com/a/49765275/9835303&quot;&gt;StackOverflow: Using a user&amp;#8217;s .bashrc in a systemd service&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_5&quot;&gt;
+&lt;a href=&quot;#_footnoteref_5&quot;&gt;5&lt;/a&gt;. &lt;a href=&quot;https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/&quot;&gt;Running Services After the Network is up&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Service Management" /><category term="Antigen" /><category term="CentOS" /><category term="Linux" /><category term="oh-my-zsh" /><category term="RedHat" /><category term="systemd" /><category term="Ubuntu" /><category term="ZSH" /></entry><entry><title type="html">UniFi Controller</title><link href="https://jwillikers.com/2020/05/unifi-controller.html" rel="alternate" type="text/html" title="UniFi Controller" /><published>2020-05-30T00:00:00+00:00</published><updated>2020-05-30T00:00:00+00:00</updated><id>https://jwillikers.com/2020/05/unifi-controller</id><content type="html" xml:base="https://jwillikers.com/2020/05/unifi-controller.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;For wi-fi, I use use a &lt;a href=&quot;https://www.ui.com/unifi/unifi-ap/&quot;&gt;UniFi AP&lt;/a&gt;.
@@ -129,24 +417,4 @@ It really just forwards the necessary ports from the Docker container to the hos
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Networking" /><category term="Containers" /><category term="Docker" /><category term="DockerCompose" /><category term="Linux" /><category term="UniFi" /><category term="UniFiController" /><category term="Ubuntu" /><category term="Ubuntu2004" /></entry><entry><title type="html">First Entry</title><link href="https://jwillikers.com/2015/01/first-entry.html" rel="alternate" type="text/html" title="First Entry" /><published>2015-01-01T00:00:00+00:00</published><updated>2015-01-01T00:00:00+00:00</updated><id>https://jwillikers.com/2015/01/first-entry</id><content type="html" xml:base="https://jwillikers.com/2015/01/first-entry.html">&lt;h1&gt;First Entry&lt;/h1&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;example_entry&quot;&gt;Example entry&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Lorem ipsum dolor sit amet, et elitr docendi officiis vix. An has impedit concludaturque, an vim dicam feugiat nominavi. Veniam oblique menandri sea ea, agam novum appareat in his. Constituto posidonium te his. Pri quot iudico ex, noster apeirian concludaturque mel cu.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Ocurreret salutatus scribentur ne est, quo nostrud scriptorem ex, vis ea cetero labores delicatissimi. Quis viris nullam ea pri, vim solum lobortis eu. Augue intellegat interpretaris eum ei. Ludus integre id qui, cu ludus partiendo interpretaris cum. At cibo mentitum his, ei vero accusamus qui. At ius iudico postea platonem, no vim efficiendi efficiantur, ea mea reprimique percipitur liberavisse.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Altera eruditi nam et, in vim veniam option probatus. Ei delicata adolescens quo. Iriure salutatus constituam an vix, ex mei aliquip persius oporteat. Id decore molestiae eam, at essent gubergren percipitur ius. Mea et probo laboramus, tibique ocurreret ea ius.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Tale vide scripserit pro id. Habeo latine percipit et mea, eos at nusquam principes conclusionemque. Ei possim eirmod euripidis his. Ei his veri choro, omnesque vituperata theophrastus nec no.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In quo debet iriure adolescens, nec molestie accusata ad, sea te malis atomorum petentium. Convenire corrumpit id vis, ad accumsan interesset usu. Esse dictas sea ne. Cum constituto deterruisset no, vim laudem doctus at. Nam dicat zril ea, mei omnesque explicari pertinacia ea. Nihil dicunt aliquam nam ne.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><summary type="html">Excerpt goes here.</summary></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><category term="Networking" /><category term="Containers" /><category term="Docker" /><category term="DockerCompose" /><category term="Linux" /><category term="UniFi" /><category term="UniFiController" /><category term="Ubuntu" /><category term="Ubuntu2004" /></entry></feed>
