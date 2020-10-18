@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>&quot;Too many open files&quot; When Compiling on macOS | JWillikers</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="&quot;Too many open files&quot; When Compiling on macOS" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering" />
+<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
+<link rel="canonical" href="https://jwillikers.com/too-many-open-files-on-macos-when-compiling" />
+<meta property="og:url" content="https://jwillikers.com/too-many-open-files-on-macos-when-compiling" />
+<meta property="og:site_name" content="JWillikers" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-02T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="&quot;Too many open files&quot; When Compiling on macOS" />
+<script type="application/ld+json">
+{"description":"Handy admin and dev guides from my myriad of tinkering","headline":"&quot;Too many open files&quot; When Compiling on macOS","dateModified":"2020-10-02T00:00:00+00:00","url":"https://jwillikers.com/too-many-open-files-on-macos-when-compiling","datePublished":"2020-10-02T00:00:00+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/too-many-open-files-on-macos-when-compiling"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/asciidoctor.css"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">JWillikers</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">\&quot;Too many open files\&quot; When Compiling on macOS</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-10-02T00:00:00+00:00" itemprop="datePublished">
+        Oct 2, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Occasionally things just go wrong during large builds.
+One such occurrence is on macOS when compiling a large C&#43;&#43; project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="problem">Problem</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following error message is output by <a href="https://clang.llvm.org/">LLVM Clang</a> 10.0.1 when compiling from the command-line.
+The <a href="https://www.jetbrains.com/clion/">Clion IDE</a> builds the project just fine, of course.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>cmake <span class="nt">--build</span> build
+...
+In file included from /opt/local/include/boost/spirit/home/x3.hpp:19:
+In file included from /opt/local/include/boost/spirit/home/x3/operator.hpp:10:
+In file included from /opt/local/include/boost/spirit/home/x3/operator/sequence.hpp:12:
+/opt/local/include/boost/spirit/home/x3/operator/detail/sequence.hpp:25:10: fatal error: cannot open file <span class="s1">'/opt/local/include/boost/fusion/include/as_deque.hpp'</span>: Too many open files
+<span class="c">#include &lt;boost/fusion/include/as_deque.hpp&gt;</span>
+         ^
+1 error generated.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Too many open files&#8230;&#8203;
+Really?
+What decade is this?!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="solution">Solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>According to Wilson Mar&#8217;s article <a href="https://wilsonmar.github.io/maximum-limits/"><em>Maximum limits (in macOS file descriptors)</em></a>, this issue is caused by a low default limit for the number of files that can be open simultaneously.
+Digging a little bit deeper into the <a href="x-man-page://launchctl"><code>launchctl</code></a> and <a href="x-man-page://setrlimit"><code>setrlimit</code></a> man pages, its important to note this limit is specific to a <em>single process</em>.
+What follows are step-by-step instructions for detecting and resolving this issue.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First, check the existing soft and hard limits for the maximum number of open files.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ launchctl limit maxfiles
+	maxfiles    256            unlimited</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, the 256 file soft limit is the issue.
+This limit is much too low.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>For the running session, remedy the problem by setting higher limits with <code>launchctl</code>.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>launchctl limit maxfiles 65536 2147483647</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This sets the soft limit to 65,536 open files and the hard limit to 2,147,483,647 open files.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Don&#8217;t exceed the maximum number of 2,147,483,647 for either limit here.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>To persist this setting, create a <a href="x-man-page://launchd.plist"><code>launchd.plist</code></a> file which will be used to launch the command every time the machine boots.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">/Library/LaunchDaemons/limit.maxfiles.plist</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+        "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span>
+<span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>limit.maxfiles<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;array&gt;</span>
+      <span class="nt">&lt;string&gt;</span>launchctl<span class="nt">&lt;/string&gt;</span>
+      <span class="nt">&lt;string&gt;</span>limit<span class="nt">&lt;/string&gt;</span>
+      <span class="nt">&lt;string&gt;</span>maxfiles<span class="nt">&lt;/string&gt;</span>
+      <span class="nt">&lt;string&gt;</span>65536<span class="nt">&lt;/string&gt;</span>
+      <span class="nt">&lt;string&gt;</span>2147483647<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;/array&gt;</span>
+    <span class="nt">&lt;key&gt;</span>RunAtLoad<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;true/&gt;</span>
+  <span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/plist&gt;</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Increasing this limit with <code>ulimit</code> from a startup shell script is quick and do-able.
+However, such an approach only applies to a single user, doesn&#8217;t account for changing shells, and is more likely to accidentally be overwritten or deleted.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure the file is owned by the <code>root</code> user and belongs to the <code>wheel</code> group.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo chown </span>root:wheel /Library/LaunchDaemons/limit.maxfiles.plist</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set permissions on the file so that it is readable and writeable by the owner and only readable by group members and everyone else.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo chmod </span>644 /Library/LaunchDaemons/limit.maxfiles.plist</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a system service from the script.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup><sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>launchctl bootstrap system /Library/LaunchDaemons/limit.maxfiles.plist</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the service to run at boot.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>launchctl <span class="nb">enable </span>system/limit.maxfiles</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the limits have been updated.</p>
+<div class="listingblock">
+<div class="content">
+<pre>➜ launchctl limit maxfiles
+	maxfiles    65536          2147483647</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Restart your terminal application to take advantage of the increased limits.</p>
+</li>
+<li>
+<p>Check to make sure the changes have taken effect for your shell.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">ulimit</span> <span class="nt">-S</span> <span class="nt">-n</span>
+65536</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There&#8217;s a fair bit of work involved for this fix but it is quite robust.
+Not only should file process limits not be an issue for you for the forseeable future, you should have gained some valuable insights into macOS service management with <code>launchd</code>.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <a href="https://apple.stackexchange.com/a/366319/361122">AskDifferent: Why does setting the hard-limit for maxfiles to “unlimited” using <code>launchctl limit</code> result in a hard-limit slightly above the soft-limit?</a>
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. <a href="https://stackoverflow.com/a/62784288/9835303">Too many open files with Mariadb 10.4.13 on Macos Catalina</a>
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. <a href="https://apple.stackexchange.com/a/345974/361122">AskDifferent: How do I use non-“legacy” launchctl commands to load and unload plists?</a>
+</div>
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. <a href="https://babodee.wordpress.com/2016/04/09/launchctl-2-0-syntax/">Babo D&#8217;s Corner: Launchctl 2.0 Syntax</a>
+</div>
+</div>
+  </div><a class="u-url" href="/too-many-open-files-on-macos-when-compiling" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Handy admin and dev guides from my myriad of tinkering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jwillikers" title="jwillikers"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/9835303" title="9835303"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

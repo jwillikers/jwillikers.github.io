@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-17T16:52:55+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Git Syntax Highlighting</title><link href="https://jwillikers.com/git-syntax-highlighting" rel="alternate" type="text/html" title="Git Syntax Highlighting" /><published>2020-10-14T00:00:00+00:00</published><updated>2020-10-14T00:00:00+00:00</updated><id>https://jwillikers.com/Git%20Syntax%20Highlighting</id><content type="html" xml:base="https://jwillikers.com/git-syntax-highlighting">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-18T14:52:09+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Git Syntax Highlighting</title><link href="https://jwillikers.com/git-syntax-highlighting" rel="alternate" type="text/html" title="Git Syntax Highlighting" /><published>2020-10-14T00:00:00+00:00</published><updated>2020-10-14T00:00:00+00:00</updated><id>https://jwillikers.com/Git%20Syntax%20Highlighting</id><content type="html" xml:base="https://jwillikers.com/git-syntax-highlighting">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;If you like to use &lt;a href=&quot;https://github.com/dandavison/delta&quot;&gt;&lt;code&gt;git&lt;/code&gt;&lt;/a&gt; from the command-line and enjoy syntax highlighting, you might be interested in &lt;a href=&quot;https://github.com/dandavison/delta&quot;&gt;&lt;code&gt;delta&lt;/code&gt;&lt;/a&gt;, which adds this functionality and more to &lt;code&gt;git&lt;/code&gt;.&lt;/p&gt;
@@ -123,7 +123,7 @@ It assumes you are familiar with common command-line utilities on Ubuntu, includ
 &lt;p&gt;Hopefully this improves your experience analyzing &lt;code&gt;git&lt;/code&gt; output and diffs from the command-line.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-line" /><category term="delta" /><category term="git" /><category term="Linux" /><category term="Rust" /><category term="Solarized" /><category term="Ubuntu" /><category term="Unix" /></entry><entry><title type="html">Pagers and Syntax Highlighting</title><link href="https://jwillikers.com/pagers-and-syntax-highlighting" rel="alternate" type="text/html" title="Pagers and Syntax Highlighting" /><published>2020-10-11T00:00:00+00:00</published><updated>2020-10-11T00:00:00+00:00</updated><id>https://jwillikers.com/Pagers%20and%20Syntax%20Highlighting</id><content type="html" xml:base="https://jwillikers.com/pagers-and-syntax-highlighting">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="delta" /><category term="git" /><category term="Linux" /><category term="Rust" /><category term="Solarized" /><category term="Ubuntu" /><category term="Unix" /></entry><entry><title type="html">Pagers and Syntax Highlighting</title><link href="https://jwillikers.com/pagers-and-syntax-highlighting" rel="alternate" type="text/html" title="Pagers and Syntax Highlighting" /><published>2020-10-11T00:00:00+00:00</published><updated>2020-10-11T00:00:00+00:00</updated><id>https://jwillikers.com/Pagers%20and%20Syntax%20Highlighting</id><content type="html" xml:base="https://jwillikers.com/pagers-and-syntax-highlighting">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/sharkdp/bat&quot;&gt;&lt;code&gt;bat&lt;/code&gt;&lt;/a&gt; is a helpful alternative to &lt;a href=&quot;https://www.gnu.org/software/coreutils/manual/html_node/cat-invocation.html#cat-invocation&quot;&gt;&lt;code&gt;cat&lt;/code&gt;&lt;/a&gt; when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer.
@@ -268,7 +268,723 @@ Enjoy!&lt;/p&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
 &lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. According to &lt;a href=&quot;https://github.com/sharkdp/bat/issues/1053&quot;&gt;this issue&lt;/a&gt;, &lt;code&gt;bat&lt;/code&gt; might just be it&amp;#8217;s own pager before long.
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-line" /><category term="bat" /><category term="Linux" /><category term="less" /><category term="Rust" /><category term="Solarized" /><category term="Ubuntu" /><category term="Unix" /></entry><entry><title type="html">Change your Shell</title><link href="https://jwillikers.com/change-your-shell" rel="alternate" type="text/html" title="Change your Shell" /><published>2020-10-01T00:00:00+00:00</published><updated>2020-10-01T00:00:00+00:00</updated><id>https://jwillikers.com/Change%20Your%20Shell</id><content type="html" xml:base="https://jwillikers.com/change-your-shell">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="bat" /><category term="Linux" /><category term="less" /><category term="Rust" /><category term="Solarized" /><category term="Ubuntu" /><category term="Unix" /></entry><entry><title type="html">Solarized Vim</title><link href="https://jwillikers.com/solarized-vim" rel="alternate" type="text/html" title="Solarized Vim" /><published>2020-10-08T00:00:00+00:00</published><updated>2020-10-08T00:00:00+00:00</updated><id>https://jwillikers.com/Solarized%20Vim</id><content type="html" xml:base="https://jwillikers.com/solarized-vim">&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I enjoy the &lt;a href=&quot;https://github.com/altercation/solarized&quot;&gt;Solarized&lt;/a&gt; color scheme, so I figured out how to set it up in &lt;a href=&quot;https://www.vim.org/&quot;&gt;Vim&lt;/a&gt;.
+The Solarized color scheme provides a &lt;a href=&quot;https://github.com/altercation/vim-colors-solarized&quot;&gt;plugin for Vim&lt;/a&gt;, which makes this pretty straightfoward.
+The following instructions detail how to do this on &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.04, but other than the installation step, this should work on any Unix-like system so long as Vim is at least version eight.
+This guide assumes you are familiar with installing packages from the command-line on Ubuntu, &lt;a href=&quot;https://git-scm.com/&quot;&gt;git&lt;/a&gt;, configuring Vim, and &lt;a href=&quot;https://github.com/vim/vim/blob/856c1110c1cf0d6e44e387b70732/runtime/doc/repeat.txt#L525&quot;&gt;using Vim packages&lt;/a&gt;.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;First, install Vim if you haven&amp;#8217;t already done so.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; vim&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a &lt;code&gt;plugins&lt;/code&gt; directory according to Vim&amp;#8217;s plugin directory scheme for autoloaded plugins, i.e. &lt;code&gt;\~/.vim/pack/\*/start&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/.vim/pack/plugins/start&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Download the Solarized plugin&amp;#8217;s git repository in this directory.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git clone https://github.com/altercation/vim-colors-solarized.git &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  ~/.vim/pack/plugins/start/vim-colors-solarized&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Optionally, update the help index with the new plugin&amp;#8217;s documentation.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ vim &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; NONE &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;helptags vim-colors-solarized/doc&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; q&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+From within Vim, access the plugin&amp;#8217;s help documentation with &lt;code&gt;:help solarized&lt;/code&gt;.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enable the Solarized Dark color scheme in your Vim configuration file.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.vim/vimrc&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;syntax enable
+set background=dark
+colorscheme solarized&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://vi.stackexchange.com/a/9523&quot;&gt;Vi and Vim StackExchange: What is the Vim8 package feature and how should I use it?&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://wiki.archlinux.org/index.php/vim#Using_the_built-in_package_manager&quot;&gt;Arch Wiki: Vim - Using the built-in package manager&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="BSD" /><category term="Editor" /><category term="Linux" /><category term="macOS" /><category term="Solarized" /><category term="Ubuntu" /><category term="Unix" /><category term="Vim" /></entry><entry><title type="html">Switch to fish</title><link href="https://jwillikers.com/switch-to-fish" rel="alternate" type="text/html" title="Switch to fish" /><published>2020-10-03T00:00:00+00:00</published><updated>2020-10-03T00:00:00+00:00</updated><id>https://jwillikers.com/Switch%20to%20fish</id><content type="html" xml:base="https://jwillikers.com/switch-to-fish">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I&amp;#8217;ve finally made the switch from &lt;a href=&quot;https://www.zsh.org/&quot;&gt;ZSH&lt;/a&gt; to the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt;.
+Unlike ZSH, I don&amp;#8217;t need to install and manage a whole host of plugins.
+Everything I want comes packaged right in as part of the shell itself.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the_switch&quot;&gt;The Switch&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this post, I describe how to switch to the fish shell and some of the interesting features it offers.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;install&quot;&gt;Install&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Installing fish is a piece of cake.
+On &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt;, a fish package is readily available.
+An additional &lt;a href=&quot;https://help.launchpad.net/Packaging/PPA&quot;&gt;PPA&lt;/a&gt; supplies newer versions of fish than those that ship with the distribution.
+The following steps install fish through the PPA.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Add the &lt;a href=&quot;https://launchpad.net/~fish-shell/+archive/ubuntu/release-3&quot;&gt;fish PPA&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-add-repository ppa:fish-shell/release-3&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Update &lt;a href=&quot;https://wiki.debian.org/Aptitude&quot;&gt;Aptitude&lt;/a&gt; with the new PPA.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt update&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install the fish package.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; fish&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;switch&quot;&gt;Switch&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Once installed, switching is just a matter of updating the login shell.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Register &lt;code&gt;/usr/bin/fish&lt;/code&gt; as a login shell by adding its path to &lt;a href=&quot;https://manpages.ubuntu.com/manpages/en/man5/shells.5.html&quot;&gt;&lt;code&gt;/etc/shells&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Debian provides a convenient &lt;a href=&quot;https://manpages.ubuntu.com/manpages/en/man8/add-shell.8.html&quot;&gt;&lt;code&gt;add-shell&lt;/code&gt;&lt;/a&gt; command to accomplish this.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;add-shell /usr/bin/fish&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the current user&amp;#8217;s login shell to fish with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/en/man1/chsh.1.html&quot;&gt;&lt;code&gt;chsh&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ chsh &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; /usr/bin/fish
+Password:&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, open up a fresh terminal session to start using fish.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should see a fresh, vanilla shell prompt like the following.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Welcome to fish, the friendly interactive shell
+Type &lt;span class=&quot;nb&quot;&gt;help &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;instructions on how to use fish
+jordan@jwillkers ~&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;configure&quot;&gt;Configure&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Adjusting basic configuration options is quick ang easy with fish.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Configuring the fish shell is as easy as selecting options the provided by the web interface.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ fish_config&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Style the prompt.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you like that &lt;a href=&quot;https://ohmyz.sh/&quot;&gt;oh-my-zsh&lt;/a&gt; feel as I do, you might want to use &lt;a href=&quot;https://github.com/ohmyzsh/ohmyzsh/wiki/Themes#robbyrussell&quot;&gt;robbyrussell&amp;#8217;s theme&lt;/a&gt; for your shell prompt.
+If you like doing things the old fashion way - or want to set the prompt remotely, here&amp;#8217;s a quick rundown.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Make sure the &lt;code&gt;~/.config/fish/functions&lt;/code&gt; directory exists.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/.config/fish/functions&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Then copy over the desired prompt configuration, &lt;code&gt;robbyrussell.fish&lt;/code&gt; in this case, from &lt;code&gt;/usr/share/fish/tools/web_config/sample_prompts/&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; /usr/share/fish/tools/web_config/sample_prompts/robbyrussell.fish ~/.config/fish/functions/fish_prompt.fish&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Adjust the color theme.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The color theme can be important when your terminal&amp;#8217;s color theme obscures autosuggestions.
+&lt;a href=&quot;https://ethanschoonover.com/solarized/&quot;&gt;Solarized&lt;/a&gt; is my color scheme of choice.
+The &lt;code&gt;fish_config&lt;/code&gt; web tool outputs the commands that set the various variables for a color theme when one is selected.
+This is  easy to translate to a command-line which can be quite helpful when configuring remotely.
+As an example, the following command sets the color scheme to solarized dark.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_normal normal&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_command 93a1a1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_quote 657b83&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_redirection 6c71c4&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_error dc322f&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_end 268bd2&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_selection white &lt;span class=&quot;nt&quot;&gt;--bold&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;brblack&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_search_match bryellow &lt;span class=&quot;nt&quot;&gt;--background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;black&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_history_current &lt;span class=&quot;nt&quot;&gt;--bold&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_operator 00a6b2&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_param 839496&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_cwd green&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_cwd_root red&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_valid_path &lt;span class=&quot;nt&quot;&gt;--underline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_autosuggestion 586e75&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_user brgreen&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_escape 00a6b2&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_cancel &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_pager_color_completion B3A06D&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_pager_color_description B3A06D&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_pager_color_prefix cyan &lt;span class=&quot;nt&quot;&gt;--underline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_pager_color_progress brwhite &lt;span class=&quot;nt&quot;&gt;--background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;cyan&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_host normal&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_match &lt;span class=&quot;nt&quot;&gt;--background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;brblue&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_comment 586e75&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Customize the greeting message with the variable &lt;code&gt;fish_greeting&lt;/code&gt;.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_greeting &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enable backwards-incompatible features.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_features stderr-nocaret qmark-noglob&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enable &lt;a href=&quot;https://fishshell.com/docs/current/index.html#vi-mode-commands&quot;&gt;Vi mode&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For user&amp;#8217;s who prefer &lt;a href=&quot;http://ex-vi.sourceforge.net/&quot;&gt;Vi&lt;/a&gt; and &lt;a href=&quot;https://www.vim.org/&quot;&gt;Vim&lt;/a&gt;, there is a nifty method of enabling Vim keyboard shortcuts in addition to the default Emacs shortcuts.
+Creating the file below will enable this and default to insert mode.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.config/fish/functions/fish_user_key_bindings.fish&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;fish_user_key_bindings
+    fish_default_key_bindings &lt;span class=&quot;nt&quot;&gt;-M&lt;/span&gt; insert
+    fish_vi_key_bindings insert
+end&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Override the &lt;code&gt;fish_mode_prompt&lt;/code&gt; function with an empty function to disable the Vi mode indicator.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.config/fish/functions/fish_mode_prompt.fish&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;fish_mode_prompt
+end&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, if you&amp;#8217;re thinking about &lt;code&gt;.fishrc&lt;/code&gt;, forget about it.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt;
+The equivalent of &lt;code&gt;~/.bashrc&lt;/code&gt; and &lt;code&gt;~/.zshrc&lt;/code&gt; is &lt;code&gt;~/.config/fish/config.fish&lt;/code&gt; but a lot of configuration is better achieved - and organized - through &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#universal-variables&quot;&gt;&lt;em&gt;universal variables&lt;/em&gt;&lt;/a&gt; and &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#autoloading-functions&quot;&gt;&lt;em&gt;autoloading functions&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Update the &lt;code&gt;PATH&lt;/code&gt; environment variable in fish to suit your needs.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_5&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_5&quot; title=&quot;View footnote.&quot;&gt;5&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When messing with &lt;code&gt;PATH&lt;/code&gt;, use fish&amp;#8217;s dedicated internal variable &lt;code&gt;fish_user_paths&lt;/code&gt;.
+This variable is special and populates &lt;code&gt;PATH&lt;/code&gt;.
+Some Linux distributions don&amp;#8217;t include &lt;code&gt;/usr/local/bin&lt;/code&gt; in &lt;code&gt;PATH&lt;/code&gt; by default.
+With the &lt;a href=&quot;https://fishshell.com/docs/current/cmds/set.html&quot;&gt;&lt;code&gt;set&lt;/code&gt;&lt;/a&gt; command, prepend &lt;code&gt;/usr/local/bin&lt;/code&gt; to &lt;code&gt;PATH&lt;/code&gt; as follows.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; fish_user_paths /usr/local/bin&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;code&gt;-p&lt;/code&gt; option prepends a value to the given variable.
+The &lt;code&gt;-U&lt;/code&gt; option signifies a &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#universal-variables&quot;&gt;&lt;em&gt;universal variable&lt;/em&gt;&lt;/a&gt;, which persists the variable in the future and across any currently running fish sessions.
+This reduces the overhead of having to mess about with shell startup files.
+These variables can be managed in the file &lt;code&gt;~/.config/fish/fish_variables&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;learn&quot;&gt;Learn&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A lot of fish functionality has been covered already, but &quot;there&amp;#8217;s always more to learn&quot; as they say.
+A few additional fish topics are covered here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Export shell variables with the &lt;code&gt;-x&lt;/code&gt; flag.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This makes the variables accessible to other programs.
+&lt;code&gt;PATH&lt;/code&gt; is automatically exported from the contents of the un-exported &lt;code&gt;fish_user_paths&lt;/code&gt; variable, making this an exception.
+For everything else, export the variable by calling &lt;code&gt;set&lt;/code&gt; with the &lt;code&gt;-x&lt;/code&gt; flag.
+To add a value to the beginning of the &lt;code&gt;LD_LIBRARY_PATH&lt;/code&gt; environment variable and export it, use &lt;code&gt;set&lt;/code&gt; as follows.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-px&lt;/span&gt; LD_LIBRARY_PATH /usr/local/lib&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Understand how fish handles &lt;a href=&quot;https://fishshell.com/docs/current/index.html#path-variables&quot;&gt;&lt;em&gt;PATH variables&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The fish shell stores lists internally as arrays of strings.
+This is fundamentally different from how shells typically represent many fundamental variables which contain lists of paths, such as &lt;code&gt;PATH&lt;/code&gt; and &lt;code&gt;LD_LIBRARY_PATH&lt;/code&gt;.
+Classic shells store these &quot;lists&quot; as a single string of colon-separated paths.
+Many applications and programs expect the incumbent formatting, so fish treats these as special variables called &lt;em&gt;PATH variables&lt;/em&gt;.
+When printing or joining &lt;em&gt;PATH variables&lt;/em&gt;, colons are used to delimit values when the variables are &lt;em&gt;quoted&lt;/em&gt;.
+Otherwise, spaces separate each path in the list.
+Any variable ending in &lt;code&gt;PATH&lt;/code&gt; is automatically treated as a &lt;em&gt;PATH variable&lt;/em&gt;.
+So, when using &lt;code&gt;set&lt;/code&gt; to deal a &lt;em&gt;PATH variable&lt;/em&gt;, you can still treat it as you would any other list in fish.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_6&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_6&quot; title=&quot;View footnote.&quot;&gt;6&lt;/a&gt;]&lt;/sup&gt;
+As an example, the following command adds &lt;code&gt;/usr/local/lib&lt;/code&gt; to the beginning of the classic &lt;code&gt;LD_LIBRARY_PATH&lt;/code&gt; variable and appends &lt;code&gt;~/lib&lt;/code&gt; to the end.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; LD_LIBRARY_PATH /usr/local/lib &lt;span class=&quot;nv&quot;&gt;$LD_LIBRARY_PATH&lt;/span&gt; ~/lib&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When quoting the variable, it must be modified like so to achieve the same result.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; LD_LIBRARY_PATH /usr/local/lib:&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$LD_LIBRARY_PATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;:~/lib&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Take advantage of &lt;a href=&quot;https://fishshell.com/docs/current/index.html#autosuggestions&quot;&gt;autosuggestions&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Just start typing a command and fish will provide suggestions on your prompt.
+As autosuggestion appear from your history, choose the suggested line with kbd:[→].
+To select only the next word of the suggestion, use kbd:[Alt+→].&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use fish&amp;#8217;s &lt;a href=&quot;https://fishshell.com/docs/current/index.html#history-search&quot;&gt;searchable history&lt;/a&gt; instead of Bash&amp;#8217;s &lt;a href=&quot;https://www.gnu.org/software/bash/manual/html_node/Commands-For-History.html&quot;&gt;reverse-search-history&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This one has required a bit of learning curve since I&amp;#8217;m so used to finding previous commands by searching with kbd:[Ctrl+R].
+With fish, this is even simpler.
+Start typing the letters, word, or phrase you want to match.
+Then, just press kbd:[Alt+↑] to scroll backwards through history for matches.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Another nifty feature is the &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#wildcards&quot;&gt;recursive wildcard&lt;/a&gt; which automatically descends into subdirectories for matching a particular pattern.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The following example recursively searches and lists all files ending in &lt;code&gt;.fish&lt;/code&gt; in &lt;code&gt;~/.config&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; ~/.config/&lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;.fish
+/home/jordan/.config/fish/functions/fish_prompt.fish&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;troubleshoot&quot;&gt;Troubleshoot&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Common issues involve various environment variables and initialization functionality which assumes the default login shell is Bash.
+Some people place &lt;code&gt;fish&lt;/code&gt; in their &lt;code&gt;~/.bashrc&lt;/code&gt; file to start fish from within Bash so that all environment variables are correctly configured.
+I prefer to use &lt;code&gt;fish&lt;/code&gt; as my login shell and file bugs as necessary for projects to properly support it, but this is definitely a bit a of a pain but thus is progress, eh?&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There&amp;#8217;s a lot to learn about the fish shell.
+It provides an extremely convenient feature set and is attempting to solve issues inherited from shells of generations past.
+I love it, and its a great improvement to my workflow.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#switching-to-fish&quot;&gt;fish Tutorial: Switching to fish?&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/index.html#configurable-greeting&quot;&gt;fish Documentation: Configurable greeting&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
+&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/index.html#future-feature-flags&quot;&gt;fish Documentation: Future feature flags&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
+&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/index.html#initialization-files&quot;&gt;fish Documentation: Initialization files&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_5&quot;&gt;
+&lt;a href=&quot;#_footnoteref_5&quot;&gt;5&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#path&quot;&gt;fish Tutorial: $PATH&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_6&quot;&gt;
+&lt;a href=&quot;#_footnoteref_6&quot;&gt;6&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/index.html#lists&quot;&gt;fish Documentation: Lists&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="Debian" /><category term="fish" /><category term="Linux" /><category term="shell" /><category term="Ubuntu" /></entry><entry><title type="html">\“Too many open files\” When Compiling on macOS</title><link href="https://jwillikers.com/too-many-open-files-on-macos-when-compiling" rel="alternate" type="text/html" title="\“Too many open files\” When Compiling on macOS" /><published>2020-10-02T00:00:00+00:00</published><updated>2020-10-02T00:00:00+00:00</updated><id>https://jwillikers.com/%22Too%20Many%20Open%20Files%22%20on%20macOS%20when%20Compiling</id><content type="html" xml:base="https://jwillikers.com/too-many-open-files-on-macos-when-compiling">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Occasionally things just go wrong during large builds.
+One such occurrence is on macOS when compiling a large C&amp;#43;&amp;#43; project.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;problem&quot;&gt;Problem&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The following error message is output by &lt;a href=&quot;https://clang.llvm.org/&quot;&gt;LLVM Clang&lt;/a&gt; 10.0.1 when compiling from the command-line.
+The &lt;a href=&quot;https://www.jetbrains.com/clion/&quot;&gt;Clion IDE&lt;/a&gt; builds the project just fine, of course.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cmake &lt;span class=&quot;nt&quot;&gt;--build&lt;/span&gt; build
+...
+In file included from /opt/local/include/boost/spirit/home/x3.hpp:19:
+In file included from /opt/local/include/boost/spirit/home/x3/operator.hpp:10:
+In file included from /opt/local/include/boost/spirit/home/x3/operator/sequence.hpp:12:
+/opt/local/include/boost/spirit/home/x3/operator/detail/sequence.hpp:25:10: fatal error: cannot open file &lt;span class=&quot;s1&quot;&gt;'/opt/local/include/boost/fusion/include/as_deque.hpp'&lt;/span&gt;: Too many open files
+&lt;span class=&quot;c&quot;&gt;#include &amp;lt;boost/fusion/include/as_deque.hpp&amp;gt;&lt;/span&gt;
+         ^
+1 error generated.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Too many open files&amp;#8230;&amp;#8203;
+Really?
+What decade is this?!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;According to Wilson Mar&amp;#8217;s article &lt;a href=&quot;https://wilsonmar.github.io/maximum-limits/&quot;&gt;&lt;em&gt;Maximum limits (in macOS file descriptors)&lt;/em&gt;&lt;/a&gt;, this issue is caused by a low default limit for the number of files that can be open simultaneously.
+Digging a little bit deeper into the &lt;a href=&quot;x-man-page://launchctl&quot;&gt;&lt;code&gt;launchctl&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;x-man-page://setrlimit&quot;&gt;&lt;code&gt;setrlimit&lt;/code&gt;&lt;/a&gt; man pages, its important to note this limit is specific to a &lt;em&gt;single process&lt;/em&gt;.
+What follows are step-by-step instructions for detecting and resolving this issue.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;First, check the existing soft and hard limits for the maximum number of open files.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ launchctl limit maxfiles
+	maxfiles    256            unlimited&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this case, the 256 file soft limit is the issue.
+This limit is much too low.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;For the running session, remedy the problem by setting higher limits with &lt;code&gt;launchctl&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;launchctl limit maxfiles 65536 2147483647&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This sets the soft limit to 65,536 open files and the hard limit to 2,147,483,647 open files.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock caution&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Don&amp;#8217;t exceed the maximum number of 2,147,483,647 for either limit here.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To persist this setting, create a &lt;a href=&quot;x-man-page://launchd.plist&quot;&gt;&lt;code&gt;launchd.plist&lt;/code&gt;&lt;/a&gt; file which will be used to launch the command every time the machine boots.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;/Library/LaunchDaemons/limit.maxfiles.plist&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot;
+        &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;plist&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;version=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;dict&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Label&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;string&amp;gt;&lt;/span&gt;limit.maxfiles&lt;span class=&quot;nt&quot;&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;ProgramArguments&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;array&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;string&amp;gt;&lt;/span&gt;launchctl&lt;span class=&quot;nt&quot;&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;string&amp;gt;&lt;/span&gt;limit&lt;span class=&quot;nt&quot;&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;string&amp;gt;&lt;/span&gt;maxfiles&lt;span class=&quot;nt&quot;&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;string&amp;gt;&lt;/span&gt;65536&lt;span class=&quot;nt&quot;&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;string&amp;gt;&lt;/span&gt;2147483647&lt;span class=&quot;nt&quot;&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/array&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;RunAtLoad&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;true/&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dict&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plist&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Increasing this limit with &lt;code&gt;ulimit&lt;/code&gt; from a startup shell script is quick and do-able.
+However, such an approach only applies to a single user, doesn&amp;#8217;t account for changing shells, and is more likely to accidentally be overwritten or deleted.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ensure the file is owned by the &lt;code&gt;root&lt;/code&gt; user and belongs to the &lt;code&gt;wheel&lt;/code&gt; group.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo chown &lt;/span&gt;root:wheel /Library/LaunchDaemons/limit.maxfiles.plist&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set permissions on the file so that it is readable and writeable by the owner and only readable by group members and everyone else.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo chmod &lt;/span&gt;644 /Library/LaunchDaemons/limit.maxfiles.plist&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a system service from the script.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;launchctl bootstrap system /Library/LaunchDaemons/limit.maxfiles.plist&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the service to run at boot.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;launchctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;system/limit.maxfiles&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verify that the limits have been updated.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;➜ launchctl limit maxfiles
+	maxfiles    65536          2147483647&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart your terminal application to take advantage of the increased limits.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Check to make sure the changes have taken effect for your shell.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;ulimit&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt;
+65536&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There&amp;#8217;s a fair bit of work involved for this fix but it is quite robust.
+Not only should file process limits not be an issue for you for the forseeable future, you should have gained some valuable insights into macOS service management with &lt;code&gt;launchd&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://apple.stackexchange.com/a/366319/361122&quot;&gt;AskDifferent: Why does setting the hard-limit for maxfiles to “unlimited” using &lt;code&gt;launchctl limit&lt;/code&gt; result in a hard-limit slightly above the soft-limit?&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://stackoverflow.com/a/62784288/9835303&quot;&gt;Too many open files with Mariadb 10.4.13 on Macos Catalina&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
+&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://apple.stackexchange.com/a/345974/361122&quot;&gt;AskDifferent: How do I use non-“legacy” launchctl commands to load and unload plists?&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
+&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://babodee.wordpress.com/2016/04/09/launchctl-2-0-syntax/&quot;&gt;Babo D&amp;#8217;s Corner: Launchctl 2.0 Syntax&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="Catalina" /><category term="fish" /><category term="launchd" /><category term="macOS" /><category term="shell" /><category term="ulimit" /></entry><entry><title type="html">Change your Shell</title><link href="https://jwillikers.com/change-your-shell" rel="alternate" type="text/html" title="Change your Shell" /><published>2020-10-01T00:00:00+00:00</published><updated>2020-10-01T00:00:00+00:00</updated><id>https://jwillikers.com/Change%20Your%20Shell</id><content type="html" xml:base="https://jwillikers.com/change-your-shell">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Sometimes, you just want to switch to a better shell for your terminal - like &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish&lt;/a&gt;.&lt;/p&gt;
@@ -338,10 +1054,262 @@ It should be a piece of cake to change your login shell now.&lt;/p&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
 &lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#switching-to-fish&quot;&gt;Fish Shell Tutorial - Switching to fish?&lt;/a&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-line" /><category term="BSD" /><category term="fish" /><category term="Linux" /><category term="macOS" /><category term="shell" /><category term="Ubuntu" /></entry><entry><title type="html">Automatically Update Antigen</title><link href="https://jwillikers.com/automatically-update-antigen" rel="alternate" type="text/html" title="Automatically Update Antigen" /><published>2020-09-23T00:00:00+00:00</published><updated>2020-09-23T00:00:00+00:00</updated><id>https://jwillikers.com/Automatically%20Update%20Antigen</id><content type="html" xml:base="https://jwillikers.com/automatically-update-antigen">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="BSD" /><category term="fish" /><category term="Linux" /><category term="macOS" /><category term="shell" /><category term="Ubuntu" /></entry><entry><title type="html">My SSH Configuration</title><link href="https://jwillikers.com/my-ssh-configuration-index" rel="alternate" type="text/html" title="My SSH Configuration" /><published>2020-09-29T00:00:00+00:00</published><updated>2020-09-29T00:00:00+00:00</updated><id>https://jwillikers.com/My%20SSH%20Configuration/index</id><content type="html" xml:base="https://jwillikers.com/my-ssh-configuration-index">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There&amp;#8217;s a catch when it comes to managing plugins with &lt;a href=&quot;http://antigen.sharats.me/&quot;&gt;Antigen&lt;/a&gt; as done in &lt;a href=&quot;configure_zsh.html&quot;&gt;Configure ZSH&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://www.openssh.com/&quot;&gt;OpenSSH&lt;/a&gt; client and server applications are ubiquitous.
+Like many a software dev, I&amp;#8217;m `ssh&amp;#8217;ing all over the place.
+And you know what?
+I&amp;#8217;ve put off learning the ins and outs of its configuration for far too long.
+I learned that a little bit of know-how can simplify my day-to-day use of SSH.
+That&amp;#8217;s exactly why I&amp;#8217;ve written this post to exemplify the configuration options I&amp;#8217;m now using.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;ssh_configuration&quot;&gt;SSH Configuration&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The file &lt;code&gt;~/.ssh/config&lt;/code&gt; contains a user&amp;#8217;s SSH configuration.
+Settings here can be defined per-host.
+General configuration options include aliases, SSH agent behavior, and jump hosts to name a few.
+Different sections of a sample &lt;code&gt;~/.ssh/config&lt;/code&gt; are discussed in detail below.
+Further documentation is available from the &lt;a href=&quot;https://man.openbsd.org/ssh_config&quot;&gt;&lt;code&gt;ssh_config&lt;/code&gt; manpage&lt;/a&gt;.
+This article assumes the reader is familiar with the basics of SSH and the syntax of SSH configuration files.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;localhost&quot;&gt;Localhost&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The first option does not reside in a &lt;a href=&quot;https://man.openbsd.org/ssh_config#Host&quot;&gt;&lt;code&gt;Host&lt;/code&gt;&lt;/a&gt; or &lt;a href=&quot;https://man.openbsd.org/ssh_config#Match&quot;&gt;&lt;code&gt;Match&lt;/code&gt;&lt;/a&gt; block because it only refers to one host, &lt;code&gt;localhost&lt;/code&gt; on the current machine.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;NoHostAuthenticationForLocalhost yes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Normally, SSH consults the &lt;code&gt;~/.ssh/known_hosts&lt;/code&gt; when connecting to a host.
+The known hosts file stores an identifying key for each host it has connected to previously.
+As connections are made to new hosts, keys are registered in the user&amp;#8217;s known hosts file.
+Each time SSH establishes a connection to a known host, the key is checked, and the connection is aborted if it does not match.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When running multiple SSH servers from a single host, the key will fail to match whenever switching servers.
+If you connect to various VMs through &lt;code&gt;localhost&lt;/code&gt;, SSH will throw an error whenever switching between machines.
+Setting &lt;a href=&quot;https://man.openbsd.org/ssh_config#NoHostAuthenticationForLocalhost&quot;&gt;&lt;code&gt;NoHostAuthenticationForLocalhost&lt;/code&gt;&lt;/a&gt; to &lt;code&gt;yes&lt;/code&gt; is a convenient way to workaround by skipping host checking is skipped for &lt;code&gt;localhost&lt;/code&gt; altogether.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This does not skip host checking for the &lt;code&gt;localhost&lt;/code&gt; address available on jump hosts.
+See the section below on &lt;code&gt;HostKeyAlias&lt;/code&gt; for such a use case.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;a_humble_host_alias&quot;&gt;A Humble Host Alias&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The following section contains only one option which applies to &lt;code&gt;vm_host&lt;/code&gt;.
+As an example, &lt;code&gt;vm_host&lt;/code&gt; represents a computer dedicated for running multiple virtual machines.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host vm_host
+  Hostname vm_host.local&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The option, &lt;a href=&quot;https://man.openbsd.org/ssh_config#Hostname&quot;&gt;&lt;code&gt;Hostname&lt;/code&gt;&lt;/a&gt;, indicates the true hostname of this host which means &lt;code&gt;vm_host&lt;/code&gt; is really just an alias.
+The alias &lt;code&gt;vm_host&lt;/code&gt; can be used on the command-line instead of having to type out &lt;code&gt;vm_host.local&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;jump_hosts_and_multiple_servers_on_a_single_host&quot;&gt;Jump Hosts and Multiple Servers on a Single Host&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Next, several configuration options are given for the hosts &lt;code&gt;vm1&lt;/code&gt; and &lt;code&gt;vm2&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host vm1
+  HostKeyAlias vm1.localhost
+
+Host vm2
+  HostKeyAlias vm2.localhost
+
+Host vm1 vm2
+  Hostname localhost
+  Port 9001
+  ProxyJump vm_host&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Starting with the shared configuration options, the &lt;code&gt;Hostname&lt;/code&gt; and &lt;a href=&quot;https://man.openbsd.org/ssh_config#Port&quot;&gt;&lt;code&gt;Port&lt;/code&gt;&lt;/a&gt; options indicate that both hosts are available on the port &lt;code&gt;9001&lt;/code&gt; at the reserved &lt;code&gt;localhost&lt;/code&gt; address.
+Since both &lt;code&gt;vm1&lt;/code&gt; and &lt;code&gt;vm2&lt;/code&gt; use the same hostname and port, they can&amp;#8217;t both be available simultaneously.
+In this scenario, either virtual machine &lt;code&gt;vm1&lt;/code&gt; or &lt;code&gt;vm2&lt;/code&gt; would be available at any one time.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;https://man.openbsd.org/ssh_config#ProxyJump&quot;&gt;&lt;code&gt;ProxyJump&lt;/code&gt;&lt;/a&gt; key is used here with one intermediate host, &lt;code&gt;vm_host&lt;/code&gt;, defined previously.
+This means that the SSH connection will connect to the &lt;code&gt;localhost&lt;/code&gt; address on &lt;code&gt;vm_host&lt;/code&gt;.
+So, instead of executing &lt;code&gt;ssh vm_host&lt;/code&gt; followed by &lt;code&gt;ssh -p 9001 localhost&lt;/code&gt; to access either of the VMs, use just one command either &lt;code&gt;ssh vm1&lt;/code&gt; or &lt;code&gt;ssh vm2&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The individual host blocks provide a distinct &lt;a href=&quot;https://man.openbsd.org/ssh_config#HostKeyAlias&quot;&gt;&lt;code&gt;HostKeyAlias&lt;/code&gt;&lt;/a&gt; for each host.
+This is critical because these virtual machines will have different host keys but share the same hostname &lt;code&gt;localhost&lt;/code&gt;.
+When checking the known hosts file, instead of looking for an entry for &lt;code&gt;localhost&lt;/code&gt;, SSH will look for an entry for the value provided to &lt;code&gt;HostKeyAlias&lt;/code&gt;.
+The configuration line &lt;code&gt;NoHostAuthenticationForLocalhost yes&lt;/code&gt; from the beginning of the file &lt;em&gt;only&lt;/em&gt; works for the &lt;code&gt;localhost&lt;/code&gt; address on the &lt;em&gt;current&lt;/em&gt; machine.
+In other words, this option has no effect when connecting to &lt;code&gt;localhost&lt;/code&gt; on any other machine, including a jump host.
+According to the &lt;a href=&quot;https://man.openbsd.org/ssh_config#HostKeyAlias&quot;&gt;&lt;code&gt;ssh_config&lt;/code&gt; manpage&lt;/a&gt;, &lt;code&gt;HostKeyAlias&lt;/code&gt; should be used for handling multiple servers running on a single host.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;multicast_dns&quot;&gt;Multicast DNS&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The following configuration accommodates the variability of the IP address associated with a given hostname on networks using &lt;a href=&quot;http://www.multicastdns.org/&quot;&gt;multicast DNS&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host *.local
+  CheckHostIP no&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Multicast DNS uses the &quot;.local&quot; top-level domain exclusively for hosts on a network.
+Setting &lt;a href=&quot;https://man.openbsd.org/ssh_config#CheckHostIP&quot;&gt;&lt;code&gt;CheckHostIP&lt;/code&gt;&lt;/a&gt; to &lt;code&gt;no&lt;/code&gt; here allows IP addresses for any &quot;.local&quot; hosts to change.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+It might be worth setting this option for all users in the system-wide configuration file &lt;code&gt;/etc/ssh/ssh_config&lt;/code&gt;.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;the_ssh_agent&quot;&gt;The SSH Agent&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The last section contains a few defaults for all hosts, which boil down to a few quality-of-life improvements.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host *
+  AddKeysToAgent yes
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/id_rsa_catalina-build.pub
+  PreferredAuthentications publickey,keyboard-interactive,password,gssapi-with-mic,hostbased
+
+  # Specific to macOS
+  UseKeychain yes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The meanings of these options are described one-by-one below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#AddKeysToAgent&quot;&gt;&lt;code&gt;AddKeysToAgent&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Automatically registers SSH keys with the &lt;a href=&quot;https://man.openbsd.org/ssh-agent&quot;&gt;SSH Agent&lt;/a&gt; as they are loaded.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#IdentitiesOnly&quot;&gt;&lt;code&gt;IdentitiesOnly&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Limits the identities that will be used to authenticate.
+Because I use &lt;a href=&quot;https://keepassxc.org/&quot;&gt;KeePassXC&lt;/a&gt; to handle my SSH keys, the SSH Agent may have lots of other keys loaded which can lead to &lt;a href=&quot;https://keepassxc.org/docs/#faq-ssh-agent-auth-errors&quot;&gt;authentication problems&lt;/a&gt;.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#IdentityFile&quot;&gt;&lt;code&gt;IdentityFile&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Provides the path to an authentication identity.
+The private key file is often provided for this option, but providing the public key works when storing the private key itself directly within KeePassXC.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#PreferredAuthentications&quot;&gt;&lt;code&gt;PreferredAuthentications&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Sets the order of preference for the various authentication methods.
+Here, public key cryptography is preferred first because I use this most often.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;UseKeychain&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;On macOS, this allows storing and accessing keys from the user&amp;#8217;s Keychain so they are automatically available after logging on.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;ssh_agent_forwarding&quot;&gt;SSH Agent Forwarding&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It is possible to forward the SSH Agent to avoid typing passwords so much.
+You can forward the SSH Agent by setting &lt;a href=&quot;https://man.openbsd.org/ssh_config#ForwardAgent&quot;&gt;&lt;code&gt;ForwardAgent&lt;/code&gt;&lt;/a&gt; to &lt;code&gt;yes&lt;/code&gt;, shown in the following example.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/ssh_config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host server
+  ForwardAgent yes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock caution&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Be wary when using agent forwarding.
+Those with administrative access on the forwarded machine will be able to use the keys from your agent to authenticate as you.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That was a bit of configuration.
+Assuming I didn&amp;#8217;t just cover topics you already knew, you should have a better understanding of SSH and its configuration options.
+Hopefully you&amp;#8217;ll be able to capitalize on this knowledge by simplifying your SSH workflow.
+If you&amp;#8217;re interested in smoothing out even more wrinkles in your SSH use, you might checkout the &lt;a href=&quot;https://mosh.org/&quot;&gt;Mosh&lt;/a&gt; project.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://superuser.com/a/1399855/1220231&quot;&gt;superuser: OpenSSH - Any way to keep strict host key checking but check only the key and ignore server&amp;#8217;s name?&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://keepassxc.org/docs/#faq-ssh-agent-auth-errors&quot;&gt;KeePassXC FAQ: SSH Agent - I&amp;#8217;m getting a &quot;Too many authentication failures&quot; error, what shall I do?&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
+&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://apple.stackexchange.com/a/250572/361122&quot;&gt;AskDifferent: How can I permanently add my SSH private key to Keychain so it is automatically available to ssh?&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
+&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://smallstep.com/blog/ssh-agent-explained/&quot;&gt;smallstep Blog: SSH Agent Explained&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Networking" /><category term="BSD" /><category term="KeePassXC" /><category term="Linux" /><category term="macOS" /><category term="OpenSSH" /><category term="ssh" /></entry><entry><title type="html">Automatically Update Antigen</title><link href="https://jwillikers.com/automatically-update-antigen" rel="alternate" type="text/html" title="Automatically Update Antigen" /><published>2020-09-23T00:00:00+00:00</published><updated>2020-09-23T00:00:00+00:00</updated><id>https://jwillikers.com/Automatically%20Update%20Antigen</id><content type="html" xml:base="https://jwillikers.com/automatically-update-antigen">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There&amp;#8217;s a catch when it comes to managing plugins with &lt;a href=&quot;http://antigen.sharats.me/&quot;&gt;Antigen&lt;/a&gt; as done in &lt;a href=&quot;configure-zsh.html&quot;&gt;Configure ZSH&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;quoteblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;According to the Antigen documentation:&lt;/div&gt;
@@ -780,7 +1748,7 @@ antigen init ~/.antigenrc&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;You should now be able to install and configure ZSH as your default shell in Ubuntu.
 You should also be able to setup Antigen to use oh-my-zsh and a couple of convenient plugins.
-If you want to automate updating your Antigen plugins with &lt;a href=&quot;https://www.freedesktop.org/wiki/Software/systemd/&quot;&gt;systemd&lt;/a&gt;, checkout the post &lt;a href=&quot;automatically_update_antigen.html&quot;&gt;Automatically Update Antigen&lt;/a&gt;.&lt;/p&gt;
+If you want to automate updating your Antigen plugins with &lt;a href=&quot;https://www.freedesktop.org/wiki/Software/systemd/&quot;&gt;systemd&lt;/a&gt;, checkout the post &lt;a href=&quot;automatically-update-antigen.html&quot;&gt;Automatically Update Antigen&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -804,377 +1772,64 @@ If you want to automate updating your Antigen plugins with &lt;a href=&quot;http
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_6&quot;&gt;
 &lt;a href=&quot;#_footnoteref_6&quot;&gt;6&lt;/a&gt;. &lt;a href=&quot;https://github.com/zsh-users/antigen/wiki/Commands#antigen-update&quot;&gt;Antigen Wiki: Commands - antigen update&lt;/a&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-line" /><category term="Antigen" /><category term="Debian" /><category term="Linux" /><category term="oh-my-zsh" /><category term="Ubuntu" /><category term="ZSH" /></entry><entry><title type="html">Backup Docker Data</title><link href="https://jwillikers.com/backup-docker-data" rel="alternate" type="text/html" title="Backup Docker Data" /><published>2020-07-02T00:00:00+00:00</published><updated>2020-07-02T00:00:00+00:00</updated><id>https://jwillikers.com/Backup%20Docker%20Data</id><content type="html" xml:base="https://jwillikers.com/backup-docker-data">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Backups are super helpful, especially when you like to blow everything away fairly often.
-Backing up the data from a Docker container can help you quickly get things up and running again.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;My &lt;a href=&quot;UniFi-Controller.html&quot;&gt;recent post&lt;/a&gt; detailed how to setup a UniFi Controller in a Docker container.
-This tutorial uses that container as an example for creating and restoring backups of data volumes.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;backup&quot;&gt;Backup&lt;/h3&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Creating backups is done by producing an archive of the important files on the host filesystem from the container&amp;#8217;s data volume.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-  &lt;span class=&quot;nt&quot;&gt;--volumes-from&lt;/span&gt; unifi-controller &lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
-  &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;:/backup &lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
-  ubuntu &lt;span class=&quot;nb&quot;&gt;tar &lt;/span&gt;cvWf /backup/unifi-controller_backup_&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; +%F&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;.tar &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; /config unifi-controller &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;(4)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Remove the container when finished.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Attach the data volumes for the container named &lt;em&gt;unifi-controller&lt;/em&gt;.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;3&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Mount the current directory to &lt;code&gt;/backup&lt;/code&gt; in the container.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;4&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Using an Ubuntu image, create an archive of the directory &lt;code&gt;/config/unifi-controller&lt;/code&gt; in the &lt;code&gt;/backup&lt;/code&gt; directory.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Compress the backup.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;xz unifi-controller_backup_2020-07-01.tar&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;restore&quot;&gt;Restore&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To restore from a backup, just reverse the backup process.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Decompress the backup.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;unxz unifi-controller_backup_2020-07-01.tar.xz&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Restore the contents of the archive to the data volume.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run
-  &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-  &lt;span class=&quot;nt&quot;&gt;--volumes-from&lt;/span&gt; unifi-controller &lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
-   &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;:/backup &lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
-   ubuntu &lt;span class=&quot;nb&quot;&gt;tar &lt;/span&gt;xvf /backup/unifi-controller_backup_2020-07-01.tar &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; / &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;(4)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Remove the container when finished.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Attach the data volumes for the container named &lt;em&gt;unifi-controller&lt;/em&gt;.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;3&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Mount the current directory to &lt;code&gt;/backup&lt;/code&gt; in the container.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;4&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Using an Ubuntu image, expand the archive in the &lt;code&gt;/&lt;/code&gt; directory.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;verify&quot;&gt;Verify&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It&amp;#8217;s always important to test your backups.
-The simplest way to check the backup is with a fresh instance of the container.
-For the UniFi Controller, this is trivially accomplished.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;First, copy the compose file to another directory and give the container a new name.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;unifi-controller2
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cp &lt;/span&gt;unifi-controller/docker-compose.yml unifi-controller2
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;unifi-controller2&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Modify the yaml file to match the following.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;docker-compose.yml&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;dockerfile&quot;&gt;---
-version: &quot;2.1&quot;
-services:
-  unifi-controller:
-    image: linuxserver/unifi-controller
-    container_name: unifi-controller2 &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - MEM_LIMIT=1024M &lt;span class=&quot;c&quot;&gt;#optional&lt;/span&gt;
-    volumes:
-      - data:/config
-    ports:
-      - 3478:3478/udp
-      - 10001:10001/udp
-      - 8080:8080
-      - 8081:8081
-      - 8443:8443
-      - 8843:8843
-      - 8880:8880
-      - 6789:6789
-    restart: unless-stopped
-
-volumes:
-  data:&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Name the container &lt;em&gt;unifi-controller2&lt;/em&gt;.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Initialize the container.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker-compose up &lt;span class=&quot;nt&quot;&gt;--no-start&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Decompress the backup.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;unxz unifi-controller_backup_2020-07-01.tar.xz&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Restore the contents of the archive to the new container&amp;#8217;s data volume.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run
-  &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--volumes-from&lt;/span&gt; unifi-controller2 &lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-   &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;:/backup &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   ubuntu &lt;span class=&quot;nb&quot;&gt;tar &lt;/span&gt;xvf /backup/unifi-controller_backup_2020-07-01.tar &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; /&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Attach the data volumes for the new &lt;em&gt;unifi-controller2&lt;/em&gt; container.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;That&amp;#8217;s it!
-The data from your original container should now be duplicated in &lt;em&gt;unifi-controller2&lt;/em&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Now, start &lt;em&gt;unifi-controller2&lt;/em&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker-compose up &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Then, open the UniFi Controller&amp;#8217;s web UI.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;xdg-open http://127.0.0.1:8443&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Login just as you would on the &lt;em&gt;unifi-controller&lt;/em&gt; container and verify that your restored controller&amp;#8217;s configuration matches the original.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You have now learned how to back up and restore the data in a Docker container&amp;#8217;s data volume.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Systems" /><category term="Containers" /><category term="Docker" /><category term="Linux" /><category term="Ubuntu" /><category term="Ubuntu2004" /></entry><entry><title type="html">UniFi Controller</title><link href="https://jwillikers.com/unifi-controller" rel="alternate" type="text/html" title="UniFi Controller" /><published>2020-05-30T00:00:00+00:00</published><updated>2020-05-30T00:00:00+00:00</updated><id>https://jwillikers.com/UniFi%20Controller</id><content type="html" xml:base="https://jwillikers.com/unifi-controller">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For wi-fi, I use use a &lt;a href=&quot;https://www.ui.com/unifi/unifi-ap/&quot;&gt;UniFi AP&lt;/a&gt;.
-One slightly annoying aspect of this is the &lt;a href=&quot;https://www.ui.com/download/unifi/unifi-ap&quot;&gt;UniFi Controller&lt;/a&gt;.
-If you don&amp;#8217;t have a smartphone or need to manage more than one device, you&amp;#8217;ll need to set one up.
-I provide a brief tutorial for setting up the UniFi Controller with &lt;a href=&quot;https://docs.docker.com/compose/&quot;&gt;Docker Compose&lt;/a&gt; here.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;An existing &lt;a href=&quot;https://hub.docker.com/r/linuxserver/unifi-controller&quot;&gt;Docker image&lt;/a&gt; makes setting up the UniFi Controller a breeze.
-Here&amp;#8217;s how.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;install_docker&quot;&gt;Install Docker&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;First, you must install Docker on your system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Install Docker Compose.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;docker-compose&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add your user to the &lt;code&gt;docker&lt;/code&gt; group if you want to run docker without requiring superuser privileges.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;usermod &lt;span class=&quot;nt&quot;&gt;-aG&lt;/span&gt; docker &lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Reboot to complete the installation.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;reboot&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;compose&quot;&gt;Compose&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Configuring the &lt;code&gt;docker-compose&lt;/code&gt; file should provide all of the necessary details required to get the controller up and running.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;With Docker installed, create a directory for the &lt;code&gt;docker-compose&lt;/code&gt; file.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;unifi_controller
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;unifi_controller&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Configure the &lt;code&gt;docker-compose&lt;/code&gt; file.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The provided &lt;code&gt;docker-compose&lt;/code&gt; file requires just one tweak, configuring the volume.&lt;/p&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="Antigen" /><category term="Debian" /><category term="Linux" /><category term="oh-my-zsh" /><category term="Ubuntu" /><category term="ZSH" /></entry><entry><title type="html">One-Liner to Fetch the Latest Github Release</title><link href="https://jwillikers.com/one-liner-to-fetch-the-latest-github-release" rel="alternate" type="text/html" title="One-Liner to Fetch the Latest Github Release" /><published>2020-09-19T00:00:00+00:00</published><updated>2020-09-19T00:00:00+00:00</updated><id>https://jwillikers.com/One-Liner%20to%20Fetch%20the%20Latest%20Github%20Release</id><content type="html" xml:base="https://jwillikers.com/one-liner-to-fetch-the-latest-github-release">&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line.
+And if it could incorporate &lt;a href=&quot;https://en.wikipedia.org/wiki/AWK&quot;&gt;awk&lt;/a&gt;, that would be great too.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
+Well, the following command-line is a pretty nifty template to do just that!
+You will need &lt;a href=&quot;https://curl.haxx.se/&quot;&gt;cURL&lt;/a&gt;, shipped with macOS, or &lt;a href=&quot;https://www.gnu.org/software/wget/&quot;&gt;Wget&lt;/a&gt;, shipped with Linux, for this to work.
+Substitute in the user or organization name, the project&amp;#8217;s name, and the desired file extension for the &lt;em&gt;&amp;lt;user&amp;gt;&lt;/em&gt;, &lt;em&gt;&amp;lt;repo&amp;gt;&lt;/em&gt;, and &lt;em&gt;&amp;lt;extension&amp;gt;&lt;/em&gt; fields respectively.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;docker-compose.yml&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Download the latest Github release (cURL)&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;dockerfile&quot;&gt;---
-version: &quot;2.1&quot;
-services:
-  unifi-controller:
-    image: linuxserver/unifi-controller
-    container_name: unifi-controller
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - MEM_LIMIT=1024M &lt;span class=&quot;c&quot;&gt;#optional&lt;/span&gt;
-    volumes:
-      - data:/config
-    ports:
-      - 3478:3478/udp
-      - 10001:10001/udp
-      - 8080:8080
-      - 8081:8081
-      - 8443:8443
-      - 8843:8843
-      - 8880:8880
-      - 6789:6789
-    restart: unless-stopped
-
-volumes:
-  data:&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; https://api.github.com/repos/&amp;lt;user&amp;gt;/&amp;lt;repo&amp;gt;/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /\.&amp;lt;file extension&amp;gt;/ {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;curl -LO &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Download the latest Github release (Wget)&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-nv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://api.github.com/repos/&amp;lt;user&amp;gt;/&amp;lt;repo&amp;gt;/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /\.&amp;lt;file extension&amp;gt;/ \
+  {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qi -L &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;docker-compose&lt;/code&gt; should be pretty self-explanatory.
-It really just forwards the necessary ports from the Docker container to the host machine.&lt;/p&gt;
+&lt;p&gt;Here is a quick explanation.
+First, cURL or Wget obtains the response from an HTTP GET request.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;
+This response contains the URLs for the various artifacts for the latest release of the project.
+Next, &lt;code&gt;awk&lt;/code&gt; processes the response, finding the line containing a download URL and matching the given file extension.
+It then removes the quotation marks surrounding the URL and downloads the file directly with cURL or Wget.&lt;/p&gt;
 &lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It&amp;#8217;s also easy enough to modify the match pattern for the file extension to make it more specific if need be.
+The following example demonstrates this by fetching the latest Linux release zip file of the &lt;a href=&quot;https://ninja-build.org/&quot;&gt;Ninja build system&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Once configured, run the container.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Download the latest Ninja release (cURL)&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker-compose up &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; https://api.github.com/repos/ninja-build/ninja/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /linux\.zip/ {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;curl -LO &quot; $(NF))}'&lt;/span&gt;
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   637  100   637    0     0   1103      0 &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:--  1105
+100 99913  100 99913    0     0   101k      0 &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:--  372k&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Then, just open the UniFi Controller&amp;#8217;s web UI.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Download the latest Ninja release (Wget)&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;xdg-open http://127.0.0.1:8443&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-nv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://api.github.com/repos/ninja-build/ninja/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /linux\.zip/ \
+  {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qi -L &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8#gistcomment-3457870&quot;&gt;Github Gist: One Liner to Download the Latest Release from Github Repo&lt;/a&gt;
 &lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html&quot;&gt;RFC 2616&lt;/a&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Networking" /><category term="Containers" /><category term="Docker" /><category term="DockerCompose" /><category term="Linux" /><category term="UniFi" /><category term="UniFiController" /><category term="Ubuntu" /><category term="Ubuntu2004" /></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="awk" /><category term="cURL" /><category term="Linux" /><category term="macOS" /><category term="git" /><category term="Github" /><category term="Wget" /></entry></feed>

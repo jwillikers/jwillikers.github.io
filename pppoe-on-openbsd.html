@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>PPPoE on OpenBSD | JWillikers</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="PPPoE on OpenBSD" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering" />
+<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
+<link rel="canonical" href="https://jwillikers.com/pppoe-on-openbsd" />
+<meta property="og:url" content="https://jwillikers.com/pppoe-on-openbsd" />
+<meta property="og:site_name" content="JWillikers" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-12T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="PPPoE on OpenBSD" />
+<script type="application/ld+json">
+{"description":"Handy admin and dev guides from my myriad of tinkering","headline":"PPPoE on OpenBSD","dateModified":"2020-03-12T00:00:00+00:00","url":"https://jwillikers.com/pppoe-on-openbsd","datePublished":"2020-03-12T00:00:00+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/pppoe-on-openbsd"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/asciidoctor.css"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">JWillikers</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">PPPoE on OpenBSD</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-03-12T00:00:00+00:00" itemprop="datePublished">
+        Mar 12, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Some ISP&#8217;s establish connections with their customers' networks through PPPoE.
+I recently setup an OpenBSD 6.6 router which required PPPoE.
+This is my story.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dns_servers">DNS Servers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If necessary, configure your system to use your preferred DNS nameservers.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A common way of connecting to your ISP&#8217;s network is through <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">DHCP</a>.
+DHCP is capable of providing your system with DNS nameservers according to <a href="https://tools.ietf.org/html/rfc2132#section-3.8">RFC 2132</a> and <a href="https://tools.ietf.org/html/rfc2937">RFC 2937</a>.
+To my knowledge, this capability is absent from the <a href="https://tools.ietf.org/html/rfc2516">PPPoE Specification</a>.
+If you are switching from DHCP to PPPoE, be mindful that you may need to set your nameservers if you have not explicitly done so.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The place to do this is <a href="https://man.openbsd.org/resolv.conf.5">resolv.conf</a>.
+My system uses a couple of nameservers from the <a href="https://dnscrypt.info/public-servers">list provided by DNSCrypt</a>.
+The <a href="https://developers.google.com/speed/public-dns">Google nameservers</a> are also quite popular.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/resolv.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code>nameserver 176.103.130.132 <i class="conum" data-value="1"></i><b>(1)</b>
+nameserver 185.228.168.10 <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>adguard-dns-family</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>cleanbrowsing-adult</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pppoe_configuration">PPPoE Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The configuration is fairly straightforward.
+I use a <a href="https://man.openbsd.org/OpenBSD-6.6/hostname.if">hostname.if</a> file to initialize the PPPoE interface when the system boots.
+This example is very similar to the jumbo frames example provided in the <a href="https://man.openbsd.org/OpenBSD-6.6/pppoe#MTU/MSS_ISSUES">PPPOE(4)</a> manpage.
+Because this is a router, it requires more than the basic setup. PPPoE has an overhead and the incoming LAN connections will not be aware of this.
+My modifications to the example are as follows.
+First, <code>chap</code> replaces <code>pap</code> as the authentication protocol.
+Second, only IPv4 options are present since my ISP doesn&#8217;t support IPv6.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/hostname.pppoe0</div>
+<div class="content">
+<pre class="rouge highlight"><code>inet 0.0.0.0 255.255.255.255 NONE mtu 1500 \ <i class="conum" data-value="1"></i><b>(1)</b>
+	pppoedev em0 authproto chap \ <i class="conum" data-value="2"></i><b>(2)</b>
+	authname 'username' authkey 'password' up
+dest 0.0.0.1
+!/sbin/route add default -ifp pppoe0 0.0.0.1</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set the IP to <code>0.0.0.0</code>, a wildcard representing whatever IP the PPPoE connection provides, and adjust the frame size.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>em0</code> is the ethernet interface for the router&#8217;s WAN port.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The physical <code>em0</code> interface must be up.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/hostname.em0</div>
+<div class="content">
+<pre class="rouge highlight"><code>up mtu 1508</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Start up the <code>em0</code> and <code>pppoe0</code> interfaces.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">sh /etc/netstart em0 pppoe0</code></pre>
+</div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>/etc/netstart</code> script was not able to successfully establish a PPPoE connection when I changed my configuration from <code>pap</code> to <code>chap</code>.
+I had to reboot my system after changing the configuration file for the connection to succeed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">reboot</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+  </div><a class="u-url" href="/pppoe-on-openbsd" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Handy admin and dev guides from my myriad of tinkering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jwillikers" title="jwillikers"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/9835303" title="9835303"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

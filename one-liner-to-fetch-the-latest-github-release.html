@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>One-Liner to Fetch the Latest Github Release | JWillikers</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="One-Liner to Fetch the Latest Github Release" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering" />
+<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
+<link rel="canonical" href="https://jwillikers.com/one-liner-to-fetch-the-latest-github-release" />
+<meta property="og:url" content="https://jwillikers.com/one-liner-to-fetch-the-latest-github-release" />
+<meta property="og:site_name" content="JWillikers" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-19T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="One-Liner to Fetch the Latest Github Release" />
+<script type="application/ld+json">
+{"description":"Handy admin and dev guides from my myriad of tinkering","headline":"One-Liner to Fetch the Latest Github Release","dateModified":"2020-09-19T00:00:00+00:00","url":"https://jwillikers.com/one-liner-to-fetch-the-latest-github-release","datePublished":"2020-09-19T00:00:00+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/one-liner-to-fetch-the-latest-github-release"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/asciidoctor.css"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">JWillikers</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">One-Liner to Fetch the Latest Github Release</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-09-19T00:00:00+00:00" itemprop="datePublished">
+        Sep 19, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="paragraph">
+<p>Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line.
+And if it could incorporate <a href="https://en.wikipedia.org/wiki/AWK">awk</a>, that would be great too.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
+Well, the following command-line is a pretty nifty template to do just that!
+You will need <a href="https://curl.haxx.se/">cURL</a>, shipped with macOS, or <a href="https://www.gnu.org/software/wget/">Wget</a>, shipped with Linux, for this to work.
+Substitute in the user or organization name, the project&#8217;s name, and the desired file extension for the <em>&lt;user&gt;</em>, <em>&lt;repo&gt;</em>, and <em>&lt;extension&gt;</em> fields respectively.</p>
+</div>
+<div class="listingblock">
+<div class="title">Download the latest Github release (cURL)</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/&lt;user&gt;/&lt;repo&gt;/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /\.&lt;file extension&gt;/ {gsub(/"/, "", $(NF)); system("curl -LO " $(NF))}'</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Download the latest Github release (Wget)</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>wget <span class="nt">-q</span> <span class="nt">-nv</span> <span class="nt">-O</span> - https://api.github.com/repos/&lt;user&gt;/&lt;repo&gt;/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /\.&lt;file extension&gt;/ \
+  {gsub(/"/, "", $(NF)); system("wget -qi -L " $(NF))}'</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is a quick explanation.
+First, cURL or Wget obtains the response from an HTTP GET request.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
+This response contains the URLs for the various artifacts for the latest release of the project.
+Next, <code>awk</code> processes the response, finding the line containing a download URL and matching the given file extension.
+It then removes the quotation marks surrounding the URL and downloads the file directly with cURL or Wget.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s also easy enough to modify the match pattern for the file extension to make it more specific if need be.
+The following example demonstrates this by fetching the latest Linux release zip file of the <a href="https://ninja-build.org/">Ninja build system</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Download the latest Ninja release (cURL)</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>curl <span class="nt">-s</span> https://api.github.com/repos/ninja-build/ninja/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /linux\.zip/ {gsub(/"/, "", $(NF)); system("curl -LO " $(NF))}'</span>
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   637  100   637    0     0   1103      0 <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:--  1105
+100 99913  100 99913    0     0   101k      0 <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:-- <span class="nt">--</span>:--:--  372k</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Download the latest Ninja release (Wget)</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>wget <span class="nt">-q</span> <span class="nt">-nv</span> <span class="nt">-O</span> - https://api.github.com/repos/ninja-build/ninja/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /linux\.zip/ \
+  {gsub(/"/, "", $(NF)); system("wget -qi -L " $(NF))}'</span></code></pre>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <a href="https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8#gistcomment-3457870">Github Gist: One Liner to Download the Latest Release from Github Repo</a>
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">RFC 2616</a>
+</div>
+</div>
+  </div><a class="u-url" href="/one-liner-to-fetch-the-latest-github-release" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Handy admin and dev guides from my myriad of tinkering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jwillikers" title="jwillikers"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/9835303" title="9835303"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Install ZFS on the Pinebook Pro | JWillikers</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Install ZFS on the Pinebook Pro" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering" />
+<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
+<link rel="canonical" href="https://jwillikers.com/install-zfs-on-the-pinebook-pro" />
+<meta property="og:url" content="https://jwillikers.com/install-zfs-on-the-pinebook-pro" />
+<meta property="og:site_name" content="JWillikers" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-30T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Install ZFS on the Pinebook Pro" />
+<script type="application/ld+json">
+{"description":"Handy admin and dev guides from my myriad of tinkering","headline":"Install ZFS on the Pinebook Pro","dateModified":"2020-06-30T00:00:00+00:00","url":"https://jwillikers.com/install-zfs-on-the-pinebook-pro","datePublished":"2020-06-30T00:00:00+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/install-zfs-on-the-pinebook-pro"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/asciidoctor.css"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">JWillikers</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Install ZFS on the Pinebook Pro</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-06-30T00:00:00+00:00" itemprop="datePublished">
+        Jun 30, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Recently, I obtained a 64-bit ARM, budget Linux laptop, the <a href="https://www.pine64.org/pinebook-pro/">Pinebook Pro</a>.
+It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency.
+I enjoy using it so much, it&#8217;s becoming my main machine, and I&#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it.
+The only problem being my media takes up a bit more than the 64 GiB available on the machine&#8217;s built-in eMMC.
+With a spacious microSD card in-hand, I knew it was time to get more experience with my new filesystem of choice <a href="https://openzfs.org/wiki/Main_Page">ZFS</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial describes the steps required to install ZFS on a Pinebook Pro running the tailored version of Manjaro KDE.</p>
+</div>
+<div class="sect2">
+<h3 id="install">Install</h3>
+<div class="paragraph">
+<p>The ZFS software is readily available as a <a href="https://en.wikipedia.org/wiki/Dynamic_Kernel_Module_Support">DKMS</a> module for the arm64 architecture.
+The following instructions detail how to install the ZFS DKMS module.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First, install DKMS on the Pinebook Pro.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> dkms linux-pinebookpro-headers</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The <a href="https://github.com/Jguer/yay">yay</a> tool provides a nifty way to install packages from the <a href="https://wiki.archlinux.org/index.php/Arch_User_Repository">AUR</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>pacman <span class="nt">-S</span> yay</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Then, install the <a href="https://aur.archlinux.org/packages/zfs-dkms-any/">zfs-dkms-any</a> package from the AUR.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>yay <span class="nt">-S</span> zfs-dkms-any</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configure">Configure</h3>
+<div class="paragraph">
+<p>It&#8217;s likely you want to have ZFS available without having to explicitly load the DKMS module, import pools, and mount datasets every time you restart your computer.
+These next steps describe exactly how to avoid such nonsense.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To load the ZFS DKMS module at boot, create the appropriate file for <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+<div class="listingblock">
+<div class="title">/etc/modules-load.d/zfs.conf</div>
+<div class="content">
+<pre># Load ZFS at boot
+zfs</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enable importing pools and mounting datasets at boot.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs-import-cache
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs-import.target
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs-mount
+<span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>zfs.target</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="next_steps">Next Steps</h3>
+<div class="paragraph">
+<p>See <a href="zfs_external_storage_pinebook_pro.html">External Storage on the Pinebook Pro with ZFS</a> to learn how to use ZFS to store your files on a microSD card.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <a href="https://wiki.archlinux.org/index.php/Dynamic_Kernel_Module_Support">Arch Linux Wiki: Dynamic Kernel Module Support</a>
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. <a href="https://wiki.archlinux.org/index.php/Kernel_module#Automatic_module_loading_with_systemd">Arch Linux Wiki: Kernel Module - Automatic Module Loading with systemd</a>
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. <a href="https://wiki.archlinux.org/index.php/ZFS#Automatic_Start">Arch Linux Wiki: ZFS - Automatic Start</a>
+</div>
+</div>
+  </div><a class="u-url" href="/install-zfs-on-the-pinebook-pro" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Handy admin and dev guides from my myriad of tinkering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jwillikers" title="jwillikers"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/9835303" title="9835303"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Automatically Detect &amp; Report Hard Drive Failure | JWillikers</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Automatically Detect &amp; Report Hard Drive Failure" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering" />
+<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
+<link rel="canonical" href="https://jwillikers.com/smartd-ubuntu" />
+<meta property="og:url" content="https://jwillikers.com/smartd-ubuntu" />
+<meta property="og:site_name" content="JWillikers" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-25T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Automatically Detect &amp; Report Hard Drive Failure" />
+<script type="application/ld+json">
+{"description":"Handy admin and dev guides from my myriad of tinkering","headline":"Automatically Detect &amp; Report Hard Drive Failure","dateModified":"2020-05-25T00:00:00+00:00","url":"https://jwillikers.com/smartd-ubuntu","datePublished":"2020-05-25T00:00:00+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/smartd-ubuntu"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/asciidoctor.css"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">JWillikers</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Automatically Detect &amp;amp; Report Hard Drive Failure</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-05-25T00:00:00+00:00" itemprop="datePublished">
+        May 25, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I recently fixed my mother-in-law&#8217;s laptop.
+Long story short, the hard disk was toast.
+When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future.
+So, how does one know if his or her mother-in-law&#8217;s hard disk is reaching senility?
+<a href="https://www.smartmontools.org/">SmartMonTools</a> appears to be the best tool for the job.
+It&#8217;s a tool for monitoring and reporting hard disk health with <a href="https://en.wikipedia.org/wiki/S.M.A.R.T">Self-Monitoring, Anlysis, and Reporting Technology (SMART)</a> which is built into most hard drives.
+SmartMonTools is even cross-platform and available in package repositories everywhere.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial describes the steps required to setup automated hard disk health checks and email notifications using SmartMonTools 7.1 on Ubuntu 20.04.
+If you&#8217;re configuring a desktop like me or otherwise configuring a system which doesn&#8217;t have a <a href="https://en.wikipedia.org/wiki/Message_transfer_agent">MTA (Mail Transport Agent)</a> or <a href="https://en.wikipedia.org/wiki/Email_client">MUA (Mail User Agent)</a> setup already and wish to send emails externally, I recommend following my tutorial on setting up an <a href="opensmtpd_ubuntu.html">OpenSMTPD Relay on Ubuntu</a>.
+Emails sent straight from a willy-nilly desktop user account to an online email provider are unlikely to be accepted.
+With <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a>, your system can relay emails through your online email provider to remedy this.</p>
+</div>
+<div class="sect2">
+<h3 id="install">Install</h3>
+<div class="paragraph">
+<p>First, install SmartMonTools on Ubuntu.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>apt <span class="nb">install </span>smartmontools</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configure">Configure</h3>
+<div class="paragraph">
+<p>The tool to monitor your system is, of course, <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/smartd.8.html">smartd</a>.
+Configuration is done in <code>/etc/smartd.conf</code>.
+Consult the <a href="https://manpages.ubuntu.com/manpages/focal/en/man5/smartd.conf.5.html">smartd.conf manpage</a> for more details.
+The <code>smartd.conf</code> below provides a complete configuration example.
+It checks the <a href="https://en.wikipedia.org/wiki/Serial_ATA">SATA</a> disk <code>/dev/sda</code> for various types of failures, schedules regular self-tests, reports any errors via email, and avoids consuming excessive energy by frequently waking the disk.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/smartd.conf</div>
+<div class="content">
+<pre>/dev/sda \ <i class="conum" data-value="1"></i><b>(1)</b>
+    -d sat \ <i class="conum" data-value="2"></i><b>(2)</b>
+    -o on \ <i class="conum" data-value="3"></i><b>(3)</b>
+    -S on \ <i class="conum" data-value="4"></i><b>(4)</b>
+    -H \ <i class="conum" data-value="5"></i><b>(5)</b>
+    -l error \ <i class="conum" data-value="6"></i><b>(6)</b>
+    -l selftest \ <i class="conum" data-value="7"></i><b>(7)</b>
+    -f \ <i class="conum" data-value="8"></i><b>(8)</b>
+    -n standby,15,q \ <i class="conum" data-value="9"></i><b>(9)</b>
+    -s (L/../(01|16)/./03|S/../.././01|O/../.././(00|06|12|18)) \ <i class="conum" data-value="10"></i><b>(10)</b>
+    -m jdoe@gmail.com \ <i class="conum" data-value="11"></i><b>(11)</b>
+    -M exec /usr/share/smartmontools/smartd-runner <i class="conum" data-value="12"></i><b>(12)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Run for the device <code>/dev/sda</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Specify that the device uses a <a href="https://en.wikipedia.org/wiki/SCSI_/_ATA_Translation">SCSI to ATA Translation</a> interface.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Enable <a href="https://www.smartmontools.org/wiki/test_offline">SMART Automatic Offline Testing</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Automatically save SMART attributes.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Check the health status of the disk for failing health status.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Report if there are any new SMART errors.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Report if there are any new SMART errors for any self-tests.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Check for failure of any Usage Attributes.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Check the device unless it is in <code>SLEEP</code> or <code>STANDBY</code> mode.
+Wake it up after 15 skipped checks.
+Don&#8217;t log the skipped test, which could wake-up the disk.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>Schedule long self-tests for the first and sixteenth days of the month at 3 AM, short self-tests daily at 1 AM, and Offline Immediate Tests four times each day at midnight, 6 AM, noon, and 6 PM.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>Email <code>jdoe@gmail.com</code> if any errors are detected.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="12"></i><b>12</b></td>
+<td>Execute <code>/usr/share/smartmontools/smartd-runner</code> instead of the default mail command when sending emails.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Enable <code>smartd</code> on system startup.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nb">enable </span>smartd</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="verify">Verify</h3>
+<div class="paragraph">
+<p>You will probably want to double check the scheduling and emailing behavior, at the very least.</p>
+</div>
+<div class="sect3">
+<h4 id="scheduling">Scheduling</h4>
+<div class="paragraph">
+<p>Audit the self-test schedule with <code>smartd -q showtests</code>.
+This will show the next five tests scheduled for each type of self-test.
+It also shows the total number of tests for each type of self-test for the next ninety days.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>smartd <span class="nt">-q</span> showtests
+smartd 7.1 2019-12-30 r5022 <span class="o">[</span>x86_64-linux-5.4.0-31-generic] <span class="o">(</span><span class="nb">local </span>build<span class="o">)</span>
+Copyright <span class="o">(</span>C<span class="o">)</span> 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
+
+Opened configuration file /etc/smartd.conf
+Configuration file /etc/smartd.conf parsed.
+Device: /dev/sda, opened
+Device: /dev/sda, CT2000MX500SSD1, S/N:000000000001, WWN:0-000000-000000000, FW:M3CR023, 2.00 TB
+Device: /dev/sda, found <span class="k">in </span>smartd database: Crucial/Micron MX500 SSDs
+Device: /dev/sda, WARNING: This firmware returns bogus raw values <span class="k">in </span>attribute 197
+Device: /dev/sda, enabled SMART Attribute Autosave.
+Device: /dev/sda, enabled SMART Automatic Offline Testing.
+Device: /dev/sda, is SMART capable. Adding to <span class="s2">"monitor"</span> list.
+Device: /dev/sda, state <span class="nb">read </span>from /var/lib/smartmontools/smartd.CT2000MX500SSD1-000000000001.ata.state
+Monitoring 1 ATA/SATA, 0 SCSI/SAS and 0 NVMe devices
+
+Next scheduled self tests <span class="o">(</span>at most 5 of each <span class="nb">type </span>per device<span class="o">)</span>:
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>1 of <span class="nb">type </span>O at Mon May 25 12:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>2 of <span class="nb">type </span>O at Mon May 25 18:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>3 of <span class="nb">type </span>O at Tue May 26 00:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>1 of <span class="nb">type </span>S at Tue May 26 01:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>4 of <span class="nb">type </span>O at Tue May 26 06:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>5 of <span class="nb">type </span>O at Tue May 26 12:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>2 of <span class="nb">type </span>S at Wed May 27 01:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>3 of <span class="nb">type </span>S at Thu May 28 01:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>4 of <span class="nb">type </span>S at Fri May 29 01:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>5 of <span class="nb">type </span>S at Sat May 30 01:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>1 of <span class="nb">type </span>L at Mon Jun  1 03:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>2 of <span class="nb">type </span>L at Tue Jun 16 03:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>3 of <span class="nb">type </span>L at Wed Jul  1 03:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>4 of <span class="nb">type </span>L at Thu Jul 16 03:25:20 2020 CDT
+Device: /dev/sda, will <span class="k">do </span><span class="nb">test </span>5 of <span class="nb">type </span>L at Sat Aug  1 03:25:20 2020 CDT
+
+Totals <span class="o">[</span>Mon May 25 10:25:20 2020 CDT - Sun Aug 23 10:25:20 2020 CDT]:
+Device: /dev/sda, will <span class="k">do   </span>6 tests of <span class="nb">type </span>L
+Device: /dev/sda, will <span class="k">do  </span>90 tests of <span class="nb">type </span>S
+Device: /dev/sda, will <span class="k">do   </span>0 tests of <span class="nb">type </span>C
+Device: /dev/sda, will <span class="k">do </span>360 tests of <span class="nb">type </span>O</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Further verification can be done to make sure self-tests are running at the scheduled times.
+After an amount of time where <code>smartd</code> is expected to run some self-tests, check the self-test log with <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/smartctl.8.html">smartctl</a>.
+The log shows that one short offline test has been run without error.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>smartctl <span class="nt">-d</span> sat <span class="nt">-l</span> xselftest,25,selftest /dev/sda
+smartctl 7.1 2019-12-30 r5022 <span class="o">[</span>x86_64-linux-5.4.0-31-generic] <span class="o">(</span><span class="nb">local </span>build<span class="o">)</span>
+Copyright <span class="o">(</span>C<span class="o">)</span> 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
+
+<span class="o">===</span> START OF READ SMART DATA SECTION <span class="o">===</span>
+SMART Extended Self-test Log Version: 1 <span class="o">(</span>1 sectors<span class="o">)</span>
+Num  Test_Description    Status                  Remaining  LifeTime<span class="o">(</span>hours<span class="o">)</span>  LBA_of_first_error
+<span class="c"># 1  Short offline       Completed without error       00%       460         -</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="email_alerts">Email Alerts</h4>
+<div class="paragraph">
+<p>To test the email functionality, you can tell <code>smartd</code> to send a test email.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/smartd.conf</div>
+<div class="content">
+<pre>/dev/sda \
+    -d sat \
+    -o on \
+    -S on \
+    -H \
+    -l error \
+    -l selftest \
+    -f \
+    -n standby,15,q \
+    -s (L/../(01|16)/./03|S/../.././01|O/../.././(00|06|12|18)) \
+    -m jdoe@gmail.com \
+    -M test \ <i class="conum" data-value="1"></i><b>(1)</b>
+    -M exec /usr/share/smartmontools/smartd-runner</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Send a test email when <code>smartd</code> starts.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Restart <code>smartd</code> so that it sends the test email.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl restart smartd</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If everything works, you should receive an email at the designated address.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Make sure to remove the <code>-M test</code> directive from the file so you don&#8217;t spam yourself.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </div><a class="u-url" href="/smartd-ubuntu" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Handy admin and dev guides from my myriad of tinkering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jwillikers" title="jwillikers"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/9835303" title="9835303"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
