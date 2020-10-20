@@ -1,4 +1,205 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-18T14:58:45+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Git Syntax Highlighting</title><link href="https://jwillikers.com/git-syntax-highlighting" rel="alternate" type="text/html" title="Git Syntax Highlighting" /><published>2020-10-14T00:00:00+00:00</published><updated>2020-10-14T00:00:00+00:00</updated><id>https://jwillikers.com/Git%20Syntax%20Highlighting</id><content type="html" xml:base="https://jwillikers.com/git-syntax-highlighting">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-20T18:07:18+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">X11 Forwarding</title><link href="https://jwillikers.com/x11-forwarding-x11-forwarding" rel="alternate" type="text/html" title="X11 Forwarding" /><published>2020-10-20T00:00:00+00:00</published><updated>2020-10-20T00:00:00+00:00</updated><id>https://jwillikers.com/X11%20Forwarding/X11%20Forwarding</id><content type="html" xml:base="https://jwillikers.com/x11-forwarding-x11-forwarding">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;X11%20Forwarding%20GNOME%20Terminal%20on%20macOS%20Catalina.jpg&quot; alt=&quot;A Remote Instance of GNOME Terminal Viewed on macOS Catalina&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;A Remote Instance of GNOME Terminal Viewed on macOS Catalina&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Opening a graphical application on a remote machine and displaying it locally is super convenient.
+With &lt;a href=&quot;https://www.openssh.com/&quot;&gt;OpenSSH&lt;/a&gt; and &lt;a href=&quot;https://www.x.org/wiki/&quot;&gt;X11&lt;/a&gt;, this is trivially accomplished via &lt;em&gt;X11 forwading&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;x11_forwarding&quot;&gt;X11 Forwarding&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial walks through running a graphical application remotely via X11 forwarding.
+The local machine is assumed to be running the OpenSSH client and likewise the server is assumed to be running the OpenSSH server.
+X11 must be available on both the client and server.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Although X11 is being superseded by &lt;a href=&quot;https://wayland.freedesktop.org/&quot;&gt;Wayland&lt;/a&gt;, many Unix-like systems still ship with some form of X11 today.
+Wayland also specifies features for compatibility with X11, so X11 forwarding might continue to work even under your system&amp;#8217;s implementation of Wayland.
+On macOS, the X11 software is available from the &lt;a href=&quot;https://www.xquartz.org/&quot;&gt;XQuartz project&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Ensure the SSH server has the required &lt;a href=&quot;https://www.x.org/archive/X11R6.8.1/doc/xauth.1.html&quot;&gt;&lt;code&gt;xauth&lt;/code&gt;&lt;/a&gt; program.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ which xauth
+/usr/bin/xauth&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;On the SSH server, set &lt;code&gt;ForwardX11 yes&lt;/code&gt; in &lt;code&gt;sshd_config&lt;/code&gt; to enable X11 forwarding.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;ForwardX11 yes&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Open an SSH connection with X11 forwarding by adding the &lt;code&gt;-X&lt;/code&gt; flag on the command-line.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CX&lt;/span&gt; my-host&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you receive a warning that the file &lt;code&gt;.Xauthority&lt;/code&gt; does not exist, ignore it.
+It should disappear for subsequent SSH sessions on that host.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Enable compression when using X11 forwarding with the &lt;code&gt;-C&lt;/code&gt; flag, as done here, to enhance the connection&amp;#8217;s performance.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If the graphical application your using requires fully trusting X11, use the &lt;code&gt;-Y&lt;/code&gt; flag instead.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CY&lt;/span&gt; my-very-trustworthy-host&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock caution&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Your keypresses can be captured on the remote machine so make sure you actually trust it.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;From the terminal, execute a graphical application, and it will be displayed locally so long as nothing goes awry.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Execute &lt;a href=&quot;https://wiki.gnome.org/Apps/Terminal&quot;&gt;GNOME Terminal&lt;/a&gt;, for instance.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gnome-terminal&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If you always require X11 forwarding when connecting to a particular host, add the relevant options to enable it in your SSH client&amp;#8217;s configuration.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Host my-very-trustworthy-host
+Compression &lt;span class=&quot;nb&quot;&gt;yes
+&lt;/span&gt;ForwardX11 &lt;span class=&quot;nb&quot;&gt;yes
+&lt;/span&gt;ForwardX11Trusted &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock caution&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Never indescriminately enbale X11 forwarding.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Optionally, background the SSH process when running a remote X11 application.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It&amp;#8217;s not necessary to keep a dedicated terminal open with the SSH process running.
+Use the &lt;code&gt;-f&lt;/code&gt; flag to execute a program on the remote machine and background the SSH process.
+The following example demonstrates this by running GNOME Terminal on the remote host.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CYf&lt;/span&gt; my-very-trustworthy-host gnome-terminal&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/ssh-mastery-2nd-edition/&quot;&gt;SSH Mastery, 2nd Edition by Michael W. Lucas&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://wiki.archlinux.org/index.php/OpenSSH#X11_forwarding&quot;&gt;Arch Wiki: OpenSSH - X11 forwarding&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now be able to take advantage of X11 forwarding built into OpenSSH to run graphical applications on a remote machine while viewing them locally.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Networking" /><category term="OpenSSH" /><category term="SSH" /><category term="X11" /></entry><entry><title type="html">Git Syntax Highlighting</title><link href="https://jwillikers.com/git-syntax-highlighting" rel="alternate" type="text/html" title="Git Syntax Highlighting" /><published>2020-10-14T00:00:00+00:00</published><updated>2020-10-14T00:00:00+00:00</updated><id>https://jwillikers.com/Git%20Syntax%20Highlighting</id><content type="html" xml:base="https://jwillikers.com/git-syntax-highlighting">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;If you like to use &lt;a href=&quot;https://github.com/dandavison/delta&quot;&gt;&lt;code&gt;git&lt;/code&gt;&lt;/a&gt; from the command-line and enjoy syntax highlighting, you might be interested in &lt;a href=&quot;https://github.com/dandavison/delta&quot;&gt;&lt;code&gt;delta&lt;/code&gt;&lt;/a&gt;, which adds this functionality and more to &lt;code&gt;git&lt;/code&gt;.&lt;/p&gt;
@@ -1772,64 +1973,4 @@ If you want to automate updating your Antigen plugins with &lt;a href=&quot;http
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_6&quot;&gt;
 &lt;a href=&quot;#_footnoteref_6&quot;&gt;6&lt;/a&gt;. &lt;a href=&quot;https://github.com/zsh-users/antigen/wiki/Commands#antigen-update&quot;&gt;Antigen Wiki: Commands - antigen update&lt;/a&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="Antigen" /><category term="Debian" /><category term="Linux" /><category term="oh-my-zsh" /><category term="Ubuntu" /><category term="ZSH" /></entry><entry><title type="html">One-Liner to Fetch the Latest Github Release</title><link href="https://jwillikers.com/one-liner-to-fetch-the-latest-github-release" rel="alternate" type="text/html" title="One-Liner to Fetch the Latest Github Release" /><published>2020-09-19T00:00:00+00:00</published><updated>2020-09-19T00:00:00+00:00</updated><id>https://jwillikers.com/One-Liner%20to%20Fetch%20the%20Latest%20Github%20Release</id><content type="html" xml:base="https://jwillikers.com/one-liner-to-fetch-the-latest-github-release">&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line.
-And if it could incorporate &lt;a href=&quot;https://en.wikipedia.org/wiki/AWK&quot;&gt;awk&lt;/a&gt;, that would be great too.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
-Well, the following command-line is a pretty nifty template to do just that!
-You will need &lt;a href=&quot;https://curl.haxx.se/&quot;&gt;cURL&lt;/a&gt;, shipped with macOS, or &lt;a href=&quot;https://www.gnu.org/software/wget/&quot;&gt;Wget&lt;/a&gt;, shipped with Linux, for this to work.
-Substitute in the user or organization name, the project&amp;#8217;s name, and the desired file extension for the &lt;em&gt;&amp;lt;user&amp;gt;&lt;/em&gt;, &lt;em&gt;&amp;lt;repo&amp;gt;&lt;/em&gt;, and &lt;em&gt;&amp;lt;extension&amp;gt;&lt;/em&gt; fields respectively.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Download the latest Github release (cURL)&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; https://api.github.com/repos/&amp;lt;user&amp;gt;/&amp;lt;repo&amp;gt;/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /\.&amp;lt;file extension&amp;gt;/ {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;curl -LO &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Download the latest Github release (Wget)&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-nv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://api.github.com/repos/&amp;lt;user&amp;gt;/&amp;lt;repo&amp;gt;/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /\.&amp;lt;file extension&amp;gt;/ \
-  {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qi -L &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here is a quick explanation.
-First, cURL or Wget obtains the response from an HTTP GET request.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;
-This response contains the URLs for the various artifacts for the latest release of the project.
-Next, &lt;code&gt;awk&lt;/code&gt; processes the response, finding the line containing a download URL and matching the given file extension.
-It then removes the quotation marks surrounding the URL and downloads the file directly with cURL or Wget.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It&amp;#8217;s also easy enough to modify the match pattern for the file extension to make it more specific if need be.
-The following example demonstrates this by fetching the latest Linux release zip file of the &lt;a href=&quot;https://ninja-build.org/&quot;&gt;Ninja build system&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Download the latest Ninja release (cURL)&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; https://api.github.com/repos/ninja-build/ninja/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /linux\.zip/ {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;curl -LO &quot; $(NF))}'&lt;/span&gt;
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   637  100   637    0     0   1103      0 &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:--  1105
-100 99913  100 99913    0     0   101k      0 &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:--  372k&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Download the latest Ninja release (Wget)&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-nv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://api.github.com/repos/ninja-build/ninja/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /linux\.zip/ \
-  {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qi -L &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8#gistcomment-3457870&quot;&gt;Github Gist: One Liner to Download the Latest Release from Github Repo&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html&quot;&gt;RFC 2616&lt;/a&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="awk" /><category term="cURL" /><category term="Linux" /><category term="macOS" /><category term="git" /><category term="Github" /><category term="Wget" /></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="Antigen" /><category term="Debian" /><category term="Linux" /><category term="oh-my-zsh" /><category term="Ubuntu" /><category term="ZSH" /></entry></feed>
