@@ -1,4 +1,205 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-20T18:25:40+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Git Syntax Highlighting</title><link href="https://jwillikers.com/git-syntax-highlighting" rel="alternate" type="text/html" title="Git Syntax Highlighting" /><published>2020-10-14T00:00:00+00:00</published><updated>2020-10-14T00:00:00+00:00</updated><id>https://jwillikers.com/Git%20Syntax%20Highlighting</id><content type="html" xml:base="https://jwillikers.com/git-syntax-highlighting">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-20T18:38:22+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">X11 Forwarding</title><link href="https://jwillikers.com/x11-forwarding" rel="alternate" type="text/html" title="X11 Forwarding" /><published>2020-10-20T00:00:00+00:00</published><updated>2020-10-20T00:00:00+00:00</updated><id>https://jwillikers.com/X11%20Forwarding</id><content type="html" xml:base="https://jwillikers.com/x11-forwarding">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;X11%20Forwarding%20GNOME%20Terminal%20on%20macOS%20Catalina.jpg&quot; alt=&quot;A Remote Instance of GNOME Terminal Viewed on macOS Catalina&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;A Remote Instance of GNOME Terminal Viewed on macOS Catalina&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Opening a graphical application on a remote machine and displaying it locally is super convenient.
+With &lt;a href=&quot;https://www.openssh.com/&quot;&gt;OpenSSH&lt;/a&gt; and &lt;a href=&quot;https://www.x.org/wiki/&quot;&gt;X11&lt;/a&gt;, this is trivially accomplished via &lt;em&gt;X11 forwading&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;x11_forwarding&quot;&gt;X11 Forwarding&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial walks through running a graphical application remotely via X11 forwarding.
+The local machine is assumed to be running the OpenSSH client and likewise the server is assumed to be running the OpenSSH server.
+X11 must be available on both the client and server.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Although X11 is being superseded by &lt;a href=&quot;https://wayland.freedesktop.org/&quot;&gt;Wayland&lt;/a&gt;, many Unix-like systems still ship with some form of X11 today.
+Wayland also specifies features for compatibility with X11, so X11 forwarding might continue to work even under your system&amp;#8217;s implementation of Wayland.
+On macOS, the X11 software is available from the &lt;a href=&quot;https://www.xquartz.org/&quot;&gt;XQuartz project&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Ensure the SSH server has the required &lt;a href=&quot;https://www.x.org/archive/X11R6.8.1/doc/xauth.1.html&quot;&gt;&lt;code&gt;xauth&lt;/code&gt;&lt;/a&gt; program.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ which xauth
+/usr/bin/xauth&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;On the SSH server, set &lt;code&gt;ForwardX11 yes&lt;/code&gt; in &lt;code&gt;sshd_config&lt;/code&gt; to enable X11 forwarding.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;ForwardX11 yes&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Open an SSH connection with X11 forwarding by adding the &lt;code&gt;-X&lt;/code&gt; flag on the command-line.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CX&lt;/span&gt; my-host&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you receive a warning that the file &lt;code&gt;.Xauthority&lt;/code&gt; does not exist, ignore it.
+It should disappear for subsequent SSH sessions on that host.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Enable compression when using X11 forwarding with the &lt;code&gt;-C&lt;/code&gt; flag, as done here, to enhance the connection&amp;#8217;s performance.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If the graphical application your using requires fully trusting X11, use the &lt;code&gt;-Y&lt;/code&gt; flag instead.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CY&lt;/span&gt; my-very-trustworthy-host&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock caution&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Your keypresses can be captured on the remote machine so make sure you actually trust it.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;From the terminal, execute a graphical application, and it will be displayed locally so long as nothing goes awry.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Execute &lt;a href=&quot;https://wiki.gnome.org/Apps/Terminal&quot;&gt;GNOME Terminal&lt;/a&gt;, for instance.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gnome-terminal&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If you always require X11 forwarding when connecting to a particular host, add the relevant options to enable it in your SSH client&amp;#8217;s configuration.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Host my-very-trustworthy-host
+Compression &lt;span class=&quot;nb&quot;&gt;yes
+&lt;/span&gt;ForwardX11 &lt;span class=&quot;nb&quot;&gt;yes
+&lt;/span&gt;ForwardX11Trusted &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock caution&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Never indescriminately enbale X11 forwarding.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Optionally, background the SSH process when running a remote X11 application.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It&amp;#8217;s not necessary to keep a dedicated terminal open with the SSH process running.
+Use the &lt;code&gt;-f&lt;/code&gt; flag to execute a program on the remote machine and background the SSH process.
+The following example demonstrates this by running GNOME Terminal on the remote host.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CYf&lt;/span&gt; my-very-trustworthy-host gnome-terminal&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/ssh-mastery-2nd-edition/&quot;&gt;SSH Mastery, 2nd Edition by Michael W. Lucas&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://wiki.archlinux.org/index.php/OpenSSH#X11_forwarding&quot;&gt;Arch Wiki: OpenSSH - X11 forwarding&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now be able to take advantage of X11 forwarding built into OpenSSH to run graphical applications on a remote machine while viewing them locally.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Networking" /><category term="OpenSSH" /><category term="SSH" /><category term="X11" /></entry><entry><title type="html">Git Syntax Highlighting</title><link href="https://jwillikers.com/git-syntax-highlighting" rel="alternate" type="text/html" title="Git Syntax Highlighting" /><published>2020-10-14T00:00:00+00:00</published><updated>2020-10-14T00:00:00+00:00</updated><id>https://jwillikers.com/Git%20Syntax%20Highlighting</id><content type="html" xml:base="https://jwillikers.com/git-syntax-highlighting">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;If you like to use &lt;a href=&quot;https://github.com/dandavison/delta&quot;&gt;&lt;code&gt;git&lt;/code&gt;&lt;/a&gt; from the command-line and enjoy syntax highlighting, you might be interested in &lt;a href=&quot;https://github.com/dandavison/delta&quot;&gt;&lt;code&gt;delta&lt;/code&gt;&lt;/a&gt;, which adds this functionality and more to &lt;code&gt;git&lt;/code&gt;.&lt;/p&gt;
@@ -1054,7 +1255,259 @@ It should be a piece of cake to change your login shell now.&lt;/p&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
 &lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#switching-to-fish&quot;&gt;Fish Shell Tutorial - Switching to fish?&lt;/a&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="BSD" /><category term="fish" /><category term="Linux" /><category term="macOS" /><category term="shell" /><category term="Ubuntu" /></entry><entry><title type="html">Automatically Update Antigen</title><link href="https://jwillikers.com/automatically-update-antigen" rel="alternate" type="text/html" title="Automatically Update Antigen" /><published>2020-09-23T00:00:00+00:00</published><updated>2020-09-23T00:00:00+00:00</updated><id>https://jwillikers.com/Automatically%20Update%20Antigen</id><content type="html" xml:base="https://jwillikers.com/automatically-update-antigen">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="BSD" /><category term="fish" /><category term="Linux" /><category term="macOS" /><category term="shell" /><category term="Ubuntu" /></entry><entry><title type="html">My SSH Configuration</title><link href="https://jwillikers.com/my-ssh-configuration" rel="alternate" type="text/html" title="My SSH Configuration" /><published>2020-09-29T00:00:00+00:00</published><updated>2020-09-29T00:00:00+00:00</updated><id>https://jwillikers.com/My%20SSH%20Configuration</id><content type="html" xml:base="https://jwillikers.com/my-ssh-configuration">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;https://www.openssh.com/&quot;&gt;OpenSSH&lt;/a&gt; client and server applications are ubiquitous.
+Like many a software dev, I&amp;#8217;m `ssh&amp;#8217;ing all over the place.
+And you know what?
+I&amp;#8217;ve put off learning the ins and outs of its configuration for far too long.
+I learned that a little bit of know-how can simplify my day-to-day use of SSH.
+That&amp;#8217;s exactly why I&amp;#8217;ve written this post to exemplify the configuration options I&amp;#8217;m now using.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;ssh_configuration&quot;&gt;SSH Configuration&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The file &lt;code&gt;~/.ssh/config&lt;/code&gt; contains a user&amp;#8217;s SSH configuration.
+Settings here can be defined per-host.
+General configuration options include aliases, SSH agent behavior, and jump hosts to name a few.
+Different sections of a sample &lt;code&gt;~/.ssh/config&lt;/code&gt; are discussed in detail below.
+Further documentation is available from the &lt;a href=&quot;https://man.openbsd.org/ssh_config&quot;&gt;&lt;code&gt;ssh_config&lt;/code&gt; manpage&lt;/a&gt;.
+This article assumes the reader is familiar with the basics of SSH and the syntax of SSH configuration files.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;localhost&quot;&gt;Localhost&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The first option does not reside in a &lt;a href=&quot;https://man.openbsd.org/ssh_config#Host&quot;&gt;&lt;code&gt;Host&lt;/code&gt;&lt;/a&gt; or &lt;a href=&quot;https://man.openbsd.org/ssh_config#Match&quot;&gt;&lt;code&gt;Match&lt;/code&gt;&lt;/a&gt; block because it only refers to one host, &lt;code&gt;localhost&lt;/code&gt; on the current machine.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;NoHostAuthenticationForLocalhost yes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Normally, SSH consults the &lt;code&gt;~/.ssh/known_hosts&lt;/code&gt; when connecting to a host.
+The known hosts file stores an identifying key for each host it has connected to previously.
+As connections are made to new hosts, keys are registered in the user&amp;#8217;s known hosts file.
+Each time SSH establishes a connection to a known host, the key is checked, and the connection is aborted if it does not match.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When running multiple SSH servers from a single host, the key will fail to match whenever switching servers.
+If you connect to various VMs through &lt;code&gt;localhost&lt;/code&gt;, SSH will throw an error whenever switching between machines.
+Setting &lt;a href=&quot;https://man.openbsd.org/ssh_config#NoHostAuthenticationForLocalhost&quot;&gt;&lt;code&gt;NoHostAuthenticationForLocalhost&lt;/code&gt;&lt;/a&gt; to &lt;code&gt;yes&lt;/code&gt; is a convenient way to workaround by skipping host checking is skipped for &lt;code&gt;localhost&lt;/code&gt; altogether.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This does not skip host checking for the &lt;code&gt;localhost&lt;/code&gt; address available on jump hosts.
+See the section below on &lt;code&gt;HostKeyAlias&lt;/code&gt; for such a use case.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;a_humble_host_alias&quot;&gt;A Humble Host Alias&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The following section contains only one option which applies to &lt;code&gt;vm_host&lt;/code&gt;.
+As an example, &lt;code&gt;vm_host&lt;/code&gt; represents a computer dedicated for running multiple virtual machines.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host vm_host
+  Hostname vm_host.local&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The option, &lt;a href=&quot;https://man.openbsd.org/ssh_config#Hostname&quot;&gt;&lt;code&gt;Hostname&lt;/code&gt;&lt;/a&gt;, indicates the true hostname of this host which means &lt;code&gt;vm_host&lt;/code&gt; is really just an alias.
+The alias &lt;code&gt;vm_host&lt;/code&gt; can be used on the command-line instead of having to type out &lt;code&gt;vm_host.local&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;jump_hosts_and_multiple_servers_on_a_single_host&quot;&gt;Jump Hosts and Multiple Servers on a Single Host&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Next, several configuration options are given for the hosts &lt;code&gt;vm1&lt;/code&gt; and &lt;code&gt;vm2&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host vm1
+  HostKeyAlias vm1.localhost
+
+Host vm2
+  HostKeyAlias vm2.localhost
+
+Host vm1 vm2
+  Hostname localhost
+  Port 9001
+  ProxyJump vm_host&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Starting with the shared configuration options, the &lt;code&gt;Hostname&lt;/code&gt; and &lt;a href=&quot;https://man.openbsd.org/ssh_config#Port&quot;&gt;&lt;code&gt;Port&lt;/code&gt;&lt;/a&gt; options indicate that both hosts are available on the port &lt;code&gt;9001&lt;/code&gt; at the reserved &lt;code&gt;localhost&lt;/code&gt; address.
+Since both &lt;code&gt;vm1&lt;/code&gt; and &lt;code&gt;vm2&lt;/code&gt; use the same hostname and port, they can&amp;#8217;t both be available simultaneously.
+In this scenario, either virtual machine &lt;code&gt;vm1&lt;/code&gt; or &lt;code&gt;vm2&lt;/code&gt; would be available at any one time.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;https://man.openbsd.org/ssh_config#ProxyJump&quot;&gt;&lt;code&gt;ProxyJump&lt;/code&gt;&lt;/a&gt; key is used here with one intermediate host, &lt;code&gt;vm_host&lt;/code&gt;, defined previously.
+This means that the SSH connection will connect to the &lt;code&gt;localhost&lt;/code&gt; address on &lt;code&gt;vm_host&lt;/code&gt;.
+So, instead of executing &lt;code&gt;ssh vm_host&lt;/code&gt; followed by &lt;code&gt;ssh -p 9001 localhost&lt;/code&gt; to access either of the VMs, use just one command either &lt;code&gt;ssh vm1&lt;/code&gt; or &lt;code&gt;ssh vm2&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The individual host blocks provide a distinct &lt;a href=&quot;https://man.openbsd.org/ssh_config#HostKeyAlias&quot;&gt;&lt;code&gt;HostKeyAlias&lt;/code&gt;&lt;/a&gt; for each host.
+This is critical because these virtual machines will have different host keys but share the same hostname &lt;code&gt;localhost&lt;/code&gt;.
+When checking the known hosts file, instead of looking for an entry for &lt;code&gt;localhost&lt;/code&gt;, SSH will look for an entry for the value provided to &lt;code&gt;HostKeyAlias&lt;/code&gt;.
+The configuration line &lt;code&gt;NoHostAuthenticationForLocalhost yes&lt;/code&gt; from the beginning of the file &lt;em&gt;only&lt;/em&gt; works for the &lt;code&gt;localhost&lt;/code&gt; address on the &lt;em&gt;current&lt;/em&gt; machine.
+In other words, this option has no effect when connecting to &lt;code&gt;localhost&lt;/code&gt; on any other machine, including a jump host.
+According to the &lt;a href=&quot;https://man.openbsd.org/ssh_config#HostKeyAlias&quot;&gt;&lt;code&gt;ssh_config&lt;/code&gt; manpage&lt;/a&gt;, &lt;code&gt;HostKeyAlias&lt;/code&gt; should be used for handling multiple servers running on a single host.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;multicast_dns&quot;&gt;Multicast DNS&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The following configuration accommodates the variability of the IP address associated with a given hostname on networks using &lt;a href=&quot;http://www.multicastdns.org/&quot;&gt;multicast DNS&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host *.local
+  CheckHostIP no&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Multicast DNS uses the &quot;.local&quot; top-level domain exclusively for hosts on a network.
+Setting &lt;a href=&quot;https://man.openbsd.org/ssh_config#CheckHostIP&quot;&gt;&lt;code&gt;CheckHostIP&lt;/code&gt;&lt;/a&gt; to &lt;code&gt;no&lt;/code&gt; here allows IP addresses for any &quot;.local&quot; hosts to change.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+It might be worth setting this option for all users in the system-wide configuration file &lt;code&gt;/etc/ssh/ssh_config&lt;/code&gt;.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;the_ssh_agent&quot;&gt;The SSH Agent&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The last section contains a few defaults for all hosts, which boil down to a few quality-of-life improvements.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host *
+  AddKeysToAgent yes
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/id_rsa_catalina-build.pub
+  PreferredAuthentications publickey,keyboard-interactive,password,gssapi-with-mic,hostbased
+
+  # Specific to macOS
+  UseKeychain yes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The meanings of these options are described one-by-one below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#AddKeysToAgent&quot;&gt;&lt;code&gt;AddKeysToAgent&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Automatically registers SSH keys with the &lt;a href=&quot;https://man.openbsd.org/ssh-agent&quot;&gt;SSH Agent&lt;/a&gt; as they are loaded.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#IdentitiesOnly&quot;&gt;&lt;code&gt;IdentitiesOnly&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Limits the identities that will be used to authenticate.
+Because I use &lt;a href=&quot;https://keepassxc.org/&quot;&gt;KeePassXC&lt;/a&gt; to handle my SSH keys, the SSH Agent may have lots of other keys loaded which can lead to &lt;a href=&quot;https://keepassxc.org/docs/#faq-ssh-agent-auth-errors&quot;&gt;authentication problems&lt;/a&gt;.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#IdentityFile&quot;&gt;&lt;code&gt;IdentityFile&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Provides the path to an authentication identity.
+The private key file is often provided for this option, but providing the public key works when storing the private key itself directly within KeePassXC.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#PreferredAuthentications&quot;&gt;&lt;code&gt;PreferredAuthentications&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Sets the order of preference for the various authentication methods.
+Here, public key cryptography is preferred first because I use this most often.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;UseKeychain&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;On macOS, this allows storing and accessing keys from the user&amp;#8217;s Keychain so they are automatically available after logging on.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;ssh_agent_forwarding&quot;&gt;SSH Agent Forwarding&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It is possible to forward the SSH Agent to avoid typing passwords so much.
+You can forward the SSH Agent by setting &lt;a href=&quot;https://man.openbsd.org/ssh_config#ForwardAgent&quot;&gt;&lt;code&gt;ForwardAgent&lt;/code&gt;&lt;/a&gt; to &lt;code&gt;yes&lt;/code&gt;, shown in the following example.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.ssh/ssh_config&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host server
+  ForwardAgent yes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock caution&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Be wary when using agent forwarding.
+Those with administrative access on the forwarded machine will be able to use the keys from your agent to authenticate as you.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That was a bit of configuration.
+Assuming I didn&amp;#8217;t just cover topics you already knew, you should have a better understanding of SSH and its configuration options.
+Hopefully you&amp;#8217;ll be able to capitalize on this knowledge by simplifying your SSH workflow.
+If you&amp;#8217;re interested in smoothing out even more wrinkles in your SSH use, you might checkout the &lt;a href=&quot;https://mosh.org/&quot;&gt;Mosh&lt;/a&gt; project.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://superuser.com/a/1399855/1220231&quot;&gt;superuser: OpenSSH - Any way to keep strict host key checking but check only the key and ignore server&amp;#8217;s name?&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://keepassxc.org/docs/#faq-ssh-agent-auth-errors&quot;&gt;KeePassXC FAQ: SSH Agent - I&amp;#8217;m getting a &quot;Too many authentication failures&quot; error, what shall I do?&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
+&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://apple.stackexchange.com/a/250572/361122&quot;&gt;AskDifferent: How can I permanently add my SSH private key to Keychain so it is automatically available to ssh?&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
+&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://smallstep.com/blog/ssh-agent-explained/&quot;&gt;smallstep Blog: SSH Agent Explained&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Networking" /><category term="BSD" /><category term="KeePassXC" /><category term="Linux" /><category term="macOS" /><category term="OpenSSH" /><category term="ssh" /></entry><entry><title type="html">Automatically Update Antigen</title><link href="https://jwillikers.com/automatically-update-antigen" rel="alternate" type="text/html" title="Automatically Update Antigen" /><published>2020-09-23T00:00:00+00:00</published><updated>2020-09-23T00:00:00+00:00</updated><id>https://jwillikers.com/Automatically%20Update%20Antigen</id><content type="html" xml:base="https://jwillikers.com/automatically-update-antigen">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;There&amp;#8217;s a catch when it comes to managing plugins with &lt;a href=&quot;http://antigen.sharats.me/&quot;&gt;Antigen&lt;/a&gt; as done in &lt;a href=&quot;configure-zsh.html&quot;&gt;Configure ZSH&lt;/a&gt;.&lt;/p&gt;
@@ -1520,96 +1973,4 @@ If you want to automate updating your Antigen plugins with &lt;a href=&quot;http
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_6&quot;&gt;
 &lt;a href=&quot;#_footnoteref_6&quot;&gt;6&lt;/a&gt;. &lt;a href=&quot;https://github.com/zsh-users/antigen/wiki/Commands#antigen-update&quot;&gt;Antigen Wiki: Commands - antigen update&lt;/a&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="Antigen" /><category term="Debian" /><category term="Linux" /><category term="oh-my-zsh" /><category term="Ubuntu" /><category term="ZSH" /></entry><entry><title type="html">One-Liner to Fetch the Latest Github Release</title><link href="https://jwillikers.com/one-liner-to-fetch-the-latest-github-release" rel="alternate" type="text/html" title="One-Liner to Fetch the Latest Github Release" /><published>2020-09-19T00:00:00+00:00</published><updated>2020-09-19T00:00:00+00:00</updated><id>https://jwillikers.com/One-Liner%20to%20Fetch%20the%20Latest%20Github%20Release</id><content type="html" xml:base="https://jwillikers.com/one-liner-to-fetch-the-latest-github-release">&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Sometimes, it would be awfully convenient to grab the installer for the latest release of your favorite Github project directly from the command-line.
-And if it could incorporate &lt;a href=&quot;https://en.wikipedia.org/wiki/AWK&quot;&gt;awk&lt;/a&gt;, that would be great too.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
-Well, the following command-line is a pretty nifty template to do just that!
-You will need &lt;a href=&quot;https://curl.haxx.se/&quot;&gt;cURL&lt;/a&gt;, shipped with macOS, or &lt;a href=&quot;https://www.gnu.org/software/wget/&quot;&gt;Wget&lt;/a&gt;, shipped with Linux, for this to work.
-Substitute in the user or organization name, the project&amp;#8217;s name, and the desired file extension for the &lt;em&gt;&amp;lt;user&amp;gt;&lt;/em&gt;, &lt;em&gt;&amp;lt;repo&amp;gt;&lt;/em&gt;, and &lt;em&gt;&amp;lt;extension&amp;gt;&lt;/em&gt; fields respectively.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Download the latest Github release (cURL)&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; https://api.github.com/repos/&amp;lt;user&amp;gt;/&amp;lt;repo&amp;gt;/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /\.&amp;lt;file extension&amp;gt;/ {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;curl -LO &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Download the latest Github release (Wget)&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-nv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://api.github.com/repos/&amp;lt;user&amp;gt;/&amp;lt;repo&amp;gt;/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /\.&amp;lt;file extension&amp;gt;/ \
-  {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qi -L &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here is a quick explanation.
-First, cURL or Wget obtains the response from an HTTP GET request.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;
-This response contains the URLs for the various artifacts for the latest release of the project.
-Next, &lt;code&gt;awk&lt;/code&gt; processes the response, finding the line containing a download URL and matching the given file extension.
-It then removes the quotation marks surrounding the URL and downloads the file directly with cURL or Wget.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It&amp;#8217;s also easy enough to modify the match pattern for the file extension to make it more specific if need be.
-The following example demonstrates this by fetching the latest Linux release zip file of the &lt;a href=&quot;https://ninja-build.org/&quot;&gt;Ninja build system&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Download the latest Ninja release (cURL)&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; https://api.github.com/repos/ninja-build/ninja/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /linux\.zip/ {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;curl -LO &quot; $(NF))}'&lt;/span&gt;
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   637  100   637    0     0   1103      0 &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:--  1105
-100 99913  100 99913    0     0   101k      0 &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:-- &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;:--:--  372k&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Download the latest Ninja release (Wget)&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-nv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://api.github.com/repos/ninja-build/ninja/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /linux\.zip/ \
-  {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qi -L &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://gist.github.com/steinwaywhw/a4cd19cda655b8249d908261a62687f8#gistcomment-3457870&quot;&gt;Github Gist: One Liner to Download the Latest Release from Github Repo&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html&quot;&gt;RFC 2616&lt;/a&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="awk" /><category term="cURL" /><category term="Linux" /><category term="macOS" /><category term="git" /><category term="Github" /><category term="Wget" /></entry><entry><title type="html">Password-Less Sudo</title><link href="https://jwillikers.com/password-less-sudo" rel="alternate" type="text/html" title="Password-Less Sudo" /><published>2020-09-19T00:00:00+00:00</published><updated>2020-09-19T00:00:00+00:00</updated><id>https://jwillikers.com/Password-Less%20Sudo</id><content type="html" xml:base="https://jwillikers.com/password-less-sudo">&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Typing a password to login is repetitive enough, isn&amp;#8217;t it?
-Entering the password for &lt;a href=&quot;https://www.sudo.ws/sudo.html&quot;&gt;Sudo&lt;/a&gt; on the command-line can be downright irritating.
-If you don&amp;#8217;t need that extra bit of protection, why enter your password more than you have to?&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
-You can forever skip entering your &lt;code&gt;sudo&lt;/code&gt; password, and it&amp;#8217;s super easy and cross-platform.
-For whatever reason, I learned and forgot about doing this sometime ago, so here&amp;#8217;s the gist.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To disable password authentication for &lt;code&gt;sudo&lt;/code&gt; for a user, in this case &lt;code&gt;jordan&lt;/code&gt;, just run the following command.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;jordan  ALL=(ALL) NOPASSWD:ALL&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/sudoers.d/jordan&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This just adds the line shown in &lt;a href=&quot;#/etc/sudoers.d/jordan&quot;&gt;[/etc/sudoers.d/jordan]&lt;/a&gt;, which allows the given user to run any command with &lt;code&gt;sudo&lt;/code&gt; without having to enter a password.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/sudoers.d/jordan&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;jordan  ALL=(ALL) NOPASSWD:ALL&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://security.stackexchange.com/a/45728&quot;&gt;Security StackExchange: How secure is NOPASSWD in passwordless sudo mode?&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://linuxize.com/post/how-to-add-user-to-sudoers-in-ubuntu/#adding-user-to-the-sudoers-file&quot;&gt;Linuxize: How to Add User to Sudoers in Ubuntu - Adding User to the sudoers File&lt;/a&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="Linux" /><category term="macOS" /><category term="sudo" /></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="Antigen" /><category term="Debian" /><category term="Linux" /><category term="oh-my-zsh" /><category term="Ubuntu" /><category term="ZSH" /></entry></feed>
