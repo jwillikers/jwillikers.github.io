@@ -102,7 +102,7 @@ On macOS, the X11 software is available from the <a href="https://www.xquartz.or
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ssh <span class="nt">-CX</span> my-host</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ ssh <span class="nt">-CX</span> mordor</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -141,7 +141,7 @@ Enable compression when using X11 forwarding with the <code>-C</code> flag, as d
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ssh <span class="nt">-CY</span> my-very-trustworthy-host</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ ssh <span class="nt">-CY</span> helms-deep</code></pre>
 </div>
 </div>
 <div class="admonitionblock caution">
@@ -181,7 +181,7 @@ Your keypresses can be captured on the remote machine so make sure you actually 
 <div class="listingblock">
 <div class="title">~/.ssh/config</div>
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">Host my-very-trustworthy-host
+<pre class="rouge highlight"><code data-lang="sh">Host helms-deep
 Compression <span class="nb">yes
 </span>ForwardX11 <span class="nb">yes
 </span>ForwardX11Trusted <span class="nb">yes</span></code></pre>
@@ -204,9 +204,6 @@ Never indescriminately enbale X11 forwarding.
 </li>
 <li>
 <p>Optionally, background the SSH process when running a remote X11 application.</p>
-</li>
-</ol>
-</div>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -216,10 +213,13 @@ The following example demonstrates this by running GNOME Terminal on the remote 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ssh <span class="nt">-CYf</span> my-very-trustworthy-host gnome-terminal</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ ssh <span class="nt">-CYf</span> helms-deep gnome-terminal</code></pre>
 </div>
 </div>
 </div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>

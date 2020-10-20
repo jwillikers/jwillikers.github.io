@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-20T19:06:27+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">X11 Forwarding</title><link href="https://jwillikers.com/x11-forwarding" rel="alternate" type="text/html" title="X11 Forwarding" /><published>2020-10-20T00:00:00+00:00</published><updated>2020-10-20T00:00:00+00:00</updated><id>https://jwillikers.com/X11%20Forwarding</id><content type="html" xml:base="https://jwillikers.com/x11-forwarding">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-20T19:32:41+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">X11 Forwarding</title><link href="https://jwillikers.com/x11-forwarding" rel="alternate" type="text/html" title="X11 Forwarding" /><published>2020-10-20T00:00:00+00:00</published><updated>2020-10-20T00:00:00+00:00</updated><id>https://jwillikers.com/X11%20Forwarding</id><content type="html" xml:base="https://jwillikers.com/x11-forwarding">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;imageblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -52,7 +52,7 @@ On macOS, the X11 software is available from the &lt;a href=&quot;https://www.xq
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CX&lt;/span&gt; my-host&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CX&lt;/span&gt; mordor&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;admonitionblock note&quot;&gt;
@@ -91,7 +91,7 @@ Enable compression when using X11 forwarding with the &lt;code&gt;-C&lt;/code&gt
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CY&lt;/span&gt; my-very-trustworthy-host&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CY&lt;/span&gt; helms-deep&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;admonitionblock caution&quot;&gt;
@@ -131,7 +131,7 @@ Your keypresses can be captured on the remote machine so make sure you actually 
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Host my-very-trustworthy-host
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Host helms-deep
 Compression &lt;span class=&quot;nb&quot;&gt;yes
 &lt;/span&gt;ForwardX11 &lt;span class=&quot;nb&quot;&gt;yes
 &lt;/span&gt;ForwardX11Trusted &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
@@ -154,9 +154,6 @@ Never indescriminately enbale X11 forwarding.
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Optionally, background the SSH process when running a remote X11 application.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -166,10 +163,13 @@ The following example demonstrates this by running GNOME Terminal on the remote 
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CYf&lt;/span&gt; my-very-trustworthy-host gnome-terminal&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh &lt;span class=&quot;nt&quot;&gt;-CYf&lt;/span&gt; helms-deep gnome-terminal&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
