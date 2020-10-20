@@ -90,20 +90,12 @@ On macOS, the X11 software is available from the <a href="https://www.xquartz.or
 <li>
 <p>On the SSH server, set <code>ForwardX11 yes</code> in <code>sshd_config</code> to enable X11 forwarding.</p>
 <div class="listingblock">
+<div class="title">/etc/ssh/sshd_config</div>
 <div class="content">
-<pre class="rouge highlight"><code>/etc/ssh/sshd_config</code></pre>
+<pre class="rouge highlight"><code>ForwardX11 yes</code></pre>
 </div>
 </div>
 </li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>ForwardX11 yes</pre>
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
 <li>
 <p>Open an SSH connection with X11 forwarding by adding the <code>-X</code> flag on the command-line.</p>
 <div class="openblock">
