@@ -1,4 +1,262 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-20T20:20:50+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">X11 Forwarding</title><link href="https://jwillikers.com/x11-forwarding" rel="alternate" type="text/html" title="X11 Forwarding" /><published>2020-10-20T00:00:00+00:00</published><updated>2020-10-20T00:00:00+00:00</updated><id>https://jwillikers.com/X11%20Forwarding</id><content type="html" xml:base="https://jwillikers.com/x11-forwarding">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-22T20:32:50+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Manage Runtimes With asdf</title><link href="https://jwillikers.com/manage-runtimes-with-asdf" rel="alternate" type="text/html" title="Manage Runtimes With asdf" /><published>2020-10-22T00:00:00+00:00</published><updated>2020-10-22T00:00:00+00:00</updated><id>https://jwillikers.com/Manage%20Runtimes%20With%20asdf</id><content type="html" xml:base="https://jwillikers.com/manage-runtimes-with-asdf">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://asdf-vm.com/#/&quot;&gt;asdf&lt;/a&gt; is a language-agnostic tool for managing multiple runtimes of a specific tool for a particular user.
+While it is able to manage runtime versions for a user, it is particularly helpful for managing runtimes per project.
+Tools like &lt;a href=&quot;https://github.com/rbenv/rbenv&quot;&gt;rbenv&lt;/a&gt;, &lt;a href=&quot;https://github.com/pyenv/pyenv&quot;&gt;pyenv&lt;/a&gt;, &lt;a href=&quot;https://github.com/nvm-sh/nvm&quot;&gt;nvm&lt;/a&gt;, &lt;a href=&quot;https://github.com/syndbg/goenv&quot;&gt;goenv&lt;/a&gt;, and the like each solve this problem for a particular language runtime.
+This quickly becomes a headache for the polyglot.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Enter asdf, a single tool with a plugin architecture which makes management of various language runtimes a breeze.
+Its plugin architecture provides plugins for more than just language runtimes.
+I use it in C&amp;#43;&amp;#43; projects to manage various build dependencies, including &lt;a href=&quot;https://ccache.dev/&quot;&gt;ccache&lt;/a&gt;, &lt;a href=&quot;https://cmake.org/&quot;&gt;CMake&lt;/a&gt;, and &lt;a href=&quot;https://ninja-build.org/&quot;&gt;ninja&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;how_it_works&quot;&gt;How It Works&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Like it&amp;#8217;s language specific counterparts mentioned previously, asdf determines the appropriate runtime version to use by integrating with a user&amp;#8217;s shell and inserting &lt;a href=&quot;https://en.wikipedia.org/wiki/Shim_(computing)&quot;&gt;shims&lt;/a&gt; into the user&amp;#8217;s &lt;code&gt;PATH&lt;/code&gt;.
+Each shim executable, such as the &lt;code&gt;ruby&lt;/code&gt; shim, defers the call of the actual program to asdf, which then executes the appropriate version.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;asdf determines the version from the first configuration information it finds searching three specific places.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;asdf Version Selection&lt;/div&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;shell&lt;/em&gt;: The environment variable &lt;code&gt;ASDF_${LANG}_VERSION&lt;/code&gt; is checked for the version of a particular asdf plugin.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;local&lt;/em&gt;: The current directory, followed by subsequent parent directories, are searched for the special &lt;code&gt;.tool_versions&lt;/code&gt; file.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;global&lt;/em&gt;: Versions are configured for a particular user in a &lt;code&gt;.tool_versions&lt;/code&gt; file in her home directory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial describes the basics for managing a project&amp;#8217;s runtimes with asdf.
+This is accomplished on an &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.04 system.
+While these instructions are for specifically for the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt;, the &lt;a href=&quot;https://asdf-vm.com/#/core-manage-asdf&quot;&gt;asdf documentation&lt;/a&gt; contains the necessary steps for other shells.
+This tutorial assumes you are comfortable with &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt;, package installation on Ubuntu, and the command-line on Unix-like systems.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;install&quot;&gt;Install&lt;/h3&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Install the dependencies needed for asdf.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; curl git&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Pull down the &lt;a href=&quot;https://github.com/asdf-vm/asdf&quot;&gt;asdf repository&lt;/a&gt; in to your home directory.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git clone https://github.com/asdf-vm/asdf.git ~/.asdf&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Checkout the latest version of asdf.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; ~/.asdf switch &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;git &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; ~/.asdf describe &lt;span class=&quot;nt&quot;&gt;--abbrev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 &lt;span class=&quot;nt&quot;&gt;--tags&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+HEAD is now at c6145d0 Update version to 0.8.0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enable asdf for the fish shell.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/.config/fish/conf.d&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; and &lt;span class=&quot;nb&quot;&gt;ln&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; ~/.asdf/asdf.fish ~/.config/fish/conf.d/asdf.fish&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install shell completions for asdf.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/.config/fish/completions&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; and &lt;span class=&quot;nb&quot;&gt;ln&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; ~/.asdf/completions/asdf.fish ~/.config/fish/completions&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To make asdf available, restart your terminal.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add plugins for managing the desired runtimes, such as the &lt;a href=&quot;https://github.com/asdf-vm/asdf-ruby&quot;&gt;Ruby plugin&lt;/a&gt; shown here.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ asdf plugin add ruby&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;configure_the_project&quot;&gt;Configure the Project&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that asdf is installed, it&amp;#8217;s time to configure a project to use a specific version of a runtime.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;First, install the desired version of said runtime.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ asdf &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;ruby latest&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+A specific version number can be provided or the &lt;code&gt;latest&lt;/code&gt; keyword can be used to automatically install the latest version available.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Next, change to the root directory of the project.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the specific runtime&amp;#8217;s version for a project with &lt;code&gt;asdf local&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ asdf &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;ruby &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;asdf latest ruby&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;code&gt;asdf local&lt;/code&gt; command records the appropriate version for a runtime in a &lt;code&gt;.tool-versions&lt;/code&gt; file in the current directory, creating it if it does not exist.
+At the time of this writing, the latest &lt;a href=&quot;https://www.ruby-lang.org/en/&quot;&gt;Ruby&lt;/a&gt; version available is 2.7.2, so the previous command creates the following file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;.tool-versions&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;ruby 2.7.2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Rinse, wash, and repeat for each runtime you wish to configure for your project.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;initialize&quot;&gt;Initialize&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The previous sections result in a complete setup of asdf and the runtime.
+No more is needed.
+What about starting with a configured project in a new environment?
+This is the case when setting up a new machine or when a new developer gets started on the project.
+The necessary work flow is described step-by-step below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Install asdf and the required plugins according to the &lt;a href=&quot;#install&quot;&gt;Install&lt;/a&gt; section above.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Change into the project directory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install all required runtimes.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ asdf &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;update&quot;&gt;Update&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Updates are important, so the necessary commands to update asdf and its plugins are provided below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Update asdf with ease.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ asdf update&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Update the plugins.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ asdf plugin update &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Automatic updates can be configured with &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt;.
+See my post &lt;a href=&quot;automatically-update-antigen.html&quot;&gt;Automatically Update Antigen&lt;/a&gt; for achieving this in a similar scenario.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now understand the basics of how asdf operates, and how to manage runtimes for a project with it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Development" /><category term="asdf" /><category term="Linux" /><category term="Ubuntu" /><category term="Unix" /></entry><entry><title type="html">X11 Forwarding</title><link href="https://jwillikers.com/x11-forwarding" rel="alternate" type="text/html" title="X11 Forwarding" /><published>2020-10-20T00:00:00+00:00</published><updated>2020-10-20T00:00:00+00:00</updated><id>https://jwillikers.com/X11%20Forwarding</id><content type="html" xml:base="https://jwillikers.com/x11-forwarding">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;imageblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -1787,182 +2045,4 @@ Don&amp;#8217;t forget to disable your update service when you decide to make th
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_5&quot;&gt;
 &lt;a href=&quot;#_footnoteref_5&quot;&gt;5&lt;/a&gt;. &lt;a href=&quot;https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/&quot;&gt;Running Services After the Network is up&lt;/a&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Service Management" /><category term="Antigen" /><category term="CentOS" /><category term="Linux" /><category term="oh-my-zsh" /><category term="RedHat" /><category term="systemd" /><category term="Ubuntu" /><category term="ZSH" /></entry><entry><title type="html">Configure ZSH</title><link href="https://jwillikers.com/configure-zsh" rel="alternate" type="text/html" title="Configure ZSH" /><published>2020-09-22T00:00:00+00:00</published><updated>2020-09-22T00:00:00+00:00</updated><id>https://jwillikers.com/Configure%20ZSH</id><content type="html" xml:base="https://jwillikers.com/configure-zsh">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I&amp;#8217;ve been using &lt;a href=&quot;https://www.zsh.org/&quot;&gt;ZSH&lt;/a&gt; for years now as my shell.
-In that time, I&amp;#8217;ve learned a few niceties to make the experience better.
-Namely, I&amp;#8217;ve found the minimal &lt;a href=&quot;https://ohmyz.sh/&quot;&gt;oh-my-zsh&lt;/a&gt; prompt keeps out of the way and the git aliases super convenient.
-Plugins for &lt;a href=&quot;https://github.com/zsh-users/zsh-autosuggestions&quot;&gt;autosuggestions&lt;/a&gt;, like in the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt;, and &lt;a href=&quot;https://github.com/zsh-users/zsh-syntax-highlighting&quot;&gt;syntax highlighting&lt;/a&gt; are also quite helpful.
-&lt;a href=&quot;http://antigen.sharats.me/&quot;&gt;Antigen&lt;/a&gt; makes keeping plugins up-to-date a breeze.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial explains how to install ZSH and set it as your default shell on Ubuntu 20.04.
-Plus, it details how to install and configure Antigen, oh-my-zsh, autosuggestions, and syntax highlighting.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Install ZSH.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; zsh&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add &lt;code&gt;/usr/bin/zsh&lt;/code&gt; to &lt;code&gt;/etc/shells&lt;/code&gt; so that is can be used as the default shell.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; zsh | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/shells
-/usr/bin/zsh&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Set the default shell to &lt;code&gt;zsh&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;chsh &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;which zsh&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-Changing shell &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;jordan.
-Password:
-Shell changed.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Now, open up a fresh terminal session to start using .&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Download and install Antigen.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;
-There is a &lt;a href=&quot;https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=906757&quot;&gt;bug&lt;/a&gt; in the &lt;a href=&quot;https://bugs.debian.org/cgi-bin/pkgreport.cgi?pkg=zsh-antigen;dist=unstable&quot;&gt;debian package&lt;/a&gt; at this time, so manually download and install it.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; git.io/antigen
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo mkdir&lt;/span&gt; /usr/share/zsh-antigen
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo mv &lt;/span&gt;antigen /usr/share/zsh-antigen/antigen.zsh&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When the bug is fixed, you can simply install the package with &lt;a href=&quot;https://wiki.debian.org/Aptitude&quot;&gt;Aptitude&lt;/a&gt; as follows.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; zsh-antigen&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create the &lt;code&gt;.antigenrc&lt;/code&gt; configuration file.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_5&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_5&quot; title=&quot;View footnote.&quot;&gt;5&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.antigenrc&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Load the oh-my-zsh library&lt;/span&gt;
-antigen use oh-my-zsh
-
-antigen bundles &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOBUNDLES&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
-    # Bundles from the default repo (robbyrussell's oh-my-zsh)
-    git
-
-    # Fish-like auto suggestions
-    zsh-users/zsh-autosuggestions
-
-    # Extra zsh completions
-    zsh-users/zsh-completions
-
-    # Syntax highlighting bundle.
-    zsh-users/zsh-syntax-highlighting
-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOBUNDLES
-
-&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Load the theme&lt;/span&gt;
-antigen theme robbyrussell
-
-&lt;span class=&quot;c&quot;&gt;# Tell antigen that you're done&lt;/span&gt;
-antigen apply&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Now, from the &lt;code&gt;.zshrc&lt;/code&gt; file load Antigen and the &lt;code&gt;.antigenrc&lt;/code&gt; configuration file.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.zshrc&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Load Antigen&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; /usr/share/zsh-antigen/antigen.zsh
-
-&lt;span class=&quot;c&quot;&gt;# Load Antigen configurations&lt;/span&gt;
-antigen init ~/.antigenrc&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Load the updated &lt;code&gt;.zshrc&lt;/code&gt; configuration file.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.zshrc&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Update the plugins as needed.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_6&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_6&quot; title=&quot;View footnote.&quot;&gt;6&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;antigen update&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You should now be able to install and configure ZSH as your default shell in Ubuntu.
-You should also be able to setup Antigen to use oh-my-zsh and a couple of convenient plugins.
-If you want to automate updating your Antigen plugins with &lt;a href=&quot;https://www.freedesktop.org/wiki/Software/systemd/&quot;&gt;systemd&lt;/a&gt;, checkout the post &lt;a href=&quot;automatically-update-antigen.html&quot;&gt;Automatically Update Antigen&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH&quot;&gt;oh-my-zsh Wiki: Installing ZSH&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://unix.stackexchange.com/a/111367/395084&quot;&gt;Unix StackExchange: How to change default shell to ZSH - chsh says “invalid shell”&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
-&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://github.com/zsh-users/antigen/wiki/Installation&quot;&gt;Antigen Wiki: Installation&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
-&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. There is also an &lt;a href=&quot;https://bugs.launchpad.net/ubuntu/+source/zsh-antigen/+bug/1770915&quot;&gt;Ubuntu bug report&lt;/a&gt; and an &lt;a href=&quot;https://github.com/zsh-users/antigen/issues/659&quot;&gt;Antigen bug report.&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_5&quot;&gt;
-&lt;a href=&quot;#_footnoteref_5&quot;&gt;5&lt;/a&gt;. &lt;a href=&quot;https://github.com/zsh-users/antigen/wiki/Quick-start#configure-zshrc&quot;&gt;Antigen Wiki: Quich start - Configure &lt;code&gt;.zshrc&lt;/code&gt;&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_6&quot;&gt;
-&lt;a href=&quot;#_footnoteref_6&quot;&gt;6&lt;/a&gt;. &lt;a href=&quot;https://github.com/zsh-users/antigen/wiki/Commands#antigen-update&quot;&gt;Antigen Wiki: Commands - antigen update&lt;/a&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="Antigen" /><category term="Debian" /><category term="Linux" /><category term="oh-my-zsh" /><category term="Ubuntu" /><category term="ZSH" /></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><category term="Service Management" /><category term="Antigen" /><category term="CentOS" /><category term="Linux" /><category term="oh-my-zsh" /><category term="RedHat" /><category term="systemd" /><category term="Ubuntu" /><category term="ZSH" /></entry></feed>
