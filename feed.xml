@@ -1,4 +1,261 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-23T22:25:05+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Manage Runtimes With asdf</title><link href="https://jwillikers.com/manage-runtimes-with-asdf" rel="alternate" type="text/html" title="Manage Runtimes With asdf" /><published>2020-10-22T00:00:00+00:00</published><updated>2020-10-22T00:00:00+00:00</updated><id>https://jwillikers.com/Manage%20Runtimes%20With%20asdf</id><content type="html" xml:base="https://jwillikers.com/manage-runtimes-with-asdf">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-24T13:02:37+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Generate an SSH Key</title><link href="https://jwillikers.com/generate-an-ssh-key" rel="alternate" type="text/html" title="Generate an SSH Key" /><published>2020-10-24T00:00:00+00:00</published><updated>2020-10-24T00:00:00+00:00</updated><id>https://jwillikers.com/Generate%20an%20SSH%20Key</id><content type="html" xml:base="https://jwillikers.com/generate-an-ssh-key">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Entering passwords is a pain.
+I know you agree.
+Why not enter passwords less by using &lt;a href=&quot;https://www.ssh.com/ssh/&quot;&gt;SSH&lt;/a&gt;?
+You&amp;#8217;ll just need a key and a little know-how to get started.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;generate_an_ssh_key&quot;&gt;Generate an SSH Key&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;SSH is ubiquitous.
+It&amp;#8217;s used by developers and systems administrators every day all across the globe to securely connect to machines.
+Through cryptographic means, it is capable of establishinp a secure connection between two hosts across a the network.
+This guide details how to generate an SSH key and two common use cases, authenticating with GitHub and connecting to a remote host.
+This guide uses the &lt;a href=&quot;https://www.openssh.com/&quot;&gt;OpenSSH&lt;/a&gt; client and server implementations.
+The client and server are assumed to be running &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt;, although most of these instructions are identical on any Unix-like operating system using the OpenSSH implementations.
+It is assumed you are familiar with the command-line on Unix-Like systems, &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt;, and &lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Generate a key with the &lt;a href=&quot;https://man.openbsd.org/ssh-keygen.1&quot;&gt;&lt;code&gt;ssh-keygen&lt;/code&gt;&lt;/a&gt; command.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh-keygen
+Generating public/private rsa key pair.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Typically, you will generate exactly one SSH key for your user account on a particular host, so use the default file.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Enter file in which to save the key (/home/jordan/.ssh/id_rsa):&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This file is the private key.
+Two key files are actually generated, which together form what is known as a key pair.
+The public key file will be placed in the same directory and use the same name with &lt;code&gt;.pub&lt;/code&gt; appended.
+In this case, &lt;code&gt;/home/jordan/id_rsa.pub&lt;/code&gt; is the corresponding public key file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock caution&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Never move your private SSH key across the network or send it to anyone else.
+In fact, it&amp;#8217;s generally best to keep this key exactly where it is generated, backing it up to offline media.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enter a strong passphrase to protect your key.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Enter passphrase (empty for no passphrase):&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This passphrase is used to encrypt your private key file.
+Even if someone gains access to the key file, they can&amp;#8217;t use it to authenticate as you so long as they don&amp;#8217;t have the passphrase.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To finish the creation process, re-enter your nice, strong passphrase.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Enter same passphrase again:
+Your identification has been saved in /home/jordan/.ssh/id_rsa
+Your public key has been saved in /home/jordan/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:UdHmkL8i0EME+VYLGydcmV3B1nTk0unPYTHf4WBvnFo jordan@jwillikers
+The key's randomart image is:
++---[RSA 3072]----+
+|     X@*+..      |
+|    ==X@o=       |
+|   + OO+E.       |
+|    Xo=*=        |
+|   o oo+S.       |
+|     . o..       |
+|        .        |
+|                 |
+|                 |
++----[SHA256]-----+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now that your key is generated, you&amp;#8217;ll probably want to add its passphrase to your login keyring so that you don&amp;#8217;t have to type in all the darn time.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ubuntu, macOS, and many other Linux desktops will prompt you to save this key to your keychain when you have to unlock it.
+The best way to do this is to just use your key, such as described in the following two sections.
+On Ubuntu, check the box to automatically unlock the key when you login.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;Save%20the%20Password%20for%20Your%20SSH%20Key%20on%20Ubuntu.png&quot; alt=&quot;Save the Password for Your SSH Key on Ubuntu&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Save the Password for Your SSH Key on Ubuntu&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;These systems take care of running an &lt;a href=&quot;https://man.openbsd.org/ssh-agent.1&quot;&gt;SSH agent&lt;/a&gt; for you.
+An SSH agent stores your key unencryped in RAM, so that you don&amp;#8217;t have to enter your passphrase to decrypt it each time you wish to use it.
+Not all platforms start the SSH agent and add your key to it for you.
+On these platforms, you&amp;#8217;ll have to do this yourself.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;github&quot;&gt;GitHub&lt;/h3&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Don&amp;#8217;t forget to install Git if you haven&amp;#8217;t already.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; git&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Upload your shiny new &lt;em&gt;public&lt;/em&gt; key by following &lt;a href=&quot;https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account&quot;&gt;GitHub&amp;#8217;s up-to-date guide&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Clone the desired repository using its SSH URL.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here, I clone the repository for this blog over SSH.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git clone git@github.com:jwillikers/blog.git&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;remote_access&quot;&gt;Remote Access&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For remotely accessing a remote host, some configuration is required.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;On the remote machine, make sure to install the OpenSSH server.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; openssh-server&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Copy the public from your account to the target user&amp;#8217;s &lt;code&gt;~/.ssh/known_hosts&lt;/code&gt; file on the remote host.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;https://www.ssh.com/ssh/copy-id&quot;&gt;&lt;code&gt;ssh-copy-id&lt;/code&gt;&lt;/a&gt; command is usually available for just this task.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh-copy-id remote_host&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If it&amp;#8217;s not available, such as on OpenBSD, you might be able to install a package for it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ doas pkg_add ssh-copy-id&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Or, you can just use &lt;a href=&quot;https://man7.org/linux/man-pages/man1/cat.1.html&quot;&gt;&lt;code&gt;cat&lt;/code&gt;&lt;/a&gt;, courtesy of &lt;a href=&quot;https://mwl.io/&quot;&gt;Michael W. Lucas&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; ~/.ssh/id_rsa.pub | &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  ssh remote_host &lt;span class=&quot;s2&quot;&gt;&quot;cat &amp;gt;&amp;gt; ~/.ssh/authorized_keys&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enter your passphrase when prompted.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You should now be able to authenticate with your SSH key.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh remote_host&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that you are barely capable of generating and using an SSH key, read &lt;a href=&quot;https://www.tiltedwindmillpress.com/product/ssh-mastery-2nd-edition/&quot;&gt;SSH Mastery&lt;/a&gt; by Michael W. Lucas for a much more comprehensive understanding.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="BSD" /><category term="Linux" /><category term="macOS" /><category term="OpenSSH" /><category term="SSH" /></entry><entry><title type="html">Manage Runtimes With asdf</title><link href="https://jwillikers.com/manage-runtimes-with-asdf" rel="alternate" type="text/html" title="Manage Runtimes With asdf" /><published>2020-10-22T00:00:00+00:00</published><updated>2020-10-22T00:00:00+00:00</updated><id>https://jwillikers.com/Manage%20Runtimes%20With%20asdf</id><content type="html" xml:base="https://jwillikers.com/manage-runtimes-with-asdf">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://asdf-vm.com/#/&quot;&gt;asdf&lt;/a&gt; is a language-agnostic tool for managing multiple runtimes of a specific tool for a particular user.
@@ -1775,292 +2032,4 @@ If you&amp;#8217;re interested in smoothing out even more wrinkles in your SSH u
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
 &lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://smallstep.com/blog/ssh-agent-explained/&quot;&gt;smallstep Blog: SSH Agent Explained&lt;/a&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Networking" /><category term="BSD" /><category term="KeePassXC" /><category term="Linux" /><category term="macOS" /><category term="OpenSSH" /><category term="ssh" /></entry><entry><title type="html">Automatically Update Antigen</title><link href="https://jwillikers.com/automatically-update-antigen" rel="alternate" type="text/html" title="Automatically Update Antigen" /><published>2020-09-23T00:00:00+00:00</published><updated>2020-09-23T00:00:00+00:00</updated><id>https://jwillikers.com/Automatically%20Update%20Antigen</id><content type="html" xml:base="https://jwillikers.com/automatically-update-antigen">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There&amp;#8217;s a catch when it comes to managing plugins with &lt;a href=&quot;http://antigen.sharats.me/&quot;&gt;Antigen&lt;/a&gt; as done in &lt;a href=&quot;configure-zsh.html&quot;&gt;Configure ZSH&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;According to the Antigen documentation:&lt;/div&gt;
-&lt;blockquote&gt;
-This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins.
-&lt;/blockquote&gt;
-&lt;div class=&quot;attribution&quot;&gt;
-&amp;#8212; Antigen Wiki: Commands - antigen update
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I hate having to do any form of maintenance &lt;em&gt;occasionally&lt;/em&gt;, especially simple maintenance.
-This has two potential outcomes:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Completely forget to do it ever.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Do it incessantly.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Okay, there are more than just those two options.
-You could create some sort of &lt;em&gt;plan&lt;/em&gt; for how often to do this.
-But, if you are going to so much work you might just want to automate it.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial explains how to configure &lt;a href=&quot;https://www.freedesktop.org/wiki/Software/systemd/&quot;&gt;systemd&lt;/a&gt; services and timers to automatically update a user&amp;#8217;s ZSH plugins with Antigen once a week.
-This tutorial is broken into two sections, each of which accomplishes the same goal.
-The first describes how to use systemd user service and the second a system service for those unfortunate enough to be using Red Hat Enterprise Linux 7 and CentOS 7.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;user_level_update_service&quot;&gt;User-level Update Service&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This particular use-case is a good fit for &lt;a href=&quot;https://wiki.archlinux.org/index.php/Systemd/User&quot;&gt;systemd user services&lt;/a&gt; because an Antigen and ZSH setup is a user-specific configuration.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Create the systemd user configuration directory.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/.config/systemd/user&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create a systemd service to update the Antigen plugins.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.config/systemd/user/update-antigen.service&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[Unit]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Update Antigen&lt;/span&gt;
-
-&lt;span class=&quot;nn&quot;&gt;[Service]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;oneshot&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;ExecStart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/usr/bin/zsh -c '. &quot;$0&quot; &amp;amp;&amp;amp; exec &quot;$@&quot;' /home/jordan/.zshrc antigen update&lt;/span&gt;
-
-&lt;span class=&quot;nn&quot;&gt;[Install]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;default.target&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The command-line here is tricky because the &lt;code&gt;antigen update&lt;/code&gt; command requires that the user&amp;#8217;s Antigen functions and configuration be loaded.
-Of course, systemd is not going to run a command from this context automatically because it throws reproducibility right out the window.
-Thankfully some bash magic can make it happen.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Test run the new systemd unit.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; start update-antigen.service&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Check the output of the command to make sure everything worked.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; status update-antigen.service
-● update-antigen.service - Update Antigen
-     Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/home/jordan/.config/systemd/user/update-antigen.service&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; disabled&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; vendor preset: enabled&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-     Active: inactive &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;dead&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; since Tue 2020-09-22 15:36:26 CDT&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 2min 51s ago
-TriggeredBy: ● update-antigen.timer
-    Process: 557748 &lt;span class=&quot;nv&quot;&gt;ExecStart&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/bin/zsh &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$0&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$@&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; /home/jordan/.zshrc antigen update &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;exited, &lt;span class=&quot;nv&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0/SUCCESS&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-   Main PID: 557748 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;exited, &lt;span class=&quot;nv&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0/SUCCESS&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-Sep 22 15:36:23 jwillikers systemd[7678]: Starting Update Antigen...
-Sep 22 15:36:24 jwillikers zsh[557748]: Updating robbyrussell/oh-my-zsh@master... Done. Took 0s.
-Sep 22 15:36:25 jwillikers zsh[557748]: Updating zsh-users/zsh-autosuggestions@master... Done. Took 1s.
-Sep 22 15:36:25 jwillikers zsh[557748]: Updating zsh-users/zsh-completions@master... Done. Took 0s.
-Sep 22 15:36:26 jwillikers zsh[557748]: Updating zsh-users/zsh-syntax-highlighting@master... Done. Took 1s.
-Sep 22 15:36:26 jwillikers systemd[7678]: update-antigen.service: Succeeded.
-Sep 22 15:36:26 jwillikers systemd[7678]: Finished Update Antigen.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add a systemd timer to update the Antigen plugins once per week.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.config/systemd/user/update-antigen.timer&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[Unit]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Update Antigen weekly&lt;/span&gt;
-
-&lt;span class=&quot;nn&quot;&gt;[Timer]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;Persistent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;OnCalendar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;weekly&lt;/span&gt;
-
-&lt;span class=&quot;nn&quot;&gt;[Install]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;timers.target&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This timer has &lt;code&gt;Persistent=true&lt;/code&gt; to account for the situation when the timer would fire but the user has no session running.
-With this option, the timer will just fire the next time the user logs on.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Set the the Antigen update timer to start when logging in.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;update-antigen.timer
-Created symlink /home/jordan/.config/systemd/user/timers.target.wants/update-antigen.timer → /home/jordan/.config/systemd/user/update-antigen.timer.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;system_level_update_service&quot;&gt;System-level Update Service&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The Red Hat Enterprise Linux 7 and CentOS 7 distributions don&amp;#8217;t support user-level systemd services, but a system-level service is still possible, as this section describes.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Add a &lt;code&gt;systemd&lt;/code&gt; service to update the Antigen plugins.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/systemd/system/update-jordan-antigen.service&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[Unit]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Update Jordan's Antigen plugins for ZSH&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;After&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;network-online.target&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;Wants&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;network-online.target&lt;/span&gt;
-
-&lt;span class=&quot;nn&quot;&gt;[Service]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;oneshot&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;jordan&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;Group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;jordan&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;ExecStart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/usr/bin/zsh -c '. &quot;$0&quot; &amp;amp;&amp;amp; exec &quot;$@&quot;' /home/jordan/.zshrc antigen update&lt;/span&gt;
-
-&lt;span class=&quot;nn&quot;&gt;[Install]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;multi-user.target&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This systemd unit executes the &lt;code&gt;antigen update&lt;/code&gt; command after loading the &lt;code&gt;.zshrc&lt;/code&gt; file for the user &lt;code&gt;jordan&lt;/code&gt;.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt;
-This is run as the user &lt;code&gt;jordan&lt;/code&gt; and it requires the network be online in order to update.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Verify the &lt;code&gt;network-online.target&lt;/code&gt; exists.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_5&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_5&quot; title=&quot;View footnote.&quot;&gt;5&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;systemctl is-enabled NetworkManager-wait-online.service
-enabled&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Test run the new &lt;code&gt;systemd&lt;/code&gt; unit.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl start update-jordan-antigen.service&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Check the output of the command to make sure everything worked.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status update-jordan-antigen.service
-● update-jordan-antigen.service - Update Jordan&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;s Antigen plugins &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;ZSH
-   Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/etc/systemd/system/update-jordan-antigen.service&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; disabled&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; vendor preset: disabled&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-   Active: inactive &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;dead&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-Sep 16 14:12:36 jwillikers systemd[1]: Starting Update Jordan&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;s Antigen plugins &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;ZSH...
-Sep 16 14:12:37 jwillikers zsh[315]: Updating robbyrussell/oh-my-zsh@master... Done. Took 1s.
-Sep 16 14:12:38 jwillikers zsh[315]: Updating zsh-users/zsh-autosuggestions@master... Done. Took 1s.
-Sep 16 14:12:38 jwillikers zsh[315]: Updating zsh-users/zsh-completions@master... Done. Took 0s.
-Sep 16 14:12:39 jwillikers zsh[315]: Updating zsh-users/zsh-syntax-highlighting@master... Done. Took 1s.
-Sep 16 14:12:39 jwillikers systemd[1]: Started Update Jordan&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;s Antigen plugins &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;ZSH.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add a systemd timer to update the Antigen plugins once per week.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/systemd/system/update-jordan-antigen.timer&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[Unit]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Update Antigen weekly&lt;/span&gt;
-
-&lt;span class=&quot;nn&quot;&gt;[Timer]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;Persistent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;OnCalendar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;weekly&lt;/span&gt;
-
-&lt;span class=&quot;nn&quot;&gt;[Install]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;timers.target&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Activate the Antigen update timer on system startup.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;update-jordan-antigen.timer
-Created symlink from /etc/systemd/system/timers.target.wants/update-jordan-antigen.timer to /etc/systemd/system/update-jordan-antigen.timer.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This timer has &lt;code&gt;Persistent=true&lt;/code&gt; to account for the situation when the timer would fire but the system is not powered on.
-With this option, the timer will just fire the next the system boots.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;That&amp;#8217;s the tutorial.
-You should now have a working systemd service to automatically update your ZSH plugins for you each week.
-Don&amp;#8217;t forget to disable your update service when you decide to make the switch to the &lt;a href=&quot;https://fishshell.com/&quot;&gt;Fish shell&lt;/a&gt;. 🐟&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://stackoverflow.com/a/49765275/9835303&quot;&gt;StackOverflow: Using a user&amp;#8217;s .bashrc in a systemd service&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://wiki.archlinux.org/index.php/Systemd/User#Basic_setup&quot;&gt;Arch Wiki: systemd/user - Basic Setup&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
-&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://help.tableau.com/current/server-linux/en-us/systemd_user_service_error.htm&quot;&gt;Tableau Help: systemd User Service Failures&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
-&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://stackoverflow.com/a/49765275/9835303&quot;&gt;StackOverflow: Using a user&amp;#8217;s .bashrc in a systemd service&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_5&quot;&gt;
-&lt;a href=&quot;#_footnoteref_5&quot;&gt;5&lt;/a&gt;. &lt;a href=&quot;https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/&quot;&gt;Running Services After the Network is up&lt;/a&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Service Management" /><category term="Antigen" /><category term="CentOS" /><category term="Linux" /><category term="oh-my-zsh" /><category term="RedHat" /><category term="systemd" /><category term="Ubuntu" /><category term="ZSH" /></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><category term="Networking" /><category term="BSD" /><category term="KeePassXC" /><category term="Linux" /><category term="macOS" /><category term="OpenSSH" /><category term="ssh" /></entry></feed>
