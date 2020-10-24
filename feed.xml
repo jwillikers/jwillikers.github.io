@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-24T14:06:56+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Generate an SSH Key</title><link href="https://jwillikers.com/generate-an-ssh-key" rel="alternate" type="text/html" title="Generate an SSH Key" /><published>2020-10-24T00:00:00+00:00</published><updated>2020-10-24T00:00:00+00:00</updated><id>https://jwillikers.com/Generate%20an%20SSH%20Key</id><content type="html" xml:base="https://jwillikers.com/generate-an-ssh-key">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-24T14:13:18+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Generate an SSH Key</title><link href="https://jwillikers.com/generate-an-ssh-key" rel="alternate" type="text/html" title="Generate an SSH Key" /><published>2020-10-24T00:00:00+00:00</published><updated>2020-10-24T00:00:00+00:00</updated><id>https://jwillikers.com/Generate%20an%20SSH%20Key</id><content type="html" xml:base="https://jwillikers.com/generate-an-ssh-key">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Entering passwords is a pain.
@@ -203,7 +203,7 @@ For up-to-date instructions, refer to &lt;a href=&quot;https://docs.github.com/e
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Select the btn:[New SSH key] button.&lt;/p&gt;
+&lt;p&gt;Select the &lt;b class=&quot;button&quot;&gt;New SSH key&lt;/b&gt; button.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Optionally, enter a name for this key in the &lt;em&gt;Title&lt;/em&gt; field.&lt;/p&gt;
@@ -1485,8 +1485,8 @@ As an example, the following command adds &lt;code&gt;/usr/local/lib&lt;/code&gt
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Just start typing a command and fish will provide suggestions on your prompt.
-As autosuggestion appear from your history, choose the suggested line with kbd:[→].
-To select only the next word of the suggestion, use kbd:[Alt+→].&lt;/p&gt;
+As autosuggestion appear from your history, choose the suggested line with &lt;kbd&gt;→&lt;/kbd&gt;.
+To select only the next word of the suggestion, use &lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;→&lt;/kbd&gt;&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1496,10 +1496,10 @@ To select only the next word of the suggestion, use kbd:[Alt+→].&lt;/p&gt;
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This one has required a bit of learning curve since I&amp;#8217;m so used to finding previous commands by searching with kbd:[Ctrl+R].
+&lt;p&gt;This one has required a bit of learning curve since I&amp;#8217;m so used to finding previous commands by searching with &lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;R&lt;/kbd&gt;&lt;/span&gt;.
 With fish, this is even simpler.
 Start typing the letters, word, or phrase you want to match.
-Then, just press kbd:[Alt+↑] to scroll backwards through history for matches.&lt;/p&gt;
+Then, just press &lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;↑&lt;/kbd&gt;&lt;/span&gt; to scroll backwards through history for matches.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
