@@ -166,7 +166,7 @@ The key's randomart image is:
 </div>
 </li>
 <li>
-<p>Now that your key is generated, you&#8217;ll probably want to add its passphrase to your login keyring so that you don&#8217;t have to type in all the darn time.</p>
+<p>Now that your key is generated, you&#8217;ll probably want to add its passphrase to your login keyring so that you don&#8217;t have to type it all the darn time.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -179,6 +179,24 @@ On Ubuntu, check the box to automatically unlock the key when you login.</p>
 <img src="Save%20the%20Password%20for%20Your%20SSH%20Key%20on%20Ubuntu.png" alt="Save the Password for Your SSH Key on Ubuntu">
 </div>
 <div class="title">Save the Password for Your SSH Key on Ubuntu</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For integration with the system keychain to work, make sure to use the system&#8217;s SSH client in order to trigger this mechanism.
+This can be an issue if you have other versions of OpenSSH on your machine.
+I ran into this on macOS issue when using a newer version of the <a href="https://www.macports.org/">OpenSSH</a> client provided by MacPorts.
+The prompt never appeared when using this SSH client.
+Establishing an SSH by connection by calling <code>/usr/bin/ssh</code> directly successfully triggered the prompt.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -204,6 +222,11 @@ On these platforms, you&#8217;ll have to do this yourself.</p>
 </div>
 <div class="sect2">
 <h3 id="github">GitHub</h3>
+<div class="paragraph">
+<p>Accessing private repositories or enabling certain privileges on public repositories, such as push access to a repository, will require some form of user authentication.
+Working with Git repositories is much easier when SSH handles required authentication.
+GitHub is used as an example here because it is so widely used.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -215,7 +238,54 @@ On these platforms, you&#8217;ll have to do this yourself.</p>
 </div>
 </li>
 <li>
-<p>Upload your shiny new <em>public</em> key by following <a href="https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account">GitHub&#8217;s up-to-date guide</a>.</p>
+<p>Open your <a href="https://github.com/settings/keys">SSH and GPG keys</a> settings page in a web browser.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For up-to-date instructions, refer to <a href="https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account">GitHub&#8217;s documentation</a>.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Select menu:New SSH key[].</p>
+</li>
+<li>
+<p>Optionally, enter a name for this key in the <em>Title</em> field.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The user and host name of the given key will be used by default if this field is left blank.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the public key.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>This can be accomplished by dumping the contents of the public key to your terminal and copying the output from there.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cat</span> ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDoxvFhlQciJxydpZVKnNwVYtSZI8hw6aF3ug961FAHzp1sbuZJm++rFSG30wwxeXK3r+FPXXnEnmPW53dn26ywFChHRRpN4zgyEdCXYLBOILObm/9z6hnOa8MReNC9VKH5xBq5CH4YmNfJjmJ5LaeI9PMbF/++F+n+QDTWgpfwKu3FxJYRtQ4NLd5q2QOvwpzQ3M2FOkqJ0N//qwiuJNLtUmDZQRqpeZCbhhAptrF6yyYME70pMKQFuE5gEzZThDIP6TAPuu0L4LECwossWlsA4bvhOK8wN0KWfvuZLx6r/8ld4P9/3FkshuTsWXIDbykewR4QcPE8EcpVNFH6l+zrLBCkndOimN4iLy7eBPPfdLZG1yfcusA0pPMiYKiA4SYzh6w2wrt0Y0wV1/npNHvZM/qS/2tJTkwYYKLxRah3SdR7onJQzWn67SdzxJ5FO5xQB5HsMMe99JTqaHEGEiUrGFB5MsqUbtTqHo3ZMYre0uEax03omq3pZel+MCj52S8<span class="o">=</span> jordan@jwillikers</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Paste the contents of the public key file in the <em>Key</em> field.</p>
+</li>
+<li>
+<p>Click menu:Add SSH key[] to upload the key.</p>
 </li>
 <li>
 <p>Clone the desired repository using its SSH URL.</p>
@@ -238,7 +308,7 @@ On these platforms, you&#8217;ll have to do this yourself.</p>
 <div class="sect2">
 <h3 id="remote_access">Remote Access</h3>
 <div class="paragraph">
-<p>For remotely accessing a remote host, some configuration is required.</p>
+<p>For remotely accessing a host, some configuration is required.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
