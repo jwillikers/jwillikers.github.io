@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-24T13:56:40+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Generate an SSH Key</title><link href="https://jwillikers.com/generate-an-ssh-key" rel="alternate" type="text/html" title="Generate an SSH Key" /><published>2020-10-24T00:00:00+00:00</published><updated>2020-10-24T00:00:00+00:00</updated><id>https://jwillikers.com/Generate%20an%20SSH%20Key</id><content type="html" xml:base="https://jwillikers.com/generate-an-ssh-key">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-24T13:57:42+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Generate an SSH Key</title><link href="https://jwillikers.com/generate-an-ssh-key" rel="alternate" type="text/html" title="Generate an SSH Key" /><published>2020-10-24T00:00:00+00:00</published><updated>2020-10-24T00:00:00+00:00</updated><id>https://jwillikers.com/Generate%20an%20SSH%20Key</id><content type="html" xml:base="https://jwillikers.com/generate-an-ssh-key">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Entering passwords is a pain.
@@ -140,7 +140,7 @@ On Ubuntu, check the box to automatically unlock the key when you login.&lt;/p&g
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;For integration with the system keychain to work, make sure to use the system&amp;#8217;s SSH client in order to trigger this mechanism.
 This can be an issue if you have other versions of OpenSSH on your machine.
-I ran into this on macOS issue when using a newer version of the &lt;a href=&quot;https://www.macports.org/&quot;&gt;OpenSSH&lt;/a&gt; client provided by MacPorts.
+I ran into this on macOS when using a newer version of the OpenSSH client provided by &lt;a href=&quot;https://www.macports.org/&quot;&gt;MacPorts&lt;/a&gt;.
 The prompt never appeared when using this SSH client.
 Establishing an SSH by connection by calling &lt;code&gt;/usr/bin/ssh&lt;/code&gt; directly successfully triggered the prompt.&lt;/p&gt;
 &lt;/div&gt;
