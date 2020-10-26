@@ -1,4 +1,243 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-24T14:16:54+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Generate an SSH Key</title><link href="https://jwillikers.com/generate-an-ssh-key" rel="alternate" type="text/html" title="Generate an SSH Key" /><published>2020-10-24T00:00:00+00:00</published><updated>2020-10-24T00:00:00+00:00</updated><id>https://jwillikers.com/Generate%20an%20SSH%20Key</id><content type="html" xml:base="https://jwillikers.com/generate-an-ssh-key">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-26T21:49:11+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Grow Disk Space on a CentOS 7 VM Using QEMU, LVM, and XFS</title><link href="https://jwillikers.com/grow-disk-space-on-a-centos-7-vm-using-qemu-lvm-and-xfs" rel="alternate" type="text/html" title="Grow Disk Space on a CentOS 7 VM Using QEMU, LVM, and XFS" /><published>2020-10-26T00:00:00+00:00</published><updated>2020-10-26T00:00:00+00:00</updated><id>https://jwillikers.com/Grow%20Disk%20Space%20on%20a%20CentOS%207%20VM%20Using%20QEMU,%20LVM,%20and%20XFS</id><content type="html" xml:base="https://jwillikers.com/grow-disk-space-on-a-centos-7-vm-using-qemu-lvm-and-xfs">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Sometimes you just need some more disk space.
+Expanding the size of a virtual disk, though, is not necessarily as easy as you&amp;#8217;d hope.
+Having just done this on a &lt;a href=&quot;https://www.centos.org/&quot;&gt;CentOS&lt;/a&gt; 7 virtual machine, I document how to do so here.
+Thanks goes to the article &lt;a href=&quot;https://www.systemmen.com/storage-fs/how-to-extend-linux-lvm-partition-in-aws-379.html&quot;&gt;How to extend Linux LVM partition in AWS&lt;/a&gt; from &lt;a href=&quot;https://www.systemmen.com/&quot;&gt;SystemMen&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial details how to grow the disk image for a CentOS 7 virtual machine.
+Experience with CentOS 7, the command-line, and Linux filesystem and logical volume management is assumed.
+This tutorial uses &lt;a href=&quot;https://www.qemu.org/&quot;&gt;QEMU&lt;/a&gt; for modifying the disk image, &lt;a href=&quot;http://www.sourceware.org/lvm2/&quot;&gt;LVM&lt;/a&gt; for logical volume management, and &lt;a href=&quot;https://xfs.wiki.kernel.org/&quot;&gt;XFS&lt;/a&gt; for the underlying filesystem.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Be sure to backup any critical data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Shutdown the virtual machine.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Increase the size of the disk image with the &lt;a href=&quot;https://www.qemu.org/docs/master/interop/qemu-img.html&quot;&gt;QEMU disk image utility&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ qemu-img resize example.qcow2 +40G
+Image resized.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This increases the size of the disk image &lt;em&gt;example.qcow2&lt;/em&gt; by forty Gibibytes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Start the virtual machine.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;On the virtual machine, install the &lt;code&gt;cloud-utils-growpart&lt;/code&gt; package from Canonical&amp;#8217;s &lt;a href=&quot;https://github.com/canonical/cloud-utils&quot;&gt;cloud-utils&lt;/a&gt; project.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dnf &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; cloud-utils-growpart&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;List your disks and partitions with the &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=lsblk&amp;amp;manpath=CentOS+7.1&quot;&gt;&lt;code&gt;lsblk&lt;/code&gt;&lt;/a&gt; command and note the device and partition you wish to expand.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ lsblk
+NAME                           MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+fd0                              2:0    1     4K  0 disk
+sr0                             11:0    1  1024M  0 rom
+vda                            252:0    0    80G  0 disk
+├─vda1                         252:1    0     1G  0 part /boot
+└─vda2                         252:2    0    59G  0 part
+  ├─centos-root                253:0    0    37G  0 lvm  /
+  ├─centos-swap                253:1    0   3.9G  0 lvm  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SWAP]
+  └─centos-home                253:2    0  18.1G  0 lvm  /home&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;em&gt;home&lt;/em&gt; partition is low on space, so partition 2 on the device &lt;code&gt;vda&lt;/code&gt; will be expanded because it contains &lt;code&gt;centos-home&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Grow partition 2 on device &lt;code&gt;vda&lt;/code&gt; with all the new free space on the disk image by using the &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=growpart&amp;amp;manpath=Debian+8.1.0&quot;&gt;&lt;code&gt;growpart&lt;/code&gt;&lt;/a&gt; command.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;growpart /dev/vda 2
+CHANGED: &lt;span class=&quot;nv&quot;&gt;partition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2 &lt;span class=&quot;nv&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2099200 old: &lt;span class=&quot;nv&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;123729920 &lt;span class=&quot;nv&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;125829120 new: &lt;span class=&quot;nv&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;207615967 &lt;span class=&quot;nv&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;209715167&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reboot the VM.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Expand the corresponding physical from new space available on the partition with &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=pvresize&amp;amp;manpath=CentOS+7.1&quot;&gt;&lt;code&gt;pvresize&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pvresize /dev/vda2
+  Physical volume &lt;span class=&quot;s2&quot;&gt;&quot;/dev/vda2&quot;&lt;/span&gt; changed
+  1 physical volume&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; resized or updated / 0 physical volume&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; not resized&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use the &lt;a href=&quot;https://www.gnu.org/software/coreutils/manual/html_node/df-invocation.html&quot;&gt;&lt;code&gt;df&lt;/code&gt;&lt;/a&gt; command, determine which logical volume is to be grown.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Th&lt;/span&gt;
+Filesystem                             Type      Size  Used Avail Use% Mounted on
+devtmpfs                               devtmpfs  1.9G     0  1.9G   0% /dev
+tmpfs                                  tmpfs     1.9G     0  1.9G   0% /dev/shm
+tmpfs                                  tmpfs     1.9G  9.2M  1.9G   1% /run
+tmpfs                                  tmpfs     1.9G     0  1.9G   0% /sys/fs/cgroup
+/dev/mapper/centos-root                xfs        38G   15G   23G  40% /
+/dev/vda1                              xfs      1014M  238M  777M  24% /boot
+/dev/mapper/centos-home                xfs        19G   18G  213M  99% /home
+tmpfs                                  tmpfs     379M   12K  379M   1% /run/user/42
+tmpfs                                  tmpfs     379M     0  379M   0% /run/user/1001&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;code&gt;/dev/mapper/centos-home&lt;/code&gt; filesystem is ninety-nine percent full, so this is the volume that needs to be enlarged.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;With &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=lvextend&amp;amp;manpath=CentOS+7.1&quot;&gt;&lt;code&gt;lvextend&lt;/code&gt;&lt;/a&gt;, extend the logical volume to with the space just added to the physical volume.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;lvextend &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; +100%FREE /dev/mapper/centos-home
+  Size of logical volume centos/home changed from &amp;lt;18.09 GiB &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;4630 extents&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; to &amp;lt;58.09 GiB &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;14870 extents&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+  Logical volume centos/home successfully resized.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Determine the filesystem path for the logical volume &lt;code&gt;/dev/mapper/centos-home&lt;/code&gt; from the output of the &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=lvdisplay&amp;amp;apropos=0&amp;amp;sektion=0&amp;amp;manpath=CentOS+7.1&amp;amp;arch=default&amp;amp;format=html&quot;&gt;&lt;code&gt;lvdisplay&lt;/code&gt;&lt;/a&gt; command.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;lvdisplay
+  &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt; Logical volume &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
+  LV Path                /dev/centos/swap
+  LV Name                swap
+  VG Name                centos
+  LV UUID                rEAof0-CesW-iUqd-dq11-9k8P-p82Y-9bMvMQ
+  LV Write Access        &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt;/write
+  LV Creation host, &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;localhost, 2020-09-15 08:09:39 &lt;span class=&quot;nt&quot;&gt;-0500&lt;/span&gt;
+  LV Status              available
+  &lt;span class=&quot;c&quot;&gt;# open                 2&lt;/span&gt;
+  LV Size                &amp;lt;3.88 GiB
+  Current LE             992
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;to     8192
+  Block device           253:1
+
+  &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt; Logical volume &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
+  LV Path                /dev/centos/home
+  LV Name                home
+  VG Name                centos
+  LV UUID                IPqAHo-dvhr-ha1L-qbwf-DcAw-yAu1-K1VM6O
+  LV Write Access        &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt;/write
+  LV Creation host, &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;localhost, 2020-09-15 08:09:39 &lt;span class=&quot;nt&quot;&gt;-0500&lt;/span&gt;
+  LV Status              available
+  &lt;span class=&quot;c&quot;&gt;# open                 1&lt;/span&gt;
+  LV Size                &amp;lt;18.09 GiB
+  Current LE             4630
+  Segments               2
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;to     8192
+  Block device           253:2
+
+  &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt; Logical volume &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
+  LV Path                /dev/centos/root
+  LV Name                root
+  VG Name                centos
+  LV UUID                fPqtH3-fYV2-UX79-M2qG-731D-hv8c-t5M0TA
+  LV Write Access        &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt;/write
+  LV Creation host, &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;localhost, 2020-09-15 08:09:40 &lt;span class=&quot;nt&quot;&gt;-0500&lt;/span&gt;
+  LV Status              available
+  &lt;span class=&quot;c&quot;&gt;# open                 1&lt;/span&gt;
+  LV Size                &amp;lt;37.04 GiB
+  Current LE             9481
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;to     8192
+  Block device           253:0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The path is indicated by the field &lt;em&gt;LV Path&lt;/em&gt;.
+The path for the &lt;em&gt;home&lt;/em&gt; directory is &lt;code&gt;/dev/centos/home&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Increase the filesystem&amp;#8217;s size by passing the path &lt;code&gt;/dev/centos/home&lt;/code&gt; to the &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=xfs_growfs&amp;amp;manpath=CentOS+7.1&quot;&gt;&lt;code&gt;xfs_growfs&lt;/code&gt;&lt;/a&gt; command.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;xfs_growfs /dev/centos/home
+meta-data&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/dev/mapper/home &lt;span class=&quot;nv&quot;&gt;isize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;512    &lt;span class=&quot;nv&quot;&gt;agcount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5, &lt;span class=&quot;nv&quot;&gt;agsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1185024 blks
+         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;                       &lt;span class=&quot;nv&quot;&gt;sectsz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;512   &lt;span class=&quot;nv&quot;&gt;attr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2, &lt;span class=&quot;nv&quot;&gt;projid32bit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;                       &lt;span class=&quot;nv&quot;&gt;crc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1        &lt;span class=&quot;nv&quot;&gt;finobt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 &lt;span class=&quot;nv&quot;&gt;spinodes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
+data     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;                       &lt;span class=&quot;nv&quot;&gt;bsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4096   &lt;span class=&quot;nv&quot;&gt;blocks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4741120, &lt;span class=&quot;nv&quot;&gt;imaxpct&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;25
+         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;                       &lt;span class=&quot;nv&quot;&gt;sunit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0      &lt;span class=&quot;nv&quot;&gt;swidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 blks
+naming   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;version 2              &lt;span class=&quot;nv&quot;&gt;bsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4096   ascii-ci&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 &lt;span class=&quot;nv&quot;&gt;ftype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+log      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;internal               &lt;span class=&quot;nv&quot;&gt;bsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4096   &lt;span class=&quot;nv&quot;&gt;blocks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2560, &lt;span class=&quot;nv&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2
+         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;                       &lt;span class=&quot;nv&quot;&gt;sectsz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;512   &lt;span class=&quot;nv&quot;&gt;sunit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 blks, lazy-count&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+realtime &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;none                   &lt;span class=&quot;nv&quot;&gt;extsz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4096   &lt;span class=&quot;nv&quot;&gt;blocks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0, &lt;span class=&quot;nv&quot;&gt;rtextents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
+data blocks changed from 4741120 to 15226880&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verify that more disk space is indeed available.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Th&lt;/span&gt; /home
+Filesystem                             Type  Size  Used Avail Use% Mounted on
+/dev/mapper/centos-home                xfs    59G   18G   41G  31% /home&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now be able to resize a CentOS 7 virtual machine using QEMU, LVM, and XFS and have a better understanding of the tools and steps involved in the process.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Systems" /><category term="CentOS" /><category term="disk" /><category term="filesystem" /><category term="Linux" /><category term="LVM" /><category term="QEMU" /><category term="XFS" /></entry><entry><title type="html">Generate an SSH Key</title><link href="https://jwillikers.com/generate-an-ssh-key" rel="alternate" type="text/html" title="Generate an SSH Key" /><published>2020-10-24T00:00:00+00:00</published><updated>2020-10-24T00:00:00+00:00</updated><id>https://jwillikers.com/Generate%20an%20SSH%20Key</id><content type="html" xml:base="https://jwillikers.com/generate-an-ssh-key">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Entering passwords is a pain.
@@ -1850,256 +2089,4 @@ It should be a piece of cake to change your login shell now.&lt;/p&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
 &lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#switching-to-fish&quot;&gt;Fish Shell Tutorial - Switching to fish?&lt;/a&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="BSD" /><category term="fish" /><category term="Linux" /><category term="macOS" /><category term="shell" /><category term="Ubuntu" /></entry><entry><title type="html">My SSH Configuration</title><link href="https://jwillikers.com/my-ssh-configuration" rel="alternate" type="text/html" title="My SSH Configuration" /><published>2020-09-29T00:00:00+00:00</published><updated>2020-09-29T00:00:00+00:00</updated><id>https://jwillikers.com/My%20SSH%20Configuration</id><content type="html" xml:base="https://jwillikers.com/my-ssh-configuration">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;a href=&quot;https://www.openssh.com/&quot;&gt;OpenSSH&lt;/a&gt; client and server applications are ubiquitous.
-Like many a software dev, I&amp;#8217;m `ssh&amp;#8217;ing all over the place.
-And you know what?
-I&amp;#8217;ve put off learning the ins and outs of its configuration for far too long.
-I learned that a little bit of know-how can simplify my day-to-day use of SSH.
-That&amp;#8217;s exactly why I&amp;#8217;ve written this post to exemplify the configuration options I&amp;#8217;m now using.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;ssh_configuration&quot;&gt;SSH Configuration&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The file &lt;code&gt;~/.ssh/config&lt;/code&gt; contains a user&amp;#8217;s SSH configuration.
-Settings here can be defined per-host.
-General configuration options include aliases, SSH agent behavior, and jump hosts to name a few.
-Different sections of a sample &lt;code&gt;~/.ssh/config&lt;/code&gt; are discussed in detail below.
-Further documentation is available from the &lt;a href=&quot;https://man.openbsd.org/ssh_config&quot;&gt;&lt;code&gt;ssh_config&lt;/code&gt; manpage&lt;/a&gt;.
-This article assumes the reader is familiar with the basics of SSH and the syntax of SSH configuration files.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;localhost&quot;&gt;Localhost&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The first option does not reside in a &lt;a href=&quot;https://man.openbsd.org/ssh_config#Host&quot;&gt;&lt;code&gt;Host&lt;/code&gt;&lt;/a&gt; or &lt;a href=&quot;https://man.openbsd.org/ssh_config#Match&quot;&gt;&lt;code&gt;Match&lt;/code&gt;&lt;/a&gt; block because it only refers to one host, &lt;code&gt;localhost&lt;/code&gt; on the current machine.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;NoHostAuthenticationForLocalhost yes&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Normally, SSH consults the &lt;code&gt;~/.ssh/known_hosts&lt;/code&gt; when connecting to a host.
-The known hosts file stores an identifying key for each host it has connected to previously.
-As connections are made to new hosts, keys are registered in the user&amp;#8217;s known hosts file.
-Each time SSH establishes a connection to a known host, the key is checked, and the connection is aborted if it does not match.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When running multiple SSH servers from a single host, the key will fail to match whenever switching servers.
-If you connect to various VMs through &lt;code&gt;localhost&lt;/code&gt;, SSH will throw an error whenever switching between machines.
-Setting &lt;a href=&quot;https://man.openbsd.org/ssh_config#NoHostAuthenticationForLocalhost&quot;&gt;&lt;code&gt;NoHostAuthenticationForLocalhost&lt;/code&gt;&lt;/a&gt; to &lt;code&gt;yes&lt;/code&gt; is a convenient way to workaround by skipping host checking is skipped for &lt;code&gt;localhost&lt;/code&gt; altogether.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This does not skip host checking for the &lt;code&gt;localhost&lt;/code&gt; address available on jump hosts.
-See the section below on &lt;code&gt;HostKeyAlias&lt;/code&gt; for such a use case.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;a_humble_host_alias&quot;&gt;A Humble Host Alias&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The following section contains only one option which applies to &lt;code&gt;vm_host&lt;/code&gt;.
-As an example, &lt;code&gt;vm_host&lt;/code&gt; represents a computer dedicated for running multiple virtual machines.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host vm_host
-  Hostname vm_host.local&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The option, &lt;a href=&quot;https://man.openbsd.org/ssh_config#Hostname&quot;&gt;&lt;code&gt;Hostname&lt;/code&gt;&lt;/a&gt;, indicates the true hostname of this host which means &lt;code&gt;vm_host&lt;/code&gt; is really just an alias.
-The alias &lt;code&gt;vm_host&lt;/code&gt; can be used on the command-line instead of having to type out &lt;code&gt;vm_host.local&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;jump_hosts_and_multiple_servers_on_a_single_host&quot;&gt;Jump Hosts and Multiple Servers on a Single Host&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Next, several configuration options are given for the hosts &lt;code&gt;vm1&lt;/code&gt; and &lt;code&gt;vm2&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host vm1
-  HostKeyAlias vm1.localhost
-
-Host vm2
-  HostKeyAlias vm2.localhost
-
-Host vm1 vm2
-  Hostname localhost
-  Port 9001
-  ProxyJump vm_host&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Starting with the shared configuration options, the &lt;code&gt;Hostname&lt;/code&gt; and &lt;a href=&quot;https://man.openbsd.org/ssh_config#Port&quot;&gt;&lt;code&gt;Port&lt;/code&gt;&lt;/a&gt; options indicate that both hosts are available on the port &lt;code&gt;9001&lt;/code&gt; at the reserved &lt;code&gt;localhost&lt;/code&gt; address.
-Since both &lt;code&gt;vm1&lt;/code&gt; and &lt;code&gt;vm2&lt;/code&gt; use the same hostname and port, they can&amp;#8217;t both be available simultaneously.
-In this scenario, either virtual machine &lt;code&gt;vm1&lt;/code&gt; or &lt;code&gt;vm2&lt;/code&gt; would be available at any one time.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;a href=&quot;https://man.openbsd.org/ssh_config#ProxyJump&quot;&gt;&lt;code&gt;ProxyJump&lt;/code&gt;&lt;/a&gt; key is used here with one intermediate host, &lt;code&gt;vm_host&lt;/code&gt;, defined previously.
-This means that the SSH connection will connect to the &lt;code&gt;localhost&lt;/code&gt; address on &lt;code&gt;vm_host&lt;/code&gt;.
-So, instead of executing &lt;code&gt;ssh vm_host&lt;/code&gt; followed by &lt;code&gt;ssh -p 9001 localhost&lt;/code&gt; to access either of the VMs, use just one command either &lt;code&gt;ssh vm1&lt;/code&gt; or &lt;code&gt;ssh vm2&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The individual host blocks provide a distinct &lt;a href=&quot;https://man.openbsd.org/ssh_config#HostKeyAlias&quot;&gt;&lt;code&gt;HostKeyAlias&lt;/code&gt;&lt;/a&gt; for each host.
-This is critical because these virtual machines will have different host keys but share the same hostname &lt;code&gt;localhost&lt;/code&gt;.
-When checking the known hosts file, instead of looking for an entry for &lt;code&gt;localhost&lt;/code&gt;, SSH will look for an entry for the value provided to &lt;code&gt;HostKeyAlias&lt;/code&gt;.
-The configuration line &lt;code&gt;NoHostAuthenticationForLocalhost yes&lt;/code&gt; from the beginning of the file &lt;em&gt;only&lt;/em&gt; works for the &lt;code&gt;localhost&lt;/code&gt; address on the &lt;em&gt;current&lt;/em&gt; machine.
-In other words, this option has no effect when connecting to &lt;code&gt;localhost&lt;/code&gt; on any other machine, including a jump host.
-According to the &lt;a href=&quot;https://man.openbsd.org/ssh_config#HostKeyAlias&quot;&gt;&lt;code&gt;ssh_config&lt;/code&gt; manpage&lt;/a&gt;, &lt;code&gt;HostKeyAlias&lt;/code&gt; should be used for handling multiple servers running on a single host.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;multicast_dns&quot;&gt;Multicast DNS&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The following configuration accommodates the variability of the IP address associated with a given hostname on networks using &lt;a href=&quot;http://www.multicastdns.org/&quot;&gt;multicast DNS&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host *.local
-  CheckHostIP no&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Multicast DNS uses the &quot;.local&quot; top-level domain exclusively for hosts on a network.
-Setting &lt;a href=&quot;https://man.openbsd.org/ssh_config#CheckHostIP&quot;&gt;&lt;code&gt;CheckHostIP&lt;/code&gt;&lt;/a&gt; to &lt;code&gt;no&lt;/code&gt; here allows IP addresses for any &quot;.local&quot; hosts to change.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-It might be worth setting this option for all users in the system-wide configuration file &lt;code&gt;/etc/ssh/ssh_config&lt;/code&gt;.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;the_ssh_agent&quot;&gt;The SSH Agent&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The last section contains a few defaults for all hosts, which boil down to a few quality-of-life improvements.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.ssh/config&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host *
-  AddKeysToAgent yes
-  IdentitiesOnly yes
-  IdentityFile ~/.ssh/id_rsa_catalina-build.pub
-  PreferredAuthentications publickey,keyboard-interactive,password,gssapi-with-mic,hostbased
-
-  # Specific to macOS
-  UseKeychain yes&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The meanings of these options are described one-by-one below.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#AddKeysToAgent&quot;&gt;&lt;code&gt;AddKeysToAgent&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Automatically registers SSH keys with the &lt;a href=&quot;https://man.openbsd.org/ssh-agent&quot;&gt;SSH Agent&lt;/a&gt; as they are loaded.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#IdentitiesOnly&quot;&gt;&lt;code&gt;IdentitiesOnly&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Limits the identities that will be used to authenticate.
-Because I use &lt;a href=&quot;https://keepassxc.org/&quot;&gt;KeePassXC&lt;/a&gt; to handle my SSH keys, the SSH Agent may have lots of other keys loaded which can lead to &lt;a href=&quot;https://keepassxc.org/docs/#faq-ssh-agent-auth-errors&quot;&gt;authentication problems&lt;/a&gt;.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#IdentityFile&quot;&gt;&lt;code&gt;IdentityFile&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Provides the path to an authentication identity.
-The private key file is often provided for this option, but providing the public key works when storing the private key itself directly within KeePassXC.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://man.openbsd.org/ssh_config#PreferredAuthentications&quot;&gt;&lt;code&gt;PreferredAuthentications&lt;/code&gt;&lt;/a&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Sets the order of preference for the various authentication methods.
-Here, public key cryptography is preferred first because I use this most often.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;UseKeychain&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;On macOS, this allows storing and accessing keys from the user&amp;#8217;s Keychain so they are automatically available after logging on.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;ssh_agent_forwarding&quot;&gt;SSH Agent Forwarding&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It is possible to forward the SSH Agent to avoid typing passwords so much.
-You can forward the SSH Agent by setting &lt;a href=&quot;https://man.openbsd.org/ssh_config#ForwardAgent&quot;&gt;&lt;code&gt;ForwardAgent&lt;/code&gt;&lt;/a&gt; to &lt;code&gt;yes&lt;/code&gt;, shown in the following example.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.ssh/ssh_config&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Host server
-  ForwardAgent yes&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock caution&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Be wary when using agent forwarding.
-Those with administrative access on the forwarded machine will be able to use the keys from your agent to authenticate as you.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;That was a bit of configuration.
-Assuming I didn&amp;#8217;t just cover topics you already knew, you should have a better understanding of SSH and its configuration options.
-Hopefully you&amp;#8217;ll be able to capitalize on this knowledge by simplifying your SSH workflow.
-If you&amp;#8217;re interested in smoothing out even more wrinkles in your SSH use, you might checkout the &lt;a href=&quot;https://mosh.org/&quot;&gt;Mosh&lt;/a&gt; project.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://superuser.com/a/1399855/1220231&quot;&gt;superuser: OpenSSH - Any way to keep strict host key checking but check only the key and ignore server&amp;#8217;s name?&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://keepassxc.org/docs/#faq-ssh-agent-auth-errors&quot;&gt;KeePassXC FAQ: SSH Agent - I&amp;#8217;m getting a &quot;Too many authentication failures&quot; error, what shall I do?&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
-&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://apple.stackexchange.com/a/250572/361122&quot;&gt;AskDifferent: How can I permanently add my SSH private key to Keychain so it is automatically available to ssh?&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
-&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://smallstep.com/blog/ssh-agent-explained/&quot;&gt;smallstep Blog: SSH Agent Explained&lt;/a&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Networking" /><category term="BSD" /><category term="KeePassXC" /><category term="Linux" /><category term="macOS" /><category term="OpenSSH" /><category term="ssh" /></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="BSD" /><category term="fish" /><category term="Linux" /><category term="macOS" /><category term="shell" /><category term="Ubuntu" /></entry></feed>

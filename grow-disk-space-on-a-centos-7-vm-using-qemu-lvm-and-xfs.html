@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Grow Disk Space on a CentOS 7 VM Using QEMU, LVM, and XFS | JWillikers</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Grow Disk Space on a CentOS 7 VM Using QEMU, LVM, and XFS" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering" />
+<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
+<link rel="canonical" href="https://jwillikers.com/grow-disk-space-on-a-centos-7-vm-using-qemu-lvm-and-xfs" />
+<meta property="og:url" content="https://jwillikers.com/grow-disk-space-on-a-centos-7-vm-using-qemu-lvm-and-xfs" />
+<meta property="og:site_name" content="JWillikers" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-26T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Grow Disk Space on a CentOS 7 VM Using QEMU, LVM, and XFS" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/grow-disk-space-on-a-centos-7-vm-using-qemu-lvm-and-xfs"},"description":"Handy admin and dev guides from my myriad of tinkering","url":"https://jwillikers.com/grow-disk-space-on-a-centos-7-vm-using-qemu-lvm-and-xfs","@type":"BlogPosting","headline":"Grow Disk Space on a CentOS 7 VM Using QEMU, LVM, and XFS","dateModified":"2020-10-26T00:00:00+00:00","datePublished":"2020-10-26T00:00:00+00:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/asciidoctor.css"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">JWillikers</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Grow Disk Space on a CentOS 7 VM Using QEMU, LVM, and XFS</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-10-26T00:00:00+00:00" itemprop="datePublished">
+        Oct 26, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes you just need some more disk space.
+Expanding the size of a virtual disk, though, is not necessarily as easy as you&#8217;d hope.
+Having just done this on a <a href="https://www.centos.org/">CentOS</a> 7 virtual machine, I document how to do so here.
+Thanks goes to the article <a href="https://www.systemmen.com/storage-fs/how-to-extend-linux-lvm-partition-in-aws-379.html">How to extend Linux LVM partition in AWS</a> from <a href="https://www.systemmen.com/">SystemMen</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial details how to grow the disk image for a CentOS 7 virtual machine.
+Experience with CentOS 7, the command-line, and Linux filesystem and logical volume management is assumed.
+This tutorial uses <a href="https://www.qemu.org/">QEMU</a> for modifying the disk image, <a href="http://www.sourceware.org/lvm2/">LVM</a> for logical volume management, and <a href="https://xfs.wiki.kernel.org/">XFS</a> for the underlying filesystem.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Be sure to backup any critical data.</p>
+</li>
+<li>
+<p>Shutdown the virtual machine.</p>
+</li>
+<li>
+<p>Increase the size of the disk image with the <a href="https://www.qemu.org/docs/master/interop/qemu-img.html">QEMU disk image utility</a>.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ qemu-img resize example.qcow2 +40G
+Image resized.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This increases the size of the disk image <em>example.qcow2</em> by forty Gibibytes.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Start the virtual machine.</p>
+</li>
+<li>
+<p>On the virtual machine, install the <code>cloud-utils-growpart</code> package from Canonical&#8217;s <a href="https://github.com/canonical/cloud-utils">cloud-utils</a> project.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nb">install</span> <span class="nt">-y</span> cloud-utils-growpart</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>List your disks and partitions with the <a href="https://www.freebsd.org/cgi/man.cgi?query=lsblk&amp;manpath=CentOS+7.1"><code>lsblk</code></a> command and note the device and partition you wish to expand.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ lsblk
+NAME                           MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+fd0                              2:0    1     4K  0 disk
+sr0                             11:0    1  1024M  0 rom
+vda                            252:0    0    80G  0 disk
+├─vda1                         252:1    0     1G  0 part /boot
+└─vda2                         252:2    0    59G  0 part
+  ├─centos-root                253:0    0    37G  0 lvm  /
+  ├─centos-swap                253:1    0   3.9G  0 lvm  <span class="o">[</span>SWAP]
+  └─centos-home                253:2    0  18.1G  0 lvm  /home</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <em>home</em> partition is low on space, so partition 2 on the device <code>vda</code> will be expanded because it contains <code>centos-home</code>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Grow partition 2 on device <code>vda</code> with all the new free space on the disk image by using the <a href="https://www.freebsd.org/cgi/man.cgi?query=growpart&amp;manpath=Debian+8.1.0"><code>growpart</code></a> command.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>growpart /dev/vda 2
+CHANGED: <span class="nv">partition</span><span class="o">=</span>2 <span class="nv">start</span><span class="o">=</span>2099200 old: <span class="nv">size</span><span class="o">=</span>123729920 <span class="nv">end</span><span class="o">=</span>125829120 new: <span class="nv">size</span><span class="o">=</span>207615967 <span class="nv">end</span><span class="o">=</span>209715167</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Reboot the VM.</p>
+</li>
+<li>
+<p>Expand the corresponding physical from new space available on the partition with <a href="https://www.freebsd.org/cgi/man.cgi?query=pvresize&amp;manpath=CentOS+7.1"><code>pvresize</code></a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>pvresize /dev/vda2
+  Physical volume <span class="s2">"/dev/vda2"</span> changed
+  1 physical volume<span class="o">(</span>s<span class="o">)</span> resized or updated / 0 physical volume<span class="o">(</span>s<span class="o">)</span> not resized</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use the <a href="https://www.gnu.org/software/coreutils/manual/html_node/df-invocation.html"><code>df</code></a> command, determine which logical volume is to be grown.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">df</span> <span class="nt">-Th</span>
+Filesystem                             Type      Size  Used Avail Use% Mounted on
+devtmpfs                               devtmpfs  1.9G     0  1.9G   0% /dev
+tmpfs                                  tmpfs     1.9G     0  1.9G   0% /dev/shm
+tmpfs                                  tmpfs     1.9G  9.2M  1.9G   1% /run
+tmpfs                                  tmpfs     1.9G     0  1.9G   0% /sys/fs/cgroup
+/dev/mapper/centos-root                xfs        38G   15G   23G  40% /
+/dev/vda1                              xfs      1014M  238M  777M  24% /boot
+/dev/mapper/centos-home                xfs        19G   18G  213M  99% /home
+tmpfs                                  tmpfs     379M   12K  379M   1% /run/user/42
+tmpfs                                  tmpfs     379M     0  379M   0% /run/user/1001</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>/dev/mapper/centos-home</code> filesystem is ninety-nine percent full, so this is the volume that needs to be enlarged.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>With <a href="https://www.freebsd.org/cgi/man.cgi?query=lvextend&amp;manpath=CentOS+7.1"><code>lvextend</code></a>, extend the logical volume to with the space just added to the physical volume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>lvextend <span class="nt">-l</span> +100%FREE /dev/mapper/centos-home
+  Size of logical volume centos/home changed from &lt;18.09 GiB <span class="o">(</span>4630 extents<span class="o">)</span> to &lt;58.09 GiB <span class="o">(</span>14870 extents<span class="o">)</span><span class="nb">.</span>
+  Logical volume centos/home successfully resized.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Determine the filesystem path for the logical volume <code>/dev/mapper/centos-home</code> from the output of the <a href="https://www.freebsd.org/cgi/man.cgi?query=lvdisplay&amp;apropos=0&amp;sektion=0&amp;manpath=CentOS+7.1&amp;arch=default&amp;format=html"><code>lvdisplay</code></a> command.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>lvdisplay
+  <span class="nt">---</span> Logical volume <span class="nt">---</span>
+  LV Path                /dev/centos/swap
+  LV Name                swap
+  VG Name                centos
+  LV UUID                rEAof0-CesW-iUqd-dq11-9k8P-p82Y-9bMvMQ
+  LV Write Access        <span class="nb">read</span>/write
+  LV Creation host, <span class="nb">time </span>localhost, 2020-09-15 08:09:39 <span class="nt">-0500</span>
+  LV Status              available
+  <span class="c"># open                 2</span>
+  LV Size                &lt;3.88 GiB
+  Current LE             992
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently <span class="nb">set </span>to     8192
+  Block device           253:1
+
+  <span class="nt">---</span> Logical volume <span class="nt">---</span>
+  LV Path                /dev/centos/home
+  LV Name                home
+  VG Name                centos
+  LV UUID                IPqAHo-dvhr-ha1L-qbwf-DcAw-yAu1-K1VM6O
+  LV Write Access        <span class="nb">read</span>/write
+  LV Creation host, <span class="nb">time </span>localhost, 2020-09-15 08:09:39 <span class="nt">-0500</span>
+  LV Status              available
+  <span class="c"># open                 1</span>
+  LV Size                &lt;18.09 GiB
+  Current LE             4630
+  Segments               2
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently <span class="nb">set </span>to     8192
+  Block device           253:2
+
+  <span class="nt">---</span> Logical volume <span class="nt">---</span>
+  LV Path                /dev/centos/root
+  LV Name                root
+  VG Name                centos
+  LV UUID                fPqtH3-fYV2-UX79-M2qG-731D-hv8c-t5M0TA
+  LV Write Access        <span class="nb">read</span>/write
+  LV Creation host, <span class="nb">time </span>localhost, 2020-09-15 08:09:40 <span class="nt">-0500</span>
+  LV Status              available
+  <span class="c"># open                 1</span>
+  LV Size                &lt;37.04 GiB
+  Current LE             9481
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently <span class="nb">set </span>to     8192
+  Block device           253:0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The path is indicated by the field <em>LV Path</em>.
+The path for the <em>home</em> directory is <code>/dev/centos/home</code>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Increase the filesystem&#8217;s size by passing the path <code>/dev/centos/home</code> to the <a href="https://www.freebsd.org/cgi/man.cgi?query=xfs_growfs&amp;manpath=CentOS+7.1"><code>xfs_growfs</code></a> command.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>xfs_growfs /dev/centos/home
+meta-data<span class="o">=</span>/dev/mapper/home <span class="nv">isize</span><span class="o">=</span>512    <span class="nv">agcount</span><span class="o">=</span>5, <span class="nv">agsize</span><span class="o">=</span>1185024 blks
+         <span class="o">=</span>                       <span class="nv">sectsz</span><span class="o">=</span>512   <span class="nv">attr</span><span class="o">=</span>2, <span class="nv">projid32bit</span><span class="o">=</span>1
+         <span class="o">=</span>                       <span class="nv">crc</span><span class="o">=</span>1        <span class="nv">finobt</span><span class="o">=</span>0 <span class="nv">spinodes</span><span class="o">=</span>0
+data     <span class="o">=</span>                       <span class="nv">bsize</span><span class="o">=</span>4096   <span class="nv">blocks</span><span class="o">=</span>4741120, <span class="nv">imaxpct</span><span class="o">=</span>25
+         <span class="o">=</span>                       <span class="nv">sunit</span><span class="o">=</span>0      <span class="nv">swidth</span><span class="o">=</span>0 blks
+naming   <span class="o">=</span>version 2              <span class="nv">bsize</span><span class="o">=</span>4096   ascii-ci<span class="o">=</span>0 <span class="nv">ftype</span><span class="o">=</span>1
+log      <span class="o">=</span>internal               <span class="nv">bsize</span><span class="o">=</span>4096   <span class="nv">blocks</span><span class="o">=</span>2560, <span class="nv">version</span><span class="o">=</span>2
+         <span class="o">=</span>                       <span class="nv">sectsz</span><span class="o">=</span>512   <span class="nv">sunit</span><span class="o">=</span>0 blks, lazy-count<span class="o">=</span>1
+realtime <span class="o">=</span>none                   <span class="nv">extsz</span><span class="o">=</span>4096   <span class="nv">blocks</span><span class="o">=</span>0, <span class="nv">rtextents</span><span class="o">=</span>0
+data blocks changed from 4741120 to 15226880</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that more disk space is indeed available.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">df</span> <span class="nt">-Th</span> /home
+Filesystem                             Type  Size  Used Avail Use% Mounted on
+/dev/mapper/centos-home                xfs    59G   18G   41G  31% /home</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now be able to resize a CentOS 7 virtual machine using QEMU, LVM, and XFS and have a better understanding of the tools and steps involved in the process.</p>
+</div>
+</div>
+</div>
+  </div><a class="u-url" href="/grow-disk-space-on-a-centos-7-vm-using-qemu-lvm-and-xfs" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Handy admin and dev guides from my myriad of tinkering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jwillikers" title="jwillikers"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/9835303" title="9835303"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
