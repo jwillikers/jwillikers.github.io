@@ -1,4 +1,197 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-29T12:15:28+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Install Git From Source on CentOS 7</title><link href="https://jwillikers.com/install-git-from-source-on-centos-7" rel="alternate" type="text/html" title="Install Git From Source on CentOS 7" /><published>2020-10-29T00:00:00+00:00</published><updated>2020-10-29T00:00:00+00:00</updated><id>https://jwillikers.com/Install%20Git%20From%20Source%20on%20CentOS%207</id><content type="html" xml:base="https://jwillikers.com/install-git-from-source-on-centos-7">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-10-29T13:03:43+00:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><entry><title type="html">Fresh fish on CentOS 7</title><link href="https://jwillikers.com/fresh-fish-on-centos-7" rel="alternate" type="text/html" title="Fresh fish on CentOS 7" /><published>2020-10-29T00:00:00+00:00</published><updated>2020-10-29T00:00:00+00:00</updated><id>https://jwillikers.com/Fresh%20fish%20on%20CentOS%207</id><content type="html" xml:base="https://jwillikers.com/fresh-fish-on-centos-7">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Are you desperate for the freshest &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish&lt;/a&gt;?
+Well, you&amp;#8217;ve come to the right place.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The instructions herein describe how to install a much newer version of the fish shell, version 3.1.2, from source on &lt;a href=&quot;https://www.gnu.org/software/bash/&quot;&gt;CentOS&lt;/a&gt; 7.
+Further instructions for building fish are available from the &lt;a href=&quot;https://github.com/fish-shell/fish-shell/#building&quot;&gt;fish documentation&lt;/a&gt;.
+For this tutorial to make a lick of sense, you should be familiar with the command-line, Linux, installing packages, and building projects from source.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;If you aren&amp;#8217;t using the &lt;a href=&quot;https://rpm-software-management.github.io/&quot;&gt;DNF&lt;/a&gt; package manager yet, grab that.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; dnf&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the &lt;a href=&quot;https://fedoraproject.org/wiki/EPEL&quot;&gt;EPEL&lt;/a&gt; repository for retrieving necessary dependencies.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dnf &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install the build dependencies.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dnf &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; cmake3 gettext-devel git ncurses-devel ninja-build &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  pcre2-devel&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Pull down the fish repository.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git clone https://github.com/fish-shell/fish-shell.git&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Checkout the latest release tag.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; fish-shell switch &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;git &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; fish-shell describe &lt;span class=&quot;nt&quot;&gt;--abbrev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 &lt;span class=&quot;nt&quot;&gt;--tags&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+HEAD is now at 0314b0f1d Release 3.1.2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Configure CMake in the directory &lt;code&gt;fish-shell/build&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ cmake3 &lt;span class=&quot;nt&quot;&gt;-GNinja&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B&lt;/span&gt; fish-shell/build &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; fish-shell&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Build fish.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ cmake3 &lt;span class=&quot;nt&quot;&gt;--build&lt;/span&gt; fish-shell/build&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install fish.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cmake3 &lt;span class=&quot;nt&quot;&gt;--install&lt;/span&gt; fish-shell/build
+&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; Install configuration: &lt;span class=&quot;s2&quot;&gt;&quot;RelWithDebInfo&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Register the shell in &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=shells&amp;amp;manpath=CentOS+7.1&quot;&gt;&lt;code&gt;/etc/shells&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; /usr/local/bin/fish | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/shells
+/usr/local/bin/fish&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Change your login shell to fish.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ chsh &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; /usr/local/bin/fish
+Changing shell &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;jordan.
+Password:
+Shell changed.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Log out and back in to complete the switch to fish.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Because it is CentOS, add &lt;code&gt;/usr/local/bin&lt;/code&gt; to your &lt;code&gt;PATH&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-pU&lt;/span&gt; fish_user_paths /usr/local/bin&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;update&quot;&gt;Update&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To update to the latest version of fish, just checkout the latest version release, build, and install.
+For completeness, the instructions to update fish are provided below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Checkout the latest release tag.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; fish-shell switch &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;git &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; fish-shell describe &lt;span class=&quot;nt&quot;&gt;--abbrev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 &lt;span class=&quot;nt&quot;&gt;--tags&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+HEAD is now at 0314b0f1d Release 3.1.2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Configure CMake in the directory &lt;code&gt;fish-shell/build&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ cmake3 &lt;span class=&quot;nt&quot;&gt;-GNinja&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B&lt;/span&gt; fish-shell/build &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; fish-shell&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Build fish.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ cmake3 &lt;span class=&quot;nt&quot;&gt;--build&lt;/span&gt; fish-shell/build&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install fish.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cmake3 &lt;span class=&quot;nt&quot;&gt;--install&lt;/span&gt; fish-shell/build
+&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; Install configuration: &lt;span class=&quot;s2&quot;&gt;&quot;RelWithDebInfo&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;troubleshooting&quot;&gt;Troubleshooting&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Packages on CentOS 7 might assume you are using a &lt;a href=&quot;https://www.gnu.org/software/bash/&quot;&gt;Bash&lt;/a&gt;-compatible login shell.
+For instance, the &lt;a href=&quot;https://www.qt.io/&quot;&gt;Qt&lt;/a&gt; 5 development packages work fine when using a Bash shell.
+After switching to fish, building a Qt 5 application failed because it could not find the &lt;code&gt;xcb&lt;/code&gt; plugin.
+Setting the &lt;code&gt;QT_QPA_PLATFORM_PLUGIN_PATH&lt;/code&gt; to as shown below resolved this issue.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ux&lt;/span&gt; QT_QPA_PLATFORM_PLUGIN_PATH /usr/lib64/qt5/plugins/platforms&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The moral of the story is to check any Bash-specific initialization in places such as the &lt;code&gt;/etc/profile&lt;/code&gt; file and the &lt;code&gt;/etc/profile.d&lt;/code&gt; directory.
+Otherwise, it&amp;#8217;s entirely possible to use Bash as she login shell and and just execute fish from your &lt;code&gt;~/.bashrc&lt;/code&gt; initialization file.
+There&amp;#8217;s also a fish plugin called &lt;a href=&quot;https://github.com/edc/bass&quot;&gt;Bass&lt;/a&gt; which can handle sourcing Bash files such as &lt;code&gt;/etc/profile&lt;/code&gt; directly.
+Refer to the fish page&amp;#8217;s section &lt;a href=&quot;https://wiki.gentoo.org/wiki/Fish#Alternative_to_fish_as_the_login_shell&quot;&gt;&lt;em&gt;Alternative to fish as the login shell&lt;/em&gt;&lt;/a&gt; on the &lt;a href=&quot;https://wiki.gentoo.org/wiki/Main_Page&quot;&gt;Gentoo Wiki&lt;/a&gt; for the exact implementation details for these workarounds.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should notice enhanced cognitive performance from the incredible omega-3 fatty acid profile that only the freshest fish has to offer!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="CentOS" /><category term="fish" /><category term="Linux" /><category term="shell" /></entry><entry><title type="html">Install Git From Source on CentOS 7</title><link href="https://jwillikers.com/install-git-from-source-on-centos-7" rel="alternate" type="text/html" title="Install Git From Source on CentOS 7" /><published>2020-10-29T00:00:00+00:00</published><updated>2020-10-29T00:00:00+00:00</updated><id>https://jwillikers.com/Install%20Git%20From%20Source%20on%20CentOS%207</id><content type="html" xml:base="https://jwillikers.com/install-git-from-source-on-centos-7">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;To get the latest version of &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt; on CentOS 7, it is possible to compile it directly from source.&lt;/p&gt;
@@ -1911,427 +2104,4 @@ colorscheme solarized&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
 &lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://wiki.archlinux.org/index.php/vim#Using_the_built-in_package_manager&quot;&gt;Arch Wiki: Vim - Using the built-in package manager&lt;/a&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="BSD" /><category term="Editor" /><category term="Linux" /><category term="macOS" /><category term="Solarized" /><category term="Ubuntu" /><category term="Unix" /><category term="Vim" /></entry><entry><title type="html">Switch to fish</title><link href="https://jwillikers.com/switch-to-fish" rel="alternate" type="text/html" title="Switch to fish" /><published>2020-10-03T00:00:00+00:00</published><updated>2020-10-03T00:00:00+00:00</updated><id>https://jwillikers.com/Switch%20to%20fish</id><content type="html" xml:base="https://jwillikers.com/switch-to-fish">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I&amp;#8217;ve finally made the switch from &lt;a href=&quot;https://www.zsh.org/&quot;&gt;ZSH&lt;/a&gt; to the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt;.
-Unlike ZSH, I don&amp;#8217;t need to install and manage a whole host of plugins.
-Everything I want comes packaged right in as part of the shell itself.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;the_switch&quot;&gt;The Switch&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this post, I describe how to switch to the fish shell and some of the interesting features it offers.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;install&quot;&gt;Install&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Installing fish is a piece of cake.
-On &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt;, a fish package is readily available.
-An additional &lt;a href=&quot;https://help.launchpad.net/Packaging/PPA&quot;&gt;PPA&lt;/a&gt; supplies newer versions of fish than those that ship with the distribution.
-The following steps install fish through the PPA.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Add the &lt;a href=&quot;https://launchpad.net/~fish-shell/+archive/ubuntu/release-3&quot;&gt;fish PPA&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-add-repository ppa:fish-shell/release-3&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Update &lt;a href=&quot;https://wiki.debian.org/Aptitude&quot;&gt;Aptitude&lt;/a&gt; with the new PPA.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt update&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Install the fish package.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; fish&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;switch&quot;&gt;Switch&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Once installed, switching is just a matter of updating the login shell.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Register &lt;code&gt;/usr/bin/fish&lt;/code&gt; as a login shell by adding its path to &lt;a href=&quot;https://manpages.ubuntu.com/manpages/en/man5/shells.5.html&quot;&gt;&lt;code&gt;/etc/shells&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Debian provides a convenient &lt;a href=&quot;https://manpages.ubuntu.com/manpages/en/man8/add-shell.8.html&quot;&gt;&lt;code&gt;add-shell&lt;/code&gt;&lt;/a&gt; command to accomplish this.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;add-shell /usr/bin/fish&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Set the current user&amp;#8217;s login shell to fish with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/en/man1/chsh.1.html&quot;&gt;&lt;code&gt;chsh&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ chsh &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; /usr/bin/fish
-Password:&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Now, open up a fresh terminal session to start using fish.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You should see a fresh, vanilla shell prompt like the following.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Welcome to fish, the friendly interactive shell
-Type &lt;span class=&quot;nb&quot;&gt;help &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;instructions on how to use fish
-jordan@jwillkers ~&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;configure&quot;&gt;Configure&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Adjusting basic configuration options is quick ang easy with fish.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Configuring the fish shell is as easy as selecting options the provided by the web interface.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ fish_config&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Style the prompt.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you like that &lt;a href=&quot;https://ohmyz.sh/&quot;&gt;oh-my-zsh&lt;/a&gt; feel as I do, you might want to use &lt;a href=&quot;https://github.com/ohmyzsh/ohmyzsh/wiki/Themes#robbyrussell&quot;&gt;robbyrussell&amp;#8217;s theme&lt;/a&gt; for your shell prompt.
-If you like doing things the old fashion way - or want to set the prompt remotely, here&amp;#8217;s a quick rundown.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Make sure the &lt;code&gt;~/.config/fish/functions&lt;/code&gt; directory exists.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/.config/fish/functions&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Then copy over the desired prompt configuration, &lt;code&gt;robbyrussell.fish&lt;/code&gt; in this case, from &lt;code&gt;/usr/share/fish/tools/web_config/sample_prompts/&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; /usr/share/fish/tools/web_config/sample_prompts/robbyrussell.fish ~/.config/fish/functions/fish_prompt.fish&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Adjust the color theme.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The color theme can be important when your terminal&amp;#8217;s color theme obscures autosuggestions.
-&lt;a href=&quot;https://ethanschoonover.com/solarized/&quot;&gt;Solarized&lt;/a&gt; is my color scheme of choice.
-The &lt;code&gt;fish_config&lt;/code&gt; web tool outputs the commands that set the various variables for a color theme when one is selected.
-This is  easy to translate to a command-line which can be quite helpful when configuring remotely.
-As an example, the following command sets the color scheme to solarized dark.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_normal normal&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_command 93a1a1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_quote 657b83&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_redirection 6c71c4&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_error dc322f&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_end 268bd2&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_selection white &lt;span class=&quot;nt&quot;&gt;--bold&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;brblack&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_search_match bryellow &lt;span class=&quot;nt&quot;&gt;--background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;black&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_history_current &lt;span class=&quot;nt&quot;&gt;--bold&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_operator 00a6b2&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_param 839496&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_cwd green&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_cwd_root red&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_valid_path &lt;span class=&quot;nt&quot;&gt;--underline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_autosuggestion 586e75&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_user brgreen&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_escape 00a6b2&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_cancel &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_pager_color_completion B3A06D&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_pager_color_description B3A06D&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_pager_color_prefix cyan &lt;span class=&quot;nt&quot;&gt;--underline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_pager_color_progress brwhite &lt;span class=&quot;nt&quot;&gt;--background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;cyan&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_host normal&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_match &lt;span class=&quot;nt&quot;&gt;--background&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;brblue&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_color_comment 586e75&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Customize the greeting message with the variable &lt;code&gt;fish_greeting&lt;/code&gt;.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_greeting &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enable backwards-incompatible features.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; fish_features stderr-nocaret qmark-noglob&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enable &lt;a href=&quot;https://fishshell.com/docs/current/index.html#vi-mode-commands&quot;&gt;Vi mode&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For user&amp;#8217;s who prefer &lt;a href=&quot;http://ex-vi.sourceforge.net/&quot;&gt;Vi&lt;/a&gt; and &lt;a href=&quot;https://www.vim.org/&quot;&gt;Vim&lt;/a&gt;, there is a nifty method of enabling Vim keyboard shortcuts in addition to the default Emacs shortcuts.
-Creating the file below will enable this and default to insert mode.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.config/fish/functions/fish_user_key_bindings.fish&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;fish_user_key_bindings
-    fish_default_key_bindings &lt;span class=&quot;nt&quot;&gt;-M&lt;/span&gt; insert
-    fish_vi_key_bindings insert
-end&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock tip&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Override the &lt;code&gt;fish_mode_prompt&lt;/code&gt; function with an empty function to disable the Vi mode indicator.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.config/fish/functions/fish_mode_prompt.fish&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;fish_mode_prompt
-end&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Now, if you&amp;#8217;re thinking about &lt;code&gt;.fishrc&lt;/code&gt;, forget about it.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt;
-The equivalent of &lt;code&gt;~/.bashrc&lt;/code&gt; and &lt;code&gt;~/.zshrc&lt;/code&gt; is &lt;code&gt;~/.config/fish/config.fish&lt;/code&gt; but a lot of configuration is better achieved - and organized - through &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#universal-variables&quot;&gt;&lt;em&gt;universal variables&lt;/em&gt;&lt;/a&gt; and &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#autoloading-functions&quot;&gt;&lt;em&gt;autoloading functions&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Update the &lt;code&gt;PATH&lt;/code&gt; environment variable in fish to suit your needs.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_5&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_5&quot; title=&quot;View footnote.&quot;&gt;5&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When messing with &lt;code&gt;PATH&lt;/code&gt;, use fish&amp;#8217;s dedicated internal variable &lt;code&gt;fish_user_paths&lt;/code&gt;.
-This variable is special and populates &lt;code&gt;PATH&lt;/code&gt;.
-Some Linux distributions don&amp;#8217;t include &lt;code&gt;/usr/local/bin&lt;/code&gt; in &lt;code&gt;PATH&lt;/code&gt; by default.
-With the &lt;a href=&quot;https://fishshell.com/docs/current/cmds/set.html&quot;&gt;&lt;code&gt;set&lt;/code&gt;&lt;/a&gt; command, prepend &lt;code&gt;/usr/local/bin&lt;/code&gt; to &lt;code&gt;PATH&lt;/code&gt; as follows.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; fish_user_paths /usr/local/bin&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;-p&lt;/code&gt; option prepends a value to the given variable.
-The &lt;code&gt;-U&lt;/code&gt; option signifies a &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#universal-variables&quot;&gt;&lt;em&gt;universal variable&lt;/em&gt;&lt;/a&gt;, which persists the variable in the future and across any currently running fish sessions.
-This reduces the overhead of having to mess about with shell startup files.
-These variables can be managed in the file &lt;code&gt;~/.config/fish/fish_variables&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;learn&quot;&gt;Learn&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A lot of fish functionality has been covered already, but &quot;there&amp;#8217;s always more to learn&quot; as they say.
-A few additional fish topics are covered here.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Export shell variables with the &lt;code&gt;-x&lt;/code&gt; flag.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This makes the variables accessible to other programs.
-&lt;code&gt;PATH&lt;/code&gt; is automatically exported from the contents of the un-exported &lt;code&gt;fish_user_paths&lt;/code&gt; variable, making this an exception.
-For everything else, export the variable by calling &lt;code&gt;set&lt;/code&gt; with the &lt;code&gt;-x&lt;/code&gt; flag.
-To add a value to the beginning of the &lt;code&gt;LD_LIBRARY_PATH&lt;/code&gt; environment variable and export it, use &lt;code&gt;set&lt;/code&gt; as follows.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-px&lt;/span&gt; LD_LIBRARY_PATH /usr/local/lib&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Understand how fish handles &lt;a href=&quot;https://fishshell.com/docs/current/index.html#path-variables&quot;&gt;&lt;em&gt;PATH variables&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The fish shell stores lists internally as arrays of strings.
-This is fundamentally different from how shells typically represent many fundamental variables which contain lists of paths, such as &lt;code&gt;PATH&lt;/code&gt; and &lt;code&gt;LD_LIBRARY_PATH&lt;/code&gt;.
-Classic shells store these &quot;lists&quot; as a single string of colon-separated paths.
-Many applications and programs expect the incumbent formatting, so fish treats these as special variables called &lt;em&gt;PATH variables&lt;/em&gt;.
-When printing or joining &lt;em&gt;PATH variables&lt;/em&gt;, colons are used to delimit values when the variables are &lt;em&gt;quoted&lt;/em&gt;.
-Otherwise, spaces separate each path in the list.
-Any variable ending in &lt;code&gt;PATH&lt;/code&gt; is automatically treated as a &lt;em&gt;PATH variable&lt;/em&gt;.
-So, when using &lt;code&gt;set&lt;/code&gt; to deal a &lt;em&gt;PATH variable&lt;/em&gt;, you can still treat it as you would any other list in fish.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_6&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_6&quot; title=&quot;View footnote.&quot;&gt;6&lt;/a&gt;]&lt;/sup&gt;
-As an example, the following command adds &lt;code&gt;/usr/local/lib&lt;/code&gt; to the beginning of the classic &lt;code&gt;LD_LIBRARY_PATH&lt;/code&gt; variable and appends &lt;code&gt;~/lib&lt;/code&gt; to the end.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; LD_LIBRARY_PATH /usr/local/lib &lt;span class=&quot;nv&quot;&gt;$LD_LIBRARY_PATH&lt;/span&gt; ~/lib&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When quoting the variable, it must be modified like so to achieve the same result.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; LD_LIBRARY_PATH /usr/local/lib:&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$LD_LIBRARY_PATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;:~/lib&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Take advantage of &lt;a href=&quot;https://fishshell.com/docs/current/index.html#autosuggestions&quot;&gt;autosuggestions&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Just start typing a command and fish will provide suggestions on your prompt.
-As autosuggestion appear from your history, choose the suggested line with &lt;kbd&gt;→&lt;/kbd&gt;.
-To select only the next word of the suggestion, use &lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;→&lt;/kbd&gt;&lt;/span&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Use fish&amp;#8217;s &lt;a href=&quot;https://fishshell.com/docs/current/index.html#history-search&quot;&gt;searchable history&lt;/a&gt; instead of Bash&amp;#8217;s &lt;a href=&quot;https://www.gnu.org/software/bash/manual/html_node/Commands-For-History.html&quot;&gt;reverse-search-history&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This one has required a bit of learning curve since I&amp;#8217;m so used to finding previous commands by searching with &lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;R&lt;/kbd&gt;&lt;/span&gt;.
-With fish, this is even simpler.
-Start typing the letters, word, or phrase you want to match.
-Then, just press &lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;↑&lt;/kbd&gt;&lt;/span&gt; to scroll backwards through history for matches.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Another nifty feature is the &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#wildcards&quot;&gt;recursive wildcard&lt;/a&gt; which automatically descends into subdirectories for matching a particular pattern.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The following example recursively searches and lists all files ending in &lt;code&gt;.fish&lt;/code&gt; in &lt;code&gt;~/.config&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; ~/.config/&lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;.fish
-/home/jordan/.config/fish/functions/fish_prompt.fish&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;troubleshoot&quot;&gt;Troubleshoot&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Common issues involve various environment variables and initialization functionality which assumes the default login shell is Bash.
-Some people place &lt;code&gt;fish&lt;/code&gt; in their &lt;code&gt;~/.bashrc&lt;/code&gt; file to start fish from within Bash so that all environment variables are correctly configured.
-I prefer to use &lt;code&gt;fish&lt;/code&gt; as my login shell and file bugs as necessary for projects to properly support it, but this is definitely a bit a of a pain but thus is progress, eh?&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There&amp;#8217;s a lot to learn about the fish shell.
-It provides an extremely convenient feature set and is attempting to solve issues inherited from shells of generations past.
-I love it, and its a great improvement to my workflow.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#switching-to-fish&quot;&gt;fish Tutorial: Switching to fish?&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/index.html#configurable-greeting&quot;&gt;fish Documentation: Configurable greeting&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
-&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/index.html#future-feature-flags&quot;&gt;fish Documentation: Future feature flags&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
-&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/index.html#initialization-files&quot;&gt;fish Documentation: Initialization files&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_5&quot;&gt;
-&lt;a href=&quot;#_footnoteref_5&quot;&gt;5&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/tutorial.html#path&quot;&gt;fish Tutorial: $PATH&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_6&quot;&gt;
-&lt;a href=&quot;#_footnoteref_6&quot;&gt;6&lt;/a&gt;. &lt;a href=&quot;https://fishshell.com/docs/current/index.html#lists&quot;&gt;fish Documentation: Lists&lt;/a&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="Debian" /><category term="fish" /><category term="Linux" /><category term="shell" /><category term="Ubuntu" /></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><category term="Command-Line" /><category term="BSD" /><category term="Editor" /><category term="Linux" /><category term="macOS" /><category term="Solarized" /><category term="Ubuntu" /><category term="Unix" /><category term="Vim" /></entry></feed>
