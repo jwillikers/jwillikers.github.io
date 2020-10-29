@@ -13,11 +13,11 @@
 <meta property="og:url" content="https://jwillikers.com/build-gcc-from-source-on-centos-7" />
 <meta property="og:site_name" content="JWillikers" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-10-29T00:00:00+00:00" />
+<meta property="article:published_time" content="2020-10-28T00:00:00+00:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Build GCC From Source on CentOS 7" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/build-gcc-from-source-on-centos-7"},"description":"Handy admin and dev guides from my myriad of tinkering","url":"https://jwillikers.com/build-gcc-from-source-on-centos-7","@type":"BlogPosting","headline":"Build GCC From Source on CentOS 7","dateModified":"2020-10-29T00:00:00+00:00","datePublished":"2020-10-29T00:00:00+00:00","@context":"https://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/build-gcc-from-source-on-centos-7"},"description":"Handy admin and dev guides from my myriad of tinkering","url":"https://jwillikers.com/build-gcc-from-source-on-centos-7","@type":"BlogPosting","headline":"Build GCC From Source on CentOS 7","dateModified":"2020-10-28T00:00:00+00:00","datePublished":"2020-10-28T00:00:00+00:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="assets/css/asciidoctor.css"></head>
@@ -42,8 +42,8 @@
 
   <header class="post-header">
     <h1 class="post-title p-name" itemprop="name headline">Build GCC From Source on CentOS 7</h1>
-    <p class="post-meta"><time class="dt-published" datetime="2020-10-29T00:00:00+00:00" itemprop="datePublished">
-        Oct 29, 2020
+    <p class="post-meta"><time class="dt-published" datetime="2020-10-28T00:00:00+00:00" itemprop="datePublished">
+        Oct 28, 2020
       </time></p>
   </header>
 
@@ -65,15 +65,23 @@ As it turns out, it&#8217;s not actually that hard.</p>
 <p>This tutorial provides the steps necessary to compile and install a newer version of GCC, version 10.2.0 to be specific, on CentOS 7.
 The GCC front-ends for C, C&#43;&#43;, and Fortran are included.
 You should be familiar with command-line tools, CentOS, and the compiling and installing software on Linux.
-Shell commands are provided in both Bash, the native shell on CentOS 7, and fish because it has standards.</p>
+Shell commands are provided in both <a href="https://www.gnu.org/software/bash/">Bash</a>, the native shell on CentOS 7, and <a href="https://fishshell.com/">fish</a> because it has standards.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
+<p>If you aren&#8217;t using the <a href="https://rpm-software-management.github.io/">DNF</a> package manager yet, grab that.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> dnf</code></pre>
+</div>
+</div>
+</li>
+<li>
 <p>Install the dependencies necessary to build GCC.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nb">sudo </span>dnf <span class="nb">install</span> <span class="nt">-y</span> bzip2 wget gcc gcc-c++ gmp-devel mpfr-devel libmpc-devel make</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nb">install</span> <span class="nt">-y</span> bzip2 wget gcc gcc-c++ gmp-devel mpfr-devel libmpc-devel make</code></pre>
 </div>
 </div>
 </li>
@@ -139,7 +147,7 @@ GCC is configured to install to the user&#8217;s home directory here, but can ea
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
-➜ make <span class="nt">-j</span><span class="sb">`</span><span class="nb">nproc</span><span class="sb">`</span>
+➜ make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc</span><span class="si">)</span>
 
 <span class="c"># fish</span>
 ➜ make <span class="nt">-j</span><span class="o">(</span><span class="nb">nproc</span><span class="o">)</span></code></pre>
@@ -178,7 +186,8 @@ GCC is configured to install to the user&#8217;s home directory here, but can ea
 <div class="sect2">
 <h3 id="environment_variables">Environment Variables</h3>
 <div class="paragraph">
-<p>Setting the relevant environment variables should cause most build tools to recognize find the new compilers as well as link to the relevant libraries.</p>
+<p>Setting the relevant environment variables should cause most build tools to recognize find the new compilers as well as link to the relevant libraries.
+The shell variables are configured to persist across shell sessions below.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -187,7 +196,8 @@ GCC is configured to install to the user&#8217;s home directory here, but can ea
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
-➜ <span class="nb">export </span><span class="nv">CC</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/bin/gcc
+➜ <span class="nb">echo</span> <span class="s2">"export CC=</span><span class="nv">$HOME</span><span class="s2">/.gcc/10.2.0/bin/gcc"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc
 
 <span class="c"># fish</span>
 ➜ <span class="nb">set</span> <span class="nt">-Ux</span> CC ~/.gcc/10.2.0/bin/gcc</code></pre>
@@ -199,7 +209,8 @@ GCC is configured to install to the user&#8217;s home directory here, but can ea
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
-➜ <span class="nb">export </span><span class="nv">CXX</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/bin/g++
+➜ <span class="nb">echo</span> <span class="s2">"export CXX=</span><span class="nv">$HOME</span><span class="s2">/.gcc/10.2.0/bin/g++"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc
 
 <span class="c"># fish</span>
 ➜ <span class="nb">set</span> <span class="nt">-Ux</span> CXX ~/.gcc/10.2.0/bin/g++</code></pre>
@@ -211,7 +222,8 @@ GCC is configured to install to the user&#8217;s home directory here, but can ea
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
-➜ <span class="nb">export </span><span class="nv">CXX</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/bin/gfortran
+➜ <span class="nb">echo</span> <span class="s2">"export FC=</span><span class="nv">$HOME</span><span class="s2">/.gcc/10.2.0/bin/gfortran"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc
 
 <span class="c"># fish</span>
 ➜ <span class="nb">set</span> <span class="nt">-Ux</span> FC ~/.gcc/10.2.0/bin/gfortran</code></pre>
@@ -223,7 +235,8 @@ GCC is configured to install to the user&#8217;s home directory here, but can ea
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
-➜ <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/bin:<span class="nv">$PATH</span>
+➜ <span class="nb">echo</span> <span class="s2">"export PATH=</span><span class="nv">$HOME</span><span class="s2">/.gcc/10.2.0/bin:</span><span class="nv">$PATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc
 
 <span class="c"># fish</span>
 ➜ <span class="nb">set</span> <span class="nt">-pU</span> fish_user_paths ~/.gcc/10.2.0/bin</code></pre>
@@ -235,7 +248,8 @@ GCC is configured to install to the user&#8217;s home directory here, but can ea
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
-➜ <span class="nb">export </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/lib64:<span class="nv">$LD_LIRBARY_PATH</span>
+➜ <span class="nb">echo</span> <span class="s2">"export LD_LIBRARY_PATH=</span><span class="nv">$HOME</span><span class="s2">/.gcc/10.2.0/lib64:</span><span class="nv">$LD_LIRBARY_PATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc
 
 <span class="c"># fish</span>
 ➜ <span class="nb">set</span> <span class="nt">-pUx</span> LD_LIBRARY_PATH ~/.gcc/10.2.0/lib64</code></pre>

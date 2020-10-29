@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Install Git From Source on CentOS 7 | JWillikers</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Install Git From Source on CentOS 7" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering" />
+<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
+<link rel="canonical" href="https://jwillikers.com/install-git-from-source-on-centos-7" />
+<meta property="og:url" content="https://jwillikers.com/install-git-from-source-on-centos-7" />
+<meta property="og:site_name" content="JWillikers" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-29T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Install Git From Source on CentOS 7" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/install-git-from-source-on-centos-7"},"description":"Handy admin and dev guides from my myriad of tinkering","url":"https://jwillikers.com/install-git-from-source-on-centos-7","@type":"BlogPosting","headline":"Install Git From Source on CentOS 7","dateModified":"2020-10-29T00:00:00+00:00","datePublished":"2020-10-29T00:00:00+00:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/asciidoctor.css"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">JWillikers</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Install Git From Source on CentOS 7</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-10-29T00:00:00+00:00" itemprop="datePublished">
+        Oct 29, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>To get the latest version of <a href="https://git-scm.com/">Git</a> on CentOS 7, it is possible to compile it directly from source.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a quick tutorial showing the necessary steps to install Git from source on CentOS 7.
+Further documentation is available in the <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Git Book</a>.
+This tutorial assumes familiarity with CentOS 7 packages management, source code compilation, and the command-line.
+Where an instruction applies to a specific shell, the instruction will be shown for both <a href="https://www.gnu.org/software/bash/">Bash</a>, the default shell on CentOS 7, and <a href="https://fishshell.com/">fish</a>, the better shell everwhere.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you aren&#8217;t using the <a href="https://rpm-software-management.github.io/">DNF</a> package manager yet, grab that.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> dnf</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the <a href="https://fedoraproject.org/wiki/EPEL">EPEL</a> repository for retrieving necessary dependencies.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nb">install</span> <span class="nt">-y</span> <span class="se">\</span>
+  https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install the build dependencies.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nb">install</span> <span class="nt">-y</span> asciidoc curl-devel dh-autoreconf docbook2X expat-devel <span class="se">\</span>
+  gettext-devel openssl-devel perl-devel xmlto zlib-devel</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Account the different name of an executable on RPM-based distributions.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo ln</span> <span class="nt">-s</span> /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Download the source code of the latest release.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-L</span> https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.29.1.tar.xz</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Instead of using <a href="https://www.gnu.org/software/wget/">Wget</a>, you could technically install an older version of Git from the CentOS repositories and use that to fetch the source code for the latest release.
+The method used here describes where to grab the latest source code releases and lines up with the Git Book&#8217;s example.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Extract the source code from the archive.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">tar</span> <span class="nt">-xf</span> git-2.29.1.tar.xz</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change into the source directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd </span>git-2.29.1</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Build the configure script.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ make configure
+GIT_VERSION <span class="o">=</span> 2.29.1
+    GEN configure</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure the build.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>/usr/local</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>--prefix</code> flag will install to the <code>/usr/local</code> directory.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Build Git.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ make all doc info</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install Git.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>make <span class="nb">install </span>install-doc install-html install-info</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Because it&#8217;s CentOS, add <code>/usr/local/bin</code> to your <code>PATH</code> environment variable.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
+➜ <span class="nb">echo</span> <span class="s2">"export PATH=/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc
+
+<span class="c"># fish</span>
+➜ <span class="nb">set</span> <span class="nt">-pU</span> fish_user_paths /usr/local/bin</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change out of the source directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd</span> ..</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Cleanup the source directory and tarball now that are no longer needed.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rm</span> <span class="nt">-rf</span> git-2.29.1 git-2.29.1.tar.xz</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="update">Update</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that Git has been installed, you can build newer versions of Git directly from Git&#8217;s Git repository.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Checkout Git&#8217;s source code repository.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git clone git://git.kernel.org/pub/scm/git/git.git
+Cloning into <span class="s1">'git'</span>...
+remote: Enumerating objects: 9545, <span class="k">done</span><span class="nb">.</span>
+remote: Counting objects: 100% <span class="o">(</span>9545/9545<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Compressing objects: 100% <span class="o">(</span>722/722<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Total 295465 <span class="o">(</span>delta 9052<span class="o">)</span>, reused 9110 <span class="o">(</span>delta 8807<span class="o">)</span>, pack-reused 285920
+Receiving objects: 100% <span class="o">(</span>295465/295465<span class="o">)</span>, 70.24 MiB | 5.36 MiB/s, <span class="k">done</span><span class="nb">.</span>
+Resolving deltas: 100% <span class="o">(</span>223939/223939<span class="o">)</span>, <span class="k">done</span>.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change into the source directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd </span>git</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Checkout the latest version of git.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git switch <span class="nt">--detach</span> <span class="o">(</span>git describe <span class="nt">--abbrev</span><span class="o">=</span>0 <span class="nt">--tags</span><span class="o">)</span>
+HEAD is now at b927c80531 Git 2.29.1</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Build the configure script.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ make configure
+GIT_VERSION <span class="o">=</span> 2.29.1
+    GEN configure</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure the build.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>/usr/local</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>--prefix</code> flag will install to the <code>/usr/local</code> directory.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Build Git.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ make all doc info</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install Git.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>make <span class="nb">install </span>install-doc install-html install-info</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You now have access to a much newer version of Git.
+Enjoy!</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. It&#8217;s not like I&#8217;m biased or anything.
+</div>
+</div>
+  </div><a class="u-url" href="/install-git-from-source-on-centos-7" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Handy admin and dev guides from my myriad of tinkering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jwillikers" title="jwillikers"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/9835303" title="9835303"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
