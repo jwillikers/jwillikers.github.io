@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Build GCC From Source on CentOS 7 | JWillikers</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Build GCC From Source on CentOS 7" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering" />
+<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
+<link rel="canonical" href="https://jwillikers.com/build-gcc-from-source-on-centos-7" />
+<meta property="og:url" content="https://jwillikers.com/build-gcc-from-source-on-centos-7" />
+<meta property="og:site_name" content="JWillikers" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-29T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Build GCC From Source on CentOS 7" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/build-gcc-from-source-on-centos-7"},"description":"Handy admin and dev guides from my myriad of tinkering","url":"https://jwillikers.com/build-gcc-from-source-on-centos-7","@type":"BlogPosting","headline":"Build GCC From Source on CentOS 7","dateModified":"2020-10-29T00:00:00+00:00","datePublished":"2020-10-29T00:00:00+00:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/asciidoctor.css"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">JWillikers</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Build GCC From Source on CentOS 7</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-10-29T00:00:00+00:00" itemprop="datePublished">
+        Oct 29, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>CentOS has a pretty old compiler.
+While the Software Collections repository contains newer versions, it still has a considerable lag-time.
+So, why not build <a href="https://gcc.gnu.org/">GCC</a> from source?
+As it turns out, it&#8217;s not actually that hard.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial provides the steps necessary to compile and install a newer version of GCC, version 10.2.0 to be specific, on CentOS 7.
+The GCC front-ends for C, C&#43;&#43;, and Fortran are included.
+You should be familiar with command-line tools, CentOS, and the compiling and installing software on Linux.
+Shell commands are provided in both Bash, the native shell on CentOS 7, and fish because it has standards.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the dependencies necessary to build GCC.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nb">sudo </span>dnf <span class="nb">install</span> <span class="nt">-y</span> bzip2 wget gcc gcc-c++ gmp-devel mpfr-devel libmpc-devel make</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Download the latest release, GCC 10.2.0 in this case, available <a href="https://ftp.gnu.org/gnu/gcc/">here</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ wget https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.xz</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Extract the archive.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">tar </span>xf gcc-10.2.0.tar.xz</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Make a build directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir </span>gcc-10.2.0-build</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change into the build directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd </span>gcc-10.2.0-build</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the <a href="https://www.gnu.org/prep/standards/html_node/Configuration.html">configure script</a> to prepare the build.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ ../gcc-10.2.0/configure <span class="nt">--enable-languages</span><span class="o">=</span>c,c++,fortran <span class="se">\</span>
+  <span class="nt">--disable-multilib</span> <span class="nt">--prefix</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+GCC is configured to install to the user&#8217;s home directory here, but can easily be set to install elsewhere on the system by changing the value for the <code>--prefix</code> option.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Build GCC.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
+➜ make <span class="nt">-j</span><span class="sb">`</span><span class="nb">nproc</span><span class="sb">`</span>
+
+<span class="c"># fish</span>
+➜ make <span class="nt">-j</span><span class="o">(</span><span class="nb">nproc</span><span class="o">)</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Wait patiently for GCC to finish compiling itself.</p>
+</li>
+<li>
+<p>Install GCC.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ make <span class="nb">install</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change out of the build directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd</span> ..</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Free up some disk space by deleting the remaining source and build artifacts.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rm</span> <span class="nt">-rf</span> gcc-10.2.0 gcc-10.2.0-build gcc-10.2.0.tar.xz</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="environment_variables">Environment Variables</h3>
+<div class="paragraph">
+<p>Setting the relevant environment variables should cause most build tools to recognize find the new compilers as well as link to the relevant libraries.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set the <code>CC</code> variable to the path to the C compiler.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
+➜ <span class="nb">export </span><span class="nv">CC</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/bin/gcc
+
+<span class="c"># fish</span>
+➜ <span class="nb">set</span> <span class="nt">-Ux</span> CC ~/.gcc/10.2.0/bin/gcc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the <code>CXX</code> variable to the path of the C&#43;&#43; compiler.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
+➜ <span class="nb">export </span><span class="nv">CXX</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/bin/g++
+
+<span class="c"># fish</span>
+➜ <span class="nb">set</span> <span class="nt">-Ux</span> CXX ~/.gcc/10.2.0/bin/g++</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the <code>FC</code> variable to the path of the Fortran compiler.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
+➜ <span class="nb">export </span><span class="nv">CXX</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/bin/gfortran
+
+<span class="c"># fish</span>
+➜ <span class="nb">set</span> <span class="nt">-Ux</span> FC ~/.gcc/10.2.0/bin/gfortran</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Prepend the compiler&#8217;s executable directory, <code>bin</code>, to the <code>PATH</code> environment variable.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
+➜ <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/bin:<span class="nv">$PATH</span>
+
+<span class="c"># fish</span>
+➜ <span class="nb">set</span> <span class="nt">-pU</span> fish_user_paths ~/.gcc/10.2.0/bin</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Prepend the compiler&#8217;s library directory, <code>lib64</code>, to the <code>LD_LIBRARY_PATH</code> environment variable.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
+➜ <span class="nb">export </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/lib64:<span class="nv">$LD_LIRBARY_PATH</span>
+
+<span class="c"># fish</span>
+➜ <span class="nb">set</span> <span class="nt">-pUx</span> LD_LIBRARY_PATH ~/.gcc/10.2.0/lib64</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cmake">CMake</h3>
+<div class="paragraph">
+<p>When using <a href="https://cmake.org/">CMake</a>, it is also possible to set certain CMake variables instead of the environment variables.
+This isolates the potential effects from setting environment variables globally, which may incidentally effect other builds.
+Set these variables in the CMake cache like so.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ cmake <span class="se">\</span>
+  <span class="nt">-DCMAKE_C_COMPILER</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/bin/gcc <span class="se">\</span>
+  <span class="nt">-DCMAKE_CXX_COMPILER</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/bin/g++ <span class="se">\</span>
+  <span class="nt">-DCMAKE_Fortran_COMPILER</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0/bin/gfortran <span class="se">\</span>
+  <span class="nt">-DCMAKE_PREFIX_PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.gcc/10.2.0 <span class="se">\</span>
+  <span class="nt">-B</span> build <span class="nt">-S</span> .</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When building artifacts that will be deployed elsewhere, take care to ensure that the relevant standard libraries are available to the binary.
+This is usually accomplished by linking them in statically.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rejoice!
+You now have an up-to-date version of the GCC compiler on your effectively ancient CentOS system.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
+Now, what are you waiting for?
+Start using <a href="https://en.cppreference.com/w/cpp/container/span"><code>std::span</code></a>!</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. That&#8217;s right, CentOS 7 uses the pre-C&#43;&#43;11 ABI.
+</div>
+</div>
+  </div><a class="u-url" href="/build-gcc-from-source-on-centos-7" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Handy admin and dev guides from my myriad of tinkering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jwillikers" title="jwillikers"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/9835303" title="9835303"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
