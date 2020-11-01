@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Manage a Project’s Python Dependencies | JWillikers</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Manage a Project’s Python Dependencies" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering" />
+<meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering" />
+<link rel="canonical" href="https://jwillikers.com/manage-a-project-s-python-dependencies" />
+<meta property="og:url" content="https://jwillikers.com/manage-a-project-s-python-dependencies" />
+<meta property="og:site_name" content="JWillikers" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-01T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Manage a Project’s Python Dependencies" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://jwillikers.com/manage-a-project-s-python-dependencies"},"description":"Handy admin and dev guides from my myriad of tinkering","url":"https://jwillikers.com/manage-a-project-s-python-dependencies","@type":"BlogPosting","headline":"Manage a Project’s Python Dependencies","dateModified":"2020-11-01T00:00:00+00:00","datePublished":"2020-11-01T00:00:00+00:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jwillikers.com/feed.xml" title="JWillikers" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/asciidoctor.css"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">JWillikers</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Manage a Project&amp;#8217;s Python Dependencies</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-11-01T00:00:00+00:00" itemprop="datePublished">
+        Nov 1, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Making <a href="https://www.python.org/">Python</a> dependency management reproducibile is complicated.
+Bringing Python dependency management to mere mortals who can&#8217;t remember where they put their shoes, let alone remember to source shell scripts every time they start working on a project is even more complicated.
+So, here&#8217;s a quick breakdown of how it works followed by a much lengthier section on how to fit all of the various peices together to manage a single Python dependency used to build a project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how_it_works">How it Works</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are three primary components required for reproducing the runtime environment for a Python project.</p>
+</div>
+<div class="dlist">
+<div class="title">Components of a Reproducible Python Runtime</div>
+<dl>
+<dt class="hdlist1">Python Interpreter</dt>
+<dd>
+<p>The exact same version of the Python interpreter must be used.
+The <a href="https://github.com/pyenv/pyenv">Pyenv</a> and <a href="https://asdf-vm.com/#/">asdf</a> utilities provide a great solution for managing the version of the Python interpreter on a per-project basis.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</dd>
+<dt class="hdlist1">Virtual Environment</dt>
+<dd>
+<p>Virtual Python environments isolate installed Python packages from the rest of the system.
+The older <a href="https://virtualenv.pypa.io/en/latest/">virtualenv</a> and more recent <a href="https://docs.python.org/3/library/venv.html">venv</a> are used to create and manage these virtual environments.
+However, managing these manually with these tools is cumbersome.
+There many different solutions for making these tools less taxing, including <a href="https://virtualenvwrapper.readthedocs.io/en/latest/">virtualenvwrapper</a>, <a href="https://virtualfish.readthedocs.io/en/latest/">virtualfish</a>, <a href="https://direnv.net/">direnv</a>, and couple which also handle package management described below.</p>
+</dd>
+<dt class="hdlist1">Python Packages</dt>
+<dd>
+<p>Each package and its exact version must be recorded.
+While the native Python package manager, <a href="https://pip.pypa.io/en/stable/">pip</a>, can do this with a <code>requirements.txt</code> file, there are some important ways in which this method is lacking.
+That&#8217;s why <a href="https://pipenv.pypa.io/en/latest/">Pipenv</a>, <a href="https://python-poetry.org/">Poetry</a>, and <a href="https://github.com/jazzband/pip-tools">pip-tools</a> use more robust methods of dependency managment.
+The first two also manage virtual environments.</p>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The tools recommended here assume a typical Unix-like shell on the command-line.
+Both Pipenv and Poetry work under Windows, and there is a port of pyenv to Windows, <a href="https://pyenv-win.github.io/pyenv-win/">pyenv-win</a>.
+Unfortunately, asdf and direnv are not available for Windows proper.
+Windows users can still access these tools through <a href="https://multipass.run/">Multipass</a>, <a href="https://docs.microsoft.com/en-us/windows/wsl/about">WSL</a>, <a href="https://www.cygwin.com/">Cygwin</a>, and <a href="https://www.cygwin.com/">MSYS2</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how_to_make_it_work">How to Make it Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The question that naturally follows this explanation is how in tarnations to make all this work?</p>
+</div>
+<div class="paragraph">
+<p>First, you need something to manage the Python interpreter.
+You should probably use asdf.
+It can manage more runtimes than just Python, so polyglots don&#8217;t need to fuss with a million tools ending with "env" in their name, i.e. <a href="https://github.com/rbenv/rbenv">rbenv</a>, <a href="https://github.com/syndbg/goenv">goenv</a>, etc.</p>
+</div>
+<div class="paragraph">
+<p>For a minimal solution, it&#8217;s possible to just combine pip with either virtualenv or venv.
+You should also consider the pip-tools package which, while minimal, provides some nice benefits and eases dependency management with pip.</p>
+</div>
+<div class="paragraph">
+<p>For a robust solution, use either Pipenv or Poetry.
+Poetry is a great fit for anyone wishing to package up and publish a Python project.
+On the other hand, Pipenv makes more sense for Python or mixed language projects which won&#8217;t produce their own Python packages.</p>
+</div>
+<div class="paragraph">
+<p>Whichever solution you choose, for teams still consisting primarily of <em>humans</em> I recommend a wrapper to automatically configure a project&#8217;s virtual environment when entering the project directory on the command-line.
+The most compelling solution for this is direnv which supports the broadest range of shells and is simple to configure.
+For minimalists, <a href="https://github.com/direnv/direnv/wiki/Python#venv-stdlib-module">direnv&#8217;s venv integration</a> is quite appropriate.
+For developers only using the <a href="https://fishshell.com/">fish shell</a>, I must recommend virtualfish for managing virtual environments.
+It&#8217;s fantastic.
+For Pipenv or Poetry, direnv offers support out-of-the-box.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you choose to use both asdf and direnv, I highly recommend using the <a href="https://github.com/asdf-community/asdf-direnv">asdf direnv plugin</a>.
+Not only does it make installing and controlling the direnv version a breeze but it will update executable shims for Python packages.
+No need to run <code>asdf reshim</code> manually after updating or removing Python packages which provide executables.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Users of the fish shell might be interested in an alternative to direnv for automating the Pipenv work flow.
+Check out the <a href="https://github.com/sentriz/fish-pipenv">fish-pipenv</a> plugin.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>It&#8217;s probably only a small fraction of developers using the command-line for all their work.
+It&#8217;s important to take into account how well the tooling you choose integrates with IDE&#8217;s and code editors.footnote:[]
+These will need to be aware of the appropriate interpreter and virtual environment to use for your project.
+While it&#8217;s usually possible to configure these things manually, think <em>humans</em>, remember?
+Many IDE&#8217;s and code editors integrate well with setups using the built-in Python tooling.
+Pipenv boasts <a href="https://pipenv.pypa.io/en/latest/advanced/#community-integrations">community-maintained extensions</a> for several popular IDE&#8217;s and code editors.
+Even direnv works with many graphical editors through plugins.</p>
+</div>
+<div class="paragraph">
+<p>For official, up-to-date information on this topic and related utilities, consult the <a href="https://packaging.python.org/tutorials/managing-dependencies/">Managing Application Dependencies</a> tutorial and the <a href="https://packaging.python.org/guides/tool-recommendations/">Tool recommendations</a> guide.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The genesis of this blog post is in incorporating a C&#43;&#43; package manager written in Python, <a href="https://conan.io">Conan</a>, into a C&#43;&#43; project, where reproducibility and ease-of-use are both important.
+This tutorial describes how to incorporate the Conan Python package in to a project via asdf, Pipenv, and direnv.
+The Python runtime is managed by asdf and the <a href="https://github.com/danhper/asdf-python">asdf Python plugin</a>.
+Pipenv takes care of Conan and its depencencies as well as providing a virtual environment for the project.
+The last bits, direnv and the <a href="https://github.com/asdf-community/asdf-direnv">asdf direnv plugin</a>, smooth out the rough edges for developers.</p>
+</div>
+<div class="paragraph">
+<p>This tutorial uses <a href="https://ubuntu.com/">Ubuntu</a> 20.04 as the reference system, though these instructions should transfer relatively easily to any Unix-like platform.
+You should be familiar with Python, shells, Linux, and <a href="https://git-scm.com/">Git</a>.
+Instructions are provided for fish, <a href="https://www.gnu.org/software/bash/">Bash</a>, and <a href="https://www.zsh.org/">ZSH</a>.</p>
+</div>
+<div class="paragraph">
+<p>The first section details how to install these tools, the second section describes the steps to configure a project, the third section describes how to initialize the environment for a previously configured project, and the last section of the tutorial describes how to handle updates for Python, Python packages, and these utilities.
+Without further ado, let&#8217;s begin.</p>
+</div>
+<div class="sect2">
+<h3 id="install">Install</h3>
+<div class="paragraph">
+<p>The instructions in this section will install asdf and Pipenv.
+Integrations for direnv will also be added, even though it will be installed in either the <a href="#configure">Configure</a> section or the <a href="#initialize">Initialize</a> section via asdf.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the dependencies needed for asdf.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> curl git</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Pull down the <a href="https://github.com/asdf-vm/asdf">asdf repository</a> in to your home directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+Cloning into <span class="s1">'/home/ubuntu/.asdf'</span>...
+remote: Enumerating objects: 145, <span class="k">done</span><span class="nb">.</span>
+remote: Counting objects: 100% <span class="o">(</span>145/145<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Compressing objects: 100% <span class="o">(</span>85/85<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Total 5782 <span class="o">(</span>delta 76<span class="o">)</span>, reused 93 <span class="o">(</span>delta 59<span class="o">)</span>, pack-reused 5637
+Receiving objects: 100% <span class="o">(</span>5782/5782<span class="o">)</span>, 1.09 MiB | 6.01 MiB/s, <span class="k">done</span><span class="nb">.</span>
+Resolving deltas: 100% <span class="o">(</span>3293/3293<span class="o">)</span>, <span class="k">done</span>.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Checkout the latest version of asdf.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ git <span class="nt">-C</span> ~/.asdf switch <span class="nt">--detach</span> <span class="o">(</span>git <span class="nt">-C</span> ~/.asdf describe <span class="nt">--abbrev</span><span class="o">=</span>0 <span class="nt">--tags</span><span class="o">)</span>
+HEAD is now at c6145d0 Update version to 0.8.0
+
+<span class="c"># Bash / ZSH</span>
+➜ git <span class="nt">-C</span> ~/.asdf switch <span class="nt">--detach</span> <span class="sb">`</span>git <span class="nt">-C</span> ~/.asdf describe <span class="nt">--abbrev</span><span class="o">=</span>0 <span class="nt">--tags</span><span class="sb">`</span>
+HEAD is now at c6145d0 Update version to 0.8.0</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enable asdf in your shell.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/conf.d<span class="p">;</span> and <span class="nb">echo</span> <span class="s2">"source ~/.asdf/asdf.fish"</span> <span class="o">&gt;</span> ~/.config/fish/conf.d/asdf.fish
+
+<span class="c"># Bash</span>
+➜ <span class="nb">echo</span> <span class="s1">'. $HOME/.asdf/asdf.sh'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+
+<span class="c"># ZSH</span>
+➜ <span class="nb">echo</span> <span class="s1">'. $HOME/.asdf/asdf.sh'</span> <span class="o">&gt;&gt;</span> ~/.zshrc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install shell completions for asdf.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/completions<span class="p">;</span> and <span class="nb">ln</span> <span class="nt">-s</span> ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+
+<span class="c"># Bash</span>
+➜ <span class="nb">echo</span> <span class="s1">'. $HOME/.asdf/completions/asdf.bash'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+
+<span class="c"># ZSH</span>
+➜ <span class="nb">echo</span> <span class="nt">-e</span> <span class="s1">'fpath=(${ASDF_DIR}/completions $fpath)\nautoload -Uz compinit\ncompinit'</span> <span class="o">&gt;&gt;</span> ~/.zshrc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To make asdf available, reload your shell.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ <span class="nb">exec </span>fish
+
+<span class="c"># Bash</span>
+➜ <span class="nb">source</span> ~/.bashrc
+
+<span class="c"># ZSH</span>
+➜ <span class="nb">source</span> ~/.zshrc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install the necessary dependencies to build Python which are helpfully documented in the <a href="https://github.com/pyenv/pyenv/wiki#suggested-build-environment">Pyenv Wiki</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> make build-essential libssl-dev zlib1g-dev libbz2-dev <span class="se">\</span>
+  libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils <span class="se">\</span>
+  tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the <a href="https://github.com/danhper/asdf-python">Python plugin</a> to asdf.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf plugin add python
+initializing plugin repository...
+Cloning into <span class="s1">'/home/ubuntu/.asdf/repository'</span>...
+remote: Enumerating objects: 2450, <span class="k">done</span><span class="nb">.</span>
+remote: Total 2450 <span class="o">(</span>delta 0<span class="o">)</span>, reused 0 <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused 2450
+Receiving objects: 100% <span class="o">(</span>2450/2450<span class="o">)</span>, 553.27 KiB | 3.57 MiB/s, <span class="k">done</span><span class="nb">.</span>
+Resolving deltas: 100% <span class="o">(</span>1140/1140<span class="o">)</span>, <span class="k">done</span>.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Before installing Pipenv, configure the default <em>global</em> Python version for the user.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>You can use the system version of Python by default or another version of your choice.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use the system&#8217;s Python as the default.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Ubuntu installs Python as either <code>python2</code> or <code>python3</code> on the system.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>This means that asdf won&#8217;t be able to detect the system version of python.
+Install the Python package <code>python-is-python3</code> to install a <code>python</code> executable for the system which uses <code>python3</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> python-is-python3</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Install pip and venv because they are not installed by default on Ubuntu.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> python3-pip python3-venv</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the user&#8217;s Python to the system-wide version.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf global python system</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Or, you can use another version of Python for your user such as the latest and greatest version.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Build and install the latest version of Python.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf <span class="nb">install </span>python latest</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the user&#8217;s Python to the latest version available at this time.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf global python latest</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Whenever the user&#8217;s global version of Python is updated, Pipenv must be reinstalled which may require that all virtual environments be rebuilt.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install <a href="https://pipxproject.github.io/pipx/">pipx</a> for installing Pipenv in an isolated environment.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ python <span class="nt">-m</span> pip <span class="nb">install</span> <span class="nt">--user</span> pipx
+Collecting pipx
+  Downloading pipx-0.15.6.0-py3-none-any.whl <span class="o">(</span>43 kB<span class="o">)</span>
+     |████████████████████████████████| 43 kB 636 kB/s
+Collecting argcomplete&lt;2.0,&gt;<span class="o">=</span>1.9.4
+  Downloading argcomplete-1.12.1-py2.py3-none-any.whl <span class="o">(</span>38 kB<span class="o">)</span>
+Collecting packaging&gt;<span class="o">=</span>20.0
+  Downloading packaging-20.4-py2.py3-none-any.whl <span class="o">(</span>37 kB<span class="o">)</span>
+Collecting userpath&gt;<span class="o">=</span>1.4.1
+  Downloading userpath-1.4.1-py2.py3-none-any.whl <span class="o">(</span>14 kB<span class="o">)</span>
+Collecting pyparsing&gt;<span class="o">=</span>2.0.2
+  Downloading pyparsing-2.4.7-py2.py3-none-any.whl <span class="o">(</span>67 kB<span class="o">)</span>
+     |████████████████████████████████| 67 kB 1.4 MB/s
+Requirement already satisfied: six <span class="k">in</span> /usr/lib/python3/dist-packages <span class="o">(</span>from packaging&gt;<span class="o">=</span>20.0-&gt;pipx<span class="o">)</span> <span class="o">(</span>1.14.0<span class="o">)</span>
+Requirement already satisfied: click <span class="k">in</span> /usr/lib/python3/dist-packages <span class="o">(</span>from userpath&gt;<span class="o">=</span>1.4.1-&gt;pipx<span class="o">)</span> <span class="o">(</span>7.0<span class="o">)</span>
+Requirement already satisfied: distro<span class="p">;</span> platform_system <span class="o">==</span> <span class="s2">"Linux"</span> <span class="k">in</span> /usr/lib/python3/dist-packages <span class="o">(</span>from userpath&gt;<span class="o">=</span>1.4.1-&gt;pipx<span class="o">)</span> <span class="o">(</span>1.4.0<span class="o">)</span>
+Installing collected packages: argcomplete, pyparsing, packaging, userpath, pipx
+  WARNING: The script userpath is installed <span class="k">in</span> <span class="s1">'/home/ubuntu/.local/bin'</span> which is not on PATH.
+  Consider adding this directory to PATH or, <span class="k">if </span>you prefer to suppress this warning, use <span class="nt">--no-warn-script-location</span><span class="nb">.</span>
+  WARNING: The script pipx is installed <span class="k">in</span> <span class="s1">'/home/ubuntu/.local/bin'</span> which is not on PATH.
+  Consider adding this directory to PATH or, <span class="k">if </span>you prefer to suppress this warning, use <span class="nt">--no-warn-script-location</span><span class="nb">.</span>
+Successfully installed argcomplete-1.12.1 packaging-20.4 pipx-0.15.6.0 pyparsing-2.4.7 userpath-1.4.1</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the directory where pip installs executables for the local user to <code>PATH</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ python <span class="nt">-m</span> pipx ensurepath
+Success! Added /home/ubuntu/.local/bin to the PATH environment
+    variable.
+/home/ubuntu/.local/bin has been been added to PATH, but you need to
+    open a new terminal or re-login <span class="k">for </span>this PATH change to take
+    effect.
+
+Consider adding shell completions <span class="k">for </span>pipx. Run <span class="s1">'pipx completions'</span> <span class="k">for
+</span>instructions.
+
+You will need to open a new terminal or re-login <span class="k">for </span>the PATH changes
+to take effect.
+
+Otherwise pipx is ready to go! ✨ 🌟 ✨</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To make executables installed by pipx available, reload your shell.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ <span class="nb">exec </span>fish
+
+<span class="c"># Bash</span>
+➜ <span class="nb">source</span> ~/.bashrc
+
+<span class="c"># ZSH</span>
+➜ <span class="nb">source</span> ~/.zshrc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install Pipenv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ python <span class="nt">-m</span> pipx <span class="nb">install </span>pipenv
+  installed package pipenv 2020.8.13, Python 3.8.5
+  These apps are now globally available
+    - pipenv
+    - pipenv-resolver
+<span class="k">done</span><span class="o">!</span> ✨ 🌟 ✨</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the direnv plugin to asdf.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf plugin add direnv</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Integrate direnv with your shell.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/conf.d<span class="p">;</span> and <span class="nb">echo</span> <span class="s2">"asdf exec direnv hook fish | source"</span> <span class="o">&gt;</span> ~/.config/fish/conf.d/direnv.fish
+
+<span class="c"># Bash</span>
+➜ <span class="nb">echo</span> <span class="s1">'eval "$(asdf exec direnv hook bash)"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+
+<span class="c"># ZSH</span>
+➜ <span class="nb">echo</span> <span class="s1">'eval "$(asdf exec direnv hook zsh)"'</span> <span class="o">&gt;&gt;</span> ~/.zshrc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Make the asdf feature, i.e. the command <code>use asdf</code>, available in direnv.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/direnv<span class="p">;</span> and <span class="nb">echo</span> <span class="s1">'source "$(asdf direnv hook asdf)"'</span> <span class="o">&gt;&gt;</span> ~/.config/direnv/direnvrc
+
+<span class="c"># Bash / ZSH</span>
+➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/direnv<span class="p">;</span> <span class="nb">echo</span> <span class="s1">'source "$(asdf direnv hook asdf)"'</span> <span class="o">&gt;&gt;</span> ~/.config/direnv/direnvrc</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>direnvrc</code> file should only use Bash syntax.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Add completions for Pipenv to your shell.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ <span class="nb">echo</span> <span class="s2">"eval (pipenv --completion)"</span> <span class="o">&gt;</span> ~/.config/fish/completions/pipenv.fish
+
+<span class="c"># Bash</span>
+➜ <span class="nb">echo</span> <span class="s1">'eval "$(pipenv --completion)"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+
+<span class="c"># ZSH</span>
+➜ <span class="nb">echo</span> <span class="s1">'eval "$(pipenv --completion)"'</span> <span class="o">&gt;&gt;</span> ~/.zshrc</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configure">Configure</h3>
+<div class="paragraph">
+<p>These instructions configure a project with a specific version of the Python interpreter, a specific version of direnv, and the versions of the Conan package and all of its dependencies.
+Additionally, automatic loading of the virtual environment is configured through direnv.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install asdf and Pipenv as described in the <a href="#install">Install</a> section.</p>
+</li>
+<li>
+<p>Create a directory for the project.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/Source/MyProject</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change into the root directory of the project.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd</span> ~/Source/MyProject</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Initialize a Git repository for the project.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git init
+Initialized empty Git repository <span class="k">in</span> /home/ubuntu/Source/MyProject/.git/</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install version of Python to use for the project.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf <span class="nb">install </span>python latest
+Downloading python-build...
+Cloning into <span class="s1">'/home/ubuntu/.asdf/plugins/python/pyenv'</span>...
+remote: Enumerating objects: 19, <span class="k">done</span><span class="nb">.</span>
+remote: Counting objects: 100% <span class="o">(</span>19/19<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Compressing objects: 100% <span class="o">(</span>16/16<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Total 18370 <span class="o">(</span>delta 3<span class="o">)</span>, reused 10 <span class="o">(</span>delta 2<span class="o">)</span>, pack-reused 18351
+Receiving objects: 100% <span class="o">(</span>18370/18370<span class="o">)</span>, 3.70 MiB | 5.98 MiB/s, <span class="k">done</span><span class="nb">.</span>
+Resolving deltas: 100% <span class="o">(</span>12507/12507<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+python-build 3.9.0 /home/ubuntu/.asdf/installs/python/3.9.0
+Downloading Python-3.9.0.tar.xz...
+-&gt; https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tar.xz
+Installing Python-3.9.0...
+Installed Python-3.9.0 to /home/ubuntu/.asdf/installs/python/3.9.0</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the project&#8217;s version of Python.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ asdf <span class="nb">local </span>python <span class="o">(</span>asdf global python<span class="o">)</span>
+
+<span class="c"># Bash / ZSH</span>
+➜ asdf <span class="nb">local </span>python <span class="sb">`</span>asdf global python<span class="sb">`</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install the latest version of direnv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf <span class="nb">install </span>direnv latest
+∗ Downloading and installing direnv...
+The installation was successful!</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you haven&#8217;t set the default global version of direnv, now is a good time to do so.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ asdf global direnv <span class="o">(</span>asdf latest direnv<span class="o">)</span>
+
+<span class="c"># Bash / ZSH</span>
+➜ asdf global direnv <span class="sb">`</span>asdf latest direnv<span class="sb">`</span></code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set the project to use the latest version of direnv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ asdf <span class="nb">local </span>direnv <span class="o">(</span>asdf latest direnv<span class="o">)</span>
+
+<span class="c"># Bash / ZSH</span>
+➜ asdf <span class="nb">local </span>direnv <span class="sb">`</span>asdf latest direnv<span class="sb">`</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The previous <code>asdf local</code> commands place version information in the <code>.tool-versions</code> file, so add this file to version control.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git add .tool-versions</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install Conan with Pipenv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ pipenv <span class="nb">install </span>conan
+Creating a virtualenv <span class="k">for </span>this project…
+Pipfile: /home/ubuntu/Source/MyProject/Pipfile
+Using /home/ubuntu/.asdf/installs/python/3.9.0/bin/python3 <span class="o">(</span>3.9.0<span class="o">)</span> to create virtualenv…
+⠦ Creating virtual environment...created virtual environment CPython3.9.0.final.0-64 <span class="k">in </span>1681ms
+  creator CPython3Posix<span class="o">(</span><span class="nv">dest</span><span class="o">=</span>/home/ubuntu/.local/share/virtualenvs/MyProject-6C2lAvdi, <span class="nv">clear</span><span class="o">=</span>False, <span class="nv">global</span><span class="o">=</span>False<span class="o">)</span>
+  seeder FromAppData<span class="o">(</span><span class="nv">download</span><span class="o">=</span>False, <span class="nv">pip</span><span class="o">=</span>bundle, <span class="nv">setuptools</span><span class="o">=</span>bundle, <span class="nv">wheel</span><span class="o">=</span>bundle, <span class="nv">via</span><span class="o">=</span>copy, <span class="nv">app_data_dir</span><span class="o">=</span>/home/ubuntu/.local/share/virtualenv<span class="o">)</span>
+    added seed packages: <span class="nv">pip</span><span class="o">==</span>20.2.4, <span class="nv">setuptools</span><span class="o">==</span>50.3.2, <span class="nv">wheel</span><span class="o">==</span>0.35.1
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+
+✔ Successfully created virtual environment!
+Virtualenv location: /home/ubuntu/.local/share/virtualenvs/MyProject-6C2lAvdi
+Creating a Pipfile <span class="k">for </span>this project…
+Installing conan…
+Adding conan to Pipfile<span class="s1">'s [packages]…
+✔ Installation Succeeded
+Pipfile.lock not found, creating…
+Locking [dev-packages] dependencies…
+Locking [packages] dependencies…
+Building requirements...
+Resolving dependencies...
+✔ Success!
+Updated Pipfile.lock (df42de)!
+Installing dependencies from Pipfile.lock (df42de)…
+  🐍   ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 0/0 — 00:00:00
+To activate this project'</span>s virtualenv, run pipenv shell.
+Alternatively, run a <span class="nb">command </span>inside the virtualenv with pipenv run.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add both the <code>Pipfile</code> and <code>Pipfile.lock</code> files generated by pipenv to version control.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git add Pipfile Pipfile.lock</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>In the root of the project directory, create the file <code>.envrc</code> with the lines <code>use asdf</code> and <code>layout pipenv</code> to automatically use both asdf and Pipenv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code># fish
+➜ echo &gt; .envrc "\
+use asdf
+layout pipenv"
+
+# Bash / ZSH
+➜ echo -e "use asdf\nlayout pipenv" &gt; .envrc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the <code>.envrc</code> file to version control.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git add .envrc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Reload your shell for direnv to be available.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ <span class="nb">exec </span>fish
+direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content
+
+<span class="c"># Bash</span>
+➜ <span class="nb">source</span> ~/.bashrc
+direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content
+
+<span class="c"># ZSH</span>
+➜ <span class="nb">source</span> ~/.zshrc
+direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enable automatic loading of the project&#8217;s environment.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ direnv allow
+direnv: loading ~/Source/MyProject/.envrc
+direnv: using asdf
+direnv: Creating <span class="nb">env </span>file /home/ubuntu/.asdf/installs/direnv/2.23.1/env/3889178603-777313312-1073271181-2768066085
+direnv: loading ~/.asdf/installs/direnv/2.23.1/env/3889178603-777313312-1073271181-2768066085
+direnv: using asdf python 3.9.0
+direnv: using asdf direnv 2.23.1
+direnv: <span class="nb">export</span> +PIPENV_ACTIVE +VIRTUAL_ENV ~PATH</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check that the virtual environment is automatically loaded and that the Conan executable resides within the virtual environment.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ which conan
+/home/ubuntu/.local/share/virtualenvs/MyProject-6C2lAvdi/bin/conan</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="initialize">Initialize</h3>
+<div class="paragraph">
+<p>To initialize a previously configured project in an unconfigured environment, follow the steps below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install asdf, Pipenv, and the related direnv functionality as described in the <a href="#install">Install</a> section.</p>
+</li>
+<li>
+<p>Change to the project directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd</span> ~/Source/MyProject</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run asdf to automatically install Python and direnv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf <span class="nb">install</span>
+∗ Downloading and installing direnv...
+The installation was successful!
+Downloading python-build...
+Cloning into <span class="s1">'/home/ubuntu/.asdf/plugins/python/pyenv'</span>...
+remote: Enumerating objects: 19, <span class="k">done</span><span class="nb">.</span>
+remote: Counting objects: 100% <span class="o">(</span>19/19<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Compressing objects: 100% <span class="o">(</span>16/16<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Total 18370 <span class="o">(</span>delta 3<span class="o">)</span>, reused 10 <span class="o">(</span>delta 2<span class="o">)</span>, pack-reused 18351
+Receiving objects: 100% <span class="o">(</span>18370/18370<span class="o">)</span>, 3.70 MiB | 6.55 MiB/s, <span class="k">done</span><span class="nb">.</span>
+Resolving deltas: 100% <span class="o">(</span>12507/12507<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+python-build 3.9.0 /home/ubuntu/.asdf/installs/python/3.9.0
+Downloading Python-3.9.0.tar.xz...
+-&gt; https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tar.xz
+Installing Python-3.9.0...
+Installed Python-3.9.0 to /home/ubuntu/.asdf/installs/python/3.9.0</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you haven&#8217;t set a default global version of direnv, you should do so now.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ asdf global direnv <span class="o">(</span>asdf latest direnv<span class="o">)</span>
+
+<span class="c"># Bash / ZSH</span>
+➜ asdf global direnv <span class="sb">`</span>asdf latest direnv<span class="sb">`</span></code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Reload your shell for direnv to be available.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ <span class="nb">exec </span>fish
+direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content
+
+<span class="c"># Bash</span>
+➜ <span class="nb">source</span> ~/.bashrc
+direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content
+
+<span class="c"># ZSH</span>
+➜ <span class="nb">source</span> ~/.zshrc
+direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enable automatic loading of the project&#8217;s environment.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ direnv allow
+direnv: loading ~/Source/MyProject/.envrc
+direnv: using asdf
+direnv: Creating <span class="nb">env </span>file /home/ubuntu/.asdf/installs/direnv/2.23.1/env/3889178603-777313312-2662766433-906191085
+direnv: loading ~/.asdf/installs/direnv/2.23.1/env/3889178603-777313312-2662766433-906191085
+direnv: using asdf direnv 2.23.1
+direnv: using asdf python 3.9.0
+Creating a virtualenv <span class="k">for </span>this project…
+Pipfile: /home/ubuntu/Source/MyProject/Pipfile
+Using /home/ubuntu/.asdf/installs/python/3.9.0/bin/python3.9 <span class="o">(</span>3.9.0<span class="o">)</span> to create virtualenv…
+⠧ Creating virtual environment...direnv: <span class="o">([</span>/home/ubuntu/.asdf/installs/direnv/2.23.1/bin/direnv <span class="nb">export </span>bash]<span class="o">)</span> is taking a <span class="k">while </span>to execute. Use CTRL-C to give up.
+⠦ Creating virtual environment...created virtual environment CPython3.9.0.final.0-64 <span class="k">in </span>1759ms
+  creator CPython3Posix<span class="o">(</span><span class="nv">dest</span><span class="o">=</span>/home/ubuntu/.local/share/virtualenvs/MyProject-6C2lAvdi, <span class="nv">clear</span><span class="o">=</span>False, <span class="nv">global</span><span class="o">=</span>False<span class="o">)</span>
+  seeder FromAppData<span class="o">(</span><span class="nv">download</span><span class="o">=</span>False, <span class="nv">pip</span><span class="o">=</span>bundle, <span class="nv">setuptools</span><span class="o">=</span>bundle, <span class="nv">wheel</span><span class="o">=</span>bundle, <span class="nv">via</span><span class="o">=</span>copy, <span class="nv">app_data_dir</span><span class="o">=</span>/home/ubuntu/.local/share/virtualenv<span class="o">)</span>
+    added seed packages: <span class="nv">pip</span><span class="o">==</span>20.2.4, <span class="nv">setuptools</span><span class="o">==</span>50.3.2, <span class="nv">wheel</span><span class="o">==</span>0.35.1
+  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+
+✔ Successfully created virtual environment!
+Virtualenv location: /home/ubuntu/.local/share/virtualenvs/MyProject-6C2lAvdi
+Installing dependencies from Pipfile.lock <span class="o">(</span>df42de<span class="o">)</span>…
+  🐍   ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 26/26 — 00:01:09
+To activate this project<span class="s1">'s virtualenv, run pipenv shell.
+Alternatively, run a command inside the virtualenv with pipenv run.
+direnv: export +PIPENV_ACTIVE +VIRTUAL_ENV ~PATH</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check that the virtual environment is properly setup and loaded, which can be verified by checking that the Conan executable resides within the virtual environment.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ which conan
+/home/ubuntu/.local/share/virtualenvs/MyProject-6C2lAvdi/bin/conan</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="update">Update</h3>
+<div class="paragraph">
+<p>If you&#8217;re going to the trouble to make your Python runtime reproducible, then you are probably planning on updating different aspects of it.
+Steps for updating the various software components follow.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="asdf">asdf</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Update asdf to the latest stable version.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf update</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Update an individual asdf plugin by providing the plugin name to the <code>asdf plugin update</code> command or update all plugins at once by providing the <code>--all</code> flag as shown here.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf plugin update <span class="nt">--all</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pipenv">Pipenv</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Optionally, you can install a newer version of Python globally and reinstall pipx and Pipenv.</p>
+<div class="openblock">
+<div class="content">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Build and install the newer version of Python.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf <span class="nb">install </span>python latest</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Update the global Python version for the user.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ asdf global python <span class="o">(</span>asdf latest python<span class="o">)</span>
+
+<span class="c"># Bash / ZSH</span>
+➜ asdf global python <span class="sb">`</span>asdf latest python<span class="sb">`</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install pipx for installing Pipenv in an isolated environment.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ python <span class="nt">-m</span> pip <span class="nb">install</span> <span class="nt">--user</span> pipx</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install Pipenv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ python <span class="nt">-m</span> pipx <span class="nb">install </span>pipenv</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>To just update pipx and Pipenv, use the following instructions.</p>
+<div class="openblock">
+<div class="content">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Update pipx.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ python <span class="nt">-m</span> pip <span class="nb">install</span> <span class="nt">--user</span> <span class="nt">-U</span> pipx</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Upgrade Pipenv.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>➜ python -m pipx upgrade pipenv</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you want to upgrade all packages managed by pipx, just run <code>pipx upgrade-all</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock">
+<div class="content">
+
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="python">Python</h3>
+<div class="paragraph">
+<p>To update the Python version follow these instructions.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the desired version of Python.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf <span class="nb">install </span>python latest</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the Python version for the project to the desired version.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ asdf <span class="nb">local </span>python <span class="o">(</span>asdf latest python<span class="o">)</span>
+
+<span class="c"># Bash / ZSH</span>
+➜ asdf <span class="nb">local </span>python <span class="sb">`</span>asdf latest python<span class="sb">`</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Wait while direnv and Pipenv automatically install dependencies and rebuild the virtual environment.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="python_packages">Python Packages</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check for outdated Python packages with pipenv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ pipenv update <span class="nt">--outdated</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Update a single package by providing the name of the package or omit the package name to update all packages, as shown here.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ pipenv update</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="direnv">direnv</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the desired version of direnv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ asdf <span class="nb">install </span>direnv latest</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Update the project&#8217;s version to reflect this newly installed version of direnv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
+➜ asdf <span class="nb">local </span>direnv <span class="o">(</span>asdf latest direnv<span class="o">)</span>
+
+<span class="c"># Bash / ZSH</span>
+➜ asdf <span class="nb">local </span>direnv <span class="sb">`</span>asdf latest direnv<span class="sb">`</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now have a thorough understanding of the requirements for reproducible dependency management in Python.
+Additionally, you also understand how to use several tools to accomplish this: asdf, direnv, and Pipenv.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. The asdf Python plugin really just uses Pyenv underneath the covers.
+</div>
+</div>
+  </div><a class="u-url" href="/manage-a-project-s-python-dependencies" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Handy admin and dev guides from my myriad of tinkering</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/jwillikers" title="jwillikers"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://stackoverflow.com/users/9835303" title="9835303"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
