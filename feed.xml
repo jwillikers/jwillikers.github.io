@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-11-01T13:55:31-06:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Manage Python Dependencies</title><link href="https://jwillikers.com/manage-python-dependencies" rel="alternate" type="text/html" title="Manage Python Dependencies" /><published>2020-11-01T00:00:00-05:00</published><updated>2020-11-01T00:00:00-05:00</updated><id>https://jwillikers.com/Manage%20Python%20Dependencies</id><content type="html" xml:base="https://jwillikers.com/manage-python-dependencies">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-11-02T11:14:17-06:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Manage Python Dependencies</title><link href="https://jwillikers.com/manage-python-dependencies" rel="alternate" type="text/html" title="Manage Python Dependencies" /><published>2020-11-01T00:00:00-05:00</published><updated>2020-11-01T00:00:00-05:00</updated><id>https://jwillikers.com/Manage%20Python%20Dependencies</id><content type="html" xml:base="https://jwillikers.com/manage-python-dependencies">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Making &lt;a href=&quot;https://www.python.org/&quot;&gt;Python&lt;/a&gt; dependency management reproducible is complicated.
 Bringing Python dependency management to mere mortals who can&amp;#8217;t remember where they put their shoes, let alone remember to source shell scripts every time they start working on a project is even more complicated.
-So, here&amp;#8217;s a quick breakdown of how it works followed by a much lengthier section on how to fit all of the various peices together to manage a single Python dependency used to build a project.&lt;/p&gt;
+So, here&amp;#8217;s a quick breakdown of how it works followed by a much lengthier section on how to fit all of the various pieces together to manage a single Python dependency used to build a project.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -32,7 +32,7 @@ There many different solutions for making these tools less taxing, including &lt
 &lt;dd&gt;
 &lt;p&gt;Each package and its exact version must be recorded.
 While the native Python package manager, &lt;a href=&quot;https://pip.pypa.io/en/stable/&quot;&gt;pip&lt;/a&gt;, can do this with a &lt;code&gt;requirements.txt&lt;/code&gt; file, there are some important ways in which this method is lacking.
-That&amp;#8217;s why &lt;a href=&quot;https://pipenv.pypa.io/en/latest/&quot;&gt;Pipenv&lt;/a&gt;, &lt;a href=&quot;https://python-poetry.org/&quot;&gt;Poetry&lt;/a&gt;, and &lt;a href=&quot;https://github.com/jazzband/pip-tools&quot;&gt;pip-tools&lt;/a&gt; use more robust methods of dependency managment.
+That&amp;#8217;s why &lt;a href=&quot;https://pipenv.pypa.io/en/latest/&quot;&gt;Pipenv&lt;/a&gt;, &lt;a href=&quot;https://python-poetry.org/&quot;&gt;Poetry&lt;/a&gt;, and &lt;a href=&quot;https://github.com/jazzband/pip-tools&quot;&gt;pip-tools&lt;/a&gt; use more robust methods of dependency management.
 The first two also manage virtual environments.&lt;/p&gt;
 &lt;/dd&gt;
 &lt;/dl&gt;
@@ -60,7 +60,7 @@ Windows users can still access these tools through &lt;a href=&quot;https://mult
 &lt;h2 id=&quot;how_to_make_it_work&quot;&gt;How to Make it Work&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The question that naturally follows this explanation is how in tarnations to make all this work?&lt;/p&gt;
+&lt;p&gt;The question that naturally follows this explanation is how in tarnation to make all this work?&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;First, you need something to manage the Python interpreter.
@@ -117,7 +117,7 @@ Check out the &lt;a href=&quot;https://github.com/sentriz/fish-pipenv&quot;&gt;f
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;It&amp;#8217;s probably only a small fraction of developers using the command-line for all their work.
-It&amp;#8217;s important to take into account how well the tooling you choose integrates with IDE&amp;#8217;s and code editors.footnote:[]
+It&amp;#8217;s important to take into account how well the tooling you choose integrates with IDE&amp;#8217;s and code editors.
 These will need to be aware of the appropriate interpreter and virtual environment to use for your project.
 While it&amp;#8217;s usually possible to configure these things manually, think &lt;em&gt;humans&lt;/em&gt;, remember?
 Many IDE&amp;#8217;s and code editors integrate well with setups using the built-in Python tooling.
@@ -136,7 +136,7 @@ Even direnv works with many graphical editors through plugins.&lt;/p&gt;
 &lt;p&gt;The genesis of this blog post is in incorporating a C&amp;#43;&amp;#43; package manager written in Python, &lt;a href=&quot;https://conan.io&quot;&gt;Conan&lt;/a&gt;, into a C&amp;#43;&amp;#43; project, where reproducibility and ease-of-use are both important.
 This tutorial describes how to incorporate the Conan Python package in to a project via asdf, Pipenv, and direnv.
 The Python runtime is managed by asdf and the &lt;a href=&quot;https://github.com/danhper/asdf-python&quot;&gt;asdf Python plugin&lt;/a&gt;.
-Pipenv takes care of Conan and its depencencies as well as providing a virtual environment for the project.
+Pipenv takes care of Conan and its dependencies as well as providing a virtual environment for the project.
 The last bits, direnv and the &lt;a href=&quot;https://github.com/asdf-community/asdf-direnv&quot;&gt;asdf direnv plugin&lt;/a&gt;, smooth out the rough edges for developers.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -152,7 +152,7 @@ Without further ado, let&amp;#8217;s begin.&lt;/p&gt;
 &lt;h3 id=&quot;install&quot;&gt;Install&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;The instructions in this section will install asdf and Pipenv.
-Integrations for direnv will also be added, even though it will be installed in either the &lt;a href=&quot;#configure&quot;&gt;Configure&lt;/a&gt; section or the &lt;a href=&quot;#initialize&quot;&gt;Initialize&lt;/a&gt; section via asdf.&lt;/p&gt;
+Integration for direnv will also be added, even though it will be installed in either the &lt;a href=&quot;#configure&quot;&gt;Configure&lt;/a&gt; section or the &lt;a href=&quot;#initialize&quot;&gt;Initialize&lt;/a&gt; section via asdf.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
@@ -269,16 +269,26 @@ Resolving deltas: 100% &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1140/1140&l
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;You can use the system version of Python by default or another version of your choice.&lt;/p&gt;
 &lt;/div&gt;
+&lt;div class=&quot;admonitionblock important&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Whenever the user&amp;#8217;s global version of Python is updated, Pipenv must be reinstalled which may require that all virtual environments be rebuilt.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;div class=&quot;ulist&quot;&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Use the system&amp;#8217;s Python as the default.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
+&lt;div class=&quot;olist lowerroman&quot;&gt;
+&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
 &lt;li&gt;
 &lt;p&gt;Ubuntu installs Python as either &lt;code&gt;python2&lt;/code&gt; or &lt;code&gt;python3&lt;/code&gt; on the system.&lt;/p&gt;
 &lt;div class=&quot;openblock&quot;&gt;
@@ -313,19 +323,11 @@ Install the Python package &lt;code&gt;python-is-python3&lt;/code&gt; to install
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
+&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Or, you can use another version of Python for your user such as the latest and greatest version.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
+&lt;div class=&quot;olist lowerroman&quot;&gt;
+&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
 &lt;li&gt;
 &lt;p&gt;Build and install the latest version of Python.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -338,30 +340,20 @@ Install the Python package &lt;code&gt;python-is-python3&lt;/code&gt; to install
 &lt;p&gt;Set the user&amp;#8217;s Python to the latest version available at this time.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ asdf global python latest&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;c&quot;&gt;# fish&lt;/span&gt;
+➜ asdf global python &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;asdf latest python&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Bash / ZSH&lt;/span&gt;
+➜ asdf global python &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;asdf latest python&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;admonitionblock important&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-Whenever the user&amp;#8217;s global version of Python is updated, Pipenv must be reinstalled which may require that all virtual environments be rebuilt.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
+&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Install &lt;a href=&quot;https://pipxproject.github.io/pipx/&quot;&gt;pipx&lt;/a&gt; for installing Pipenv in an isolated environment.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -571,24 +563,23 @@ Installed Python-3.9.0 to /home/ubuntu/.asdf/installs/python/3.9.0&lt;/code&gt;&
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;c&quot;&gt;# fish&lt;/span&gt;
-➜ asdf &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;python &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;asdf global python&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+➜ asdf &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;python &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;asdf current python | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $2}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Bash / ZSH&lt;/span&gt;
-➜ asdf &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;python &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;asdf global python&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+➜ asdf &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;python &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;asdf current python | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $2}'&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Install the latest version of direnv.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ asdf &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;direnv latest
 ∗ Downloading and installing direnv...
 The installation was successful!&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
 &lt;/div&gt;
 &lt;div class=&quot;admonitionblock tip&quot;&gt;
 &lt;table&gt;
@@ -613,8 +604,9 @@ The installation was successful!&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Set the project to use the latest version of direnv.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -670,7 +662,7 @@ Alternatively, run a &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;insid
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Add both the &lt;code&gt;Pipfile&lt;/code&gt; and &lt;code&gt;Pipfile.lock&lt;/code&gt; files generated by pipenv to version control.&lt;/p&gt;
+&lt;p&gt;Add both the &lt;code&gt;Pipfile&lt;/code&gt; and &lt;code&gt;Pipfile.lock&lt;/code&gt; files generated by Pipenv to version control.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git add Pipfile Pipfile.lock&lt;/code&gt;&lt;/pre&gt;
@@ -747,7 +739,7 @@ direnv: &lt;span class=&quot;nb&quot;&gt;export&lt;/span&gt; +PIPENV_ACTIVE +VIR
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;initialize&quot;&gt;Initialize&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To initialize a previously configured project in an unconfigured environment, follow the steps below.&lt;/p&gt;
+&lt;p&gt;To initialize a previously configured project in a fresh environment, follow these steps.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
@@ -764,6 +756,8 @@ direnv: &lt;span class=&quot;nb&quot;&gt;export&lt;/span&gt; +PIPENV_ACTIVE +VIR
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Run asdf to automatically install Python and direnv.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ asdf &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
@@ -784,9 +778,6 @@ Installing Python-3.9.0...
 Installed Python-3.9.0 to /home/ubuntu/.asdf/installs/python/3.9.0&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
 &lt;div class=&quot;admonitionblock tip&quot;&gt;
 &lt;table&gt;
 &lt;tr&gt;
@@ -800,18 +791,19 @@ Installed Python-3.9.0 to /home/ubuntu/.asdf/installs/python/3.9.0&lt;/code&gt;&
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;c&quot;&gt;# fish&lt;/span&gt;
-➜ asdf global direnv &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;asdf latest direnv&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+➜ asdf global direnv &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;asdf list ruby | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'FNR &amp;lt;= 1'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Bash / ZSH&lt;/span&gt;
-➜ asdf global direnv &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;asdf latest direnv&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+➜ asdf global direnv &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;asdf list ruby | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'FNR &amp;lt;= 1'&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Reload your shell for direnv to be available.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -904,13 +896,76 @@ Steps for updating the various software components follow.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;pipenv&quot;&gt;Pipenv&lt;/h3&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
+&lt;h3 id=&quot;direnv&quot;&gt;direnv&lt;/h3&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
-&lt;p&gt;Optionally, you can install a newer version of Python globally and reinstall pipx and Pipenv.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
+&lt;p&gt;Install the desired version of direnv.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ asdf &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;direnv latest&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Update the project&amp;#8217;s version to reflect this newly installed version of direnv.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;c&quot;&gt;# fish&lt;/span&gt;
+➜ asdf &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;direnv &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;asdf latest direnv&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Bash / ZSH&lt;/span&gt;
+➜ asdf &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;direnv &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;asdf latest direnv&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;pipenv&quot;&gt;Pipenv&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are two ways to go about upgrading Pipenv, depending on whether you want to update the global Python version.
+If the global Python version isn&amp;#8217;t changing, just &lt;a href=&quot;#update_pipenv&quot;&gt;Update Pipenv&lt;/a&gt;.
+Otherwise, &lt;a href=&quot;#upgrade_the_global_python_version_and_install_pipenv&quot;&gt;Upgrade the Global Python Version and Install Pipenv&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;update_pipenv&quot;&gt;Update Pipenv&lt;/h4&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Update pipx.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ python &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; pipx&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Update Pipenv.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ python &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; pipx upgrade pipenv&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+If you want to upgrade all packages managed by pipx, just run &lt;code&gt;pipx upgrade-all&lt;/code&gt;.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;upgrade_the_global_python_version_and_install_pipenv&quot;&gt;Upgrade the Global Python Version and Install Pipenv&lt;/h4&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
@@ -953,58 +1008,10 @@ Steps for updating the various software components follow.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;To just update pipx and Pipenv, use the following instructions.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Update pipx.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ python &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; pipx&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Upgrade Pipenv.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;➜ python -m pipx upgrade pipenv&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock tip&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-If you want to upgrade all packages managed by pipx, just run &lt;code&gt;pipx upgrade-all&lt;/code&gt;.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;python&quot;&gt;Python&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To update the Python version follow these instructions.&lt;/p&gt;
+&lt;p&gt;Update the project&amp;#8217;s Python version with these instructions.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
@@ -1051,33 +1058,6 @@ If you want to upgrade all packages managed by pipx, just run &lt;code&gt;pipx u
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ pipenv update&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;direnv&quot;&gt;direnv&lt;/h3&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Install the desired version of direnv.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ asdf &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;direnv latest&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Update the project&amp;#8217;s version to reflect this newly installed version of direnv.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;c&quot;&gt;# fish&lt;/span&gt;
-➜ asdf &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;direnv &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;asdf latest direnv&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Bash / ZSH&lt;/span&gt;
-➜ asdf &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;direnv &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;asdf latest direnv&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;

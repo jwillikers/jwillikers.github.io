@@ -10,7 +10,7 @@
   background-color: #1f242c; }
 
 /*!
- * Minimal Mistakes Jekyll Theme 4.20.2 by Michael Rose
+ * Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
  * Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
  * Licensed under MIT (https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE)
 */
@@ -1888,7 +1888,9 @@ th {
     display: block;
     margin: 0 1rem;
     color: #eaeaea;
-    text-decoration: none; }
+    text-decoration: none;
+    -webkit-transition: none;
+    transition: none; }
     .greedy-nav a:hover {
       color: #bbbbbb; }
     .greedy-nav a.site-logo {
@@ -1896,6 +1898,9 @@ th {
       margin-right: 0.5rem; }
     .greedy-nav a.site-title {
       margin-left: 0; }
+  .greedy-nav img {
+    -webkit-transition: none;
+    transition: none; }
   .greedy-nav__toggle {
     -ms-flex-item-align: center;
     align-self: center;
