@@ -201,6 +201,57 @@ Shell commands are provided in both <a href="https://www.gnu.org/software/bash/"
 </div>
 </li>
 <li>
+<p>Download the corresponding signature file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ wget https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.xz.sig</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the archive&#8217;s signature.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ gpg <span class="nt">--keyserver-options</span> auto-key-retrieve gcc-10.2.0.tar.xz.sig
+gpg: Signature made Thu 23 Jul 2020 01:57:41 AM CDT using RSA key ID FC26A641
+gpg: requesting key FC26A641 from hkp server keys.gnupg.net
+gpg: key 981C74C7: public key <span class="s2">"Richard Guenther &lt;richard.guenther@gmail.com&gt;"</span> imported
+gpg: no ultimately trusted keys found
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: Good signature from <span class="s2">"Richard Guenther &lt;richard.guenther@gmail.com&gt;"</span>
+gpg:                 aka <span class="s2">"Richard Guenther (Work) &lt;rguenther@suse.de&gt;"</span>
+gpg:                 aka <span class="s2">"Richard Guenther &lt;richard.guenther@gmx.net&gt;"</span>
+gpg:                 aka <span class="s2">"Richard Guenther (GCC) &lt;rguenth@gcc.gnu.org&gt;"</span>
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 1397 5A70 E63C 361C 73AE  69EF 6EEB 81F8 981C 74C7
+     Subkey fingerprint: 7F74 F97C 1034 68EE 5D75  0B58 3AB0 0996 FC26 A641</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here, the option <code>--keyserver-options auto-key-retrieve</code> will automatically import the signing key from the default key server.
+The signature is valid if <code>Good signature</code> is output.
+Otherwise, the signature is bad and you must re-download the source archive.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+There are potential privacy concerns when automatically downloading the key this way, as described for the <code>auto-key-retrieve</code> option in <a href="https://www.freebsd.org/cgi/man.cgi?query=gpg&amp;manpath=CentOS+7.1">gpg2(1)</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
 <p>Extract the archive.</p>
 <div class="listingblock">
 <div class="content">
