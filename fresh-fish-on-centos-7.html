@@ -177,7 +177,7 @@ For this tutorial to make a lick of sense, you should be familiar with the comma
 <p>If you aren&#8217;t using the <a href="https://rpm-software-management.github.io/">DNF</a> package manager yet, grab that.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> dnf</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>yum <span class="nt">-y</span> <span class="nb">install </span>dnf</code></pre>
 </div>
 </div>
 </li>
@@ -185,7 +185,7 @@ For this tutorial to make a lick of sense, you should be familiar with the comma
 <p>Add the <a href="https://fedoraproject.org/wiki/EPEL">EPEL</a> repository for retrieving necessary dependencies.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nb">install</span> <span class="nt">-y</span> <span class="se">\</span>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nt">-y</span> <span class="nb">install</span> <span class="se">\</span>
   https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</code></pre>
 </div>
 </div>
@@ -194,7 +194,7 @@ For this tutorial to make a lick of sense, you should be familiar with the comma
 <p>Install the build dependencies.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nb">install</span> <span class="nt">-y</span> cmake3 gettext-devel git ncurses-devel ninja-build <span class="se">\</span>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nt">-y</span> <span class="nb">install </span>cmake3 gettext-devel git ncurses-devel ninja-build <span class="se">\</span>
   pcre2-devel</code></pre>
 </div>
 </div>

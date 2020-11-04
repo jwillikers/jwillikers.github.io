@@ -179,16 +179,22 @@ Plus, it details how to install and configure Antigen, oh-my-zsh, autosuggestion
 <p>Install ZSH.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> zsh</code></pre>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>zsh</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Add <code>/usr/bin/zsh</code> to <code>/etc/shells</code> so that is can be used as the default shell.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+<p>Register <code>/usr/bin/zsh</code> as a login shell by adding its path to <a href="https://manpages.ubuntu.com/manpages/en/man5/shells.5.html"><code>/etc/shells</code></a>.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Debian provides a convenient <a href="https://manpages.ubuntu.com/manpages/en/man8/add-shell.8.html"><code>add-shell</code></a> command to accomplish this.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">command</span> <span class="nt">-v</span> zsh | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/shells
-/usr/bin/zsh</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>add-shell /usr/bin/zsh</code></pre>
+</div>
+</div>
 </div>
 </div>
 </li>
@@ -207,8 +213,8 @@ Shell changed.</code></pre>
 <p>Now, open up a fresh terminal session to start using .</p>
 </li>
 <li>
-<p>Download and install Antigen.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>
-There is a <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=906757">bug</a> in the <a href="https://bugs.debian.org/cgi-bin/pkgreport.cgi?pkg=zsh-antigen;dist=unstable">debian package</a> at this time, so manually download and install it.<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p>
+<p>Download and install Antigen.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
+There is a <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=906757">bug</a> in the <a href="https://bugs.debian.org/cgi-bin/pkgreport.cgi?pkg=zsh-antigen;dist=unstable">debian package</a> at this time, so manually download and install it.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup></p>
 <div class="openblock">
 <div class="content">
 <div class="listingblock">
@@ -241,7 +247,7 @@ There is a <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=906757">bu
 </div>
 </li>
 <li>
-<p>Create the <code>.antigenrc</code> configuration file.<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup></p>
+<p>Create the <code>.antigenrc</code> configuration file.<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup></p>
 <div class="listingblock">
 <div class="title">~/.antigenrc</div>
 <div class="content">
@@ -292,7 +298,7 @@ antigen init ~/.antigenrc</code></pre>
 </div>
 </li>
 <li>
-<p>Update the plugins as needed.<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnotedef_6" title="View footnote.">6</a>]</sup></p>
+<p>Update the plugins as needed.<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup></p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>antigen update</code></pre>
@@ -319,19 +325,16 @@ If you want to automate updating your Antigen plugins with <a href="https://www.
 <a href="#_footnoteref_1">1</a>. <a href="https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH">oh-my-zsh Wiki: Installing ZSH</a>
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. <a href="https://unix.stackexchange.com/a/111367/395084">Unix StackExchange: How to change default shell to ZSH - chsh says “invalid shell”</a>
+<a href="#_footnoteref_2">2</a>. <a href="https://github.com/zsh-users/antigen/wiki/Installation">Antigen Wiki: Installation</a>
 </div>
 <div class="footnote" id="_footnotedef_3">
-<a href="#_footnoteref_3">3</a>. <a href="https://github.com/zsh-users/antigen/wiki/Installation">Antigen Wiki: Installation</a>
+<a href="#_footnoteref_3">3</a>. There is also an <a href="https://bugs.launchpad.net/ubuntu/+source/zsh-antigen/+bug/1770915">Ubuntu bug report</a> and an <a href="https://github.com/zsh-users/antigen/issues/659">Antigen bug report.</a>
 </div>
 <div class="footnote" id="_footnotedef_4">
-<a href="#_footnoteref_4">4</a>. There is also an <a href="https://bugs.launchpad.net/ubuntu/+source/zsh-antigen/+bug/1770915">Ubuntu bug report</a> and an <a href="https://github.com/zsh-users/antigen/issues/659">Antigen bug report.</a>
+<a href="#_footnoteref_4">4</a>. <a href="https://github.com/zsh-users/antigen/wiki/Quick-start#configure-zshrc">Antigen Wiki: Quich start - Configure <code>.zshrc</code></a>
 </div>
 <div class="footnote" id="_footnotedef_5">
-<a href="#_footnoteref_5">5</a>. <a href="https://github.com/zsh-users/antigen/wiki/Quick-start#configure-zshrc">Antigen Wiki: Quich start - Configure <code>.zshrc</code></a>
-</div>
-<div class="footnote" id="_footnotedef_6">
-<a href="#_footnoteref_6">6</a>. <a href="https://github.com/zsh-users/antigen/wiki/Commands#antigen-update">Antigen Wiki: Commands - antigen update</a>
+<a href="#_footnoteref_5">5</a>. <a href="https://github.com/zsh-users/antigen/wiki/Commands#antigen-update">Antigen Wiki: Commands - antigen update</a>
 </div>
 </div>
     </div>

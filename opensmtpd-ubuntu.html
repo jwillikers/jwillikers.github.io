@@ -187,7 +187,7 @@ Being an <a href="https://www.openbsd.org/">OpenBSD</a> fanboy, I with the moder
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>apt <span class="nb">install </span>opensmtpd</code></pre>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>opensmtpd</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -207,7 +207,7 @@ This will probably ask you a couple of questions from an ncurses interface, but 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>apt <span class="nb">install </span>mailutils</code></pre>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>mailutils</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -280,8 +280,8 @@ match from local for any action "relay"</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">mkdir</span> /etc/mail
-<span class="nv">$ </span><span class="nb">touch</span> /etc/mail/secrets</code></pre>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo mkdir</span> /etc/mail
+<span class="nv">$ </span><span class="nb">sudo touch</span> /etc/mail/secrets</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -289,8 +289,8 @@ match from local for any action "relay"</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">chmod </span>640 /etc/mail/secrets <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="nv">$ </span><span class="nb">chown </span>root:opensmtpd /etc/mail/secrets <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo chmod </span>640 /etc/mail/secrets <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="nv">$ </span><span class="nb">sudo chown </span>root:opensmtpd /etc/mail/secrets <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -336,7 +336,7 @@ configuration OK</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl restart opensmtpd</code></pre>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl restart opensmtpd</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -344,7 +344,7 @@ configuration OK</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nb">enable </span>opensmtpd</code></pre>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>opensmtpd</code></pre>
 </div>
 </div>
 </div>
