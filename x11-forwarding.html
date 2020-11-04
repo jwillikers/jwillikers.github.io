@@ -199,7 +199,7 @@ On macOS, the X11 software is available from the <a href="https://www.xquartz.or
 <div class="listingblock">
 <div class="title">/etc/ssh/sshd_config</div>
 <div class="content">
-<pre class="rouge highlight"><code>ForwardX11 yes</code></pre>
+<pre class="rouge highlight"><code data-lang="ssh"><span class="k">ForwardX11</span> <span class="no">yes</span></code></pre>
 </div>
 </div>
 </li>
@@ -288,10 +288,10 @@ Your keypresses can be captured on the remote machine so make sure you actually 
 <div class="listingblock">
 <div class="title">~/.ssh/config</div>
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">Host helms-deep
-Compression <span class="nb">yes
-</span>ForwardX11 <span class="nb">yes
-</span>ForwardX11Trusted <span class="nb">yes</span></code></pre>
+<pre class="rouge highlight"><code data-lang="ssh"><span class="k">Host</span> helms-deep
+<span class="k">Compression</span> <span class="no">yes</span>
+<span class="k">ForwardX11</span> <span class="no">yes</span>
+<span class="k">ForwardX11Trusted</span> <span class="no">yes</span></code></pre>
 </div>
 </div>
 <div class="admonitionblock caution">
