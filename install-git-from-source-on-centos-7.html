@@ -169,7 +169,7 @@
 <p>This is a quick tutorial showing the necessary steps to install Git from source on CentOS 7.
 Further documentation is available in the <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Git Book</a>.
 This tutorial assumes familiarity with CentOS 7 packages management, source code compilation, and the command-line.
-Where an instruction applies to a specific shell, the instruction will be shown for both <a href="https://www.gnu.org/software/bash/">Bash</a>, the default shell on CentOS 7, and <a href="https://fishshell.com/">fish</a>, the better shell everwhere.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+Where an instruction applies to a specific shell, the instruction will be shown for both <a href="https://www.gnu.org/software/bash/">Bash</a>, the default shell on CentOS 7, and <a href="https://fishshell.com/">fish</a>, the better shell everywhere.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -177,7 +177,7 @@ Where an instruction applies to a specific shell, the instruction will be shown 
 <p>If you aren&#8217;t using the <a href="https://rpm-software-management.github.io/">DNF</a> package manager yet, grab that.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> dnf</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>yum <span class="nt">-y</span> <span class="nb">install </span>dnf</code></pre>
 </div>
 </div>
 </li>
@@ -185,7 +185,7 @@ Where an instruction applies to a specific shell, the instruction will be shown 
 <p>Add the <a href="https://fedoraproject.org/wiki/EPEL">EPEL</a> repository for retrieving necessary dependencies.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nb">install</span> <span class="nt">-y</span> <span class="se">\</span>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nt">-y</span> <span class="nb">install</span> <span class="se">\</span>
   https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</code></pre>
 </div>
 </div>
@@ -194,7 +194,7 @@ Where an instruction applies to a specific shell, the instruction will be shown 
 <p>Install the build dependencies.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nb">install</span> <span class="nt">-y</span> asciidoc curl-devel dh-autoreconf docbook2X expat-devel <span class="se">\</span>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>dnf <span class="nt">-y</span> <span class="nb">install </span>asciidoc curl-devel dh-autoreconf docbook2X expat-devel <span class="se">\</span>
   gettext-devel openssl-devel perl-devel xmlto zlib-devel</code></pre>
 </div>
 </div>
@@ -213,7 +213,7 @@ Where an instruction applies to a specific shell, the instruction will be shown 
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-L</span> https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.29.1.tar.xz</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-L</span> https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.29.2.tar.xz</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -235,10 +235,67 @@ The method used here describes where to grab the latest source code releases and
 </div>
 </li>
 <li>
+<p>Download the corresponding signature file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-L</span> https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.29.2.tar.sign</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Decompress the archive.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ unxz git-2.29.2.tar.xz</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the archive&#8217;s signature.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ gpg <span class="nt">--keyserver-options</span> auto-key-retrieve git-2.29.2.tar.sign
+gpg: Signature made Thu 29 Oct 2020 05:14:01 PM CDT using RSA key ID 96AFE6CB
+gpg: requesting key 96AFE6CB from hkp server keys.gnupg.net
+gpg: key 713660A7: public key <span class="s2">"Junio C Hamano &lt;gitster@pobox.com&gt;"</span> imported
+gpg: no ultimately trusted keys found
+gpg: Total number processed: 1
+gpg:               imported: 1  <span class="o">(</span>RSA: 1<span class="o">)</span>
+gpg: Good signature from <span class="s2">"Junio C Hamano &lt;gitster@pobox.com&gt;"</span>
+gpg:                 aka <span class="s2">"Junio C Hamano &lt;jch@google.com&gt;"</span>
+gpg:                 aka <span class="s2">"Junio C Hamano &lt;junio@pobox.com&gt;"</span>
+gpg: Note: This key has expired!
+Primary key fingerprint: 96E0 7AF2 5771 9559 80DA  D100 20D0 4E5A 7136 60A7
+     Subkey fingerprint: E1F0 36B1 FEE7 221F C778  ECEF B0B5 E886 96AF E6CB</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here, the option <code>--keyserver-options auto-key-retrieve</code> will automatically import the signing key from the default key server.
+The signature is valid if <code>Good signature</code> is output.
+Otherwise, the signature is bad and you must re-download the source archive.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+There are potential privacy concerns when automatically downloading the key this way, as described for the <code>auto-key-retrieve</code> option in <a href="https://www.freebsd.org/cgi/man.cgi?query=gpg&amp;manpath=CentOS+7.1">gpg2(1)</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
 <p>Extract the source code from the archive.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">tar</span> <span class="nt">-xf</span> git-2.29.1.tar.xz</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">tar</span> <span class="nt">-xf</span> git-2.29.2.tar</code></pre>
 </div>
 </div>
 </li>
@@ -246,7 +303,7 @@ The method used here describes where to grab the latest source code releases and
 <p>Change into the source directory.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd </span>git-2.29.1</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd </span>git-2.29.2</code></pre>
 </div>
 </div>
 </li>
@@ -255,52 +312,95 @@ The method used here describes where to grab the latest source code releases and
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ make configure
-GIT_VERSION <span class="o">=</span> 2.29.1
+GIT_VERSION <span class="o">=</span> 2.29.2
     GEN configure</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>Configure the build.</p>
-<div class="openblock">
-<div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>/usr/local</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>--prefix</code> flag will install to the <code>/usr/local</code> directory.</p>
-</div>
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>Build Git.</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>fish</strong></dt>
+</dl>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ make all doc info</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ make all doc info <span class="nt">-j</span><span class="o">(</span><span class="nb">nproc</span><span class="o">)</span></code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Bash / ZSH</strong></dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ make all doc info <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc</span><span class="si">)</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </li>
 <li>
 <p>Install Git.</p>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>make <span class="nb">install </span>install-doc install-html install-info</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The configure script will arrange for installation under the <code>/usr/local</code> directory by default.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </li>
 <li>
-<p>Because it&#8217;s CentOS, add <code>/usr/local/bin</code> to your <code>PATH</code> environment variable.</p>
+<p>Because CentOS doesn&#8217;t add <code>/usr/local/bin</code> to your <code>PATH</code> by default, add it yourself.</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>fish</strong></dt>
+</dl>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="c"># Bash</span>
-➜ <span class="nb">echo</span> <span class="s2">"export PATH=/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
-➜ <span class="nb">source</span> ~/.bashrc
-
-<span class="c"># fish</span>
-➜ <span class="nb">set</span> <span class="nt">-pU</span> fish_user_paths /usr/local/bin</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-pU</span> fish_user_paths /usr/local/bin</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Bash / ZSH</strong></dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"export PATH=/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc</code></pre>
+</div>
+</div>
 </div>
 </div>
 </li>
@@ -316,7 +416,7 @@ GIT_VERSION <span class="o">=</span> 2.29.1
 <p>Cleanup the source directory and tarball now that are no longer needed.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rm</span> <span class="nt">-rf</span> git-2.29.1 git-2.29.1.tar.xz</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rm</span> <span class="nt">-rf</span> git-2.29.1 git-2.29.2.tar git-2.29.2.tar.sign</code></pre>
 </div>
 </div>
 </li>
@@ -357,10 +457,30 @@ Resolving deltas: 100% <span class="o">(</span>223939/223939<span class="o">)</s
 </li>
 <li>
 <p>Checkout the latest version of git.</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>fish</strong></dt>
+</dl>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ git switch <span class="nt">--detach</span> <span class="o">(</span>git describe <span class="nt">--abbrev</span><span class="o">=</span>0 <span class="nt">--tags</span><span class="o">)</span>
-HEAD is now at b927c80531 Git 2.29.1</code></pre>
+HEAD is now at b927c80531 Git 2.29.2</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Bash / ZSH</strong></dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git switch <span class="nt">--detach</span> <span class="si">$(</span>git describe <span class="nt">--abbrev</span><span class="o">=</span>0 <span class="nt">--tags</span><span class="si">)</span>
+HEAD is now at b927c80531 Git 2.29.2</code></pre>
+</div>
+</div>
 </div>
 </div>
 </li>
@@ -369,31 +489,43 @@ HEAD is now at b927c80531 Git 2.29.1</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ make configure
-GIT_VERSION <span class="o">=</span> 2.29.1
+GIT_VERSION <span class="o">=</span> 2.29.2
     GEN configure</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>Configure the build.</p>
-<div class="openblock">
-<div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>/usr/local</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>--prefix</code> flag will install to the <code>/usr/local</code> directory.</p>
-</div>
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>Build Git.</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>fish</strong></dt>
+</dl>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ make all doc info</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ make all doc info <span class="nt">-j</span><span class="o">(</span><span class="nb">nproc</span><span class="o">)</span></code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Bash / ZSH</strong></dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ make all doc info <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc</span><span class="si">)</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </li>
