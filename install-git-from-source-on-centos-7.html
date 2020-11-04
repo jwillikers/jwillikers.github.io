@@ -169,7 +169,8 @@
 <p>This is a quick tutorial showing the necessary steps to install Git from source on CentOS 7.
 Further documentation is available in the <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Git Book</a>.
 This tutorial assumes familiarity with CentOS 7 packages management, source code compilation, and the command-line.
-Where an instruction applies to a specific shell, the instruction will be shown for both <a href="https://www.gnu.org/software/bash/">Bash</a>, the default shell on CentOS 7, and <a href="https://fishshell.com/">fish</a>, the better shell everywhere.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+Where an instruction applies to a specific shell, the instruction will be shown for both <a href="https://www.gnu.org/software/bash/">Bash</a>, the default shell on CentOS 7, and <a href="https://fishshell.com/">fish</a>, the better shell everywhere.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
+To account for two distinct yet equally important use cases, instructions are provided for installing Git for the current user as well as system-wide.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -319,9 +320,40 @@ GIT_VERSION <span class="o">=</span> 2.29.2
 </li>
 <li>
 <p>Configure the build.</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>~/.local</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">System-wide</dt>
+</dl>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ ./configure</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The configure script will arrange for installation under the <code>/usr/local</code> directory by default.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </li>
@@ -341,7 +373,7 @@ GIT_VERSION <span class="o">=</span> 2.29.2
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><em>Bash / ZSH</em></dt>
+<dt class="hdlist1"><em>Bash</em></dt>
 </dl>
 </div>
 <div class="listingblock">
@@ -356,33 +388,71 @@ GIT_VERSION <span class="o">=</span> 2.29.2
 <p>Install Git.</p>
 <div class="openblock">
 <div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ make <span class="nb">install </span>install-doc install-html install-info</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">System-wide</dt>
+</dl>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>make <span class="nb">install </span>install-doc install-html install-info</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The configure script will arrange for installation under the <code>/usr/local</code> directory by default.
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 </li>
 <li>
-<p>Because CentOS doesn&#8217;t add <code>/usr/local/bin</code> to your <code>PATH</code> by default, add it yourself.</p>
+<p>Because CentOS doesn&#8217;t add <code>/usr/local/bin</code> or <code>~/.local/bin</code> to your <code>PATH</code> by default, add the relevant directory yourself.</p>
 <div class="openblock">
 <div class="content">
 <div class="dlist">
 <dl>
+<dt class="hdlist1">User</dt>
+<dd>
+<div class="dlist">
+<dl>
 <dt class="hdlist1"><em>fish</em></dt>
+</dl>
+</div>
+</dd>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-pU</span> fish_user_paths ~/.local/bin</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>Bash</em></dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"export PATH=</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">System-wide</dt>
+<dd>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>fish</em></dt>
+</dl>
+</div>
+</dd>
 </dl>
 </div>
 <div class="listingblock">
@@ -392,7 +462,7 @@ The configure script will arrange for installation under the <code>/usr/local</c
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><em>Bash / ZSH</em></dt>
+<dt class="hdlist1"><em>Bash</em></dt>
 </dl>
 </div>
 <div class="listingblock">
@@ -434,6 +504,8 @@ The configure script will arrange for installation under the <code>/usr/local</c
 <ol class="arabic">
 <li>
 <p>Checkout Git&#8217;s source code repository.</p>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ git clone git://git.kernel.org/pub/scm/git/git.git
@@ -444,6 +516,39 @@ remote: Compressing objects: 100% <span class="o">(</span>722/722<span class="o"
 remote: Total 295465 <span class="o">(</span>delta 9052<span class="o">)</span>, reused 9110 <span class="o">(</span>delta 8807<span class="o">)</span>, pack-reused 285920
 Receiving objects: 100% <span class="o">(</span>295465/295465<span class="o">)</span>, 70.24 MiB | 5.36 MiB/s, <span class="k">done</span><span class="nb">.</span>
 Resolving deltas: 100% <span class="o">(</span>223939/223939<span class="o">)</span>, <span class="k">done</span>.</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Keep organized.
+I recommend installing source code repositories in a directory in your home folder such as <code>~/Source</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For reference purposes, you might place source code in <code>/usr/local/src</code> for system-wide installs.
+Just make sure not to generate any build artifacts in <code>/usr/local/src</code>.
+You should still do that from within your home directory.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </li>
@@ -472,7 +577,7 @@ HEAD is now at b927c80531 Git 2.29.2</code></pre>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><em>Bash / ZSH</em></dt>
+<dt class="hdlist1"><em>Bash</em></dt>
 </dl>
 </div>
 <div class="listingblock">
@@ -495,10 +600,45 @@ GIT_VERSION <span class="o">=</span> 2.29.2
 </div>
 </li>
 <li>
-<p>Configure the build.</p>
+<p>Create a build directory to avoid cluttering the sourced directory.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ./configure</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir </span>build</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change into the build directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd </span>build</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure the build.</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ ../configure <span class="nt">--prefix</span><span class="o">=</span>~/.local</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">System-wide</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ ../configure</code></pre>
+</div>
+</div>
 </div>
 </div>
 </li>
@@ -518,7 +658,7 @@ GIT_VERSION <span class="o">=</span> 2.29.2
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><em>Bash / ZSH</em></dt>
+<dt class="hdlist1"><em>Bash</em></dt>
 </dl>
 </div>
 <div class="listingblock">
@@ -531,9 +671,44 @@ GIT_VERSION <span class="o">=</span> 2.29.2
 </li>
 <li>
 <p>Install Git.</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ make <span class="nb">install </span>install-doc install-html install-info</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">System-wide</dt>
+</dl>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>make <span class="nb">install </span>install-doc install-html install-info</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Change out of the build directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd</span> ..</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Clean up the lingering build artifacts by deleting the <code>build</code> directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rm</span> <span class="nt">-rf</span> build</code></pre>
 </div>
 </div>
 </li>

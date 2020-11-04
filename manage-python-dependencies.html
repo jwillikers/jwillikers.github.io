@@ -345,7 +345,7 @@ Resolving deltas: 100% <span class="o">(</span>3293/3293<span class="o">)</span>
 HEAD is now at c6145d0 Update version to 0.8.0
 
 <span class="c"># Bash / ZSH</span>
-➜ git <span class="nt">-C</span> ~/.asdf switch <span class="nt">--detach</span> <span class="sb">`</span>git <span class="nt">-C</span> ~/.asdf describe <span class="nt">--abbrev</span><span class="o">=</span>0 <span class="nt">--tags</span><span class="sb">`</span>
+➜ git <span class="nt">-C</span> ~/.asdf switch <span class="nt">--detach</span> <span class="si">$(</span>git <span class="nt">-C</span> ~/.asdf describe <span class="nt">--abbrev</span><span class="o">=</span>0 <span class="nt">--tags</span><span class="si">)</span>
 HEAD is now at c6145d0 Update version to 0.8.0</code></pre>
 </div>
 </div>
@@ -723,7 +723,7 @@ Installed Python-3.9.0 to /home/ubuntu/.asdf/installs/python/3.9.0</code></pre>
 ➜ asdf <span class="nb">local </span>python <span class="o">(</span>asdf current python | <span class="nb">awk</span> <span class="s1">'{print $2}'</span><span class="o">)</span>
 
 <span class="c"># Bash / ZSH</span>
-➜ asdf <span class="nb">local </span>python <span class="sb">`</span>asdf current python | <span class="nb">awk</span> <span class="s1">'{print $2}'</span><span class="sb">`</span></code></pre>
+➜ asdf <span class="nb">local </span>python <span class="si">$(</span>asdf current python | <span class="nb">awk</span> <span class="s1">'{print $2}'</span><span class="si">)</span></code></pre>
 </div>
 </div>
 </li>
@@ -754,7 +754,7 @@ The installation was successful!</code></pre>
 ➜ asdf global direnv <span class="o">(</span>asdf latest direnv<span class="o">)</span>
 
 <span class="c"># Bash / ZSH</span>
-➜ asdf global direnv <span class="sb">`</span>asdf latest direnv<span class="sb">`</span></code></pre>
+➜ asdf global direnv <span class="si">$(</span>asdf latest direnv<span class="si">)</span></code></pre>
 </div>
 </div>
 </td>
@@ -772,7 +772,7 @@ The installation was successful!</code></pre>
 ➜ asdf <span class="nb">local </span>direnv <span class="o">(</span>asdf latest direnv<span class="o">)</span>
 
 <span class="c"># Bash / ZSH</span>
-➜ asdf <span class="nb">local </span>direnv <span class="sb">`</span>asdf latest direnv<span class="sb">`</span></code></pre>
+➜ asdf <span class="nb">local </span>direnv <span class="si">$(</span>asdf latest direnv<span class="si">)</span></code></pre>
 </div>
 </div>
 </li>
@@ -951,7 +951,7 @@ Installed Python-3.9.0 to /home/ubuntu/.asdf/installs/python/3.9.0</code></pre>
 ➜ asdf global direnv <span class="o">(</span>asdf list ruby | <span class="nb">awk</span> <span class="s1">'FNR &lt;= 1'</span><span class="o">)</span>
 
 <span class="c"># Bash / ZSH</span>
-➜ asdf global direnv <span class="sb">`</span>asdf list ruby | <span class="nb">awk</span> <span class="s1">'FNR &lt;= 1'</span><span class="sb">`</span></code></pre>
+➜ asdf global direnv <span class="si">$(</span>asdf list ruby | <span class="nb">awk</span> <span class="s1">'FNR &lt;= 1'</span><span class="si">)</span></code></pre>
 </div>
 </div>
 </td>
@@ -1072,7 +1072,7 @@ Steps for updating the various software components follow.</p>
 ➜ asdf <span class="nb">local </span>direnv <span class="o">(</span>asdf latest direnv<span class="o">)</span>
 
 <span class="c"># Bash / ZSH</span>
-➜ asdf <span class="nb">local </span>direnv <span class="sb">`</span>asdf latest direnv<span class="sb">`</span></code></pre>
+➜ asdf <span class="nb">local </span>direnv <span class="si">$(</span>asdf latest direnv<span class="si">)</span></code></pre>
 </div>
 </div>
 </li>
@@ -1141,7 +1141,7 @@ If you want to upgrade all packages managed by pipx, just run <code>pipx upgrade
 ➜ asdf global python <span class="o">(</span>asdf latest python<span class="o">)</span>
 
 <span class="c"># Bash / ZSH</span>
-➜ asdf global python <span class="sb">`</span>asdf latest python<span class="sb">`</span></code></pre>
+➜ asdf global python <span class="si">$(</span>asdf latest python<span class="si">)</span></code></pre>
 </div>
 </div>
 </li>
@@ -1188,7 +1188,7 @@ If you want to upgrade all packages managed by pipx, just run <code>pipx upgrade
 ➜ asdf <span class="nb">local </span>python <span class="o">(</span>asdf latest python<span class="o">)</span>
 
 <span class="c"># Bash / ZSH</span>
-➜ asdf <span class="nb">local </span>python <span class="sb">`</span>asdf latest python<span class="sb">`</span></code></pre>
+➜ asdf <span class="nb">local </span>python <span class="si">$(</span>asdf latest python<span class="si">)</span></code></pre>
 </div>
 </div>
 </li>
