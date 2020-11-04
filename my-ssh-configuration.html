@@ -186,7 +186,7 @@ This article assumes the reader is familiar with the basics of SSH and the synta
 <div class="listingblock">
 <div class="title">~/.ssh/config</div>
 <div class="content">
-<pre class="rouge highlight"><code>NoHostAuthenticationForLocalhost yes</code></pre>
+<pre class="rouge highlight"><code data-lang="ssh"><span class="k">NoHostAuthenticationForLocalhost</span> <span class="no">yes</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -225,8 +225,8 @@ As an example, <code>vm_host</code> represents a computer dedicated for running 
 <div class="listingblock">
 <div class="title">~/.ssh/config</div>
 <div class="content">
-<pre class="rouge highlight"><code>Host vm_host
-  Hostname vm_host.local</code></pre>
+<pre class="rouge highlight"><code data-lang="ssh"><span class="k">Host</span> vm_host
+  <span class="k">Hostname</span> vm_host.local</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -242,16 +242,16 @@ The alias <code>vm_host</code> can be used on the command-line instead of having
 <div class="listingblock">
 <div class="title">~/.ssh/config</div>
 <div class="content">
-<pre class="rouge highlight"><code>Host vm1
-  HostKeyAlias vm1.localhost
+<pre class="rouge highlight"><code data-lang="ssh"><span class="k">Host</span> vm1
+  <span class="k">HostKeyAlias</span> vm1.localhost
 
-Host vm2
-  HostKeyAlias vm2.localhost
+<span class="k">Host</span> vm2
+  <span class="k">HostKeyAlias</span> vm2.localhost
 
-Host vm1 vm2
-  Hostname localhost
-  Port 9001
-  ProxyJump vm_host</code></pre>
+<span class="k">Host</span> vm1 vm2
+  <span class="k">Hostname</span> localhost
+  <span class="k">Port</span> <span class="m">9001</span>
+  <span class="k">ProxyJump</span> vm_host</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -281,8 +281,8 @@ According to the <a href="https://man.openbsd.org/ssh_config#HostKeyAlias"><code
 <div class="listingblock">
 <div class="title">~/.ssh/config</div>
 <div class="content">
-<pre class="rouge highlight"><code>Host *.local
-  CheckHostIP no</code></pre>
+<pre class="rouge highlight"><code data-lang="ssh"><span class="k">Host</span> *.local
+  <span class="k">CheckHostIP</span> <span class="no">no</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -310,14 +310,14 @@ It might be worth setting this option for all users in the system-wide configura
 <div class="listingblock">
 <div class="title">~/.ssh/config</div>
 <div class="content">
-<pre class="rouge highlight"><code>Host *
-  AddKeysToAgent yes
-  IdentitiesOnly yes
-  IdentityFile ~/.ssh/id_rsa_catalina-build.pub
-  PreferredAuthentications publickey,keyboard-interactive,password,gssapi-with-mic,hostbased
+<pre class="rouge highlight"><code data-lang="ssh"><span class="k">Host</span> *
+  <span class="k">AddKeysToAgent</span> <span class="no">yes</span>
+  <span class="k">IdentitiesOnly</span> <span class="no">yes</span>
+  <span class="k">IdentityFile</span> ~/.ssh/id_rsa_catalina-build.pub
+  <span class="k">PreferredAuthentications</span> publickey,keyboard-interactive,password,gssapi-with-mic,hostbased
 
-  # Specific to macOS
-  UseKeychain yes</code></pre>
+  <span class="c1"># Specific to macOS</span>
+  <span class="k">UseKeychain</span> <span class="no">yes</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -359,8 +359,8 @@ You can forward the SSH Agent by setting <a href="https://man.openbsd.org/ssh_co
 <div class="listingblock">
 <div class="title">~/.ssh/ssh_config</div>
 <div class="content">
-<pre class="rouge highlight"><code>Host server
-  ForwardAgent yes</code></pre>
+<pre class="rouge highlight"><code data-lang="ssh"><span class="k">Host</span> server
+  <span class="k">ForwardAgent</span> <span class="no">yes</span></code></pre>
 </div>
 </div>
 <div class="admonitionblock caution">

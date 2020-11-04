@@ -220,15 +220,15 @@ The first describes how to use systemd user service and the second a system serv
 <div class="listingblock">
 <div class="title">~/.config/systemd/user/update-antigen.service</div>
 <div class="content">
-<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[Unit]</span>
-<span class="py">Description</span><span class="p">=</span><span class="s">Update Antigen</span>
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Update Antigen
 
-<span class="nn">[Service]</span>
-<span class="py">Type</span><span class="p">=</span><span class="s">oneshot</span>
-<span class="py">ExecStart</span><span class="p">=</span><span class="s">/usr/bin/zsh -c '. "$0" &amp;&amp; exec "$@"' /home/jordan/.zshrc antigen update</span>
+<span class="k">[Service]</span>
+<span class="nt">Type</span><span class="p">=</span>oneshot
+<span class="nt">ExecStart</span><span class="p">=</span>/usr/bin/zsh -c '. "$0" &amp;&amp; exec "$@"' /home/jordan/.zshrc antigen update
 
-<span class="nn">[Install]</span>
-<span class="py">WantedBy</span><span class="p">=</span><span class="s">default.target</span></code></pre>
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>default.target</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -276,15 +276,15 @@ Sep 22 15:36:26 jwillikers systemd[7678]: Finished Update Antigen.</code></pre>
 <div class="listingblock">
 <div class="title">~/.config/systemd/user/update-antigen.timer</div>
 <div class="content">
-<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[Unit]</span>
-<span class="py">Description</span><span class="p">=</span><span class="s">Update Antigen weekly</span>
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Update Antigen weekly
 
-<span class="nn">[Timer]</span>
-<span class="py">Persistent</span><span class="p">=</span><span class="s">true</span>
-<span class="py">OnCalendar</span><span class="p">=</span><span class="s">weekly</span>
+<span class="k">[Timer]</span>
+<span class="nt">Persistent</span><span class="p">=</span>true
+<span class="nt">OnCalendar</span><span class="p">=</span>weekly
 
-<span class="nn">[Install]</span>
-<span class="py">WantedBy</span><span class="p">=</span><span class="s">timers.target</span></code></pre>
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>timers.target</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -320,19 +320,19 @@ Created symlink /home/jordan/.config/systemd/user/timers.target.wants/update-ant
 <div class="listingblock">
 <div class="title">/etc/systemd/system/update-jordan-antigen.service</div>
 <div class="content">
-<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[Unit]</span>
-<span class="py">Description</span><span class="p">=</span><span class="s">Update Jordan's Antigen plugins for ZSH</span>
-<span class="py">After</span><span class="p">=</span><span class="s">network-online.target</span>
-<span class="py">Wants</span><span class="p">=</span><span class="s">network-online.target</span>
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Update Jordan's Antigen plugins for ZSH
+<span class="nt">After</span><span class="p">=</span>network-online.target
+<span class="nt">Wants</span><span class="p">=</span>network-online.target
 
-<span class="nn">[Service]</span>
-<span class="py">Type</span><span class="p">=</span><span class="s">oneshot</span>
-<span class="py">User</span><span class="p">=</span><span class="s">jordan</span>
-<span class="py">Group</span><span class="p">=</span><span class="s">jordan</span>
-<span class="py">ExecStart</span><span class="p">=</span><span class="s">/usr/bin/zsh -c '. "$0" &amp;&amp; exec "$@"' /home/jordan/.zshrc antigen update</span>
+<span class="k">[Service]</span>
+<span class="nt">Type</span><span class="p">=</span>oneshot
+<span class="nt">User</span><span class="p">=</span>jordan
+<span class="nt">Group</span><span class="p">=</span>jordan
+<span class="nt">ExecStart</span><span class="p">=</span>/usr/bin/zsh -c '. "$0" &amp;&amp; exec "$@"' /home/jordan/.zshrc antigen update
 
-<span class="nn">[Install]</span>
-<span class="py">WantedBy</span><span class="p">=</span><span class="s">multi-user.target</span></code></pre>
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>multi-user.target</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -382,15 +382,15 @@ Sep 16 14:12:39 jwillikers systemd[1]: Started Update Jordan<span class="se">\'<
 <div class="listingblock">
 <div class="title">/etc/systemd/system/update-jordan-antigen.timer</div>
 <div class="content">
-<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[Unit]</span>
-<span class="py">Description</span><span class="p">=</span><span class="s">Update Antigen weekly</span>
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Update Antigen weekly
 
-<span class="nn">[Timer]</span>
-<span class="py">Persistent</span><span class="p">=</span><span class="s">true</span>
-<span class="py">OnCalendar</span><span class="p">=</span><span class="s">weekly</span>
+<span class="k">[Timer]</span>
+<span class="nt">Persistent</span><span class="p">=</span>true
+<span class="nt">OnCalendar</span><span class="p">=</span>weekly
 
-<span class="nn">[Install]</span>
-<span class="py">WantedBy</span><span class="p">=</span><span class="s">timers.target</span></code></pre>
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>timers.target</code></pre>
 </div>
 </div>
 </li>
