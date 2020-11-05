@@ -327,9 +327,44 @@ GIT_VERSION <span class="o">=</span> 2.29.2
 <dt class="hdlist1">User</dt>
 </dl>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <a href="https://www.freedesktop.org/software/systemd/man/file-hierarchy.html#~/.local/bin/">Freedesktop File-hierarchy specification</a> designates the directory <code>~/.local/bin</code> for user&#8217;s executables.
+As the specification also notes, this can be problematic for architecture dependent executables, aka anything compiled down to assembly code, like Git here.
+Unfortunately, the specification provides no method for mediating this problem.
+Luckily, compilers already have fairly standard methods for describing the system for which code is compiled.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
+We are just going to steal this convention for naming a subdirectory within <code>~/.local</code> where anything specific to that architecture is installed.
+Your shell can then handle updating your path to correspond to the architecture you&#8217;re running at this time.
+This should probably be described in detail in another blog post more&#8230;&#8203; but that&#8217;s the gist.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>fish</em></dt>
+</dl>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>~/.local</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>~/.local/<span class="o">(</span>gcc <span class="nt">-dumpmachine</span><span class="o">)</span></code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>Bash</em></dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>~/.local/<span class="si">$(</span>gcc <span class="nt">-dumpmachine</span><span class="si">)</span></code></pre>
 </div>
 </div>
 <div class="dlist">
@@ -412,7 +447,7 @@ The configure script will arrange for installation under the <code>/usr/local</c
 </div>
 </li>
 <li>
-<p>Because CentOS doesn&#8217;t add <code>/usr/local/bin</code> or <code>~/.local/bin</code> to your <code>PATH</code> by default, add the relevant directory yourself.</p>
+<p>Because CentOS doesn&#8217;t add <code>/usr/local/bin</code> or <code>~/.local/*/bin</code> to your <code>PATH</code> by default, add the relevant directory yourself.</p>
 <div class="openblock">
 <div class="content">
 <div class="dlist">
@@ -429,7 +464,10 @@ The configure script will arrange for installation under the <code>/usr/local</c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-pU</span> fish_user_paths ~/.local/bin</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/conf.d<span class="p">;</span> and <span class="se">\</span>
+  <span class="nb">echo</span> <span class="s1">'set -p fish_user_paths ~/.local/(gcc -dumpmachine)/bin'</span> <span class="o">&gt;</span> <span class="se">\</span>
+    ~/.config/fish/conf.d/machine_bin.fish
+➜ <span class="nb">exec </span>fish</code></pre>
 </div>
 </div>
 <div class="dlist">
@@ -439,7 +477,7 @@ The configure script will arrange for installation under the <code>/usr/local</c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"export PATH=</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s1">'export PATH=$HOME/.local/$(gcc -dumpmachine)/bin:$PATH'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
 ➜ <span class="nb">source</span> ~/.bashrc</code></pre>
 </div>
 </div>
@@ -622,11 +660,28 @@ GIT_VERSION <span class="o">=</span> 2.29.2
 <div class="dlist">
 <dl>
 <dt class="hdlist1">User</dt>
+<dd>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>fish</em></dt>
+</dl>
+</div>
+</dd>
 </dl>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ../configure <span class="nt">--prefix</span><span class="o">=</span>~/.local</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>~/.local/<span class="o">(</span>gcc <span class="nt">-dumpmachine</span><span class="o">)</span></code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>Bash</em></dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>~/.local/<span class="si">$(</span>gcc <span class="nt">-dumpmachine</span><span class="si">)</span></code></pre>
 </div>
 </div>
 <div class="dlist">
@@ -729,6 +784,9 @@ Enjoy!</p>
 <hr>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. It&#8217;s not like I&#8217;m biased or anything.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. See Clang&#8217;s documentation on <a href="https://clang.llvm.org/docs/CrossCompilation.html">Cross Compilation</a> for more info.
 </div>
 </div>
     </div>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-11-04T17:31:39-06:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Manage Python Dependencies</title><link href="https://jwillikers.com/manage-python-dependencies" rel="alternate" type="text/html" title="Manage Python Dependencies" /><published>2020-11-01T00:00:00-05:00</published><updated>2020-11-01T00:00:00-05:00</updated><id>https://jwillikers.com/Manage%20Python%20Dependencies</id><content type="html" xml:base="https://jwillikers.com/manage-python-dependencies">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-11-04T19:12:51-06:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Manage Python Dependencies</title><link href="https://jwillikers.com/manage-python-dependencies" rel="alternate" type="text/html" title="Manage Python Dependencies" /><published>2020-11-01T00:00:00-05:00</published><updated>2020-11-01T00:00:00-05:00</updated><id>https://jwillikers.com/Manage%20Python%20Dependencies</id><content type="html" xml:base="https://jwillikers.com/manage-python-dependencies">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Making &lt;a href=&quot;https://www.python.org/&quot;&gt;Python&lt;/a&gt; dependency management reproducible is complicated.
@@ -1445,9 +1445,44 @@ GIT_VERSION &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 2.29.2
 &lt;dt class=&quot;hdlist1&quot;&gt;User&lt;/dt&gt;
 &lt;/dl&gt;
 &lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/file-hierarchy.html#~/.local/bin/&quot;&gt;Freedesktop File-hierarchy specification&lt;/a&gt; designates the directory &lt;code&gt;~/.local/bin&lt;/code&gt; for user&amp;#8217;s executables.
+As the specification also notes, this can be problematic for architecture dependent executables, aka anything compiled down to assembly code, like Git here.
+Unfortunately, the specification provides no method for mediating this problem.
+Luckily, compilers already have fairly standard methods for describing the system for which code is compiled.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;
+We are just going to steal this convention for naming a subdirectory within &lt;code&gt;~/.local&lt;/code&gt; where anything specific to that architecture is installed.
+Your shell can then handle updating your path to correspond to the architecture you&amp;#8217;re running at this time.
+This should probably be described in detail in another blog post more&amp;#8230;&amp;#8203; but that&amp;#8217;s the gist.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;fish&lt;/em&gt;&lt;/dt&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ./configure &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;~/.local&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ./configure &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;~/.local/&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;gcc &lt;span class=&quot;nt&quot;&gt;-dumpmachine&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;Bash&lt;/em&gt;&lt;/dt&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ./configure &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;~/.local/&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;gcc &lt;span class=&quot;nt&quot;&gt;-dumpmachine&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;dlist&quot;&gt;
@@ -1530,7 +1565,7 @@ The configure script will arrange for installation under the &lt;code&gt;/usr/lo
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Because CentOS doesn&amp;#8217;t add &lt;code&gt;/usr/local/bin&lt;/code&gt; or &lt;code&gt;~/.local/bin&lt;/code&gt; to your &lt;code&gt;PATH&lt;/code&gt; by default, add the relevant directory yourself.&lt;/p&gt;
+&lt;p&gt;Because CentOS doesn&amp;#8217;t add &lt;code&gt;/usr/local/bin&lt;/code&gt; or &lt;code&gt;~/.local/*/bin&lt;/code&gt; to your &lt;code&gt;PATH&lt;/code&gt; by default, add the relevant directory yourself.&lt;/p&gt;
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;dlist&quot;&gt;
@@ -1547,7 +1582,10 @@ The configure script will arrange for installation under the &lt;code&gt;/usr/lo
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-pU&lt;/span&gt; fish_user_paths ~/.local/bin&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/.config/fish/conf.d&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; and &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'set -p fish_user_paths ~/.local/(gcc -dumpmachine)/bin'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    ~/.config/fish/conf.d/machine_bin.fish
+➜ &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;fish&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;dlist&quot;&gt;
@@ -1557,7 +1595,7 @@ The configure script will arrange for installation under the &lt;code&gt;/usr/lo
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;export PATH=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/.local/bin:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; ~/.bashrc
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'export PATH=$HOME/.local/$(gcc -dumpmachine)/bin:$PATH'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; ~/.bashrc
 ➜ &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.bashrc&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1740,11 +1778,28 @@ GIT_VERSION &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 2.29.2
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;User&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;fish&lt;/em&gt;&lt;/dt&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
 &lt;/dl&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ../configure &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;~/.local&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ./configure &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;~/.local/&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;gcc &lt;span class=&quot;nt&quot;&gt;-dumpmachine&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;Bash&lt;/em&gt;&lt;/dt&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ./configure &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;~/.local/&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;gcc &lt;span class=&quot;nt&quot;&gt;-dumpmachine&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;dlist&quot;&gt;
@@ -1847,6 +1902,9 @@ Enjoy!&lt;/p&gt;
 &lt;hr&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
 &lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. It&amp;#8217;s not like I&amp;#8217;m biased or anything.
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. See Clang&amp;#8217;s documentation on &lt;a href=&quot;https://clang.llvm.org/docs/CrossCompilation.html&quot;&gt;Cross Compilation&lt;/a&gt; for more info.
 &lt;/div&gt;
 &lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Development" /><category term="CentOS" /><category term="Git" /><category term="Linux" /></entry><entry><title type="html">Build GCC From Source on CentOS 7</title><link href="https://jwillikers.com/build-gcc-from-source-on-centos-7" rel="alternate" type="text/html" title="Build GCC From Source on CentOS 7" /><published>2020-10-28T00:00:00-05:00</published><updated>2020-10-28T00:00:00-05:00</updated><id>https://jwillikers.com/Build%20GCC%20From%20Source%20on%20CentOS%207</id><content type="html" xml:base="https://jwillikers.com/build-gcc-from-source-on-centos-7">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -2210,7 +2268,7 @@ Image resized.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;On the virtual machine, install the &lt;code&gt;cloud-utils-growpart&lt;/code&gt; package from Canonical&amp;#8217;s &lt;a href=&quot;https://github.com/canonical/cloud-utils&quot;&gt;cloud-utils&lt;/a&gt; project.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dnf &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; cloud-utils-growpart&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dnf &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;cloud-utils-growpart&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -2585,7 +2643,7 @@ GitHub is used as an example here because it is so widely used.&lt;/p&gt;
 &lt;p&gt;Don&amp;#8217;t forget to install Git if you haven&amp;#8217;t already.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; git&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;git&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -2668,7 +2726,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDoxvFhlQciJxydpZVKnNwVYtSZI8hw6aF3ug961FAH
 &lt;p&gt;On the remote machine, make sure to install the OpenSSH server.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; openssh-server&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;openssh-server&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;

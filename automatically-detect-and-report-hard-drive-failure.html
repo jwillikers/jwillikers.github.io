@@ -184,7 +184,7 @@ With <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>apt <span class="nb">install </span>smartmontools</code></pre>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>smartmontools</code></pre>
 </div>
 </div>
 </div>
@@ -273,7 +273,7 @@ Don&#8217;t log the skipped test, which could wake-up the disk.</td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl <span class="nb">enable </span>smartd</code></pre>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl <span class="nb">enable </span>smartd</code></pre>
 </div>
 </div>
 </div>
@@ -338,7 +338,7 @@ The log shows that one short offline test has been run without error.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>smartctl <span class="nt">-d</span> sat <span class="nt">-l</span> xselftest,25,selftest /dev/sda
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>smartctl <span class="nt">-d</span> sat <span class="nt">-l</span> xselftest,25,selftest /dev/sda
 smartctl 7.1 2019-12-30 r5022 <span class="o">[</span>x86_64-linux-5.4.0-31-generic] <span class="o">(</span><span class="nb">local </span>build<span class="o">)</span>
 Copyright <span class="o">(</span>C<span class="o">)</span> 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
 
@@ -385,7 +385,7 @@ Num  Test_Description    Status                  Remaining  LifeTime<span class=
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>systemctl restart smartd</code></pre>
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span><span class="nb">sudo </span>systemctl restart smartd</code></pre>
 </div>
 </div>
 <div class="paragraph">
