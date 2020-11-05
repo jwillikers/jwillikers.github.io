@@ -343,24 +343,24 @@ Resolving deltas: 100% <span class="o">(</span>3293/3293<span class="o">)</span>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ git <span class="nt">-C</span> ~/.asdf switch <span class="nt">--detach</span> <span class="o">(</span>git <span class="nt">-C</span> ~/.asdf describe <span class="nt">--abbrev</span><span class="o">=</span>0 <span class="nt">--tags</span><span class="o">)</span>
 HEAD is now at c6145d0 Update version to 0.8.0</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash / ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ git <span class="nt">-C</span> ~/.asdf switch <span class="nt">--detach</span> <span class="si">$(</span>git <span class="nt">-C</span> ~/.asdf describe <span class="nt">--abbrev</span><span class="o">=</span>0 <span class="nt">--tags</span><span class="si">)</span>
 HEAD is now at c6145d0 Update version to 0.8.0</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -372,32 +372,30 @@ HEAD is now at c6145d0 Update version to 0.8.0</code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/conf.d<span class="p">;</span> and <span class="nb">echo</span> <span class="s2">"source ~/.asdf/asdf.fish"</span> <span class="o">&gt;</span> ~/.config/fish/conf.d/asdf.fish</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ <span class="nb">echo</span> <span class="s1">'. $HOME/.asdf/asdf.sh'</span> <span class="o">&gt;&gt;</span> ~/.bashrc</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="zsh">➜ <span class="nb">echo</span> <span class="s1">'. $HOME/.asdf/asdf.sh'</span> <span class="o">&gt;&gt;</span> ~/.zshrc</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -409,32 +407,30 @@ HEAD is now at c6145d0 Update version to 0.8.0</code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/completions<span class="p">;</span> and <span class="nb">ln</span> <span class="nt">-s</span> ~/.asdf/completions/asdf.fish ~/.config/fish/completions</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ <span class="nb">echo</span> <span class="s1">'. $HOME/.asdf/completions/asdf.bash'</span> <span class="o">&gt;&gt;</span> ~/.bashrc</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="zsh">➜ <span class="nb">echo</span> <span class="nt">-e</span> <span class="s1">'fpath=(${ASDF_DIR}/completions $fpath)\nautoload -Uz compinit\ncompinit'</span> <span class="o">&gt;&gt;</span> ~/.zshrc</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -446,32 +442,30 @@ HEAD is now at c6145d0 Update version to 0.8.0</code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">exec </span>fish</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ <span class="nb">source</span> ~/.bashrc</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="zsh">➜ <span class="nb">source</span> ~/.zshrc</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -581,22 +575,22 @@ Install the Python package <code>python-is-python3</code> to install a <code>pyt
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ asdf global python <span class="o">(</span>asdf latest python<span class="o">)</span></code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash / ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ asdf global python <span class="o">(</span>asdf latest python<span class="o">)</span></code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -664,32 +658,30 @@ Otherwise pipx is ready to go! ✨ 🌟 ✨</code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">exec </span>fish</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ <span class="nb">source</span> ~/.bashrc</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="zsh">➜ <span class="nb">source</span> ~/.zshrc</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -722,32 +714,30 @@ Otherwise pipx is ready to go! ✨ 🌟 ✨</code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/conf.d<span class="p">;</span> and <span class="nb">echo</span> <span class="s2">"asdf exec direnv hook fish | source"</span> <span class="o">&gt;</span> ~/.config/fish/conf.d/direnv.fish</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ <span class="nb">echo</span> <span class="s1">'eval "$(asdf exec direnv hook bash)"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="zsh">➜ <span class="nb">echo</span> <span class="s1">'eval "$(asdf exec direnv hook zsh)"'</span> <span class="o">&gt;&gt;</span> ~/.zshrc</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -759,22 +749,22 @@ Otherwise pipx is ready to go! ✨ 🌟 ✨</code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/direnv<span class="p">;</span> and <span class="nb">echo</span> <span class="s1">'source "$(asdf direnv hook asdf)"'</span> <span class="o">&gt;&gt;</span> ~/.config/direnv/direnvrc</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash / ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/direnv<span class="p">;</span> <span class="nb">echo</span> <span class="s1">'source "$(asdf direnv hook asdf)"'</span> <span class="o">&gt;&gt;</span> ~/.config/direnv/direnvrc</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -798,32 +788,30 @@ The <code>direnvrc</code> file should only use Bash syntax.
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"eval (pipenv --completion)"</span> <span class="o">&gt;</span> ~/.config/fish/completions/pipenv.fish</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ <span class="nb">echo</span> <span class="s1">'eval "$(pipenv --completion)"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="zsh">➜ <span class="nb">echo</span> <span class="s1">'eval "$(pipenv --completion)"'</span> <span class="o">&gt;&gt;</span> ~/.zshrc</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -895,22 +883,22 @@ Installed Python-3.9.0 to /home/ubuntu/.asdf/installs/python/3.9.0</code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ asdf <span class="nb">local </span>python <span class="o">(</span>asdf current python | <span class="nb">awk</span> <span class="s1">'{print $2}'</span><span class="o">)</span></code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash / ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ asdf <span class="nb">local </span>python <span class="si">$(</span>asdf current python | <span class="nb">awk</span> <span class="s1">'{print $2}'</span><span class="si">)</span></code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -939,22 +927,22 @@ The installation was successful!</code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ asdf global direnv <span class="o">(</span>asdf latest direnv<span class="o">)</span></code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash / ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ asdf global direnv <span class="si">$(</span>asdf latest direnv<span class="si">)</span></code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </td>
 </tr>
@@ -970,22 +958,22 @@ The installation was successful!</code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ asdf <span class="nb">local </span>direnv <span class="o">(</span>asdf latest direnv<span class="o">)</span></code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash / ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ asdf <span class="nb">local </span>direnv <span class="si">$(</span>asdf latest direnv<span class="si">)</span></code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -1047,8 +1035,7 @@ Alternatively, run a <span class="nb">command </span>inside the virtualenv with 
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="o">&gt;</span> .envrc <span class="s2">"</span><span class="se">\</span><span class="s2">
@@ -1056,15 +1043,16 @@ use asdf
 layout pipenv"</span></code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash / ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"use asdf</span><span class="se">\n</span><span class="s2">layout pipenv"</span> <span class="o">&gt;</span> .envrc</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -1084,8 +1072,7 @@ layout pipenv"</span></code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="c"># fish</span>
@@ -1093,27 +1080,26 @@ layout pipenv"</span></code></pre>
 direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ <span class="nb">source</span> ~/.bashrc
 direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="zsh">➜ <span class="nb">source</span> ~/.zshrc
 direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -1200,22 +1186,22 @@ Installed Python-3.9.0 to /home/ubuntu/.asdf/installs/python/3.9.0</code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ asdf global direnv <span class="o">(</span>asdf list ruby | <span class="nb">awk</span> <span class="s1">'FNR &lt;= 1'</span><span class="o">)</span></code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash / ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ asdf global direnv <span class="si">$(</span>asdf list ruby | <span class="nb">awk</span> <span class="s1">'FNR &lt;= 1'</span><span class="si">)</span></code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </td>
 </tr>
@@ -1231,35 +1217,33 @@ Installed Python-3.9.0 to /home/ubuntu/.asdf/installs/python/3.9.0</code></pre>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">exec </span>fish
 direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ <span class="nb">source</span> ~/.bashrc
 direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="zsh">➜ <span class="nb">source</span> ~/.zshrc
 direnv: error /home/ubuntu/Source/MyProject/.envrc is blocked. Run <span class="sb">`</span>direnv allow<span class="sb">`</span> to approve its content</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -1356,22 +1340,22 @@ Steps for updating the various software components follow.</p>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ asdf <span class="nb">local </span>direnv <span class="o">(</span>asdf latest direnv<span class="o">)</span></code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash / ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ asdf <span class="nb">local </span>direnv <span class="si">$(</span>asdf latest direnv<span class="si">)</span></code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -1440,22 +1424,22 @@ If you want to upgrade all packages managed by pipx, just run <code>pipx upgrade
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ asdf global python <span class="o">(</span>asdf latest python<span class="o">)</span></code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash / ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ asdf global python <span class="si">$(</span>asdf latest python<span class="si">)</span></code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -1502,22 +1486,22 @@ If you want to upgrade all packages managed by pipx, just run <code>pipx upgrade
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ asdf <span class="nb">local </span>python <span class="o">(</span>asdf latest python<span class="o">)</span></code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
+</dd>
 <dt class="hdlist1"><em>Bash / ZSH</em></dt>
-</dl>
-</div>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="bash">➜ asdf <span class="nb">local </span>python <span class="si">$(</span>asdf latest python<span class="si">)</span></code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
