@@ -354,7 +354,7 @@ This should probably be described in detail in another blog post more&#8230;&#82
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>~/.local/<span class="o">(</span>gcc <span class="nt">-dumpmachine</span><span class="o">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span><span class="nv">$HOME</span>/.local/<span class="o">(</span>gcc <span class="nt">-dumpmachine</span><span class="o">)</span></code></pre>
 </div>
 </div>
 <div class="dlist">
@@ -364,7 +364,7 @@ This should probably be described in detail in another blog post more&#8230;&#82
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>~/.local/<span class="si">$(</span>gcc <span class="nt">-dumpmachine</span><span class="si">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span><span class="nv">$HOME</span>/.local/<span class="si">$(</span>gcc <span class="nt">-dumpmachine</span><span class="si">)</span></code></pre>
 </div>
 </div>
 <div class="dlist">
@@ -466,7 +466,7 @@ The configure script will arrange for installation under the <code>/usr/local</c
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/conf.d<span class="p">;</span> and <span class="se">\</span>
   <span class="nb">echo</span> <span class="s1">'set -p fish_user_paths ~/.local/(gcc -dumpmachine)/bin'</span> <span class="o">&gt;</span> <span class="se">\</span>
-    ~/.config/fish/conf.d/machine_bin.fish
+    ~/.config/fish/conf.d/machine_paths.fish
 ➜ <span class="nb">exec </span>fish</code></pre>
 </div>
 </div>
@@ -506,6 +506,138 @@ The configure script will arrange for installation under the <code>/usr/local</c
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"export PATH=/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Update the <code>MANPATH</code> environment variable to be able to read the man pages.</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User</dt>
+<dd>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>fish</em></dt>
+</dl>
+</div>
+</dd>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/conf.d<span class="p">;</span> and <span class="se">\</span>
+  <span class="nb">echo</span> <span class="s1">'set -gx MANPATH ~/.local/(gcc -dumpmachine)/share/man:'</span> <span class="o">&gt;&gt;</span> <span class="se">\</span>
+    ~/.config/fish/conf.d/machine_paths.fish
+➜ <span class="nb">exec </span>fish</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>Bash</em></dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s1">'export MANPATH=$HOME/.local/$(gcc -dumpmachine)/share/man:'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">System-wide</dt>
+<dd>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>fish</em></dt>
+</dl>
+</div>
+</dd>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-Ux</span> MANPATH /usr/local/share/man:</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>Bash</em></dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"export MANPATH=/usr/local/share/man:"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Update the <code>INFOPATH</code> environment variable as well.</p>
+<div class="openblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User</dt>
+<dd>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>fish</em></dt>
+</dl>
+</div>
+</dd>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/conf.d<span class="p">;</span> and <span class="se">\</span>
+  <span class="nb">echo</span> <span class="s1">'set -gpx INFOPATH ~/.local/(gcc -dumpmachine)/share/info'</span> <span class="o">&gt;&gt;</span> <span class="se">\</span>
+    ~/.config/fish/conf.d/machine_paths.fish
+➜ <span class="nb">exec </span>fish</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>Bash</em></dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s1">'export INFOPATH=$HOME/.local/$(gcc -dumpmachine)/share/info:$INFOPATH'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+➜ <span class="nb">source</span> ~/.bashrc</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">System-wide</dt>
+<dd>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>fish</em></dt>
+</dl>
+</div>
+</dd>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-pUx</span> INFOPATH /usr/local/share/info</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>Bash</em></dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"export INFOPATH=/usr/local/share/info:</span><span class="nv">$INFOPATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
 ➜ <span class="nb">source</span> ~/.bashrc</code></pre>
 </div>
 </div>
@@ -671,7 +803,7 @@ GIT_VERSION <span class="o">=</span> 2.29.2
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>~/.local/<span class="o">(</span>gcc <span class="nt">-dumpmachine</span><span class="o">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ ../configure <span class="nt">--prefix</span><span class="o">=</span>~/.local/<span class="o">(</span>gcc <span class="nt">-dumpmachine</span><span class="o">)</span></code></pre>
 </div>
 </div>
 <div class="dlist">
@@ -681,7 +813,7 @@ GIT_VERSION <span class="o">=</span> 2.29.2
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--prefix</span><span class="o">=</span>~/.local/<span class="si">$(</span>gcc <span class="nt">-dumpmachine</span><span class="si">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ ../configure <span class="nt">--prefix</span><span class="o">=</span>~/.local/<span class="si">$(</span>gcc <span class="nt">-dumpmachine</span><span class="si">)</span></code></pre>
 </div>
 </div>
 <div class="dlist">
