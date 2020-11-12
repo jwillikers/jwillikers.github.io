@@ -485,161 +485,28 @@ The configure script will arrange for installation under the <code>/usr/local</c
 <dl>
 <dt class="hdlist1">System-wide</dt>
 <dd>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
-</dd>
-</dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-pU</span> fish_user_paths /usr/local/bin</code></pre>
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"export PATH=/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
-➜ <span class="nb">source</span> ~/.bashrc</code></pre>
-</div>
-</div>
-</div>
-</div>
-</li>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Update the <code>MANPATH</code> environment variable to be able to read the man pages.</p>
-<div class="openblock">
-<div class="content">
-<div class="dlist">
-<dl>
-<dt class="hdlist1">User</dt>
-<dd>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
-</dd>
-</dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/conf.d<span class="p">;</span> and <span class="se">\</span>
-  <span class="nb">echo</span> <span class="s1">'set -gx MANPATH ~/.local/(gcc -dumpmachine)/share/man:'</span> <span class="o">&gt;&gt;</span> <span class="se">\</span>
-    ~/.config/fish/conf.d/machine_paths.fish
-➜ <span class="nb">exec </span>fish</code></pre>
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s1">'export MANPATH=$HOME/.local/$(gcc -dumpmachine)/share/man:'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
-➜ <span class="nb">source</span> ~/.bashrc</code></pre>
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">System-wide</dt>
-<dd>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
-</dd>
-</dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-Ux</span> MANPATH /usr/local/share/man:</code></pre>
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"export MANPATH=/usr/local/share/man:"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
-➜ <span class="nb">source</span> ~/.bashrc</code></pre>
-</div>
-</div>
-</div>
-</div>
+<p>Ensure that <code>/usr/local/bin</code> is on the <code>PATH</code> in the <code>/etc/environment</code> file used by PAM.</p>
 </li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">/etc/environment</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Update the <code>INFOPATH</code> environment variable as well.</p>
-<div class="openblock">
-<div class="content">
-<div class="dlist">
-<dl>
-<dt class="hdlist1">User</dt>
-<dd>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><em>fish</em></dt>
-</dl>
+<p>Log out and back in for the change to take effect.</p>
+</li>
+</ol>
 </div>
 </dd>
 </dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/conf.d<span class="p">;</span> and <span class="se">\</span>
-  <span class="nb">echo</span> <span class="s1">'set -gpx INFOPATH ~/.local/(gcc -dumpmachine)/share/info'</span> <span class="o">&gt;&gt;</span> <span class="se">\</span>
-    ~/.config/fish/conf.d/machine_paths.fish
-➜ <span class="nb">exec </span>fish</code></pre>
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s1">'export INFOPATH=$HOME/.local/$(gcc -dumpmachine)/share/info:$INFOPATH'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
-➜ <span class="nb">source</span> ~/.bashrc</code></pre>
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">System-wide</dt>
-<dd>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><em>fish</em></dt>
-</dl>
-</div>
-</dd>
-</dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-pUx</span> INFOPATH /usr/local/share/info</code></pre>
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><em>Bash</em></dt>
-</dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"export INFOPATH=/usr/local/share/info:</span><span class="nv">$INFOPATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc
-➜ <span class="nb">source</span> ~/.bashrc</code></pre>
-</div>
 </div>
 </div>
 </div>
@@ -948,7 +815,7 @@ Enjoy!</p>
     
       
         
-          <li><a href="https://github.com/jwillikers/blog2" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
         
       
     
