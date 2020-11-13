@@ -168,10 +168,11 @@ That&#8217;s exactly why I&#8217;ve written this post to exemplify the configura
 </div>
 </div>
 <div class="sect1">
-<h2 id="ssh_configuration">SSH Configuration</h2>
+<h2 id="ssh_client_configuration">SSH Client Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The file <code>~/.ssh/config</code> contains a user&#8217;s SSH configuration.
+<p>The file <code>~/.ssh/config</code> contains settings for a user&#8217;s SSH client.
+System-wide SSH client settings are placed in <code>/etc/ssh/ssh_config</code>.
 Settings here can be defined per-host.
 General configuration options include aliases, SSH agent behavior, and jump hosts to name a few.
 Different sections of a sample <code>~/.ssh/config</code> are discussed in detail below.
@@ -179,7 +180,7 @@ Further documentation is available from the <a href="https://man.openbsd.org/ssh
 This article assumes the reader is familiar with the basics of SSH and the syntax of SSH configuration files.</p>
 </div>
 <div class="sect2">
-<h3 id="localhost">Localhost</h3>
+<h3 id="localhost">localhost</h3>
 <div class="paragraph">
 <p>The first option does not reside in a <a href="https://man.openbsd.org/ssh_config#Host"><code>Host</code></a> or <a href="https://man.openbsd.org/ssh_config#Match"><code>Match</code></a> block because it only refers to one host, <code>localhost</code> on the current machine.</p>
 </div>
@@ -315,6 +316,8 @@ It might be worth setting this option for all users in the system-wide configura
   <span class="k">IdentitiesOnly</span> <span class="no">yes</span>
   <span class="k">IdentityFile</span> ~/.ssh/id_rsa_catalina-build.pub
   <span class="k">PreferredAuthentications</span> publickey,keyboard-interactive,password,gssapi-with-mic,hostbased
+  <span class="k">ServerAliveInterval</span> <span class="m">90</span>
+  <span class="k">ServerAliveCountMax</span> <span class="m">4</span>
 
   <span class="c1"># Specific to macOS</span>
   <span class="k">UseKeychain</span> <span class="no">yes</span></code></pre>
@@ -343,6 +346,17 @@ The private key file is often provided for this option, but providing the public
 <dd>
 <p>Sets the order of preference for the various authentication methods.
 Here, public key cryptography is preferred first because I use this most often.</p>
+</dd>
+<dt class="hdlist1"><a href="https://man.openbsd.org/ssh_config.5#ServerAliveInterval"><code>ServerAliveInterval</code></a></dt>
+<dd>
+<p>The amount of time in seconds between sending successive SSH keepalives to the SSH server.
+Setting this option enables SSH server keepalives, which are helpful for keeping existing SSH connections open.
+A value of 90 here results in a keepalive being sent every 90 seconds.</p>
+</dd>
+<dt class="hdlist1"><a href="https://man.openbsd.org/ssh_config.5#ServerAliveCountMax"><code>ServerAliveCountMax</code></a></dt>
+<dd>
+<p>The number of successive keepalives the SSH server must fail to respond to before terminating the connection.
+With a max count of four and a <code>ServerAliveInterval</code> of 90 seconds, the session will be terminated after six minutes where no response from the SSH server is received.</p>
 </dd>
 <dt class="hdlist1"><code>UseKeychain</code></dt>
 <dd>
@@ -383,12 +397,43 @@ Those with administrative access on the forwarded machine will be able to use th
 </div>
 </div>
 <div class="sect1">
+<h2 id="ssh_sever_configuration">SSH Sever Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The SSH server is configured in <code>/etc/ssh/sshd_config</code>.
+I explain my typical server options here.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/ssh/sshd_config</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ssh"><span class="k">ClientAliveInterval</span> <span class="m">90</span>
+<span class="k">ClientAliveCountMax</span> <span class="m">4</span></code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="https://man.openbsd.org/sshd_config.5#ClientAliveInterval"><code>ClientAliveInterval</code></a></dt>
+<dd>
+<p>The amount of time in seconds between sending successive SSH keepalives to the SSH client.
+Setting this option enables SSH client keepalives, which are helpful for keeping existing SSH connections open.
+A value of 90 here results in a keepalive being sent every 90 seconds.</p>
+</dd>
+<dt class="hdlist1"><a href="https://man.openbsd.org/sshd_config.5#ClientAliveCountMax"><code>ClientAliveCountMax</code></a></dt>
+<dd>
+<p>The number of successive keepalives an SSH client must fail to respond to before terminating the connection.
+With a max count of four and a <code>ClientAliveInterval</code> of 90 seconds, the session will be terminated after six minutes where no response from the SSH client is received.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>That was a bit of configuration.
 Assuming I didn&#8217;t just cover topics you already knew, you should have a better understanding of SSH and its configuration options.
-Hopefully you&#8217;ll be able to capitalize on this knowledge by simplifying your SSH workflow.
+Hopefully you&#8217;ll be able to capitalize on this knowledge by simplifying your SSH work flow.
 If you&#8217;re interested in smoothing out even more wrinkles in your SSH use, you might checkout the <a href="https://mosh.org/">Mosh</a> project.</p>
 </div>
 </div>
