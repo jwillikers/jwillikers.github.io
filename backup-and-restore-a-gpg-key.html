@@ -1,0 +1,426 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Backup and Restore a GPG Key - JWillikers</title>
+<meta name="description" content="Gnu Privacy Guard, also known as GnuPG and GPG, is a handy tool for managing OpenPGP keys. While don&#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using Git. PGP keys can be a bit nastier to replace than an SSH key, so making backups is critical for reducing future headaches.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Backup and Restore a GPG Key">
+<meta property="og:url" content="https://jwillikers.com/backup-and-restore-a-gpg-key">
+
+
+  <meta property="og:description" content="Gnu Privacy Guard, also known as GnuPG and GPG, is a handy tool for managing OpenPGP keys. While don&#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using Git. PGP keys can be a bit nastier to replace than an SSH key, so making backups is critical for reducing future headaches.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2020-11-13T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://jwillikers.com/backup-and-restore-a-gpg-key">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://gnupg.org/">Gnu Privacy Guard</a>, also known as GnuPG and GPG, is a handy tool for managing <a href="https://www.openpgp.org/">OpenPGP</a> keys.
+While don&#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using <a href="https://git-scm.com/">Git</a>.
+PGP keys can be a bit nastier to replace than an SSH key, so making backups is critical for reducing future headaches.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following steps will show you how to backup and restore a PGP key using GnuPG, version 2.2.20 to be exact.
+The backup is electronic, not physical, such as backups created with <a href="https://www.jabberwocky.com/software/paperkey/">PaperKey</a>.
+I recommend also creating a backup key on paper with PaperKey and keeping it in a safe place for an added layer of redundancy.
+It is expected you are already familiar using GnuPG from the command-line and have an existing installation of GPG with a key pair available to backup.</p>
+</div>
+<div class="sect2">
+<h3 id="backup">Backup</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First, determine which key to backup.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ gpg <span class="nt">--list-secret-keys</span> <span class="nt">--keyid-format</span> LONG
+/home/pstibbons/.gnupg/pubring.kbx
+<span class="nt">-------------------------------</span>
+sec   rsa4096/C8DE632E9A8A0BDD 2020-11-13 <span class="o">[</span>SC]
+      F38915B041F5F1024AF95C30C8DE632E9A8A0BDD
+uid                 <span class="o">[</span>ultimate] Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt;
+ssb   rsa4096/DBCD8B98F2F9188C 2020-11-13 <span class="o">[</span>E]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here there is only one private key for a Ponder Stibbons.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Export the private GPG key.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ gpg <span class="nt">-o</span> private.gpg <span class="nt">--export-options</span> backup <span class="nt">--export-secret-keys</span> ponder.stibbons@unseen.edu</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This invocation places the key in the file <code>private.gpg</code> in the current directory.
+The export option <code>backup</code> exports all necessary data for GnuPG to restore the key.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Enter the private key&#8217;s passphrase in the <a href="#Export Passphrase Prompt">[Export Passphrase Prompt]</a> to export the key.</p>
+<div class="imageblock">
+<div class="content">
+<img src="Export%20Passphrase%20Prompt.png" alt="Passphrase Prompt to Export GPG Key">
+</div>
+<div class="title">Export Passphrase Prompt</div>
+</div>
+</li>
+<li>
+<p>Now place this backup somewhere safe.
+Ideally, store it only on offline media.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="restore">Restore</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Import the private key.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ gpg <span class="nt">--import-options</span> restore <span class="nt">--import</span> private.gpg
+gpg: key C8DE632E9A8A0BDD: public key <span class="s2">"Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt;"</span> imported
+gpg: key C8DE632E9A8A0BDD: secret key imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg:       secret keys <span class="nb">read</span>: 1
+gpg:   secret keys imported: 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This invocation imports the key from the file <code>private.gpg</code> in the current directory.
+The import option <code>restore</code> imports all necessary data for GnuPG to fully restore the key.
+The import option <code>keep-ownertrust</code> keeps the owner trust of the key instead of clearing it&#8217;s trust value.
+This saves having to manually set the trust value for the key later.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Enter the private key&#8217;s passphrase in the <a href="#Import Passphrase Prompt">[Import Passphrase Prompt]</a> to import the key.</p>
+<div class="imageblock">
+<div class="content">
+<img src="Import%20Passphrase%20Prompt.png" alt="Passphrase Prompt to Import GPG Key">
+</div>
+<div class="title">Import Passphrase Prompt</div>
+</div>
+</li>
+<li>
+<p>Now, edit the freshly imported key.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ gpg <span class="nt">--edit-key</span> ponder.stibbons@unseen.edu
+gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.20<span class="p">;</span> Copyright <span class="o">(</span>C<span class="o">)</span> 2020 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa4096/C8DE632E9A8A0BDD
+     created: 2020-11-13  expires: never       usage: SC
+     trust: unknown       validity: unknown
+ssb  rsa4096/DBCD8B98F2F9188C
+     created: 2020-11-13  expires: never       usage: E
+<span class="o">[</span> unknown] <span class="o">(</span>1<span class="o">)</span><span class="nb">.</span> Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enter <code>trust</code> to modify the trust value of the key.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">gpg&gt; trust
+sec  rsa4096/C8DE632E9A8A0BDD
+     created: 2020-11-13  expires: never       usage: SC
+     trust: unknown       validity: unknown
+ssb  rsa4096/DBCD8B98F2F9188C
+     created: 2020-11-13  expires: never       usage: E
+<span class="o">[</span> unknown] <span class="o">(</span>1<span class="o">)</span><span class="nb">.</span> Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Type <kbd>5</kbd> to trust your keys completely.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">Please decide how far you trust this user to correctly verify other <span class="nb">users</span><span class="s1">' keys
+(by looking at passports, checking fingerprints from different sources, etc.)
+
+  1 = I don'</span>t know or won<span class="s1">'t say
+  2 = I do NOT trust
+  3 = I trust marginally
+  4 = I trust fully
+  5 = I trust ultimately
+  m = back to the main menu
+
+Your decision? 5</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Confirm your choice by entering <kbd>Y</kbd>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">Do you really want to <span class="nb">set </span>this key to ultimate trust? <span class="o">(</span>y/N<span class="o">)</span> y
+
+sec  rsa4096/C8DE632E9A8A0BDD
+     created: 2020-11-13  expires: never       usage: SC
+     trust: ultimate      validity: unknown
+ssb  rsa4096/DBCD8B98F2F9188C
+     created: 2020-11-13  expires: never       usage: E
+<span class="o">[</span> unknown] <span class="o">(</span>1<span class="o">)</span><span class="nb">.</span> Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt;
+Please note that the shown key validity is not necessarily correct
+unless you restart the program.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use the command <code>quit</code> to exit.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">gpg&gt; quit</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now be able to backup and restore your private GPG keys.</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -9,39 +9,35 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Change your Shell - JWillikers</title>
-<meta name="description" content="Sometimes, you just want to switch to a better shell for your terminal - like fish.">
+<!-- begin _includes/seo.html --><title>Backups - JWillikers</title>
+<meta name="description" content="Handy admin and dev guides from my myriad of tinkering">
 
 
   <meta name="author" content="Jordan Williams">
   
-  <meta property="article:author" content="Jordan Williams">
-  
 
 
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="JWillikers">
-<meta property="og:title" content="Change your Shell">
-<meta property="og:url" content="https://jwillikers.com/change-your-shell">
+<meta property="og:title" content="Backups">
+<meta property="og:url" content="https://jwillikers.com/tags/backups/">
 
 
-  <meta property="og:description" content="Sometimes, you just want to switch to a better shell for your terminal - like fish.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2020-10-01T00:00:00-05:00">
+  <meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering">
 
 
 
 
 
 
-<link rel="canonical" href="https://jwillikers.com/change-your-shell">
+
+
+
+
+
+
+<link rel="canonical" href="https://jwillikers.com/tags/backups/">
 
 
 
@@ -103,7 +99,7 @@
 
   </head>
 
-  <body class="layout--default">
+  <body class="layout--archive-taxonomy">
     <nav class="skip-links">
   <h2 class="screen-reader-text">Skip links</h2>
   <ul>
@@ -155,89 +151,105 @@
 
 
     <div class="initial-content">
-      <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Sometimes, you just want to switch to a better shell for your terminal - like <a href="https://fishshell.com/">fish</a>.</p>
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="archive">
+    
+      <h1 id="page-title" class="page__title">Backups</h1>
+    
+    
+      
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/generate-a-gpg-key" rel="permalink">Generate a GPG Key
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+GPG keys can be used to cryptographically sign Git commits, pushes, and tags.
+This associates your work with a particular identity.
+GPG is also used for enc...</p>
+  </article>
 </div>
+
+    
+      
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/backup-and-restore-a-gpg-key" rel="permalink">Backup and Restore a GPG Key
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          12 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+Gnu Privacy Guard, also known as GnuPG and GPG, is a handy tool for managing OpenPGP keys.
+While don&#8217;t use PGP keys for email encryption as many peopl...</p>
+  </article>
 </div>
+
+    
+  </div>
 </div>
-<div class="sect1">
-<h2 id="tutorial">Tutorial</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Here&#8217;s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems.
-These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Install the fish package.</p>
-<div class="openblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>fish</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This Debian package installs the <code>fish</code> executable in <code>/usr/bin</code>.</p>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>Register <code>/usr/bin/fish</code> as a valid login shell by adding its path to <a href="https://manpages.ubuntu.com/manpages/en/man5/shells.5.html"><code>/etc/shells</code></a>.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>Debian provides a convenient <a href="https://manpages.ubuntu.com/manpages/en/man8/add-shell.8.html"><code>add-shell</code></a> command to accomplish this.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>add-shell /usr/bin/fish</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>On other systems, simply add the path manually.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> /usr/bin/fish | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/shells
-/usr/bin/fish</code></pre>
-</div>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>Set the default login shell of the current user to fish.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ chsh <span class="nt">-s</span> /usr/bin/fish
-Password:</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="conclusion">Conclusion</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Nice and simple, right?
-It should be a piece of cake to change your login shell now.</p>
-</div>
-</div>
-</div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. <a href="https://fishshell.com/docs/current/tutorial.html#switching-to-fish">Fish Shell Tutorial - Switching to fish?</a>
-</div>
-</div>
+
     </div>
 
     

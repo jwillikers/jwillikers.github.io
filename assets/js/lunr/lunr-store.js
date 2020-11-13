@@ -208,4 +208,16 @@ var store = [{
         "tags": ["asdf","direnv","Linux","Pipenv","Python","Ubuntu","Unix"],
         "url": "https://jwillikers.com/manage-python-dependencies",
         "teaser": null
+      },{
+        "title": "Backup and Restore a GPG Key",
+        "excerpt":"Gnu Privacy Guard, also known as GnuPG and GPG, is a handy tool for managing OpenPGP keys. While don&#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using Git. PGP keys can be a bit nastier to...","categories": ["Systems"],
+        "tags": ["Backups","GnuPG","GPG","OpenPGP","Ubuntu"],
+        "url": "https://jwillikers.com/backup-and-restore-a-gpg-key",
+        "teaser": null
+      },{
+        "title": "Generate a GPG Key",
+        "excerpt":"GPG keys can be used to cryptographically sign Git commits, pushes, and tags. This associates your work with a particular identity. GPG is also used for encrypting and signing emails. To do these things, you first need a GPG key. Tutorial The instructions here describe the steps to generate a...","categories": ["Systems"],
+        "tags": ["Backups","GnuPG","GPG","OpenPGP","Ubuntu"],
+        "url": "https://jwillikers.com/generate-a-gpg-key",
+        "teaser": null
       }]

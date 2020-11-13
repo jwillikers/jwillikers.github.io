@@ -1,4 +1,383 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-11-13T11:25:58-06:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Manage Python Dependencies</title><link href="https://jwillikers.com/manage-python-dependencies" rel="alternate" type="text/html" title="Manage Python Dependencies" /><published>2020-11-01T00:00:00-05:00</published><updated>2020-11-01T00:00:00-05:00</updated><id>https://jwillikers.com/Manage%20Python%20Dependencies</id><content type="html" xml:base="https://jwillikers.com/manage-python-dependencies">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-11-13T17:18:07-06:00</updated><id>https://jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Backup and Restore a GPG Key</title><link href="https://jwillikers.com/backup-and-restore-a-gpg-key" rel="alternate" type="text/html" title="Backup and Restore a GPG Key" /><published>2020-11-13T00:00:00-06:00</published><updated>2020-11-13T00:00:00-06:00</updated><id>https://jwillikers.com/Backup%20and%20Restore%20a%20GPG%20Key</id><content type="html" xml:base="https://jwillikers.com/backup-and-restore-a-gpg-key">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://gnupg.org/&quot;&gt;Gnu Privacy Guard&lt;/a&gt;, also known as GnuPG and GPG, is a handy tool for managing &lt;a href=&quot;https://www.openpgp.org/&quot;&gt;OpenPGP&lt;/a&gt; keys.
+While don&amp;#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt;.
+PGP keys can be a bit nastier to replace than an SSH key, so making backups is critical for reducing future headaches.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The following steps will show you how to backup and restore a PGP key using GnuPG, version 2.2.20 to be exact.
+The backup is electronic, not physical, such as backups created with &lt;a href=&quot;https://www.jabberwocky.com/software/paperkey/&quot;&gt;PaperKey&lt;/a&gt;.
+I recommend also creating a backup key on paper with PaperKey and keeping it in a safe place for an added layer of redundancy.
+It is expected you are already familiar using GnuPG from the command-line and have an existing installation of GPG with a key pair available to backup.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;backup&quot;&gt;Backup&lt;/h3&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;First, determine which key to backup.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--list-secret-keys&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--keyid-format&lt;/span&gt; LONG
+/home/pstibbons/.gnupg/pubring.kbx
+&lt;span class=&quot;nt&quot;&gt;-------------------------------&lt;/span&gt;
+sec   rsa4096/C8DE632E9A8A0BDD 2020-11-13 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SC]
+      F38915B041F5F1024AF95C30C8DE632E9A8A0BDD
+uid                 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ultimate] Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;
+ssb   rsa4096/DBCD8B98F2F9188C 2020-11-13 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;E]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here there is only one private key for a Ponder Stibbons.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Export the private GPG key.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; private.gpg &lt;span class=&quot;nt&quot;&gt;--export-options&lt;/span&gt; backup &lt;span class=&quot;nt&quot;&gt;--export-secret-keys&lt;/span&gt; ponder.stibbons@unseen.edu&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This invocation places the key in the file &lt;code&gt;private.gpg&lt;/code&gt; in the current directory.
+The export option &lt;code&gt;backup&lt;/code&gt; exports all necessary data for GnuPG to restore the key.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enter the private key&amp;#8217;s passphrase in the &lt;a href=&quot;#Export Passphrase Prompt&quot;&gt;[Export Passphrase Prompt]&lt;/a&gt; to export the key.&lt;/p&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;Export%20Passphrase%20Prompt.png&quot; alt=&quot;Passphrase Prompt to Export GPG Key&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Export Passphrase Prompt&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now place this backup somewhere safe.
+Ideally, store it only on offline media.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;restore&quot;&gt;Restore&lt;/h3&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Import the private key.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--import-options&lt;/span&gt; restore &lt;span class=&quot;nt&quot;&gt;--import&lt;/span&gt; private.gpg
+gpg: key C8DE632E9A8A0BDD: public key &lt;span class=&quot;s2&quot;&gt;&quot;Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;&quot;&lt;/span&gt; imported
+gpg: key C8DE632E9A8A0BDD: secret key imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg:       secret keys &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt;: 1
+gpg:   secret keys imported: 1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This invocation imports the key from the file &lt;code&gt;private.gpg&lt;/code&gt; in the current directory.
+The import option &lt;code&gt;restore&lt;/code&gt; imports all necessary data for GnuPG to fully restore the key.
+The import option &lt;code&gt;keep-ownertrust&lt;/code&gt; keeps the owner trust of the key instead of clearing it&amp;#8217;s trust value.
+This saves having to manually set the trust value for the key later.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enter the private key&amp;#8217;s passphrase in the &lt;a href=&quot;#Import Passphrase Prompt&quot;&gt;[Import Passphrase Prompt]&lt;/a&gt; to import the key.&lt;/p&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;Import%20Passphrase%20Prompt.png&quot; alt=&quot;Passphrase Prompt to Import GPG Key&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Import Passphrase Prompt&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now, edit the freshly imported key.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--edit-key&lt;/span&gt; ponder.stibbons@unseen.edu
+gpg &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;GnuPG&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 2.2.20&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;C&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 2020 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa4096/C8DE632E9A8A0BDD
+     created: 2020-11-13  expires: never       usage: SC
+     trust: unknown       validity: unknown
+ssb  rsa4096/DBCD8B98F2F9188C
+     created: 2020-11-13  expires: never       usage: E
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; unknown] &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enter &lt;code&gt;trust&lt;/code&gt; to modify the trust value of the key.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;gpg&amp;gt; trust
+sec  rsa4096/C8DE632E9A8A0BDD
+     created: 2020-11-13  expires: never       usage: SC
+     trust: unknown       validity: unknown
+ssb  rsa4096/DBCD8B98F2F9188C
+     created: 2020-11-13  expires: never       usage: E
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; unknown] &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Type &lt;kbd&gt;5&lt;/kbd&gt; to trust your keys completely.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Please decide how far you trust this user to correctly verify other &lt;span class=&quot;nb&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' keys
+(by looking at passports, checking fingerprints from different sources, etc.)
+
+  1 = I don'&lt;/span&gt;t know or won&lt;span class=&quot;s1&quot;&gt;'t say
+  2 = I do NOT trust
+  3 = I trust marginally
+  4 = I trust fully
+  5 = I trust ultimately
+  m = back to the main menu
+
+Your decision? 5&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Confirm your choice by entering &lt;kbd&gt;Y&lt;/kbd&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Do you really want to &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;this key to ultimate trust? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;y/N&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; y
+
+sec  rsa4096/C8DE632E9A8A0BDD
+     created: 2020-11-13  expires: never       usage: SC
+     trust: ultimate      validity: unknown
+ssb  rsa4096/DBCD8B98F2F9188C
+     created: 2020-11-13  expires: never       usage: E
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; unknown] &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;
+Please note that the shown key validity is not necessarily correct
+unless you restart the program.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use the command &lt;code&gt;quit&lt;/code&gt; to exit.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;gpg&amp;gt; quit&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now be able to backup and restore your private GPG keys.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="Backups" /><category term="GnuPG" /><category term="GPG" /><category term="OpenPGP" /><category term="Ubuntu" /><summary type="html">Gnu Privacy Guard, also known as GnuPG and GPG, is a handy tool for managing OpenPGP keys. While don&amp;#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using Git. PGP keys can be a bit nastier to replace than an SSH key, so making backups is critical for reducing future headaches.</summary></entry><entry><title type="html">Generate a GPG Key</title><link href="https://jwillikers.com/generate-a-gpg-key" rel="alternate" type="text/html" title="Generate a GPG Key" /><published>2020-11-13T00:00:00-06:00</published><updated>2020-11-13T00:00:00-06:00</updated><id>https://jwillikers.com/Generate%20a%20GPG%20Key</id><content type="html" xml:base="https://jwillikers.com/generate-a-gpg-key">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://gnupg.org/&quot;&gt;GPG&lt;/a&gt; keys can be used to cryptographically sign &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt; commits, pushes, and tags.
+This associates your work with a particular identity.
+GPG is also used for encrypting and signing emails.
+To do these things, you first need a GPG key.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The instructions here describe the steps to generate a GPG key on &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.04.
+On the Ubuntu desktop, GPG is preinstalled.
+Detailed instructions for creating a key can be found in &lt;a href=&quot;https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key&quot;&gt;GitHub&amp;#8217;s documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Create a new key.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--full-generate-key&lt;/span&gt;
+gpg &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;GnuPG&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 2.2.20&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;C&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 2020 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press enter to accept the default key type, &lt;code&gt;RSA and RSA&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Please select what kind of key you want:
+(1) RSA and RSA (default)
+(2) DSA and Elgamal
+(3) DSA (sign only)
+(4) RSA (sign only)
+(14) Existing key from card
+Your selection?&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enter 4096 for the key size.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (3072) 4096
+Requested keysize is 4096 bits&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press enter to accept the default for the length of time the key will be valid which is forever.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Please specify how long the key should be valid.
+0 = key does not expire
+&amp;lt;n&amp;gt; = key expires in n days
+&amp;lt;n&amp;gt;w = key expires in n weeks
+&amp;lt;n&amp;gt;m = key expires in n months
+&amp;lt;n&amp;gt;y = key expires in n years
+Key is valid for? (0)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Type &lt;kbd&gt;Y&lt;/kbd&gt; and press enter again to confirm this.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Key does not expire at all
+Is this correct? (y/N) y&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Input the name to use for the key&amp;#8217;s associated identity.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;GnuPG needs to construct a user ID to identify your key.
+
+Real name: Ponder Stibbons&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Then just enter your commit email address.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Email address: ponder.stibbons@unseen.edu&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add a comment if desired.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Comment:&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Confirm your identity information by typing &lt;kbd&gt;O&lt;/kbd&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;You selected this USER-ID:
+&quot;Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;&quot;
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enter a passphrase for your key in the &lt;a href=&quot;#Passphrase Prompt&quot;&gt;[Passphrase Prompt]&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;Passphrase%20Prompt.png&quot; alt=&quot;Passphrase Prompt for GPG Key&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Passphrase Prompt&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;This should output information similar to the following when your key has been successfully generated.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: key 5DBCB56A458D5A0F marked as ultimately trusted
+gpg: directory '/home/pstibbons/.gnupg/openpgp-revocs.d' created
+gpg: revocation certificate stored as '/home/pstibbons/.gnupg/openpgp-revocs.d/00DD666179AF17FB2D5DF49B5DBCB56A458D5A0F.rev'
+public and secret key created and signed.
+
+pub   rsa4096 2020-10-27 [SC]
+      00DD666179AF17FB2D5DF49B5DBCB56A458D5A0F
+uid                      Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;
+sub   rsa4096 2020-10-27 [E]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you have multiple secret keys and would like to use this key by default, set it as such in &lt;code&gt;~/.gnupg/gpg.conf&lt;/code&gt; as follows.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;default-key 5DBCB56A458D5A0F&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; ~/.gnupg/gpg.conf&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Of course, make sure to substitute the id specific to your key here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You now have your very own GPG key!
+Check out my post on how to &lt;a href=&quot;backup-and-restore-a-gpg-key.html&quot;&gt;Backup and Restore a GPG Key&lt;/a&gt; because you will want to make sure not to lose your new key!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="Backups" /><category term="GnuPG" /><category term="GPG" /><category term="OpenPGP" /><category term="Ubuntu" /><summary type="html">GPG keys can be used to cryptographically sign Git commits, pushes, and tags. This associates your work with a particular identity. GPG is also used for encrypting and signing emails. To do these things, you first need a GPG key.</summary></entry><entry><title type="html">Manage Python Dependencies</title><link href="https://jwillikers.com/manage-python-dependencies" rel="alternate" type="text/html" title="Manage Python Dependencies" /><published>2020-11-01T00:00:00-05:00</published><updated>2020-11-01T00:00:00-05:00</updated><id>https://jwillikers.com/Manage%20Python%20Dependencies</id><content type="html" xml:base="https://jwillikers.com/manage-python-dependencies">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Making &lt;a href=&quot;https://www.python.org/&quot;&gt;Python&lt;/a&gt; dependency management reproducible is complicated.
@@ -3567,274 +3946,4 @@ The following example demonstrates this by running GNOME Terminal on the remote 
 &lt;p&gt;&lt;a href=&quot;https://wiki.archlinux.org/index.php/OpenSSH#X11_forwarding&quot;&gt;Arch Wiki: OpenSSH - X11 forwarding&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Networking" /><category term="OpenSSH" /><category term="SSH" /><category term="X11" /><summary type="html">A Remote Instance of GNOME Terminal Viewed on macOS Catalina</summary></entry><entry><title type="html">Git Syntax Highlighting</title><link href="https://jwillikers.com/git-syntax-highlighting" rel="alternate" type="text/html" title="Git Syntax Highlighting" /><published>2020-10-14T00:00:00-05:00</published><updated>2020-10-14T00:00:00-05:00</updated><id>https://jwillikers.com/Git%20Syntax%20Highlighting</id><content type="html" xml:base="https://jwillikers.com/git-syntax-highlighting">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you like to use &lt;a href=&quot;https://github.com/dandavison/delta&quot;&gt;&lt;code&gt;git&lt;/code&gt;&lt;/a&gt; from the command-line and enjoy syntax highlighting, you might be interested in &lt;a href=&quot;https://github.com/dandavison/delta&quot;&gt;&lt;code&gt;delta&lt;/code&gt;&lt;/a&gt;, which adds this functionality and more to &lt;code&gt;git&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial walks through installing and configuring &lt;code&gt;delta&lt;/code&gt;, version 0.4.4 at the time of writing, on an amd64 system running &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.04.
-It assumes you are familiar with common command-line utilities on Ubuntu, including &lt;code&gt;git&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Download the deb file for the latest version of &lt;code&gt;delta&lt;/code&gt; specific to your computer’s CPU architecture.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Releases can be found &lt;a href=&quot;https://github.com/dandavison/delta/releases&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-nv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://api.github.com/repos/dandavison/delta/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /_amd64\.deb/ &amp;amp;&amp;amp; !/musl/ {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qi -L &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This one-liner downloads the amd64 deb installer for the latest release.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Install the &lt;code&gt;delta&lt;/code&gt; deb package.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; ./git-delta_&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;_amd64.deb&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Clean up the remaining deb package since it is no longer needed.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;git-delta_&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;_amd64.deb&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Use &lt;code&gt;delta&lt;/code&gt; as the pager for &lt;code&gt;git&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; core.pager delta&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Stylize diff output with &lt;code&gt;delta&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; interactive.diffFilter &lt;span class=&quot;s2&quot;&gt;&quot;delta --color-only&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Style moved blocks of code appropriately.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; diff.colorMoved default&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Customize your color scheme.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This command sets the color scheme to &lt;a href=&quot;https://ethanschoonover.com/solarized/&quot;&gt;Solarized&lt;/a&gt; Dark.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; delta.syntax-theme &lt;span class=&quot;s2&quot;&gt;&quot;Solarized (dark)&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;View diffs side-by-side so that they are easier to compare.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; delta.side-by-side &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Show line numbers for reference.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; delta.line-numbers &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Turn on extra decorations to emphasize important details, such as the file and commit information.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; delta.decorations &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Hopefully this improves your experience analyzing &lt;code&gt;git&lt;/code&gt; output and diffs from the command-line.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Command-Line" /><category term="delta" /><category term="git" /><category term="Linux" /><category term="Rust" /><category term="Solarized" /><category term="Ubuntu" /><category term="Unix" /><summary type="html">If you like to use git from the command-line and enjoy syntax highlighting, you might be interested in delta, which adds this functionality and more to git.</summary></entry><entry><title type="html">Pagers and Syntax Highlighting</title><link href="https://jwillikers.com/pagers-and-syntax-highlighting" rel="alternate" type="text/html" title="Pagers and Syntax Highlighting" /><published>2020-10-11T00:00:00-05:00</published><updated>2020-10-11T00:00:00-05:00</updated><id>https://jwillikers.com/Pagers%20and%20Syntax%20Highlighting</id><content type="html" xml:base="https://jwillikers.com/pagers-and-syntax-highlighting">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/sharkdp/bat&quot;&gt;&lt;code&gt;bat&lt;/code&gt;&lt;/a&gt; is a helpful alternative to &lt;a href=&quot;https://www.gnu.org/software/coreutils/manual/html_node/cat-invocation.html#cat-invocation&quot;&gt;&lt;code&gt;cat&lt;/code&gt;&lt;/a&gt; when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer.
-The &lt;a href=&quot;https://www.rust-lang.org/&quot;&gt;Rust&lt;/a&gt; program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with &lt;a href=&quot;https://git-scm.com/&quot;&gt;&lt;code&gt;git&lt;/code&gt;&lt;/a&gt;.
-It is a wonderful tool, though it won&amp;#8217;t replace your general pager, like &lt;a href=&quot;https://github.com/rkitover/vimpager&quot;&gt;&lt;code&gt;vimpager&lt;/code&gt;&lt;/a&gt;, or your &lt;code&gt;git&lt;/code&gt; pager, like &lt;a href=&quot;https://github.com/dandavison/delta&quot;&gt;&lt;code&gt;delta&lt;/code&gt;&lt;/a&gt;.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial walks through installing and configuring &lt;code&gt;bat&lt;/code&gt;, version 0.16.0 at the time of writing, on an amd64 system running &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.04.
-It assumes you are familiar with common command-line utilities on Ubuntu and the &lt;code&gt;less&lt;/code&gt; pager.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Download the deb file for the latest version of &lt;code&gt;bat&lt;/code&gt; for your particular computer&amp;#8217;s CPU architecture.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Releases can be found &lt;a href=&quot;https://github.com/sharkdp/bat/releases/&quot;&gt;here&lt;/a&gt;.
-The following one-liner downloads the amd64 deb installer for the latest release.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-nv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://api.github.com/repos/sharkdp/bat/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /_amd64\.deb/ &amp;amp;&amp;amp; !/musl/ {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qi -L &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Install the &lt;code&gt;bat&lt;/code&gt; deb package.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; ./bat_&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;_amd64.deb&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Clean up the remaining deb package since it is no longer needed.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;bat_&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;_amd64.deb&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create an initial configuration file.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ bat &lt;span class=&quot;nt&quot;&gt;--generate-config-file&lt;/span&gt;
-Success! Config file written to /home/jordan/.config/bat/config&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Set the default color theme.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.config/bat/config&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;--theme=&quot;Solarized (dark)&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This sets the theme to &lt;a href=&quot;https://ethanschoonover.com/solarized/&quot;&gt;Solarized&lt;/a&gt; Dark, my favorite color scheme.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Highlight syntax with &lt;code&gt;bat&lt;/code&gt; when using &lt;a href=&quot;http://greenwoodsoftware.com/less/index.html&quot;&gt;&lt;code&gt;less&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.pam_environment&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;LESS DEFAULT=&quot;-R&quot;
-LESSOPEN DEFAULT=&quot;| bat --color always %s&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-You will have to log out and back in again for changes in &lt;code&gt;~/.pam_environment&lt;/code&gt; to take effect.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Alias &lt;code&gt;cat&lt;/code&gt; to &lt;code&gt;bat&lt;/code&gt; because old habits die hard.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;alias&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;which bat&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Highlight syntax within &lt;code&gt;man&lt;/code&gt; pages.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.pam_environment&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;MANPAGER DEFAULT=&quot;sh -c 'col -bx | bat -l man -p'&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Behold that beautiful syntax highlighting.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ man 2 &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Reading code from the command-line should be a little bit more pleasant now.
-Enjoy!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. According to &lt;a href=&quot;https://github.com/sharkdp/bat/issues/1053&quot;&gt;this issue&lt;/a&gt;, &lt;code&gt;bat&lt;/code&gt; might just be it&amp;#8217;s own pager before long.
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Command-Line" /><category term="bat" /><category term="Linux" /><category term="less" /><category term="Rust" /><category term="Solarized" /><category term="Ubuntu" /><category term="Unix" /><summary type="html">bat is a helpful alternative to cat when you want peruse files on the command-line with the improved readability that syntax highlighting has to offer. The Rust program boasts a wide selection of color themes, automatically uses the system pager when needed, provides syntax highlighting for man pages, and even provides basic integration with git. It is a wonderful tool, though it won&amp;#8217;t replace your general pager, like vimpager, or your git pager, like delta.[1] 1. According to this issue, bat might just be it&amp;#8217;s own pager before long.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Networking" /><category term="OpenSSH" /><category term="SSH" /><category term="X11" /><summary type="html">A Remote Instance of GNOME Terminal Viewed on macOS Catalina</summary></entry></feed>

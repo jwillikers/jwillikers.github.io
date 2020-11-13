@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Change your Shell - JWillikers</title>
-<meta name="description" content="Sometimes, you just want to switch to a better shell for your terminal - like fish.">
+<!-- begin _includes/seo.html --><title>Generate a GPG Key - JWillikers</title>
+<meta name="description" content="GPG keys can be used to cryptographically sign Git commits, pushes, and tags. This associates your work with a particular identity. GPG is also used for encrypting and signing emails. To do these things, you first need a GPG key.">
 
 
   <meta name="author" content="Jordan Williams">
@@ -22,26 +22,26 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="JWillikers">
-<meta property="og:title" content="Change your Shell">
-<meta property="og:url" content="https://jwillikers.com/change-your-shell">
+<meta property="og:title" content="Generate a GPG Key">
+<meta property="og:url" content="https://jwillikers.com/generate-a-gpg-key">
 
 
-  <meta property="og:description" content="Sometimes, you just want to switch to a better shell for your terminal - like fish.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2020-10-01T00:00:00-05:00">
+  <meta property="og:description" content="GPG keys can be used to cryptographically sign Git commits, pushes, and tags. This associates your work with a particular identity. GPG is also used for encrypting and signing emails. To do these things, you first need a GPG key.">
 
 
 
 
 
 
-<link rel="canonical" href="https://jwillikers.com/change-your-shell">
+
+  <meta property="article:published_time" content="2020-11-13T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://jwillikers.com/generate-a-gpg-key">
 
 
 
@@ -158,7 +158,10 @@
       <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Sometimes, you just want to switch to a better shell for your terminal - like <a href="https://fishshell.com/">fish</a>.</p>
+<p><a href="https://gnupg.org/">GPG</a> keys can be used to cryptographically sign <a href="https://git-scm.com/">Git</a> commits, pushes, and tags.
+This associates your work with a particular identity.
+GPG is also used for encrypting and signing emails.
+To do these things, you first need a GPG key.</p>
 </div>
 </div>
 </div>
@@ -166,60 +169,159 @@
 <h2 id="tutorial">Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Here&#8217;s a quick run through of how to change your default login shell which assumes you understand the basics of the command-line on Unix-like systems.
-These instructions are exemplified on an Ubuntu 20.04 system for the fish shell but this works just the same for any shell on *BSD, Linux, and macOS.</p>
+<p>The instructions here describe the steps to generate a GPG key on <a href="https://ubuntu.com/">Ubuntu</a> 20.04.
+On the Ubuntu desktop, GPG is preinstalled.
+Detailed instructions for creating a key can be found in <a href="https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key">GitHub&#8217;s documentation</a>.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install the fish package.</p>
-<div class="openblock">
-<div class="content">
+<p>Create a new key.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>fish</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This Debian package installs the <code>fish</code> executable in <code>/usr/bin</code>.</p>
-</div>
+<pre class="rouge highlight"><code data-lang="sh">➜ gpg <span class="nt">--full-generate-key</span>
+gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.20<span class="p">;</span> Copyright <span class="o">(</span>C<span class="o">)</span> 2020 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Register <code>/usr/bin/fish</code> as a valid login shell by adding its path to <a href="https://manpages.ubuntu.com/manpages/en/man5/shells.5.html"><code>/etc/shells</code></a>.</p>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>Debian provides a convenient <a href="https://manpages.ubuntu.com/manpages/en/man8/add-shell.8.html"><code>add-shell</code></a> command to accomplish this.</p>
-</div>
+<p>Press enter to accept the default key type, <code>RSA and RSA</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>add-shell /usr/bin/fish</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>On other systems, simply add the path manually.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> /usr/bin/fish | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/shells
-/usr/bin/fish</code></pre>
-</div>
-</div>
+<pre class="rouge highlight"><code>Please select what kind of key you want:
+(1) RSA and RSA (default)
+(2) DSA and Elgamal
+(3) DSA (sign only)
+(4) RSA (sign only)
+(14) Existing key from card
+Your selection?</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Set the default login shell of the current user to fish.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<p>Enter 4096 for the key size.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ chsh <span class="nt">-s</span> /usr/bin/fish
-Password:</code></pre>
+<pre class="rouge highlight"><code>RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (3072) 4096
+Requested keysize is 4096 bits</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Press enter to accept the default for the length of time the key will be valid which is forever.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>Please specify how long the key should be valid.
+0 = key does not expire
+&lt;n&gt; = key expires in n days
+&lt;n&gt;w = key expires in n weeks
+&lt;n&gt;m = key expires in n months
+&lt;n&gt;y = key expires in n years
+Key is valid for? (0)</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Type <kbd>Y</kbd> and press enter again to confirm this.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>Key does not expire at all
+Is this correct? (y/N) y</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Input the name to use for the key&#8217;s associated identity.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>GnuPG needs to construct a user ID to identify your key.
+
+Real name: Ponder Stibbons</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Then just enter your commit email address.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>Email address: ponder.stibbons@unseen.edu</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add a comment if desired.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>Comment:</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Confirm your identity information by typing <kbd>O</kbd>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>You selected this USER-ID:
+"Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt;"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enter a passphrase for your key in the <a href="#Passphrase Prompt">[Passphrase Prompt]</a>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="Passphrase%20Prompt.png" alt="Passphrase Prompt for GPG Key">
+</div>
+<div class="title">Passphrase Prompt</div>
+</div>
+</li>
+<li>
+<p>This should output information similar to the following when your key has been successfully generated.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: key 5DBCB56A458D5A0F marked as ultimately trusted
+gpg: directory '/home/pstibbons/.gnupg/openpgp-revocs.d' created
+gpg: revocation certificate stored as '/home/pstibbons/.gnupg/openpgp-revocs.d/00DD666179AF17FB2D5DF49B5DBCB56A458D5A0F.rev'
+public and secret key created and signed.
+
+pub   rsa4096 2020-10-27 [SC]
+      00DD666179AF17FB2D5DF49B5DBCB56A458D5A0F
+uid                      Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt;
+sub   rsa4096 2020-10-27 [E]</code></pre>
 </div>
 </div>
 </li>
 </ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you have multiple secret keys and would like to use this key by default, set it as such in <code>~/.gnupg/gpg.conf</code> as follows.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"default-key 5DBCB56A458D5A0F"</span> <span class="o">&gt;&gt;</span> ~/.gnupg/gpg.conf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Of course, make sure to substitute the id specific to your key here.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -227,15 +329,9 @@ Password:</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Nice and simple, right?
-It should be a piece of cake to change your login shell now.</p>
+<p>You now have your very own GPG key!
+Check out my post on how to <a href="backup-and-restore-a-gpg-key.html">Backup and Restore a GPG Key</a> because you will want to make sure not to lose your new key!</p>
 </div>
-</div>
-</div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. <a href="https://fishshell.com/docs/current/tutorial.html#switching-to-fish">Fish Shell Tutorial - Switching to fish?</a>
 </div>
 </div>
     </div>
