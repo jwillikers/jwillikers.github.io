@@ -84,7 +84,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Virtualize Ubuntu Desktop on macOS with QEMU",
-        "excerpt":"The Focal Fossa nestles in on Santa Catalina Island Recently, I discovered that the Linux hypervisor, QEMU, is available on macOS. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU. QEMU...","categories": ["Systems"],
+        "excerpt":"The Focal Fossa nestles in on Santa Catalina Island Recently, I discovered that QEMU is available on macOS, with support for Apple&#8217;s native Hypervisor framework. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on...","categories": ["Systems"],
         "tags": ["Homebrew","Linux","macOS","MacPorts","QEMU","Ubuntu","Ubuntu2004","virtio","Virtualization"],
         "url": "https://www.jwillikers.com/virtualize-ubuntu-desktop-on-macos-with-qemu",
         "teaser": null

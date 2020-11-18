@@ -165,7 +165,7 @@
 </div>
 <hr>
 <div class="paragraph">
-<p>Recently, I discovered that the Linux hypervisor, <a href="https://www.qemu.org/">QEMU</a>, is available on macOS.
+<p>Recently, I discovered that <a href="https://www.qemu.org/">QEMU</a> is available on macOS, with support for Apple&#8217;s native <a href="https://developer.apple.com/documentation/hypervisor">Hypervisor framework</a>.
 This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on experience with QEMU.
 QEMU runs VMs quite efficiently and provides a robust set of tools for creating, managing, and running virtual machines.
 Additionally, it&#8217;s open-source and <em>not</em> controlled by Oracle.
@@ -228,7 +228,7 @@ Formatting <span class="s1">'ubuntu2004.qcow2'</span>, <span class="nb">fmt</spa
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
   <span class="nt">-accel</span> hvf <span class="se">\</span>
-  <span class="nt">-cpu</span> qemu64 <span class="se">\</span>
+  <span class="nt">-cpu</span> host,-rtdscp <span class="se">\</span>
   <span class="nt">-smp</span> 2 <span class="se">\</span>
   <span class="nt">-m</span> 4G <span class="se">\</span>
   <span class="nt">-usb</span> <span class="se">\</span>
@@ -253,11 +253,11 @@ For more details, refer to the <a href="https://www.qemu.org/docs/master/system/
 <p>Accelerate the machine by taking advantage of the macOS hypervisor, <code>hvf</code>.
 <code>kvm</code> is available for Linux and <code>whpx</code> for Windows.</p>
 </dd>
-<dt class="hdlist1"><code>-cpu qemu64</code></dt>
+<dt class="hdlist1"><code>-cpu host,-rtdscp</code></dt>
 <dd>
-<p>Ideally, you would use the <code>host</code> option and get better performance by taking advantage of CPU passthrough.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
-However, this inevitably lead to a kernel panic when booting the ISO, unless the CPU was emulated.
-The default <code>cpu</code> option, <code>qemu64</code>, emulates the CPU instead of using passthrough.</p>
+<p>Due to <a href="https://bugs.launchpad.net/qemu/+bug/1894836">this bug</a> in Apple&#8217;s Hypervisor framework, the RTDSCP virtualization feature on my mac&#8217;s CPU needs to be disabled.
+The <code>host</code> keyword enables CPU passthrough, while the <code>-rtdscp</code> option disables the troublesome RTDSCP feature.
+If you experience issues due to host passthrough, you can use the default <code>cpu</code> option, <code>qemu64</code>, which emulates the CPU instead of passing through.</p>
 </dd>
 <dt class="hdlist1"><code>-smp 2</code></dt>
 <dd>
@@ -285,7 +285,7 @@ The default <code>cpu</code> option, <code>qemu64</code>, emulates the CPU inste
 </dd>
 <dt class="hdlist1"><code>-device virtio-net,netdev=vmnic -netdev user,id=vmnic</code></dt>
 <dd>
-<p>Pass-through networking with virtio.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+<p>Pass-through networking with virtio.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
 </dd>
 <dt class="hdlist1"><code>-audiodev coreaudio,id=coreaudio</code></dt>
 <dd>
@@ -321,7 +321,7 @@ Skipping this layer of emulation can significantly improve VM performance.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
   <span class="nt">-accel</span> hvf <span class="se">\</span>
-  <span class="nt">-cpu</span> qemu64 <span class="se">\</span>
+  <span class="nt">-cpu</span> host,-rtdscp <span class="se">\</span>
   <span class="nt">-smp</span> 2 <span class="se">\</span>
   <span class="nt">-m</span> 4G <span class="se">\</span>
   <span class="nt">-device</span> usb-tablet <span class="se">\</span>
@@ -350,7 +350,7 @@ Skipping this layer of emulation can significantly improve VM performance.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh"><span class="nv">$ </span>qemu-system-x86_64 <span class="se">\</span>
   <span class="nt">-accel</span> hvf <span class="se">\</span>
-  <span class="nt">-cpu</span> qemu64 <span class="se">\</span>
+  <span class="nt">-cpu</span> host,-rtdscp <span class="se">\</span>
   <span class="nt">-smp</span> 2 <span class="se">\</span>
   <span class="nt">-m</span> 4G <span class="se">\</span>
   <span class="nt">-device</span> usb-tablet <span class="se">\</span>
@@ -389,10 +389,7 @@ Skipping this layer of emulation can significantly improve VM performance.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. <a href="https://www.qemu.org/docs/master/system/qemu-cpu-models.html">QEMU System Emulation Users Guide: QEMU CPU Models</a>
-</div>
-<div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. <a href="https://wiki.gentoo.org/wiki/QEMU/Options#Pass-through">Gentoo Wiki: QEMU/Options - Networking Pass-through</a>
+<a href="#_footnoteref_1">1</a>. <a href="https://wiki.gentoo.org/wiki/QEMU/Options#Pass-through">Gentoo Wiki: QEMU/Options - Networking Pass-through</a>
 </div>
 </div>
     </div>
