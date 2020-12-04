@@ -220,4 +220,10 @@ var store = [{
         "tags": ["Backups","GnuPG","GPG","OpenPGP","Ubuntu"],
         "url": "https://www.jwillikers.com/generate-a-gpg-key",
         "teaser": null
+      },{
+        "title": "Git and GPG",
+        "excerpt":"GPG keys can be used to cryptographically sign your work when using Git for version control. This ties your identity to your work, whether that&#8217;s a commit, tag, or even a push. Gitea, GitHub, GitLab, and other popular Git hosting services support visualizing this feature when browsing changes, showing which...","categories": ["Development"],
+        "tags": ["Cryptography","Git","GnuPG","GPG","OpenPGP","Ubuntu"],
+        "url": "https://www.jwillikers.com/git-and-gpg",
+        "teaser": null
       }]

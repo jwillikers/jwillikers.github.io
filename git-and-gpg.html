@@ -1,0 +1,621 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Git and GPG - JWillikers</title>
+<meta name="description" content="GPG keys can be used to cryptographically sign your work when using Git for version control. This ties your identity to your work, whether that&#8217;s a commit, tag, or even a push. Gitea, GitHub, GitLab, and other popular Git hosting services support visualizing this feature when browsing changes, showing which commits are verified.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Git and GPG">
+<meta property="og:url" content="https://www.jwillikers.com/git-and-gpg">
+
+
+  <meta property="og:description" content="GPG keys can be used to cryptographically sign your work when using Git for version control. This ties your identity to your work, whether that&#8217;s a commit, tag, or even a push. Gitea, GitHub, GitLab, and other popular Git hosting services support visualizing this feature when browsing changes, showing which commits are verified.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2020-12-04T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/git-and-gpg">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://gnupg.org/">GPG</a> keys can be used to cryptographically sign your work when using <a href="https://git-scm.com/">Git</a> for version control.
+This ties your identity to your work, whether that&#8217;s a commit, tag, or even a push.
+<a href="https://gitea.io/en-us/">Gitea</a>, <a href="https://github.com/">GitHub</a>, <a href="https://github.com/">GitLab</a>, and other popular Git hosting services support visualizing this feature when browsing changes, showing which commits are verified.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial describes how to use GPG to sign your work with Git, including command-line incantations and configuration options.
+It is assumed you already have a GPG key pair for your commit email.
+If not, I describe the exact steps in <a href="generate-a-gpg-key.html">Generate a GPG Key</a>.
+I also recommend you checkout my post <a href="backup-and-restore-a-gpg-key.html">Backup and Restore a GPG Key</a> for ways to avoid the pain of losing your private key.
+The official Git Book contains a very useful section on this topic, <a href="https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work">Git Tools Signing Your Work</a>.
+With that said, <a href="https://ubuntu.com/">Ubuntu</a> 20.04 is used as the reference system and familiarity with Git, GPG, and the command-line on Linux is assumed.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>All Git configuration settings are done <em>globally</em>, i.e. for the user in these steps.
+They may just as easily be configured at the repository level.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install <a href="https://packages.ubuntu.com/focal/git">Ubuntu&#8217;s git package</a>, of course.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>git</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set your Git username.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> user.name <span class="s2">"Ponder Stibbons"</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set your Git commit email address.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> user.email <span class="s2">"ponder.stibbons@unseen.edu"</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Identify the GPG secret key associated with your Git commit email address.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ gpg <span class="nt">--list-secret-keys</span> <span class="nt">--keyid-format</span> LONG
+/home/pstibbons/.gnupg/pubring.kbx
+<span class="nt">-------------------------------</span>
+sec   rsa4096/C8DE632E9A8A0BDD 2020-11-13 <span class="o">[</span>SC] <i class="conum" data-value="1"></i><b>(1)</b>
+      F38915B041F5F1024AF95C30C8DE632E9A8A0BDD
+uid                 <span class="o">[</span>ultimate] Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt;
+ssb   rsa4096/DBCD8B98F2F9188C 2020-11-13 <span class="o">[</span>E]</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The secret key&#8217;s id is <code>C8DE632E9A8A0BDD</code>, the string of letters and numbers following <code>rsa4096/</code>.
+The <code>sec</code> word indicates this is the secret key.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Configure this key as your default signing key for Git.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> user.signingKey C8DE632E9A8A0BDD</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The key can be provided when signing a tag, commit, or push, but it&#8217;s generally more convenient to configure your default key,
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Create a test directory for a test repository.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir </span>git-signing-test</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change into the directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd </span>git-signing-test</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Initialize a new Git repository.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git init</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create an example file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">touch test</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Stage this file in order to make a signed commit.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git add <span class="nb">test</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Pass the <code>-S</code> short option to <a href="http://manpages.ubuntu.com/manpages/focal/en/man1/git-commit.1.html">git-commit(1)</a> to manually sign a commit.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git commit <span class="nt">-S</span> <span class="nt">-m</span> <span class="s1">'Signed commit'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enter the passphrase for your private key in the <a href="#Passphrase Prompt">[Passphrase Prompt]</a>.</p>
+<div class="openblock">
+<div class="content">
+<div class="imageblock">
+<div class="content">
+<img src="Passphrase%20Prompt.png" alt="GPG Key Passphrase Prompt">
+</div>
+<div class="title">Passphrase Prompt</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you value your sanity, check the <em>Save in password manager</em> box to avoid unlocking your key for every signature.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Optionally, configure Git to sign commits by default with <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/git-config.1.html">git-config(1)</a> thus allowing you to omit the <code>-S</code> flag.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> commit.gpgSign <span class="nb">true</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This configuration setting applies to merge commits created when using <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/git-pull.1.html">git-merge(1)</a> and <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/git-pull.1.html">git-pull(1)</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Check a signed commit by using the <code>--show-signature</code> option with <code>git log</code>.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git log <span class="nt">--show-signature</span> <span class="nt">-1</span>
+commit 48fafff3d24a89ec9c6d5940317588f9b10b4f43 <span class="o">(</span>HEAD -&gt; master<span class="o">)</span>
+gpg: Signature made Sat 14 Nov 2020 09:53:05 AM CST
+gpg:                using RSA key F38915B041F5F1024AF95C30C8DE632E9A8A0BDD
+gpg: Good signature from <span class="s2">"Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt;"</span> <span class="o">[</span>ultimate]
+Author: Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt;
+Date:   Sat Nov 14 09:53:05 2020 <span class="nt">-0600</span>
+
+    Signed commit</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+When verifying GPG signatures, you will need to have the signer&#8217;s public key in your GPG keyring.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Manually sign a tag with the <code>-s</code> short option.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git tag <span class="nt">-s</span> v1.0.0 <span class="nt">-m</span> <span class="s1">'Signed tag'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If desired, configure Git to sign all tags by default.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> tag.gpgSign <span class="nb">true</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify a tag with the <code>-v</code> option.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git tag <span class="nt">-v</span> v1.0.0
+object 48fafff3d24a89ec9c6d5940317588f9b10b4f43
+<span class="nb">type </span>commit
+tag v1.0.0
+tagger Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt; 1605369450 <span class="nt">-0600</span>
+
+Signed tag
+gpg: Signature made Sat 14 Nov 2020 09:57:30 AM CST
+gpg:                using RSA key F38915B041F5F1024AF95C30C8DE632E9A8A0BDD
+gpg: Good signature from <span class="s2">"Ponder Stibbons &lt;ponder.stibbons@unseen.edu&gt;"</span> <span class="o">[</span>ultimate]</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create and switch to a new branch.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git switch <span class="nt">-c</span> unsigned
+Switched to a new branch <span class="s1">'unsigned'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create another file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">touch </span>test2</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Stage the new file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git add test2</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now, commit the file without a signature.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git commit <span class="nt">--no-gpg-sign</span> <span class="nt">-m</span> <span class="s1">'Unsigned commit'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Switch back to the main branch.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git switch master
+Switched to branch <span class="s1">'master'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>When using <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/git-merge.1.html">git-merge(1)</a>, sign a merge commit by passing the <code>-S</code> option and verify all signatures in the merge with the <code>--verify-signatures</code> option.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git merge <span class="nt">-S</span> <span class="nt">--verify-signatures</span> unsigned
+fatal: Commit a3bf413 does not have a GPG signature.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Oh no! The unsigned commit in the <em>unsigned</em> branch couldn&#8217;t be verified so the merge failed.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>To always verify signatures when merging, set the configuration option <code>merge.verifySignatures</code> to <code>true</code>.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> merge.verifySignatures <span class="nb">true</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This configuration setting also applies to the <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/git-pull.1.html">git-pull(1)</a> command.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>For <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/git-pull.1.html">git-pull(1)</a>, use the same options as with <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/git-merge.1.html">git-merge(1)</a> to sign a merge commit and verify all signatures.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git pull <span class="nt">-S</span> <span class="nt">--verify-signatures</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Sign pushes by using the <code>--signed</code> long option with <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/git-push.1.html">git-push(1)</a>.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>This option takes more than just a true or false value.
+The <code>if-asked</code> value used here signs pushes if the server supports this feature, but doesn&#8217;t otherwise.
+Signing pushed signifies <em>intent</em>, as Konstantin Ryabitsev describes in more detail in his article <a href="https://people.kernel.org/monsieuricon/signed-git-pushes">Signed git pushes</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git push <span class="nt">--signed</span><span class="o">=</span><span class="k">if</span><span class="nt">-asked</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Configure Git to sign pushes by default if the server supports it.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git config <span class="nt">--global</span> push.gpgSign <span class="k">if</span><span class="nt">-asked</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now go setup your key for use with your Git servers and start rolling out your signed commits!</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

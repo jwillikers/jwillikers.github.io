@@ -149,6 +149,10 @@
 <lastmod>2020-11-13T00:00:00-06:00</lastmod>
 </url>
 <url>
+<loc>https://www.jwillikers.com/git-and-gpg</loc>
+<lastmod>2020-12-04T00:00:00-06:00</lastmod>
+</url>
+<url>
 <loc>https://www.jwillikers.com/CODE_OF_CONDUCT</loc>
 </url>
 <url>
@@ -459,6 +463,9 @@
 </url>
 <url>
 <loc>https://www.jwillikers.com/tags/openpgp/</loc>
+</url>
+<url>
+<loc>https://www.jwillikers.com/tags/cryptography/</loc>
 </url>
 <url>
 <loc>https://www.jwillikers.com/categories/networking/</loc>
