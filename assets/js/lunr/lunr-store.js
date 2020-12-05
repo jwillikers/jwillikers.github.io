@@ -226,4 +226,10 @@ var store = [{
         "tags": ["Cryptography","Git","GnuPG","GPG","OpenPGP","Ubuntu"],
         "url": "https://www.jwillikers.com/git-and-gpg",
         "teaser": null
+      },{
+        "title": "Snapping on the Pinebook Pro",
+        "excerpt":"Snaps are an incredible new packaging format for Linux from Canonical.[1] They offer application confinement and increased portability while also simplifying the development workflow. Recently I submitted a pull-request to extend the Sublime Merge snap with support for arm64 so that I could use it on my Pinebook Pro. Testing...","categories": ["Packaging"],
+        "tags": ["arm64","Armbian","Linux","LXC","PinebookPro","Snapcraft","Ubuntu"],
+        "url": "https://www.jwillikers.com/snapping-on-the-pinebook-pro",
+        "teaser": null
       }]
