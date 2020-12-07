@@ -235,7 +235,7 @@ var store = [{
       },{
         "title": "Backup Git Repositories",
         "excerpt":"If you have any source code repositories hosted online, you probably don&#8217;t want to lose those. Just yesterday I converted my professional resume from the OpenDocument Format to a version controlled Asciidoctor project. This prompted me to do an important task I&#8217;d been putting off for some time, backing up...","categories": ["Systems"],
-        "tags": ["Backups","fish","Git","Linux","systemd","Ubuntu"],
+        "tags": ["Backup","fish","Git","Linux","SSH","systemd","Ubuntu"],
         "url": "https://www.jwillikers.com/backup-git-repositories",
         "teaser": null
       }]

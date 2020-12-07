@@ -293,6 +293,7 @@ Updated /home/jordan/Source/blog.git</code></pre>
 <span class="k">[Service]</span>
 <span class="nt">Environment</span><span class="p">=</span>fish_function_path=/etc/fish/functions
 <span class="nt">ExecStart</span><span class="p">=</span>/usr/bin/fish -c 'update_git_mirrors /home/jordan/Source'
+<span class="nt">Nice</span><span class="p">=</span>19
 <span class="nt">Type</span><span class="p">=</span>oneshot
 
 <span class="k">[Install]</span>
@@ -302,7 +303,8 @@ Updated /home/jordan/Source/blog.git</code></pre>
 <div class="paragraph">
 <p>The command-line here calls the fish function just created, <code>update_git_mirrors</code> to update the mirrors found in the directory <em>/home/jordan/Source</em>.
 The <em>Environment</em> setting protects the function from being overloaded by a function of the same name placed in another autoloaded directory, such as the user&#8217;s <em>~/.config/fish/functions</em> directory.
-Remove this line if you placed the function definition in the <em>~/.config/fish/functions</em> directory instead of <em>/etc/fish/functions</em>.</p>
+Remove this line if you placed the function definition in the <em>~/.config/fish/functions</em> directory instead of <em>/etc/fish/functions</em>.
+The <a href="https://www.freedesktop.org/software/systemd/man/systemd.exec.html#Nice="><em>Nice</em></a> directive designates a low scheduling priority, 14, for the CPU.</p>
 </div>
 <div class="paragraph">
 <p>Be aware of what protocols your repositories are using to authenticate when connecting to private repositories.
