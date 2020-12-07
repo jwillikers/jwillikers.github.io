@@ -232,4 +232,10 @@ var store = [{
         "tags": ["arm64","Armbian","Linux","LXC","PinebookPro","Snapcraft","Ubuntu"],
         "url": "https://www.jwillikers.com/snapping-on-the-pinebook-pro",
         "teaser": null
+      },{
+        "title": "Backup Git Repositories",
+        "excerpt":"If you have any source code repositories hosted online, you probably don&#8217;t want to lose those. Just yesterday I converted my professional resume from the OpenDocument Format to a version controlled Asciidoctor project. This prompted me to do an important task I&#8217;d been putting off for some time, backing up...","categories": ["Systems"],
+        "tags": ["Backups","fish","Git","Linux","systemd","Ubuntu"],
+        "url": "https://www.jwillikers.com/backup-git-repositories",
+        "teaser": null
       }]

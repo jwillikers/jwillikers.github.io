@@ -1,4 +1,288 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-12-05T07:26:19-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Snapping on the Pinebook Pro</title><link href="https://www.jwillikers.com/snapping-on-the-pinebook-pro" rel="alternate" type="text/html" title="Snapping on the Pinebook Pro" /><published>2020-12-05T00:00:00-06:00</published><updated>2020-12-05T00:00:00-06:00</updated><id>https://www.jwillikers.com/Snapping%20on%20the%20Pinebook%20Pro</id><content type="html" xml:base="https://www.jwillikers.com/snapping-on-the-pinebook-pro">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-12-07T08:16:47-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Backup Git Repositories</title><link href="https://www.jwillikers.com/backup-git-repositories" rel="alternate" type="text/html" title="Backup Git Repositories" /><published>2020-12-07T00:00:00-06:00</published><updated>2020-12-07T00:00:00-06:00</updated><id>https://www.jwillikers.com/Backup%20Git%20Repositories</id><content type="html" xml:base="https://www.jwillikers.com/backup-git-repositories">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you have any source code repositories hosted online, you probably don&amp;#8217;t want to lose those.
+Just yesterday I converted my professional resume from the &lt;a href=&quot;http://opendocumentformat.org/&quot;&gt;OpenDocument Format&lt;/a&gt; to a version controlled &lt;a href=&quot;https://asciidoctor.org/&quot;&gt;Asciidoctor&lt;/a&gt; project.
+This prompted me to do an important task I&amp;#8217;d been putting off for some time, backing up my &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt; repositories hosted on &lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;.
+Below is my solution.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The reference system will of course be the latest &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; LTS, 20.04 at the time of this writing.
+You will need to be familiar with Git and Unix shells.
+The &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt; in particular is used here.
+This tutorial will demonstrate how to automate these backups with &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Install the fish shell.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;fish&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a backup directory for storing your Git repositories.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; ~/Source&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create mirrors for each repository you wish to backup in this directory, making sure each repository&amp;#8217;s name is suffixed with &lt;em&gt;.git&lt;/em&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here, I mirror this blog&amp;#8217;s repository in the &lt;em&gt;Source&lt;/em&gt; directory in my home folder.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git clone &lt;span class=&quot;nt&quot;&gt;--mirror&lt;/span&gt; https://github.com/jwillikers/blog.git ~/Source/blog.git&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Place the following update script in &lt;em&gt;/etc/fish/functions&lt;/em&gt; where it will be autoloaded by fish.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;/etc/fish/functions/update_git_mirrors.fish&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;update_git_mirrors &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;For each directory given, non-recursively update each Git mirror repository directory suffixed with .git&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dir &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;not &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$dir&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;continue
+      &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Argument '&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$dir&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;' is not a directory&quot;&lt;/span&gt; 1&amp;gt;&amp;amp;2
+    end
+
+    &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mirror &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$dir&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.git
+      &lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$mirror&lt;/span&gt;
+         git &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$mirror&lt;/span&gt; remote update &lt;span class=&quot;nt&quot;&gt;--prune&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;/dev/null
+         &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Updated &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$mirror&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+      end
+    end
+  end
+end&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This script takes a number of directories as arguments.
+Each of these directories is searched for directories ending with &lt;em&gt;.git&lt;/em&gt; in their name.
+Each of these is treated as a Git mirror and updated appropriately.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Placing the function definition in &lt;em&gt;/etc/fish/functions&lt;/em&gt; provides a stronger guarantee for reproducibility compared to placing the function in the user&amp;#8217;s directory &lt;em&gt;~/.config/fish/functions&lt;/em&gt;.
+If you don&amp;#8217;t have root access or use &lt;a href=&quot;https://systemd.io/HOME_DIRECTORY/&quot;&gt;systemd-homed&lt;/a&gt; and want to migrate this function with your home directory, it makes more sense to place the function in &lt;em&gt;~/.config/fish/functions&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Test the script by executing &lt;code&gt;update_git_mirrors&lt;/code&gt; from within a fish shell.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Since I use fish as my default shell, it&amp;#8217;s as easy as running the function directly from my shell.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ update_git_mirrors ~/Source
+Updated /home/jordan/Source/blog.git&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you don&amp;#8217;t use fish as your shell - and don&amp;#8217;t want to bother converting this code for your shell - you can test the function by calling it with &lt;code&gt;fish -c&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ fish &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'update_git_mirrors ~/Source'&lt;/span&gt;
+Updated /home/jordan/Source/blog.git&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create the systemd user configuration directory.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/.config/systemd/user&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a systemd unit to refresh the mirrors.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.config/systemd/user/update-git-mirrors.service&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;systemd&quot;&gt;&lt;span class=&quot;k&quot;&gt;[Unit]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;Update my Git mirrors
+
+&lt;span class=&quot;k&quot;&gt;[Service]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;Environment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;fish_function_path=/etc/fish/functions
+&lt;span class=&quot;nt&quot;&gt;ExecStart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;/usr/bin/fish -c 'update_git_mirrors /home/jordan/Source'
+&lt;span class=&quot;nt&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;oneshot
+
+&lt;span class=&quot;k&quot;&gt;[Install]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;default.target&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The command-line here calls the fish function just created, &lt;code&gt;update_git_mirrors&lt;/code&gt; to update the mirrors found in the directory &lt;em&gt;/home/jordan/Source&lt;/em&gt;.
+The &lt;em&gt;Environment&lt;/em&gt; setting protects the function from being overloaded by a function of the same name placed in another autoloaded directory, such as the user&amp;#8217;s &lt;em&gt;~/.config/fish/functions&lt;/em&gt; directory.
+Remove this line if you placed the function definition in the &lt;em&gt;~/.config/fish/functions&lt;/em&gt; directory instead of &lt;em&gt;/etc/fish/functions&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Be aware of what protocols your repositories are using to authenticate when connecting to private repositories.
+If you use SSH with an encrypted private key to access any private repositories, your key must be unlocked and available in your SSH agent before running this unit.
+When using the timer described below, you will want your directory to automatically be unlocked at login for this to work.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Configure a dedicated backup key with read-only access to your Git repositories for extra safety.
+You could even use a dedicated user account for these backups to isolate this functionality, but I&amp;#8217;ve kept this simple for users that just want to get backups working.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Test run the new systemd unit.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; start update-git-mirrors.service&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Check the output of the command to make sure everything worked.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; status update-git-mirrors.service
+● update-git-mirrors.service - Update my Git mirrors
+     Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/home/jordan/.config/systemd/user/update-git-mirrors.service&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; disabled&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; vendor preset: enabled&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+     Active: inactive &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;dead&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+Dec 07 06:28:27 latitude fish[56735]: Updated /home/jordan/Source/blog.git
+Dec 07 06:28:31 latitude systemd[4148]: update-git-mirrors.service: Succeeded.
+Dec 07 06:28:31 latitude systemd[4148]: Finished Update my Git mirrors.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add a systemd timer to update the mirrors every day.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.config/systemd/user/update-git-mirrors.timer&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;systemd&quot;&gt;&lt;span class=&quot;k&quot;&gt;[Unit]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;Regularly refresh my Git mirrors
+
+&lt;span class=&quot;k&quot;&gt;[Timer]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;Persistent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;true
+&lt;span class=&quot;nt&quot;&gt;OnCalendar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;daily
+
+&lt;span class=&quot;k&quot;&gt;[Install]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;timers.target&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This timer has &lt;code&gt;Persistent=true&lt;/code&gt; to account for the situation when the timer would fire but the user has no session running.
+When this happens, the timer will just fire the next time the user logs on.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Activate the timer automatically when logging in.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;update-git-mirrors.timer
+Created symlink /home/jordan/.config/systemd/user/timers.target.wants/update-git-mirrors.timer → /home/jordan/.config/systemd/user/update-git-mirrors.timer.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Check when your timer&amp;#8217;s schedule with the &lt;code&gt;systemctl --user list-timers&lt;/code&gt; command.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; list-timers update-git-mirrors
+NEXT                        LEFT     LAST PASSED UNIT                     ACTIVATES
+Tue 2020-12-08 00:00:00 CST 16h left n/a  n/a    update-git-mirrors.timer update-git-mirrors.service
+
+1 timers listed.
+Pass &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt; to see loaded but inactive timers, too.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The above output indicates that the timer should fire for the first time tomorrow.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Make sure to regularly verify that your backups are running properly.
+Tools like &lt;a href=&quot;https://www.nagios.org/&quot;&gt;Nagios&lt;/a&gt; can make this monitoring easier.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now have a good idea as to how to go about backing up your Git repositories locally and automating the task with systemd.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. See the &lt;a href=&quot;https://fishshell.com/docs/current/#autoloading-functions&quot;&gt;Autoloading functions&lt;/a&gt; documentation for more details.
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://wiki.archlinux.org/index.php/Systemd/User#Basic_setup&quot;&gt;Arch Wiki: systemd/user - Basic Setup&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="Backups" /><category term="fish" /><category term="Git" /><category term="Linux" /><category term="systemd" /><category term="Ubuntu" /><summary type="html">If you have any source code repositories hosted online, you probably don&amp;#8217;t want to lose those. Just yesterday I converted my professional resume from the OpenDocument Format to a version controlled Asciidoctor project. This prompted me to do an important task I&amp;#8217;d been putting off for some time, backing up my Git repositories hosted on GitHub. Below is my solution.</summary></entry><entry><title type="html">Snapping on the Pinebook Pro</title><link href="https://www.jwillikers.com/snapping-on-the-pinebook-pro" rel="alternate" type="text/html" title="Snapping on the Pinebook Pro" /><published>2020-12-05T00:00:00-06:00</published><updated>2020-12-05T00:00:00-06:00</updated><id>https://www.jwillikers.com/Snapping%20on%20the%20Pinebook%20Pro</id><content type="html" xml:base="https://www.jwillikers.com/snapping-on-the-pinebook-pro">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://snapcraft.io/about&quot;&gt;Snaps&lt;/a&gt; are an incredible new packaging format for Linux from &lt;a href=&quot;https://canonical.com/&quot;&gt;Canonical&lt;/a&gt;.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
@@ -3720,331 +4004,4 @@ Filesystem                             Type  Size  Used Avail Use% Mounted on
 &lt;p&gt;You should now be able to resize a CentOS 7 virtual machine using QEMU, LVM, and XFS and have a better understanding of the tools and steps involved in the process.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="CentOS" /><category term="disk" /><category term="filesystem" /><category term="Linux" /><category term="LVM" /><category term="QEMU" /><category term="XFS" /><summary type="html">Sometimes you just need some more disk space. Expanding the size of a virtual disk, though, is not necessarily as easy as you&amp;#8217;d hope. Having just done this on a CentOS 7 virtual machine, I document how to do so here. Thanks goes to the article How to extend Linux LVM partition in AWS from SystemMen.</summary></entry><entry><title type="html">Generate an SSH Key</title><link href="https://www.jwillikers.com/generate-an-ssh-key" rel="alternate" type="text/html" title="Generate an SSH Key" /><published>2020-10-24T00:00:00-05:00</published><updated>2020-10-24T00:00:00-05:00</updated><id>https://www.jwillikers.com/Generate%20an%20SSH%20Key</id><content type="html" xml:base="https://www.jwillikers.com/generate-an-ssh-key">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Entering passwords is a pain.
-I know you agree.
-Why not enter passwords less by using &lt;a href=&quot;https://www.ssh.com/ssh/&quot;&gt;SSH&lt;/a&gt;?
-You&amp;#8217;ll just need a key and a little know-how to get started.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;generate_an_ssh_key&quot;&gt;Generate an SSH Key&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;SSH is ubiquitous.
-It&amp;#8217;s used by developers and systems administrators every day all across the globe to securely connect to machines.
-Through cryptographic means, it is capable of establishing a secure connection between two hosts across a network.
-This guide details how to generate an SSH key and two common use cases, authenticating with GitHub and connecting to a remote host.
-This guide uses the &lt;a href=&quot;https://www.openssh.com/&quot;&gt;OpenSSH&lt;/a&gt; client and server implementations.
-The client and server are assumed to be running &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt;, although most of these instructions are identical on any Unix-like operating system using the OpenSSH implementations.
-It is assumed you are familiar with the command-line on Unix-Like systems, &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt;, and &lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Generate a key with the &lt;a href=&quot;https://man.openbsd.org/ssh-keygen.1&quot;&gt;&lt;code&gt;ssh-keygen&lt;/code&gt;&lt;/a&gt; command.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh-keygen
-Generating public/private rsa key pair.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Typically, you will generate exactly one SSH key for your user account on a particular host, so use the default file.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Enter file in which to save the key (/home/jordan/.ssh/id_rsa):&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This file is the private key.
-Two key files are actually generated, which together form what is known as a key pair.
-The public key file will be placed in the same directory and use the same name with &lt;code&gt;.pub&lt;/code&gt; appended.
-In this case, &lt;code&gt;/home/jordan/id_rsa.pub&lt;/code&gt; is the corresponding public key file.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock caution&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Never move your private SSH key across the network or send it to anyone else.
-In fact, it&amp;#8217;s generally best to keep this key exactly where it is generated, backing it up to offline media.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enter a strong passphrase to protect your key.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Enter passphrase (empty for no passphrase):&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This passphrase is used to encrypt your private key file.
-Even if someone gains access to the key file, they can&amp;#8217;t use it to authenticate as you so long as they don&amp;#8217;t have the passphrase.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;To finish the creation process, re-enter your nice, strong passphrase.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Enter same passphrase again:
-Your identification has been saved in /home/jordan/.ssh/id_rsa
-Your public key has been saved in /home/jordan/.ssh/id_rsa.pub
-The key fingerprint is:
-SHA256:UdHmkL8i0EME+VYLGydcmV3B1nTk0unPYTHf4WBvnFo jordan@jwillikers
-The key's randomart image is:
-+---[RSA 3072]----+
-|     X@*+..      |
-|    ==X@o=       |
-|   + OO+E.       |
-|    Xo=*=        |
-|   o oo+S.       |
-|     . o..       |
-|        .        |
-|                 |
-|                 |
-+----[SHA256]-----+&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Now that your key is generated, you&amp;#8217;ll probably want to add its passphrase to your login keyring so that you don&amp;#8217;t have to type it all the darn time.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Ubuntu, macOS, and many other Linux desktops will prompt you to save this key to your keychain when you have to unlock it.
-The best way to do this is to just use your key, such as described in the following two sections.
-On Ubuntu, check the box to automatically unlock the key when you login.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;Save%20the%20Password%20for%20Your%20SSH%20Key%20on%20Ubuntu.png&quot; alt=&quot;Save the Password for Your SSH Key on Ubuntu&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Save the Password for Your SSH Key on Ubuntu&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock tip&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For integration with the system keychain to work, make sure to use the system&amp;#8217;s SSH client in order to trigger this mechanism.
-This can be an issue if you have other versions of OpenSSH on your machine.
-I ran into this on macOS when using a newer version of the OpenSSH client provided by &lt;a href=&quot;https://www.macports.org/&quot;&gt;MacPorts&lt;/a&gt;.
-The prompt never appeared when using this SSH client.
-Establishing an SSH connection by calling &lt;code&gt;/usr/bin/ssh&lt;/code&gt; directly successfully triggered the prompt.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;These systems take care of running an &lt;a href=&quot;https://man.openbsd.org/ssh-agent.1&quot;&gt;SSH agent&lt;/a&gt; for you.
-An SSH agent stores your key unencryped in RAM, so that you don&amp;#8217;t have to enter your passphrase to decrypt it each time you wish to use it.
-Not all platforms start the SSH agent and add your key to it for you.
-On these platforms, you&amp;#8217;ll have to do this yourself.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;github&quot;&gt;GitHub&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Accessing private repositories or enabling certain privileges on public repositories, such as push access to a repository, will require some form of user authentication.
-Working with Git repositories is much easier when SSH handles required authentication.
-GitHub is used as an example here because it is so widely used.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Don&amp;#8217;t forget to install Git if you haven&amp;#8217;t already.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;git&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Open your &lt;a href=&quot;https://github.com/settings/keys&quot;&gt;SSH and GPG keys&lt;/a&gt; settings page in a web browser.&lt;/p&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-For up-to-date instructions, refer to &lt;a href=&quot;https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account&quot;&gt;GitHub&amp;#8217;s documentation&lt;/a&gt;.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Select the &lt;b class=&quot;button&quot;&gt;New SSH key&lt;/b&gt; button.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Optionally, enter a name for this key in the &lt;em&gt;Title&lt;/em&gt; field.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The user and host name of the given key will be used by default if this field is left blank.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Copy the public key.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This can be accomplished by dumping the contents of the public key to your terminal and copying the output from there.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; ~/.ssh/id_rsa.pub
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDoxvFhlQciJxydpZVKnNwVYtSZI8hw6aF3ug961FAHzp1sbuZJm++rFSG30wwxeXK3r+FPXXnEnmPW53dn26ywFChHRRpN4zgyEdCXYLBOILObm/9z6hnOa8MReNC9VKH5xBq5CH4YmNfJjmJ5LaeI9PMbF/++F+n+QDTWgpfwKu3FxJYRtQ4NLd5q2QOvwpzQ3M2FOkqJ0N//qwiuJNLtUmDZQRqpeZCbhhAptrF6yyYME70pMKQFuE5gEzZThDIP6TAPuu0L4LECwossWlsA4bvhOK8wN0KWfvuZLx6r/8ld4P9/3FkshuTsWXIDbykewR4QcPE8EcpVNFH6l+zrLBCkndOimN4iLy7eBPPfdLZG1yfcusA0pPMiYKiA4SYzh6w2wrt0Y0wV1/npNHvZM/qS/2tJTkwYYKLxRah3SdR7onJQzWn67SdzxJ5FO5xQB5HsMMe99JTqaHEGEiUrGFB5MsqUbtTqHo3ZMYre0uEax03omq3pZel+MCj52S8&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; jordan@jwillikers&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Paste the contents of the public key file in the &lt;em&gt;Key&lt;/em&gt; field.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Click the &lt;b class=&quot;button&quot;&gt;Add SSH key&lt;/b&gt; button to upload the key.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Clone the desired repository using its SSH URL.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here, I clone the repository for this blog over SSH.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git clone git@github.com:jwillikers/blog.git&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;remote_access&quot;&gt;Remote Access&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For remotely accessing a host, some configuration is required.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;On the remote machine, make sure to install the OpenSSH server.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;openssh-server&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Copy the public from your account to the target user&amp;#8217;s &lt;code&gt;~/.ssh/known_hosts&lt;/code&gt; file on the remote host.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;a href=&quot;https://www.ssh.com/ssh/copy-id&quot;&gt;&lt;code&gt;ssh-copy-id&lt;/code&gt;&lt;/a&gt; command is usually available for just this task.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh-copy-id remote_host&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If it&amp;#8217;s not available you might be able to install a package for it, such as on &lt;a href=&quot;https://www.openbsd.org/&quot;&gt;OpenBSD&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ doas pkg_add ssh-copy-id&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Or, you can just use &lt;a href=&quot;https://man7.org/linux/man-pages/man1/cat.1.html&quot;&gt;&lt;code&gt;cat&lt;/code&gt;&lt;/a&gt;, courtesy of &lt;a href=&quot;https://mwl.io/&quot;&gt;Michael W. Lucas&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; ~/.ssh/id_rsa.pub | &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  ssh remote_host &lt;span class=&quot;s2&quot;&gt;&quot;cat &amp;gt;&amp;gt; ~/.ssh/authorized_keys&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enter your passphrase when prompted.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;You should now be able to authenticate with your SSH key.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ssh remote_host&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now that you are barely capable of generating and using an SSH key, read &lt;a href=&quot;https://www.tiltedwindmillpress.com/product/ssh-mastery-2nd-edition/&quot;&gt;SSH Mastery&lt;/a&gt; by Michael W. Lucas for a much more comprehensive understanding.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Command-Line" /><category term="BSD" /><category term="Linux" /><category term="macOS" /><category term="OpenSSH" /><category term="SSH" /><summary type="html">Entering passwords is a pain. I know you agree. Why not enter passwords less by using SSH? You&amp;#8217;ll just need a key and a little know-how to get started.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="CentOS" /><category term="disk" /><category term="filesystem" /><category term="Linux" /><category term="LVM" /><category term="QEMU" /><category term="XFS" /><summary type="html">Sometimes you just need some more disk space. Expanding the size of a virtual disk, though, is not necessarily as easy as you&amp;#8217;d hope. Having just done this on a CentOS 7 virtual machine, I document how to do so here. Thanks goes to the article How to extend Linux LVM partition in AWS from SystemMen.</summary></entry></feed>

@@ -1,0 +1,509 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Backup Git Repositories - JWillikers</title>
+<meta name="description" content="If you have any source code repositories hosted online, you probably don&#8217;t want to lose those. Just yesterday I converted my professional resume from the OpenDocument Format to a version controlled Asciidoctor project. This prompted me to do an important task I&#8217;d been putting off for some time, backing up my Git repositories hosted on GitHub. Below is my solution.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Backup Git Repositories">
+<meta property="og:url" content="https://www.jwillikers.com/backup-git-repositories">
+
+
+  <meta property="og:description" content="If you have any source code repositories hosted online, you probably don&#8217;t want to lose those. Just yesterday I converted my professional resume from the OpenDocument Format to a version controlled Asciidoctor project. This prompted me to do an important task I&#8217;d been putting off for some time, backing up my Git repositories hosted on GitHub. Below is my solution.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2020-12-07T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/backup-git-repositories">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you have any source code repositories hosted online, you probably don&#8217;t want to lose those.
+Just yesterday I converted my professional resume from the <a href="http://opendocumentformat.org/">OpenDocument Format</a> to a version controlled <a href="https://asciidoctor.org/">Asciidoctor</a> project.
+This prompted me to do an important task I&#8217;d been putting off for some time, backing up my <a href="https://git-scm.com/">Git</a> repositories hosted on <a href="https://github.com/">GitHub</a>.
+Below is my solution.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The reference system will of course be the latest <a href="https://ubuntu.com/">Ubuntu</a> LTS, 20.04 at the time of this writing.
+You will need to be familiar with Git and Unix shells.
+The <a href="https://fishshell.com/">fish shell</a> in particular is used here.
+This tutorial will demonstrate how to automate these backups with <a href="https://systemd.io/">systemd</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the fish shell.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>fish</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a backup directory for storing your Git repositories.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> ~/Source</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create mirrors for each repository you wish to backup in this directory, making sure each repository&#8217;s name is suffixed with <em>.git</em>.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Here, I mirror this blog&#8217;s repository in the <em>Source</em> directory in my home folder.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ git clone <span class="nt">--mirror</span> https://github.com/jwillikers/blog.git ~/Source/blog.git</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Place the following update script in <em>/etc/fish/functions</em> where it will be autoloaded by fish.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">/etc/fish/functions/update_git_mirrors.fish</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="k">function </span>update_git_mirrors <span class="nt">-d</span> <span class="s2">"For each directory given, non-recursively update each Git mirror repository directory suffixed with .git"</span>
+  <span class="k">for </span><span class="nb">dir </span><span class="k">in</span> <span class="nv">$argv</span>
+    <span class="k">if </span>not <span class="nb">test</span> <span class="nt">-d</span> <span class="nv">$dir</span>
+      <span class="k">continue
+      </span><span class="nb">echo</span> <span class="s2">"Argument '</span><span class="nv">$dir</span><span class="s2">' is not a directory"</span> 1&gt;&amp;2
+    end
+
+    <span class="k">for </span>mirror <span class="k">in</span> <span class="nv">$dir</span>/<span class="k">*</span>.git
+      <span class="k">if </span><span class="nb">test</span> <span class="nt">-d</span> <span class="nv">$mirror</span>
+         git <span class="nt">-C</span> <span class="nv">$mirror</span> remote update <span class="nt">--prune</span> <span class="o">&gt;</span>/dev/null
+         <span class="nb">echo</span> <span class="s2">"Updated </span><span class="nv">$mirror</span><span class="s2">"</span>
+      end
+    end
+  end
+end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This script takes a number of directories as arguments.
+Each of these directories is searched for directories ending with <em>.git</em> in their name.
+Each of these is treated as a Git mirror and updated appropriately.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Placing the function definition in <em>/etc/fish/functions</em> provides a stronger guarantee for reproducibility compared to placing the function in the user&#8217;s directory <em>~/.config/fish/functions</em>.
+If you don&#8217;t have root access or use <a href="https://systemd.io/HOME_DIRECTORY/">systemd-homed</a> and want to migrate this function with your home directory, it makes more sense to place the function in <em>~/.config/fish/functions</em>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Test the script by executing <code>update_git_mirrors</code> from within a fish shell.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Since I use fish as my default shell, it&#8217;s as easy as running the function directly from my shell.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ update_git_mirrors ~/Source
+Updated /home/jordan/Source/blog.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t use fish as your shell - and don&#8217;t want to bother converting this code for your shell - you can test the function by calling it with <code>fish -c</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ fish <span class="nt">-c</span> <span class="s1">'update_git_mirrors ~/Source'</span>
+Updated /home/jordan/Source/blog.git</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Create the systemd user configuration directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/systemd/user</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a systemd unit to refresh the mirrors.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">~/.config/systemd/user/update-git-mirrors.service</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Update my Git mirrors
+
+<span class="k">[Service]</span>
+<span class="nt">Environment</span><span class="p">=</span>fish_function_path=/etc/fish/functions
+<span class="nt">ExecStart</span><span class="p">=</span>/usr/bin/fish -c 'update_git_mirrors /home/jordan/Source'
+<span class="nt">Type</span><span class="p">=</span>oneshot
+
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>default.target</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command-line here calls the fish function just created, <code>update_git_mirrors</code> to update the mirrors found in the directory <em>/home/jordan/Source</em>.
+The <em>Environment</em> setting protects the function from being overloaded by a function of the same name placed in another autoloaded directory, such as the user&#8217;s <em>~/.config/fish/functions</em> directory.
+Remove this line if you placed the function definition in the <em>~/.config/fish/functions</em> directory instead of <em>/etc/fish/functions</em>.</p>
+</div>
+<div class="paragraph">
+<p>Be aware of what protocols your repositories are using to authenticate when connecting to private repositories.
+If you use SSH with an encrypted private key to access any private repositories, your key must be unlocked and available in your SSH agent before running this unit.
+When using the timer described below, you will want your directory to automatically be unlocked at login for this to work.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Configure a dedicated backup key with read-only access to your Git repositories for extra safety.
+You could even use a dedicated user account for these backups to isolate this functionality, but I&#8217;ve kept this simple for users that just want to get backups working.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Test run the new systemd unit.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nt">--user</span> start update-git-mirrors.service</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check the output of the command to make sure everything worked.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nt">--user</span> status update-git-mirrors.service
+● update-git-mirrors.service - Update my Git mirrors
+     Loaded: loaded <span class="o">(</span>/home/jordan/.config/systemd/user/update-git-mirrors.service<span class="p">;</span> disabled<span class="p">;</span> vendor preset: enabled<span class="o">)</span>
+     Active: inactive <span class="o">(</span>dead<span class="o">)</span>
+
+Dec 07 06:28:27 latitude fish[56735]: Updated /home/jordan/Source/blog.git
+Dec 07 06:28:31 latitude systemd[4148]: update-git-mirrors.service: Succeeded.
+Dec 07 06:28:31 latitude systemd[4148]: Finished Update my Git mirrors.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add a systemd timer to update the mirrors every day.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">~/.config/systemd/user/update-git-mirrors.timer</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Regularly refresh my Git mirrors
+
+<span class="k">[Timer]</span>
+<span class="nt">Persistent</span><span class="p">=</span>true
+<span class="nt">OnCalendar</span><span class="p">=</span>daily
+
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>timers.target</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This timer has <code>Persistent=true</code> to account for the situation when the timer would fire but the user has no session running.
+When this happens, the timer will just fire the next time the user logs on.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Activate the timer automatically when logging in.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nt">--user</span> <span class="nb">enable </span>update-git-mirrors.timer
+Created symlink /home/jordan/.config/systemd/user/timers.target.wants/update-git-mirrors.timer → /home/jordan/.config/systemd/user/update-git-mirrors.timer.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check when your timer&#8217;s schedule with the <code>systemctl --user list-timers</code> command.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nt">--user</span> list-timers update-git-mirrors
+NEXT                        LEFT     LAST PASSED UNIT                     ACTIVATES
+Tue 2020-12-08 00:00:00 CST 16h left n/a  n/a    update-git-mirrors.timer update-git-mirrors.service
+
+1 timers listed.
+Pass <span class="nt">--all</span> to see loaded but inactive timers, too.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above output indicates that the timer should fire for the first time tomorrow.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Make sure to regularly verify that your backups are running properly.
+Tools like <a href="https://www.nagios.org/">Nagios</a> can make this monitoring easier.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now have a good idea as to how to go about backing up your Git repositories locally and automating the task with systemd.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. See the <a href="https://fishshell.com/docs/current/#autoloading-functions">Autoloading functions</a> documentation for more details.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. <a href="https://wiki.archlinux.org/index.php/Systemd/User#Basic_setup">Arch Wiki: systemd/user - Basic Setup</a>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
