@@ -238,4 +238,10 @@ var store = [{
         "tags": ["Backup","fish","Git","Linux","SSH","systemd","Ubuntu"],
         "url": "https://www.jwillikers.com/backup-git-repositories",
         "teaser": null
+      },{
+        "title": "A Multi-Boot USB With Ventoy",
+        "excerpt":"My daily driver predates Dell&#8217;s support for the Linux Vendor Firmware Service, usually abbreviated LVFS. The only way to update my motherboard&#8217;s UEFI is through Windows, which I means I&#8217;ll need a Windows 10 USB installer. Creating a USB installer on Ubuntu is typically as easy as opening GNOME Disks,...","categories": ["Systems"],
+        "tags": ["Boot","Disk","GNOME","Linux","Installer","ISO","Ubuntu","udisks","USB","Ventoy","Windows","Windows10"],
+        "url": "https://www.jwillikers.com/create-a-multi-boot-usb-with-ventoy",
+        "teaser": null
       }]

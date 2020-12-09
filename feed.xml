@@ -1,4 +1,436 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-12-07T14:10:52-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Backup Git Repositories</title><link href="https://www.jwillikers.com/backup-git-repositories" rel="alternate" type="text/html" title="Backup Git Repositories" /><published>2020-12-07T00:00:00-06:00</published><updated>2020-12-07T00:00:00-06:00</updated><id>https://www.jwillikers.com/Backup%20Git%20Repositories</id><content type="html" xml:base="https://www.jwillikers.com/backup-git-repositories">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-12-08T18:27:01-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">A Multi-Boot USB With Ventoy</title><link href="https://www.jwillikers.com/create-a-multi-boot-usb-with-ventoy" rel="alternate" type="text/html" title="A Multi-Boot USB With Ventoy" /><published>2020-12-08T00:00:00-06:00</published><updated>2020-12-08T00:00:00-06:00</updated><id>https://www.jwillikers.com/Create%20a%20Multi-Boot%20USB%20With%20Ventoy</id><content type="html" xml:base="https://www.jwillikers.com/create-a-multi-boot-usb-with-ventoy">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;My daily driver predates Dell&amp;#8217;s support for the &lt;a href=&quot;https://fwupd.org/&quot;&gt;Linux Vendor Firmware Service&lt;/a&gt;, usually abbreviated &lt;em&gt;LVFS&lt;/em&gt;.
+The only way to update my motherboard&amp;#8217;s &lt;a href=&quot;https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface#Das_U-Boot&quot;&gt;UEFI&lt;/a&gt; is through Windows, which I means I&amp;#8217;ll need a Windows 10 USB installer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Creating a USB installer on Ubuntu is typically as easy as opening &lt;a href=&quot;https://wiki.gnome.org/Apps/Disks&quot;&gt;GNOME Disks&lt;/a&gt;, selecting the desired USB disk, clicking &lt;b class=&quot;button&quot;&gt;Restore Disk Image&amp;#8230;&amp;#8203;&lt;/b&gt;, and selecting the ISO or image file.
+Unfortunately, creating a Windows installer is not that simple.
+The best solution for this has got to be &lt;a href=&quot;https://www.ventoy.net/&quot;&gt;Ventoy&lt;/a&gt;.
+Not only does it support booting more that just a single operating system, it allows booting from as many disk images as you can cram on to your drive.
+The &lt;a href=&quot;https://www.ventoy.net/en/isolist.html&quot;&gt;long list of tested images&lt;/a&gt; is also quite nice.
+Runner ups include &lt;a href=&quot;https://linuxhint.com/create-a-bootable-windows-10-usb-drive-in-linux/&quot;&gt;GNOME Disks &lt;em&gt;plus workarounds&lt;/em&gt;&lt;/a&gt; and &lt;a href=&quot;https://github.com/WoeUSB/WoeUSB-ng&quot;&gt;WoeUSB-ng&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ventoy is a project for booting any number of arbitrary ISO&amp;#8217;s off of a single flash drive.
+Once a flash drive is set up, you can just drag and drop ISO images on to the flash drive and presto!
+This tutorial is broken in to three parts, creating a Ventoy flash drive, adding an ISO image to it, and updating the Ventoy flash drive.
+For reference, I use &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.04 here, but these options will work across many Linux distributions.
+This tutorial assumes you are familiar with the command-line and Linux systems.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;create_a_ventoy_flash_drive&quot;&gt;Create a Ventoy Flash Drive&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The first step is, of course, to setup the flash drive with Ventoy.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Insert a flash drive in to your computer.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Locate the device associated with your USB by using the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/lsblk.8.html&quot;&gt;lsblk(8)&lt;/a&gt; command.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ lsblk
+NAME             MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+sda                8:0    0 465.8G  0 disk
+├─sda1             8:1    0   512M  0 part  /boot/efi
+├─sda2             8:2    0     2G  0 part
+│ └─cryptoswap   253:1    0     2G  0 crypt &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SWAP]
+├─sda3             8:3    0     2G  0 part
+└─sda4             8:4    0 461.3G  0 part
+sdb                8:16   1  29.9G  0 disk &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+zd0              230:0    0   500M  0 disk
+└─keystore-rpool 253:0    0   484M  0 crypt /run/keystore/rpool&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;em&gt;sdb&lt;/em&gt; here is the 32 Gigabyte flash drive I&amp;#8217;ve plugged in to my laptop.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ensure that nothing important is on the flash drive since it will be overwritten in a minute.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Download the latest release for Linux, available on &lt;a href=&quot;https://github.com/ventoy/Ventoy/releases&quot;&gt;Ventoy&amp;#8217;s GitHub Releases page&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Download the latest release directly from the command-line with the following command.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-nv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://api.github.com/repos/ventoy/Ventoy/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /\.tar\.gz/ \
+  {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qi -L &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/tar.1.html&quot;&gt;tar(1)&lt;/a&gt; command to extract the archive.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;tar &lt;/span&gt;xf ventoy-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-linux&lt;/span&gt;.tar.gz&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install Ventoy on the flash drive by running the &lt;code&gt;Ventoy2Disk.sh&lt;/code&gt; shell script as &lt;em&gt;root&lt;/em&gt;, passing the &lt;code&gt;-i&lt;/code&gt; flag and device.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Since my target system uses UEFI, I include support for &lt;a href=&quot;https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface#SECURE-BOOT&quot;&gt;secure boot&lt;/a&gt; with the &lt;code&gt;-s&lt;/code&gt; flag and use a &lt;a href=&quot;https://en.wikipedia.org/wiki/GUID_Partition_Table&quot;&gt;GUID partition table&lt;/a&gt; by passing the &lt;code&gt;-g&lt;/code&gt; flag.
+When targeting systems using legacy &lt;a href=&quot;https://en.wikipedia.org/wiki/BIOS&quot;&gt;BIOS&lt;/a&gt; or depending on your target device, you may want to omit one or both of these flags.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Some one-time setup, documented &lt;a href=&quot;https://www.ventoy.net/en/doc_secure.html&quot;&gt;here&lt;/a&gt;, is required for secure boot when booting the flash drive for the first time on a machine.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ventoy-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/Ventoy2Disk.sh &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; /dev/sdb
+
+&lt;span class=&quot;k&quot;&gt;**********************************************&lt;/span&gt;
+      Ventoy: 1.0.29
+      longpanda admin@ventoy.net
+      https://www.ventoy.net
+&lt;span class=&quot;k&quot;&gt;**********************************************&lt;/span&gt;
+
+Disk : /dev/sdb
+Model: Samsung Flash Drive FIT &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;scsi&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Size : 29 GB
+Style: GPT&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;When prompted, take a deep breath, read the message, double-check the device is correct, and type &lt;kbd&gt;Y&lt;/kbd&gt; if everything checks out and you still think this is a good idea.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Attention:
+You will &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;Ventoy to /dev/sdb.
+All the data on the disk /dev/sdb will be lost!!!
+
+Continue? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;y/n&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; y&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Repeat as necessary.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;All the data on the disk /dev/sdb will be lost!!!
+Double-check. Continue? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;y/n&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; y
+
+Create partitions on /dev/sdb by parted &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;GPT style ...
+Done
+mkfs on disk partitions ...
+create efi fat fs /dev/sdb2 ...
+mkfs.fat 4.1 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2017-01-24&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+success
+mkexfatfs 1.3.0
+Creating... &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+Flushing... &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+File system created successfully.
+writing data to disk ...
+&lt;span class=&quot;nb&quot;&gt;sync &lt;/span&gt;data ...
+esp partition processing ...
+
+Install Ventoy to /dev/sdb successfully finished.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;That&amp;#8217;s all that is required of the downloaded Ventoy files for this tutorial, so delete them if you like.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ventoy-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;add_images&quot;&gt;Add Images&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that the flash drive has been configured, you just have to place any desired images on to the storage partition.
+Here, I walk through each step necessary to add a Windows 10 ISO to the flash drive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Download the &lt;a href=&quot;https://www.microsoft.com/en-gb/software-download/windows10ISO&quot;&gt;Windows 10 ISO&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mount the Ventoy flash drive with the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/udisksctl.1.html&quot;&gt;udisksctl(1)&lt;/a&gt; command.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Usually a USB drive is mounted automatically and you can skip this step.
+If you&amp;#8217;ve just created the flash drive, you&amp;#8217;ll have to manually mount it.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;
+If you are wondering whether it is mounted or not, well, the following command won&amp;#8217;t hurt.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;By default, Ventoy labels the storage partition on the USB drive &lt;em&gt;ventoy&lt;/em&gt; and the boot partition &lt;em&gt;VTOYEFI&lt;/em&gt;.
+Here, I mount the &lt;em&gt;ventoy&lt;/em&gt; partition by label.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl mount &lt;span class=&quot;nt&quot;&gt;--no-user-interaction&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/disk/by-label/ventoy
+Mounted /dev/sdb1 at /media/jordan/ventoy&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now just drag and drop the ISO in the &lt;em&gt;ventoy&lt;/em&gt; partition use &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/cp.1posix.html&quot;&gt;cp(1)&lt;/a&gt; as shown here.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Unless Ventoy&amp;#8217;s label for the storage partition has been changed from its default, it will be mounted at &lt;em&gt;/media/$USER/ventoy&lt;/em&gt;, where &lt;code&gt;$USER&lt;/code&gt; represents your username.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; ~/Downloads/Win10_20H2_English_x64.iso /media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/ventoy&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Before unplugging the flash drive, remember to unmount the filesystems.&lt;/p&gt;
+&lt;div class=&quot;olist loweralpha&quot;&gt;
+&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Unmount the &lt;em&gt;ventoy&lt;/em&gt; storage partition.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/disk/by-label/ventoy
+Unmounted /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Unmount the &lt;em&gt;VTOYEFI&lt;/em&gt; boot partition.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/disk/by-label/VTOYEFI
+Unmounted /dev/sdb2.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now remove the flash drive and it&amp;#8217;s ready for use!&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;update&quot;&gt;Update&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ventoy regularly releases updates which may include bug fixes and new features.
+Typically, minor updates can be applied to an existing Ventoy flash drive without erasing your ISO files on the USB drive.
+These instructions explain how to go about updating a Ventoy flash drive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Plug the Ventoy flash drive in to your computer.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Find the your flash drive with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/lsblk.8.html&quot;&gt;lsblk(8)&lt;/a&gt; command.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ lsblk
+NAME             MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+sda                8:0    0 465.8G  0 disk
+├─sda1             8:1    0   512M  0 part  /boot/efi
+├─sda2             8:2    0     2G  0 part
+│ └─cryptoswap   253:1    0     2G  0 crypt &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SWAP]
+├─sda3             8:3    0     2G  0 part
+└─sda4             8:4    0 461.3G  0 part
+sdb                8:16   1  29.9G  0 disk &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+├─sdb1             8:17   1  29.8G  0 part /media/jordan/ventoy
+└─sdb2             8:18   1    32M  0 part /media/jordan/VTOYEFI
+zd0              230:0    0   500M  0 disk
+└─keystore-rpool 253:0    0   484M  0 crypt /run/keystore/rpool&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;&lt;em&gt;sdb&lt;/em&gt; here is the 32 Gigabyte Ventoy flash drive I&amp;#8217;ve plugged in to my laptop.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Download the latest release for Linux from &lt;a href=&quot;https://github.com/ventoy/Ventoy/releases&quot;&gt;Ventoy&amp;#8217;s GitHub Releases page&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-nv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://api.github.com/repos/ventoy/Ventoy/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /\.tar\.gz/ \
+  {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qi -L &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Extract the archive with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/tar.1.html&quot;&gt;tar(1)&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;tar &lt;/span&gt;xf ventoy-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-linux&lt;/span&gt;.tar.gz&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Update the Ventoy flash drive by running the &lt;code&gt;Ventoy2Disk.sh&lt;/code&gt; shell script as root with the &lt;code&gt;-u&lt;/code&gt; flag and the path to the flash drive.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Currently Ventoy won&amp;#8217;t persist the secure boot setting, so it must be enabled explicitly when updating to keep it enabled.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ventoy-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/Ventoy2Disk.sh &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; /dev/sdb
+
+&lt;span class=&quot;k&quot;&gt;**********************************************&lt;/span&gt;
+      Ventoy: 1.0.29
+      longpanda admin@ventoy.net
+      https://www.ventoy.net
+&lt;span class=&quot;k&quot;&gt;**********************************************&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ventoy will prompt for confirmation after indicating whether the operation is safe or dangerous.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Enter &lt;kbd&gt;Y&lt;/kbd&gt; to continue with the update.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Upgrade operation is safe, all the data &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;the 1st partition &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;iso files and other&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; will be unchanged!
+
+Update Ventoy  1.0.29 &lt;span class=&quot;o&quot;&gt;===&amp;gt;&lt;/span&gt; 1.0.29   Continue? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;y/n&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;y
+
+Update Ventoy to /dev/sdb successfully finished.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Before unplugging the flash drive, remember to unmount the filesystems.&lt;/p&gt;
+&lt;div class=&quot;olist loweralpha&quot;&gt;
+&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Unmount the &lt;em&gt;ventoy&lt;/em&gt; storage partition.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/disk/by-label/ventoy
+Unmounted /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Unmount the &lt;em&gt;VTOYEFI&lt;/em&gt; boot partition.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/disk/by-label/VTOYEFI
+Unmounted /dev/sdb2.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now remove the flash drive and it&amp;#8217;s ready for use again!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If you are finished with the downloaded Ventoy files, clean them up now.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ventoy-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ventoy is really, really helpful for booting all kinds of operating systems off of a single USB drive.
+Take advantage of that increased disk space on flash drives now-a-days for storing more than just one image at a time.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Or, use &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/fdisk.8.html&quot;&gt;fdisk(8)&lt;/a&gt;, via &lt;code&gt;sudo fdisk -l&lt;/code&gt;, if you prefer.
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. Or just unplug the flash drive and plug it back in.
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="Boot" /><category term="Disk" /><category term="GNOME" /><category term="Linux" /><category term="Installer" /><category term="ISO" /><category term="Ubuntu" /><category term="udisks" /><category term="USB" /><category term="Ventoy" /><category term="Windows" /><category term="Windows10" /><summary type="html">My daily driver predates Dell&amp;#8217;s support for the Linux Vendor Firmware Service, usually abbreviated LVFS. The only way to update my motherboard&amp;#8217;s UEFI is through Windows, which I means I&amp;#8217;ll need a Windows 10 USB installer.</summary></entry><entry><title type="html">Backup Git Repositories</title><link href="https://www.jwillikers.com/backup-git-repositories" rel="alternate" type="text/html" title="Backup Git Repositories" /><published>2020-12-07T00:00:00-06:00</published><updated>2020-12-07T00:00:00-06:00</updated><id>https://www.jwillikers.com/Backup%20Git%20Repositories</id><content type="html" xml:base="https://www.jwillikers.com/backup-git-repositories">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;If you have any source code repositories hosted online, you probably don&amp;#8217;t want to lose those.
@@ -3767,243 +4199,4 @@ Start using &lt;a href=&quot;https://en.cppreference.com/w/cpp/container/span&qu
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
 &lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. That&amp;#8217;s right, CentOS 7 uses the pre-C&amp;#43;&amp;#43;11 ABI.
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Development" /><category term="C" /><category term="C&amp;#43;&amp;#43;" /><category term="CentOS" /><category term="Fortran" /><category term="Linux" /><category term="Compiler" /><category term="GCC" /><summary type="html">CentOS has a pretty old compiler. While the Software Collections repository contains newer versions, it still has a considerable lag-time. So, why not build GCC from source? As it turns out, it&amp;#8217;s not actually that hard.</summary></entry><entry><title type="html">Grow Disk Space on a CentOS 7 VM Using QEMU, LVM, and XFS</title><link href="https://www.jwillikers.com/grow-disk-space-on-a-centos-7-vm-using-qemu-lvm-and-xfs" rel="alternate" type="text/html" title="Grow Disk Space on a CentOS 7 VM Using QEMU, LVM, and XFS" /><published>2020-10-26T00:00:00-05:00</published><updated>2020-10-26T00:00:00-05:00</updated><id>https://www.jwillikers.com/Grow%20Disk%20Space%20on%20a%20CentOS%207%20VM%20Using%20QEMU,%20LVM,%20and%20XFS</id><content type="html" xml:base="https://www.jwillikers.com/grow-disk-space-on-a-centos-7-vm-using-qemu-lvm-and-xfs">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Sometimes you just need some more disk space.
-Expanding the size of a virtual disk, though, is not necessarily as easy as you&amp;#8217;d hope.
-Having just done this on a &lt;a href=&quot;https://www.centos.org/&quot;&gt;CentOS&lt;/a&gt; 7 virtual machine, I document how to do so here.
-Thanks goes to the article &lt;a href=&quot;https://www.systemmen.com/storage-fs/how-to-extend-linux-lvm-partition-in-aws-379.html&quot;&gt;How to extend Linux LVM partition in AWS&lt;/a&gt; from &lt;a href=&quot;https://www.systemmen.com/&quot;&gt;SystemMen&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial details how to grow the disk image for a CentOS 7 virtual machine.
-Experience with CentOS 7, the command-line, and Linux filesystem and logical volume management is assumed.
-This tutorial uses &lt;a href=&quot;https://www.qemu.org/&quot;&gt;QEMU&lt;/a&gt; for modifying the disk image, &lt;a href=&quot;http://www.sourceware.org/lvm2/&quot;&gt;LVM&lt;/a&gt; for logical volume management, and &lt;a href=&quot;https://xfs.wiki.kernel.org/&quot;&gt;XFS&lt;/a&gt; for the underlying filesystem.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Be sure to backup any critical data.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Shutdown the virtual machine.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Increase the size of the disk image with the &lt;a href=&quot;https://www.qemu.org/docs/master/interop/qemu-img.html&quot;&gt;QEMU disk image utility&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ qemu-img resize example.qcow2 +40G
-Image resized.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This increases the size of the disk image &lt;em&gt;example.qcow2&lt;/em&gt; by forty Gibibytes.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Start the virtual machine.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;On the virtual machine, install the &lt;code&gt;cloud-utils-growpart&lt;/code&gt; package from Canonical&amp;#8217;s &lt;a href=&quot;https://github.com/canonical/cloud-utils&quot;&gt;cloud-utils&lt;/a&gt; project.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dnf &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;cloud-utils-growpart&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;List your disks and partitions with the &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=lsblk&amp;amp;manpath=CentOS+7.1&quot;&gt;&lt;code&gt;lsblk&lt;/code&gt;&lt;/a&gt; command and note the device and partition you wish to expand.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ lsblk
-NAME                           MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
-fd0                              2:0    1     4K  0 disk
-sr0                             11:0    1  1024M  0 rom
-vda                            252:0    0    80G  0 disk
-├─vda1                         252:1    0     1G  0 part /boot
-└─vda2                         252:2    0    59G  0 part
-  ├─centos-root                253:0    0    37G  0 lvm  /
-  ├─centos-swap                253:1    0   3.9G  0 lvm  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SWAP]
-  └─centos-home                253:2    0  18.1G  0 lvm  /home&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;em&gt;home&lt;/em&gt; partition is low on space, so partition 2 on the device &lt;code&gt;vda&lt;/code&gt; will be expanded because it contains &lt;code&gt;centos-home&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Grow partition 2 on device &lt;code&gt;vda&lt;/code&gt; with all the new free space on the disk image by using the &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=growpart&amp;amp;manpath=Debian+8.1.0&quot;&gt;&lt;code&gt;growpart&lt;/code&gt;&lt;/a&gt; command.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;growpart /dev/vda 2
-CHANGED: &lt;span class=&quot;nv&quot;&gt;partition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2 &lt;span class=&quot;nv&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2099200 old: &lt;span class=&quot;nv&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;123729920 &lt;span class=&quot;nv&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;125829120 new: &lt;span class=&quot;nv&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;207615967 &lt;span class=&quot;nv&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;209715167&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Reboot the VM.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Expand the corresponding physical from new space available on the partition with &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=pvresize&amp;amp;manpath=CentOS+7.1&quot;&gt;&lt;code&gt;pvresize&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pvresize /dev/vda2
-  Physical volume &lt;span class=&quot;s2&quot;&gt;&quot;/dev/vda2&quot;&lt;/span&gt; changed
-  1 physical volume&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; resized or updated / 0 physical volume&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; not resized&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Use the &lt;a href=&quot;https://www.gnu.org/software/coreutils/manual/html_node/df-invocation.html&quot;&gt;&lt;code&gt;df&lt;/code&gt;&lt;/a&gt; command, determine which logical volume is to be grown.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Th&lt;/span&gt;
-Filesystem                             Type      Size  Used Avail Use% Mounted on
-devtmpfs                               devtmpfs  1.9G     0  1.9G   0% /dev
-tmpfs                                  tmpfs     1.9G     0  1.9G   0% /dev/shm
-tmpfs                                  tmpfs     1.9G  9.2M  1.9G   1% /run
-tmpfs                                  tmpfs     1.9G     0  1.9G   0% /sys/fs/cgroup
-/dev/mapper/centos-root                xfs        38G   15G   23G  40% /
-/dev/vda1                              xfs      1014M  238M  777M  24% /boot
-/dev/mapper/centos-home                xfs        19G   18G  213M  99% /home
-tmpfs                                  tmpfs     379M   12K  379M   1% /run/user/42
-tmpfs                                  tmpfs     379M     0  379M   0% /run/user/1001&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;/dev/mapper/centos-home&lt;/code&gt; filesystem is ninety-nine percent full, so this is the volume that needs to be enlarged.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;With &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=lvextend&amp;amp;manpath=CentOS+7.1&quot;&gt;&lt;code&gt;lvextend&lt;/code&gt;&lt;/a&gt;, extend the logical volume to with the space just added to the physical volume.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;lvextend &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; +100%FREE /dev/mapper/centos-home
-  Size of logical volume centos/home changed from &amp;lt;18.09 GiB &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;4630 extents&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; to &amp;lt;58.09 GiB &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;14870 extents&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-  Logical volume centos/home successfully resized.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Determine the filesystem path for the logical volume &lt;code&gt;/dev/mapper/centos-home&lt;/code&gt; from the output of the &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=lvdisplay&amp;amp;apropos=0&amp;amp;sektion=0&amp;amp;manpath=CentOS+7.1&amp;amp;arch=default&amp;amp;format=html&quot;&gt;&lt;code&gt;lvdisplay&lt;/code&gt;&lt;/a&gt; command.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;lvdisplay
-  &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt; Logical volume &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
-  LV Path                /dev/centos/swap
-  LV Name                swap
-  VG Name                centos
-  LV UUID                rEAof0-CesW-iUqd-dq11-9k8P-p82Y-9bMvMQ
-  LV Write Access        &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt;/write
-  LV Creation host, &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;localhost, 2020-09-15 08:09:39 &lt;span class=&quot;nt&quot;&gt;-0500&lt;/span&gt;
-  LV Status              available
-  &lt;span class=&quot;c&quot;&gt;# open                 2&lt;/span&gt;
-  LV Size                &amp;lt;3.88 GiB
-  Current LE             992
-  Segments               1
-  Allocation             inherit
-  Read ahead sectors     auto
-  - currently &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;to     8192
-  Block device           253:1
-
-  &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt; Logical volume &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
-  LV Path                /dev/centos/home
-  LV Name                home
-  VG Name                centos
-  LV UUID                IPqAHo-dvhr-ha1L-qbwf-DcAw-yAu1-K1VM6O
-  LV Write Access        &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt;/write
-  LV Creation host, &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;localhost, 2020-09-15 08:09:39 &lt;span class=&quot;nt&quot;&gt;-0500&lt;/span&gt;
-  LV Status              available
-  &lt;span class=&quot;c&quot;&gt;# open                 1&lt;/span&gt;
-  LV Size                &amp;lt;18.09 GiB
-  Current LE             4630
-  Segments               2
-  Allocation             inherit
-  Read ahead sectors     auto
-  - currently &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;to     8192
-  Block device           253:2
-
-  &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt; Logical volume &lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
-  LV Path                /dev/centos/root
-  LV Name                root
-  VG Name                centos
-  LV UUID                fPqtH3-fYV2-UX79-M2qG-731D-hv8c-t5M0TA
-  LV Write Access        &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt;/write
-  LV Creation host, &lt;span class=&quot;nb&quot;&gt;time &lt;/span&gt;localhost, 2020-09-15 08:09:40 &lt;span class=&quot;nt&quot;&gt;-0500&lt;/span&gt;
-  LV Status              available
-  &lt;span class=&quot;c&quot;&gt;# open                 1&lt;/span&gt;
-  LV Size                &amp;lt;37.04 GiB
-  Current LE             9481
-  Segments               1
-  Allocation             inherit
-  Read ahead sectors     auto
-  - currently &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;to     8192
-  Block device           253:0&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The path is indicated by the field &lt;em&gt;LV Path&lt;/em&gt;.
-The path for the &lt;em&gt;home&lt;/em&gt; directory is &lt;code&gt;/dev/centos/home&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Increase the filesystem&amp;#8217;s size by passing the path &lt;code&gt;/dev/centos/home&lt;/code&gt; to the &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=xfs_growfs&amp;amp;manpath=CentOS+7.1&quot;&gt;&lt;code&gt;xfs_growfs&lt;/code&gt;&lt;/a&gt; command.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;xfs_growfs /dev/centos/home
-meta-data&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/dev/mapper/home &lt;span class=&quot;nv&quot;&gt;isize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;512    &lt;span class=&quot;nv&quot;&gt;agcount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5, &lt;span class=&quot;nv&quot;&gt;agsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1185024 blks
-         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;                       &lt;span class=&quot;nv&quot;&gt;sectsz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;512   &lt;span class=&quot;nv&quot;&gt;attr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2, &lt;span class=&quot;nv&quot;&gt;projid32bit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;                       &lt;span class=&quot;nv&quot;&gt;crc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1        &lt;span class=&quot;nv&quot;&gt;finobt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 &lt;span class=&quot;nv&quot;&gt;spinodes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
-data     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;                       &lt;span class=&quot;nv&quot;&gt;bsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4096   &lt;span class=&quot;nv&quot;&gt;blocks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4741120, &lt;span class=&quot;nv&quot;&gt;imaxpct&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;25
-         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;                       &lt;span class=&quot;nv&quot;&gt;sunit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0      &lt;span class=&quot;nv&quot;&gt;swidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 blks
-naming   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;version 2              &lt;span class=&quot;nv&quot;&gt;bsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4096   ascii-ci&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 &lt;span class=&quot;nv&quot;&gt;ftype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-log      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;internal               &lt;span class=&quot;nv&quot;&gt;bsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4096   &lt;span class=&quot;nv&quot;&gt;blocks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2560, &lt;span class=&quot;nv&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2
-         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;                       &lt;span class=&quot;nv&quot;&gt;sectsz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;512   &lt;span class=&quot;nv&quot;&gt;sunit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 blks, lazy-count&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-realtime &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;none                   &lt;span class=&quot;nv&quot;&gt;extsz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4096   &lt;span class=&quot;nv&quot;&gt;blocks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0, &lt;span class=&quot;nv&quot;&gt;rtextents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0
-data blocks changed from 4741120 to 15226880&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Verify that more disk space is indeed available.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Th&lt;/span&gt; /home
-Filesystem                             Type  Size  Used Avail Use% Mounted on
-/dev/mapper/centos-home                xfs    59G   18G   41G  31% /home&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You should now be able to resize a CentOS 7 virtual machine using QEMU, LVM, and XFS and have a better understanding of the tools and steps involved in the process.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="CentOS" /><category term="disk" /><category term="filesystem" /><category term="Linux" /><category term="LVM" /><category term="QEMU" /><category term="XFS" /><summary type="html">Sometimes you just need some more disk space. Expanding the size of a virtual disk, though, is not necessarily as easy as you&amp;#8217;d hope. Having just done this on a CentOS 7 virtual machine, I document how to do so here. Thanks goes to the article How to extend Linux LVM partition in AWS from SystemMen.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Development" /><category term="C" /><category term="C&amp;#43;&amp;#43;" /><category term="CentOS" /><category term="Fortran" /><category term="Linux" /><category term="Compiler" /><category term="GCC" /><summary type="html">CentOS has a pretty old compiler. While the Software Collections repository contains newer versions, it still has a considerable lag-time. So, why not build GCC from source? As it turns out, it&amp;#8217;s not actually that hard.</summary></entry></feed>

@@ -1,0 +1,657 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>A Multi-Boot USB With Ventoy - JWillikers</title>
+<meta name="description" content="My daily driver predates Dell&#8217;s support for the Linux Vendor Firmware Service, usually abbreviated LVFS. The only way to update my motherboard&#8217;s UEFI is through Windows, which I means I&#8217;ll need a Windows 10 USB installer.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="A Multi-Boot USB With Ventoy">
+<meta property="og:url" content="https://www.jwillikers.com/create-a-multi-boot-usb-with-ventoy">
+
+
+  <meta property="og:description" content="My daily driver predates Dell&#8217;s support for the Linux Vendor Firmware Service, usually abbreviated LVFS. The only way to update my motherboard&#8217;s UEFI is through Windows, which I means I&#8217;ll need a Windows 10 USB installer.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2020-12-08T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/create-a-multi-boot-usb-with-ventoy">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>My daily driver predates Dell&#8217;s support for the <a href="https://fwupd.org/">Linux Vendor Firmware Service</a>, usually abbreviated <em>LVFS</em>.
+The only way to update my motherboard&#8217;s <a href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface#Das_U-Boot">UEFI</a> is through Windows, which I means I&#8217;ll need a Windows 10 USB installer.</p>
+</div>
+<div class="paragraph">
+<p>Creating a USB installer on Ubuntu is typically as easy as opening <a href="https://wiki.gnome.org/Apps/Disks">GNOME Disks</a>, selecting the desired USB disk, clicking <b class="button">Restore Disk Image&#8230;&#8203;</b>, and selecting the ISO or image file.
+Unfortunately, creating a Windows installer is not that simple.
+The best solution for this has got to be <a href="https://www.ventoy.net/">Ventoy</a>.
+Not only does it support booting more that just a single operating system, it allows booting from as many disk images as you can cram on to your drive.
+The <a href="https://www.ventoy.net/en/isolist.html">long list of tested images</a> is also quite nice.
+Runner ups include <a href="https://linuxhint.com/create-a-bootable-windows-10-usb-drive-in-linux/">GNOME Disks <em>plus workarounds</em></a> and <a href="https://github.com/WoeUSB/WoeUSB-ng">WoeUSB-ng</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ventoy is a project for booting any number of arbitrary ISO&#8217;s off of a single flash drive.
+Once a flash drive is set up, you can just drag and drop ISO images on to the flash drive and presto!
+This tutorial is broken in to three parts, creating a Ventoy flash drive, adding an ISO image to it, and updating the Ventoy flash drive.
+For reference, I use <a href="https://ubuntu.com/">Ubuntu</a> 20.04 here, but these options will work across many Linux distributions.
+This tutorial assumes you are familiar with the command-line and Linux systems.</p>
+</div>
+<div class="sect2">
+<h3 id="create_a_ventoy_flash_drive">Create a Ventoy Flash Drive</h3>
+<div class="paragraph">
+<p>The first step is, of course, to setup the flash drive with Ventoy.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Insert a flash drive in to your computer.</p>
+</li>
+<li>
+<p>Locate the device associated with your USB by using the <a href="https://manpages.ubuntu.com/manpages/focal/man8/lsblk.8.html">lsblk(8)</a> command.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ lsblk
+NAME             MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+sda                8:0    0 465.8G  0 disk
+├─sda1             8:1    0   512M  0 part  /boot/efi
+├─sda2             8:2    0     2G  0 part
+│ └─cryptoswap   253:1    0     2G  0 crypt <span class="o">[</span>SWAP]
+├─sda3             8:3    0     2G  0 part
+└─sda4             8:4    0 461.3G  0 part
+sdb                8:16   1  29.9G  0 disk <i class="conum" data-value="1"></i><b>(1)</b>
+zd0              230:0    0   500M  0 disk
+└─keystore-rpool 253:0    0   484M  0 crypt /run/keystore/rpool</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><em>sdb</em> here is the 32 Gigabyte flash drive I&#8217;ve plugged in to my laptop.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Ensure that nothing important is on the flash drive since it will be overwritten in a minute.</p>
+</li>
+<li>
+<p>Download the latest release for Linux, available on <a href="https://github.com/ventoy/Ventoy/releases">Ventoy&#8217;s GitHub Releases page</a>.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Download the latest release directly from the command-line with the following command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-q</span> <span class="nt">-nv</span> <span class="nt">-O</span> - https://api.github.com/repos/ventoy/Ventoy/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /\.tar\.gz/ \
+  {gsub(/"/, "", $(NF)); system("wget -qi -L " $(NF))}'</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Use the <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/tar.1.html">tar(1)</a> command to extract the archive.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">tar </span>xf ventoy-<span class="k">*</span><span class="nt">-linux</span>.tar.gz</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install Ventoy on the flash drive by running the <code>Ventoy2Disk.sh</code> shell script as <em>root</em>, passing the <code>-i</code> flag and device.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Since my target system uses UEFI, I include support for <a href="https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface#SECURE-BOOT">secure boot</a> with the <code>-s</code> flag and use a <a href="https://en.wikipedia.org/wiki/GUID_Partition_Table">GUID partition table</a> by passing the <code>-g</code> flag.
+When targeting systems using legacy <a href="https://en.wikipedia.org/wiki/BIOS">BIOS</a> or depending on your target device, you may want to omit one or both of these flags.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Some one-time setup, documented <a href="https://www.ventoy.net/en/doc_secure.html">here</a>, is required for secure boot when booting the flash drive for the first time on a machine.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>ventoy-<span class="k">*</span>/Ventoy2Disk.sh <span class="nt">-i</span> <span class="nt">-s</span> <span class="nt">-g</span> /dev/sdb
+
+<span class="k">**********************************************</span>
+      Ventoy: 1.0.29
+      longpanda admin@ventoy.net
+      https://www.ventoy.net
+<span class="k">**********************************************</span>
+
+Disk : /dev/sdb
+Model: Samsung Flash Drive FIT <span class="o">(</span>scsi<span class="o">)</span>
+Size : 29 GB
+Style: GPT</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>When prompted, take a deep breath, read the message, double-check the device is correct, and type <kbd>Y</kbd> if everything checks out and you still think this is a good idea.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">Attention:
+You will <span class="nb">install </span>Ventoy to /dev/sdb.
+All the data on the disk /dev/sdb will be lost!!!
+
+Continue? <span class="o">(</span>y/n<span class="o">)</span> y</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Repeat as necessary.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">All the data on the disk /dev/sdb will be lost!!!
+Double-check. Continue? <span class="o">(</span>y/n<span class="o">)</span> y
+
+Create partitions on /dev/sdb by parted <span class="k">in </span>GPT style ...
+Done
+mkfs on disk partitions ...
+create efi fat fs /dev/sdb2 ...
+mkfs.fat 4.1 <span class="o">(</span>2017-01-24<span class="o">)</span>
+success
+mkexfatfs 1.3.0
+Creating... <span class="k">done</span><span class="nb">.</span>
+Flushing... <span class="k">done</span><span class="nb">.</span>
+File system created successfully.
+writing data to disk ...
+<span class="nb">sync </span>data ...
+esp partition processing ...
+
+Install Ventoy to /dev/sdb successfully finished.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>That&#8217;s all that is required of the downloaded Ventoy files for this tutorial, so delete them if you like.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rm</span> <span class="nt">-rf</span> ventoy-<span class="k">*</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add_images">Add Images</h3>
+<div class="paragraph">
+<p>Now that the flash drive has been configured, you just have to place any desired images on to the storage partition.
+Here, I walk through each step necessary to add a Windows 10 ISO to the flash drive.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download the <a href="https://www.microsoft.com/en-gb/software-download/windows10ISO">Windows 10 ISO</a>.</p>
+</li>
+<li>
+<p>Mount the Ventoy flash drive with the <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/udisksctl.1.html">udisksctl(1)</a> command.</p>
+<div class="openblock">
+<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Usually a USB drive is mounted automatically and you can skip this step.
+If you&#8217;ve just created the flash drive, you&#8217;ll have to manually mount it.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
+If you are wondering whether it is mounted or not, well, the following command won&#8217;t hurt.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By default, Ventoy labels the storage partition on the USB drive <em>ventoy</em> and the boot partition <em>VTOYEFI</em>.
+Here, I mount the <em>ventoy</em> partition by label.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl mount <span class="nt">--no-user-interaction</span> <span class="nt">-b</span> /dev/disk/by-label/ventoy
+Mounted /dev/sdb1 at /media/jordan/ventoy</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Now just drag and drop the ISO in the <em>ventoy</em> partition use <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/cp.1posix.html">cp(1)</a> as shown here.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Unless Ventoy&#8217;s label for the storage partition has been changed from its default, it will be mounted at <em>/media/$USER/ventoy</em>, where <code>$USER</code> represents your username.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cp</span> ~/Downloads/Win10_20H2_English_x64.iso /media/<span class="nv">$USER</span>/ventoy</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Before unplugging the flash drive, remember to unmount the filesystems.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Unmount the <em>ventoy</em> storage partition.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/ventoy
+Unmounted /dev/sdb1.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Unmount the <em>VTOYEFI</em> boot partition.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/VTOYEFI
+Unmounted /dev/sdb2.</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Now remove the flash drive and it&#8217;s ready for use!</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="update">Update</h3>
+<div class="paragraph">
+<p>Ventoy regularly releases updates which may include bug fixes and new features.
+Typically, minor updates can be applied to an existing Ventoy flash drive without erasing your ISO files on the USB drive.
+These instructions explain how to go about updating a Ventoy flash drive.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Plug the Ventoy flash drive in to your computer.</p>
+</li>
+<li>
+<p>Find the your flash drive with <a href="https://manpages.ubuntu.com/manpages/focal/man8/lsblk.8.html">lsblk(8)</a> command.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ lsblk
+NAME             MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+sda                8:0    0 465.8G  0 disk
+├─sda1             8:1    0   512M  0 part  /boot/efi
+├─sda2             8:2    0     2G  0 part
+│ └─cryptoswap   253:1    0     2G  0 crypt <span class="o">[</span>SWAP]
+├─sda3             8:3    0     2G  0 part
+└─sda4             8:4    0 461.3G  0 part
+sdb                8:16   1  29.9G  0 disk <i class="conum" data-value="1"></i><b>(1)</b>
+├─sdb1             8:17   1  29.8G  0 part /media/jordan/ventoy
+└─sdb2             8:18   1    32M  0 part /media/jordan/VTOYEFI
+zd0              230:0    0   500M  0 disk
+└─keystore-rpool 253:0    0   484M  0 crypt /run/keystore/rpool</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><em>sdb</em> here is the 32 Gigabyte Ventoy flash drive I&#8217;ve plugged in to my laptop.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Download the latest release for Linux from <a href="https://github.com/ventoy/Ventoy/releases">Ventoy&#8217;s GitHub Releases page</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-q</span> <span class="nt">-nv</span> <span class="nt">-O</span> - https://api.github.com/repos/ventoy/Ventoy/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /\.tar\.gz/ \
+  {gsub(/"/, "", $(NF)); system("wget -qi -L " $(NF))}'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Extract the archive with <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/tar.1.html">tar(1)</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">tar </span>xf ventoy-<span class="k">*</span><span class="nt">-linux</span>.tar.gz</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Update the Ventoy flash drive by running the <code>Ventoy2Disk.sh</code> shell script as root with the <code>-u</code> flag and the path to the flash drive.</p>
+<div class="openblock">
+<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently Ventoy won&#8217;t persist the secure boot setting, so it must be enabled explicitly when updating to keep it enabled.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>ventoy-<span class="k">*</span>/Ventoy2Disk.sh <span class="nt">-u</span> <span class="nt">-s</span> /dev/sdb
+
+<span class="k">**********************************************</span>
+      Ventoy: 1.0.29
+      longpanda admin@ventoy.net
+      https://www.ventoy.net
+<span class="k">**********************************************</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Ventoy will prompt for confirmation after indicating whether the operation is safe or dangerous.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Enter <kbd>Y</kbd> to continue with the update.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">Upgrade operation is safe, all the data <span class="k">in </span>the 1st partition <span class="o">(</span>iso files and other<span class="o">)</span> will be unchanged!
+
+Update Ventoy  1.0.29 <span class="o">===&gt;</span> 1.0.29   Continue? <span class="o">(</span>y/n<span class="o">)</span>y
+
+Update Ventoy to /dev/sdb successfully finished.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Before unplugging the flash drive, remember to unmount the filesystems.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Unmount the <em>ventoy</em> storage partition.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/ventoy
+Unmounted /dev/sdb1.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Unmount the <em>VTOYEFI</em> boot partition.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/VTOYEFI
+Unmounted /dev/sdb2.</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Now remove the flash drive and it&#8217;s ready for use again!</p>
+</li>
+<li>
+<p>If you are finished with the downloaded Ventoy files, clean them up now.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rm</span> <span class="nt">-rf</span> ventoy-<span class="k">*</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ventoy is really, really helpful for booting all kinds of operating systems off of a single USB drive.
+Take advantage of that increased disk space on flash drives now-a-days for storing more than just one image at a time.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Or, use <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/fdisk.8.html">fdisk(8)</a>, via <code>sudo fdisk -l</code>, if you prefer.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. Or just unplug the flash drive and plug it back in.
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
