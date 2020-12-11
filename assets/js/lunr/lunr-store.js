@@ -36,7 +36,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Automatically Detect and Report Hard Drive Failure",
-        "excerpt":"I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard...","categories": ["Systems"],
+        "excerpt":"I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard...","categories": ["Disks"],
         "tags": ["Email","Linux","OpenSMTPD","SMART","smartd","SmartMonTools","SMTP","Ubuntu","Ubuntu2004"],
         "url": "https://www.jwillikers.com/automatically-detect-and-report-hard-drive-failure",
         "teaser": null
@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Install ZFS on the Pinebook Pro",
-        "excerpt":"Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&#8217;s becoming my main machine, and I&#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it....","categories": ["Systems"],
+        "excerpt":"Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&#8217;s becoming my main machine, and I&#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it....","categories": ["Disks"],
         "tags": ["ArchLinux","Linux","Manjaro","PinebookPro","ZFS"],
         "url": "https://www.jwillikers.com/install-zfs-on-the-pinebook-pro",
         "teaser": null
@@ -66,20 +66,20 @@ var store = [{
         "teaser": null
       },{
         "title": "External Storage on the Pinebook Pro With ZFS",
-        "excerpt":"This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro. The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections....","categories": ["Systems"],
+        "excerpt":"This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro. The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections....","categories": ["Disks"],
         "tags": ["ArchLinux","Linux","Manjaro","PinebookPro","ZFS"],
         "url": "https://www.jwillikers.com/external-storage-on-the-pinebook-pro-with-zfs",
         "teaser": null
       },{
         "title": "Update U-Boot on the Pinebook Pro",
         "excerpt":"The other day, Elementary announced elementaryOS 6 preview builds for the Pinebook Pro. I went ahead and flashed an SD card with a build image to try it out. Instead of booting to elmentaryOS on the SD card as the system should have, it booted to Manjaro. While a quick...","categories": ["Systems"],
-        "tags": ["ArchLinux","Linux","Manjaro","PinebookPro","UBoot"],
+        "tags": ["ArchLinux","Boot","Linux","Manjaro","PinebookPro","UBoot"],
         "url": "https://www.jwillikers.com/update-u-boot-on-the-pinebook-pro",
         "teaser": null
       },{
         "title": "Update U-Boot on the PinePhone",
         "excerpt":"As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&#8217;s why I opted for running Manjaro ARM's alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&#8217;s been running from the SD card great so far, but I thought to update the...","categories": ["Systems"],
-        "tags": ["ArchLinux","Linux","Manjaro","PinePhone","UBoot"],
+        "tags": ["ArchLinux","Boot","Linux","Manjaro","PinePhone","UBoot"],
         "url": "https://www.jwillikers.com/update-u-boot-on-the-pinephone",
         "teaser": null
       },{
@@ -180,7 +180,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Grow Disk Space on a CentOS 7 VM Using QEMU, LVM, and XFS",
-        "excerpt":"Sometimes you just need some more disk space. Expanding the size of a virtual disk, though, is not necessarily as easy as you&#8217;d hope. Having just done this on a CentOS 7 virtual machine, I document how to do so here. Thanks goes to the article How to extend Linux...","categories": ["Systems"],
+        "excerpt":"Sometimes you just need some more disk space. Expanding the size of a virtual disk, though, is not necessarily as easy as you&#8217;d hope. Having just done this on a CentOS 7 virtual machine, I document how to do so here. Thanks goes to the article How to extend Linux...","categories": ["Disks"],
         "tags": ["CentOS","disk","filesystem","Linux","LVM","QEMU","XFS"],
         "url": "https://www.jwillikers.com/grow-disk-space-on-a-centos-7-vm-using-qemu-lvm-and-xfs",
         "teaser": null
@@ -240,8 +240,14 @@ var store = [{
         "teaser": null
       },{
         "title": "A Multi-Boot USB With Ventoy",
-        "excerpt":"My daily driver predates Dell&#8217;s support for the Linux Vendor Firmware Service, usually abbreviated LVFS. The only way to update my motherboard&#8217;s UEFI is through Windows, which I means I&#8217;ll need a Windows 10 USB installer. Creating a USB installer on Ubuntu is typically as easy as opening GNOME Disks,...","categories": ["Systems"],
-        "tags": ["Boot","Disk","GNOME","Linux","Installer","ISO","Ubuntu","udisks","USB","Ventoy","Windows","Windows10"],
-        "url": "https://www.jwillikers.com/create-a-multi-boot-usb-with-ventoy",
+        "excerpt":"My daily driver predates Dell&#8217;s support for the Linux Vendor Firmware Service, usually abbreviated LVFS. The only way to update my motherboard&#8217;s UEFI is through Windows, which I means I&#8217;ll need a Windows 10 USB installer. Creating a USB installer on Ubuntu is typically as easy as opening GNOME Disks,...","categories": ["Disks"],
+        "tags": ["Boot","Disk","GNOME","Linux","Installer","ISO","Ubuntu","Ubuntu2004","udisks","USB","Ventoy","Windows","Windows10"],
+        "url": "https://www.jwillikers.com/a-multi-boot-usb-with-ventoy",
+        "teaser": null
+      },{
+        "title": "Create a Windows 10 USB on Ubuntu",
+        "excerpt":"I needed a to install Windows 10 from a USB recently. I&#8217;ve described my preferred method of accomplishing this in my recent post A Multi-Boot USB With Ventoy. Before I thought to use Ventoy, I created such an installer following this nifty article How to Create a Bootable Windows 10...","categories": ["Disks"],
+        "tags": ["Boot","Disks","gdisk","GNOME","gnome-disk-image-mounter","Installer","ISO","Linux","sgdisk","Ubuntu","Ubuntu2004","udisks","USB","Windows","Windows10"],
+        "url": "https://www.jwillikers.com/create-a-windows-10-usb-on-ubuntu",
         "teaser": null
       }]

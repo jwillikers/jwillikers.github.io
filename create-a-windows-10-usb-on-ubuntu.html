@@ -1,0 +1,448 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Create a Windows 10 USB on Ubuntu - JWillikers</title>
+<meta name="description" content="I needed a to install Windows 10 from a USB recently. I&#8217;ve described my preferred method of accomplishing this in my recent post A Multi-Boot USB With Ventoy. Before I thought to use Ventoy, I created such an installer following this nifty article How to Create a Bootable Windows 10 USB Drive in Linux. I was surprised by how simple it is do this using functionality built into Ubuntu and GNOME. This made me curious. How exactly do the underlying components function to do this? So, I converted that tutorial to a command-line only version here.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Create a Windows 10 USB on Ubuntu">
+<meta property="og:url" content="https://www.jwillikers.com/create-a-windows-10-usb-on-ubuntu">
+
+
+  <meta property="og:description" content="I needed a to install Windows 10 from a USB recently. I&#8217;ve described my preferred method of accomplishing this in my recent post A Multi-Boot USB With Ventoy. Before I thought to use Ventoy, I created such an installer following this nifty article How to Create a Bootable Windows 10 USB Drive in Linux. I was surprised by how simple it is do this using functionality built into Ubuntu and GNOME. This made me curious. How exactly do the underlying components function to do this? So, I converted that tutorial to a command-line only version here.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2020-12-11T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/create-a-windows-10-usb-on-ubuntu">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I needed a to install Windows 10 from a USB recently.
+I&#8217;ve described my preferred method of accomplishing this in my recent post <a href="a-multi-boot-usb-with-ventoy.html">A Multi-Boot USB With Ventoy</a>.
+Before I thought to use <a href="https://www.ventoy.net/en/index.html">Ventoy</a>, I created such an installer following this nifty article <a href="https://linuxhint.com/create-a-bootable-windows-10-usb-drive-in-linux/">How to Create a Bootable Windows 10 USB Drive in Linux</a>.
+I was surprised by how simple it is do this using functionality built into <a href="https://ubuntu.com/">Ubuntu</a> and <a href="https://www.gnome.org/">GNOME</a>.
+This made me curious.
+How exactly do the underlying components function to do this?
+So, I converted that tutorial to a command-line only version here.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial documents the steps required to create a Windows 10 USB installer on <a href="https://ubuntu.com/">Ubuntu</a> 20.04 from the command-line.
+As such, you should be familiar with Linux and the command-line to get the most out of this tutorial.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Insert a spare flash drive in to your computer.</p>
+</li>
+<li>
+<p>Locate the device associated with your USB by using the <a href="https://manpages.ubuntu.com/manpages/focal/man8/lsblk.8.html">lsblk(8)</a> command.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ lsblk
+NAME             MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+sda                8:0    0 465.8G  0 disk
+├─sda1             8:1    0   512M  0 part  /boot/efi
+├─sda2             8:2    0     2G  0 part
+│ └─cryptoswap   253:1    0     2G  0 crypt <span class="o">[</span>SWAP]
+├─sda3             8:3    0     2G  0 part
+└─sda4             8:4    0 461.3G  0 part
+sdb                8:16   1  29.9G  0 disk <i class="conum" data-value="1"></i><b>(1)</b>
+└─sdb1             8:17   1  29.9G  0 part  /media/jordan/MyUSB
+zd0              230:0    0   500M  0 disk
+└─keystore-rpool 253:0    0   484M  0 crypt /run/keystore/rpool</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><em>sdb</em> here is the 32 Gigabyte flash drive I&#8217;ve plugged in to my laptop.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Before proceeding, ensure that nothing important is on the flash drive since it will be overwritten in a minute.</p>
+</li>
+<li>
+<p>Unmount any mounted partitions on the flash drive.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>As shown in the previous output, <em>sdb1</em> is mounted at <em>/media/jordan/MyUSB</em>.
+I unmount this partition with the <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/udisksctl.1.html">udisksctl(1)</a> command here.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/sdb1 <span class="nt">--no-user-interaction</span>
+Unmounted /dev/sdb1.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Wipe any existing partition tables on the flash drive and generate a new one.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The set of <em>gdisk</em> commands, consisting of <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/cgdisk.8.html">cgdisk(8)</a>, <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/gdisk.8.html">gdisk(8)</a>, and <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html">sgdisk(8)</a>, manipulate <a href="https://en.wikipedia.org/wiki/GUID_Partition_Table">GUID partition tables</a>, also known as <em>GPTs</em>.
+Older <a href="https://en.wikipedia.org/wiki/Master_boot_record">master boot records</a>, <em>MBRs</em>, are instead managed with <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/fdisk.8.html">fdisk(8)</a> and its similarly named friends.
+Here, the <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html">sgdisk(8)</a> command is used to partition the flash drive using the newer <em>GPT</em> format without requiring any user interaction.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>sgdisk <span class="nt">-Z</span> <span class="nt">-n</span> 0:0:0 /dev/sdb
+Creating new GPT entries <span class="k">in </span>memory.
+GPT data structures destroyed! You may now partition the disk using fdisk or
+other utilities.
+The operation has completed successfully.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>-Z</code> flag <em>zaps</em> any existing MBR and GPT partition tables into oblivion.
+Then, the <code>-n</code> flag creates a new partition given the partition number, starting sector, and ending sector separated by colons.
+Zeros used here represent default values.
+The first zero sets the partition number to the next available number, which is one since this is the first partition on the flash drive.
+The next two zeros designate the starting sector of the largest block and the last sector of that same block, creating a single partition which effectively takes up the entirety of the flash drive.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The program deceptively prints out what it does in the wrong order.
+Just know that it does indeed wipe the existing MBR and GPT partitions before creating the new one.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Format the partition as <a href="https://en.wikipedia.org/wiki/NTFS">NTFS</a> with the <a href="https://manpages.ubuntu.com/manpages/focal/man8/mkntfs.8.html">mkntfs(8)</a> tool.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ mkntfs <span class="nt">-QL</span> Windows10 /dev/sdb1
+Cluster size has been automatically <span class="nb">set </span>to 4096 bytes.
+Creating NTFS volume structures.
+mkntfs completed successfully. Have a <span class="nb">nice </span>day.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Mount the newly created partition with <a href="https://manpages.ubuntu.com/manpages/focal/en/man1/udisksctl.1.html">udisksctl(1)</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl mount <span class="nt">-b</span> /dev/sdb1 <span class="nt">--no-user-interaction</span>
+Mounted /dev/sdb1 at /media/jordan/Windows10</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Download the <a href="https://www.microsoft.com/en-gb/software-download/windows10ISO">Windows 10 ISO</a>.</p>
+</li>
+<li>
+<p>Mount the Windows 10 ISO in order to access its contents.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p><a href="https://manpages.ubuntu.com/manpages/focal/en/man1/gnome-disk-image-mounter.1.html">gnome-disk-image-mounter(1)</a> makes this a piece of cake and only requires a single argument, the path to the ISO file to mount.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ gnome-disk-image-mounter ~/Downloads/Win10_20H2_English_x64.iso</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Use <a href="https://manpages.ubuntu.com/manpages/focal/man8/lsblk.8.html">lsblk(8)</a> again in order to find where the ISO is mounted.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ lsblk
+NAME            MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+loop53            7:53   0   5.7G  1 loop  /media/jordan/CCCOMA_X64FRE_EN-US_DV9 <i class="conum" data-value="1"></i><b>(1)</b>
+sda               8:0    0 465.8G  0 disk
+├─sda1            8:1    0   512M  0 part  /boot/efi
+├─sda2            8:2    0     2G  0 part
+│ └─cryptoswap  253:1    0     2G  0 crypt <span class="o">[</span>SWAP]
+├─sda3            8:3    0     2G  0 part
+└─sda4            8:4    0 461.3G  0 part
+zd0             230:0    0   500M  0 disk
+└─keystore-rpool
+                253:0    0   484M  0 crypt /run/keystore/rpool</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Yep, that&#8217;s the ISO file mounted as a <a href="https://en.wikipedia.org/wiki/Loop_device">loop device</a>.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Copy all files from the ISO to the flash drive.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cp</span> <span class="nt">-r</span> /media/jordan/CCCOMA_X64FRE_EN-US_DV9/<span class="k">*</span> /media/jordan/Windows10</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Unmount the ISO.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/loop53 <span class="nt">--no-user-interaction</span>
+Unmounted /dev/loop53.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Unmount the flash drive.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/sdb1 <span class="nt">--no-user-interaction</span>
+Unmounted /dev/sdb1.</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now have a better idea of some of the underlying components at work when creating a Windows 10 USB installer.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Or, use <code>sudo fdisk -l</code> if you prefer.
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

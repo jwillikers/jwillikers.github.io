@@ -23,7 +23,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="JWillikers">
 <meta property="og:title" content="A Multi-Boot USB With Ventoy">
-<meta property="og:url" content="https://www.jwillikers.com/create-a-multi-boot-usb-with-ventoy">
+<meta property="og:url" content="https://www.jwillikers.com/a-multi-boot-usb-with-ventoy">
 
 
   <meta property="og:description" content="My daily driver predates Dell&#8217;s support for the Linux Vendor Firmware Service, usually abbreviated LVFS. The only way to update my motherboard&#8217;s UEFI is through Windows, which I means I&#8217;ll need a Windows 10 USB installer.">
@@ -41,7 +41,7 @@
 
 
 
-<link rel="canonical" href="https://www.jwillikers.com/create-a-multi-boot-usb-with-ventoy">
+<link rel="canonical" href="https://www.jwillikers.com/a-multi-boot-usb-with-ventoy">
 
 
 
@@ -369,7 +369,7 @@ Here, I mount the <em>ventoy</em> partition by label.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl mount <span class="nt">--no-user-interaction</span> <span class="nt">-b</span> /dev/disk/by-label/ventoy
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl mount <span class="nt">-b</span> /dev/disk/by-label/ventoy <span class="nt">--no-user-interaction</span>
 Mounted /dev/sdb1 at /media/jordan/ventoy</code></pre>
 </div>
 </div>
@@ -399,7 +399,7 @@ Mounted /dev/sdb1 at /media/jordan/ventoy</code></pre>
 <p>Unmount the <em>ventoy</em> storage partition.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/ventoy
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/ventoy <span class="nt">--no-user-interaction</span>
 Unmounted /dev/sdb1.</code></pre>
 </div>
 </div>
@@ -408,7 +408,7 @@ Unmounted /dev/sdb1.</code></pre>
 <p>Unmount the <em>VTOYEFI</em> boot partition.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/VTOYEFI
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/VTOYEFI <span class="nt">--no-user-interaction</span>
 Unmounted /dev/sdb2.</code></pre>
 </div>
 </div>
@@ -537,7 +537,7 @@ Update Ventoy to /dev/sdb successfully finished.</code></pre>
 <p>Unmount the <em>ventoy</em> storage partition.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/ventoy
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/ventoy <span class="nt">--no-user-interaction</span>
 Unmounted /dev/sdb1.</code></pre>
 </div>
 </div>
@@ -546,7 +546,7 @@ Unmounted /dev/sdb1.</code></pre>
 <p>Unmount the <em>VTOYEFI</em> boot partition.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/VTOYEFI
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/disk/by-label/VTOYEFI <span class="nt">--no-user-interaction</span>
 Unmounted /dev/sdb2.</code></pre>
 </div>
 </div>
