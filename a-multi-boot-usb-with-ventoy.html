@@ -482,31 +482,15 @@ zd0              230:0    0   500M  0 disk
 </li>
 <li>
 <p>Update the Ventoy flash drive by running the <code>Ventoy2Disk.sh</code> shell script as root with the <code>-u</code> flag and the path to the flash drive.</p>
-<div class="openblock">
-<div class="content">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Currently Ventoy won&#8217;t persist the secure boot setting, so it must be enabled explicitly when updating to keep it enabled.
-</td>
-</tr>
-</table>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>ventoy-<span class="k">*</span>/Ventoy2Disk.sh <span class="nt">-u</span> <span class="nt">-s</span> /dev/sdb
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>ventoy-<span class="k">*</span>/Ventoy2Disk.sh <span class="nt">-u</span> /dev/sdb
 
 <span class="k">**********************************************</span>
-      Ventoy: 1.0.29
+      Ventoy: 1.0.30
       longpanda admin@ventoy.net
       https://www.ventoy.net
 <span class="k">**********************************************</span></code></pre>
-</div>
-</div>
 </div>
 </div>
 </li>
@@ -521,7 +505,7 @@ Currently Ventoy won&#8217;t persist the secure boot setting, so it must be enab
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">Upgrade operation is safe, all the data <span class="k">in </span>the 1st partition <span class="o">(</span>iso files and other<span class="o">)</span> will be unchanged!
 
-Update Ventoy  1.0.29 <span class="o">===&gt;</span> 1.0.29   Continue? <span class="o">(</span>y/n<span class="o">)</span>y
+Update Ventoy  1.0.29 <span class="o">===&gt;</span> 1.0.30   Continue? <span class="o">(</span>y/n<span class="o">)</span>y
 
 Update Ventoy to /dev/sdb successfully finished.</code></pre>
 </div>
