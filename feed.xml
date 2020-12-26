@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-12-26T06:37:47-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Create a Windows 10 USB on Ubuntu</title><link href="https://www.jwillikers.com/create-a-windows-10-usb-on-ubuntu" rel="alternate" type="text/html" title="Create a Windows 10 USB on Ubuntu" /><published>2020-12-11T00:00:00-06:00</published><updated>2020-12-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Create%20a%20Windows%2010%20USB%20on%20Ubuntu</id><content type="html" xml:base="https://www.jwillikers.com/create-a-windows-10-usb-on-ubuntu">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2020-12-26T07:22:51-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Create a Windows 10 USB on Ubuntu</title><link href="https://www.jwillikers.com/create-a-windows-10-usb-on-ubuntu" rel="alternate" type="text/html" title="Create a Windows 10 USB on Ubuntu" /><published>2020-12-11T00:00:00-06:00</published><updated>2020-12-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Create%20a%20Windows%2010%20USB%20on%20Ubuntu</id><content type="html" xml:base="https://www.jwillikers.com/create-a-windows-10-usb-on-ubuntu">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I needed a to install Windows 10 from a USB recently.
@@ -336,7 +336,7 @@ Some one-time setup, documented &lt;a href=&quot;https://www.ventoy.net/en/doc_s
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ventoy-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/Ventoy2Disk.sh &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; /dev/sdb
 
 &lt;span class=&quot;k&quot;&gt;**********************************************&lt;/span&gt;
-      Ventoy: 1.0.29
+      Ventoy: 1.0.31
       longpanda admin@ventoy.net
       https://www.ventoy.net
 &lt;span class=&quot;k&quot;&gt;**********************************************&lt;/span&gt;
@@ -430,24 +430,24 @@ If you are wondering whether it is mounted or not, well, the following command w
 &lt;/table&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;By default, Ventoy labels the storage partition on the USB drive &lt;em&gt;ventoy&lt;/em&gt; and the boot partition &lt;em&gt;VTOYEFI&lt;/em&gt;.
-Here, I mount the &lt;em&gt;ventoy&lt;/em&gt; partition by label.&lt;/p&gt;
+&lt;p&gt;By default, Ventoy labels the storage partition on the USB drive &lt;em&gt;Ventoy&lt;/em&gt; and the boot partition &lt;em&gt;VTOYEFI&lt;/em&gt;.
+Here, I mount the &lt;em&gt;Ventoy&lt;/em&gt; partition by label.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl mount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/disk/by-label/ventoy &lt;span class=&quot;nt&quot;&gt;--no-user-interaction&lt;/span&gt;
-Mounted /dev/sdb1 at /media/jordan/ventoy&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl mount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/disk/by-label/Ventoy &lt;span class=&quot;nt&quot;&gt;--no-user-interaction&lt;/span&gt;
+Mounted /dev/sdb1 at /media/jordan/Ventoy&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Now just drag and drop the ISO in the &lt;em&gt;ventoy&lt;/em&gt; partition use &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/cp.1posix.html&quot;&gt;cp(1)&lt;/a&gt; as shown here.&lt;/p&gt;
+&lt;p&gt;Now just drag and drop the ISO in the &lt;em&gt;Ventoy&lt;/em&gt; partition or use &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/cp.1posix.html&quot;&gt;cp(1)&lt;/a&gt; as shown here.&lt;/p&gt;
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Unless Ventoy&amp;#8217;s label for the storage partition has been changed from its default, it will be mounted at &lt;em&gt;/media/$USER/ventoy&lt;/em&gt;, where &lt;code&gt;$USER&lt;/code&gt; represents your username.&lt;/p&gt;
+&lt;p&gt;Unless Ventoy&amp;#8217;s label for the storage partition has been changed from its default, it will be mounted at &lt;em&gt;/media/$USER/Ventoy&lt;/em&gt;, where &lt;code&gt;$USER&lt;/code&gt; represents your username.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -462,10 +462,10 @@ Mounted /dev/sdb1 at /media/jordan/ventoy&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;olist loweralpha&quot;&gt;
 &lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
 &lt;li&gt;
-&lt;p&gt;Unmount the &lt;em&gt;ventoy&lt;/em&gt; storage partition.&lt;/p&gt;
+&lt;p&gt;Unmount the &lt;em&gt;Ventoy&lt;/em&gt; storage partition.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/disk/by-label/ventoy &lt;span class=&quot;nt&quot;&gt;--no-user-interaction&lt;/span&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/disk/by-label/Ventoy &lt;span class=&quot;nt&quot;&gt;--no-user-interaction&lt;/span&gt;
 Unmounted /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -513,7 +513,7 @@ sda                8:0    0 465.8G  0 disk
 ├─sda3             8:3    0     2G  0 part
 └─sda4             8:4    0 461.3G  0 part
 sdb                8:16   1  29.9G  0 disk &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-├─sdb1             8:17   1  29.8G  0 part /media/jordan/ventoy
+├─sdb1             8:17   1  29.8G  0 part /media/jordan/Ventoy
 └─sdb2             8:18   1    32M  0 part /media/jordan/VTOYEFI
 zd0              230:0    0   500M  0 disk
 └─keystore-rpool 253:0    0   484M  0 crypt /run/keystore/rpool&lt;/code&gt;&lt;/pre&gt;
@@ -553,7 +553,7 @@ zd0              230:0    0   500M  0 disk
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ventoy-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/Ventoy2Disk.sh &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; /dev/sdb
 
 &lt;span class=&quot;k&quot;&gt;**********************************************&lt;/span&gt;
-      Ventoy: 1.0.30
+      Ventoy: 1.0.31
       longpanda admin@ventoy.net
       https://www.ventoy.net
 &lt;span class=&quot;k&quot;&gt;**********************************************&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
@@ -571,7 +571,7 @@ zd0              230:0    0   500M  0 disk
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Upgrade operation is safe, all the data &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;the 1st partition &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;iso files and other&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; will be unchanged!
 
-Update Ventoy  1.0.29 &lt;span class=&quot;o&quot;&gt;===&amp;gt;&lt;/span&gt; 1.0.30   Continue? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;y/n&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;y
+Update Ventoy  1.0.30 &lt;span class=&quot;o&quot;&gt;===&amp;gt;&lt;/span&gt; 1.0.31   Continue? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;y/n&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;y
 
 Update Ventoy to /dev/sdb successfully finished.&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -584,10 +584,10 @@ Update Ventoy to /dev/sdb successfully finished.&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;olist loweralpha&quot;&gt;
 &lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
 &lt;li&gt;
-&lt;p&gt;Unmount the &lt;em&gt;ventoy&lt;/em&gt; storage partition.&lt;/p&gt;
+&lt;p&gt;Unmount the &lt;em&gt;Ventoy&lt;/em&gt; storage partition.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/disk/by-label/ventoy &lt;span class=&quot;nt&quot;&gt;--no-user-interaction&lt;/span&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/disk/by-label/Ventoy &lt;span class=&quot;nt&quot;&gt;--no-user-interaction&lt;/span&gt;
 Unmounted /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
