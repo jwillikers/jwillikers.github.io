@@ -250,4 +250,10 @@ var store = [{
         "tags": ["Boot","Disks","gdisk","GNOME","gnome-disk-image-mounter","Installer","ISO","Linux","sgdisk","Ubuntu","Ubuntu2004","udisks","USB","Windows","Windows10"],
         "url": "https://www.jwillikers.com/create-a-windows-10-usb-on-ubuntu",
         "teaser": null
+      },{
+        "title": "GNOME Keyring in KDE Plasma",
+        "excerpt":"I love GNOME, but on my Pinebook Pro, I use the extremely well-supported Manjaro Pinebook Pro KDE Plasma edition. One of the biggest gripes I have with KDE Plasma is that it doesn&#8217;t automatically manage my OpenSSH and GPG keys. I&#8217;m used to having my SSH and GPG key unlocked...","categories": ["Developer"],
+        "tags": ["GNOME","GPG","KDE","Keyring","Manjaro","PinebookPro","Plasma","SSH"],
+        "url": "https://www.jwillikers.com/gnome-keyring-in-kde-plasma",
+        "teaser": null
       }]

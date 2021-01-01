@@ -1,0 +1,398 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>GNOME Keyring in KDE Plasma - JWillikers</title>
+<meta name="description" content="I love GNOME, but on my Pinebook Pro, I use the extremely well-supported Manjaro Pinebook Pro KDE Plasma edition. One of the biggest gripes I have with KDE Plasma is that it doesn&#8217;t automatically manage my OpenSSH and GPG keys. I&#8217;m used to having my SSH and GPG key unlocked automatically when I login in. As a developer who uses these constantly, this is very convenient. KDE Plasma works very well on the Pinebook Pro, but this is one feature I just had to figure out. While I attempted to make this work with KWallet, I gave up and switched to using GNOME Keyring. If you wish to obtain this convenience within KDE then read on.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="GNOME Keyring in KDE Plasma">
+<meta property="og:url" content="https://www.jwillikers.com/gnome-keyring-in-kde-plasma">
+
+
+  <meta property="og:description" content="I love GNOME, but on my Pinebook Pro, I use the extremely well-supported Manjaro Pinebook Pro KDE Plasma edition. One of the biggest gripes I have with KDE Plasma is that it doesn&#8217;t automatically manage my OpenSSH and GPG keys. I&#8217;m used to having my SSH and GPG key unlocked automatically when I login in. As a developer who uses these constantly, this is very convenient. KDE Plasma works very well on the Pinebook Pro, but this is one feature I just had to figure out. While I attempted to make this work with KWallet, I gave up and switched to using GNOME Keyring. If you wish to obtain this convenience within KDE then read on.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-01-01T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/gnome-keyring-in-kde-plasma">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I love <a href="https://www.gnome.org/">GNOME</a>, but on my <a href="https://www.pine64.org/pinebook-pro/">Pinebook Pro</a>, I use the extremely well-supported <a href="https://manjaro.org/download/#pinebook-pro-kde-plasma">Manjaro Pinebook Pro KDE Plasma edition</a>.
+One of the biggest gripes I have with <a href="https://kde.org/plasma-desktop/">KDE Plasma</a> is that it doesn&#8217;t automatically manage my <a href="https://www.openssh.com/">OpenSSH</a> and <a href="https://gnupg.org/">GPG</a> keys.
+I&#8217;m used to having my SSH and GPG key unlocked automatically when I login in.
+As a developer who uses these constantly, this is very convenient.
+KDE Plasma works very well on the Pinebook Pro, but this is one feature I just had to figure out.
+While I attempted to make this work with <a href="https://github.com/KDE/kwallet">KWallet</a>, I gave up and switched to using <a href="https://wiki.gnome.org/Projects/GnomeKeyring">GNOME Keyring</a>.
+If you wish to obtain this convenience within KDE then read on.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial describes how to enable GNOME Keyring within Manjaro KDE to automically unlock your keyring, including SSH and GPG keys on login.
+For reference, this tutorial uses <a href="https://manjaro.org/download/#pinebook-pro-kde-plasma">Manjaro Pinebook Pro KDE Plasma edition</a> version 20.12.
+This tutorial provides instructions specific to the <a href="https://fishshell.com/">fish</a> shell.
+Most of the steps here were taken directly from the <a href="https://wiki.archlinux.org/index.php/GNOME/Keyring">Arch Wiki&#8217;s GNOME/Keyring page</a>.
+Refer there for more information.
+You should be familiar with Manjaro, KDE Plasma, and the fish shell to get the most out of this tutorial.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install GNOME Keyring.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ pacman <span class="nt">-S</span> gnome-keyring</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Optionally, install the graphical <a href="https://wiki.gnome.org/Apps/Seahorse">Seahorse</a> application to help manage your GNOME Keyring.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ pacman <span class="nt">-S</span> seahorse</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the GNOME Keyring&#8217;s PAM module to <code>/etc/pam.d/login</code> to unlock the GNOME Keyring on login.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">/etc/pam.d/login</div>
+<div class="content">
+<pre class="rouge highlight"><code>#%PAM-1.0
+
+auth       required     pam_securetty.so
+auth       requisite    pam_nologin.so
+auth       include      system-local-login
+auth       optional     pam_gnome_keyring.so <i class="conum" data-value="1"></i><b>(1)</b>
+account    include      system-local-login
+session    include      system-local-login
+session    optional     pam_gnome_keyring.so auto_start <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Add the <code>auth</code> type here.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>And add the <code>session</code> type here.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For this to work, your keyring must use the same password you use to login.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Autostart SSH and Secrets components of the GNOME keyring on login by copying their autostart files to your <code>~/.config/autostart</code> directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cp</span> /etc/xdg/autostart/<span class="o">{</span>gnome-keyring-secrets.desktop,gnome-keyring-ssh.desktop<span class="o">}</span> ~/.config/autostart/</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Strip out the <code>OnlyShowIn</code> line from the autostart file for the Secrets component.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">'/^OnlyShowIn.*$/d'</span> ~/.config/autostart/gnome-keyring-secrets.desktop</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Also strip out the <code>OnlyShowIn</code> line from the autostart file for the SSH component.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">'/^OnlyShowIn.*$/d'</span> ~/.config/autostart/gnome-keyring-ssh.desktop</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the <code>conf.d</code> configuration directory for fish startup scripts in order to keep things tidy.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> ~/.config/fish/conf.d</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Export the <code>SSH_AUTH_SOCK</code> environment variable to GNOME Keyring&#8217;s ssh-agent in a shell startup file to make it available in your terminal.</p>
+<div class="listingblock">
+<div class="title">~/.config/fish/conf.d/gnome-keyring-ssh-agent.fish</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="k">if </span><span class="nb">test</span> <span class="nt">-n</span> <span class="s2">"</span><span class="nv">$DESKTOP_SESSION</span><span class="s2">"</span>
+    <span class="nb">set</span> <span class="nt">-x</span> <span class="o">(</span>gnome-keyring-daemon <span class="nt">--start</span> | string <span class="nb">split</span> <span class="s2">"="</span><span class="o">)</span>
+end</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure GnuPG to use GNOME Keyring to manage passphrase prompts.</p>
+<div class="listingblock">
+<div class="title">~/.gnupg/gpg-agent.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">pinentry-program /usr/bin/pinentry-gnome3</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Log out and log back in for the changes to take effect.</p>
+</li>
+<li>
+<p>When asked to unlock your SSH and GPG keys, select the option to save them to your keyring and they&#8217;ll be available for you on subsequent logins!</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now be able to have your GPG and SSH keys unlocked automatically when you login to your KDE environment.</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.discourse.org/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/gnome-keyring-in-kde-plasma' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -169,6 +169,10 @@
 <lastmod>2020-12-11T00:00:00-06:00</lastmod>
 </url>
 <url>
+<loc>https://www.jwillikers.com/gnome-keyring-in-kde-plasma</loc>
+<lastmod>2021-01-01T00:00:00-06:00</lastmod>
+</url>
+<url>
 <loc>https://www.jwillikers.com/CODE_OF_CONDUCT</loc>
 </url>
 <url>
@@ -541,6 +545,15 @@
 <loc>https://www.jwillikers.com/tags/sgdisk/</loc>
 </url>
 <url>
+<loc>https://www.jwillikers.com/tags/kde/</loc>
+</url>
+<url>
+<loc>https://www.jwillikers.com/tags/keyring/</loc>
+</url>
+<url>
+<loc>https://www.jwillikers.com/tags/plasma/</loc>
+</url>
+<url>
 <loc>https://www.jwillikers.com/categories/networking/</loc>
 </url>
 <url>
@@ -560,5 +573,8 @@
 </url>
 <url>
 <loc>https://www.jwillikers.com/categories/packaging/</loc>
+</url>
+<url>
+<loc>https://www.jwillikers.com/categories/developer/</loc>
 </url>
 </urlset>
