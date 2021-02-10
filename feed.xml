@@ -1,4 +1,137 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-03T17:22:47-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">GNOME Keyring in KDE Plasma</title><link href="https://www.jwillikers.com/gnome-keyring-in-kde-plasma" rel="alternate" type="text/html" title="GNOME Keyring in KDE Plasma" /><published>2021-01-01T00:00:00-06:00</published><updated>2021-01-01T00:00:00-06:00</updated><id>https://www.jwillikers.com/GNOME%20Keyring%20in%20KDE%20Plasma</id><content type="html" xml:base="https://www.jwillikers.com/gnome-keyring-in-kde-plasma">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-10T16:55:03-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">btrfs Mount Options</title><link href="https://www.jwillikers.com/btrfs-mount-options" rel="alternate" type="text/html" title="btrfs Mount Options" /><published>2021-02-10T00:00:00-06:00</published><updated>2021-02-10T00:00:00-06:00</updated><id>https://www.jwillikers.com/btrfs%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-mount-options">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;btrfs&lt;/a&gt;.
+Now what?
+Well, btrfs doesn&amp;#8217;t ship with optimal default settings.
+Many popular Linux distributions don&amp;#8217;t improve the situation, either.
+That leaves it up to the administrator to fine tune btrfs for its particular use case.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The primary way to tune btrfs is through &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs(5)#MOUNT_OPTIONS&quot;&gt;mount options&lt;/a&gt; which are commonly enumerated in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;`/etc/fstab`&lt;/a&gt; for each volume on the system.
+I use a flat layout in my &lt;code&gt;/etc/fstab&lt;/code&gt; for the separate btrfs subvolumes on each system.
+Subvolumes within a user&amp;#8217;s home directory, besides perhaps a standard &lt;code&gt;.snapshots&lt;/code&gt; subvolume, are left out of my &lt;code&gt;/etc/fstab&lt;/code&gt; to give users greater flexibility in managing their own home subvolume.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I&amp;#8217;m planning on using btrfs for all of my Linux machines, but these are all used as desktop computers and the mount options I selected reflect this.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;fstab&quot;&gt;fstab&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;First, let&amp;#8217;s look at the &lt;code&gt;/etc/fstab&lt;/code&gt; file on one of my machines.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;/etc/fstab&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;/dev/mapper/sda2_crypt /                   btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=root 0 0
+UUID=xxxxxxxxxxxxxxxxx /boot               btrfs   defaults,noatime,autodefrag,compress=lzo,commit=120 0 0
+/dev/mapper/sda2_crypt /.snapshots         btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=snapshots 0 0
+/dev/mapper/sda2_crypt /home               btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home 0 0
+/dev/mapper/sda2_crypt /home/bob           btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob 0 0
+/dev/mapper/sda2_crypt /home/bob/snapshots btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob_snapshots 0 0
+/dev/mapper/sda2_crypt /opt                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=opt 0 0
+/dev/mapper/sda2_crypt /root               btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_root 0 0
+/dev/mapper/sda2_crypt /srv                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=srv 0 0
+/dev/mapper/sda2_crypt /swap               btrfs   defaults,noatime,autodefrag,commit=120,subvol=swap 0 0
+/dev/mapper/sda2_crypt /tmp                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=tmp 0 0
+/dev/mapper/sda2_crypt /usr/local          btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=usr_local 0 0
+/dev/mapper/sda2_crypt /var                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=var 0 0
+/swap/swapfile         none                swap    defaults 0 0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Wow, there&amp;#8217;s a bunch going on here!
+This setup contains many separate subvolumes to facilitate snapshots of the root directory and users' home directories.
+It also includes a btrfs swapfile.
+These aspects of the file will be discussed in future posts. 😉&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Notice that each subvolume specified here, except for &lt;code&gt;/boot&lt;/code&gt;, explicitly states the mount options.
+These subvolumes use a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt; as opposed to a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested&quot;&gt;nested layout&lt;/a&gt;.
+With the exception of the &lt;code&gt;/boot&lt;/code&gt; subvolume which resides on a separate partition, they are all located at the root of &lt;code&gt;/dev/mapper/sda2_crypt&lt;/code&gt;.
+When using btrfs, nested subvolumes inherit the mount options of their parents and are automatically mounted.
+They don&amp;#8217;t need to be included in &lt;code&gt;/etc/fstab&lt;/code&gt; but they are restricted to using the exact mount options of their parents.
+The &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt; used here has the advantage of making it easy to view how system subvolumes are organized.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Since btrfs does it&amp;#8217;s own integrity checking, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;fsck&lt;/a&gt; should be disabled.
+The integer in the last column of each row indicates the fsck value and setting it to zero disables fsck.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;mount_options&quot;&gt;Mount Options&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Listed below are descriptions of each particular mount option.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Mount Options&lt;/div&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;defaults&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Use default options: &lt;em&gt;rw&lt;/em&gt;, &lt;em&gt;suid&lt;/em&gt;, &lt;em&gt;dev&lt;/em&gt;, &lt;em&gt;exec&lt;/em&gt;, &lt;em&gt;auto&lt;/em&gt;, &lt;em&gt;nouser&lt;/em&gt;, and &lt;em&gt;async&lt;/em&gt;.
+These are not btrfs-specific.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;noatime&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Do  not  update  inode  access  times  on  this  filesystem.
+This speeds up reads since the access time metadata is not updated.
+This option isn&amp;#8217;t specific to btrfs either.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;autodefrag&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Enable automatic file defragmentation.
+This automatically defragments small random writes into files.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;compress&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Filesystem-level compression is a beautiful thing.
+It increases read and write speeds while saving disk space.
+The speed of &lt;a href=&quot;https://facebook.github.io/zstd/&quot;&gt;_zstd_&lt;/a&gt; compression makes it my general preference.
+The &lt;code&gt;/boot&lt;/code&gt; subvolume above is mounted with &lt;em&gt;lzo&lt;/em&gt; compression to accomodate an older version of Grub predating &lt;em&gt;zstd&lt;/em&gt; support, which appeared in Grub 2.04.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;commit&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The number of seconds between periodic commits to the filesystem.
+This is 30 seconds by default.
+Increasing this value reduces the frequency of periodic writes which can reduce wear on the disk.
+However, this also increases the risk of data loss during the event of an untimely crash.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;subvol&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Mount the subvolume from the given path rather than the top-level subvolume.
+This option is organizational and used for the &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt;.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;em&gt;ssd&lt;/em&gt; option is omitted since these settings are applied automatically when the underying storage media is solid-state.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Hopefully you have a better idea of some of the available mount options for optimizing btrfs for your particular use case.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="btrfs" /><category term="fstab" /><category term="Linux" /><category term="mount" /><summary type="html">So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on btrfs. Now what? Well, btrfs doesn&amp;#8217;t ship with optimal default settings. Many popular Linux distributions don&amp;#8217;t improve the situation, either. That leaves it up to the administrator to fine tune btrfs for its particular use case.</summary></entry><entry><title type="html">GNOME Keyring in KDE Plasma</title><link href="https://www.jwillikers.com/gnome-keyring-in-kde-plasma" rel="alternate" type="text/html" title="GNOME Keyring in KDE Plasma" /><published>2021-01-01T00:00:00-06:00</published><updated>2021-01-01T00:00:00-06:00</updated><id>https://www.jwillikers.com/GNOME%20Keyring%20in%20KDE%20Plasma</id><content type="html" xml:base="https://www.jwillikers.com/gnome-keyring-in-kde-plasma">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I love &lt;a href=&quot;https://www.gnome.org/&quot;&gt;GNOME&lt;/a&gt;, but on my &lt;a href=&quot;https://www.pine64.org/pinebook-pro/&quot;&gt;Pinebook Pro&lt;/a&gt;, I use the extremely well-supported &lt;a href=&quot;https://manjaro.org/download/#pinebook-pro-kde-plasma&quot;&gt;Manjaro Pinebook Pro KDE Plasma edition&lt;/a&gt;.
@@ -3424,197 +3557,4 @@ Additionally, you also understand how to use several tools to accomplish this: a
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
 &lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. The asdf Python plugin really just uses Pyenv underneath the covers.
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Development" /><category term="asdf" /><category term="direnv" /><category term="Linux" /><category term="Pipenv" /><category term="Python" /><category term="Ubuntu" /><category term="Unix" /><summary type="html">Making Python dependency management reproducible is complicated. Bringing Python dependency management to mere mortals who can&amp;#8217;t remember where they put their shoes, let alone remember to source shell scripts every time they start working on a project is even more complicated. So, here&amp;#8217;s a quick breakdown of how it works followed by a much lengthier section on how to fit all of the various pieces together to manage a single Python dependency used to build a project.</summary></entry><entry><title type="html">Fresh fish on CentOS 7</title><link href="https://www.jwillikers.com/fresh-fish-on-centos-7" rel="alternate" type="text/html" title="Fresh fish on CentOS 7" /><published>2020-10-29T00:00:00-05:00</published><updated>2020-10-29T00:00:00-05:00</updated><id>https://www.jwillikers.com/Fresh%20fish%20on%20CentOS%207</id><content type="html" xml:base="https://www.jwillikers.com/fresh-fish-on-centos-7">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Are you desperate for the freshest &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish&lt;/a&gt;?
-Well, you&amp;#8217;ve come to the right place.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The instructions herein describe how to install a much newer version of the fish shell, version 3.1.2, from source on &lt;a href=&quot;https://www.gnu.org/software/bash/&quot;&gt;CentOS&lt;/a&gt; 7.
-Further instructions for building fish are available from the &lt;a href=&quot;https://github.com/fish-shell/fish-shell/#building&quot;&gt;fish documentation&lt;/a&gt;.
-For this tutorial to make a lick of sense, you should be familiar with the command-line, Linux, installing packages, and building projects from source.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;If you aren&amp;#8217;t using the &lt;a href=&quot;https://rpm-software-management.github.io/&quot;&gt;DNF&lt;/a&gt; package manager yet, grab that.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;yum &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;dnf&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add the &lt;a href=&quot;https://fedoraproject.org/wiki/EPEL&quot;&gt;EPEL&lt;/a&gt; repository for retrieving necessary dependencies.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dnf &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Install the build dependencies.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dnf &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;cmake3 gettext-devel git ncurses-devel ninja-build &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  pcre2-devel&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Pull down the fish repository.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git clone https://github.com/fish-shell/fish-shell.git&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Checkout the latest release tag.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; fish-shell switch &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;git &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; fish-shell describe &lt;span class=&quot;nt&quot;&gt;--abbrev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 &lt;span class=&quot;nt&quot;&gt;--tags&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-HEAD is now at 0314b0f1d Release 3.1.2&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Configure CMake in the directory &lt;code&gt;fish-shell/build&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ cmake3 &lt;span class=&quot;nt&quot;&gt;-GNinja&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B&lt;/span&gt; fish-shell/build &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; fish-shell&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Build fish.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ cmake3 &lt;span class=&quot;nt&quot;&gt;--build&lt;/span&gt; fish-shell/build&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Install fish.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cmake3 &lt;span class=&quot;nt&quot;&gt;--install&lt;/span&gt; fish-shell/build
-&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; Install configuration: &lt;span class=&quot;s2&quot;&gt;&quot;RelWithDebInfo&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Register the shell in &lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=shells&amp;amp;manpath=CentOS+7.1&quot;&gt;&lt;code&gt;/etc/shells&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; /usr/local/bin/fish | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/shells
-/usr/local/bin/fish&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Change your login shell to fish.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ chsh &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; /usr/local/bin/fish
-Changing shell &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;jordan.
-Password:
-Shell changed.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Log out and back in to complete the switch to fish.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Because it is CentOS, add &lt;code&gt;/usr/local/bin&lt;/code&gt; to your &lt;code&gt;PATH&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-pU&lt;/span&gt; fish_user_paths /usr/local/bin&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;update&quot;&gt;Update&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To update to the latest version of fish, just checkout the latest version release, build, and install.
-For completeness, the instructions to update fish are provided below.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Checkout the latest release tag.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; fish-shell switch &lt;span class=&quot;nt&quot;&gt;--detach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;git &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; fish-shell describe &lt;span class=&quot;nt&quot;&gt;--abbrev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 &lt;span class=&quot;nt&quot;&gt;--tags&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-HEAD is now at 0314b0f1d Release 3.1.2&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Configure CMake in the directory &lt;code&gt;fish-shell/build&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ cmake3 &lt;span class=&quot;nt&quot;&gt;-GNinja&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B&lt;/span&gt; fish-shell/build &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; fish-shell&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Build fish.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ cmake3 &lt;span class=&quot;nt&quot;&gt;--build&lt;/span&gt; fish-shell/build&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Install fish.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cmake3 &lt;span class=&quot;nt&quot;&gt;--install&lt;/span&gt; fish-shell/build
-&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; Install configuration: &lt;span class=&quot;s2&quot;&gt;&quot;RelWithDebInfo&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;troubleshooting&quot;&gt;Troubleshooting&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Packages on CentOS 7 might assume you are using a &lt;a href=&quot;https://www.gnu.org/software/bash/&quot;&gt;Bash&lt;/a&gt;-compatible login shell.
-For instance, the &lt;a href=&quot;https://www.qt.io/&quot;&gt;Qt&lt;/a&gt; 5 development packages work fine when using a Bash shell.
-After switching to fish, building a Qt 5 application failed because it could not find the &lt;code&gt;xcb&lt;/code&gt; plugin.
-Setting the &lt;code&gt;QT_QPA_PLATFORM_PLUGIN_PATH&lt;/code&gt; to as shown below resolved this issue.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ux&lt;/span&gt; QT_QPA_PLATFORM_PLUGIN_PATH /usr/lib64/qt5/plugins/platforms&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The moral of the story is to check any Bash-specific initialization in places such as the &lt;code&gt;/etc/profile&lt;/code&gt; file and the &lt;code&gt;/etc/profile.d&lt;/code&gt; directory.
-Otherwise, it&amp;#8217;s entirely possible to use Bash as she login shell and and just execute fish from your &lt;code&gt;~/.bashrc&lt;/code&gt; initialization file.
-There&amp;#8217;s also a fish plugin called &lt;a href=&quot;https://github.com/edc/bass&quot;&gt;Bass&lt;/a&gt; which can handle sourcing Bash files such as &lt;code&gt;/etc/profile&lt;/code&gt; directly.
-Refer to the fish page&amp;#8217;s section &lt;a href=&quot;https://wiki.gentoo.org/wiki/Fish#Alternative_to_fish_as_the_login_shell&quot;&gt;&lt;em&gt;Alternative to fish as the login shell&lt;/em&gt;&lt;/a&gt; on the &lt;a href=&quot;https://wiki.gentoo.org/wiki/Main_Page&quot;&gt;Gentoo Wiki&lt;/a&gt; for the exact implementation details for these workarounds.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You should notice enhanced cognitive performance from the incredible omega-3 fatty acid profile that only the freshest fish has to offer!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Command-Line" /><category term="CentOS" /><category term="fish" /><category term="Linux" /><category term="shell" /><summary type="html">Are you desperate for the freshest fish? Well, you&amp;#8217;ve come to the right place.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Development" /><category term="asdf" /><category term="direnv" /><category term="Linux" /><category term="Pipenv" /><category term="Python" /><category term="Ubuntu" /><category term="Unix" /><summary type="html">Making Python dependency management reproducible is complicated. Bringing Python dependency management to mere mortals who can&amp;#8217;t remember where they put their shoes, let alone remember to source shell scripts every time they start working on a project is even more complicated. So, here&amp;#8217;s a quick breakdown of how it works followed by a much lengthier section on how to fit all of the various pieces together to manage a single Python dependency used to build a project.</summary></entry></feed>

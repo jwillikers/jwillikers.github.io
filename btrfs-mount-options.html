@@ -1,0 +1,378 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>btrfs Mount Options - JWillikers</title>
+<meta name="description" content="So, let&#8217;s say you&#8217;ve installed a fresh system on btrfs. Now what? Well, btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune btrfs for its particular use case.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="btrfs Mount Options">
+<meta property="og:url" content="https://www.jwillikers.com/btrfs-mount-options">
+
+
+  <meta property="og:description" content="So, let&#8217;s say you&#8217;ve installed a fresh system on btrfs. Now what? Well, btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune btrfs for its particular use case.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-10T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/btrfs-mount-options">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>So, let&#8217;s say you&#8217;ve installed a fresh system on <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">btrfs</a>.
+Now what?
+Well, btrfs doesn&#8217;t ship with optimal default settings.
+Many popular Linux distributions don&#8217;t improve the situation, either.
+That leaves it up to the administrator to fine tune btrfs for its particular use case.</p>
+</div>
+<div class="paragraph">
+<p>The primary way to tune btrfs is through <a href="https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs(5)#MOUNT_OPTIONS">mount options</a> which are commonly enumerated in <a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">`/etc/fstab`</a> for each volume on the system.
+I use a flat layout in my <code>/etc/fstab</code> for the separate btrfs subvolumes on each system.
+Subvolumes within a user&#8217;s home directory, besides perhaps a standard <code>.snapshots</code> subvolume, are left out of my <code>/etc/fstab</code> to give users greater flexibility in managing their own home subvolume.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;m planning on using btrfs for all of my Linux machines, but these are all used as desktop computers and the mount options I selected reflect this.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fstab">fstab</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, let&#8217;s look at the <code>/etc/fstab</code> file on one of my machines.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/fstab</div>
+<div class="content">
+<pre class="rouge highlight"><code>/dev/mapper/sda2_crypt /                   btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=root 0 0
+UUID=xxxxxxxxxxxxxxxxx /boot               btrfs   defaults,noatime,autodefrag,compress=lzo,commit=120 0 0
+/dev/mapper/sda2_crypt /.snapshots         btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=snapshots 0 0
+/dev/mapper/sda2_crypt /home               btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home 0 0
+/dev/mapper/sda2_crypt /home/bob           btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob 0 0
+/dev/mapper/sda2_crypt /home/bob/snapshots btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob_snapshots 0 0
+/dev/mapper/sda2_crypt /opt                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=opt 0 0
+/dev/mapper/sda2_crypt /root               btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_root 0 0
+/dev/mapper/sda2_crypt /srv                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=srv 0 0
+/dev/mapper/sda2_crypt /swap               btrfs   defaults,noatime,autodefrag,commit=120,subvol=swap 0 0
+/dev/mapper/sda2_crypt /tmp                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=tmp 0 0
+/dev/mapper/sda2_crypt /usr/local          btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=usr_local 0 0
+/dev/mapper/sda2_crypt /var                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=var 0 0
+/swap/swapfile         none                swap    defaults 0 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wow, there&#8217;s a bunch going on here!
+This setup contains many separate subvolumes to facilitate snapshots of the root directory and users' home directories.
+It also includes a btrfs swapfile.
+These aspects of the file will be discussed in future posts. 😉</p>
+</div>
+<div class="paragraph">
+<p>Notice that each subvolume specified here, except for <code>/boot</code>, explicitly states the mount options.
+These subvolumes use a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat layout</a> as opposed to a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested">nested layout</a>.
+With the exception of the <code>/boot</code> subvolume which resides on a separate partition, they are all located at the root of <code>/dev/mapper/sda2_crypt</code>.
+When using btrfs, nested subvolumes inherit the mount options of their parents and are automatically mounted.
+They don&#8217;t need to be included in <code>/etc/fstab</code> but they are restricted to using the exact mount options of their parents.
+The <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat layout</a> used here has the advantage of making it easy to view how system subvolumes are organized.</p>
+</div>
+<div class="paragraph">
+<p>Since btrfs does it&#8217;s own integrity checking, <a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">fsck</a> should be disabled.
+The integer in the last column of each row indicates the fsck value and setting it to zero disables fsck.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mount_options">Mount Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Listed below are descriptions of each particular mount option.</p>
+</div>
+<div class="dlist">
+<div class="title">Mount Options</div>
+<dl>
+<dt class="hdlist1"><em>defaults</em></dt>
+<dd>
+<p>Use default options: <em>rw</em>, <em>suid</em>, <em>dev</em>, <em>exec</em>, <em>auto</em>, <em>nouser</em>, and <em>async</em>.
+These are not btrfs-specific.</p>
+</dd>
+<dt class="hdlist1"><em>noatime</em></dt>
+<dd>
+<p>Do  not  update  inode  access  times  on  this  filesystem.
+This speeds up reads since the access time metadata is not updated.
+This option isn&#8217;t specific to btrfs either.</p>
+</dd>
+<dt class="hdlist1"><em>autodefrag</em></dt>
+<dd>
+<p>Enable automatic file defragmentation.
+This automatically defragments small random writes into files.</p>
+</dd>
+<dt class="hdlist1"><em>compress</em></dt>
+<dd>
+<p>Filesystem-level compression is a beautiful thing.
+It increases read and write speeds while saving disk space.
+The speed of <a href="https://facebook.github.io/zstd/">_zstd_</a> compression makes it my general preference.
+The <code>/boot</code> subvolume above is mounted with <em>lzo</em> compression to accomodate an older version of Grub predating <em>zstd</em> support, which appeared in Grub 2.04.</p>
+</dd>
+<dt class="hdlist1"><em>commit</em></dt>
+<dd>
+<p>The number of seconds between periodic commits to the filesystem.
+This is 30 seconds by default.
+Increasing this value reduces the frequency of periodic writes which can reduce wear on the disk.
+However, this also increases the risk of data loss during the event of an untimely crash.</p>
+</dd>
+<dt class="hdlist1"><em>subvol</em></dt>
+<dd>
+<p>Mount the subvolume from the given path rather than the top-level subvolume.
+This option is organizational and used for the <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat layout</a>.</p>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <em>ssd</em> option is omitted since these settings are applied automatically when the underying storage media is solid-state.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hopefully you have a better idea of some of the available mount options for optimizing btrfs for your particular use case.</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/btrfs-mount-options' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

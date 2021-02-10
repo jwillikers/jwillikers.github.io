@@ -1,11 +1,11 @@
 /* ========================================================================== Dark skin ========================================================================== */
 /* Colors */
 @import url(asciidoctor.css);
-.author__urls.social-icons .svg-inline--fa, .page__footer-follow .social-icons .svg-inline--fa { color: inherit; }
+.author__urls.social-icons i, .author__urls.social-icons .svg-inline--fa, .page__footer-follow .social-icons i, .page__footer-follow .social-icons .svg-inline--fa { color: inherit; }
 
 .ais-search-box .ais-search-box--input { background-color: #1f242c; }
 
-/*! Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes Licensed under MIT (https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE) */
+/*! Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes Licensed under MIT (https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE) */
 /* Variables */
 /* ========================================================================== Variables ========================================================================== */
 /* Typography ========================================================================== */
