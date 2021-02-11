@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-11T12:11:19-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Why Choose btrfs</title><link href="https://www.jwillikers.com/why-choose-btrfs" rel="alternate" type="text/html" title="Why Choose btrfs" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Why%20Choose%20btrfs</id><content type="html" xml:base="https://www.jwillikers.com/why-choose-btrfs">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-11T15:03:08-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Why Choose btrfs</title><link href="https://www.jwillikers.com/why-choose-btrfs" rel="alternate" type="text/html" title="Why Choose btrfs" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Why%20Choose%20btrfs</id><content type="html" xml:base="https://www.jwillikers.com/why-choose-btrfs">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;There are many compelling reasons to use a modern &lt;a href=&quot;https://en.wikipedia.org/wiki/Copy-on-write&quot;&gt;Copy-on-Write&lt;/a&gt;, &lt;em&gt;CoW&lt;/em&gt; for short, filesystem.
@@ -95,12 +95,238 @@ More fodder for the blog, though.&lt;/p&gt;
 &lt;div id=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Thank you {michael-w-lucal} and &lt;a href=&quot;https://github.com/allanjude&quot;&gt;Allan Jude&lt;/a&gt; for &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmzfs/&quot;&gt;FreeBSD Mastery: ZFS&lt;/a&gt;&lt;/em&gt; and &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmaz/&quot;&gt;FreeBSD Mastery: Advanced ZFS&lt;/a&gt;&lt;/em&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Thank you &lt;a href=&quot;https://mwl.io/&quot;&gt;Michael W. Lucas&lt;/a&gt; and &lt;a href=&quot;https://github.com/allanjude&quot;&gt;Allan Jude&lt;/a&gt; for &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmzfs/&quot;&gt;FreeBSD Mastery: ZFS&lt;/a&gt;&lt;/em&gt; and &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmaz/&quot;&gt;FreeBSD Mastery: Advanced ZFS&lt;/a&gt;&lt;/em&gt;
 &lt;/div&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
 &lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. No. I&amp;#8217;m &lt;em&gt;not&lt;/em&gt; counting Darwin.
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="bcachefs" /><category term="btrfs" /><category term="cow" /><category term="filesystem" /><category term="fedora" /><category term="freebsd" /><category term="linux" /><category term="openzfs" /><category term="opensuse" /><category term="netbsd" /><category term="snapshots" /><category term="zfs" /><summary type="html">There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.</summary></entry><entry><title type="html">btrfs Mount Options</title><link href="https://www.jwillikers.com/btrfs-mount-options" rel="alternate" type="text/html" title="btrfs Mount Options" /><published>2021-02-10T00:00:00-06:00</published><updated>2021-02-10T00:00:00-06:00</updated><id>https://www.jwillikers.com/btrfs%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-mount-options">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="bcachefs" /><category term="btrfs" /><category term="cow" /><category term="filesystem" /><category term="fedora" /><category term="freebsd" /><category term="linux" /><category term="openzfs" /><category term="opensuse" /><category term="netbsd" /><category term="snapshots" /><category term="zfs" /><summary type="html">There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.</summary></entry><entry><title type="html">btrfs Swapfile</title><link href="https://www.jwillikers.com/btrfs-swapfile" rel="alternate" type="text/html" title="btrfs Swapfile" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/btrfs%20Swapfile</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-swapfile">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Swap space is a standard component of most operating systems.
+It&amp;#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available.
+I recommend the &lt;a href=&quot;https://opensource.com/&quot;&gt;opensource.com&lt;/a&gt; article &lt;em&gt;&lt;a href=&quot;https://opensource.com/article/18/9/swap-space-linux-systems&quot;&gt;An Introduction to Swap Space on Linux Systems&lt;/a&gt;&lt;/em&gt; as a great primer on the topic.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are two approaches to providing swap space on Linux, swap partitions and &lt;a href=&quot;https://wiki.archlinux.org/index.php/swap#Swap_file&quot;&gt;swapfiles&lt;/a&gt;.
+Since version 5.0 of the Linux kernel, btrfs swap files are supported according to the section &lt;em&gt;&lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ#Does_btrfs_support_swap_files.3F&quot;&gt;Does btrfs support swap files?&lt;/a&gt;&lt;/em&gt; in the &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ&quot;&gt;btrfs Wiki FAQ&lt;/a&gt;.
+Switching to btrfs as my default filesystem, I recently set this up have created this tutorial get yourself a swapfile set up on btrfs.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial contains the necessary steps to create a btrfs swapfile.
+The reference system is running &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1 and a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat btrfs layout&lt;/a&gt;.
+As a matter of preference, the commands here use the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt;'s syntax.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I have not been able to get hibernation working when using a btrfs swapfile.
+You should consider a dedicated, encrypted swap partition if you desire this feature.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Mount the root btrfs filesystem to create a subvolume.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mount &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; / | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; /mnt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a dedicated btrfs subvolume for swap in order to exclude the swapfile from snapshots.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs subvolume create /mnt/swap
+Create subvolume &lt;span class=&quot;s1&quot;&gt;'/mnt/swap'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the appropriate permissions on the swap subvolume so that only the owner, the root user in this case, has access to the subvolume.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo chmod &lt;/span&gt;700 /mnt/swap&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a directory at where the swap subvolume will be mounted.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo mkdir&lt;/span&gt; /swap&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the subvolume to &lt;em&gt;&lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;/etc/fstab&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; / &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; /swap btrfs defaults,noatime,subvol=swap 0 0&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/fstab
+/dev/mapper/sda2_crypt /swap btrfs defaults,noatime,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;swap 0 0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now mount the swap subvolume according to the rules just add in &lt;code&gt;/etc/fstab&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mount /swap&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create an empty swapfile within the swap subvolume.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo truncate&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; 0 /swap/swapfile&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Disable Copy-on-Write for the swapfile.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;chattr +C /swap/swapfile&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Make sure to disable compression on the swapfile.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs property &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; /swap/swapfile compression none&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Allocate the file with as much space as there is RAM on the system.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;fallocate &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;free &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'NR == 2 {print $2}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; /swap/swapfile&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Only allow access to the swapfile by its owner, the root user, to prevent snooping.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo chmod &lt;/span&gt;600 /swap/swapfile&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Initialize the swapfile.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkswap /swap/swapfile
+Setting up swapspace version 1, size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 7.8 GiB &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;8355049472 bytes&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+no label, &lt;span class=&quot;nv&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enable the swapile!&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;swapon /swap/swapfile&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the swapfile to &lt;em&gt;/etc/fstab&lt;/em&gt; so that &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; will initialize it automatically when booting the system.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/swap/swapfile none swap defaults 0 0&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/fstab&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verify there are no errors in &lt;em&gt;/etc/fstab&lt;/em&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;findmnt &lt;span class=&quot;nt&quot;&gt;--verify&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set a lower &lt;em&gt;swappiness&lt;/em&gt; in an attempt to improve performance.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is described in the ArchWiki&amp;#8217;s page on Swap in the &lt;em&gt;&lt;a href=&quot;https://wiki.archlinux.org/index.php/swap#Swappiness&quot;&gt;Swappiness&lt;/a&gt;&lt;/em&gt; section.
+A lower setting as used here advises the kernel to avoid swapping.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;vm.swappiness&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10 | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/sysctl.d/99-swappiness.conf
+vm.swappiness&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This setting will be applied at the next reboot.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://wiki.archlinux.org/index.php/btrfs#Swap_file&quot;&gt;ArchWiki btrfs - Swap file&lt;/a&gt;
+&lt;a href=&quot;https://wiki.archlinux.org/index.php/Swap#Swap_file_creation&quot;&gt;ArchWiki Swap - Swap file creation&lt;/a&gt;
+&lt;a href=&quot;https://wiki.debian.org/Swap&quot;&gt;Debian Wiki Swap&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now know all you need to know to make a btrfs swapfile on Linux.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. For better recommendations on the size of your swapfile, refer to the table &lt;em&gt;Recommended System Swap Space&lt;/em&gt; in the &lt;em&gt;&lt;a href=&quot;https://docs.fedoraproject.org/en-US/fedora/f33/install-guide/install/Installing_Using_Anaconda/#sect-installation-gui-manual-partitioning-recommended&quot;&gt;Recommended Partitioning Scheme&lt;/a&gt;&lt;/em&gt; section of Fedora&amp;#8217;s installation documentation.
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. systemd&amp;#8217;s handling of swap is documented thoroughly in the corresponding man page: &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.swap.html&quot;&gt;systemd.swap(5)&lt;/a&gt;.
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="btrfs" /><category term="linux" /><category term="swap" /><category term="swapfile" /><summary type="html">Swap space is a standard component of most operating systems. It&amp;#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic.</summary></entry><entry><title type="html">btrfs Mount Options</title><link href="https://www.jwillikers.com/btrfs-mount-options" rel="alternate" type="text/html" title="btrfs Mount Options" /><published>2021-02-10T00:00:00-06:00</published><updated>2021-02-10T00:00:00-06:00</updated><id>https://www.jwillikers.com/btrfs%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-mount-options">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;btrfs&lt;/a&gt;.
@@ -2085,182 +2311,4 @@ unless you restart the program.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You should now be able to backup and restore your private GPG keys.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="Backups" /><category term="GnuPG" /><category term="GPG" /><category term="OpenPGP" /><category term="Ubuntu" /><summary type="html">Gnu Privacy Guard, also known as GnuPG and GPG, is a handy tool for managing OpenPGP keys. While don&amp;#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using Git. PGP keys can be a bit nastier to replace than an SSH key, so making backups is critical for reducing future headaches.</summary></entry><entry><title type="html">Generate a GPG Key</title><link href="https://www.jwillikers.com/generate-a-gpg-key" rel="alternate" type="text/html" title="Generate a GPG Key" /><published>2020-11-13T00:00:00-06:00</published><updated>2020-11-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/Generate%20a%20GPG%20Key</id><content type="html" xml:base="https://www.jwillikers.com/generate-a-gpg-key">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://gnupg.org/&quot;&gt;GPG&lt;/a&gt; keys can be used to cryptographically sign &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt; commits, pushes, and tags.
-This associates your work with a particular identity.
-GPG is also used for encrypting and signing emails.
-To do these things, you first need a GPG key.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The instructions here describe the steps to generate a GPG key on &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.04.
-On the Ubuntu desktop, GPG is preinstalled.
-Detailed instructions for creating a key can be found in &lt;a href=&quot;https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key&quot;&gt;GitHub&amp;#8217;s documentation&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Create a new key.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--full-generate-key&lt;/span&gt;
-gpg &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;GnuPG&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 2.2.20&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;C&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 2020 Free Software Foundation, Inc.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Press enter to accept the default key type, &lt;code&gt;RSA and RSA&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Please select what kind of key you want:
-(1) RSA and RSA (default)
-(2) DSA and Elgamal
-(3) DSA (sign only)
-(4) RSA (sign only)
-(14) Existing key from card
-Your selection?&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enter 4096 for the key size.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;RSA keys may be between 1024 and 4096 bits long.
-What keysize do you want? (3072) 4096
-Requested keysize is 4096 bits&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Press enter to accept the default for the length of time the key will be valid which is forever.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Please specify how long the key should be valid.
-0 = key does not expire
-&amp;lt;n&amp;gt; = key expires in n days
-&amp;lt;n&amp;gt;w = key expires in n weeks
-&amp;lt;n&amp;gt;m = key expires in n months
-&amp;lt;n&amp;gt;y = key expires in n years
-Key is valid for? (0)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Type &lt;kbd&gt;Y&lt;/kbd&gt; and press enter again to confirm this.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Key does not expire at all
-Is this correct? (y/N) y&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Input the name to use for the key&amp;#8217;s associated identity.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;GnuPG needs to construct a user ID to identify your key.
-
-Real name: Ponder Stibbons&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Then just enter your commit email address.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Email address: ponder.stibbons@unseen.edu&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add a comment if desired.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;Comment:&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Confirm your identity information by typing &lt;kbd&gt;O&lt;/kbd&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;You selected this USER-ID:
-&quot;Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;&quot;
-
-Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enter a passphrase for your key in the &lt;a href=&quot;#Passphrase Prompt&quot;&gt;[Passphrase Prompt]&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;Passphrase%20Prompt.png&quot; alt=&quot;Passphrase Prompt for GPG Key&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Passphrase Prompt&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;This should output information similar to the following when your key has been successfully generated.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;We need to generate a lot of random bytes. It is a good idea to perform
-some other action (type on the keyboard, move the mouse, utilize the
-disks) during the prime generation; this gives the random number
-generator a better chance to gain enough entropy.
-gpg: key 5DBCB56A458D5A0F marked as ultimately trusted
-gpg: directory '/home/pstibbons/.gnupg/openpgp-revocs.d' created
-gpg: revocation certificate stored as '/home/pstibbons/.gnupg/openpgp-revocs.d/00DD666179AF17FB2D5DF49B5DBCB56A458D5A0F.rev'
-public and secret key created and signed.
-
-pub   rsa4096 2020-10-27 [SC]
-      00DD666179AF17FB2D5DF49B5DBCB56A458D5A0F
-uid                      Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;
-sub   rsa4096 2020-10-27 [E]&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock tip&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you have multiple secret keys and would like to use this key by default, set it as such in &lt;code&gt;~/.gnupg/gpg.conf&lt;/code&gt; as follows.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;default-key 5DBCB56A458D5A0F&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; ~/.gnupg/gpg.conf&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Of course, make sure to substitute the id specific to your key here.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You now have your very own GPG key!
-Check out my post on how to &lt;a href=&quot;backup-and-restore-a-gpg-key.html&quot;&gt;Backup and Restore a GPG Key&lt;/a&gt; because you will want to make sure not to lose your new key!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="Backups" /><category term="GnuPG" /><category term="GPG" /><category term="OpenPGP" /><category term="Ubuntu" /><summary type="html">GPG keys can be used to cryptographically sign Git commits, pushes, and tags. This associates your work with a particular identity. GPG is also used for encrypting and signing emails. To do these things, you first need a GPG key.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="Backups" /><category term="GnuPG" /><category term="GPG" /><category term="OpenPGP" /><category term="Ubuntu" /><summary type="html">Gnu Privacy Guard, also known as GnuPG and GPG, is a handy tool for managing OpenPGP keys. While don&amp;#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using Git. PGP keys can be a bit nastier to replace than an SSH key, so making backups is critical for reducing future headaches.</summary></entry></feed>

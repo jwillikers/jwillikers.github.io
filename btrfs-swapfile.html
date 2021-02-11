@@ -1,0 +1,471 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>btrfs Swapfile - JWillikers</title>
+<meta name="description" content="Swap space is a standard component of most operating systems. It&#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="btrfs Swapfile">
+<meta property="og:url" content="https://www.jwillikers.com/btrfs-swapfile">
+
+
+  <meta property="og:description" content="Swap space is a standard component of most operating systems. It&#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-11T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/btrfs-swapfile">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Swap space is a standard component of most operating systems.
+It&#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available.
+I recommend the <a href="https://opensource.com/">opensource.com</a> article <em><a href="https://opensource.com/article/18/9/swap-space-linux-systems">An Introduction to Swap Space on Linux Systems</a></em> as a great primer on the topic.</p>
+</div>
+<div class="paragraph">
+<p>There are two approaches to providing swap space on Linux, swap partitions and <a href="https://wiki.archlinux.org/index.php/swap#Swap_file">swapfiles</a>.
+Since version 5.0 of the Linux kernel, btrfs swap files are supported according to the section <em><a href="https://btrfs.wiki.kernel.org/index.php/FAQ#Does_btrfs_support_swap_files.3F">Does btrfs support swap files?</a></em> in the <a href="https://btrfs.wiki.kernel.org/index.php/FAQ">btrfs Wiki FAQ</a>.
+Switching to btrfs as my default filesystem, I recently set this up have created this tutorial get yourself a swapfile set up on btrfs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial contains the necessary steps to create a btrfs swapfile.
+The reference system is running <a href="https://elementary.io/">elementary OS</a> 5.1 and a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat btrfs layout</a>.
+As a matter of preference, the commands here use the <a href="https://fishshell.com/">fish shell</a>'s syntax.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>I have not been able to get hibernation working when using a btrfs swapfile.
+You should consider a dedicated, encrypted swap partition if you desire this feature.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Mount the root btrfs filesystem to create a subvolume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mount <span class="o">(</span><span class="nb">df</span> <span class="nt">--output</span><span class="o">=</span><span class="nb">source</span> / | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="o">)</span> /mnt</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a dedicated btrfs subvolume for swap in order to exclude the swapfile from snapshots.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs subvolume create /mnt/swap
+Create subvolume <span class="s1">'/mnt/swap'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the appropriate permissions on the swap subvolume so that only the owner, the root user in this case, has access to the subvolume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo chmod </span>700 /mnt/swap</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a directory at where the swap subvolume will be mounted.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo mkdir</span> /swap</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the subvolume to <em><a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">/etc/fstab</a></em>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="o">(</span><span class="nb">df</span> <span class="nt">--output</span><span class="o">=</span><span class="nb">source</span> / <span class="se">\</span>
+  | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="o">)</span><span class="s2">" /swap btrfs defaults,noatime,subvol=swap 0 0"</span> <span class="se">\</span>
+  | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/fstab
+/dev/mapper/sda2_crypt /swap btrfs defaults,noatime,subvol<span class="o">=</span>swap 0 0</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now mount the swap subvolume according to the rules just add in <code>/etc/fstab</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mount /swap</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create an empty swapfile within the swap subvolume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo truncate</span> <span class="nt">-s</span> 0 /swap/swapfile</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Disable Copy-on-Write for the swapfile.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>chattr +C /swap/swapfile</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Make sure to disable compression on the swapfile.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs property <span class="nb">set</span> /swap/swapfile compression none</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Allocate the file with as much space as there is RAM on the system.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>fallocate <span class="nt">-l</span> <span class="o">(</span>free <span class="nt">-h</span> | <span class="nb">awk</span> <span class="s1">'NR == 2 {print $2}'</span><span class="o">)</span> /swap/swapfile</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Only allow access to the swapfile by its owner, the root user, to prevent snooping.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo chmod </span>600 /swap/swapfile</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Initialize the swapfile.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mkswap /swap/swapfile
+Setting up swapspace version 1, size <span class="o">=</span> 7.8 GiB <span class="o">(</span>8355049472 bytes<span class="o">)</span>
+no label, <span class="nv">UUID</span><span class="o">=</span>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enable the swapile!</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>swapon /swap/swapfile</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the swapfile to <em>/etc/fstab</em> so that <a href="https://systemd.io/">systemd</a> will initialize it automatically when booting the system.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"/swap/swapfile none swap defaults 0 0"</span> | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/fstab</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify there are no errors in <em>/etc/fstab</em>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>findmnt <span class="nt">--verify</span> <span class="nt">--verbose</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set a lower <em>swappiness</em> in an attempt to improve performance.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>This is described in the ArchWiki&#8217;s page on Swap in the <em><a href="https://wiki.archlinux.org/index.php/swap#Swappiness">Swappiness</a></em> section.
+A lower setting as used here advises the kernel to avoid swapping.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="nb">echo </span>vm.swappiness<span class="o">=</span>10 | <span class="nb">sudo tee</span> /etc/sysctl.d/99-swappiness.conf
+vm.swappiness<span class="o">=</span>10</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This setting will be applied at the next reboot.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="references">References</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://wiki.archlinux.org/index.php/btrfs#Swap_file">ArchWiki btrfs - Swap file</a>
+<a href="https://wiki.archlinux.org/index.php/Swap#Swap_file_creation">ArchWiki Swap - Swap file creation</a>
+<a href="https://wiki.debian.org/Swap">Debian Wiki Swap</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now know all you need to know to make a btrfs swapfile on Linux.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. For better recommendations on the size of your swapfile, refer to the table <em>Recommended System Swap Space</em> in the <em><a href="https://docs.fedoraproject.org/en-US/fedora/f33/install-guide/install/Installing_Using_Anaconda/#sect-installation-gui-manual-partitioning-recommended">Recommended Partitioning Scheme</a></em> section of Fedora&#8217;s installation documentation.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. systemd&#8217;s handling of swap is documented thoroughly in the corresponding man page: <a href="https://www.freedesktop.org/software/systemd/man/systemd.swap.html">systemd.swap(5)</a>.
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/btrfs-swapfile' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

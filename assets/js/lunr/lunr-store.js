@@ -268,4 +268,10 @@ var store = [{
         "tags": ["bcachefs","btrfs","cow","filesystem","fedora","freebsd","linux","openzfs","opensuse","netbsd","snapshots","zfs"],
         "url": "/why-choose-btrfs",
         "teaser": null
+      },{
+        "title": "btrfs Swapfile",
+        "excerpt":"Swap space is a standard component of most operating systems. It&#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic. There are...","categories": ["Disks"],
+        "tags": ["btrfs","linux","swap","swapfile"],
+        "url": "/btrfs-swapfile",
+        "teaser": null
       }]
