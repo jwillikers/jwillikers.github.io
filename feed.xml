@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-10T16:55:03-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">btrfs Mount Options</title><link href="https://www.jwillikers.com/btrfs-mount-options" rel="alternate" type="text/html" title="btrfs Mount Options" /><published>2021-02-10T00:00:00-06:00</published><updated>2021-02-10T00:00:00-06:00</updated><id>https://www.jwillikers.com/btrfs%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-mount-options">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-11T09:19:18-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">btrfs Mount Options</title><link href="https://www.jwillikers.com/btrfs-mount-options" rel="alternate" type="text/html" title="btrfs Mount Options" /><published>2021-02-10T00:00:00-06:00</published><updated>2021-02-10T00:00:00-06:00</updated><id>https://www.jwillikers.com/btrfs%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-mount-options">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;btrfs&lt;/a&gt;.
@@ -8,7 +8,7 @@ Many popular Linux distributions don&amp;#8217;t improve the situation, either.
 That leaves it up to the administrator to fine tune btrfs for its particular use case.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The primary way to tune btrfs is through &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs(5)#MOUNT_OPTIONS&quot;&gt;mount options&lt;/a&gt; which are commonly enumerated in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;`/etc/fstab`&lt;/a&gt; for each volume on the system.
+&lt;p&gt;The primary way to tune btrfs is through &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs(5)#MOUNT_OPTIONS&quot;&gt;mount options&lt;/a&gt; which are commonly enumerated in &lt;code&gt;&lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;/etc/fstab&lt;/a&gt;&lt;/code&gt; for each volume on the system.
 I use a flat layout in my &lt;code&gt;/etc/fstab&lt;/code&gt; for the separate btrfs subvolumes on each system.
 Subvolumes within a user&amp;#8217;s home directory, besides perhaps a standard &lt;code&gt;.snapshots&lt;/code&gt; subvolume, are left out of my &lt;code&gt;/etc/fstab&lt;/code&gt; to give users greater flexibility in managing their own home subvolume.&lt;/p&gt;
 &lt;/div&gt;
@@ -91,7 +91,7 @@ This automatically defragments small random writes into files.&lt;/p&gt;
 &lt;dd&gt;
 &lt;p&gt;Filesystem-level compression is a beautiful thing.
 It increases read and write speeds while saving disk space.
-The speed of &lt;a href=&quot;https://facebook.github.io/zstd/&quot;&gt;_zstd_&lt;/a&gt; compression makes it my general preference.
+The speed of &lt;em&gt;&lt;a href=&quot;https://facebook.github.io/zstd/&quot;&gt;zstd&lt;/a&gt;&lt;/em&gt; compression makes it my general preference.
 The &lt;code&gt;/boot&lt;/code&gt; subvolume above is mounted with &lt;em&gt;lzo&lt;/em&gt; compression to accomodate an older version of Grub predating &lt;em&gt;zstd&lt;/em&gt; support, which appeared in Grub 2.04.&lt;/p&gt;
 &lt;/dd&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;commit&lt;/em&gt;&lt;/dt&gt;
