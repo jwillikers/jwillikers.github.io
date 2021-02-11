@@ -262,4 +262,10 @@ var store = [{
         "tags": ["btrfs","fstab","Linux","mount"],
         "url": "/btrfs-mount-options",
         "teaser": null
+      },{
+        "title": "Why Choose btrfs",
+        "excerpt":"There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity...","categories": ["Disks"],
+        "tags": ["bcachefs","btrfs","cow","filesystem","fedora","freebsd","linux","openzfs","opensuse","netbsd","snapshots","zfs"],
+        "url": "/why-choose-btrfs",
+        "teaser": null
       }]

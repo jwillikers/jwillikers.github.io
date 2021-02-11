@@ -1,0 +1,347 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Why Choose btrfs - JWillikers</title>
+<meta name="description" content="There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Why Choose btrfs">
+<meta property="og:url" content="https://www.jwillikers.com/why-choose-btrfs">
+
+
+  <meta property="og:description" content="There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-11T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/why-choose-btrfs">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are many compelling reasons to use a modern <a href="https://en.wikipedia.org/wiki/Copy-on-write">Copy-on-Write</a>, <em>CoW</em> for short, filesystem.
+These include low-cost snapshots and incremental backups.
+If that&#8217;s not compelling, the two most popular open source CoW filesystems, <a href="https://openzfs.org/wiki/Main_Page">OpenZFS</a> and <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">btrfs</a>, offer many more features.
+Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cow"><em>CoW</em></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Making a case for <em>CoW</em> is easy, but here&#8217;s why I&#8217;m willing to make the change.
+I&#8217;ve been struck by bit rot on a couple of occasions leaving me with corrupted music files.
+This bothered me and my backups all contained the corrupted files.
+<em>CoW</em> solves this problem in two ways.
+It will detect such corruption at the time of reading the file or during a <em>scrub</em> where all data and metadata is verified.
+This would have caught the issue earlier and might have given me a chance to restore the file from a recent backup.
+However, <em>CoW</em> provides a much more robust backup system offering snapshots and incremental sends and receives.
+This makes it easy and relatively cheap to keep backups stretching over an extended period of time.
+Having snapshots of my Music directory dating back two years would likely have allowed me to restore that file.
+That&#8217;s why I decided to use <em>CoW</em> on my desktop.</p>
+</div>
+<div class="sect2">
+<h3 id="cow_filesystems"><em>CoW</em> Filesystems</h3>
+<div class="paragraph">
+<p>But what filesystem to choose?
+If you read much of my blog, you&#8217;ll know that I&#8217;m going to be looking at open source solutions.
+This boils down to three serious contenders: OpenZFS, btrfs, and <a href="https://bcachefs.org/">bcachefs</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="openzfs">OpenZFS</h4>
+<div class="paragraph">
+<p>OpenZFS has a proven track record of reliability and is by far the most mature candidate.
+It also benefits from native encryption, great defaults, and a robust, unified interface.
+Unfortunately, its <a href="https://github.com/openzfs/zfs/blob/master/LICENSE">CDDL license</a> is incompatibale with the <a href="https://opensource.org/licenses/gpl-license">GPL license</a> used by the Linux kernel.
+This has lead to the need for less-than ideal workarounds.
+Unless you&#8217;re on <a href="https://opensource.org/licenses/gpl-license">Ubuntu</a>, <a href="https://www.freebsd.org/">FreeBSD</a>, or <a href="https://www.netbsd.org/">NetBSD</a>.
+Ubuntu ships ZFS in its own releases of the Linux kernel.
+Both FreeBSD and NetBSD, having a more permissive license, don&#8217;t have issues with the CDDL license.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="btrfs">btrfs</h4>
+<div class="paragraph">
+<p>btrfs is newer but has been around for over a decade at this point.
+It&#8217;s suffered from reliability issues in the past and doesn&#8217;t offer native encryption.
+It is licensed under the GPL, however, and therefore available in the kernel of every Linux distribution.
+Recently, <a href="https://getfedora.org/">Fedora</a> has begun shipping it as the default filesystem and <a href="https://www.opensuse.org/">openSUSE</a> has been using it as the default since 2014.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="bcachefs">bcachefs</h4>
+<div class="paragraph">
+<p>bcaches is new on the block and not yet mainlined in the Linux kernel.
+It does, however, have a promising feature set already and might offer some powerful performance improvements over btrfs and ZFS.
+Time will tell with this one.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the_choice">The Choice</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Currently, I have a better familiarity and understanding of ZFS.
+That said, its unified approached to filesystem and storage management plus extensive documentation and literature make it very accessible.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.</p>
+</div>
+<div class="paragraph">
+<p>As for as operating systems go, I&#8217;m only going to use one of the BSD&#8217;s or Linux wherever I have the choice.
+As far as desktops go, Linux has significantly more polish in this respect to the *BSD.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
+I prefer to use <a href="https://elementary.io/">elementary OS</a> as my primary, stable desktop distribution.
+I&#8217;m planning on also having a system running Fedora and want to use the same filesystem configuration on both.
+The idea of mixing filesystems seems unnecessarily complicated, though completely doable.</p>
+</div>
+<div class="paragraph">
+<p>The prospect of vendor lock-in to Ubuntu ultimately lead me to btrfs.
+I get the freedom of choice in regards to Linux distribution and only have to manage one filesystem on my machine.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>So far, I&#8217;m pretty far into configuring my desktops with btrfs, and I&#8217;m happy with the outcomes.
+The default settings had to be tweaked quite a bit and getting all of the tooling in place for snapshot and backup management has been a pain.
+More fodder for the blog, though.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Thank you {michael-w-lucal} and <a href="https://github.com/allanjude">Allan Jude</a> for <em><a href="https://www.tiltedwindmillpress.com/product/fmzfs/">FreeBSD Mastery: ZFS</a></em> and <em><a href="https://www.tiltedwindmillpress.com/product/fmaz/">FreeBSD Mastery: Advanced ZFS</a></em>
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. No. I&#8217;m <em>not</em> counting Darwin.
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/why-choose-btrfs' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
