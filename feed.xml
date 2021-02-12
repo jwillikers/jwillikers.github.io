@@ -1,4 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-11T15:03:08-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Why Choose btrfs</title><link href="https://www.jwillikers.com/why-choose-btrfs" rel="alternate" type="text/html" title="Why Choose btrfs" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Why%20Choose%20btrfs</id><content type="html" xml:base="https://www.jwillikers.com/why-choose-btrfs">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-12T10:07:49-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Power Management on Linux With TLP</title><link href="https://www.jwillikers.com/power-management-on-linux-with-tlp" rel="alternate" type="text/html" title="Power Management on Linux With TLP" /><published>2021-02-12T00:00:00-06:00</published><updated>2021-02-12T00:00:00-06:00</updated><id>https://www.jwillikers.com/Power%20Management%20on%20Linux%20With%20TLP</id><content type="html" xml:base="https://www.jwillikers.com/power-management-on-linux-with-tlp">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://linrunner.de/tlp/#&quot;&gt;TLP&lt;/a&gt; is a powerful power managmenment utility for Linux.
+It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features.
+It&amp;#8217;s also super easy to add to a system and requires no extra configuration after installation.
+Though, it does expose quite a bit of configuration settings for those who want fine-grained control.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial will get &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;Ubuntu&lt;/a&gt; and derivitives such as &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; setup with TLP.
+The instructions use the command-line and software-management utilities built into Ubuntu, so you should be familiar with these tools.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Install the necessary package for easily adding PPA&amp;#8217;s.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;software-properties-common&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the TLP PPA to your system to get the latest version of TLP.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-add-repository &lt;span class=&quot;nt&quot;&gt;-uy&lt;/span&gt; ppa:linrunner/tlp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install TLP.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;tlp tlp-rdw&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;TLP will start automatically at boot, but to start it now without rebooting, do so manually.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;tlp start&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That&amp;#8217;s it.
+Really.
+If you want to tweak the settings, I recommend checking out the graphical user interface provided by &lt;a href=&quot;https://github.com/d4nj1/TLPUI&quot;&gt;tlpui&lt;/a&gt;.
+You now know how to quickly configure better power-savings on your Linux devices.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="btrfs" /><category term="elementaryos" /><category term="linux" /><category term="tlp" /><category term="ubuntu" /><summary type="html">TLP is a powerful power managmenment utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&amp;#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration settings for those who want fine-grained control.</summary></entry><entry><title type="html">Why Choose btrfs</title><link href="https://www.jwillikers.com/why-choose-btrfs" rel="alternate" type="text/html" title="Why Choose btrfs" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Why%20Choose%20btrfs</id><content type="html" xml:base="https://www.jwillikers.com/why-choose-btrfs">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;There are many compelling reasons to use a modern &lt;a href=&quot;https://en.wikipedia.org/wiki/Copy-on-write&quot;&gt;Copy-on-Write&lt;/a&gt;, &lt;em&gt;CoW&lt;/em&gt; for short, filesystem.
@@ -2110,205 +2175,4 @@ Signing pushed signifies &lt;em&gt;intent&lt;/em&gt;, as Konstantin Ryabitsev de
 &lt;p&gt;Now go setup your key for use with your Git servers and start rolling out your signed commits!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Development" /><category term="Cryptography" /><category term="Git" /><category term="GnuPG" /><category term="GPG" /><category term="OpenPGP" /><category term="Ubuntu" /><summary type="html">GPG keys can be used to cryptographically sign your work when using Git for version control. This ties your identity to your work, whether that&amp;#8217;s a commit, tag, or even a push. Gitea, GitHub, GitLab, and other popular Git hosting services support visualizing this feature when browsing changes, showing which commits are verified.</summary></entry><entry><title type="html">Backup and Restore a GPG Key</title><link href="https://www.jwillikers.com/backup-and-restore-a-gpg-key" rel="alternate" type="text/html" title="Backup and Restore a GPG Key" /><published>2020-11-13T00:00:00-06:00</published><updated>2020-11-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/Backup%20and%20Restore%20a%20GPG%20Key</id><content type="html" xml:base="https://www.jwillikers.com/backup-and-restore-a-gpg-key">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://gnupg.org/&quot;&gt;Gnu Privacy Guard&lt;/a&gt;, also known as GnuPG and GPG, is a handy tool for managing &lt;a href=&quot;https://www.openpgp.org/&quot;&gt;OpenPGP&lt;/a&gt; keys.
-While don&amp;#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt;.
-PGP keys can be a bit nastier to replace than an SSH key, so making backups is critical for reducing future headaches.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The following steps will show you how to backup and restore a PGP key using GnuPG, version 2.2.20 to be exact.
-The backup is electronic, not physical, such as backups created with &lt;a href=&quot;https://www.jabberwocky.com/software/paperkey/&quot;&gt;PaperKey&lt;/a&gt;.
-I recommend also creating a backup key on paper with PaperKey and keeping it in a safe place for an added layer of redundancy.
-It is expected you are already familiar using GnuPG from the command-line and have an existing installation of GPG with a key pair available to backup.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;backup&quot;&gt;Backup&lt;/h3&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;First, determine which key to backup.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--list-secret-keys&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--keyid-format&lt;/span&gt; LONG
-/home/pstibbons/.gnupg/pubring.kbx
-&lt;span class=&quot;nt&quot;&gt;-------------------------------&lt;/span&gt;
-sec   rsa4096/C8DE632E9A8A0BDD 2020-11-13 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SC]
-      F38915B041F5F1024AF95C30C8DE632E9A8A0BDD
-uid                 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ultimate] Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;
-ssb   rsa4096/DBCD8B98F2F9188C 2020-11-13 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;E]&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here there is only one private key for a Ponder Stibbons.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Export the private GPG key.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; private.gpg &lt;span class=&quot;nt&quot;&gt;--export-options&lt;/span&gt; backup &lt;span class=&quot;nt&quot;&gt;--export-secret-keys&lt;/span&gt; ponder.stibbons@unseen.edu&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This invocation places the key in the file &lt;code&gt;private.gpg&lt;/code&gt; in the current directory.
-The export option &lt;code&gt;backup&lt;/code&gt; exports all necessary data for GnuPG to restore the key.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enter the private key&amp;#8217;s passphrase in the &lt;a href=&quot;#Export Passphrase Prompt&quot;&gt;[Export Passphrase Prompt]&lt;/a&gt; to export the key.&lt;/p&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;Export%20Passphrase%20Prompt.png&quot; alt=&quot;Passphrase Prompt to Export GPG Key&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Export Passphrase Prompt&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Now place this backup somewhere safe.
-Ideally, store it only on offline media.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;restore&quot;&gt;Restore&lt;/h3&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Import the private key.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--import-options&lt;/span&gt; restore &lt;span class=&quot;nt&quot;&gt;--import&lt;/span&gt; private.gpg
-gpg: key C8DE632E9A8A0BDD: public key &lt;span class=&quot;s2&quot;&gt;&quot;Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;&quot;&lt;/span&gt; imported
-gpg: key C8DE632E9A8A0BDD: secret key imported
-gpg: Total number processed: 1
-gpg:               imported: 1
-gpg:       secret keys &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt;: 1
-gpg:   secret keys imported: 1&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This invocation imports the key from the file &lt;code&gt;private.gpg&lt;/code&gt; in the current directory.
-The import option &lt;code&gt;restore&lt;/code&gt; imports all necessary data for GnuPG to fully restore the key.
-The import option &lt;code&gt;keep-ownertrust&lt;/code&gt; keeps the owner trust of the key instead of clearing it&amp;#8217;s trust value.
-This saves having to manually set the trust value for the key later.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enter the private key&amp;#8217;s passphrase in the &lt;a href=&quot;#Import Passphrase Prompt&quot;&gt;[Import Passphrase Prompt]&lt;/a&gt; to import the key.&lt;/p&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;Import%20Passphrase%20Prompt.png&quot; alt=&quot;Passphrase Prompt to Import GPG Key&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Import Passphrase Prompt&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Now, edit the freshly imported key.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--edit-key&lt;/span&gt; ponder.stibbons@unseen.edu
-gpg &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;GnuPG&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 2.2.20&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;C&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 2020 Free Software Foundation, Inc.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-Secret key is available.
-
-sec  rsa4096/C8DE632E9A8A0BDD
-     created: 2020-11-13  expires: never       usage: SC
-     trust: unknown       validity: unknown
-ssb  rsa4096/DBCD8B98F2F9188C
-     created: 2020-11-13  expires: never       usage: E
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; unknown] &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enter &lt;code&gt;trust&lt;/code&gt; to modify the trust value of the key.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;gpg&amp;gt; trust
-sec  rsa4096/C8DE632E9A8A0BDD
-     created: 2020-11-13  expires: never       usage: SC
-     trust: unknown       validity: unknown
-ssb  rsa4096/DBCD8B98F2F9188C
-     created: 2020-11-13  expires: never       usage: E
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; unknown] &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Type &lt;kbd&gt;5&lt;/kbd&gt; to trust your keys completely.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Please decide how far you trust this user to correctly verify other &lt;span class=&quot;nb&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;' keys
-(by looking at passports, checking fingerprints from different sources, etc.)
-
-  1 = I don'&lt;/span&gt;t know or won&lt;span class=&quot;s1&quot;&gt;'t say
-  2 = I do NOT trust
-  3 = I trust marginally
-  4 = I trust fully
-  5 = I trust ultimately
-  m = back to the main menu
-
-Your decision? 5&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Confirm your choice by entering &lt;kbd&gt;Y&lt;/kbd&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;Do you really want to &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;this key to ultimate trust? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;y/N&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; y
-
-sec  rsa4096/C8DE632E9A8A0BDD
-     created: 2020-11-13  expires: never       usage: SC
-     trust: ultimate      validity: unknown
-ssb  rsa4096/DBCD8B98F2F9188C
-     created: 2020-11-13  expires: never       usage: E
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; unknown] &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;
-Please note that the shown key validity is not necessarily correct
-unless you restart the program.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Use the command &lt;code&gt;quit&lt;/code&gt; to exit.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;gpg&amp;gt; quit&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You should now be able to backup and restore your private GPG keys.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="Backups" /><category term="GnuPG" /><category term="GPG" /><category term="OpenPGP" /><category term="Ubuntu" /><summary type="html">Gnu Privacy Guard, also known as GnuPG and GPG, is a handy tool for managing OpenPGP keys. While don&amp;#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using Git. PGP keys can be a bit nastier to replace than an SSH key, so making backups is critical for reducing future headaches.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Development" /><category term="Cryptography" /><category term="Git" /><category term="GnuPG" /><category term="GPG" /><category term="OpenPGP" /><category term="Ubuntu" /><summary type="html">GPG keys can be used to cryptographically sign your work when using Git for version control. This ties your identity to your work, whether that&amp;#8217;s a commit, tag, or even a push. Gitea, GitHub, GitLab, and other popular Git hosting services support visualizing this feature when browsing changes, showing which commits are verified.</summary></entry></feed>

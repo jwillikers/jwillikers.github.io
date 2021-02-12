@@ -274,4 +274,10 @@ var store = [{
         "tags": ["btrfs","linux","swap","swapfile"],
         "url": "/btrfs-swapfile",
         "teaser": null
+      },{
+        "title": "Power Management on Linux With TLP",
+        "excerpt":"TLP is a powerful power managmenment utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration...","categories": ["Systems"],
+        "tags": ["btrfs","elementaryos","linux","tlp","ubuntu"],
+        "url": "/power-management-on-linux-with-tlp",
+        "teaser": null
       }]
