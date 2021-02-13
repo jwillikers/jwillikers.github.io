@@ -280,4 +280,10 @@ var store = [{
         "tags": ["btrfs","elementaryos","linux","tlp","ubuntu"],
         "url": "/power-management-on-linux-with-tlp",
         "teaser": null
+      },{
+        "title": "btrfs Layout",
+        "excerpt":"One of the best features of btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a...","categories": ["Disks"],
+        "tags": ["appimage","appimagelauncher","asdf","btrfs","cow","cargo","conan","elementaryos","fhs","filesystem","flatpak","fstab","gnome-boxes","libvirt","linux","opensuse","podman","rust","snapper","snapshots","systemd","ubuntu","xdg-base"],
+        "url": "/btrfs-layout",
+        "teaser": null
       }]

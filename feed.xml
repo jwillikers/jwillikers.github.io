@@ -1,4 +1,232 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-12T10:07:49-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Power Management on Linux With TLP</title><link href="https://www.jwillikers.com/power-management-on-linux-with-tlp" rel="alternate" type="text/html" title="Power Management on Linux With TLP" /><published>2021-02-12T00:00:00-06:00</published><updated>2021-02-12T00:00:00-06:00</updated><id>https://www.jwillikers.com/Power%20Management%20on%20Linux%20With%20TLP</id><content type="html" xml:base="https://www.jwillikers.com/power-management-on-linux-with-tlp">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-13T14:37:39-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">btrfs Layout</title><link href="https://www.jwillikers.com/btrfs-layout" rel="alternate" type="text/html" title="btrfs Layout" /><published>2021-02-13T00:00:00-06:00</published><updated>2021-02-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/btrfs%20Layout</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-layout">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One of the best features of btrfs is the ability to produce snapshots of data instantaneously.
+Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update.
+This is an extremely valuable feature.
+Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally.
+Certain directories need to be left alone during a rollback.
+You don&amp;#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs.
+Unless your on &lt;a href=&quot;https://www.opensuse.org/&quot;&gt;openSUSE&lt;/a&gt;, this just isn&amp;#8217;t done for you on most popular Linux distributions or at least not yet.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
+Even if you are using openSUSE, it doesn&amp;#8217;t setup user home directory layouts if you wish to snapshot those.
+That&amp;#8217;s why I&amp;#8217;ve outlined my btrfs filesystem configurations for both my system and my home directory here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;subvolumes_and_snapshots&quot;&gt;Subvolumes and Snapshots&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;btrfs uses subvolumes to organize data akin to directories.
+Well, subvolumes are directories, practically speaking.
+Subvolumes have the added benefit of allowing specific btrfs characteristics to be applied.
+They also provide the only method to exclude data from snapshots.
+When taking a snapshot of a particular subvolume, all subvolumes nested within that subvolume are excluded from the snapshot.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;system_layout&quot;&gt;System Layout&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The best reference for organizing your system&amp;#8217;s subvolumes is openSUSE&amp;#8217;s &lt;a href=&quot;https://en.opensuse.org/SDB:BTRFS#Default_Subvolumes&quot;&gt;Default Subvolumes&lt;/a&gt; documentation.
+I diverge from this layout only slightly.
+For a complete overview of the various system directories and their purposes, the &lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html&quot;&gt;Filesystem Hierarchy Standard&lt;/a&gt; is your best friend.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Currently, my systems keep &lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#bootStaticFilesOfTheBootLoader&quot;&gt;/boot&lt;/a&gt;&lt;/code&gt; on a separate partition so that my root filesystem can be encrypted via LUKS.
+In &lt;code&gt;/boot&lt;/code&gt;, the architecture-specific Grub directories are placed in their own subvolumes.
+To be explicit these directories are &lt;code&gt;/boot/grub/i386-pc&lt;/code&gt;, &lt;code&gt;/boot/grub/x86_64-efi&lt;/code&gt;, &lt;code&gt;/boot/grub/powerpc-ieee1275&lt;/code&gt;, and &lt;code&gt;/boot/grub/s390x-emu&lt;/code&gt;.
+This is a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested&quot;&gt;nested layout&lt;/a&gt; for simplicity.
+For the root subvolume, I use a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt; which allows me to use different mount options for certain subvolumes and also to provide an obvious map of the filesystem.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;System Subvolumes&lt;/div&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#purpose2&quot;&gt;/&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The root directory is its own subvolume.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;/.snapshots&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The &lt;code&gt;.snapshots&lt;/code&gt; subvolume will contain snapshots of the root filesystem and including snapshots within snapshots is not a good idea.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#homeUserHomeDirectories&quot;&gt;/home&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The home directories are stored on a separate subvolume to avoid rolling back important user data.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;/home/bob&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Each user&amp;#8217;s home directory is a separate subvolume so that they can be managed separately.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#optAddonApplicationSoftwarePackages&quot;&gt;/opt&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The &lt;code&gt;/opt&lt;/code&gt; directory commonly contains third-party applications which should not be uninstalled during a rollback of the root filesystem.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#rootHomeDirectoryForTheRootUser&quot;&gt;/root&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The &lt;code&gt;/root&lt;/code&gt; directory is really just root user&amp;#8217;s home directory and should be preserved during a rollback just like the other users' home directories.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#srvDataForServicesProvidedBySystem&quot;&gt;/srv&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The &lt;code&gt;/srv&lt;/code&gt; directory contains content for web and FTP servers, so it is excluded from rollbacks.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;/swap&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The &lt;code&gt;/swap&lt;/code&gt; subvolume contains the system swapfile which must be excluded from snapshots.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#tmpTemporaryFiles&quot;&gt;/tmp&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;It&amp;#8217;s not necessary to save temporary files or caches in snapshots so &lt;code&gt;/tmp&lt;/code&gt; is excluded.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#usrlocalLocalHierarchy&quot;&gt;/usr/local&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The &lt;code&gt;/usr/local&lt;/code&gt; directory is excluded from rollbacks to avoid uninstalling manually installed software.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#purpose31&quot;&gt;/var&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The &lt;code&gt;/var&lt;/code&gt; directory contains &quot;variable&quot; data which equates to all sorts of things from logs and caches to virtual machine images and databases.
+The openSUSE project disables Copy-on-Write on this subvolume by default.
+I don&amp;#8217;t because I prefer not to lose compression and checksumming on everything in here, especially for logfiles.
+Instead, I disable certain features on subdirectories of &lt;code&gt;/var&lt;/code&gt; where necessary.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;/var/lib/containers&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;This is where &lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; stores its containers, so it is given a dedicated subvolume to allow for rollbacks on this directory.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;/var/lib/libvirt/images&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The &lt;code&gt;/var/lib/libvirt/images&lt;/code&gt; directory is where &lt;a href=&quot;https://libvirt.org/&quot;&gt;libvirt&lt;/a&gt; stores its virtual machine disk images.
+This directory has Copy-on-Write disabled by mounting the subvolume with the &lt;code&gt;nodatacow&lt;/code&gt; mount option.
+This avoids &lt;em&gt;CoW&lt;/em&gt; on &lt;em&gt;CoW&lt;/em&gt; per the caution in the &lt;a href=&quot;https://wiki.debian.org/Btrfs&quot;&gt;Debian Wiki&amp;#8217;s page on btrfs&lt;/a&gt;.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;etcfstab&quot;&gt;&lt;code&gt;/etc/fstab&lt;/code&gt;&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;An example &lt;code&gt;&lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;/etc/fstab&lt;/a&gt;&lt;/code&gt; file is provided here as a reference.
+Refer to the post &lt;a href=&quot;btrfs-mount-options.html&quot;&gt;btrfs Mount Options&lt;/a&gt; for more information about the various mount options and why they are used.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;/etc/fstab&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;/dev/mapper/sda2_crypt /                       btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=root 0 0
+UUID=xxxxxxxxxxxxxxxxx /boot                   btrfs   defaults,noatime,autodefrag,compress=lzo,commit=120 0 0
+/dev/mapper/sda2_crypt /.snapshots             btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=snapshots 0 0
+/dev/mapper/sda2_crypt /home                   btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home 0 0
+/dev/mapper/sda2_crypt /home/bob               btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob 0 0
+/dev/mapper/sda2_crypt /opt                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=opt 0 0
+/dev/mapper/sda2_crypt /root                   btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_root 0 0
+/dev/mapper/sda2_crypt /srv                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=srv 0 0
+/dev/mapper/sda2_crypt /swap                   btrfs   defaults,noatime,autodefrag,commit=120,subvol=swap 0 0
+/dev/mapper/sda2_crypt /tmp                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=tmp 0 0
+/dev/mapper/sda2_crypt /usr/local              btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=usr_local 0 0
+/dev/mapper/sda2_crypt /var                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=var 0 0
+/dev/mapper/sda2_crypt /var/lib/containers     btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=var 0 0
+/dev/mapper/sda2_crypt /var/lib/libvirt/images btrfs   defaults,noatime,nodatacow,commit=120,subvol=var 0 0
+/swap/swapfile         none                    swap    defaults 0 0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;user_layout&quot;&gt;User Layout&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The user layout has a significant number of directories to exclude from snapshots.
+It&amp;#8217;s worth considering an opt-in approach to snapshots as opposed to an opt-out approach for the important data in a user&amp;#8217;s home directory.
+Home directory structures can be a bit more chaotic compared to the organization of the system&amp;#8217;s directories and you might find that only snapshotting the necessary directories is the simpler solution.
+Here, I discuss the opt-out approach that I chose because this allows me to avoid the hassle of dealing with snapshotting several directories separately.
+The user&amp;#8217;s home directory uses a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested&quot;&gt;nested layout&lt;/a&gt; in contrast to the system layout.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html&quot;&gt;XDG Base Directory Specification&lt;/a&gt; and the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/file-hierarchy.html#Home%20Directory&quot;&gt;Home Directory section&lt;/a&gt; from the &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/file-hierarchy.html&quot;&gt;file-hierarchy(7)&lt;/a&gt; are the best references for the standard directories within a user&amp;#8217;s home directory.
+Additionally, my setup must account for per-user &lt;a href=&quot;https://flatpak.org/&quot;&gt;flatpak&lt;/a&gt; and &lt;a href=&quot;https://appimage.org/&quot;&gt;AppImage&lt;/a&gt; applications, local virtual machine disk images, and a host of non-compliant development tooling as well my own development workflow.
+I choose to exclude most of these from my home directory snapshots, but you might have good reason to include some of these in your own home directory rollbacks.
+Below is a listing of the directories which I separate out into separate subvolumes within my home directory.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;User Subvolumes&lt;/div&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/file-hierarchy.html#~/.cache/&quot;&gt;.cache&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Local cache files don&amp;#8217;t need to be included in snapshots, so they aren&amp;#8217;t.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.local&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;This directory contains both user-specific data directories, executables, and libraries.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.local/share/containers/storage/&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Non-root Podman containers are stored in this directory for a particular user so this directory is given a dedicated subvolume in case I want to create snapshots of it at some point in the future.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.local/share/gnome-boxes/images/&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;This directory should have &lt;em&gt;CoW&lt;/em&gt; disabled as it contains virtual machine disk images for GNOME Boxes.
+The &lt;code&gt;chattr +C&lt;/code&gt; command can set this on the directory without the need for the mount option and this doesn&amp;#8217;t require it be a separate subvolume within &lt;code&gt;.local&lt;/code&gt;.
+I still make it a separate subvolume for good measure.
+You would do this like so: &lt;code&gt;chattr +C ~/.local/share/gnome-boxes/images/&lt;/code&gt;.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.snapshots&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The obligatory snapshots directory for the user&amp;#8217;s home directory.
+For Snapper, this subvolume must be owned by the root user.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.var&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Per-user Flatpak installations are kept in &lt;code&gt;.var&lt;/code&gt; and so this entire directory excluded from snapshots.
+This is documented in Flatpak&amp;#8217;s documentation &lt;a href=&quot;https://docs.flatpak.org/en/latest/conventions.html?highlight=.var#xdg-base-directories&quot;&gt;here&lt;/a&gt;.
+The config files for each application might be valuable, but I prefer to use Git to save these files out-of-band.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.xdg-non-compliant&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;This directory holds everything that violates the XDG specification and should be excluded from snapshots.
+This includes various language-specific package managers such as &lt;a href=&quot;https://asdf-vm.com/#/&quot;&gt;asdf&lt;/a&gt;, &lt;a href=&quot;https://doc.rust-lang.org/stable/cargo/&quot;&gt;Cargo&lt;/a&gt;, and &lt;a href=&quot;https://conan.io/&quot;&gt;Conan&lt;/a&gt;.
+Their package caches are an obvious and unfortunate source of snapshot bloat.
+Creating a subvolume for each one&amp;#8217;s default location is too much work so I configure them to reside in this directory until they are fixed to properly support the XDG Base Directory Specification.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;Applications&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;I use &lt;a href=&quot;https://assassinate-you.net/tags/appimagelauncher/&quot;&gt;AppImageLauncher&lt;/a&gt; to integrate AppImages with my desktop.
+These applications are stored in an &lt;code&gt;Applications&lt;/code&gt; directory by default and these shouldn&amp;#8217;t be rolled back with the home directory.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;Downloads&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;The &lt;code&gt;Downloads&lt;/code&gt; directory doesn&amp;#8217;t usually contain important files but may contain large files occasionally, so I exclude it from snapshots.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;Projects&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;I use a &lt;code&gt;Projects&lt;/code&gt; directory for pulling down source code and building all sorts of software.
+While I take snapshots of this subvolume, the snapshots are kept for much shorter periods of time to avoid filling my disk with old build artifacts.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;Projects/.snapshots&lt;/code&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Of course the &lt;code&gt;Projects&lt;/code&gt; subvolume needs its own subvolume dedicated to snapshots.
+For Snapper, this subvolume must be owned by the root user.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This post has laid out examples of btrfs filesystem layouts.
+You should now have a better grasp of the various considerations in configuring a system with btrfs.
+This includes what directories to exclude from snapshots by making them separate subvolumes and particular edge cases such as disk image storage for virtual machines.
+There are also several practical use cases here that can inform you if you have similar circumstances.
+Now that the ground-work is complete, next up is configuring system and user snapshots with Snapper!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Ubuntu does this for you with &lt;a href=&quot;https://openzfs.org/wiki/Main_Page&quot;&gt;ZFS&lt;/a&gt; and &lt;a href=&quot;https://github.com/ubuntu/zsys&quot;&gt;ZSYS&lt;/a&gt;, but I&amp;#8217;m talking about btrfs here.
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. Have you &lt;em&gt;seen&lt;/em&gt; Inception?
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="appimage" /><category term="appimagelauncher" /><category term="asdf" /><category term="btrfs" /><category term="cow" /><category term="cargo" /><category term="conan" /><category term="elementaryos" /><category term="fhs" /><category term="filesystem" /><category term="flatpak" /><category term="fstab" /><category term="gnome-boxes" /><category term="libvirt" /><category term="linux" /><category term="opensuse" /><category term="podman" /><category term="rust" /><category term="snapper" /><category term="snapshots" /><category term="systemd" /><category term="ubuntu" /><category term="xdg-base" /><summary type="html">One of the best features of btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&amp;#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&amp;#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&amp;#8217;t setup user home directory layouts if you wish to snapshot those. That&amp;#8217;s why I&amp;#8217;ve outlined my btrfs filesystem configurations for both my system and my home directory here. 1. Ubuntu does this for you with ZFS and ZSYS, but I&amp;#8217;m talking about btrfs here.</summary></entry><entry><title type="html">Power Management on Linux With TLP</title><link href="https://www.jwillikers.com/power-management-on-linux-with-tlp" rel="alternate" type="text/html" title="Power Management on Linux With TLP" /><published>2021-02-12T00:00:00-06:00</published><updated>2021-02-12T00:00:00-06:00</updated><id>https://www.jwillikers.com/Power%20Management%20on%20Linux%20With%20TLP</id><content type="html" xml:base="https://www.jwillikers.com/power-management-on-linux-with-tlp">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://linrunner.de/tlp/#&quot;&gt;TLP&lt;/a&gt; is a powerful power managmenment utility for Linux.
@@ -419,20 +647,20 @@ Subvolumes within a user&amp;#8217;s home directory, besides perhaps a standard 
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;/etc/fstab&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;/dev/mapper/sda2_crypt /                   btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=root 0 0
-UUID=xxxxxxxxxxxxxxxxx /boot               btrfs   defaults,noatime,autodefrag,compress=lzo,commit=120 0 0
-/dev/mapper/sda2_crypt /.snapshots         btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=snapshots 0 0
-/dev/mapper/sda2_crypt /home               btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home 0 0
-/dev/mapper/sda2_crypt /home/bob           btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob 0 0
-/dev/mapper/sda2_crypt /home/bob/snapshots btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob_snapshots 0 0
-/dev/mapper/sda2_crypt /opt                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=opt 0 0
-/dev/mapper/sda2_crypt /root               btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_root 0 0
-/dev/mapper/sda2_crypt /srv                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=srv 0 0
-/dev/mapper/sda2_crypt /swap               btrfs   defaults,noatime,autodefrag,commit=120,subvol=swap 0 0
-/dev/mapper/sda2_crypt /tmp                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=tmp 0 0
-/dev/mapper/sda2_crypt /usr/local          btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=usr_local 0 0
-/dev/mapper/sda2_crypt /var                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=var 0 0
-/swap/swapfile         none                swap    defaults 0 0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;/dev/mapper/sda2_crypt /                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=root 0 0
+UUID=xxxxxxxxxxxxxxxxx /boot                btrfs   defaults,noatime,autodefrag,compress=lzo,commit=120 0 0
+/dev/mapper/sda2_crypt /.snapshots          btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=snapshots 0 0
+/dev/mapper/sda2_crypt /home                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home 0 0
+/dev/mapper/sda2_crypt /home/bob            btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob 0 0
+/dev/mapper/sda2_crypt /home/bob/.snapshots btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob_snapshots 0 0
+/dev/mapper/sda2_crypt /opt                 btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=opt 0 0
+/dev/mapper/sda2_crypt /root                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_root 0 0
+/dev/mapper/sda2_crypt /srv                 btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=srv 0 0
+/dev/mapper/sda2_crypt /swap                btrfs   defaults,noatime,autodefrag,commit=120,subvol=swap 0 0
+/dev/mapper/sda2_crypt /tmp                 btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=tmp 0 0
+/dev/mapper/sda2_crypt /usr/local           btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=usr_local 0 0
+/dev/mapper/sda2_crypt /var                 btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=var 0 0
+/swap/swapfile         none                 swap    defaults 0 0&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1779,400 +2007,4 @@ Happy snapping!&lt;/p&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
 &lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://github.com/lxc/lxd#security&quot;&gt;LXD README: Security&lt;/a&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Packaging" /><category term="arm64" /><category term="Armbian" /><category term="Linux" /><category term="LXC" /><category term="PinebookPro" /><category term="Snapcraft" /><category term="Ubuntu" /><summary type="html">Snaps are an incredible new packaging format for Linux from Canonical.[1] They offer application confinement and increased portability while also simplifying the development workflow. Recently I submitted a pull-request to extend the Sublime Merge snap with support for arm64 so that I could use it on my Pinebook Pro. Testing the snap locally required I figure out the process on the arm64 architecture. There is a little bit of tweaking required as its still early days for this, but that&amp;#8217;s why I made this tutorial! 1. Yes, Flatpaks are great too.</summary></entry><entry><title type="html">Git and GPG</title><link href="https://www.jwillikers.com/git-and-gpg" rel="alternate" type="text/html" title="Git and GPG" /><published>2020-12-04T00:00:00-06:00</published><updated>2020-12-04T00:00:00-06:00</updated><id>https://www.jwillikers.com/Git%20and%20GPG</id><content type="html" xml:base="https://www.jwillikers.com/git-and-gpg">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://gnupg.org/&quot;&gt;GPG&lt;/a&gt; keys can be used to cryptographically sign your work when using &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt; for version control.
-This ties your identity to your work, whether that&amp;#8217;s a commit, tag, or even a push.
-&lt;a href=&quot;https://gitea.io/en-us/&quot;&gt;Gitea&lt;/a&gt;, &lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;, &lt;a href=&quot;https://github.com/&quot;&gt;GitLab&lt;/a&gt;, and other popular Git hosting services support visualizing this feature when browsing changes, showing which commits are verified.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial describes how to use GPG to sign your work with Git, including command-line incantations and configuration options.
-It is assumed you already have a GPG key pair for your commit email.
-If not, I describe the exact steps in &lt;a href=&quot;generate-a-gpg-key.html&quot;&gt;Generate a GPG Key&lt;/a&gt;.
-I also recommend you checkout my post &lt;a href=&quot;backup-and-restore-a-gpg-key.html&quot;&gt;Backup and Restore a GPG Key&lt;/a&gt; for ways to avoid the pain of losing your private key.
-The official Git Book contains a very useful section on this topic, &lt;a href=&quot;https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work&quot;&gt;Git Tools Signing Your Work&lt;/a&gt;.
-With that said, &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.04 is used as the reference system and familiarity with Git, GPG, and the command-line on Linux is assumed.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;All Git configuration settings are done &lt;em&gt;globally&lt;/em&gt;, i.e. for the user in these steps.
-They may just as easily be configured at the repository level.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Install &lt;a href=&quot;https://packages.ubuntu.com/focal/git&quot;&gt;Ubuntu&amp;#8217;s git package&lt;/a&gt;, of course.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;git&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Set your Git username.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.name &lt;span class=&quot;s2&quot;&gt;&quot;Ponder Stibbons&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Set your Git commit email address.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.email &lt;span class=&quot;s2&quot;&gt;&quot;ponder.stibbons@unseen.edu&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Identify the GPG secret key associated with your Git commit email address.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--list-secret-keys&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--keyid-format&lt;/span&gt; LONG
-/home/pstibbons/.gnupg/pubring.kbx
-&lt;span class=&quot;nt&quot;&gt;-------------------------------&lt;/span&gt;
-sec   rsa4096/C8DE632E9A8A0BDD 2020-11-13 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SC] &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-      F38915B041F5F1024AF95C30C8DE632E9A8A0BDD
-uid                 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ultimate] Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;
-ssb   rsa4096/DBCD8B98F2F9188C 2020-11-13 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;E]&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;The secret key&amp;#8217;s id is &lt;code&gt;C8DE632E9A8A0BDD&lt;/code&gt;, the string of letters and numbers following &lt;code&gt;rsa4096/&lt;/code&gt;.
-The &lt;code&gt;sec&lt;/code&gt; word indicates this is the secret key.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Configure this key as your default signing key for Git.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.signingKey C8DE632E9A8A0BDD&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-The key can be provided when signing a tag, commit, or push, but it&amp;#8217;s generally more convenient to configure your default key,
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create a test directory for a test repository.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;git-signing-test&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Change into the directory.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;git-signing-test&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Initialize a new Git repository.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git init&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create an example file.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;touch test&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Stage this file in order to make a signed commit.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git add &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Pass the &lt;code&gt;-S&lt;/code&gt; short option to &lt;a href=&quot;http://manpages.ubuntu.com/manpages/focal/en/man1/git-commit.1.html&quot;&gt;git-commit(1)&lt;/a&gt; to manually sign a commit.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git commit &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Signed commit'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enter the passphrase for your private key in the &lt;a href=&quot;#Passphrase Prompt&quot;&gt;[Passphrase Prompt]&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;Passphrase%20Prompt.png&quot; alt=&quot;GPG Key Passphrase Prompt&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Passphrase Prompt&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock tip&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-If you value your sanity, check the &lt;em&gt;Save in password manager&lt;/em&gt; box to avoid unlocking your key for every signature.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Optionally, configure Git to sign commits by default with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/git-config.1.html&quot;&gt;git-config(1)&lt;/a&gt; thus allowing you to omit the &lt;code&gt;-S&lt;/code&gt; flag.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; commit.gpgSign &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-This configuration setting applies to merge commits created when using &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/git-pull.1.html&quot;&gt;git-merge(1)&lt;/a&gt; and &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/git-pull.1.html&quot;&gt;git-pull(1)&lt;/a&gt;.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Check a signed commit by using the &lt;code&gt;--show-signature&lt;/code&gt; option with &lt;code&gt;git log&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git log &lt;span class=&quot;nt&quot;&gt;--show-signature&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt;
-commit 48fafff3d24a89ec9c6d5940317588f9b10b4f43 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;HEAD -&amp;gt; master&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-gpg: Signature made Sat 14 Nov 2020 09:53:05 AM CST
-gpg:                using RSA key F38915B041F5F1024AF95C30C8DE632E9A8A0BDD
-gpg: Good signature from &lt;span class=&quot;s2&quot;&gt;&quot;Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ultimate]
-Author: Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;
-Date:   Sat Nov 14 09:53:05 2020 &lt;span class=&quot;nt&quot;&gt;-0600&lt;/span&gt;
-
-    Signed commit&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock important&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-When verifying GPG signatures, you will need to have the signer&amp;#8217;s public key in your GPG keyring.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Manually sign a tag with the &lt;code&gt;-s&lt;/code&gt; short option.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git tag &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; v1.0.0 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Signed tag'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;If desired, configure Git to sign all tags by default.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; tag.gpgSign &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Verify a tag with the &lt;code&gt;-v&lt;/code&gt; option.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git tag &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; v1.0.0
-object 48fafff3d24a89ec9c6d5940317588f9b10b4f43
-&lt;span class=&quot;nb&quot;&gt;type &lt;/span&gt;commit
-tag v1.0.0
-tagger Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt; 1605369450 &lt;span class=&quot;nt&quot;&gt;-0600&lt;/span&gt;
-
-Signed tag
-gpg: Signature made Sat 14 Nov 2020 09:57:30 AM CST
-gpg:                using RSA key F38915B041F5F1024AF95C30C8DE632E9A8A0BDD
-gpg: Good signature from &lt;span class=&quot;s2&quot;&gt;&quot;Ponder Stibbons &amp;lt;ponder.stibbons@unseen.edu&amp;gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ultimate]&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create and switch to a new branch.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git switch &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; unsigned
-Switched to a new branch &lt;span class=&quot;s1&quot;&gt;'unsigned'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create another file.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;touch &lt;/span&gt;test2&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Stage the new file.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git add test2&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Now, commit the file without a signature.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git commit &lt;span class=&quot;nt&quot;&gt;--no-gpg-sign&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Unsigned commit'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Switch back to the main branch.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git switch master
-Switched to branch &lt;span class=&quot;s1&quot;&gt;'master'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;When using &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/git-merge.1.html&quot;&gt;git-merge(1)&lt;/a&gt;, sign a merge commit by passing the &lt;code&gt;-S&lt;/code&gt; option and verify all signatures in the merge with the &lt;code&gt;--verify-signatures&lt;/code&gt; option.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git merge &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--verify-signatures&lt;/span&gt; unsigned
-fatal: Commit a3bf413 does not have a GPG signature.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Oh no! The unsigned commit in the &lt;em&gt;unsigned&lt;/em&gt; branch couldn&amp;#8217;t be verified so the merge failed.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;To always verify signatures when merging, set the configuration option &lt;code&gt;merge.verifySignatures&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; merge.verifySignatures &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-This configuration setting also applies to the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/git-pull.1.html&quot;&gt;git-pull(1)&lt;/a&gt; command.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;For &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/git-pull.1.html&quot;&gt;git-pull(1)&lt;/a&gt;, use the same options as with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/git-merge.1.html&quot;&gt;git-merge(1)&lt;/a&gt; to sign a merge commit and verify all signatures.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git pull &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--verify-signatures&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Sign pushes by using the &lt;code&gt;--signed&lt;/code&gt; long option with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/git-push.1.html&quot;&gt;git-push(1)&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This option takes more than just a true or false value.
-The &lt;code&gt;if-asked&lt;/code&gt; value used here signs pushes if the server supports this feature, but doesn&amp;#8217;t otherwise.
-Signing pushed signifies &lt;em&gt;intent&lt;/em&gt;, as Konstantin Ryabitsev describes in more detail in his article &lt;a href=&quot;https://people.kernel.org/monsieuricon/signed-git-pushes&quot;&gt;Signed git pushes&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git push &lt;span class=&quot;nt&quot;&gt;--signed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-asked&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Configure Git to sign pushes by default if the server supports it.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; push.gpgSign &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-asked&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now go setup your key for use with your Git servers and start rolling out your signed commits!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Development" /><category term="Cryptography" /><category term="Git" /><category term="GnuPG" /><category term="GPG" /><category term="OpenPGP" /><category term="Ubuntu" /><summary type="html">GPG keys can be used to cryptographically sign your work when using Git for version control. This ties your identity to your work, whether that&amp;#8217;s a commit, tag, or even a push. Gitea, GitHub, GitLab, and other popular Git hosting services support visualizing this feature when browsing changes, showing which commits are verified.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Packaging" /><category term="arm64" /><category term="Armbian" /><category term="Linux" /><category term="LXC" /><category term="PinebookPro" /><category term="Snapcraft" /><category term="Ubuntu" /><summary type="html">Snaps are an incredible new packaging format for Linux from Canonical.[1] They offer application confinement and increased portability while also simplifying the development workflow. Recently I submitted a pull-request to extend the Sublime Merge snap with support for arm64 so that I could use it on my Pinebook Pro. Testing the snap locally required I figure out the process on the arm64 architecture. There is a little bit of tweaking required as its still early days for this, but that&amp;#8217;s why I made this tutorial! 1. Yes, Flatpaks are great too.</summary></entry></feed>

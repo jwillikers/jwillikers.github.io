@@ -1,0 +1,473 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>btrfs Layout - JWillikers</title>
+<meta name="description" content="One of the best features of btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&#8217;t setup user home directory layouts if you wish to snapshot those. That&#8217;s why I&#8217;ve outlined my btrfs filesystem configurations for both my system and my home directory here.     1. Ubuntu does this for you with ZFS and ZSYS, but I&#8217;m talking about btrfs here.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="btrfs Layout">
+<meta property="og:url" content="https://www.jwillikers.com/btrfs-layout">
+
+
+  <meta property="og:description" content="One of the best features of btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&#8217;t setup user home directory layouts if you wish to snapshot those. That&#8217;s why I&#8217;ve outlined my btrfs filesystem configurations for both my system and my home directory here.     1. Ubuntu does this for you with ZFS and ZSYS, but I&#8217;m talking about btrfs here.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-13T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/btrfs-layout">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>One of the best features of btrfs is the ability to produce snapshots of data instantaneously.
+Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update.
+This is an extremely valuable feature.
+Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally.
+Certain directories need to be left alone during a rollback.
+You don&#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs.
+Unless your on <a href="https://www.opensuse.org/">openSUSE</a>, this just isn&#8217;t done for you on most popular Linux distributions or at least not yet.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
+Even if you are using openSUSE, it doesn&#8217;t setup user home directory layouts if you wish to snapshot those.
+That&#8217;s why I&#8217;ve outlined my btrfs filesystem configurations for both my system and my home directory here.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="subvolumes_and_snapshots">Subvolumes and Snapshots</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>btrfs uses subvolumes to organize data akin to directories.
+Well, subvolumes are directories, practically speaking.
+Subvolumes have the added benefit of allowing specific btrfs characteristics to be applied.
+They also provide the only method to exclude data from snapshots.
+When taking a snapshot of a particular subvolume, all subvolumes nested within that subvolume are excluded from the snapshot.</p>
+</div>
+<div class="sect2">
+<h3 id="system_layout">System Layout</h3>
+<div class="paragraph">
+<p>The best reference for organizing your system&#8217;s subvolumes is openSUSE&#8217;s <a href="https://en.opensuse.org/SDB:BTRFS#Default_Subvolumes">Default Subvolumes</a> documentation.
+I diverge from this layout only slightly.
+For a complete overview of the various system directories and their purposes, the <a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html">Filesystem Hierarchy Standard</a> is your best friend.</p>
+</div>
+<div class="paragraph">
+<p>Currently, my systems keep <code><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#bootStaticFilesOfTheBootLoader">/boot</a></code> on a separate partition so that my root filesystem can be encrypted via LUKS.
+In <code>/boot</code>, the architecture-specific Grub directories are placed in their own subvolumes.
+To be explicit these directories are <code>/boot/grub/i386-pc</code>, <code>/boot/grub/x86_64-efi</code>, <code>/boot/grub/powerpc-ieee1275</code>, and <code>/boot/grub/s390x-emu</code>.
+This is a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested">nested layout</a> for simplicity.
+For the root subvolume, I use a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat layout</a> which allows me to use different mount options for certain subvolumes and also to provide an obvious map of the filesystem.</p>
+</div>
+<div class="dlist">
+<div class="title">System Subvolumes</div>
+<dl>
+<dt class="hdlist1"><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#purpose2">/</a></dt>
+<dd>
+<p>The root directory is its own subvolume.</p>
+</dd>
+<dt class="hdlist1"><code>/.snapshots</code></dt>
+<dd>
+<p>The <code>.snapshots</code> subvolume will contain snapshots of the root filesystem and including snapshots within snapshots is not a good idea.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+</dd>
+<dt class="hdlist1"><code><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#homeUserHomeDirectories">/home</a></code></dt>
+<dd>
+<p>The home directories are stored on a separate subvolume to avoid rolling back important user data.</p>
+</dd>
+<dt class="hdlist1"><code>/home/bob</code></dt>
+<dd>
+<p>Each user&#8217;s home directory is a separate subvolume so that they can be managed separately.</p>
+</dd>
+<dt class="hdlist1"><code><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#optAddonApplicationSoftwarePackages">/opt</a></code></dt>
+<dd>
+<p>The <code>/opt</code> directory commonly contains third-party applications which should not be uninstalled during a rollback of the root filesystem.</p>
+</dd>
+<dt class="hdlist1"><code><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#rootHomeDirectoryForTheRootUser">/root</a></code></dt>
+<dd>
+<p>The <code>/root</code> directory is really just root user&#8217;s home directory and should be preserved during a rollback just like the other users' home directories.</p>
+</dd>
+<dt class="hdlist1"><code><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#srvDataForServicesProvidedBySystem">/srv</a></code></dt>
+<dd>
+<p>The <code>/srv</code> directory contains content for web and FTP servers, so it is excluded from rollbacks.</p>
+</dd>
+<dt class="hdlist1"><code>/swap</code></dt>
+<dd>
+<p>The <code>/swap</code> subvolume contains the system swapfile which must be excluded from snapshots.</p>
+</dd>
+<dt class="hdlist1"><code><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#tmpTemporaryFiles">/tmp</a></code></dt>
+<dd>
+<p>It&#8217;s not necessary to save temporary files or caches in snapshots so <code>/tmp</code> is excluded.</p>
+</dd>
+<dt class="hdlist1"><code><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#usrlocalLocalHierarchy">/usr/local</a></code></dt>
+<dd>
+<p>The <code>/usr/local</code> directory is excluded from rollbacks to avoid uninstalling manually installed software.</p>
+</dd>
+<dt class="hdlist1"><code><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#purpose31">/var</a></code></dt>
+<dd>
+<p>The <code>/var</code> directory contains "variable" data which equates to all sorts of things from logs and caches to virtual machine images and databases.
+The openSUSE project disables Copy-on-Write on this subvolume by default.
+I don&#8217;t because I prefer not to lose compression and checksumming on everything in here, especially for logfiles.
+Instead, I disable certain features on subdirectories of <code>/var</code> where necessary.</p>
+</dd>
+<dt class="hdlist1"><code>/var/lib/containers</code></dt>
+<dd>
+<p>This is where <a href="https://podman.io/">Podman</a> stores its containers, so it is given a dedicated subvolume to allow for rollbacks on this directory.</p>
+</dd>
+<dt class="hdlist1"><code>/var/lib/libvirt/images</code></dt>
+<dd>
+<p>The <code>/var/lib/libvirt/images</code> directory is where <a href="https://libvirt.org/">libvirt</a> stores its virtual machine disk images.
+This directory has Copy-on-Write disabled by mounting the subvolume with the <code>nodatacow</code> mount option.
+This avoids <em>CoW</em> on <em>CoW</em> per the caution in the <a href="https://wiki.debian.org/Btrfs">Debian Wiki&#8217;s page on btrfs</a>.</p>
+</dd>
+</dl>
+</div>
+<div class="sect3">
+<h4 id="etcfstab"><code>/etc/fstab</code></h4>
+<div class="paragraph">
+<p>An example <code><a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">/etc/fstab</a></code> file is provided here as a reference.
+Refer to the post <a href="btrfs-mount-options.html">btrfs Mount Options</a> for more information about the various mount options and why they are used.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/fstab</div>
+<div class="content">
+<pre class="rouge highlight"><code>/dev/mapper/sda2_crypt /                       btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=root 0 0
+UUID=xxxxxxxxxxxxxxxxx /boot                   btrfs   defaults,noatime,autodefrag,compress=lzo,commit=120 0 0
+/dev/mapper/sda2_crypt /.snapshots             btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=snapshots 0 0
+/dev/mapper/sda2_crypt /home                   btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home 0 0
+/dev/mapper/sda2_crypt /home/bob               btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob 0 0
+/dev/mapper/sda2_crypt /opt                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=opt 0 0
+/dev/mapper/sda2_crypt /root                   btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_root 0 0
+/dev/mapper/sda2_crypt /srv                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=srv 0 0
+/dev/mapper/sda2_crypt /swap                   btrfs   defaults,noatime,autodefrag,commit=120,subvol=swap 0 0
+/dev/mapper/sda2_crypt /tmp                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=tmp 0 0
+/dev/mapper/sda2_crypt /usr/local              btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=usr_local 0 0
+/dev/mapper/sda2_crypt /var                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=var 0 0
+/dev/mapper/sda2_crypt /var/lib/containers     btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=var 0 0
+/dev/mapper/sda2_crypt /var/lib/libvirt/images btrfs   defaults,noatime,nodatacow,commit=120,subvol=var 0 0
+/swap/swapfile         none                    swap    defaults 0 0</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user_layout">User Layout</h3>
+<div class="paragraph">
+<p>The user layout has a significant number of directories to exclude from snapshots.
+It&#8217;s worth considering an opt-in approach to snapshots as opposed to an opt-out approach for the important data in a user&#8217;s home directory.
+Home directory structures can be a bit more chaotic compared to the organization of the system&#8217;s directories and you might find that only snapshotting the necessary directories is the simpler solution.
+Here, I discuss the opt-out approach that I chose because this allows me to avoid the hassle of dealing with snapshotting several directories separately.
+The user&#8217;s home directory uses a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested">nested layout</a> in contrast to the system layout.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html">XDG Base Directory Specification</a> and the <a href="https://www.freedesktop.org/software/systemd/man/file-hierarchy.html#Home%20Directory">Home Directory section</a> from the <a href="https://systemd.io/">systemd</a> <a href="https://www.freedesktop.org/software/systemd/man/file-hierarchy.html">file-hierarchy(7)</a> are the best references for the standard directories within a user&#8217;s home directory.
+Additionally, my setup must account for per-user <a href="https://flatpak.org/">flatpak</a> and <a href="https://appimage.org/">AppImage</a> applications, local virtual machine disk images, and a host of non-compliant development tooling as well my own development workflow.
+I choose to exclude most of these from my home directory snapshots, but you might have good reason to include some of these in your own home directory rollbacks.
+Below is a listing of the directories which I separate out into separate subvolumes within my home directory.</p>
+</div>
+<div class="dlist">
+<div class="title">User Subvolumes</div>
+<dl>
+<dt class="hdlist1"><code><a href="https://www.freedesktop.org/software/systemd/man/file-hierarchy.html#~/.cache/">.cache</a></code></dt>
+<dd>
+<p>Local cache files don&#8217;t need to be included in snapshots, so they aren&#8217;t.</p>
+</dd>
+<dt class="hdlist1"><code>.local</code></dt>
+<dd>
+<p>This directory contains both user-specific data directories, executables, and libraries.</p>
+</dd>
+<dt class="hdlist1"><code>.local/share/containers/storage/</code></dt>
+<dd>
+<p>Non-root Podman containers are stored in this directory for a particular user so this directory is given a dedicated subvolume in case I want to create snapshots of it at some point in the future.</p>
+</dd>
+<dt class="hdlist1"><code>.local/share/gnome-boxes/images/</code></dt>
+<dd>
+<p>This directory should have <em>CoW</em> disabled as it contains virtual machine disk images for GNOME Boxes.
+The <code>chattr +C</code> command can set this on the directory without the need for the mount option and this doesn&#8217;t require it be a separate subvolume within <code>.local</code>.
+I still make it a separate subvolume for good measure.
+You would do this like so: <code>chattr +C ~/.local/share/gnome-boxes/images/</code>.</p>
+</dd>
+<dt class="hdlist1"><code>.snapshots</code></dt>
+<dd>
+<p>The obligatory snapshots directory for the user&#8217;s home directory.
+For Snapper, this subvolume must be owned by the root user.</p>
+</dd>
+<dt class="hdlist1"><code>.var</code></dt>
+<dd>
+<p>Per-user Flatpak installations are kept in <code>.var</code> and so this entire directory excluded from snapshots.
+This is documented in Flatpak&#8217;s documentation <a href="https://docs.flatpak.org/en/latest/conventions.html?highlight=.var#xdg-base-directories">here</a>.
+The config files for each application might be valuable, but I prefer to use Git to save these files out-of-band.</p>
+</dd>
+<dt class="hdlist1"><code>.xdg-non-compliant</code></dt>
+<dd>
+<p>This directory holds everything that violates the XDG specification and should be excluded from snapshots.
+This includes various language-specific package managers such as <a href="https://asdf-vm.com/#/">asdf</a>, <a href="https://doc.rust-lang.org/stable/cargo/">Cargo</a>, and <a href="https://conan.io/">Conan</a>.
+Their package caches are an obvious and unfortunate source of snapshot bloat.
+Creating a subvolume for each one&#8217;s default location is too much work so I configure them to reside in this directory until they are fixed to properly support the XDG Base Directory Specification.</p>
+</dd>
+<dt class="hdlist1"><code>Applications</code></dt>
+<dd>
+<p>I use <a href="https://assassinate-you.net/tags/appimagelauncher/">AppImageLauncher</a> to integrate AppImages with my desktop.
+These applications are stored in an <code>Applications</code> directory by default and these shouldn&#8217;t be rolled back with the home directory.</p>
+</dd>
+<dt class="hdlist1"><code>Downloads</code></dt>
+<dd>
+<p>The <code>Downloads</code> directory doesn&#8217;t usually contain important files but may contain large files occasionally, so I exclude it from snapshots.</p>
+</dd>
+<dt class="hdlist1"><code>Projects</code></dt>
+<dd>
+<p>I use a <code>Projects</code> directory for pulling down source code and building all sorts of software.
+While I take snapshots of this subvolume, the snapshots are kept for much shorter periods of time to avoid filling my disk with old build artifacts.</p>
+</dd>
+<dt class="hdlist1"><code>Projects/.snapshots</code></dt>
+<dd>
+<p>Of course the <code>Projects</code> subvolume needs its own subvolume dedicated to snapshots.
+For Snapper, this subvolume must be owned by the root user.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This post has laid out examples of btrfs filesystem layouts.
+You should now have a better grasp of the various considerations in configuring a system with btrfs.
+This includes what directories to exclude from snapshots by making them separate subvolumes and particular edge cases such as disk image storage for virtual machines.
+There are also several practical use cases here that can inform you if you have similar circumstances.
+Now that the ground-work is complete, next up is configuring system and user snapshots with Snapper!</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Ubuntu does this for you with <a href="https://openzfs.org/wiki/Main_Page">ZFS</a> and <a href="https://github.com/ubuntu/zsys">ZSYS</a>, but I&#8217;m talking about btrfs here.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. Have you <em>seen</em> Inception?
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/btrfs-layout' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
