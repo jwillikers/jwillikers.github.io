@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-15T08:35:43-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Btrfs Layout</title><link href="https://www.jwillikers.com/btrfs-layout" rel="alternate" type="text/html" title="Btrfs Layout" /><published>2021-02-13T00:00:00-06:00</published><updated>2021-02-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Layout</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-layout">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-15T08:57:40-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Btrfs Layout</title><link href="https://www.jwillikers.com/btrfs-layout" rel="alternate" type="text/html" title="Btrfs Layout" /><published>2021-02-13T00:00:00-06:00</published><updated>2021-02-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Layout</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-layout">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;One of the best features of Btrfs is the ability to produce snapshots of data instantaneously.
@@ -130,17 +130,24 @@ UUID=xxxxxxxxxxxxxxxxx /boot                   btrfs   defaults,noatime,autodefr
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;user_layout&quot;&gt;User Layout&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The user layout has a significant number of directories to exclude from snapshots.
-It&amp;#8217;s worth considering an opt-in approach to snapshots as opposed to an opt-out approach for the important data in a user&amp;#8217;s home directory.
-Home directory structures can be a bit more chaotic compared to the organization of the system&amp;#8217;s directories and you might find that only snapshotting the necessary directories is the simpler solution.
-Here, I discuss the opt-out approach that I chose because this allows me to avoid the hassle of dealing with snapshotting several directories separately.
-The user&amp;#8217;s home directory uses a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested&quot;&gt;nested layout&lt;/a&gt; in contrast to the system layout.&lt;/p&gt;
+&lt;p&gt;How to layout a user&amp;#8217;s home directory should be considered carefully based on the desired functionality required.
+Do you want to be able to rollback a user&amp;#8217;s home directory, perhaps in the case a botched configuration file won&amp;#8217;t allow them to login?
+If so, it is critical to separate out the configuration and system software from the user&amp;#8217;s important data so that such a rollback doesn&amp;#8217;t undo hours of hard work.
+Do you just want to backup that important user data?
+Well then, go ahead and just create subvolumes for the necessary directories and forget about all the disparate directories that need to be subvolumes just so they can be excluded from snapshots of the entire home directory.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;My user layout described here attempts to cover both user configuration and data within home directory snapshots, making this a bad candidate for doing rollbacks of the home directory.
+However, it is a good base for doing exactly that.
+Just separate the important directories such as &lt;code&gt;Documents&lt;/code&gt; and &lt;code&gt;Pictures&lt;/code&gt; into their own subvolumes and manage their snapshots separately.
+The layout here is a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested&quot;&gt;nested layout&lt;/a&gt; in contrast to the system&amp;#8217;s flat layout.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;The &lt;a href=&quot;https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html&quot;&gt;XDG Base Directory Specification&lt;/a&gt; and the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/file-hierarchy.html#Home%20Directory&quot;&gt;Home Directory section&lt;/a&gt; from the &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/file-hierarchy.html&quot;&gt;file-hierarchy(7)&lt;/a&gt; are the best references for the standard directories within a user&amp;#8217;s home directory.
-Additionally, my setup must account for per-user &lt;a href=&quot;https://flatpak.org/&quot;&gt;flatpak&lt;/a&gt; and &lt;a href=&quot;https://appimage.org/&quot;&gt;AppImage&lt;/a&gt; applications, local virtual machine disk images, and a host of non-compliant development tooling as well my own development workflow.
-I choose to exclude most of these from my home directory snapshots, but you might have good reason to include some of these in your own home directory rollbacks.
-Below is a listing of the directories which I separate out into separate subvolumes within my home directory.&lt;/p&gt;
+Home directory structures can be a bit more chaotic compared to the organization of the system&amp;#8217;s directories, though.
+They tend to be a bit less standardized.
+In additon to the standard directories, my setup accounts for per-user &lt;a href=&quot;https://flatpak.org/&quot;&gt;flatpak&lt;/a&gt; and &lt;a href=&quot;https://appimage.org/&quot;&gt;AppImage&lt;/a&gt; applications, local virtual machine disk images, and a host of non-compliant development tooling as well my own development workflow.
+I choose to exclude most of these from my home directory snapshots, but you might have good reason to include some of these in your own snapshots.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;User Subvolumes&lt;/div&gt;
