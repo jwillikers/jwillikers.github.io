@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>btrfs Mount Options - JWillikers</title>
-<meta name="description" content="So, let&#8217;s say you&#8217;ve installed a fresh system on btrfs. Now what? Well, btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune btrfs for its particular use case.">
+<!-- begin _includes/seo.html --><title>Btrfs Mount Options - JWillikers</title>
+<meta name="description" content="So, let&#8217;s say you&#8217;ve installed a fresh system on btrfs. Now what? Well, Btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.">
 
 
   <meta name="author" content="Jordan Williams">
@@ -22,11 +22,11 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="JWillikers">
-<meta property="og:title" content="btrfs Mount Options">
+<meta property="og:title" content="Btrfs Mount Options">
 <meta property="og:url" content="https://www.jwillikers.com/btrfs-mount-options">
 
 
-  <meta property="og:description" content="So, let&#8217;s say you&#8217;ve installed a fresh system on btrfs. Now what? Well, btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune btrfs for its particular use case.">
+  <meta property="og:description" content="So, let&#8217;s say you&#8217;ve installed a fresh system on btrfs. Now what? Well, Btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.">
 
 
 
@@ -161,17 +161,17 @@
 <div class="paragraph">
 <p>So, let&#8217;s say you&#8217;ve installed a fresh system on <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">btrfs</a>.
 Now what?
-Well, btrfs doesn&#8217;t ship with optimal default settings.
+Well, Btrfs doesn&#8217;t ship with optimal default settings.
 Many popular Linux distributions don&#8217;t improve the situation, either.
-That leaves it up to the administrator to fine tune btrfs for its particular use case.</p>
+That leaves it up to the administrator to fine tune Btrfs for its particular use case.</p>
 </div>
 <div class="paragraph">
-<p>The primary way to tune btrfs is through <a href="https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs(5)#MOUNT_OPTIONS">mount options</a> which are commonly enumerated in <code><a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">/etc/fstab</a></code> for each volume on the system.
-I use a flat layout in my <code>/etc/fstab</code> for the separate btrfs subvolumes on each system.
+<p>The primary way to tune Btrfs is through <a href="https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs(5)#MOUNT_OPTIONS">mount options</a> which are commonly enumerated in <code><a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">/etc/fstab</a></code> for each volume on the system.
+I use a flat layout in my <code>/etc/fstab</code> for the separate Btrfs subvolumes on each system.
 Subvolumes within a user&#8217;s home directory, besides perhaps a standard <code>.snapshots</code> subvolume, are left out of my <code>/etc/fstab</code> to give users greater flexibility in managing their own home subvolume.</p>
 </div>
 <div class="paragraph">
-<p>I&#8217;m planning on using btrfs for all of my Linux machines, but these are all used as desktop computers and the mount options I selected reflect this.</p>
+<p>I&#8217;m planning on using Btrfs for all of my Linux machines, but these are all used as desktop computers and the mount options I selected reflect this.</p>
 </div>
 </div>
 </div>
@@ -203,19 +203,19 @@ UUID=xxxxxxxxxxxxxxxxx /boot                btrfs   defaults,noatime,autodefrag,
 <div class="paragraph">
 <p>Wow, there&#8217;s a bunch going on here!
 This setup contains many separate subvolumes to facilitate snapshots of the root directory and users' home directories.
-It also includes a btrfs swapfile.
+It also includes a <a href="btrfs-swapfile.html">Btrfs Swapfile</a>.
 These aspects of the file will be discussed in future posts. 😉</p>
 </div>
 <div class="paragraph">
 <p>Notice that each subvolume specified here, except for <code>/boot</code>, explicitly states the mount options.
 These subvolumes use a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat layout</a> as opposed to a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested">nested layout</a>.
 With the exception of the <code>/boot</code> subvolume which resides on a separate partition, they are all located at the root of <code>/dev/mapper/sda2_crypt</code>.
-When using btrfs, nested subvolumes inherit the mount options of their parents and are automatically mounted.
+When using Btrfs, nested subvolumes inherit the mount options of their parents and are automatically mounted.
 They don&#8217;t need to be included in <code>/etc/fstab</code> but they are restricted to using the exact mount options of their parents.
 The <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat layout</a> used here has the advantage of making it easy to view how system subvolumes are organized.</p>
 </div>
 <div class="paragraph">
-<p>Since btrfs does it&#8217;s own integrity checking, <a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">fsck</a> should be disabled.
+<p>Since Btrfs does it&#8217;s own integrity checking, <a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">fsck</a> should be disabled.
 The integer in the last column of each row indicates the fsck value and setting it to zero disables fsck.</p>
 </div>
 </div>
@@ -232,13 +232,13 @@ The integer in the last column of each row indicates the fsck value and setting 
 <dt class="hdlist1"><em>defaults</em></dt>
 <dd>
 <p>Use default options: <em>rw</em>, <em>suid</em>, <em>dev</em>, <em>exec</em>, <em>auto</em>, <em>nouser</em>, and <em>async</em>.
-These are not btrfs-specific.</p>
+These are not Btrfs-specific.</p>
 </dd>
 <dt class="hdlist1"><em>noatime</em></dt>
 <dd>
 <p>Do  not  update  inode  access  times  on  this  filesystem.
 This speeds up reads since the access time metadata is not updated.
-This option isn&#8217;t specific to btrfs either.</p>
+This option isn&#8217;t specific to Btrfs either.</p>
 </dd>
 <dt class="hdlist1"><em>autodefrag</em></dt>
 <dd>
@@ -286,7 +286,7 @@ This option is organizational and used for the <a href="https://btrfs.wiki.kerne
 <h2 id="conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Hopefully you have a better idea of some of the available mount options for optimizing btrfs for your particular use case.</p>
+<p>Hopefully you have a better idea of some of the available mount options for optimizing Btrfs for your particular use case.</p>
 </div>
 </div>
 </div>

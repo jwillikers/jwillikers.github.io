@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>btrfs Swapfile - JWillikers</title>
+<!-- begin _includes/seo.html --><title>Btrfs Swapfile - JWillikers</title>
 <meta name="description" content="Swap space is a standard component of most operating systems. It&#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic.">
 
 
@@ -22,7 +22,7 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="JWillikers">
-<meta property="og:title" content="btrfs Swapfile">
+<meta property="og:title" content="Btrfs Swapfile">
 <meta property="og:url" content="https://www.jwillikers.com/btrfs-swapfile">
 
 
@@ -165,8 +165,8 @@ I recommend the <a href="https://opensource.com/">opensource.com</a> article <em
 </div>
 <div class="paragraph">
 <p>There are two approaches to providing swap space on Linux, swap partitions and <a href="https://wiki.archlinux.org/index.php/swap#Swap_file">swapfiles</a>.
-Since version 5.0 of the Linux kernel, btrfs swap files are supported according to the section <em><a href="https://btrfs.wiki.kernel.org/index.php/FAQ#Does_btrfs_support_swap_files.3F">Does btrfs support swap files?</a></em> in the <a href="https://btrfs.wiki.kernel.org/index.php/FAQ">btrfs Wiki FAQ</a>.
-Switching to btrfs as my default filesystem, I recently set this up have created this tutorial get yourself a swapfile set up on btrfs.</p>
+Since version 5.0 of the Linux kernel, Btrfs swap files are supported according to the section <em><a href="https://btrfs.wiki.kernel.org/index.php/FAQ#Does_btrfs_support_swap_files.3F">Does btrfs support swap files?</a></em> in the <a href="https://btrfs.wiki.kernel.org/index.php/FAQ">btrfs Wiki FAQ</a>.
+Switching to Btrfs as my default filesystem, I recently set this up have created this tutorial get yourself a swapfile set up on Btrfs.</p>
 </div>
 </div>
 </div>
@@ -174,7 +174,7 @@ Switching to btrfs as my default filesystem, I recently set this up have created
 <h2 id="tutorial">Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial contains the necessary steps to create a btrfs swapfile.
+<p>This tutorial contains the necessary steps to create a Btrfs swapfile.
 The reference system is running <a href="https://elementary.io/">elementary OS</a> 5.1 and a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat btrfs layout</a>.
 As a matter of preference, the commands here use the <a href="https://fishshell.com/">fish shell</a>'s syntax.</p>
 </div>
@@ -186,7 +186,7 @@ As a matter of preference, the commands here use the <a href="https://fishshell.
 </td>
 <td class="content">
 <div class="paragraph">
-<p>I have not been able to get hibernation working when using a btrfs swapfile.
+<p>I have not been able to get hibernation working when using a Btrfs swapfile.
 You should consider a dedicated, encrypted swap partition if you desire this feature.</p>
 </div>
 </td>
@@ -196,7 +196,7 @@ You should consider a dedicated, encrypted swap partition if you desire this fea
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Mount the root btrfs filesystem to create a subvolume.</p>
+<p>Mount the root Btrfs filesystem to create a subvolume.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mount <span class="o">(</span><span class="nb">df</span> <span class="nt">--output</span><span class="o">=</span><span class="nb">source</span> / | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="o">)</span> /mnt</code></pre>
@@ -204,7 +204,7 @@ You should consider a dedicated, encrypted swap partition if you desire this fea
 </div>
 </li>
 <li>
-<p>Create a dedicated btrfs subvolume for swap in order to exclude the swapfile from snapshots.</p>
+<p>Create a dedicated Btrfs subvolume for swap in order to exclude the swapfile from snapshots.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs subvolume create /mnt/swap
@@ -360,7 +360,7 @@ vm.swappiness<span class="o">=</span>10</code></pre>
 <h2 id="references">References</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://wiki.archlinux.org/index.php/btrfs#Swap_file">ArchWiki btrfs - Swap file</a>
+<p><a href="https://wiki.archlinux.org/index.php/btrfs#Swap_file">ArchWiki Btrfs - Swap file</a>
 <a href="https://wiki.archlinux.org/index.php/Swap#Swap_file_creation">ArchWiki Swap - Swap file creation</a>
 <a href="https://wiki.debian.org/Swap">Debian Wiki Swap</a></p>
 </div>
@@ -370,7 +370,7 @@ vm.swappiness<span class="o">=</span>10</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You should now know all you need to know to make a btrfs swapfile on Linux.</p>
+<p>You should now know all you need to know to make a Btrfs swapfile on Linux.</p>
 </div>
 </div>
 </div>

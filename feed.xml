@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-13T14:37:39-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">btrfs Layout</title><link href="https://www.jwillikers.com/btrfs-layout" rel="alternate" type="text/html" title="btrfs Layout" /><published>2021-02-13T00:00:00-06:00</published><updated>2021-02-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/btrfs%20Layout</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-layout">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-15T08:01:15-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Btrfs Layout</title><link href="https://www.jwillikers.com/btrfs-layout" rel="alternate" type="text/html" title="Btrfs Layout" /><published>2021-02-13T00:00:00-06:00</published><updated>2021-02-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Layout</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-layout">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One of the best features of btrfs is the ability to produce snapshots of data instantaneously.
-Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update.
+&lt;p&gt;One of the best features of Btrfs is the ability to produce snapshots of data instantaneously.
+Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update.
 This is an extremely valuable feature.
 Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally.
 Certain directories need to be left alone during a rollback.
 You don&amp;#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs.
 Unless your on &lt;a href=&quot;https://www.opensuse.org/&quot;&gt;openSUSE&lt;/a&gt;, this just isn&amp;#8217;t done for you on most popular Linux distributions or at least not yet.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
 Even if you are using openSUSE, it doesn&amp;#8217;t setup user home directory layouts if you wish to snapshot those.
-That&amp;#8217;s why I&amp;#8217;ve outlined my btrfs filesystem configurations for both my system and my home directory here.&lt;/p&gt;
+That&amp;#8217;s why I&amp;#8217;ve outlined my Btrfs filesystem configurations for both my system and my home directory here.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -17,9 +17,9 @@ That&amp;#8217;s why I&amp;#8217;ve outlined my btrfs filesystem configurations 
 &lt;h2 id=&quot;subvolumes_and_snapshots&quot;&gt;Subvolumes and Snapshots&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;btrfs uses subvolumes to organize data akin to directories.
+&lt;p&gt;Btrfs uses subvolumes to organize data akin to directories.
 Well, subvolumes are directories, practically speaking.
-Subvolumes have the added benefit of allowing specific btrfs characteristics to be applied.
+Subvolumes have the added benefit of allowing specific Btrfs characteristics to be applied.
 They also provide the only method to exclude data from snapshots.
 When taking a snapshot of a particular subvolume, all subvolumes nested within that subvolume are excluded from the snapshot.&lt;/p&gt;
 &lt;/div&gt;
@@ -103,7 +103,7 @@ This avoids &lt;em&gt;CoW&lt;/em&gt; on &lt;em&gt;CoW&lt;/em&gt; per the caution
 &lt;h4 id=&quot;etcfstab&quot;&gt;&lt;code&gt;/etc/fstab&lt;/code&gt;&lt;/h4&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;An example &lt;code&gt;&lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;/etc/fstab&lt;/a&gt;&lt;/code&gt; file is provided here as a reference.
-Refer to the post &lt;a href=&quot;btrfs-mount-options.html&quot;&gt;btrfs Mount Options&lt;/a&gt; for more information about the various mount options and why they are used.&lt;/p&gt;
+Refer to the post &lt;a href=&quot;btrfs-mount-options.html&quot;&gt;Btrfs Mount Options&lt;/a&gt; for more information about the various mount options and why they are used.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;/etc/fstab&lt;/div&gt;
@@ -210,8 +210,8 @@ For Snapper, this subvolume must be owned by the root user.&lt;/p&gt;
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This post has laid out examples of btrfs filesystem layouts.
-You should now have a better grasp of the various considerations in configuring a system with btrfs.
+&lt;p&gt;This post has laid out examples of Btrfs filesystem layouts.
+You should now have a better grasp of the various considerations in configuring a system with Btrfs.
 This includes what directories to exclude from snapshots by making them separate subvolumes and particular edge cases such as disk image storage for virtual machines.
 There are also several practical use cases here that can inform you if you have similar circumstances.
 Now that the ground-work is complete, next up is configuring system and user snapshots with Snapper!&lt;/p&gt;
@@ -221,12 +221,12 @@ Now that the ground-work is complete, next up is configuring system and user sna
 &lt;div id=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Ubuntu does this for you with &lt;a href=&quot;https://openzfs.org/wiki/Main_Page&quot;&gt;ZFS&lt;/a&gt; and &lt;a href=&quot;https://github.com/ubuntu/zsys&quot;&gt;ZSYS&lt;/a&gt;, but I&amp;#8217;m talking about btrfs here.
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Ubuntu does this for you with &lt;a href=&quot;https://openzfs.org/wiki/Main_Page&quot;&gt;ZFS&lt;/a&gt; and &lt;a href=&quot;https://github.com/ubuntu/zsys&quot;&gt;ZSYS&lt;/a&gt;, but I&amp;#8217;m talking about Btrfs here.
 &lt;/div&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
 &lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. Have you &lt;em&gt;seen&lt;/em&gt; Inception?
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="appimage" /><category term="appimagelauncher" /><category term="asdf" /><category term="btrfs" /><category term="cow" /><category term="cargo" /><category term="conan" /><category term="elementaryos" /><category term="fhs" /><category term="filesystem" /><category term="flatpak" /><category term="fstab" /><category term="gnome-boxes" /><category term="libvirt" /><category term="linux" /><category term="opensuse" /><category term="podman" /><category term="rust" /><category term="snapper" /><category term="snapshots" /><category term="systemd" /><category term="ubuntu" /><category term="xdg-base" /><summary type="html">One of the best features of btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&amp;#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&amp;#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&amp;#8217;t setup user home directory layouts if you wish to snapshot those. That&amp;#8217;s why I&amp;#8217;ve outlined my btrfs filesystem configurations for both my system and my home directory here. 1. Ubuntu does this for you with ZFS and ZSYS, but I&amp;#8217;m talking about btrfs here.</summary></entry><entry><title type="html">Power Management on Linux With TLP</title><link href="https://www.jwillikers.com/power-management-on-linux-with-tlp" rel="alternate" type="text/html" title="Power Management on Linux With TLP" /><published>2021-02-12T00:00:00-06:00</published><updated>2021-02-12T00:00:00-06:00</updated><id>https://www.jwillikers.com/Power%20Management%20on%20Linux%20With%20TLP</id><content type="html" xml:base="https://www.jwillikers.com/power-management-on-linux-with-tlp">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="appimage" /><category term="appimagelauncher" /><category term="asdf" /><category term="btrfs" /><category term="cow" /><category term="cargo" /><category term="conan" /><category term="elementaryos" /><category term="fhs" /><category term="filesystem" /><category term="flatpak" /><category term="fstab" /><category term="gnome-boxes" /><category term="libvirt" /><category term="linux" /><category term="opensuse" /><category term="podman" /><category term="rust" /><category term="snapper" /><category term="snapshots" /><category term="systemd" /><category term="ubuntu" /><category term="xdg-base" /><summary type="html">One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&amp;#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&amp;#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&amp;#8217;t setup user home directory layouts if you wish to snapshot those. That&amp;#8217;s why I&amp;#8217;ve outlined my Btrfs filesystem configurations for both my system and my home directory here. 1. Ubuntu does this for you with ZFS and ZSYS, but I&amp;#8217;m talking about Btrfs here.</summary></entry><entry><title type="html">Power Management on Linux With TLP</title><link href="https://www.jwillikers.com/power-management-on-linux-with-tlp" rel="alternate" type="text/html" title="Power Management on Linux With TLP" /><published>2021-02-12T00:00:00-06:00</published><updated>2021-02-12T00:00:00-06:00</updated><id>https://www.jwillikers.com/Power%20Management%20on%20Linux%20With%20TLP</id><content type="html" xml:base="https://www.jwillikers.com/power-management-on-linux-with-tlp">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://linrunner.de/tlp/#&quot;&gt;TLP&lt;/a&gt; is a powerful power managmenment utility for Linux.
@@ -291,109 +291,7 @@ If you want to tweak the settings, I recommend checking out the graphical user i
 You now know how to quickly configure better power-savings on your Linux devices.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="btrfs" /><category term="elementaryos" /><category term="linux" /><category term="tlp" /><category term="ubuntu" /><summary type="html">TLP is a powerful power managmenment utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&amp;#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration settings for those who want fine-grained control.</summary></entry><entry><title type="html">Why Choose btrfs</title><link href="https://www.jwillikers.com/why-choose-btrfs" rel="alternate" type="text/html" title="Why Choose btrfs" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Why%20Choose%20btrfs</id><content type="html" xml:base="https://www.jwillikers.com/why-choose-btrfs">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There are many compelling reasons to use a modern &lt;a href=&quot;https://en.wikipedia.org/wiki/Copy-on-write&quot;&gt;Copy-on-Write&lt;/a&gt;, &lt;em&gt;CoW&lt;/em&gt; for short, filesystem.
-These include low-cost snapshots and incremental backups.
-If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, &lt;a href=&quot;https://openzfs.org/wiki/Main_Page&quot;&gt;OpenZFS&lt;/a&gt; and &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;btrfs&lt;/a&gt;, offer many more features.
-Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;cow&quot;&gt;&lt;em&gt;CoW&lt;/em&gt;&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Making a case for &lt;em&gt;CoW&lt;/em&gt; is easy, but here&amp;#8217;s why I&amp;#8217;m willing to make the change.
-I&amp;#8217;ve been struck by bit rot on a couple of occasions leaving me with corrupted music files.
-This bothered me and my backups all contained the corrupted files.
-&lt;em&gt;CoW&lt;/em&gt; solves this problem in two ways.
-It will detect such corruption at the time of reading the file or during a &lt;em&gt;scrub&lt;/em&gt; where all data and metadata is verified.
-This would have caught the issue earlier and might have given me a chance to restore the file from a recent backup.
-However, &lt;em&gt;CoW&lt;/em&gt; provides a much more robust backup system offering snapshots and incremental sends and receives.
-This makes it easy and relatively cheap to keep backups stretching over an extended period of time.
-Having snapshots of my Music directory dating back two years would likely have allowed me to restore that file.
-That&amp;#8217;s why I decided to use &lt;em&gt;CoW&lt;/em&gt; on my desktop.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;cow_filesystems&quot;&gt;&lt;em&gt;CoW&lt;/em&gt; Filesystems&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;But what filesystem to choose?
-If you read much of my blog, you&amp;#8217;ll know that I&amp;#8217;m going to be looking at open source solutions.
-This boils down to three serious contenders: OpenZFS, btrfs, and &lt;a href=&quot;https://bcachefs.org/&quot;&gt;bcachefs&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;openzfs&quot;&gt;OpenZFS&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;OpenZFS has a proven track record of reliability and is by far the most mature candidate.
-It also benefits from native encryption, great defaults, and a robust, unified interface.
-Unfortunately, its &lt;a href=&quot;https://github.com/openzfs/zfs/blob/master/LICENSE&quot;&gt;CDDL license&lt;/a&gt; is incompatibale with the &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;GPL license&lt;/a&gt; used by the Linux kernel.
-This has lead to the need for less-than ideal workarounds.
-Unless you&amp;#8217;re on &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;Ubuntu&lt;/a&gt;, &lt;a href=&quot;https://www.freebsd.org/&quot;&gt;FreeBSD&lt;/a&gt;, or &lt;a href=&quot;https://www.netbsd.org/&quot;&gt;NetBSD&lt;/a&gt;.
-Ubuntu ships ZFS in its own releases of the Linux kernel.
-Both FreeBSD and NetBSD, having a more permissive license, don&amp;#8217;t have issues with the CDDL license.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;btrfs&quot;&gt;btrfs&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;btrfs is newer but has been around for over a decade at this point.
-It&amp;#8217;s suffered from reliability issues in the past and doesn&amp;#8217;t offer native encryption.
-It is licensed under the GPL, however, and therefore available in the kernel of every Linux distribution.
-Recently, &lt;a href=&quot;https://getfedora.org/&quot;&gt;Fedora&lt;/a&gt; has begun shipping it as the default filesystem and &lt;a href=&quot;https://www.opensuse.org/&quot;&gt;openSUSE&lt;/a&gt; has been using it as the default since 2014.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;bcachefs&quot;&gt;bcachefs&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;bcaches is new on the block and not yet mainlined in the Linux kernel.
-It does, however, have a promising feature set already and might offer some powerful performance improvements over btrfs and ZFS.
-Time will tell with this one.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;the_choice&quot;&gt;The Choice&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Currently, I have a better familiarity and understanding of ZFS.
-That said, its unified approached to filesystem and storage management plus extensive documentation and literature make it very accessible.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;As for as operating systems go, I&amp;#8217;m only going to use one of the BSD&amp;#8217;s or Linux wherever I have the choice.
-As far as desktops go, Linux has significantly more polish in this respect to the *BSD.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;
-I prefer to use &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; as my primary, stable desktop distribution.
-I&amp;#8217;m planning on also having a system running Fedora and want to use the same filesystem configuration on both.
-The idea of mixing filesystems seems unnecessarily complicated, though completely doable.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The prospect of vendor lock-in to Ubuntu ultimately lead me to btrfs.
-I get the freedom of choice in regards to Linux distribution and only have to manage one filesystem on my machine.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;So far, I&amp;#8217;m pretty far into configuring my desktops with btrfs, and I&amp;#8217;m happy with the outcomes.
-The default settings had to be tweaked quite a bit and getting all of the tooling in place for snapshot and backup management has been a pain.
-More fodder for the blog, though.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Thank you &lt;a href=&quot;https://mwl.io/&quot;&gt;Michael W. Lucas&lt;/a&gt; and &lt;a href=&quot;https://github.com/allanjude&quot;&gt;Allan Jude&lt;/a&gt; for &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmzfs/&quot;&gt;FreeBSD Mastery: ZFS&lt;/a&gt;&lt;/em&gt; and &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmaz/&quot;&gt;FreeBSD Mastery: Advanced ZFS&lt;/a&gt;&lt;/em&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. No. I&amp;#8217;m &lt;em&gt;not&lt;/em&gt; counting Darwin.
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="bcachefs" /><category term="btrfs" /><category term="cow" /><category term="filesystem" /><category term="fedora" /><category term="freebsd" /><category term="linux" /><category term="openzfs" /><category term="opensuse" /><category term="netbsd" /><category term="snapshots" /><category term="zfs" /><summary type="html">There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.</summary></entry><entry><title type="html">btrfs Swapfile</title><link href="https://www.jwillikers.com/btrfs-swapfile" rel="alternate" type="text/html" title="btrfs Swapfile" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/btrfs%20Swapfile</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-swapfile">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="Btrfs" /><category term="elementaryos" /><category term="linux" /><category term="tlp" /><category term="ubuntu" /><summary type="html">TLP is a powerful power managmenment utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&amp;#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration settings for those who want fine-grained control.</summary></entry><entry><title type="html">Btrfs Swapfile</title><link href="https://www.jwillikers.com/btrfs-swapfile" rel="alternate" type="text/html" title="Btrfs Swapfile" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Swapfile</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-swapfile">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Swap space is a standard component of most operating systems.
@@ -402,8 +300,8 @@ I recommend the &lt;a href=&quot;https://opensource.com/&quot;&gt;opensource.com
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;There are two approaches to providing swap space on Linux, swap partitions and &lt;a href=&quot;https://wiki.archlinux.org/index.php/swap#Swap_file&quot;&gt;swapfiles&lt;/a&gt;.
-Since version 5.0 of the Linux kernel, btrfs swap files are supported according to the section &lt;em&gt;&lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ#Does_btrfs_support_swap_files.3F&quot;&gt;Does btrfs support swap files?&lt;/a&gt;&lt;/em&gt; in the &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ&quot;&gt;btrfs Wiki FAQ&lt;/a&gt;.
-Switching to btrfs as my default filesystem, I recently set this up have created this tutorial get yourself a swapfile set up on btrfs.&lt;/p&gt;
+Since version 5.0 of the Linux kernel, Btrfs swap files are supported according to the section &lt;em&gt;&lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ#Does_btrfs_support_swap_files.3F&quot;&gt;Does btrfs support swap files?&lt;/a&gt;&lt;/em&gt; in the &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ&quot;&gt;btrfs Wiki FAQ&lt;/a&gt;.
+Switching to Btrfs as my default filesystem, I recently set this up have created this tutorial get yourself a swapfile set up on Btrfs.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -411,7 +309,7 @@ Switching to btrfs as my default filesystem, I recently set this up have created
 &lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial contains the necessary steps to create a btrfs swapfile.
+&lt;p&gt;This tutorial contains the necessary steps to create a Btrfs swapfile.
 The reference system is running &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1 and a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat btrfs layout&lt;/a&gt;.
 As a matter of preference, the commands here use the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt;'s syntax.&lt;/p&gt;
 &lt;/div&gt;
@@ -423,7 +321,7 @@ As a matter of preference, the commands here use the &lt;a href=&quot;https://fi
 &lt;/td&gt;
 &lt;td class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I have not been able to get hibernation working when using a btrfs swapfile.
+&lt;p&gt;I have not been able to get hibernation working when using a Btrfs swapfile.
 You should consider a dedicated, encrypted swap partition if you desire this feature.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/td&gt;
@@ -433,7 +331,7 @@ You should consider a dedicated, encrypted swap partition if you desire this fea
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
-&lt;p&gt;Mount the root btrfs filesystem to create a subvolume.&lt;/p&gt;
+&lt;p&gt;Mount the root Btrfs filesystem to create a subvolume.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mount &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; / | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; /mnt&lt;/code&gt;&lt;/pre&gt;
@@ -441,7 +339,7 @@ You should consider a dedicated, encrypted swap partition if you desire this fea
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Create a dedicated btrfs subvolume for swap in order to exclude the swapfile from snapshots.&lt;/p&gt;
+&lt;p&gt;Create a dedicated Btrfs subvolume for swap in order to exclude the swapfile from snapshots.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs subvolume create /mnt/swap
@@ -597,7 +495,7 @@ vm.swappiness&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10&lt;/code&gt;&lt;/p
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://wiki.archlinux.org/index.php/btrfs#Swap_file&quot;&gt;ArchWiki btrfs - Swap file&lt;/a&gt;
+&lt;p&gt;&lt;a href=&quot;https://wiki.archlinux.org/index.php/btrfs#Swap_file&quot;&gt;ArchWiki Btrfs - Swap file&lt;/a&gt;
 &lt;a href=&quot;https://wiki.archlinux.org/index.php/Swap#Swap_file_creation&quot;&gt;ArchWiki Swap - Swap file creation&lt;/a&gt;
 &lt;a href=&quot;https://wiki.debian.org/Swap&quot;&gt;Debian Wiki Swap&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
@@ -607,7 +505,7 @@ vm.swappiness&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10&lt;/code&gt;&lt;/p
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You should now know all you need to know to make a btrfs swapfile on Linux.&lt;/p&gt;
+&lt;p&gt;You should now know all you need to know to make a Btrfs swapfile on Linux.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -619,22 +517,124 @@ vm.swappiness&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10&lt;/code&gt;&lt;/p
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
 &lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. systemd&amp;#8217;s handling of swap is documented thoroughly in the corresponding man page: &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.swap.html&quot;&gt;systemd.swap(5)&lt;/a&gt;.
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="btrfs" /><category term="linux" /><category term="swap" /><category term="swapfile" /><summary type="html">Swap space is a standard component of most operating systems. It&amp;#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic.</summary></entry><entry><title type="html">btrfs Mount Options</title><link href="https://www.jwillikers.com/btrfs-mount-options" rel="alternate" type="text/html" title="btrfs Mount Options" /><published>2021-02-10T00:00:00-06:00</published><updated>2021-02-10T00:00:00-06:00</updated><id>https://www.jwillikers.com/btrfs%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-mount-options">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="btrfs" /><category term="linux" /><category term="swap" /><category term="swapfile" /><summary type="html">Swap space is a standard component of most operating systems. It&amp;#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic.</summary></entry><entry><title type="html">Why Choose Btrfs</title><link href="https://www.jwillikers.com/why-choose-btrfs" rel="alternate" type="text/html" title="Why Choose Btrfs" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Why%20Choose%20Btrfs</id><content type="html" xml:base="https://www.jwillikers.com/why-choose-btrfs">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are many compelling reasons to use a modern &lt;a href=&quot;https://en.wikipedia.org/wiki/Copy-on-write&quot;&gt;Copy-on-Write&lt;/a&gt;, &lt;em&gt;CoW&lt;/em&gt; for short, filesystem.
+These include low-cost snapshots and incremental backups.
+If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, &lt;a href=&quot;https://openzfs.org/wiki/Main_Page&quot;&gt;OpenZFS&lt;/a&gt; and &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;btrfs&lt;/a&gt;, offer many more features.
+Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;cow&quot;&gt;&lt;em&gt;CoW&lt;/em&gt;&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Making a case for &lt;em&gt;CoW&lt;/em&gt; is easy, but here&amp;#8217;s why I&amp;#8217;m willing to make the change.
+I&amp;#8217;ve been struck by bit rot on a couple of occasions leaving me with corrupted music files.
+This bothered me and my backups all contained the corrupted files.
+&lt;em&gt;CoW&lt;/em&gt; solves this problem in two ways.
+It will detect such corruption at the time of reading the file or during a &lt;em&gt;scrub&lt;/em&gt; where all data and metadata is verified.
+This would have caught the issue earlier and might have given me a chance to restore the file from a recent backup.
+However, &lt;em&gt;CoW&lt;/em&gt; provides a much more robust backup system offering snapshots and incremental sends and receives.
+This makes it easy and relatively cheap to keep backups stretching over an extended period of time.
+Having snapshots of my Music directory dating back two years would likely have allowed me to restore that file.
+That&amp;#8217;s why I decided to use &lt;em&gt;CoW&lt;/em&gt; on my desktop.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cow_filesystems&quot;&gt;&lt;em&gt;CoW&lt;/em&gt; Filesystems&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;But what filesystem to choose?
+If you read much of my blog, you&amp;#8217;ll know that I&amp;#8217;m going to be looking at open source solutions.
+This boils down to three serious contenders: OpenZFS, Btrfs, and &lt;a href=&quot;https://bcachefs.org/&quot;&gt;bcachefs&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;openzfs&quot;&gt;OpenZFS&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;OpenZFS has a proven track record of reliability and is by far the most mature candidate.
+It also benefits from native encryption, great defaults, and a robust, unified interface.
+Unfortunately, its &lt;a href=&quot;https://github.com/openzfs/zfs/blob/master/LICENSE&quot;&gt;CDDL license&lt;/a&gt; is incompatibale with the &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;GPL license&lt;/a&gt; used by the Linux kernel.
+This has lead to the need for less-than ideal workarounds.
+Unless you&amp;#8217;re on &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;Ubuntu&lt;/a&gt;, &lt;a href=&quot;https://www.freebsd.org/&quot;&gt;FreeBSD&lt;/a&gt;, or &lt;a href=&quot;https://www.netbsd.org/&quot;&gt;NetBSD&lt;/a&gt;.
+Ubuntu ships ZFS in its own releases of the Linux kernel.
+Both FreeBSD and NetBSD, having a more permissive license, don&amp;#8217;t have issues with the CDDL license.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;btrfs&quot;&gt;Btrfs&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Btrfs is newer but has been around for over a decade at this point.
+It&amp;#8217;s suffered from reliability issues in the past and doesn&amp;#8217;t offer native encryption.
+It is licensed under the GPL, however, and therefore available in the kernel of every Linux distribution.
+Recently, &lt;a href=&quot;https://getfedora.org/&quot;&gt;Fedora&lt;/a&gt; has begun shipping it as the default filesystem and &lt;a href=&quot;https://www.opensuse.org/&quot;&gt;openSUSE&lt;/a&gt; has been using it as the default since 2014.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;bcachefs&quot;&gt;bcachefs&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;bcaches is new on the block and not yet mainlined in the Linux kernel.
+It does, however, have a promising feature set already and might offer some powerful performance improvements over Btrfs and ZFS.
+Time will tell with this one.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the_choice&quot;&gt;The Choice&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Currently, I have a better familiarity and understanding of ZFS.
+That said, its unified approached to filesystem and storage management plus extensive documentation and literature make it very accessible.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As for as operating systems go, I&amp;#8217;m only going to use one of the BSD&amp;#8217;s or Linux wherever I have the choice.
+As far as desktops go, Linux has significantly more polish in this respect to the *BSD.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;
+I prefer to use &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; as my primary, stable desktop distribution.
+I&amp;#8217;m planning on also having a system running Fedora and want to use the same filesystem configuration on both.
+The idea of mixing filesystems seems unnecessarily complicated, though completely doable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The prospect of vendor lock-in to Ubuntu ultimately lead me to Btrfs.
+I get the freedom of choice in regards to Linux distribution and only have to manage one filesystem on my machine.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So far, I&amp;#8217;m pretty far into configuring my desktops with Btrfs, and I&amp;#8217;m happy with the outcomes.
+The default settings had to be tweaked quite a bit and getting all of the tooling in place for snapshot and backup management has been a pain.
+More fodder for the blog, though.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Thank you &lt;a href=&quot;https://mwl.io/&quot;&gt;Michael W. Lucas&lt;/a&gt; and &lt;a href=&quot;https://github.com/allanjude&quot;&gt;Allan Jude&lt;/a&gt; for &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmzfs/&quot;&gt;FreeBSD Mastery: ZFS&lt;/a&gt;&lt;/em&gt; and &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmaz/&quot;&gt;FreeBSD Mastery: Advanced ZFS&lt;/a&gt;&lt;/em&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. No. I&amp;#8217;m &lt;em&gt;not&lt;/em&gt; counting Darwin.
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="bcachefs" /><category term="btrfs" /><category term="cow" /><category term="filesystem" /><category term="fedora" /><category term="freebsd" /><category term="linux" /><category term="openzfs" /><category term="opensuse" /><category term="netbsd" /><category term="snapshots" /><category term="zfs" /><summary type="html">There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.</summary></entry><entry><title type="html">Btrfs Mount Options</title><link href="https://www.jwillikers.com/btrfs-mount-options" rel="alternate" type="text/html" title="Btrfs Mount Options" /><published>2021-02-10T00:00:00-06:00</published><updated>2021-02-10T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-mount-options">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;btrfs&lt;/a&gt;.
 Now what?
-Well, btrfs doesn&amp;#8217;t ship with optimal default settings.
+Well, Btrfs doesn&amp;#8217;t ship with optimal default settings.
 Many popular Linux distributions don&amp;#8217;t improve the situation, either.
-That leaves it up to the administrator to fine tune btrfs for its particular use case.&lt;/p&gt;
+That leaves it up to the administrator to fine tune Btrfs for its particular use case.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The primary way to tune btrfs is through &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs(5)#MOUNT_OPTIONS&quot;&gt;mount options&lt;/a&gt; which are commonly enumerated in &lt;code&gt;&lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;/etc/fstab&lt;/a&gt;&lt;/code&gt; for each volume on the system.
-I use a flat layout in my &lt;code&gt;/etc/fstab&lt;/code&gt; for the separate btrfs subvolumes on each system.
+&lt;p&gt;The primary way to tune Btrfs is through &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs(5)#MOUNT_OPTIONS&quot;&gt;mount options&lt;/a&gt; which are commonly enumerated in &lt;code&gt;&lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;/etc/fstab&lt;/a&gt;&lt;/code&gt; for each volume on the system.
+I use a flat layout in my &lt;code&gt;/etc/fstab&lt;/code&gt; for the separate Btrfs subvolumes on each system.
 Subvolumes within a user&amp;#8217;s home directory, besides perhaps a standard &lt;code&gt;.snapshots&lt;/code&gt; subvolume, are left out of my &lt;code&gt;/etc/fstab&lt;/code&gt; to give users greater flexibility in managing their own home subvolume.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I&amp;#8217;m planning on using btrfs for all of my Linux machines, but these are all used as desktop computers and the mount options I selected reflect this.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;m planning on using Btrfs for all of my Linux machines, but these are all used as desktop computers and the mount options I selected reflect this.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -666,19 +666,19 @@ UUID=xxxxxxxxxxxxxxxxx /boot                btrfs   defaults,noatime,autodefrag,
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Wow, there&amp;#8217;s a bunch going on here!
 This setup contains many separate subvolumes to facilitate snapshots of the root directory and users' home directories.
-It also includes a btrfs swapfile.
+It also includes a &lt;a href=&quot;btrfs-swapfile.html&quot;&gt;Btrfs Swapfile&lt;/a&gt;.
 These aspects of the file will be discussed in future posts. 😉&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Notice that each subvolume specified here, except for &lt;code&gt;/boot&lt;/code&gt;, explicitly states the mount options.
 These subvolumes use a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt; as opposed to a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested&quot;&gt;nested layout&lt;/a&gt;.
 With the exception of the &lt;code&gt;/boot&lt;/code&gt; subvolume which resides on a separate partition, they are all located at the root of &lt;code&gt;/dev/mapper/sda2_crypt&lt;/code&gt;.
-When using btrfs, nested subvolumes inherit the mount options of their parents and are automatically mounted.
+When using Btrfs, nested subvolumes inherit the mount options of their parents and are automatically mounted.
 They don&amp;#8217;t need to be included in &lt;code&gt;/etc/fstab&lt;/code&gt; but they are restricted to using the exact mount options of their parents.
 The &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt; used here has the advantage of making it easy to view how system subvolumes are organized.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Since btrfs does it&amp;#8217;s own integrity checking, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;fsck&lt;/a&gt; should be disabled.
+&lt;p&gt;Since Btrfs does it&amp;#8217;s own integrity checking, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;fsck&lt;/a&gt; should be disabled.
 The integer in the last column of each row indicates the fsck value and setting it to zero disables fsck.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -695,13 +695,13 @@ The integer in the last column of each row indicates the fsck value and setting 
 &lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;defaults&lt;/em&gt;&lt;/dt&gt;
 &lt;dd&gt;
 &lt;p&gt;Use default options: &lt;em&gt;rw&lt;/em&gt;, &lt;em&gt;suid&lt;/em&gt;, &lt;em&gt;dev&lt;/em&gt;, &lt;em&gt;exec&lt;/em&gt;, &lt;em&gt;auto&lt;/em&gt;, &lt;em&gt;nouser&lt;/em&gt;, and &lt;em&gt;async&lt;/em&gt;.
-These are not btrfs-specific.&lt;/p&gt;
+These are not Btrfs-specific.&lt;/p&gt;
 &lt;/dd&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;noatime&lt;/em&gt;&lt;/dt&gt;
 &lt;dd&gt;
 &lt;p&gt;Do  not  update  inode  access  times  on  this  filesystem.
 This speeds up reads since the access time metadata is not updated.
-This option isn&amp;#8217;t specific to btrfs either.&lt;/p&gt;
+This option isn&amp;#8217;t specific to Btrfs either.&lt;/p&gt;
 &lt;/dd&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;autodefrag&lt;/em&gt;&lt;/dt&gt;
 &lt;dd&gt;
@@ -749,10 +749,10 @@ This option is organizational and used for the &lt;a href=&quot;https://btrfs.wi
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Hopefully you have a better idea of some of the available mount options for optimizing btrfs for your particular use case.&lt;/p&gt;
+&lt;p&gt;Hopefully you have a better idea of some of the available mount options for optimizing Btrfs for your particular use case.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="btrfs" /><category term="fstab" /><category term="Linux" /><category term="mount" /><summary type="html">So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on btrfs. Now what? Well, btrfs doesn&amp;#8217;t ship with optimal default settings. Many popular Linux distributions don&amp;#8217;t improve the situation, either. That leaves it up to the administrator to fine tune btrfs for its particular use case.</summary></entry><entry><title type="html">GNOME Keyring in KDE Plasma</title><link href="https://www.jwillikers.com/gnome-keyring-in-kde-plasma" rel="alternate" type="text/html" title="GNOME Keyring in KDE Plasma" /><published>2021-01-01T00:00:00-06:00</published><updated>2021-01-01T00:00:00-06:00</updated><id>https://www.jwillikers.com/GNOME%20Keyring%20in%20KDE%20Plasma</id><content type="html" xml:base="https://www.jwillikers.com/gnome-keyring-in-kde-plasma">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="btrfs" /><category term="fstab" /><category term="Linux" /><category term="mount" /><summary type="html">So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on btrfs. Now what? Well, Btrfs doesn&amp;#8217;t ship with optimal default settings. Many popular Linux distributions don&amp;#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.</summary></entry><entry><title type="html">GNOME Keyring in KDE Plasma</title><link href="https://www.jwillikers.com/gnome-keyring-in-kde-plasma" rel="alternate" type="text/html" title="GNOME Keyring in KDE Plasma" /><published>2021-01-01T00:00:00-06:00</published><updated>2021-01-01T00:00:00-06:00</updated><id>https://www.jwillikers.com/GNOME%20Keyring%20in%20KDE%20Plasma</id><content type="html" xml:base="https://www.jwillikers.com/gnome-keyring-in-kde-plasma">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I love &lt;a href=&quot;https://www.gnome.org/&quot;&gt;GNOME&lt;/a&gt;, but on my &lt;a href=&quot;https://www.pine64.org/pinebook-pro/&quot;&gt;Pinebook Pro&lt;/a&gt;, I use the extremely well-supported &lt;a href=&quot;https://manjaro.org/download/#pinebook-pro-kde-plasma&quot;&gt;Manjaro Pinebook Pro KDE Plasma edition&lt;/a&gt;.

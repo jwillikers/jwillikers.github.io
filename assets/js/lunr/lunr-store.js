@@ -257,32 +257,32 @@ var store = [{
         "url": "/gnome-keyring-in-kde-plasma",
         "teaser": null
       },{
-        "title": "btrfs Mount Options",
-        "excerpt":"So, let&#8217;s say you&#8217;ve installed a fresh system on btrfs. Now what? Well, btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune btrfs for its particular use case. The primary way to tune...","categories": ["Disks"],
+        "title": "Btrfs Mount Options",
+        "excerpt":"So, let&#8217;s say you&#8217;ve installed a fresh system on btrfs. Now what? Well, Btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case. The primary way to tune...","categories": ["Disks"],
         "tags": ["btrfs","fstab","Linux","mount"],
         "url": "/btrfs-mount-options",
         "teaser": null
       },{
-        "title": "Why Choose btrfs",
-        "excerpt":"There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity...","categories": ["Disks"],
-        "tags": ["bcachefs","btrfs","cow","filesystem","fedora","freebsd","linux","openzfs","opensuse","netbsd","snapshots","zfs"],
-        "url": "/why-choose-btrfs",
-        "teaser": null
-      },{
-        "title": "btrfs Swapfile",
+        "title": "Btrfs Swapfile",
         "excerpt":"Swap space is a standard component of most operating systems. It&#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic. There are...","categories": ["Disks"],
         "tags": ["btrfs","linux","swap","swapfile"],
         "url": "/btrfs-swapfile",
         "teaser": null
       },{
+        "title": "Why Choose Btrfs",
+        "excerpt":"There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity...","categories": ["Disks"],
+        "tags": ["bcachefs","btrfs","cow","filesystem","fedora","freebsd","linux","openzfs","opensuse","netbsd","snapshots","zfs"],
+        "url": "/why-choose-btrfs",
+        "teaser": null
+      },{
         "title": "Power Management on Linux With TLP",
         "excerpt":"TLP is a powerful power managmenment utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration...","categories": ["Systems"],
-        "tags": ["btrfs","elementaryos","linux","tlp","ubuntu"],
+        "tags": ["Btrfs","elementaryos","linux","tlp","ubuntu"],
         "url": "/power-management-on-linux-with-tlp",
         "teaser": null
       },{
-        "title": "btrfs Layout",
-        "excerpt":"One of the best features of btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a...","categories": ["Disks"],
+        "title": "Btrfs Layout",
+        "excerpt":"One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a...","categories": ["Disks"],
         "tags": ["appimage","appimagelauncher","asdf","btrfs","cow","cargo","conan","elementaryos","fhs","filesystem","flatpak","fstab","gnome-boxes","libvirt","linux","opensuse","podman","rust","snapper","snapshots","systemd","ubuntu","xdg-base"],
         "url": "/btrfs-layout",
         "teaser": null

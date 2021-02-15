@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>btrfs Layout - JWillikers</title>
-<meta name="description" content="One of the best features of btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&#8217;t setup user home directory layouts if you wish to snapshot those. That&#8217;s why I&#8217;ve outlined my btrfs filesystem configurations for both my system and my home directory here.     1. Ubuntu does this for you with ZFS and ZSYS, but I&#8217;m talking about btrfs here.">
+<!-- begin _includes/seo.html --><title>Btrfs Layout - JWillikers</title>
+<meta name="description" content="One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&#8217;t setup user home directory layouts if you wish to snapshot those. That&#8217;s why I&#8217;ve outlined my Btrfs filesystem configurations for both my system and my home directory here.     1. Ubuntu does this for you with ZFS and ZSYS, but I&#8217;m talking about Btrfs here.">
 
 
   <meta name="author" content="Jordan Williams">
@@ -22,11 +22,11 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="JWillikers">
-<meta property="og:title" content="btrfs Layout">
+<meta property="og:title" content="Btrfs Layout">
 <meta property="og:url" content="https://www.jwillikers.com/btrfs-layout">
 
 
-  <meta property="og:description" content="One of the best features of btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&#8217;t setup user home directory layouts if you wish to snapshot those. That&#8217;s why I&#8217;ve outlined my btrfs filesystem configurations for both my system and my home directory here.     1. Ubuntu does this for you with ZFS and ZSYS, but I&#8217;m talking about btrfs here.">
+  <meta property="og:description" content="One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&#8217;t setup user home directory layouts if you wish to snapshot those. That&#8217;s why I&#8217;ve outlined my Btrfs filesystem configurations for both my system and my home directory here.     1. Ubuntu does this for you with ZFS and ZSYS, but I&#8217;m talking about Btrfs here.">
 
 
 
@@ -159,15 +159,15 @@
       <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>One of the best features of btrfs is the ability to produce snapshots of data instantaneously.
-Rollbacks take advantage of btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update.
+<p>One of the best features of Btrfs is the ability to produce snapshots of data instantaneously.
+Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update.
 This is an extremely valuable feature.
 Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally.
 Certain directories need to be left alone during a rollback.
 You don&#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs.
 Unless your on <a href="https://www.opensuse.org/">openSUSE</a>, this just isn&#8217;t done for you on most popular Linux distributions or at least not yet.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
 Even if you are using openSUSE, it doesn&#8217;t setup user home directory layouts if you wish to snapshot those.
-That&#8217;s why I&#8217;ve outlined my btrfs filesystem configurations for both my system and my home directory here.</p>
+That&#8217;s why I&#8217;ve outlined my Btrfs filesystem configurations for both my system and my home directory here.</p>
 </div>
 </div>
 </div>
@@ -175,9 +175,9 @@ That&#8217;s why I&#8217;ve outlined my btrfs filesystem configurations for both
 <h2 id="subvolumes_and_snapshots">Subvolumes and Snapshots</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>btrfs uses subvolumes to organize data akin to directories.
+<p>Btrfs uses subvolumes to organize data akin to directories.
 Well, subvolumes are directories, practically speaking.
-Subvolumes have the added benefit of allowing specific btrfs characteristics to be applied.
+Subvolumes have the added benefit of allowing specific Btrfs characteristics to be applied.
 They also provide the only method to exclude data from snapshots.
 When taking a snapshot of a particular subvolume, all subvolumes nested within that subvolume are excluded from the snapshot.</p>
 </div>
@@ -261,7 +261,7 @@ This avoids <em>CoW</em> on <em>CoW</em> per the caution in the <a href="https:/
 <h4 id="etcfstab"><code>/etc/fstab</code></h4>
 <div class="paragraph">
 <p>An example <code><a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">/etc/fstab</a></code> file is provided here as a reference.
-Refer to the post <a href="btrfs-mount-options.html">btrfs Mount Options</a> for more information about the various mount options and why they are used.</p>
+Refer to the post <a href="btrfs-mount-options.html">Btrfs Mount Options</a> for more information about the various mount options and why they are used.</p>
 </div>
 <div class="listingblock">
 <div class="title">/etc/fstab</div>
@@ -368,8 +368,8 @@ For Snapper, this subvolume must be owned by the root user.</p>
 <h2 id="conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This post has laid out examples of btrfs filesystem layouts.
-You should now have a better grasp of the various considerations in configuring a system with btrfs.
+<p>This post has laid out examples of Btrfs filesystem layouts.
+You should now have a better grasp of the various considerations in configuring a system with Btrfs.
 This includes what directories to exclude from snapshots by making them separate subvolumes and particular edge cases such as disk image storage for virtual machines.
 There are also several practical use cases here that can inform you if you have similar circumstances.
 Now that the ground-work is complete, next up is configuring system and user snapshots with Snapper!</p>
@@ -379,7 +379,7 @@ Now that the ground-work is complete, next up is configuring system and user sna
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Ubuntu does this for you with <a href="https://openzfs.org/wiki/Main_Page">ZFS</a> and <a href="https://github.com/ubuntu/zsys">ZSYS</a>, but I&#8217;m talking about btrfs here.
+<a href="#_footnoteref_1">1</a>. Ubuntu does this for you with <a href="https://openzfs.org/wiki/Main_Page">ZFS</a> and <a href="https://github.com/ubuntu/zsys">ZSYS</a>, but I&#8217;m talking about Btrfs here.
 </div>
 <div class="footnote" id="_footnotedef_2">
 <a href="#_footnoteref_2">2</a>. Have you <em>seen</em> Inception?
