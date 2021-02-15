@@ -170,16 +170,28 @@ Compression, redundancy, deduplication, native encryption, online defragmentatio
 <h2 id="cow"><em>CoW</em></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Making a case for <em>CoW</em> is easy, but here&#8217;s why I&#8217;m willing to make the change.
-I&#8217;ve been struck by bit rot on a couple of occasions leaving me with corrupted music files.
-This bothered me and my backups all contained the corrupted files.
-<em>CoW</em> solves this problem in two ways.
-It will detect such corruption at the time of reading the file or during a <em>scrub</em> where all data and metadata is verified.
-This would have caught the issue earlier and might have given me a chance to restore the file from a recent backup.
-However, <em>CoW</em> provides a much more robust backup system offering snapshots and incremental sends and receives.
-This makes it easy and relatively cheap to keep backups stretching over an extended period of time.
-Having snapshots of my Music directory dating back two years would likely have allowed me to restore that file.
-That&#8217;s why I decided to use <em>CoW</em> on my desktop.</p>
+<p>Making a case for <em>CoW</em> is easy, but why make the change?
+Two key features made this change an inevitable one for me: bit rot protection and the ability to perform low-cost, incremental backups.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;ve been struck by bit rot on a couple of occasions leaving me with corrupted music files.
+Unfortunately at the time, all my previous backups held only the corrupted files so the data was lost.
+While this wasn&#8217;t tragic by any means, it still bothered me.
+How would I know if a stray bit of radiation fried any of my other files?
+Would I notice in time to recover them?
+What are the odds of discovering my tax documents are corrupt during an audit by the IRS?</p>
+</div>
+<div class="paragraph">
+<p><em>CoW</em> solves this problem in two ways.
+It will detect such corruption at the time of reading the file or during a <em>scrub</em>, where all data and metadata is verified against the stored checksums.
+In my circumstance, the issue would have been caught much sooner giving me the opportunity to restore the file from a recent backup.</p>
+</div>
+<div class="paragraph">
+<p>To the other point, <em>CoW</em> provides a robust backup solution through snapshots and incremental sends and receives.
+Taking a snapshot of an entire <em>CoW</em> system is practically no cost.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
+While snapshots shouldn&#8217;t be confused with backups, they provide the foundation for incremental sends and receives.
+This allows sending only the changes since the last snapshot to an external disk or offsite backup.
+If you want to have fresh backups every ten minutes, no problem.</p>
 </div>
 <div class="sect2">
 <h3 id="cow_filesystems"><em>CoW</em> Filesystems</h3>
@@ -225,11 +237,11 @@ Time will tell with this one.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Currently, I have a better familiarity and understanding of ZFS.
-That said, its unified approached to filesystem and storage management plus extensive documentation and literature make it very accessible.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.</p>
+That said, its unified approached to filesystem and storage management plus extensive documentation and literature make it very accessible.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.</p>
 </div>
 <div class="paragraph">
 <p>As for as operating systems go, I&#8217;m only going to use one of the BSD&#8217;s or Linux wherever I have the choice.
-As far as desktops go, Linux has significantly more polish in this respect to the *BSD.<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>
+As far as desktops go, Linux has significantly more polish in this respect to the *BSD.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>
 I prefer to use <a href="https://elementary.io/">elementary OS</a> as my primary, stable desktop distribution.
 I&#8217;m planning on also having a system running Fedora and want to use the same filesystem configuration on both.
 The idea of mixing filesystems seems unnecessarily complicated, though completely doable.</p>
@@ -253,10 +265,13 @@ More fodder for the blog, though.</p>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Thank you <a href="https://mwl.io/">Michael W. Lucas</a> and <a href="https://github.com/allanjude">Allan Jude</a> for <em><a href="https://www.tiltedwindmillpress.com/product/fmzfs/">FreeBSD Mastery: ZFS</a></em> and <em><a href="https://www.tiltedwindmillpress.com/product/fmaz/">FreeBSD Mastery: Advanced ZFS</a></em>
+<a href="#_footnoteref_1">1</a>. Read about the comparison to rsync in the Ars Technica article <a href="https://arstechnica.com/information-technology/2015/12/rsync-net-zfs-replication-to-the-cloud-is-finally-here-and-its-fast/">rsync.net: ZFS Replication to the cloud is finally here — and it’s fast</a>.
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. No. I&#8217;m <em>not</em> counting Darwin.
+<a href="#_footnoteref_2">2</a>. Thank you <a href="https://mwl.io/">Michael W. Lucas</a> and <a href="https://github.com/allanjude">Allan Jude</a> for <em><a href="https://www.tiltedwindmillpress.com/product/fmzfs/">FreeBSD Mastery: ZFS</a></em> and <em><a href="https://www.tiltedwindmillpress.com/product/fmaz/">FreeBSD Mastery: Advanced ZFS</a></em>
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. No. I&#8217;m <em>not</em> counting Darwin.
 </div>
 </div>
     </div>

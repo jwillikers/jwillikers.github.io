@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-15T08:01:15-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Btrfs Layout</title><link href="https://www.jwillikers.com/btrfs-layout" rel="alternate" type="text/html" title="Btrfs Layout" /><published>2021-02-13T00:00:00-06:00</published><updated>2021-02-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Layout</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-layout">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-15T08:35:43-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Btrfs Layout</title><link href="https://www.jwillikers.com/btrfs-layout" rel="alternate" type="text/html" title="Btrfs Layout" /><published>2021-02-13T00:00:00-06:00</published><updated>2021-02-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Layout</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-layout">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;One of the best features of Btrfs is the ability to produce snapshots of data instantaneously.
@@ -531,16 +531,28 @@ Compression, redundancy, deduplication, native encryption, online defragmentatio
 &lt;h2 id=&quot;cow&quot;&gt;&lt;em&gt;CoW&lt;/em&gt;&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Making a case for &lt;em&gt;CoW&lt;/em&gt; is easy, but here&amp;#8217;s why I&amp;#8217;m willing to make the change.
-I&amp;#8217;ve been struck by bit rot on a couple of occasions leaving me with corrupted music files.
-This bothered me and my backups all contained the corrupted files.
-&lt;em&gt;CoW&lt;/em&gt; solves this problem in two ways.
-It will detect such corruption at the time of reading the file or during a &lt;em&gt;scrub&lt;/em&gt; where all data and metadata is verified.
-This would have caught the issue earlier and might have given me a chance to restore the file from a recent backup.
-However, &lt;em&gt;CoW&lt;/em&gt; provides a much more robust backup system offering snapshots and incremental sends and receives.
-This makes it easy and relatively cheap to keep backups stretching over an extended period of time.
-Having snapshots of my Music directory dating back two years would likely have allowed me to restore that file.
-That&amp;#8217;s why I decided to use &lt;em&gt;CoW&lt;/em&gt; on my desktop.&lt;/p&gt;
+&lt;p&gt;Making a case for &lt;em&gt;CoW&lt;/em&gt; is easy, but why make the change?
+Two key features made this change an inevitable one for me: bit rot protection and the ability to perform low-cost, incremental backups.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I&amp;#8217;ve been struck by bit rot on a couple of occasions leaving me with corrupted music files.
+Unfortunately at the time, all my previous backups held only the corrupted files so the data was lost.
+While this wasn&amp;#8217;t tragic by any means, it still bothered me.
+How would I know if a stray bit of radiation fried any of my other files?
+Would I notice in time to recover them?
+What are the odds of discovering my tax documents are corrupt during an audit by the IRS?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;CoW&lt;/em&gt; solves this problem in two ways.
+It will detect such corruption at the time of reading the file or during a &lt;em&gt;scrub&lt;/em&gt;, where all data and metadata is verified against the stored checksums.
+In my circumstance, the issue would have been caught much sooner giving me the opportunity to restore the file from a recent backup.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To the other point, &lt;em&gt;CoW&lt;/em&gt; provides a robust backup solution through snapshots and incremental sends and receives.
+Taking a snapshot of an entire &lt;em&gt;CoW&lt;/em&gt; system is practically no cost.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
+While snapshots shouldn&amp;#8217;t be confused with backups, they provide the foundation for incremental sends and receives.
+This allows sending only the changes since the last snapshot to an external disk or offsite backup.
+If you want to have fresh backups every ten minutes, no problem.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;cow_filesystems&quot;&gt;&lt;em&gt;CoW&lt;/em&gt; Filesystems&lt;/h3&gt;
@@ -586,11 +598,11 @@ Time will tell with this one.&lt;/p&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Currently, I have a better familiarity and understanding of ZFS.
-That said, its unified approached to filesystem and storage management plus extensive documentation and literature make it very accessible.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
+That said, its unified approached to filesystem and storage management plus extensive documentation and literature make it very accessible.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;As for as operating systems go, I&amp;#8217;m only going to use one of the BSD&amp;#8217;s or Linux wherever I have the choice.
-As far as desktops go, Linux has significantly more polish in this respect to the *BSD.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;
+As far as desktops go, Linux has significantly more polish in this respect to the *BSD.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;
 I prefer to use &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; as my primary, stable desktop distribution.
 I&amp;#8217;m planning on also having a system running Fedora and want to use the same filesystem configuration on both.
 The idea of mixing filesystems seems unnecessarily complicated, though completely doable.&lt;/p&gt;
@@ -614,10 +626,13 @@ More fodder for the blog, though.&lt;/p&gt;
 &lt;div id=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Thank you &lt;a href=&quot;https://mwl.io/&quot;&gt;Michael W. Lucas&lt;/a&gt; and &lt;a href=&quot;https://github.com/allanjude&quot;&gt;Allan Jude&lt;/a&gt; for &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmzfs/&quot;&gt;FreeBSD Mastery: ZFS&lt;/a&gt;&lt;/em&gt; and &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmaz/&quot;&gt;FreeBSD Mastery: Advanced ZFS&lt;/a&gt;&lt;/em&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Read about the comparison to rsync in the Ars Technica article &lt;a href=&quot;https://arstechnica.com/information-technology/2015/12/rsync-net-zfs-replication-to-the-cloud-is-finally-here-and-its-fast/&quot;&gt;rsync.net: ZFS Replication to the cloud is finally here — and it’s fast&lt;/a&gt;.
 &lt;/div&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. No. I&amp;#8217;m &lt;em&gt;not&lt;/em&gt; counting Darwin.
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. Thank you &lt;a href=&quot;https://mwl.io/&quot;&gt;Michael W. Lucas&lt;/a&gt; and &lt;a href=&quot;https://github.com/allanjude&quot;&gt;Allan Jude&lt;/a&gt; for &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmzfs/&quot;&gt;FreeBSD Mastery: ZFS&lt;/a&gt;&lt;/em&gt; and &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmaz/&quot;&gt;FreeBSD Mastery: Advanced ZFS&lt;/a&gt;&lt;/em&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
+&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. No. I&amp;#8217;m &lt;em&gt;not&lt;/em&gt; counting Darwin.
 &lt;/div&gt;
 &lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="bcachefs" /><category term="btrfs" /><category term="cow" /><category term="filesystem" /><category term="fedora" /><category term="freebsd" /><category term="linux" /><category term="openzfs" /><category term="opensuse" /><category term="netbsd" /><category term="snapshots" /><category term="zfs" /><summary type="html">There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.</summary></entry><entry><title type="html">Btrfs Mount Options</title><link href="https://www.jwillikers.com/btrfs-mount-options" rel="alternate" type="text/html" title="Btrfs Mount Options" /><published>2021-02-10T00:00:00-06:00</published><updated>2021-02-10T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-mount-options">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
