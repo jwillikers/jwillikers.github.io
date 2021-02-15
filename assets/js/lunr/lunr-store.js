@@ -270,14 +270,14 @@ var store = [{
         "teaser": null
       },{
         "title": "Why Choose Btrfs",
-        "excerpt":"There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity...","categories": ["Disks"],
+        "excerpt":"There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and Btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity...","categories": ["Disks"],
         "tags": ["bcachefs","btrfs","cow","filesystem","fedora","freebsd","linux","openzfs","opensuse","netbsd","snapshots","zfs"],
         "url": "/why-choose-btrfs",
         "teaser": null
       },{
         "title": "Power Management on Linux With TLP",
         "excerpt":"TLP is a powerful power managmenment utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration...","categories": ["Systems"],
-        "tags": ["Btrfs","elementaryos","linux","tlp","ubuntu"],
+        "tags": ["elementaryos","linux","tlp","ubuntu"],
         "url": "/power-management-on-linux-with-tlp",
         "teaser": null
       },{
@@ -285,5 +285,11 @@ var store = [{
         "excerpt":"One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a...","categories": ["Disks"],
         "tags": ["appimage","appimagelauncher","asdf","btrfs","cow","cargo","conan","elementaryos","fhs","filesystem","flatpak","fstab","gnome-boxes","libvirt","linux","opensuse","podman","rust","snapper","snapshots","systemd","ubuntu","xdg-base"],
         "url": "/btrfs-layout",
+        "teaser": null
+      },{
+        "title": "Btrfs Snapshot Management With Snapper",
+        "excerpt":"Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups....","categories": ["Disks"],
+        "tags": ["btrbk","btrfs","elementaryos","linux","snapper","snapshots","timeshift","ubuntu"],
+        "url": "/btrfs-snapshot-management-with-snapper",
         "teaser": null
       }]

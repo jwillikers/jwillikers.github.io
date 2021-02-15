@@ -1,0 +1,742 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Btrfs Snapshot Management With Snapper - JWillikers</title>
+<meta name="description" content="Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups. It doesn&#8217;t handle rollbacks, however. Timeshift is only designed for rolling back a system&#8217;s root subvolume and not arbitrary subvolumes. It is rather inflexible, but provides a fantastic graphical interface right out of the box and makes rollbacks quick and easy. Snapper is very configurable, makes rollbacks a breeze, has been around a while, and is quite popular. It&#8217;s a bit biased towards openSUSE, it being their tool and all, but packaged for all major Linux distributions nonetheless. My choice was mostly between Btrbk and Snapper. Timeshift won&#8217;t snapshot all of the subvolumes I have. I landed on Snapper because it allows users to control their own snapshots and rollbacks without superuser privileges. Btrbk&#8217;s additional ability for managing backups makes it a very tempting alternative.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Btrfs Snapshot Management With Snapper">
+<meta property="og:url" content="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper">
+
+
+  <meta property="og:description" content="Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups. It doesn&#8217;t handle rollbacks, however. Timeshift is only designed for rolling back a system&#8217;s root subvolume and not arbitrary subvolumes. It is rather inflexible, but provides a fantastic graphical interface right out of the box and makes rollbacks quick and easy. Snapper is very configurable, makes rollbacks a breeze, has been around a while, and is quite popular. It&#8217;s a bit biased towards openSUSE, it being their tool and all, but packaged for all major Linux distributions nonetheless. My choice was mostly between Btrbk and Snapper. Timeshift won&#8217;t snapshot all of the subvolumes I have. I landed on Snapper because it allows users to control their own snapshots and rollbacks without superuser privileges. Btrbk&#8217;s additional ability for managing backups makes it a very tempting alternative.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-15T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Manually taking snapshots with <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a> is easy.
+Managing said snapshots is not.
+This is why several tools exist for the task.
+The most prominent are <a href="https://github.com/digint/btrbk">Btrbk</a>, <a href="http://snapper.io/">Snapper</a>, and <a href="https://github.com/teejee2008/timeshift">Timeshift</a>.
+Each of these automate taking, naming, and cleaning up snapshots.
+Btrbk is highly configurable and flexible while also offering incremental backups.
+It doesn&#8217;t handle rollbacks, however.
+Timeshift is <em>only</em> designed for rolling back a system&#8217;s root subvolume and not arbitrary subvolumes.
+It is rather inflexible, but provides a fantastic graphical interface right out of the box and makes rollbacks quick and easy.
+Snapper is very configurable, makes rollbacks a breeze, has been around a while, and is quite popular.
+It&#8217;s a bit biased towards openSUSE, it being their tool and all, but packaged for all major Linux distributions nonetheless.
+My choice was mostly between Btrbk and Snapper.
+Timeshift won&#8217;t snapshot all of the subvolumes I have.
+I landed on Snapper because it allows users to control their own snapshots and rollbacks without superuser privileges.
+Btrbk&#8217;s additional ability for managing backups makes it a very tempting alternative.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial contains the necessary steps to setup a recent version of Snapper to take automatic snapshots of a system&#8217;s root directory and a user&#8217;s home directory using Btrfs.
+The reference system is running <a href="https://elementary.io/">elementary OS</a> 5.1 and uses a {flat-btrfs-layout} for the system&#8217;s subvolumes.
+The layout is discussed extensively in <a href="btrfs-layout.html">Btrfs Layout</a>.
+For this tutorial, you should understand the command-line, Btrfs, and the filesystem layout used in Linux.
+As a matter of preference, the commands here use the <a href="https://fishshell.com/">fish shell</a>'s syntax.</p>
+</div>
+<div class="sect2">
+<h3 id="installation">Installation</h3>
+<div class="paragraph">
+<p>The version of Snapper packaged by my distribution lags significantly behind the upstream version.
+Fortunately, Snapper makes newer versions readily available through its own PPA.
+To install Snapper this way, follow these instructions.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the necessary package for easily adding PPA&#8217;s.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>software-properties-common</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the Snapper repository for Ubuntu 18.04, off which elementaryOS Hera 5.1 is based, to the system&#8217;s sources.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s1">'deb http://download.opensuse.org/repositories/filesystems:/snapper/xUbuntu_18.04/ /'</span> <span class="se">\</span>
+  | <span class="nb">sudo tee</span> /etc/apt/sources.list.d/filesystems:snapper.list
+deb http://download.opensuse.org/repositories/filesystems:/snapper/xUbuntu_18.04/ /</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Trust the repository&#8217;s GPG key.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-qO</span> - https://download.opensuse.org/repositories/filesystems:/snapper/xUbuntu_18.04/Release.key <span class="se">\</span>
+  | gpg <span class="nt">--dearmor</span> <span class="se">\</span>
+  | <span class="nb">sudo tee</span> /etc/apt/trusted.gpg.d/filesystems_snapper.gpg <span class="o">&gt;</span> /dev/null</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Refresh the package sources.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt update</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install Snapper.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>snapper</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To avoid potential slowdowns, exclude any <code>.snapshots</code> subvolumes in <code><a href="http://manpages.ubuntu.com/manpages/xenial/en/man5/updatedb.conf.5.html">updatedb.conf(5)</a></code> so that they aren&#8217;t indexed by <code><a href="http://manpages.ubuntu.com/manpages/bionic/en/man1/mlocate.1.html">mlocate(1)</a></code>.</p>
+<div class="listingblock">
+<div class="title">/etc/updatedb.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code>PRUNENAMES = ".snapshots"</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="snapshots_subvolume">Snapshots Subvolume</h3>
+<div class="paragraph">
+<p>For each subvolume you want to snapshot, create a separate subvolume within it to hold the snapshots.
+This prevents snaphots being included in snapshots.
+Snapper uses a <code>.snapshots</code> subvolume by convention.
+The steps below create a <code>.snapshots</code> subvolume in which to keep snapshots of the root subvolume.
+The subvolume is created according to a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat layout</a>, so it exists at the top-level of the Btrfs volume and is mounted explicitly in <code><a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">/etc/fstab</a></code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Mount the volume containing the root subvolume to <code>/mnt</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mount <span class="o">(</span><span class="nb">df</span> <span class="nt">--output</span><span class="o">=</span><span class="nb">source</span> / | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="o">)</span> /mnt</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a btrfs subvolume where the snapshots will be stored.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Here the subvolume will be named <code>snapshots</code>.
+If you prefer to prefix the name with <code>@</code>, be my guest.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs subvolume create /mnt/snapshots</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Add an entry in <a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">/etc/fstab</a> to mount the snapshots subvolume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="o">(</span><span class="nb">df</span> <span class="nt">--output</span><span class="o">=</span><span class="nb">source</span> / | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="o">)</span><span class="s2">" /.snapshots btrfs defaults,autodefrag,compress=zstd,commit=120,noatime,subvol=snapshots 0 0"</span> <span class="se">\</span>
+  | <span class="nb">tee</span> <span class="nt">-a</span> /etc/fstab</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Mount the snapshots subvolume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mount /.snapshots</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Unmount <em>/mnt</em>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>umount /mnt</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configure">Configure</h3>
+<div class="paragraph">
+<p>Configuration of Snapper is done through a config file.
+One config file is used for each subvolume that Snapper will be snapshotting.
+Typically, a new Snapper configuration is generated with a single command given the name for the config and the path of the subvolume to snapshot.
+A configuration for the root subvolume, aptly named <em>root</em>, would be generated as shown here.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>snapper <span class="nt">-c</span> root create-config /</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Due to some sort of misconfiguration or bug, the <code>create-config</code> subcommand fails.
+The instructions below create a config manually as a workaround.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a <em>root</em> config file by copying the template file to the configs directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cp</span> /etc/snapper/config-templates/default /etc/snapper/configs/root</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Edit the config file to your liking.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Below is an example of a root config which uses the timeline features of Snapper to create and cleanup snapshots.
+The entire configuration file is included but the <code>TIMELINE_</code> variables are the most important.
+They enable automatically creating and removing snapshots and designate how many snapshots to retain for a particular period.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/snapper/configs/root</div>
+<div class="content">
+<pre class="rouge highlight"><code># subvolume to snapshot
+SUBVOLUME="/"
+
+# filesystem type
+FSTYPE="btrfs"
+
+
+# btrfs qgroup for space aware cleanup algorithms
+QGROUP=""
+
+
+# fraction of the filesystems space the snapshots may use
+SPACE_LIMIT="0.5"
+
+# fraction of the filesystems space that should be free
+FREE_LIMIT="0.2"
+
+
+# users and groups allowed to work with config
+ALLOW_USERS=""
+ALLOW_GROUPS=""
+
+# sync users and groups from ALLOW_USERS and ALLOW_GROUPS to .snapshots
+# directory
+SYNC_ACL="no"
+
+
+# start comparing pre- and post-snapshot in background after creating
+# post-snapshot
+BACKGROUND_COMPARISON="yes"
+
+
+# run daily number cleanup
+NUMBER_CLEANUP="yes"
+
+# limit for number cleanup
+NUMBER_MIN_AGE="1800"
+NUMBER_LIMIT="50"
+NUMBER_LIMIT_IMPORTANT="10"
+
+
+# create hourly snapshots
+TIMELINE_CREATE="yes"
+
+# cleanup hourly snapshots after some time
+TIMELINE_CLEANUP="yes"
+
+# limits for timeline cleanup
+TIMELINE_MIN_AGE="1800"
+TIMELINE_LIMIT_HOURLY="24"
+TIMELINE_LIMIT_DAILY="10"
+TIMELINE_LIMIT_WEEKLY="3"
+TIMELINE_LIMIT_MONTHLY="0"
+TIMELINE_LIMIT_YEARLY="0"
+
+
+# cleanup empty pre-post-pairs
+EMPTY_PRE_POST_CLEANUP="yes"
+
+# limits for empty pre-post-pair cleanup
+EMPTY_PRE_POST_MIN_AGE="1800"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration keeps one snapshot for each of the previous 24 hours, 10 days, and 3 weeks.
+I could retain snapshots for months and years, but for my desktop&#8217;s root filesystem this just isn&#8217;t unnecessary.
+Refer to <a href="https://github.com/kdave/btrfsmaintenance#tuning-periodic-snapshotting">Tuning Periodic Snapshotting</a> from the <a href="https://github.com/kdave/btrfsmaintenance">Btrfs maintenance toolbox</a> for good rules of thumb.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Now that the config is ready, enable it by adding it to the list of Snapper configs in <code>/etc/sysconfig/snapper</code>.</p>
+<div class="listingblock">
+<div class="title">/etc/sysconfig/snapper</div>
+<div class="content">
+<pre class="rouge highlight"><code>SNAPPER_CONFIGS="root"</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user_snapshots">User Snapshots</h3>
+<div class="paragraph">
+<p>One of the features of Snapper is that users can manage snapshots within their home directory.
+This introduces a nice separation of concerns and responsibilities.
+A PAM module is also provided which can take snapshots whenever a user logs in and subsequently logs out.</p>
+</div>
+<div class="sect3">
+<h4 id="snapshots_subvolume_2">Snapshots Subvolume</h4>
+<div class="paragraph">
+<p>In contrast to the previous configuration, the snapshots directory created for the user&#8217;s home directory follows a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested">nested layout</a>.
+This is much simpler.</p>
+</div>
+<div class="paragraph">
+<p>Create a subvolume for snapshots in the user&#8217;s home directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs subvolume create ~/.snapshots</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>~/.snapshots</code> subvolume must be owned by root otherwise Snapper will throw an error.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configure_2">Configure</h4>
+<div class="paragraph">
+<p>The steps outlined here configure snapshots for a user&#8217;s home directory.
+This configuration assumes that the user&#8217;s home directory resides on a dedicated subvolume.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a Snapper configuration file for the user&#8217;s home directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo cp</span> /etc/snapper/config-templates/default /etc/snapper/configs/home_jordan</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Edit the template as necessary.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>There are two important distinctions from the root fileystem configuration.
+First, the <code>ALLOW_USERS</code> parameter includes the name of the user.
+This permits the user to work with the config.
+Second, <code>SYNC_ACL</code> is enabled, allowing the user to work with the snapshots in the <code>~.snapshots</code> directory.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/snapper/configs/home_jordan</div>
+<div class="content">
+<pre class="rouge highlight"><code># subvolume to snapshot
+SUBVOLUME="/home/jordan"
+
+# filesystem type
+FSTYPE="btrfs"
+
+
+# btrfs qgroup for space aware cleanup algorithms
+QGROUP=""
+
+
+# fraction of the filesystems space the snapshots may use
+SPACE_LIMIT="0.5"
+
+# fraction of the filesystems space that should be free
+FREE_LIMIT="0.2"
+
+
+# users and groups allowed to work with config
+ALLOW_USERS="jordan"
+ALLOW_GROUPS=""
+
+# sync users and groups from ALLOW_USERS and ALLOW_GROUPS to .snapshots
+# directory
+SYNC_ACL="yes"
+
+
+# start comparing pre- and post-snapshot in background after creating
+# post-snapshot
+BACKGROUND_COMPARISON="yes"
+
+
+# run daily number cleanup
+NUMBER_CLEANUP="yes"
+
+# limit for number cleanup
+NUMBER_MIN_AGE="1800"
+NUMBER_LIMIT="50"
+NUMBER_LIMIT_IMPORTANT="10"
+
+
+# create hourly snapshots
+TIMELINE_CREATE="yes"
+
+# cleanup hourly snapshots after some time
+TIMELINE_CLEANUP="yes"
+
+# limits for timeline cleanup
+TIMELINE_MIN_AGE="1800"
+TIMELINE_LIMIT_HOURLY="48"
+TIMELINE_LIMIT_DAILY="14"
+TIMELINE_LIMIT_WEEKLY="8"
+TIMELINE_LIMIT_MONTHLY="12"
+TIMELINE_LIMIT_YEARLY="2"
+
+
+# cleanup empty pre-post-pairs
+EMPTY_PRE_POST_CLEANUP="yes"
+
+# limits for empty pre-post-pair cleanup
+EMPTY_PRE_POST_MIN_AGE="1800"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration keeps one snapshot for each of the previous 48 hours, 14 days, 8 weeks, 12 months, and 2 years.
+This is quite extensive, but for preserving critical data in a user&#8217;s home directory it&#8217;s sensible.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Enable the <code>home_jordan</code> Snapper config by adding to the <code>SNAPPER_CONFIGS</code> list.</p>
+<div class="listingblock">
+<div class="title">/etc/sysconfig/snapper</div>
+<div class="content">
+<pre class="rouge highlight"><code>SNAPPER_CONFIGS="root home_jordan"</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="snapper_pam">Snapper PAM</h4>
+<div class="paragraph">
+<p>If you wish to take snapshots of a user&#8217;s home directory upon log in and log out, you&#8217;ll need to install the PAM module.
+The user&#8217;s home directory must be its own subvolume and must have an enabled Snapper config such as the one created previously.
+The steps necessary to install Snapper&#8217;s PAM module follow.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install Snapper&#8217;s PAM module.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libpam-snapper</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the <code>pam_snapper.so</code> module to the PAM configuration for the <code>session</code> type.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">/etc/pam.d/common-session</div>
+<div class="content">
+<pre class="rouge highlight"><code>session    optional    pam_snapper.so ignoreroot cleanup=timeline</code></pre>
+</div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You will almost certainly want to set a cleanup algorithm as done here otherwise old snapshots won&#8217;t be deleted automatically.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="a_graphical_interface">A Graphical Interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Snapper doesn&#8217;t provide a graphical user interface, but that doesn&#8217;t mean there isn&#8217;t one.
+Checkout the <a href="https://github.com/ricardomv/snapper-gui">snapper-gui</a> project if you&#8217;d like one!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This post has given a walkthrough of managing Btrfs snapshots with Snapper.
+You should now be able to create Snapper configurations at both the system and user levels.
+Now you&#8217;ll probably want to backup those snapshots in case there&#8217;s a catastrophic failure or some such.
+Stay tuned for an upcoming tutorial on configuring backups plus more posts on getting the most out of Snapper!</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/btrfs-snapshot-management-with-snapper' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

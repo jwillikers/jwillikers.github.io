@@ -193,6 +193,10 @@
 <lastmod>2021-02-13T00:00:00-06:00</lastmod>
 </url>
 <url>
+<loc>https://www.jwillikers.com/btrfs-snapshot-management-with-snapper</loc>
+<lastmod>2021-02-15T00:00:00-06:00</lastmod>
+</url>
+<url>
 <loc>https://www.jwillikers.com/CODE_OF_CONDUCT</loc>
 </url>
 <url>
@@ -619,9 +623,6 @@
 <loc>https://www.jwillikers.com/tags/zfs/</loc>
 </url>
 <url>
-<loc>https://www.jwillikers.com/tags/btrfs/</loc>
-</url>
-<url>
 <loc>https://www.jwillikers.com/tags/elementaryos/</loc>
 </url>
 <url>
@@ -665,6 +666,12 @@
 </url>
 <url>
 <loc>https://www.jwillikers.com/tags/xdg-base/</loc>
+</url>
+<url>
+<loc>https://www.jwillikers.com/tags/btrbk/</loc>
+</url>
+<url>
+<loc>https://www.jwillikers.com/tags/timeshift/</loc>
 </url>
 <url>
 <loc>https://www.jwillikers.com/categories/networking/</loc>
