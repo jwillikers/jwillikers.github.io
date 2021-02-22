@@ -1,0 +1,1263 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Adjust Mount Options - JWillikers</title>
+<meta name="description" content="Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7) and udisks2 provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&#8217;re probably aware that root isn&#8217;t necessary for such a thing, but that&#8217;s because there&#8217;s tools that take care of that for you.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Adjust Mount Options">
+<meta property="og:url" content="https://www.jwillikers.com/adjust-mount-options">
+
+
+  <meta property="og:description" content="Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7) and udisks2 provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&#8217;re probably aware that root isn&#8217;t necessary for such a thing, but that&#8217;s because there&#8217;s tools that take care of that for you.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-22T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/adjust-mount-options">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mounting filesystems on Linux is simple, right?
+Just use <a href="https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html">mount(8)</a>, specify the recurring stuff in <a href="https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a>, and everything&#8217;s peachy.
+For both better and worse, there&#8217;s more to it than that.
+Filesystem dependencies are handled by <a href="https://systemd.io/">systemd</a> and tools like <a href="https://manpages.ubuntu.com/manpages/bionic/en/man7/udev.7.html">udev(7)</a> and <a href="http://storaged.org/doc/udisks2-api/latest/">udisks2</a> provide userspace access to devices.
+Imagine not having to be root to access your flash drive?
+Okay, you&#8217;re probably aware that root isn&#8217;t necessary for such a thing, but that&#8217;s because there&#8217;s tools that take care of that for you.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;ve been working through understanding the different components of this for a while now, but recently put most of it together addressing an important concept.
+That is mount options.
+Switching to <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a> as my default filesystem and using it for my backups, I wanted to improve the default mount options.
+And I wanted to these defaults used in userspace, not just in <a href="https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a> or when using <a href="https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html">mount(8)</a>.
+I&#8217;ve accumulated my knowledge on the subject here and describe exactly how to set Btrfs mount options to your liking, whichever way you might want.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial walks through the menagery of methods for mounting a Btrfs volume with a specific set of mount options.
+The reference operating system is <a href="https://opensource.org/licenses/gpl-license">Ubuntu</a> 18.04.
+It will underscore several available approaches specific to the kernel and userspace levels.
+You should have a fairly strong understanding of Linux, the command-line, and filesystems.
+I expect you to understand mount options.</p>
+</div>
+<div class="sect2">
+<h3 id="setup">Setup</h3>
+<div class="paragraph">
+<p>This walkthrough uses a mount point under the standard mount directory for your user.
+The mount point is <code>/run/media/$USER/backups</code>.
+This mount point must exist before we begin.
+Create this directory as follows.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo mkdir</span> <span class="nt">-p</span> /run/media/<span class="nv">$USER</span>/backups</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The rest of the tutorial will use <code>$USER</code> to substitute your username on the command-line.
+Command-line output will use my username, <em>jordan</em>, instead to reflect the output when I run the command.
+Your username will appear instead of <em>jordan</em>.</p>
+</div>
+<div class="paragraph">
+<p>This tutorial also uses a USB connected storage device which appears as <code>sdb</code>.
+Your device could be under the same name in the device tree or it might use a different name.
+To locate your USB device, examine the output of lsblk.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ lsblk
+NAME           MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+sda              8:0    0   1.8T  0 disk
+├─sda1           8:1    0   976M  0 part  /boot
+└─sda2           8:2    0   1.8T  0 part
+  └─sda2_crypt 253:0    0   1.8T  0 crypt /opt
+sdb              8:16   0 931.5G  0 disk  <i class="conum" data-value="1"></i><b>(1)</b>
+└─sdb1           8:17   0 931.5G  0 part
+sr0             11:0    1  1024M  0 rom</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This is my 1 TB external hard drive.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The device used in the examples has a single partition, <code>sdb1</code>, formatted as Btrfs.
+If you would like to follow along with your own device, you can format your device as follows.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This will effectively obfuscate any data on the drive making it very difficult or impossible to recover.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Wipe any existing partition tables on the flash drive and generate a new one.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The set of <em>gdisk</em> commands, consisting of {cgdisk}, {gdisk}, and {sgdisk}, manipulate {guid-partition-tables}, also known as <em>GPTs</em>.
+Older {master-boot-records}, <em>MBRs</em>, are instead managed with {fdisk} and its similarly named friends.
+Here, the {sgdisk} command is used to partition the flash drive using the newer <em>GPT</em> format without requiring any user interaction.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>sgdisk <span class="nt">-Z</span> <span class="nt">-n</span> 0:0:0 <span class="nt">-c</span> 0:<span class="s2">"Black WD HDD"</span> /dev/sdb
+GPT data structures destroyed! You may now partition the disk using fdisk or
+other utilities.
+Setting name!
+partNum is 0
+The operation has completed successfully.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>-Z</code> flag <em>zaps</em> any existing MBR and GPT partition tables into oblivion.
+Then, the <code>-n</code> flag creates a new partition given the partition number, starting sector, and ending sector separated by colons.
+Zeros used here represent default values.
+The first zero sets the partition number to the next available number, which is one since this is the first partition on the flash drive.
+The next two zeros designate the starting sector of the largest block and the last sector of that same block, creating a single partition which effectively takes up the entirety of the flash drive.
+The <code>-c</code> flag labels the new partition which is indicated by the <code>0:</code>.
+The label here provides a basic description of the disk.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Format the partition with Btrfs.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Here I label the volume with a descriptive name of the disk and its purpose.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mkfs <span class="nt">-t</span> btrfs <span class="nt">-L</span> <span class="s2">"Black WD EasyStore External HDD - My Backups"</span> /dev/sdb1
+btrfs-progs v4.15.1
+See http://btrfs.wiki.kernel.org <span class="k">for </span>more information.
+
+Label:              Black WD EasyStore External HDD - My Backups
+UUID:               13177899-cb85-45b7-99b6-b76e2fc41f44 <i class="conum" data-value="1"></i><b>(1)</b>
+Node size:          16384
+Sector size:        4096
+Filesystem size:    931.48GiB
+Block group profiles:
+  Data:             single            8.00MiB
+  Metadata:         DUP               1.00GiB
+  System:           DUP               8.00MiB
+SSD detected:       no
+Incompat features:  extref, skinny-metadata
+Number of devices:  1
+Devices:
+   ID        SIZE  PATH
+    1   931.48GiB  /dev/sdb1</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Note the <em>UUID</em> here for use in later examples.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Then mount the volume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mount <span class="nt">-o</span> noatime,autodefrag,compress<span class="o">=</span>zstd,commit<span class="o">=</span>120 <span class="se">\</span>
+  /dev/sdb1 <span class="se">\</span>
+  /run/media/<span class="nv">$USER</span>/backups</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a subvolume for storing backups.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs subvolume create /run/media/<span class="nv">$USER</span>/backups/my-backups
+Create subvolume <span class="s1">'/run/media/jordan/backups/my-backups'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the current user as the owner of the subvolume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo chown</span> <span class="nv">$USER</span>:<span class="nv">$USER</span> /run/media/<span class="nv">$USER</span>/backups/my-backups</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Umount the volume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>umount /run/media/<span class="nv">$USER</span>/backups</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you didn&#8217;t note your volume&#8217;s UUID, you can do so with the following command.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ lsblk <span class="nt">-no</span> uuid /dev/sdb1
+13177899-cb85-45b7-99b6-b76e2fc41f44</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="system_level_mounting">System-level Mounting</h3>
+<div class="paragraph">
+<p>At the system-level, the primary ways to management mounts are <a href="https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html">mount(8)</a>, <a href="https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a>, and <a href="https://systemd.io/">systemd</a>.
+Each of these is discussed below.</p>
+</div>
+<div class="sect3">
+<h4 id="mount">mount</h4>
+<div class="paragraph">
+<p>Old faithful and ever present, <a href="https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html">mount(8)</a> is ubiquitous.
+Use it to mount a filesystem as root giving it a comma-separated list of options preceded by the <code>-o</code> flag, the device, and the mountpoint.
+To mount the Btrfs subvolume named <code>backups</code> on the block device <code>/dev/sdb1</code> to <code>/run/media/$USER/backups</code> with several mount options, use the following command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mount <span class="nt">-o</span> noatime,autodefrag,compress<span class="o">=</span>zstd,commit<span class="o">=</span>120,subvol<span class="o">=</span>my-backups <span class="se">\</span>
+  <span class="s1">'/dev/disk/by-label/Black\x20WD\x20EasyStore\x20External\x20HDD\x20-\x20My\x20Backups'</span> <span class="se">\</span>
+  /run/media/<span class="nv">$USER</span>/backups</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To unmount the device, use the umount command with the device path or the path of the mount point.
+Here, the previously mounted device is unmounted.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>umount /run/media/<span class="nv">$USER</span>/backups</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Easy, right?</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="fstab">fstab</h4>
+<div class="paragraph">
+<p>To automatically mount something, <a href="https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a> is the de facto standard.
+The previous command can be translated to the following entry in fstab.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>UUID=13177899-cb85-45b7-99b6-b76e2fc41f44 /run/media/jordan/backups btrfs defaults,nofail,noauto,noatime,autodefrag,compress=zstd,commit=120,subvol=my-backups 0 0</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To avoid throwing a wrench in the entire boot process, include the <code>nofail</code> mount option if this is a removable drive of some kind.
+This tells the system it&#8217;s okay if the drive is missing when its booting up.
+The <code>defaults</code> option includes the <code>auto</code> option which mounts the volume automatically while booting.
+Adding the <code>noauto</code> option disables this.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now this subvolume will be mounted with the appropriate options when the system is booted up.
+Or, atleast, it should&#8230;&#8203;
+Always verify your fstab file after modifying it with <code>findmnt --verify</code>.
+Here I include the <code>--verbose</code> flag as well and abbreviate the output.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ findmnt <span class="nt">--verify</span> <span class="nt">--verbose</span>
+/
+   <span class="o">[</span> <span class="o">]</span> target exists
+   <span class="o">[</span> <span class="o">]</span> VFS options: noatime
+   <span class="o">[</span> <span class="o">]</span> FS options: autodefrag,compress<span class="o">=</span>zstd,commit<span class="o">=</span>120,subvol<span class="o">=</span>root
+   <span class="o">[</span> <span class="o">]</span> <span class="nb">source</span> /dev/mapper/sda2_crypt exists
+   <span class="o">[</span>W] cannot detect on-disk filesystem <span class="nb">type</span>
+   <span class="o">[</span>W] recommended root FS passno is 1 <span class="o">(</span>current is 0<span class="o">)</span>
+
+...
+
+/run/media/jordan/backups
+   <span class="o">[</span> <span class="o">]</span> target exists
+   <span class="o">[</span> <span class="o">]</span> VFS options: noatime
+   <span class="o">[</span> <span class="o">]</span> FS options: autodefrag,compress<span class="o">=</span>zstd,commit<span class="o">=</span>120,subvol<span class="o">=</span>my-backups
+   <span class="o">[</span> <span class="o">]</span> userspace options: nofail,noauto
+   <span class="o">[</span> <span class="o">]</span> <span class="nv">UUID</span><span class="o">=</span>13177899-cb85-45b7-99b6-b76e2fc41f44 translated to /dev/sdb1
+   <span class="o">[</span> <span class="o">]</span> <span class="nb">source</span> /dev/sdb1 exists
+   <span class="o">[</span>W] cannot detect on-disk filesystem <span class="nb">type
+
+</span>0 parse errors, 0 errors, 17 warnings</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There&#8217;s no errors and the warnings don&#8217;t appear to be anything serious.
+Everything should be alright.</p>
+</div>
+<div class="paragraph">
+<p>Previously when using the mount command, each mount option had to be specified.
+When mounting a matching entry in fstab, the mount options in fstab are applied automatically.
+The following command will mount the volume using the mount options specified in fstab for <code>/run/media/$USER/backups</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mount /run/media/<span class="nv">$USER</span>/backups</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="systemd">systemd</h4>
+<div class="paragraph">
+<p>This is where things start to get complicated.
+systemd handles dependencies among all sorts of services whether that&#8217;s during boot or during runtime.
+Some things require mounting filesystems, so systemd exposes an interface for specifying and managing these dependencies.
+The primary unit file for this is the <a href="https://manpages.ubuntu.com/manpages/bionic/man5/systemd.mount.5.html">systemd.mount(5)</a> unit.</p>
+</div>
+<div class="paragraph">
+<p>A companion unit file type exists <a href="https://manpages.ubuntu.com/manpages/bionic/man5/systemd.automount.5.html">systemd.automount(5)</a> which, if created, controls automatically mounting the mount point.
+The automount functionality will automatically mount a volume in an on-demand fashion.
+When the volume is first accessed, it is mounted as necessary.
+A timeout may be specified to automatically unmount the volume after a period of time.</p>
+</div>
+<div class="paragraph">
+<p>An important aspect the mount unit convention is the required naming scheme.
+The file names of mount and automount units must correspond to the mount point of where the volume will be mounted.
+The file name is appropriately transformed to remove troubelesome characters.
+Most notably, `/&#8217;s are replaced with `-&#8217;s.</p>
+</div>
+<div class="sect4">
+<h5 id="generated">Generated</h5>
+<div class="paragraph">
+<p>systemd integrates nicely enough with fstab such that it automatically generates these mount units from their entries.
+Being able to inspect the mount units on a system can come in handy, so here&#8217;s how.</p>
+</div>
+<div class="paragraph">
+<p>Having just edited fstab, systemd will not generate an entry for <code>/run/media/jordan/backups</code> until the system reboots.
+I don&#8217;t want to reboot, so I&#8217;ll just reload the necessary components before examining the generated unit files.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Reload systemd.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl daemon-reload</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Restart the <em>local-fs</em> target.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl restart local-fs.target</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use the <code>systemctl</code> subcommand <code>list-unit-files</code> and specify the <code>mount</code> type with the <code>-t</code> flag to list all mount unit files.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl list-unit-files <span class="nt">-t</span> mount
+UNIT FILE                      STATE
+-.mount                        generated
+<span class="se">\x</span>2esnapshots.mount            generated
+boot.mount                     generated
+dev-hugepages.mount            static
+dev-mqueue.mount               static
+home.mount                     generated
+run-media-jordan-backups.mount generated <i class="conum" data-value="1"></i><b>(1)</b>
+opt.mount                      generated
+proc-sys-fs-binfmt_misc.mount  static
+root.mount                     generated
+srv.mount                      generated
+swap.mount                     generated
+sys-fs-fuse-connections.mount  static
+sys-kernel-config.mount        static
+sys-kernel-debug.mount         static
+tmp.mount                      generated
+usr-local.mount                generated
+var.mount                      generated
+
+18 unit files listed.</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The mount unit <code>run-media-jordan-backups.mount</code> corresponds to the mount point <code>/run/media/jordan/backups</code> and the corresponding fstab entry added previously.</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To view the contents of a mount unit file, pass the name of the unit to <code>systemctl</code> after the subcommand <code>cat</code>.
+The following command displays the contents of the mount unit file generated for <code>/dev/sdb1</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nb">cat </span>run-media-<span class="nv">$USER</span><span class="nt">-backups</span>.mount
+<span class="c"># /run/systemd/generator/run-media-jordan-backups.mount</span>
+<span class="c"># Automatically generated by systemd-fstab-generator</span>
+
+<span class="o">[</span>Unit]
+<span class="nv">SourcePath</span><span class="o">=</span>/etc/fstab
+<span class="nv">Documentation</span><span class="o">=</span>man:fstab<span class="o">(</span>5<span class="o">)</span> man:systemd-fstab-generator<span class="o">(</span>8<span class="o">)</span>
+<span class="nv">Before</span><span class="o">=</span>local-fs.target
+
+<span class="o">[</span>Mount]
+<span class="nv">Where</span><span class="o">=</span>/run/media/jordan/backups
+<span class="nv">What</span><span class="o">=</span>/dev/disk/by-uuid/13177899-cb85-45b7-99b6-b76e2fc41f44
+<span class="nv">Type</span><span class="o">=</span>btrfs
+<span class="nv">Options</span><span class="o">=</span>defaults,nofail,noauto,noatime,autodefrag,compress<span class="o">=</span>zstd,commit<span class="o">=</span>120,subvol<span class="o">=</span>my-backups</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A <a href="https://manpages.ubuntu.com/manpages/bionic/man5/systemd.automount.5.html">systemd.automount(5)</a> can be generated automatically for an entry in <a href="https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a> by adding the <code>x-systemd.automount</code> mount option.
+You can pair this option with <code>noauto</code> if you wish to prevent the volume from being mounted automatically at boot.
+The <code>x-systemd.idle-timeout</code> mount option for automount units is handy for specifying how many seconds before an idle drive should be unmounted from the filesystem.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="systemd_mount">systemd-mount</h5>
+<div class="paragraph">
+<p>Mount units can be generated on the fly by mounting volumes with <a href="https://www.freedesktop.org/software/systemd/man/systemd-mount.html">systemd-mount(1)</a>.
+The systemd-mount command to mount <code>/dev/sdb1</code> with the desired Btrfs options appears suspiciously like the corresponding mount command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-mount <span class="nt">-o</span> noatime,autodefrag,compress<span class="o">=</span>zstd,commit<span class="o">=</span>120,subvol<span class="o">=</span>my-backups /dev/sdb1 /run/media/<span class="nv">$USER</span>/backups
+Started unit run-media-jordan-backups.mount <span class="k">for </span>mount point: /run/media/jordan/backups</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It&#8217;s possible to eschew the mount point and let systemd decide where to mount the volume.
+By default, this will mount the volume underneath the directory <code>/run/media/system/&lt;label&gt;</code> where <code>&lt;label&gt;</code> is a placeholder for the filesystem&#8217;s label or other identifier.
+Mount <code>/dev/sdb1</code> to the default systemd location as follows.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-mount <span class="nt">-o</span> noatime,autodefrag,compress<span class="o">=</span>zstd,commit<span class="o">=</span>120,subvol<span class="o">=</span>my-backups /dev/sdb1
+Started unit run-media-system-backups.mount <span class="k">for </span>mount point: /run/media/system/backups</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use the <code>-A</code> flag to generate a corresponding systemd automount unit when mounting a volume.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Likewise, use <a href="https://www.freedesktop.org/software/systemd/man/systemd-umount.html">systemd.mount(5)</a> to unmount the volume by providing either the device or the path to the mount point.
+This command unmounts the device <code>/dev/sdb1</code> mounted with either or both of the previous two commmands.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-umount /dev/sdb1
+Stopped unit run-media-system-backups.mount <span class="k">for </span>mount point: /run/media/system/backups</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="manual">Manual</h5>
+<div class="paragraph">
+<p>Practically speaking, it shouldn&#8217;t be necessary to create mount units outright.
+It&#8217;s still completely possible.
+The steps to do so our outlined below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a mount unit to mount the volume.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">/etc/systemd/system/run-media-jordan-backups.mount</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Additional drive
+
+<span class="k">[Mount]</span>
+<span class="nt">What</span><span class="p">=</span>/dev/sdb1
+<span class="nt">Where</span><span class="p">=</span>/run/media/jordan/backups
+<span class="nt">Type</span><span class="p">=</span>btrfs
+<span class="nt">Options</span><span class="p">=</span>defaults,nofail,noauto,noatime,autodefrag,compress=zstd,commit=120,subvol=my-backups
+
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>multi-user.target</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The name of the mount unit must reflect the path of the mount point.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Enable the mount unit with <code>systemctl</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl <span class="nb">enable </span>run-media-<span class="nv">$USER</span><span class="nt">-backups</span>.mount</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A corresponding automount unit for the mount unit defined above would be as follows.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/systemd/system/run-media-jordan-backups.automount</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="systemd"><span class="nt">Description</span><span class="p">=</span>Automount drive
+
+<span class="k">[Automount]</span>
+<span class="nt">Where</span><span class="p">=</span>/run/media/jordan/backups
+
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>multi-user.target</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="usesrpace_mounting">Usesrpace Mounting</h3>
+<div class="paragraph">
+<p>Mounting filesystems without root privileges is less straightforward.
+While accomadations can be made for mount and systemd offers such functionality, the best tool to use is <a href="http://storaged.org/doc/udisks2-api/latest/">udisks2</a> which ships with most mainstream distributions.
+Each of these is discussed below.</p>
+</div>
+<div class="sect3">
+<h4 id="mount_2">mount</h4>
+<div class="paragraph">
+<p>Given that fstab contains an entry with the <code>user</code> or <code>users</code> mount options, that entry can be mounted by the user without root privileges.
+This still requires support from someone with superuser access on the system, which is impractical for those users who just want to be able to mount a flash drive.
+This method doesn&#8217;t allow the user to mount the filesystem with any special mount options on the command-line.
+Mount options may only be specified within fstab.</p>
+</div>
+<div class="paragraph">
+<p>The fstab entry below allows a user to mount <code>/dev/sdb1</code> to <code>/run/media/$USER/backups</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/fstab</div>
+<div class="content">
+<pre class="rouge highlight"><code>/dev/sdb1 /run/media/jordan/backups btrfs defaults,user,nofail,noauto,noatime,autodefrag,compress=zstd,commit=120,subvol=my-backups 0 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, a user can mount the volume with the device path <em>or</em> the mount point as done here.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ mount /run/media/<span class="nv">$USER</span>/backups</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Attempting to provide <em>both</em> the device and mount point to the mount command as a user will result in an error.
+Here mount doesn&#8217;t like the fact that I gave it the device and the mount point.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ mount /dev/sdb1 /run/media/<span class="nv">$USER</span>/backups
+mount: only root can <span class="k">do </span>that</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A user can also unmount the entry they have mounted when it is set with the <code>user</code> option.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ umount /run/media/<span class="nv">$USER</span>/backups</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the <code>users</code> option is provided, it allows any user to unmount the drive regardless of which user mounted it.
+This difffers from the <code>user</code> option which only allows the user that mounted the volume to unmount it.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="systemd_2">systemd</h4>
+<div class="paragraph">
+<p>While systemd provides user-level services, including mounting, its abilities are limited to that of the mount command.
+And to that end, its practically usesless for userspace mounting.
+After trying all sorts of workarounds, the mount command just isn&#8217;t called correctly to allow non-root users the ability to mount filesystems.
+A corresponding fstab entry with the <code>user</code> or <code>users</code> mount option has no effect.
+This is because systemd hard-codes the mount command with both the device and the mount point.
+This was shown to end with an error when run as a normal user previously.</p>
+</div>
+<div class="paragraph">
+<p>The <em>only</em> sensible way to make this possible is by using a {systemd-service} unit rather than a systemd mount unit.
+A correcly formed mount command will succeed when executed by the user.
+Given the entry for <code>/run/media/jordan/backups</code> has the <code>user</code> or <code>users</code> mount option set in fstab, a user service file to mount it would look like the following.</p>
+</div>
+<div class="listingblock">
+<div class="title">~/.config/systemd/user/mount-run-media-jordan-backups.service</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Mount my backups
+
+<span class="k">[Service]</span>
+<span class="nt">ExecStart</span><span class="p">=</span>/bin/mount /run/media/jordan/backups
+<span class="nt">ExecStop</span><span class="p">=</span>/bin/umount /run/media/jordan/backups
+<span class="nt">RemainAfterExit</span><span class="p">=</span>yes
+
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>default.target</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>User units are placed in different directories than system units.
+The <code>~/.config/systemd/user/</code> directory is a standard directory for user units.
+No root privileges are required to create units here.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To mount the volume, start the service.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nt">--user</span> start mount-run-media-<span class="nv">$USER</span><span class="nt">-backups</span>.service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unmounting the volume is just a matter of stopping the service.
+Do this like so.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nt">--user</span> stop mount-run-media-<span class="nv">$USER</span><span class="nt">-backups</span>.service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want to mount automatically when logging in, use the <code>enable</code> subcommand instead of <code>start</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nt">--user</span> <span class="nb">enable </span>mount-run-media-<span class="nv">$USER</span><span class="nt">-backups</span>.service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To take this a step, further, it&#8217;s possible to create an instantiable systemd unit.
+This is a fancy way of saying that variable information can be provided in the file name after the <code>@</code> symbol and before the units extension.
+This allows creating a single unit file to accomodate a variety of situations.
+It effectively introduces a variable which can be used to customize the unit.</p>
+</div>
+<div class="paragraph">
+<p>The previous unit can be made into a generic, instantiable unit which allows mounting a variety of volumes.
+Thanks goes to <a href="https://unix.stackexchange.com/a/316991/395084"><em>byly&#8217;s</em> answer</a> on the <a href="https://unix.stackexchange.com/">Unix &amp; Linux Stack Exchange</a> for introducing me to this nifty approach.
+To follow conventions, the unit will mount the volume under <code>/run/media/$USER</code>.
+The mount point will be encoded in the name of the service, i.e. sandwhiched between the <code>@</code> and <code>.service</code> suffix.
+This user service unit, dubbed <code>mount@</code>, looks like this.</p>
+</div>
+<div class="listingblock">
+<div class="title">~/.config/systemd/user/mount@.service</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh"><span class="o">[</span>Unit]
+<span class="nv">Description</span><span class="o">=</span>Mount volumes <span class="k">for </span>a user which have the <span class="sb">`</span>user<span class="sb">`</span> or <span class="sb">`</span><span class="nb">users</span><span class="sb">`</span> mount options defined
+
+<span class="o">[</span>Service]
+<span class="nv">ExecStart</span><span class="o">=</span>/bin/mount /run/media/%u/%I
+<span class="nv">ExecStop</span><span class="o">=</span>/bin/umount /run/media/%u/%I
+<span class="nv">RemainAfterExit</span><span class="o">=</span><span class="nb">yes</span>
+
+<span class="o">[</span>Install]
+<span class="nv">WantedBy</span><span class="o">=</span>default.target</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This unit uses wildcards, letters prefixed with <code>%</code>.
+Wildcards are substited with the appropriate information when the unit is enabled.
+<code>%u</code> stands for the username of the user using the unit.
+<code>%I</code> represents the instantiable component provided in the unit&#8217;s name.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>With superuser access, the file can placed in the directory <code>/etc/systemd/user/</code> instead of <code>~/.config/systemd/user/</code> to provide this user service to all users.
+Of course, you&#8217;ll probably want to use a path which doesn&#8217;t include the username, <code>/run/media</code> for instance, if you want to avoid creating an entry for each individual user in fstab.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To use the instantiable unit, the directory for the mount point must exist in <code>/run/media/$USER</code>.
+Additionally, an entry in fstab that mounts to that mount point must set the <code>user</code> or <code>users</code> mount option.
+Given those requirements, use the instantiable service as demonstrated here.
+To mount <code>/run/media/run/$USER/backups</code>, start the service with the name <code>mount@backups</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nt">--user</span> start mount@backups.service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unmount it by stopping the service of the same name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nt">--user</span> stop mount@backups.service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now it&#8217;s time to move on to a more practical tool for mounting volumes from userspace.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="udisks2">udisks2</h4>
+<div class="paragraph">
+<p>There&#8217;s a tool for easily mounting volumes in userspace.
+It&#8217;s udisk2 and it streamlines userspace mounting and changing up those default mount options.
+If you&#8217;re accustomed to a desktop environment on Linux, you&#8217;ve likely benefitted from udisks2.
+That&#8217;s because it&#8217;s what graphical applications such as file managers use to mount drives on your behalf.</p>
+</div>
+<div class="paragraph">
+<p>Mounting and unmounting are done with the <code>udisksctl</code> command.
+To mount a volume, use the <code>mount</code> subcommand.
+Unlike the mount program, only the block device is specified.
+The mount point is determined by udisks2.
+Depending on how udisks2 was compiled, the volume will be mounted in a subdirectory of either be <code>/run/media/</code> or <code>/media/</code>.
+Use the <code>-b</code> flag before the block device.
+Mount options should be provided as a comma-separated list following the <code>--options</code> flag.</p>
+</div>
+<div class="paragraph">
+<p>Here, I mount <code>/dev/sdb1</code> with specific Btrfs mount options.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl mount <span class="nt">-b</span> /dev/sdb1 <span class="nt">--options</span> noatime,autodefrag,compress<span class="o">=</span>zstd,commit<span class="o">=</span>120,subvol<span class="o">=</span>my-backups
+Mounted /dev/sdb1 at /run/media/jordan/backups</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>This may not work for you yet depending on the version of udisks2 on your system and its configuration.
+If it doesn't work, don't worry.
+Configuring the global Btrfs mount options appropriately, as in a following sectsion, should quell any errors.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unmount the volume using the <code>unmount</code> subcommand followed by the <code>-b</code> flag and the block device.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The subcommand is the word <em>unmount</em> not <em>umount</em>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/sdb1
+Unmounted /dev/sdb1.</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="changing_the_default_mount_options">Changing the Default Mount Options</h5>
+<div class="paragraph">
+<p>The udisks2 exposes the ability to change the default mount options.
+This is done through a global configuration file or udev rules.
+Options can be tweaked for specific filesystems, device classes, and individual devices.</p>
+</div>
+<div class="sect5">
+<h6 id="global_config_file">Global Config File</h6>
+<div class="paragraph">
+<p>The easiest way to change the default mount options for all devices is through the global configuration file which lives at <code>/etc/udisks2/mount_options.conf</code>.
+The file uses a simple INI format.
+The section <code>[defaults]</code> contains settings for the default and allowed mount options.
+These settings are further divided among default and allowed mount options for all filesystems and for each particular type of filesystem.
+The default and allowed options for all filesystems are set with the <code>defaults</code> and <code>allow</code> keys respectively.
+The filesystem-specific versions of these keys come from prefixing <code>_defaults</code> and <code>_allow</code> with the filesystem type used by <a href="https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html">mount(8)</a>, such as <code>vfat</code>, <code>ntfs</code>, <code>ext4</code>, and <code>btrfs</code>.
+Thus, the default mount options for btrfs use the key <code>btrfs_defaults</code> and the allowed options use the key <code>btrfs_allow</code>.
+The sample configuration here demonstrates how to set the general default and allowed options as well as those for <code>vfat</code>, <code>ntfs</code>, and <code>btrfs</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/udisks2/mount_options.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[defaults]</span>
+<span class="c"># common options, applied to any filesystem, always merged with specific filesystem type options
+</span><span class="py">defaults</span><span class="p">=</span><span class="s">ro</span>
+<span class="py">allow</span><span class="p">=</span><span class="s">commit,exec,noexec,nodev,nosuid,atime,noatime,nodiratime,ro,rw,sync,dirsync,noload</span>
+
+<span class="c"># specific filesystem type options
+</span><span class="py">vfat_defaults</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,shortname=mixed,utf8=1,showexec,flush</span>
+<span class="py">vfat_allow</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,flush,utf8,shortname,umask,dmask,fmask,codepage,iocharset,usefree,showexec</span>
+<span class="py">ntfs_defaults</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,windows_names</span>
+<span class="py">ntfs_allow</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,umask,dmask,fmask,locale,norecover,ignore_case,windows_names</span>
+
+<span class="py">btrfs_defaults</span><span class="p">=</span><span class="s">autodefrag,compress=zstd</span>
+<span class="py">btrfs_allow</span><span class="p">=</span><span class="s">autodefrag,compress,compress-force,datacow,nodatacow,datasum,nodatasum,degraded,device,discard,nodiscard,subvol,subvolid,space_cache</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Generally, you should start with the default settings stated in the documentation for udisks2&#8217;s <a href="http://storaged.org/doc/udisks2-api/latest/mount_options.html">udisks2 Mount Options</a>.
+You&#8217;ll also need to make sure that any default options are specified in the corresponding allowed set.
+The Btrfs notably allows the <code>autodefrag</code> option in addition to the default udisk2 settings and defaults to using it and zstd compression.</p>
+</div>
+<div class="paragraph">
+<p>The configuration file also provides functionality to specify defaults for particular devices.
+To do so, a device section named after the block device is followed by the general and filesystem-specific <code>default</code> keys discussed previously.
+Here, the defaults for the vfat filesystem are modified for two devices.
+One device is specified by its UUID and another the other by its label.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/udisks2/mount_options.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[/dev/disk/by-uuid/13177899-cb85-45b7-99b6-b76e2fc41f44]</span>
+<span class="py">btrfs_defaults</span><span class="p">=</span><span class="s">autodefrag,compress=zstd</span>
+
+<span class="nn">[/dev/disk/by-label/Black\\x20WD\\x20EasyStore\\x20External\\x20HDD\\x20-\\x20My\\x20Backups]</span>
+<span class="py">btrfs_defaults</span><span class="p">=</span><span class="s">autodefrag,compress=zstd</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For security reasons, prefer udev rules for setting device-specific mount options.
+It&#8217;s easy to falsify the device symlinks used to define the sections.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="udev_rules">udev Rules</h4>
+<div class="paragraph">
+<p><a href="https://manpages.ubuntu.com/manpages/bionic/en/man7/udev.7.html">udev(7)</a> is the subsystem for handling device events on Linux.
+It is a robust method for triggering certain actions when devices are detected.
+udev rules can be used with udisks2 to specify the allowed or default mount options for specific devices.
+This can be for an individual device, a class of devices or some other subset of devices.</p>
+</div>
+<div class="paragraph">
+<p>A system&#8217;s udev rules reside in <em>rules</em> files in standard directories, such as <code>/etc/udev/rules.d</code>.
+To create a new rule, create a new file in this directory.
+udisks2 recommends using the prefix <code>99-</code> to ensure that the rule runs last.</p>
+</div>
+<div class="paragraph">
+<p>udev rules pretty much boil down to matching on a device on certain criteria.
+To work with udisks2, there is a required format including a specific header for block devices and a closing <code>LABEL</code>.
+Modifying the mount options is done through a few variables used in the same way as the keys in the configuration file.
+The variables are named differently than the keys, but follow the same naming convention.
+Defaults are set with the variable <code>UDISKS_MOUNT_OPTIONS_DEFAULTS</code> and allowed options with <code>UDISKS_MOUNT_OPTIONS_ALLOW</code>.
+Filesystem-specific variables place the filesystem type in all caps in between the <code>UDISKS_MOUNT_OPTIONS</code> portion at the beginning and the <code>_ALLOW</code> or <code>_DEFAULTS</code> part at the end.
+Btrfs defaults can be changed by setting the variable <code>UDISKS_MOUNT_OPTIONS_BTRFS_DEFAULTS</code>.
+When setting filesystem-specific options, you should match the rule on the filesystem type provided by the variable <code>ID_FS_TYPE</code>.
+There&#8217;s more to it that that, but this isn&#8217;t supposed to be a udev tutorial so I&#8217;ll show a couple of examples.</p>
+</div>
+<div class="paragraph">
+<p>The udev rule here applies specific Btrfs default mount options to all USB devices.
+These are the same defaults set above in the global configuration file.
+This also mounts USB devices as read-write.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/udev/rules.d/99-udisks2-btrfs-usb.rules</div>
+<div class="content">
+<pre class="rouge highlight"><code># Skip if not a block device or if requested by other rules
+#
+SUBSYSTEM!="block", GOTO="udisks_mount_options_end"
+ENV{DM_MULTIPATH_DEVICE_PATH}=="1", GOTO="udisks_mount_options_end"
+ENV{DM_UDEV_DISABLE_OTHER_RULES_FLAG}=="?*", GOTO="udisks_mount_options_end"
+
+# Mount all USB devices read-only
+SUBSYSTEMS="usb", ENV{ID_FS_USAGE}=="filesystem", \
+    ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}="rw", \
+    ENV{ID_FS_TYPE}=="btrfs", \
+    ENV{UDISKS_MOUNT_OPTIONS_BTRFS_DEFAULTS}="autodefrag,compress=zstd", \
+    ENV{UDISKS_MOUNT_OPTIONS_BTRFS_ALLOW}="autodefrag,compress,compress-force,datacow,nodatacow,datasum,nodatasum,degraded,device,discard,nodiscard,subvol,subvolid,space_cache"
+
+LABEL="udisks_mount_options_end"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To enable a new rule, either reboot your system or reload the udev daemon as demonstrated by the command here.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udevadm control <span class="nt">--reload-rules</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following rule matches on an exact USB device and applies the same default Btrfs options.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/udev/rules.d/99-udisks2-btrfs-backups-usb.rules</div>
+<div class="content">
+<pre class="rouge highlight"><code>SUBSYSTEM!="block", GOTO="udisks_mount_options_end"
+ENV{DM_MULTIPATH_DEVICE_PATH}=="1", GOTO="udisks_mount_options_end"
+ENV{DM_UDEV_DISABLE_OTHER_RULES_FLAG}=="?*", GOTO="udisks_mount_options_end"
+
+ENV{ID_VENDOR}=="WD", ENV{ID_MODEL}=="easystore_25FC", \
+    ENV{ID_SERIAL_SHORT}=="000000000000000000000001", \
+    ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}="rw", \
+    ENV{UDISKS_MOUNT_OPTIONS_BTRFS_DEFAULTS}="autodefrag,compress=zstd",subvol=my-backups, \
+    ENV{UDISKS_MOUNT_OPTIONS_BTRFS_ALLOW}="autodefrag,compress,compress-force,datacow,nodatacow,datasum,nodatasum,degraded,device,discard,nodiscard,subvol,subvolid,space_cache"
+
+LABEL="udisks_mount_options_end"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To determine the id attributes for your hardware, query the information with udevadm.
+Here I filter the output of such a query for <code>/dev/sdb1</code> to just show the <code>ID_VENDOR</code>, <code>ID_MODEL</code>, and <code>ID_SERIAL_SHORT</code> attributes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udevadm info <span class="nt">--query</span><span class="o">=</span>all <span class="nt">--name</span><span class="o">=</span>/dev/sdb <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">'='</span> <span class="s1">'/ID_VENDOR=/ || /ID_MODEL=/ || /ID_SERIAL_SHORT=/ {print $2}'</span>
+WD
+easystore_25FC
+000000000000000000000001</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more examples and information, refer to the udisks2 documentation.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you&#8217;ve made it this far, you now understand way more about mounting filesystems in Linux then you probably ever wanted too.
+You should now know the different ways to control mounting a filesystem whether that&#8217;s as a normal user or as the superuser.
+If you&#8217;re using Btrfs, you should now be able to specify those pesky mount options properly now, too.
+Interested in mounting encrypted volumes or automatically mounting devices?
+Keep an eye on this space for upcoming posts on these topics.</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/adjust-mount-options' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

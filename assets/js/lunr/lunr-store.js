@@ -292,4 +292,10 @@ var store = [{
         "tags": ["btrbk","btrfs","elementaryos","linux","snapper","snapshots","timeshift","ubuntu"],
         "url": "/btrfs-snapshot-management-with-snapper",
         "teaser": null
+      },{
+        "title": "Adjust Mount Options",
+        "excerpt":"Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7) and udisks2 provide userspace access to devices. Imagine not having...","categories": ["Disks"],
+        "tags": ["btrfs","elementaryos","fstab","linux","mount","systemd","ubuntu","udev","udisks2"],
+        "url": "/adjust-mount-options",
+        "teaser": null
       }]
