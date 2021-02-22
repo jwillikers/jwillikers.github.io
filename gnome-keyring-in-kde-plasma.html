@@ -173,7 +173,7 @@ If you wish to obtain this convenience within KDE then read on.</p>
 <h2 id="tutorial">Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial describes how to enable GNOME Keyring within Manjaro KDE to automically unlock your keyring, including SSH and GPG keys on login.
+<p>This tutorial describes how to enable GNOME Keyring within Manjaro KDE to automatically unlock your keyring, including SSH and GPG keys on login.
 For reference, this tutorial uses <a href="https://manjaro.org/download/#pinebook-pro-kde-plasma">Manjaro Pinebook Pro KDE Plasma edition</a> version 20.12.
 This tutorial provides instructions specific to the <a href="https://fishshell.com/">fish</a> shell.
 Most of the steps here were taken directly from the <a href="https://wiki.archlinux.org/index.php/GNOME/Keyring">Arch Wiki&#8217;s GNOME/Keyring page</a>.
@@ -199,7 +199,7 @@ You should be familiar with Manjaro, KDE Plasma, and the fish shell to get the m
 </div>
 </li>
 <li>
-<p>Add the GNOME Keyring&#8217;s PAM module to <code>/etc/pam.d/login</code> to unlock the GNOME Keyring on login.</p>
+<p>Add the GNOME Keyring PAM module to <code>/etc/pam.d/login</code> to unlock the keyring at login.</p>
 <div class="openblock">
 <div class="content">
 <div class="listingblock">
@@ -276,7 +276,7 @@ For this to work, your keyring must use the same password you use to login.
 </div>
 </li>
 <li>
-<p>Export the <code>SSH_AUTH_SOCK</code> environment variable to GNOME Keyring&#8217;s ssh-agent in a shell startup file to make it available in your terminal.</p>
+<p>Set the <code>SSH_AUTH_SOCK</code> environment variable to the PID of the GNOME Keyring ssh-agent in a shell startup file to make it available in your terminal.</p>
 <div class="listingblock">
 <div class="title">~/.config/fish/conf.d/gnome-keyring-ssh-agent.fish</div>
 <div class="content">

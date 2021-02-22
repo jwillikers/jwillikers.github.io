@@ -258,32 +258,32 @@ var store = [{
         "teaser": null
       },{
         "title": "Btrfs Mount Options",
-        "excerpt":"So, let&#8217;s say you&#8217;ve installed a fresh system on btrfs. Now what? Well, Btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case. The primary way to tune...","categories": ["Disks"],
-        "tags": ["btrfs","fstab","Linux","mount"],
+        "excerpt":"So, let&#8217;s say you&#8217;ve installed a fresh system on Btrfs. Now what? Well, Btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case. The primary way to tune...","categories": ["Disks"],
+        "tags": ["Btrfs","fstab","Linux","mount"],
         "url": "/btrfs-mount-options",
         "teaser": null
       },{
         "title": "Btrfs Swapfile",
-        "excerpt":"Swap space is a standard component of most operating systems. It&#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic. There are...","categories": ["Disks"],
-        "tags": ["btrfs","linux","swap","swapfile"],
+        "excerpt":"Swap space is a standard component of most operating systems. It&#8217;s effectively reserved disk space for accommodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic. There are...","categories": ["Disks"],
+        "tags": ["Btrfs","Linux","swap","swapfile"],
         "url": "/btrfs-swapfile",
         "teaser": null
       },{
         "title": "Why Choose Btrfs",
         "excerpt":"There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and Btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity...","categories": ["Disks"],
-        "tags": ["bcachefs","btrfs","cow","filesystem","fedora","freebsd","linux","openzfs","opensuse","netbsd","snapshots","zfs"],
+        "tags": ["bcachefs","Btrfs","CoW","filesystem","Fedora","FreeBSD","Linux","OpenZFS","openSUSE","NetBSD","snapshots","ZFS"],
         "url": "/why-choose-btrfs",
         "teaser": null
       },{
         "title": "Power Management on Linux With TLP",
-        "excerpt":"TLP is a powerful power managmenment utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration...","categories": ["Systems"],
-        "tags": ["elementaryos","linux","tlp","ubuntu"],
+        "excerpt":"TLP is a powerful power management utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration...","categories": ["Systems"],
+        "tags": ["elementary","Linux","TLP","Ubuntu"],
         "url": "/power-management-on-linux-with-tlp",
         "teaser": null
       },{
         "title": "Btrfs Layout",
         "excerpt":"One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a...","categories": ["Disks"],
-        "tags": ["appimage","appimagelauncher","asdf","btrfs","cow","cargo","conan","elementaryos","fhs","filesystem","flatpak","fstab","gnome-boxes","libvirt","linux","opensuse","podman","rust","snapper","snapshots","systemd","ubuntu","xdg-base"],
+        "tags": ["AppImage","AppImageLauncher","asdf","Btrfs","CoW","Cargo","Conan","elementary","FHS","filesystem","Flatpak","fstab","Gnome-Boxes","libvirt","Linux","openSUSE","Podman","Rust","Snapper","snapshots","systemd","Ubuntu","xdg-base"],
         "url": "/btrfs-layout",
         "teaser": null
       },{
@@ -295,7 +295,7 @@ var store = [{
       },{
         "title": "Adjust Mount Options",
         "excerpt":"Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7) and udisks2 provide userspace access to devices. Imagine not having...","categories": ["Disks"],
-        "tags": ["btrfs","elementaryos","fstab","linux","mount","systemd","ubuntu","udev","udisks2"],
+        "tags": ["Btrfs","elementary","fstab","Linux","mount","systemd","Ubuntu","udev","udisks2"],
         "url": "/adjust-mount-options",
         "teaser": null
       }]

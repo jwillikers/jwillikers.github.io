@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-22T08:52:41-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Adjust Mount Options</title><link href="https://www.jwillikers.com/adjust-mount-options" rel="alternate" type="text/html" title="Adjust Mount Options" /><published>2021-02-22T00:00:00-06:00</published><updated>2021-02-22T00:00:00-06:00</updated><id>https://www.jwillikers.com/Adjust%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/adjust-mount-options">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-22T12:49:26-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Adjust Mount Options</title><link href="https://www.jwillikers.com/adjust-mount-options" rel="alternate" type="text/html" title="Adjust Mount Options" /><published>2021-02-22T00:00:00-06:00</published><updated>2021-02-22T00:00:00-06:00</updated><id>https://www.jwillikers.com/Adjust%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/adjust-mount-options">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Mounting filesystems on Linux is simple, right?
@@ -21,7 +21,7 @@ I&amp;#8217;ve accumulated my knowledge on the subject here and describe exactly
 &lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial walks through the menagery of methods for mounting a Btrfs volume with a specific set of mount options.
+&lt;p&gt;This tutorial walks through the menagerie of methods for mounting a Btrfs volume with a specific set of mount options.
 The reference operating system is &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
 It will underscore several available approaches specific to the kernel and userspace levels.
 You should have a fairly strong understanding of Linux, the command-line, and filesystems.
@@ -30,7 +30,7 @@ I expect you to understand mount options.&lt;/p&gt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;setup&quot;&gt;Setup&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This walkthrough uses a mount point under the standard mount directory for your user.
+&lt;p&gt;This walk-through uses a mount point under the standard mount directory for your user.
 The mount point is &lt;code&gt;/run/media/$USER/backups&lt;/code&gt;.
 This mount point must exist before we begin.
 Create this directory as follows.&lt;/p&gt;
@@ -96,9 +96,9 @@ If you would like to follow along with your own device, you can format your devi
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The set of &lt;em&gt;gdisk&lt;/em&gt; commands, consisting of {cgdisk}, {gdisk}, and {sgdisk}, manipulate {guid-partition-tables}, also known as &lt;em&gt;GPTs&lt;/em&gt;.
-Older {master-boot-records}, &lt;em&gt;MBRs&lt;/em&gt;, are instead managed with {fdisk} and its similarly named friends.
-Here, the {sgdisk} command is used to partition the flash drive using the newer &lt;em&gt;GPT&lt;/em&gt; format without requiring any user interaction.&lt;/p&gt;
+&lt;p&gt;The set of &lt;em&gt;gdisk&lt;/em&gt; commands, consisting of &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/cgdisk.8.html&quot;&gt;cgdisk(8)&lt;/a&gt;, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/gdisk.8.html&quot;&gt;gdisk(8)&lt;/a&gt;, and &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html&quot;&gt;sgdisk(8)&lt;/a&gt;, manipulate {guid-partition-tables}, also known as &lt;em&gt;GPT&lt;/em&gt;'s.
+Older {master-boot-records}, &lt;em&gt;MBR&lt;/em&gt;'s, are instead managed with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/fdisk.8.html&quot;&gt;fdisk(8)&lt;/a&gt; and its similarly named friends.
+Here, the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html&quot;&gt;sgdisk(8)&lt;/a&gt; command is used to partition the flash drive using the newer &lt;em&gt;GPT&lt;/em&gt; format without requiring any user interaction.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -273,7 +273,7 @@ Adding the &lt;code&gt;noauto&lt;/code&gt; option disables this.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Now this subvolume will be mounted with the appropriate options when the system is booted up.
-Or, atleast, it should&amp;#8230;&amp;#8203;
+Or, at least, it should&amp;#8230;&amp;#8203;
 Always verify your fstab file after modifying it with &lt;code&gt;findmnt --verify&lt;/code&gt;.
 Here I include the &lt;code&gt;--verbose&lt;/code&gt; flag as well and abbreviate the output.&lt;/p&gt;
 &lt;/div&gt;
@@ -334,7 +334,7 @@ A timeout may be specified to automatically unmount the volume after a period of
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;An important aspect the mount unit convention is the required naming scheme.
 The file names of mount and automount units must correspond to the mount point of where the volume will be mounted.
-The file name is appropriately transformed to remove troubelesome characters.
+The file name is appropriately transformed to remove troublesome characters.
 Most notably, `/&amp;#8217;s are replaced with `-&amp;#8217;s.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect4&quot;&gt;
@@ -457,7 +457,7 @@ Started unit run-media-jordan-backups.mount &lt;span class=&quot;k&quot;&gt;for 
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;It&amp;#8217;s possible to eschew the mount point and let systemd decide where to mount the volume.
-By default, this will mount the volume underneath the directory &lt;code&gt;/run/media/system/&amp;lt;label&amp;gt;&lt;/code&gt; where &lt;code&gt;&amp;lt;label&amp;gt;&lt;/code&gt; is a placeholder for the filesystem&amp;#8217;s label or other identifier.
+By default, this will mount the volume underneath the directory &lt;code&gt;/run/media/system/&amp;lt;label&amp;gt;&lt;/code&gt; where &lt;code&gt;&amp;lt;label&amp;gt;&lt;/code&gt; is a placeholder for the filesystem label or other identifier.
 Mount &lt;code&gt;/dev/sdb1&lt;/code&gt; to the default systemd location as follows.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -482,7 +482,7 @@ Started unit run-media-system-backups.mount &lt;span class=&quot;k&quot;&gt;for 
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Likewise, use &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd-umount.html&quot;&gt;systemd.mount(5)&lt;/a&gt; to unmount the volume by providing either the device or the path to the mount point.
-This command unmounts the device &lt;code&gt;/dev/sdb1&lt;/code&gt; mounted with either or both of the previous two commmands.&lt;/p&gt;
+This command unmounts the device &lt;code&gt;/dev/sdb1&lt;/code&gt; mounted with either or both of the previous two commands.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -870,7 +870,7 @@ The sample configuration here demonstrates how to set the general default and al
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Generally, you should start with the default settings stated in the documentation for udisks2&amp;#8217;s &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/mount_options.html&quot;&gt;udisks2 Mount Options&lt;/a&gt;.
 You&amp;#8217;ll also need to make sure that any default options are specified in the corresponding allowed set.
-The Btrfs notably allows the &lt;code&gt;autodefrag&lt;/code&gt; option in addition to the default udisk2 settings and defaults to using it and zstd compression.&lt;/p&gt;
+The Btrfs notably allows the &lt;code&gt;autodefrag&lt;/code&gt; option in addition to the default udisks2 settings and defaults to using it and zstd compression.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;The configuration file also provides functionality to specify defaults for particular devices.
@@ -1012,7 +1012,7 @@ Interested in mounting encrypted volumes or automatically mounting devices?
 Keep an eye on this space for upcoming posts on these topics.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="btrfs" /><category term="elementaryos" /><category term="fstab" /><category term="linux" /><category term="mount" /><category term="systemd" /><category term="ubuntu" /><category term="udev" /><category term="udisks2" /><summary type="html">Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&amp;#8217;s peachy. For both better and worse, there&amp;#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7) and udisks2 provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&amp;#8217;re probably aware that root isn&amp;#8217;t necessary for such a thing, but that&amp;#8217;s because there&amp;#8217;s tools that take care of that for you.</summary></entry><entry><title type="html">Btrfs Snapshot Management With Snapper</title><link href="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper" rel="alternate" type="text/html" title="Btrfs Snapshot Management With Snapper" /><published>2021-02-15T00:00:00-06:00</published><updated>2021-02-15T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Snapshot%20Management%20With%20Snapper</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="elementary" /><category term="fstab" /><category term="Linux" /><category term="mount" /><category term="systemd" /><category term="Ubuntu" /><category term="udev" /><category term="udisks2" /><summary type="html">Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&amp;#8217;s peachy. For both better and worse, there&amp;#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7) and udisks2 provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&amp;#8217;re probably aware that root isn&amp;#8217;t necessary for such a thing, but that&amp;#8217;s because there&amp;#8217;s tools that take care of that for you.</summary></entry><entry><title type="html">Btrfs Snapshot Management With Snapper</title><link href="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper" rel="alternate" type="text/html" title="Btrfs Snapshot Management With Snapper" /><published>2021-02-15T00:00:00-06:00</published><updated>2021-02-15T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Snapshot%20Management%20With%20Snapper</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Manually taking snapshots with &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; is easy.
@@ -1512,7 +1512,7 @@ Stay tuned for an upcoming tutorial on configuring backups plus more posts on ge
 &lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="btrbk" /><category term="btrfs" /><category term="elementaryos" /><category term="linux" /><category term="snapper" /><category term="snapshots" /><category term="timeshift" /><category term="ubuntu" /><summary type="html">Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups. It doesn&amp;#8217;t handle rollbacks, however. Timeshift is only designed for rolling back a system&amp;#8217;s root subvolume and not arbitrary subvolumes. It is rather inflexible, but provides a fantastic graphical interface right out of the box and makes rollbacks quick and easy. Snapper is very configurable, makes rollbacks a breeze, has been around a while, and is quite popular. It&amp;#8217;s a bit biased towards openSUSE, it being their tool and all, but packaged for all major Linux distributions nonetheless. My choice was mostly between Btrbk and Snapper. Timeshift won&amp;#8217;t snapshot all of the subvolumes I have. I landed on Snapper because it allows users to control their own snapshots and rollbacks without superuser privileges. Btrbk&amp;#8217;s additional ability for managing backups makes it a very tempting alternative.</summary></entry><entry><title type="html">Btrfs Layout</title><link href="https://www.jwillikers.com/btrfs-layout" rel="alternate" type="text/html" title="Btrfs Layout" /><published>2021-02-13T00:00:00-06:00</published><updated>2021-02-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Layout</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-layout">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One of the best features of Btrfs is the ability to produce snapshots of data instantaneously.
+&lt;p&gt;One of the best features of &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; is the ability to produce snapshots of data instantaneously.
 Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update.
 This is an extremely valuable feature.
 Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally.
@@ -1595,7 +1595,7 @@ For the root subvolume, I use a &lt;a href=&quot;https://btrfs.wiki.kernel.org/i
 &lt;dd&gt;
 &lt;p&gt;The &lt;code&gt;/var&lt;/code&gt; directory contains &quot;variable&quot; data which equates to all sorts of things from logs and caches to virtual machine images and databases.
 The openSUSE project disables Copy-on-Write on this subvolume by default.
-I don&amp;#8217;t because I prefer not to lose compression and checksumming on everything in here, especially for logfiles.
+I don&amp;#8217;t because I prefer not to lose compression and checksums on everything in here, especially for log files.
 Instead, I disable certain features on subdirectories of &lt;code&gt;/var&lt;/code&gt; where necessary.&lt;/p&gt;
 &lt;/dd&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;/var/lib/containers&lt;/code&gt;&lt;/dt&gt;
@@ -1657,7 +1657,7 @@ The layout here is a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Sy
 &lt;p&gt;The &lt;a href=&quot;https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html&quot;&gt;XDG Base Directory Specification&lt;/a&gt; and the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/file-hierarchy.html#Home%20Directory&quot;&gt;Home Directory section&lt;/a&gt; from the &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/file-hierarchy.html&quot;&gt;file-hierarchy(7)&lt;/a&gt; are the best references for the standard directories within a user&amp;#8217;s home directory.
 Home directory structures can be a bit more chaotic compared to the organization of the system&amp;#8217;s directories, though.
 They tend to be a bit less standardized.
-In additon to the standard directories, my setup accounts for per-user &lt;a href=&quot;https://flatpak.org/&quot;&gt;flatpak&lt;/a&gt; and &lt;a href=&quot;https://appimage.org/&quot;&gt;AppImage&lt;/a&gt; applications, local virtual machine disk images, and a host of non-compliant development tooling as well my own development workflow.
+In addition to the standard directories, my setup accounts for per-user &lt;a href=&quot;https://flatpak.org/&quot;&gt;flatpak&lt;/a&gt; and &lt;a href=&quot;https://appimage.org/&quot;&gt;AppImage&lt;/a&gt; applications, local virtual machine disk images, and a host of non-compliant development tooling as well my own development workflow.
 I choose to exclude most of these from my home directory snapshots, but you might have good reason to include some of these in your own snapshots.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;dlist&quot;&gt;
@@ -1690,7 +1690,7 @@ For Snapper, this subvolume must be owned by the root user.&lt;/p&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.var&lt;/code&gt;&lt;/dt&gt;
 &lt;dd&gt;
 &lt;p&gt;Per-user Flatpak installations are kept in &lt;code&gt;.var&lt;/code&gt; and so this entire directory excluded from snapshots.
-This is documented in Flatpak&amp;#8217;s documentation &lt;a href=&quot;https://docs.flatpak.org/en/latest/conventions.html?highlight=.var#xdg-base-directories&quot;&gt;here&lt;/a&gt;.
+This is documented in the Flatpak documentation &lt;a href=&quot;https://docs.flatpak.org/en/latest/conventions.html?highlight=.var#xdg-base-directories&quot;&gt;here&lt;/a&gt;.
 The config files for each application might be valuable, but I prefer to use Git to save these files out-of-band.&lt;/p&gt;
 &lt;/dd&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.xdg-non-compliant&lt;/code&gt;&lt;/dt&gt;
@@ -1744,10 +1744,10 @@ Now that the ground-work is complete, next up is configuring system and user sna
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
 &lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. Have you &lt;em&gt;seen&lt;/em&gt; Inception?
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="appimage" /><category term="appimagelauncher" /><category term="asdf" /><category term="btrfs" /><category term="cow" /><category term="cargo" /><category term="conan" /><category term="elementaryos" /><category term="fhs" /><category term="filesystem" /><category term="flatpak" /><category term="fstab" /><category term="gnome-boxes" /><category term="libvirt" /><category term="linux" /><category term="opensuse" /><category term="podman" /><category term="rust" /><category term="snapper" /><category term="snapshots" /><category term="systemd" /><category term="ubuntu" /><category term="xdg-base" /><summary type="html">One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&amp;#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&amp;#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&amp;#8217;t setup user home directory layouts if you wish to snapshot those. That&amp;#8217;s why I&amp;#8217;ve outlined my Btrfs filesystem configurations for both my system and my home directory here. 1. Ubuntu does this for you with ZFS and ZSYS, but I&amp;#8217;m talking about Btrfs here.</summary></entry><entry><title type="html">Power Management on Linux With TLP</title><link href="https://www.jwillikers.com/power-management-on-linux-with-tlp" rel="alternate" type="text/html" title="Power Management on Linux With TLP" /><published>2021-02-12T00:00:00-06:00</published><updated>2021-02-12T00:00:00-06:00</updated><id>https://www.jwillikers.com/Power%20Management%20on%20Linux%20With%20TLP</id><content type="html" xml:base="https://www.jwillikers.com/power-management-on-linux-with-tlp">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="AppImage" /><category term="AppImageLauncher" /><category term="asdf" /><category term="Btrfs" /><category term="CoW" /><category term="Cargo" /><category term="Conan" /><category term="elementary" /><category term="FHS" /><category term="filesystem" /><category term="Flatpak" /><category term="fstab" /><category term="Gnome-Boxes" /><category term="libvirt" /><category term="Linux" /><category term="openSUSE" /><category term="Podman" /><category term="Rust" /><category term="Snapper" /><category term="snapshots" /><category term="systemd" /><category term="Ubuntu" /><category term="xdg-base" /><summary type="html">One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&amp;#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&amp;#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&amp;#8217;t setup user home directory layouts if you wish to snapshot those. That&amp;#8217;s why I&amp;#8217;ve outlined my Btrfs filesystem configurations for both my system and my home directory here. 1. Ubuntu does this for you with ZFS and ZSYS, but I&amp;#8217;m talking about Btrfs here.</summary></entry><entry><title type="html">Power Management on Linux With TLP</title><link href="https://www.jwillikers.com/power-management-on-linux-with-tlp" rel="alternate" type="text/html" title="Power Management on Linux With TLP" /><published>2021-02-12T00:00:00-06:00</published><updated>2021-02-12T00:00:00-06:00</updated><id>https://www.jwillikers.com/Power%20Management%20on%20Linux%20With%20TLP</id><content type="html" xml:base="https://www.jwillikers.com/power-management-on-linux-with-tlp">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://linrunner.de/tlp/#&quot;&gt;TLP&lt;/a&gt; is a powerful power managmenment utility for Linux.
+&lt;p&gt;&lt;a href=&quot;https://linrunner.de/tlp/#&quot;&gt;TLP&lt;/a&gt; is a powerful power management utility for Linux.
 It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features.
 It&amp;#8217;s also super easy to add to a system and requires no extra configuration after installation.
 Though, it does expose quite a bit of configuration settings for those who want fine-grained control.&lt;/p&gt;
@@ -1758,7 +1758,7 @@ Though, it does expose quite a bit of configuration settings for those who want 
 &lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial will get &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;Ubuntu&lt;/a&gt; and derivitives such as &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; setup with TLP.
+&lt;p&gt;This tutorial will get &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;Ubuntu&lt;/a&gt; and derivatives such as &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; setup with TLP.
 The instructions use the command-line and software-management utilities built into Ubuntu, so you should be familiar with these tools.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
@@ -1805,20 +1805,20 @@ The instructions use the command-line and software-management utilities built in
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;That&amp;#8217;s it.
 Really.
-If you want to tweak the settings, I recommend checking out the graphical user interface provided by &lt;a href=&quot;https://github.com/d4nj1/TLPUI&quot;&gt;tlpui&lt;/a&gt;.
+If you want to tweak the settings, I recommend checking out the graphical user interface provided by &lt;a href=&quot;https://github.com/d4nj1/TLPUI&quot;&gt;TLPUI&lt;/a&gt;.
 You now know how to quickly configure better power-savings on your Linux devices.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="elementaryos" /><category term="linux" /><category term="tlp" /><category term="ubuntu" /><summary type="html">TLP is a powerful power managmenment utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&amp;#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration settings for those who want fine-grained control.</summary></entry><entry><title type="html">Btrfs Swapfile</title><link href="https://www.jwillikers.com/btrfs-swapfile" rel="alternate" type="text/html" title="Btrfs Swapfile" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Swapfile</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-swapfile">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="elementary" /><category term="Linux" /><category term="TLP" /><category term="Ubuntu" /><summary type="html">TLP is a powerful power management utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&amp;#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration settings for those who want fine-grained control.</summary></entry><entry><title type="html">Btrfs Swapfile</title><link href="https://www.jwillikers.com/btrfs-swapfile" rel="alternate" type="text/html" title="Btrfs Swapfile" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Swapfile</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-swapfile">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Swap space is a standard component of most operating systems.
-It&amp;#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available.
+It&amp;#8217;s effectively reserved disk space for accommodating a system when it needs more RAM than it has available.
 I recommend the &lt;a href=&quot;https://opensource.com/&quot;&gt;opensource.com&lt;/a&gt; article &lt;em&gt;&lt;a href=&quot;https://opensource.com/article/18/9/swap-space-linux-systems&quot;&gt;An Introduction to Swap Space on Linux Systems&lt;/a&gt;&lt;/em&gt; as a great primer on the topic.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;There are two approaches to providing swap space on Linux, swap partitions and &lt;a href=&quot;https://wiki.archlinux.org/index.php/swap#Swap_file&quot;&gt;swapfiles&lt;/a&gt;.
-Since version 5.0 of the Linux kernel, Btrfs swap files are supported according to the section &lt;em&gt;&lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ#Does_btrfs_support_swap_files.3F&quot;&gt;Does Btrfs support swap files?&lt;/a&gt;&lt;/em&gt; in the &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ&quot;&gt;Btrfs Wiki FAQ&lt;/a&gt;.
+Since version 5.0 of the Linux kernel, &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; swap files are supported according to the section &lt;em&gt;&lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ#Does_btrfs_support_swap_files.3F&quot;&gt;Does Btrfs support swap files?&lt;/a&gt;&lt;/em&gt; in the &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ&quot;&gt;Btrfs Wiki FAQ&lt;/a&gt;.
 Switching to Btrfs as my default filesystem, I recently set this up have created this tutorial get yourself a swapfile set up on Btrfs.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1951,7 +1951,7 @@ no label, &lt;span class=&quot;nv&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Enable the swapile!&lt;/p&gt;
+&lt;p&gt;Enable the swapfile!&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;swapon /swap/swapfile&lt;/code&gt;&lt;/pre&gt;
@@ -2033,9 +2033,9 @@ vm.swappiness&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10&lt;/code&gt;&lt;/p
 &lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. For better recommendations on the size of your swapfile, refer to the table &lt;em&gt;Recommended System Swap Space&lt;/em&gt; in the &lt;em&gt;&lt;a href=&quot;https://docs.fedoraproject.org/en-US/fedora/f33/install-guide/install/Installing_Using_Anaconda/#sect-installation-gui-manual-partitioning-recommended&quot;&gt;Recommended Partitioning Scheme&lt;/a&gt;&lt;/em&gt; section of Fedora&amp;#8217;s installation documentation.
 &lt;/div&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. systemd&amp;#8217;s handling of swap is documented thoroughly in the corresponding man page: &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.swap.html&quot;&gt;systemd.swap(5)&lt;/a&gt;.
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. How systemd handles swap is documented thoroughly in the corresponding man page: &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.swap.html&quot;&gt;systemd.swap(5)&lt;/a&gt;.
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="btrfs" /><category term="linux" /><category term="swap" /><category term="swapfile" /><summary type="html">Swap space is a standard component of most operating systems. It&amp;#8217;s effectively reserved disk space for accomodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic.</summary></entry><entry><title type="html">Why Choose Btrfs</title><link href="https://www.jwillikers.com/why-choose-btrfs" rel="alternate" type="text/html" title="Why Choose Btrfs" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Why%20Choose%20Btrfs</id><content type="html" xml:base="https://www.jwillikers.com/why-choose-btrfs">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="Linux" /><category term="swap" /><category term="swapfile" /><summary type="html">Swap space is a standard component of most operating systems. It&amp;#8217;s effectively reserved disk space for accommodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic.</summary></entry><entry><title type="html">Why Choose Btrfs</title><link href="https://www.jwillikers.com/why-choose-btrfs" rel="alternate" type="text/html" title="Why Choose Btrfs" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Why%20Choose%20Btrfs</id><content type="html" xml:base="https://www.jwillikers.com/why-choose-btrfs">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;There are many compelling reasons to use a modern &lt;a href=&quot;https://en.wikipedia.org/wiki/Copy-on-write&quot;&gt;Copy-on-Write&lt;/a&gt;, &lt;em&gt;CoW&lt;/em&gt; for short, filesystem.
@@ -2084,7 +2084,7 @@ This boils down to three serious contenders: OpenZFS, Btrfs, and &lt;a href=&quo
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;OpenZFS has a proven track record of reliability and is by far the most mature candidate.
 It also benefits from native encryption, great defaults, and a robust, unified interface.
-Unfortunately, its &lt;a href=&quot;https://github.com/openzfs/zfs/blob/master/LICENSE&quot;&gt;CDDL license&lt;/a&gt; is incompatibale with the &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;GPL license&lt;/a&gt; used by the Linux kernel.
+Unfortunately, its &lt;a href=&quot;https://github.com/openzfs/zfs/blob/master/LICENSE&quot;&gt;CDDL license&lt;/a&gt; is incompatible with the &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;GPL&lt;/a&gt; license used by the Linux kernel.
 This has lead to the need for less-than ideal workarounds.
 Unless you&amp;#8217;re on &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;Ubuntu&lt;/a&gt;, &lt;a href=&quot;https://www.freebsd.org/&quot;&gt;FreeBSD&lt;/a&gt;, or &lt;a href=&quot;https://www.netbsd.org/&quot;&gt;NetBSD&lt;/a&gt;.
 Ubuntu ships ZFS in its own releases of the Linux kernel.
@@ -2152,10 +2152,10 @@ More fodder for the blog, though.&lt;/p&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
 &lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. No. I&amp;#8217;m &lt;em&gt;not&lt;/em&gt; counting Darwin.
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="bcachefs" /><category term="btrfs" /><category term="cow" /><category term="filesystem" /><category term="fedora" /><category term="freebsd" /><category term="linux" /><category term="openzfs" /><category term="opensuse" /><category term="netbsd" /><category term="snapshots" /><category term="zfs" /><summary type="html">There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and Btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.</summary></entry><entry><title type="html">Btrfs Mount Options</title><link href="https://www.jwillikers.com/btrfs-mount-options" rel="alternate" type="text/html" title="Btrfs Mount Options" /><published>2021-02-10T00:00:00-06:00</published><updated>2021-02-10T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-mount-options">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="bcachefs" /><category term="Btrfs" /><category term="CoW" /><category term="filesystem" /><category term="Fedora" /><category term="FreeBSD" /><category term="Linux" /><category term="OpenZFS" /><category term="openSUSE" /><category term="NetBSD" /><category term="snapshots" /><category term="ZFS" /><summary type="html">There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and Btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.</summary></entry><entry><title type="html">Btrfs Mount Options</title><link href="https://www.jwillikers.com/btrfs-mount-options" rel="alternate" type="text/html" title="Btrfs Mount Options" /><published>2021-02-10T00:00:00-06:00</published><updated>2021-02-10T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-mount-options">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;btrfs&lt;/a&gt;.
+&lt;p&gt;So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt;.
 Now what?
 Well, Btrfs doesn&amp;#8217;t ship with optimal default settings.
 Many popular Linux distributions don&amp;#8217;t improve the situation, either.
@@ -2239,14 +2239,14 @@ This option isn&amp;#8217;t specific to Btrfs either.&lt;/p&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;autodefrag&lt;/em&gt;&lt;/dt&gt;
 &lt;dd&gt;
 &lt;p&gt;Enable automatic file defragmentation.
-This automatically defragments small random writes into files.&lt;/p&gt;
+This will automatically defragment small random writes into files.&lt;/p&gt;
 &lt;/dd&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;compress&lt;/em&gt;&lt;/dt&gt;
 &lt;dd&gt;
 &lt;p&gt;Filesystem-level compression is a beautiful thing.
 It increases read and write speeds while saving disk space.
 The speed of &lt;em&gt;&lt;a href=&quot;https://facebook.github.io/zstd/&quot;&gt;zstd&lt;/a&gt;&lt;/em&gt; compression makes it my general preference.
-The &lt;code&gt;/boot&lt;/code&gt; subvolume above is mounted with &lt;em&gt;lzo&lt;/em&gt; compression to accomodate an older version of Grub predating &lt;em&gt;zstd&lt;/em&gt; support, which appeared in Grub 2.04.&lt;/p&gt;
+The &lt;code&gt;/boot&lt;/code&gt; subvolume above is mounted with &lt;em&gt;lzo&lt;/em&gt; compression to accommodate an older version of Grub predating &lt;em&gt;zstd&lt;/em&gt; support, which appeared in Grub 2.04.&lt;/p&gt;
 &lt;/dd&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;commit&lt;/em&gt;&lt;/dt&gt;
 &lt;dd&gt;
@@ -2270,7 +2270,7 @@ This option is organizational and used for the &lt;a href=&quot;https://btrfs.wi
 &lt;/td&gt;
 &lt;td class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;em&gt;ssd&lt;/em&gt; option is omitted since these settings are applied automatically when the underying storage media is solid-state.&lt;/p&gt;
+&lt;p&gt;The &lt;em&gt;ssd&lt;/em&gt; option is omitted since these settings are applied automatically when the underlying storage media is solid-state.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
@@ -2285,7 +2285,7 @@ This option is organizational and used for the &lt;a href=&quot;https://btrfs.wi
 &lt;p&gt;Hopefully you have a better idea of some of the available mount options for optimizing Btrfs for your particular use case.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="btrfs" /><category term="fstab" /><category term="Linux" /><category term="mount" /><summary type="html">So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on btrfs. Now what? Well, Btrfs doesn&amp;#8217;t ship with optimal default settings. Many popular Linux distributions don&amp;#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.</summary></entry><entry><title type="html">GNOME Keyring in KDE Plasma</title><link href="https://www.jwillikers.com/gnome-keyring-in-kde-plasma" rel="alternate" type="text/html" title="GNOME Keyring in KDE Plasma" /><published>2021-01-01T00:00:00-06:00</published><updated>2021-01-01T00:00:00-06:00</updated><id>https://www.jwillikers.com/GNOME%20Keyring%20in%20KDE%20Plasma</id><content type="html" xml:base="https://www.jwillikers.com/gnome-keyring-in-kde-plasma">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="fstab" /><category term="Linux" /><category term="mount" /><summary type="html">So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on Btrfs. Now what? Well, Btrfs doesn&amp;#8217;t ship with optimal default settings. Many popular Linux distributions don&amp;#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.</summary></entry><entry><title type="html">GNOME Keyring in KDE Plasma</title><link href="https://www.jwillikers.com/gnome-keyring-in-kde-plasma" rel="alternate" type="text/html" title="GNOME Keyring in KDE Plasma" /><published>2021-01-01T00:00:00-06:00</published><updated>2021-01-01T00:00:00-06:00</updated><id>https://www.jwillikers.com/GNOME%20Keyring%20in%20KDE%20Plasma</id><content type="html" xml:base="https://www.jwillikers.com/gnome-keyring-in-kde-plasma">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I love &lt;a href=&quot;https://www.gnome.org/&quot;&gt;GNOME&lt;/a&gt;, but on my &lt;a href=&quot;https://www.pine64.org/pinebook-pro/&quot;&gt;Pinebook Pro&lt;/a&gt;, I use the extremely well-supported &lt;a href=&quot;https://manjaro.org/download/#pinebook-pro-kde-plasma&quot;&gt;Manjaro Pinebook Pro KDE Plasma edition&lt;/a&gt;.
@@ -2302,7 +2302,7 @@ If you wish to obtain this convenience within KDE then read on.&lt;/p&gt;
 &lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial describes how to enable GNOME Keyring within Manjaro KDE to automically unlock your keyring, including SSH and GPG keys on login.
+&lt;p&gt;This tutorial describes how to enable GNOME Keyring within Manjaro KDE to automatically unlock your keyring, including SSH and GPG keys on login.
 For reference, this tutorial uses &lt;a href=&quot;https://manjaro.org/download/#pinebook-pro-kde-plasma&quot;&gt;Manjaro Pinebook Pro KDE Plasma edition&lt;/a&gt; version 20.12.
 This tutorial provides instructions specific to the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish&lt;/a&gt; shell.
 Most of the steps here were taken directly from the &lt;a href=&quot;https://wiki.archlinux.org/index.php/GNOME/Keyring&quot;&gt;Arch Wiki&amp;#8217;s GNOME/Keyring page&lt;/a&gt;.
@@ -2328,7 +2328,7 @@ You should be familiar with Manjaro, KDE Plasma, and the fish shell to get the m
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Add the GNOME Keyring&amp;#8217;s PAM module to &lt;code&gt;/etc/pam.d/login&lt;/code&gt; to unlock the GNOME Keyring on login.&lt;/p&gt;
+&lt;p&gt;Add the GNOME Keyring PAM module to &lt;code&gt;/etc/pam.d/login&lt;/code&gt; to unlock the keyring at login.&lt;/p&gt;
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -2405,7 +2405,7 @@ For this to work, your keyring must use the same password you use to login.
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Export the &lt;code&gt;SSH_AUTH_SOCK&lt;/code&gt; environment variable to GNOME Keyring&amp;#8217;s ssh-agent in a shell startup file to make it available in your terminal.&lt;/p&gt;
+&lt;p&gt;Set the &lt;code&gt;SSH_AUTH_SOCK&lt;/code&gt; environment variable to the PID of the GNOME Keyring ssh-agent in a shell startup file to make it available in your terminal.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;~/.config/fish/conf.d/gnome-keyring-ssh-agent.fish&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -2518,8 +2518,8 @@ Unmounted /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The set of &lt;em&gt;gdisk&lt;/em&gt; commands, consisting of &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/cgdisk.8.html&quot;&gt;cgdisk(8)&lt;/a&gt;, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/gdisk.8.html&quot;&gt;gdisk(8)&lt;/a&gt;, and &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html&quot;&gt;sgdisk(8)&lt;/a&gt;, manipulate &lt;a href=&quot;https://en.wikipedia.org/wiki/GUID_Partition_Table&quot;&gt;GUID partition tables&lt;/a&gt;, also known as &lt;em&gt;GPTs&lt;/em&gt;.
-Older &lt;a href=&quot;https://en.wikipedia.org/wiki/Master_boot_record&quot;&gt;master boot records&lt;/a&gt;, &lt;em&gt;MBRs&lt;/em&gt;, are instead managed with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/fdisk.8.html&quot;&gt;fdisk(8)&lt;/a&gt; and its similarly named friends.
+&lt;p&gt;The set of &lt;em&gt;gdisk&lt;/em&gt; commands, consisting of &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/cgdisk.8.html&quot;&gt;cgdisk(8)&lt;/a&gt;, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/gdisk.8.html&quot;&gt;gdisk(8)&lt;/a&gt;, and &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html&quot;&gt;sgdisk(8)&lt;/a&gt;, manipulate &lt;a href=&quot;https://en.wikipedia.org/wiki/GUID_Partition_Table&quot;&gt;GUID partition tables&lt;/a&gt;, also known as &lt;em&gt;GPT&lt;/em&gt;'s.
+Older &lt;a href=&quot;https://en.wikipedia.org/wiki/Master_boot_record&quot;&gt;master boot records&lt;/a&gt;, &lt;em&gt;MBR&lt;/em&gt;'s, are instead managed with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/fdisk.8.html&quot;&gt;fdisk(8)&lt;/a&gt; and its similarly named friends.
 Here, the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html&quot;&gt;sgdisk(8)&lt;/a&gt; command is used to partition the flash drive using the newer &lt;em&gt;GPT&lt;/em&gt; format without requiring any user interaction.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;

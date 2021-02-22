@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Btrfs Mount Options - JWillikers</title>
-<meta name="description" content="So, let&#8217;s say you&#8217;ve installed a fresh system on btrfs. Now what? Well, Btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.">
+<meta name="description" content="So, let&#8217;s say you&#8217;ve installed a fresh system on Btrfs. Now what? Well, Btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.">
 
 
   <meta name="author" content="Jordan Williams">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="https://www.jwillikers.com/btrfs-mount-options">
 
 
-  <meta property="og:description" content="So, let&#8217;s say you&#8217;ve installed a fresh system on btrfs. Now what? Well, Btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.">
+  <meta property="og:description" content="So, let&#8217;s say you&#8217;ve installed a fresh system on Btrfs. Now what? Well, Btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.">
 
 
 
@@ -159,7 +159,7 @@
       <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>So, let&#8217;s say you&#8217;ve installed a fresh system on <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">btrfs</a>.
+<p>So, let&#8217;s say you&#8217;ve installed a fresh system on <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a>.
 Now what?
 Well, Btrfs doesn&#8217;t ship with optimal default settings.
 Many popular Linux distributions don&#8217;t improve the situation, either.
@@ -243,14 +243,14 @@ This option isn&#8217;t specific to Btrfs either.</p>
 <dt class="hdlist1"><em>autodefrag</em></dt>
 <dd>
 <p>Enable automatic file defragmentation.
-This automatically defragments small random writes into files.</p>
+This will automatically defragment small random writes into files.</p>
 </dd>
 <dt class="hdlist1"><em>compress</em></dt>
 <dd>
 <p>Filesystem-level compression is a beautiful thing.
 It increases read and write speeds while saving disk space.
 The speed of <em><a href="https://facebook.github.io/zstd/">zstd</a></em> compression makes it my general preference.
-The <code>/boot</code> subvolume above is mounted with <em>lzo</em> compression to accomodate an older version of Grub predating <em>zstd</em> support, which appeared in Grub 2.04.</p>
+The <code>/boot</code> subvolume above is mounted with <em>lzo</em> compression to accommodate an older version of Grub predating <em>zstd</em> support, which appeared in Grub 2.04.</p>
 </dd>
 <dt class="hdlist1"><em>commit</em></dt>
 <dd>
@@ -274,7 +274,7 @@ This option is organizational and used for the <a href="https://btrfs.wiki.kerne
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The <em>ssd</em> option is omitted since these settings are applied automatically when the underying storage media is solid-state.</p>
+<p>The <em>ssd</em> option is omitted since these settings are applied automatically when the underlying storage media is solid-state.</p>
 </div>
 </td>
 </tr>
