@@ -298,4 +298,10 @@ var store = [{
         "tags": ["Btrfs","elementary","fstab","Linux","mount","systemd","Ubuntu","udev","udisks2"],
         "url": "/adjust-mount-options",
         "teaser": null
+      },{
+        "title": "Encrypt an External Disk on Linux",
+        "excerpt":"Encrypting your data is pretty much a must anyone who is privacy or security conscious. I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple. I keep local backups on an external hard drive,...","categories": ["Disks"],
+        "tags": ["backups","Btrfs","Cryptsetup","elementary","encryption","fstab","Linux","systemd","Ubuntu"],
+        "url": "/encrypt-an-external-disk-on-linux",
+        "teaser": null
       }]

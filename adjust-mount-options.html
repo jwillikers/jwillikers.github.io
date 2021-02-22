@@ -180,7 +180,7 @@ I&#8217;ve accumulated my knowledge on the subject here and describe exactly how
 <div class="sectionbody">
 <div class="paragraph">
 <p>This tutorial walks through the menagerie of methods for mounting a Btrfs volume with a specific set of mount options.
-The reference operating system is <a href="https://opensource.org/licenses/gpl-license">Ubuntu</a> 18.04.
+The reference operating system is <a href="https://ubuntu.com/">Ubuntu</a> 18.04.
 It will underscore several available approaches specific to the kernel and userspace levels.
 You should have a fairly strong understanding of Linux, the command-line, and filesystems.
 I expect you to understand mount options.</p>
@@ -254,7 +254,7 @@ If you would like to follow along with your own device, you can format your devi
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The set of <em>gdisk</em> commands, consisting of <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/cgdisk.8.html">cgdisk(8)</a>, <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/gdisk.8.html">gdisk(8)</a>, and <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html">sgdisk(8)</a>, manipulate {guid-partition-tables}, also known as <em>GPT</em>'s.
+<p>The set of <em>gdisk</em> commands, consisting of <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/cgdisk.8.html">cgdisk(8)</a>, <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/gdisk.8.html">gdisk(8)</a>, and <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html">sgdisk(8)</a>, manipulate <a href="https://en.wikipedia.org/wiki/GUID_Partition_Table">GUID partition tables</a>, also known as <em>GPT</em>'s.
 Older {master-boot-records}, <em>MBR</em>'s, are instead managed with <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/fdisk.8.html">fdisk(8)</a> and its similarly named friends.
 Here, the <a href="https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html">sgdisk(8)</a> command is used to partition the flash drive using the newer <em>GPT</em> format without requiring any user interaction.</p>
 </div>
@@ -727,7 +727,7 @@ The steps to do so our outlined below.</p>
 <h3 id="usesrpace_mounting">Usesrpace Mounting</h3>
 <div class="paragraph">
 <p>Mounting filesystems without root privileges is less straightforward.
-While accomadations can be made for mount and systemd offers such functionality, the best tool to use is <a href="http://storaged.org/doc/udisks2-api/latest/">udisks2</a> which ships with most mainstream distributions.
+While accommodations can be made for mount and systemd offers such functionality, the best tool to use is <a href="http://storaged.org/doc/udisks2-api/latest/">udisks2</a> which ships with most mainstream distributions.
 Each of these is discussed below.</p>
 </div>
 <div class="sect3">
@@ -786,7 +786,7 @@ mount: only root can <span class="k">do </span>that</code></pre>
 </div>
 <div class="paragraph">
 <p>When the <code>users</code> option is provided, it allows any user to unmount the drive regardless of which user mounted it.
-This difffers from the <code>user</code> option which only allows the user that mounted the volume to unmount it.</p>
+This differs from the <code>user</code> option which only allows the user that mounted the volume to unmount it.</p>
 </div>
 </div>
 <div class="sect3">
@@ -801,7 +801,7 @@ This was shown to end with an error when run as a normal user previously.</p>
 </div>
 <div class="paragraph">
 <p>The <em>only</em> sensible way to make this possible is by using a {systemd-service} unit rather than a systemd mount unit.
-A correcly formed mount command will succeed when executed by the user.
+A correctly formed mount command will succeed when executed by the user.
 Given the entry for <code>/run/media/jordan/backups</code> has the <code>user</code> or <code>users</code> mount option set in fstab, a user service file to mount it would look like the following.</p>
 </div>
 <div class="listingblock">
@@ -863,14 +863,14 @@ Do this like so.</p>
 <div class="paragraph">
 <p>To take this a step, further, it&#8217;s possible to create an instantiable systemd unit.
 This is a fancy way of saying that variable information can be provided in the file name after the <code>@</code> symbol and before the units extension.
-This allows creating a single unit file to accomodate a variety of situations.
+This allows creating a single unit file to accommodate a variety of situations.
 It effectively introduces a variable which can be used to customize the unit.</p>
 </div>
 <div class="paragraph">
 <p>The previous unit can be made into a generic, instantiable unit which allows mounting a variety of volumes.
 Thanks goes to <a href="https://unix.stackexchange.com/a/316991/395084"><em>byly&#8217;s</em> answer</a> on the <a href="https://unix.stackexchange.com/">Unix &amp; Linux Stack Exchange</a> for introducing me to this nifty approach.
 To follow conventions, the unit will mount the volume under <code>/run/media/$USER</code>.
-The mount point will be encoded in the name of the service, i.e. sandwhiched between the <code>@</code> and <code>.service</code> suffix.
+The mount point will be encoded in the name of the service, i.e. sandwiched between the <code>@</code> and <code>.service</code> suffix.
 This user service unit, dubbed <code>mount@</code>, looks like this.</p>
 </div>
 <div class="listingblock">
@@ -890,7 +890,7 @@ This user service unit, dubbed <code>mount@</code>, looks like this.</p>
 </div>
 <div class="paragraph">
 <p>This unit uses wildcards, letters prefixed with <code>%</code>.
-Wildcards are substited with the appropriate information when the unit is enabled.
+Wildcards are substituted with the appropriate information when the unit is enabled.
 <code>%u</code> stands for the username of the user using the unit.
 <code>%I</code> represents the instantiable component provided in the unit&#8217;s name.</p>
 </div>
@@ -936,7 +936,7 @@ To mount <code>/run/media/run/$USER/backups</code>, start the service with the n
 <h4 id="udisks2">udisks2</h4>
 <div class="paragraph">
 <p>There&#8217;s a tool for easily mounting volumes in userspace.
-It&#8217;s udisk2 and it streamlines userspace mounting and changing up those default mount options.
+It&#8217;s udisks2 and it streamlines userspace mounting and changing up those default mount options.
 If you&#8217;re accustomed to a desktop environment on Linux, you&#8217;ve likely benefitted from udisks2.
 That&#8217;s because it&#8217;s what graphical applications such as file managers use to mount drives on your behalf.</p>
 </div>
@@ -955,14 +955,19 @@ Mount options should be provided as a comma-separated list following the <code>-
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ udisksctl mount <span class="nt">-b</span> /dev/sdb1 <span class="nt">--options</span> noatime,autodefrag,compress<span class="o">=</span>zstd,commit<span class="o">=</span>120,subvol<span class="o">=</span>my-backups
-Mounted /dev/sdb1 at /run/media/jordan/backups</code></pre>
+Error mounting /dev/sdb1: GDBus.Error:org.freedesktop.UDisks2.Error.OptionNotPermitted: Mount option <span class="sb">`</span>autodefrag<span class="s1">' is not allowed</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Drat.
+udisks2 doesn&#8217;t allow the options I want.
+In version 2.9.0 of udisks2, a newer version than ships with Ubuntu 18.04, it&#8217;s possible to configure the allowed and default mount options as described in the following sections.
+It turns out the only allowed mount option is <code>noatime</code>, so use the simpler command below.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>This may not work for you yet depending on the version of udisks2 on your system and its configuration.
-If it doesn't work, don't worry.
-Configuring the global Btrfs mount options appropriately, as in a following sectsion, should quell any errors.</pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl mount <span class="nt">-b</span> /dev/sdb1 <span class="nt">--options</span> noatime
+Mounted /dev/sdb1 at /run/media/jordan/backups</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -989,9 +994,9 @@ Unmounted /dev/sdb1.</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="changing_the_default_mount_options">Changing the Default Mount Options</h5>
+<h5 id="changing_the_default_and_allowed_mount_options">Changing the Default and Allowed Mount Options</h5>
 <div class="paragraph">
-<p>The udisks2 exposes the ability to change the default mount options.
+<p>The udisks2 exposes the ability to change the default mount options since version 2.9.0.
 This is done through a global configuration file or udev rules.
 Options can be tweaked for specific filesystems, device classes, and individual devices.</p>
 </div>
@@ -1011,18 +1016,35 @@ The sample configuration here demonstrates how to set the general default and al
 <div class="title">/etc/udisks2/mount_options.conf</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="ini"><span class="nn">[defaults]</span>
-<span class="c"># common options, applied to any filesystem, always merged with specific filesystem type options
-</span><span class="py">defaults</span><span class="p">=</span><span class="s">ro</span>
-<span class="py">allow</span><span class="p">=</span><span class="s">commit,exec,noexec,nodev,nosuid,atime,noatime,nodiratime,ro,rw,sync,dirsync,noload</span>
+<span class="py">allow</span><span class="p">=</span><span class="s">exec,noexec,nodev,nosuid,atime,noatime,nodiratime,relatime,strictatime,lazytime,ro,rw,sync,dirsync,noload,acl,nosymfollow</span>
 
-<span class="c"># specific filesystem type options
-</span><span class="py">vfat_defaults</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,shortname=mixed,utf8=1,showexec,flush</span>
+<span class="py">vfat_defaults</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,shortname=mixed,utf8=1,showexec,flush</span>
 <span class="py">vfat_allow</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,flush,utf8,shortname,umask,dmask,fmask,codepage,iocharset,usefree,showexec</span>
+
+<span class="c"># common options for both the native kernel driver and exfat-fuse
+</span><span class="py">exfat_defaults</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,iocharset=utf8,errors=remount-ro</span>
+<span class="py">exfat_allow</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,dmask,errors,fmask,iocharset,namecase,umask</span>
+
 <span class="py">ntfs_defaults</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,windows_names</span>
-<span class="py">ntfs_allow</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,umask,dmask,fmask,locale,norecover,ignore_case,windows_names</span>
+<span class="py">ntfs_allow</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,umask,dmask,fmask,locale,norecover,ignore_case,windows_names,compression,nocompression,big_writes</span>
+
+<span class="py">iso9660_defaults</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,iocharset=utf8,mode=0400,dmode=0500</span>
+<span class="py">iso9660_allow</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,norock,nojoliet,iocharset,mode,dmode</span>
+
+<span class="py">udf_defaults</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,iocharset=utf8</span>
+<span class="py">udf_allow</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,iocharset,utf8,umask,mode,dmode,unhide,undelete</span>
+
+<span class="py">hfsplus_defaults</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,nls=utf8</span>
+<span class="py">hfsplus_allow</span><span class="p">=</span><span class="s">uid=$UID,gid=$GID,creator,type,umask,session,part,decompose,nodecompose,force,nls</span>
 
 <span class="py">btrfs_defaults</span><span class="p">=</span><span class="s">autodefrag,compress=zstd</span>
-<span class="py">btrfs_allow</span><span class="p">=</span><span class="s">autodefrag,compress,compress-force,datacow,nodatacow,datasum,nodatasum,degraded,device,discard,nodiscard,subvol,subvolid,space_cache</span></code></pre>
+<span class="py">btrfs_allow</span><span class="p">=</span><span class="s">autodefrag,compress,compress-force,datacow,nodatacow,datasum,nodatasum,degraded,device,discard,nodiscard,subvol,subvolid,space_cache</span>
+
+<span class="py">f2fs_allow</span><span class="p">=</span><span class="s">discard,nodiscard,compress_algorithm,compress_log_size,compress_extension,alloc_mode</span>
+
+<span class="py">xfs_allow</span><span class="p">=</span><span class="s">discard,nodiscard,inode32,largeio,wsync</span>
+
+<span class="py">reiserfs_allow</span><span class="p">=</span><span class="s">hashed_relocation,no_unhashed_relocation,noborder,notail</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
