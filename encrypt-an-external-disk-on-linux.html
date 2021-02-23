@@ -172,6 +172,8 @@ It&#8217;s even pretty straightforward on the command-line, and that&#8217;s wha
 <div class="sectionbody">
 <div class="paragraph">
 <p>This tutorial describes the steps necessary to encrypt an external disk, such as a hard drive or flash drive, from the command-line using <a href="https://gitlab.com/cryptsetup/cryptsetup">Cryptsetup</a>.
+Instructions for unlocking, mounting, unmounting, and locking the filesystem are provided for both Cryptsetup and <a href="http://storaged.org/doc/udisks2-api/latest/">udisks2</a>.
+udisks2 provides userspace access to encrypted filesystems.
 The encrypted filesystem will use <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a>.
 The reference operating system is <a href="https://ubuntu.com/">Ubuntu</a> 18.04.
 Root access on the machine is required.
@@ -290,6 +292,29 @@ Verify passphrase:</code></pre>
 </li>
 <li>
 <p>Open the encrypted volume.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">udisks2</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unlock <span class="nt">-b</span> /dev/sdb1
+Passphrase:
+Unlocked /dev/sdb1 as /dev/dm-1.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>udisks2&#8217;s <code>unlock</code> subcommand creates a new device in the device tree under <code>/dev/mapper</code> using the the prefix <code>luks-</code> followed by the volume&#8217;s UUID.
+The device here appears at <code>/dev/mapper/luks-0cbab673-2b14-40c0-a1f2-522bc7ff7e18</code>.
+An additional symlink is created at <code>/dev/dm-1</code> as mentioned in the command&#8217;s output.</p>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Cryptsetup</dt>
+<dd>
 <div class="openblock">
 <div class="content">
 <div class="listingblock">
@@ -299,14 +324,47 @@ Enter passphrase <span class="k">for</span> /dev/sdb1:</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>open</code> subcommand creates a new device in the device tree under <code>/dev/mapper</code> using the name provided.
+<p>Cryptsetup&#8217;s <code>open</code> subcommand creates a new device in the device tree under <code>/dev/mapper</code> using the name provided.
 In this case, the device appears at <code>/dev/mapper/MyUSB</code>.</p>
 </div>
 </div>
 </div>
+</dd>
+</dl>
+</div>
 </li>
 <li>
 <p>Create a Btrfs filesystem on top of the encrypted volume.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">udisks2</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mkfs <span class="nt">-t</span> btrfs <span class="nt">-L</span> Private /dev/dm-1
+btrfs-progs v4.15.1
+See http://btrfs.wiki.kernel.org <span class="k">for </span>more information.
+
+Label:              Private
+UUID:               2eb01d94-9aa1-4bd1-8c99-950be806f449
+Node size:          16384
+Sector size:        4096
+Filesystem size:    931.48GiB
+Block group profiles:
+  Data:             single            8.00MiB
+  Metadata:         DUP               1.00GiB
+  System:           DUP               8.00MiB
+SSD detected:       no
+Incompat features:  extref, skinny-metadata
+Number of devices:  1
+Devices:
+   ID        SIZE  PATH
+    1   931.48GiB  /dev/dm-1</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Cryptsetup</dt>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mkfs <span class="nt">-t</span> btrfs <span class="nt">-L</span> Private /dev/mapper/MyUSB
@@ -330,32 +388,51 @@ Devices:
     1   931.48GiB  /dev/mapper/MyUSB</code></pre>
 </div>
 </div>
+</dd>
+</dl>
+</div>
 </li>
 <li>
 <p>Now mount the Btrfs volume.</p>
-<div class="openblock">
-<div class="content">
 <div class="dlist">
 <dl>
-<dt class="hdlist1">User</dt>
+<dt class="hdlist1">udisks2</dt>
 <dd>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl mount <span class="nt">-b</span> /dev/mapper/MyUSB
-Mounted /dev/mapper/MyUSB at /run/media/jordan/Private</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl mount <span class="nt">-b</span> /dev/mapper/MyUSB <span class="nt">-o</span> noatime
+Mounted /dev/dm-1 at /run/media/jordan/Private</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To mount with more desirable Btrfs mount options such as <code>autodefrag</code> and <code>compress=zstd</code>, a newer version of udisks2 is necessary.
+Refer to <a href="install-udisks2-from-source.html">Install udisks2 From Source</a> if you want to install such a version.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </dd>
-<dt class="hdlist1">Superuser</dt>
+<dt class="hdlist1">Cryptsetup</dt>
 <dd>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-mount <span class="nt">-o</span> noatime,autodefrag,compress<span class="o">=</span>zstd /dev/mapper/MyUSB
 Started unit run-media-system-Private.mount <span class="k">for </span>mount point: /run/media/system/Private</code></pre>
 </div>
-</div>
-</dd>
-</dl>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -373,23 +450,24 @@ Started unit run-media-system-Private.mount <span class="k">for </span>mount poi
 </div>
 </div>
 </div>
+</dd>
+</dl>
+</div>
 </li>
 <li>
 <p>Unmount the Btrfs volume.</p>
-<div class="openblock">
-<div class="content">
 <div class="dlist">
 <dl>
-<dt class="hdlist1">User</dt>
+<dt class="hdlist1">udisks2</dt>
 <dd>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/mapper/MyUSB
-Unmounted /dev/mapper/MyUSB.</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl unmount <span class="nt">-b</span> /dev/dm-1
+Unmounted /dev/dm-1.</code></pre>
 </div>
 </div>
 </dd>
-<dt class="hdlist1">Superuser</dt>
+<dt class="hdlist1">Cryptsetup</dt>
 <dd>
 <div class="listingblock">
 <div class="content">
@@ -400,15 +478,29 @@ Stopped unit run-media-system-Private.mount <span class="k">for </span>mount poi
 </dd>
 </dl>
 </div>
-</div>
-</div>
 </li>
 <li>
 <p>Use the <code>close</code> subcommand to remove the existing device mapping lock the encrypted device.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">udisks2</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ udisksctl lock <span class="nt">-b</span> /dev/sdb1
+Locked /dev/sdb1.</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Cryptsetup</dt>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>cryptsetup close MyUSB</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </li>
 </ol>

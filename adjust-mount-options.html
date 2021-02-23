@@ -170,7 +170,7 @@ Okay, you&#8217;re probably aware that root isn&#8217;t necessary for such a thi
 <p>I&#8217;ve been working through understanding the different components of this for a while now, but recently put most of it together addressing an important concept.
 That is mount options.
 Switching to <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a> as my default filesystem and using it for my backups, I wanted to improve the default mount options.
-And I wanted to these defaults used in userspace, not just in <a href="https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a> or when using <a href="https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html">mount(8)</a>.
+And, I wanted do have these defaults applied in userspace, not just in <a href="https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a> or when using <a href="https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html">mount(8)</a>.
 I&#8217;ve accumulated my knowledge on the subject here and describe exactly how to set Btrfs mount options to your liking, whichever way you might want.</p>
 </div>
 </div>
@@ -962,7 +962,8 @@ Error mounting /dev/sdb1: GDBus.Error:org.freedesktop.UDisks2.Error.OptionNotPer
 <p>Drat.
 udisks2 doesn&#8217;t allow the options I want.
 In version 2.9.0 of udisks2, a newer version than ships with Ubuntu 18.04, it&#8217;s possible to configure the allowed and default mount options as described in the following sections.
-It turns out the only allowed mount option is <code>noatime</code>, so use the simpler command below.</p>
+A newer version of udisks2 can be installed on Ubuntu 18.04 by following the instructions in the post <a href="install-udisks2-from-source.html">Install udisks2 From Source</a>.
+It turns out the only allowed mount option here is <code>noatime</code>, so the simpler command below will still mount the volume.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -997,7 +998,11 @@ Unmounted /dev/sdb1.</code></pre>
 <h5 id="changing_the_default_and_allowed_mount_options">Changing the Default and Allowed Mount Options</h5>
 <div class="paragraph">
 <p>The udisks2 exposes the ability to change the default mount options since version 2.9.0.
-This is done through a global configuration file or udev rules.
+Unfortunately, Ubuntu 18.04 doesn&#8217;t ship with a new enough version.
+To install a version with these capabilities, follow the instructions in the post <a href="install-udisks2-from-source.html">Install udisks2 From Source</a>.</p>
+</div>
+<div class="paragraph">
+<p>The configuration of mount options udisks2 is done through a global configuration file or udev rules.
 Options can be tweaked for specific filesystems, device classes, and individual devices.</p>
 </div>
 <div class="sect5">
@@ -1010,7 +1015,8 @@ These settings are further divided among default and allowed mount options for a
 The default and allowed options for all filesystems are set with the <code>defaults</code> and <code>allow</code> keys respectively.
 The filesystem-specific versions of these keys come from prefixing <code>_defaults</code> and <code>_allow</code> with the filesystem type used by <a href="https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html">mount(8)</a>, such as <code>vfat</code>, <code>ntfs</code>, <code>ext4</code>, and <code>btrfs</code>.
 Thus, the default mount options for btrfs use the key <code>btrfs_defaults</code> and the allowed options use the key <code>btrfs_allow</code>.
-The sample configuration here demonstrates how to set the general default and allowed options as well as those for <code>vfat</code>, <code>ntfs</code>, and <code>btrfs</code>.</p>
+The sample configuration here demonstrates how to modify the default and allowed options used for Btrfs.
+The other settings are simply the defaults used by udisks2.</p>
 </div>
 <div class="listingblock">
 <div class="title">/etc/udisks2/mount_options.conf</div>

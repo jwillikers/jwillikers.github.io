@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-22T16:58:08-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Adjust Mount Options</title><link href="https://www.jwillikers.com/adjust-mount-options" rel="alternate" type="text/html" title="Adjust Mount Options" /><published>2021-02-22T00:00:00-06:00</published><updated>2021-02-22T00:00:00-06:00</updated><id>https://www.jwillikers.com/Adjust%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/adjust-mount-options">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-23T14:42:16-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Adjust Mount Options</title><link href="https://www.jwillikers.com/adjust-mount-options" rel="alternate" type="text/html" title="Adjust Mount Options" /><published>2021-02-22T00:00:00-06:00</published><updated>2021-02-22T00:00:00-06:00</updated><id>https://www.jwillikers.com/Adjust%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/adjust-mount-options">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Mounting filesystems on Linux is simple, right?
@@ -12,7 +12,7 @@ Okay, you&amp;#8217;re probably aware that root isn&amp;#8217;t necessary for su
 &lt;p&gt;I&amp;#8217;ve been working through understanding the different components of this for a while now, but recently put most of it together addressing an important concept.
 That is mount options.
 Switching to &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; as my default filesystem and using it for my backups, I wanted to improve the default mount options.
-And I wanted to these defaults used in userspace, not just in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt; or when using &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html&quot;&gt;mount(8)&lt;/a&gt;.
+And, I wanted do have these defaults applied in userspace, not just in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt; or when using &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html&quot;&gt;mount(8)&lt;/a&gt;.
 I&amp;#8217;ve accumulated my knowledge on the subject here and describe exactly how to set Btrfs mount options to your liking, whichever way you might want.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -804,7 +804,8 @@ Error mounting /dev/sdb1: GDBus.Error:org.freedesktop.UDisks2.Error.OptionNotPer
 &lt;p&gt;Drat.
 udisks2 doesn&amp;#8217;t allow the options I want.
 In version 2.9.0 of udisks2, a newer version than ships with Ubuntu 18.04, it&amp;#8217;s possible to configure the allowed and default mount options as described in the following sections.
-It turns out the only allowed mount option is &lt;code&gt;noatime&lt;/code&gt;, so use the simpler command below.&lt;/p&gt;
+A newer version of udisks2 can be installed on Ubuntu 18.04 by following the instructions in the post &lt;a href=&quot;install-udisks2-from-source.html&quot;&gt;Install udisks2 From Source&lt;/a&gt;.
+It turns out the only allowed mount option here is &lt;code&gt;noatime&lt;/code&gt;, so the simpler command below will still mount the volume.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -839,7 +840,11 @@ Unmounted /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
 &lt;h5 id=&quot;changing_the_default_and_allowed_mount_options&quot;&gt;Changing the Default and Allowed Mount Options&lt;/h5&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;The udisks2 exposes the ability to change the default mount options since version 2.9.0.
-This is done through a global configuration file or udev rules.
+Unfortunately, Ubuntu 18.04 doesn&amp;#8217;t ship with a new enough version.
+To install a version with these capabilities, follow the instructions in the post &lt;a href=&quot;install-udisks2-from-source.html&quot;&gt;Install udisks2 From Source&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The configuration of mount options udisks2 is done through a global configuration file or udev rules.
 Options can be tweaked for specific filesystems, device classes, and individual devices.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect5&quot;&gt;
@@ -852,7 +857,8 @@ These settings are further divided among default and allowed mount options for a
 The default and allowed options for all filesystems are set with the &lt;code&gt;defaults&lt;/code&gt; and &lt;code&gt;allow&lt;/code&gt; keys respectively.
 The filesystem-specific versions of these keys come from prefixing &lt;code&gt;_defaults&lt;/code&gt; and &lt;code&gt;_allow&lt;/code&gt; with the filesystem type used by &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html&quot;&gt;mount(8)&lt;/a&gt;, such as &lt;code&gt;vfat&lt;/code&gt;, &lt;code&gt;ntfs&lt;/code&gt;, &lt;code&gt;ext4&lt;/code&gt;, and &lt;code&gt;btrfs&lt;/code&gt;.
 Thus, the default mount options for btrfs use the key &lt;code&gt;btrfs_defaults&lt;/code&gt; and the allowed options use the key &lt;code&gt;btrfs_allow&lt;/code&gt;.
-The sample configuration here demonstrates how to set the general default and allowed options as well as those for &lt;code&gt;vfat&lt;/code&gt;, &lt;code&gt;ntfs&lt;/code&gt;, and &lt;code&gt;btrfs&lt;/code&gt;.&lt;/p&gt;
+The sample configuration here demonstrates how to modify the default and allowed options used for Btrfs.
+The other settings are simply the defaults used by udisks2.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;title&quot;&gt;/etc/udisks2/mount_options.conf&lt;/div&gt;
@@ -1050,6 +1056,8 @@ It&amp;#8217;s even pretty straightforward on the command-line, and that&amp;#82
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;This tutorial describes the steps necessary to encrypt an external disk, such as a hard drive or flash drive, from the command-line using &lt;a href=&quot;https://gitlab.com/cryptsetup/cryptsetup&quot;&gt;Cryptsetup&lt;/a&gt;.
+Instructions for unlocking, mounting, unmounting, and locking the filesystem are provided for both Cryptsetup and &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt;.
+udisks2 provides userspace access to encrypted filesystems.
 The encrypted filesystem will use &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt;.
 The reference operating system is &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
 Root access on the machine is required.
@@ -1168,6 +1176,29 @@ Verify passphrase:&lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Open the encrypted volume.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;udisks2&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unlock &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/sdb1
+Passphrase:
+Unlocked /dev/sdb1 as /dev/dm-1.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;udisks2&amp;#8217;s &lt;code&gt;unlock&lt;/code&gt; subcommand creates a new device in the device tree under &lt;code&gt;/dev/mapper&lt;/code&gt; using the the prefix &lt;code&gt;luks-&lt;/code&gt; followed by the volume&amp;#8217;s UUID.
+The device here appears at &lt;code&gt;/dev/mapper/luks-0cbab673-2b14-40c0-a1f2-522bc7ff7e18&lt;/code&gt;.
+An additional symlink is created at &lt;code&gt;/dev/dm-1&lt;/code&gt; as mentioned in the command&amp;#8217;s output.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Cryptsetup&lt;/dt&gt;
+&lt;dd&gt;
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
@@ -1177,14 +1208,47 @@ Enter passphrase &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; /dev/sdb1:&lt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;open&lt;/code&gt; subcommand creates a new device in the device tree under &lt;code&gt;/dev/mapper&lt;/code&gt; using the name provided.
+&lt;p&gt;Cryptsetup&amp;#8217;s &lt;code&gt;open&lt;/code&gt; subcommand creates a new device in the device tree under &lt;code&gt;/dev/mapper&lt;/code&gt; using the name provided.
 In this case, the device appears at &lt;code&gt;/dev/mapper/MyUSB&lt;/code&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Create a Btrfs filesystem on top of the encrypted volume.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;udisks2&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkfs &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; btrfs &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; Private /dev/dm-1
+btrfs-progs v4.15.1
+See http://btrfs.wiki.kernel.org &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;more information.
+
+Label:              Private
+UUID:               2eb01d94-9aa1-4bd1-8c99-950be806f449
+Node size:          16384
+Sector size:        4096
+Filesystem size:    931.48GiB
+Block group profiles:
+  Data:             single            8.00MiB
+  Metadata:         DUP               1.00GiB
+  System:           DUP               8.00MiB
+SSD detected:       no
+Incompat features:  extref, skinny-metadata
+Number of devices:  1
+Devices:
+   ID        SIZE  PATH
+    1   931.48GiB  /dev/dm-1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Cryptsetup&lt;/dt&gt;
+&lt;dd&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkfs &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; btrfs &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; Private /dev/mapper/MyUSB
@@ -1208,32 +1272,51 @@ Devices:
     1   931.48GiB  /dev/mapper/MyUSB&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Now mount the Btrfs volume.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;User&lt;/dt&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;udisks2&lt;/dt&gt;
 &lt;dd&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl mount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/mapper/MyUSB
-Mounted /dev/mapper/MyUSB at /run/media/jordan/Private&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl mount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/mapper/MyUSB &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; noatime
+Mounted /dev/dm-1 at /run/media/jordan/Private&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To mount with more desirable Btrfs mount options such as &lt;code&gt;autodefrag&lt;/code&gt; and &lt;code&gt;compress=zstd&lt;/code&gt;, a newer version of udisks2 is necessary.
+Refer to &lt;a href=&quot;install-udisks2-from-source.html&quot;&gt;Install udisks2 From Source&lt;/a&gt; if you want to install such a version.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;Superuser&lt;/dt&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Cryptsetup&lt;/dt&gt;
 &lt;dd&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-mount &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; noatime,autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd /dev/mapper/MyUSB
 Started unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/Private&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
 &lt;/div&gt;
 &lt;div class=&quot;admonitionblock note&quot;&gt;
 &lt;table&gt;
@@ -1251,23 +1334,24 @@ Started unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for 
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Unmount the Btrfs volume.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;User&lt;/dt&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;udisks2&lt;/dt&gt;
 &lt;dd&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/mapper/MyUSB
-Unmounted /dev/mapper/MyUSB.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/dm-1
+Unmounted /dev/dm-1.&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;Superuser&lt;/dt&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Cryptsetup&lt;/dt&gt;
 &lt;dd&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -1278,15 +1362,29 @@ Stopped unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for 
 &lt;/dd&gt;
 &lt;/dl&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Use the &lt;code&gt;close&lt;/code&gt; subcommand to remove the existing device mapping lock the encrypted device.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;udisks2&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl lock &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/sdb1
+Locked /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Cryptsetup&lt;/dt&gt;
+&lt;dd&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup close MyUSB&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -1300,7 +1398,7 @@ Stopped unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for 
 &lt;p&gt;You can now create, open, and close an encrypted partition on Linux.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="backups" /><category term="Btrfs" /><category term="Cryptsetup" /><category term="elementary" /><category term="encryption" /><category term="fstab" /><category term="Linux" /><category term="systemd" /><category term="Ubuntu" /><summary type="html">Encrypting your data is pretty much a must anyone who is privacy or security conscious. I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple. I keep local backups on an external hard drive, which I keep encrypted. Encrypting a drive is pretty easy on Linux, especially with applications like GNOME Disks, which go so far as to make this possible without requiring superuser privileges. It&amp;#8217;s even pretty straightforward on the command-line, and that&amp;#8217;s what I demonstrate here.</summary></entry><entry><title type="html">Btrfs Snapshot Management With Snapper</title><link href="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper" rel="alternate" type="text/html" title="Btrfs Snapshot Management With Snapper" /><published>2021-02-15T00:00:00-06:00</published><updated>2021-02-15T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Snapshot%20Management%20With%20Snapper</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="backups" /><category term="Btrfs" /><category term="Cryptsetup" /><category term="elementary" /><category term="encryption" /><category term="fstab" /><category term="Linux" /><category term="systemd" /><category term="udisks2" /><category term="Ubuntu" /><summary type="html">Encrypting your data is pretty much a must anyone who is privacy or security conscious. I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple. I keep local backups on an external hard drive, which I keep encrypted. Encrypting a drive is pretty easy on Linux, especially with applications like GNOME Disks, which go so far as to make this possible without requiring superuser privileges. It&amp;#8217;s even pretty straightforward on the command-line, and that&amp;#8217;s what I demonstrate here.</summary></entry><entry><title type="html">Btrfs Snapshot Management With Snapper</title><link href="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper" rel="alternate" type="text/html" title="Btrfs Snapshot Management With Snapper" /><published>2021-02-15T00:00:00-06:00</published><updated>2021-02-15T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Snapshot%20Management%20With%20Snapper</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Manually taking snapshots with &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; is easy.
