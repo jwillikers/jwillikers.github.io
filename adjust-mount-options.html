@@ -1001,6 +1001,21 @@ Unmounted /dev/sdb1.</code></pre>
 Unfortunately, Ubuntu 18.04 doesn&#8217;t ship with a new enough version.
 To install a version with these capabilities, follow the instructions in the post <a href="install-udisks2-from-source.html">Install udisks2 From Source</a>.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you installed from source into the default destination under <code>/usr/local</code>, then the configuration file and udev rules will be under <code>/usr/local</code> instead of <code>/usr</code>.
+Adjust the file paths used in the following examples accordingly.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>The configuration of mount options udisks2 is done through a global configuration file or udev rules.
 Options can be tweaked for specific filesystems, device classes, and individual devices.</p>
