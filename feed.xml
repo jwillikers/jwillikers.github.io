@@ -1,4 +1,293 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-24T06:32:35-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Adjust Mount Options</title><link href="https://www.jwillikers.com/adjust-mount-options" rel="alternate" type="text/html" title="Adjust Mount Options" /><published>2021-02-22T00:00:00-06:00</published><updated>2021-02-22T00:00:00-06:00</updated><id>https://www.jwillikers.com/Adjust%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/adjust-mount-options">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-24T06:34:42-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install udisks2 From Source</title><link href="https://www.jwillikers.com/install-udisks2-from-source" rel="alternate" type="text/html" title="Install udisks2 From Source" /><published>2021-02-23T00:00:00-06:00</published><updated>2021-02-23T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20udisks2%20From%20Source</id><content type="html" xml:base="https://www.jwillikers.com/install-udisks2-from-source">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I recently posted &lt;a href=&quot;adjust-mount-options.html&quot;&gt;Adjust Mount Options&lt;/a&gt; which explains in detail how to configure mount options for &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt;.
+Unfortunately, the reference operating system, &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04, doesn&amp;#8217;t use a new enough version of udisks2.
+In fact, even Ubuntu 20.04 doesn&amp;#8217;t contain a new enough version.
+So, what should you do if you want to try out these nifty, new features?
+Build from source, of course!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial describes how to install both udisks, version 2.9.2, and its dependency &lt;a href=&quot;http://storaged.org/libblockdev/&quot;&gt;libblockdev&lt;/a&gt;, version 2.25, from source on an Ubuntu 18.04 system.
+A brief introduction to modifying the global mount options is also included.
+For reference, I&amp;#8217;m building on &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1.
+I assume you&amp;#8217;re familiar with building and installing software on Linux and udisks2.
+The instructions here are intended for the beloved &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt; or &lt;a href=&quot;https://www.gnu.org/software/bash/&quot;&gt;Bash&lt;/a&gt; or &lt;a href=&quot;https://www.zsh.org/&quot;&gt;ZSH&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Install the dependencies required to build libblockdev.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;build-essential libbytesize-dev libkeyutils-dev &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  libkmod-dev libcryptsetup-dev libglib2.0-dev libgirepository1.0-dev &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  libmount-dev libdmraid-dev libndctl-dev libnss3-dev libparted-dev &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  libudev-dev libvolume-key-dev libyaml-dev pkg-config&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Fetch the latest release tarball from GitHub.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ wget &lt;span class=&quot;nt&quot;&gt;-qO&lt;/span&gt; - https://api.github.com/repos/storaged-project/libblockdev/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /libblockdev-[0-9]+\.[0-9]+\.tar\.gz/ \
+  {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qLP ~/Downloads/ &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Extract the tarball.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; ~/Downloads &lt;span class=&quot;nt&quot;&gt;-xvf&lt;/span&gt; ~/Downloads/libblockdev-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.tar.gz&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Change to the extracted directory.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/Downloads/libblockdev-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Prepare the build.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ./configure&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Build libblockdev.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;fish&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nproc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;Bash / ZSH&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;➜ make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nproc&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install libblockdev.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install the dependencies required to build udisks2.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libacl1-dev libatasmart-dev libgudev-1.0-dev &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  libpolkit-agent-1-dev libpolkit-gobject-1-dev libsystemd-dev&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Fetch the latest udisks release from GitHub.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ wget &lt;span class=&quot;nt&quot;&gt;-qO&lt;/span&gt; - https://api.github.com/repos/storaged-project/udisks/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /\.tar\.bz2/ \
+  {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qLP ~/Downloads/ &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Extract the archive.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; ~/Downloads &lt;span class=&quot;nt&quot;&gt;-xvf&lt;/span&gt; ~/Downloads/udisks-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.tar.bz2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Change to the extracted directory.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/Downloads/udisks-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Configure the build.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ ./configure &lt;span class=&quot;nt&quot;&gt;--enable-btrfs&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--with-systemdsystemunitdir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local/lib/systemd/system &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--with-udevdir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local/lib/udev&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Installing udisks2 from source installs to the systemd and udev directories in &lt;code&gt;/usr&lt;/code&gt;, overwriting files placed there by your system&amp;#8217;s installation.
+To avoid interfering with those, the command here puts these files in their corresponding directories under &lt;code&gt;/usr/local&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Build away.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;fish&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nproc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;Bash / ZSH&lt;/em&gt;&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;➜ make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nproc&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install udisks2.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;On Ubuntu 18.04, symlink the udisks2 udev rules to &lt;code&gt;/etc/udev/rules.d/80-udisks2.rules&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ubuntu 18.04 uses an older version of udev which does not load rules from &lt;code&gt;/usr/local/lib/udev/rules.d/&lt;/code&gt;.
+This functions as a workaround and isn&amp;#8217;t necessary for newer Ubuntu LTS releases which support udev rules in &lt;code&gt;/usr/local&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo ln&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; /usr/local/lib/udev/rules.d/80-udisks2.rules /etc/udev/rules.d/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Update the linker&amp;#8217;s cache for the updated libraries now in &lt;code&gt;/usr/local/lib&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ldconfig&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reload the &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; unit files to refresh the updated udisks2 service unit.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl daemon-reload&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart the udisks2 service unit to load the new version.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl restart udisks2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Cleanup the downloaded source files and residual build artifacts.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ~/Downloads/libblockdev-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; ~/Downloads/udisks-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To prefer the newer LUKS2 encryption, change the line &lt;code&gt;encryption=luks1&lt;/code&gt; to &lt;code&gt;encryption=luks2&lt;/code&gt; in the udisks2 configuration file, &lt;code&gt;/usr/local/etc/udisks2/udisks2.conf&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;mount_options&quot;&gt;Mount Options&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To configure mount options for udisks2, copy the example template to &lt;code&gt;/usr/local/etc/udisks2/mount_options.conf&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo cp&lt;/span&gt; /usr/local/etc/udisks2/mount_options.conf.example &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  /usr/local/etc/udisks2/mount_options.conf&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now modify the configuration file to your liking.
+The template includes lots of helpful comments.
+I tweak the Btrfs defaults in my configuration shown below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;/usr/local/etc/udisks2/mount_options.conf&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;[defaults]
+btrfs_defaults=autodefrag,compress=zstd
+btrfs_allow=autodefrag,compress,compress-force,datacow,nodatacow,datasum,nodatasum,degraded,device,discard,nodiscard,subvol,subvolid,space_cache&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here, &lt;code&gt;autodefrag&lt;/code&gt; is allowed by adding it to the default list of allowed options.
+Additionally, automatic defragmentation and zstd compression are enabled by default.
+To learn more check the post &lt;a href=&quot;adjust-mount-options.html&quot;&gt;Adjust Mount Options&lt;/a&gt; and the &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/mount_options.html&quot;&gt;udisks2 Mount Options&lt;/a&gt; documentation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That&amp;#8217;s a wrap.
+You can now enjoy the new features in udisks2 without having to wait for the next Ubuntu LTS release, 22.04.
+Hopefully this doesn&amp;#8217;t break anything.
+😅&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="elementary" /><category term="Linux" /><category term="mount" /><category term="Ubuntu" /><category term="udisks2" /><summary type="html">I recently posted Adjust Mount Options which explains in detail how to configure mount options for udisks2. Unfortunately, the reference operating system, Ubuntu 18.04, doesn&amp;#8217;t use a new enough version of udisks2. In fact, even Ubuntu 20.04 doesn&amp;#8217;t contain a new enough version. So, what should you do if you want to try out these nifty, new features? Build from source, of course!</summary></entry><entry><title type="html">Adjust Mount Options</title><link href="https://www.jwillikers.com/adjust-mount-options" rel="alternate" type="text/html" title="Adjust Mount Options" /><published>2021-02-22T00:00:00-06:00</published><updated>2021-02-22T00:00:00-06:00</updated><id>https://www.jwillikers.com/Adjust%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/adjust-mount-options">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Mounting filesystems on Linux is simple, right?
@@ -2842,227 +3131,4 @@ end&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You should now be able to have your GPG and SSH keys unlocked automatically when you login to your KDE environment.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Developer" /><category term="GNOME" /><category term="GPG" /><category term="KDE" /><category term="Keyring" /><category term="Manjaro" /><category term="PinebookPro" /><category term="Plasma" /><category term="SSH" /><summary type="html">I love GNOME, but on my Pinebook Pro, I use the extremely well-supported Manjaro Pinebook Pro KDE Plasma edition. One of the biggest gripes I have with KDE Plasma is that it doesn&amp;#8217;t automatically manage my OpenSSH and GPG keys. I&amp;#8217;m used to having my SSH and GPG key unlocked automatically when I login in. As a developer who uses these constantly, this is very convenient. KDE Plasma works very well on the Pinebook Pro, but this is one feature I just had to figure out. While I attempted to make this work with KWallet, I gave up and switched to using GNOME Keyring. If you wish to obtain this convenience within KDE then read on.</summary></entry><entry><title type="html">Create a Windows 10 USB on Ubuntu</title><link href="https://www.jwillikers.com/create-a-windows-10-usb-on-ubuntu" rel="alternate" type="text/html" title="Create a Windows 10 USB on Ubuntu" /><published>2020-12-11T00:00:00-06:00</published><updated>2020-12-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Create%20a%20Windows%2010%20USB%20on%20Ubuntu</id><content type="html" xml:base="https://www.jwillikers.com/create-a-windows-10-usb-on-ubuntu">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I needed a to install Windows 10 from a USB recently.
-I&amp;#8217;ve described my preferred method of accomplishing this in my recent post &lt;a href=&quot;a-multi-boot-usb-with-ventoy.html&quot;&gt;A Multi-Boot USB With Ventoy&lt;/a&gt;.
-Before I thought to use &lt;a href=&quot;https://www.ventoy.net/en/index.html&quot;&gt;Ventoy&lt;/a&gt;, I created such an installer following this nifty article &lt;a href=&quot;https://linuxhint.com/create-a-bootable-windows-10-usb-drive-in-linux/&quot;&gt;How to Create a Bootable Windows 10 USB Drive in Linux&lt;/a&gt;.
-I was surprised by how simple it is do this using functionality built into &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; and &lt;a href=&quot;https://www.gnome.org/&quot;&gt;GNOME&lt;/a&gt;.
-This made me curious.
-How exactly do the underlying components function to do this?
-So, I converted that tutorial to a command-line only version here.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial documents the steps required to create a Windows 10 USB installer on &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.04 from the command-line.
-As such, you should be familiar with Linux and the command-line to get the most out of this tutorial.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Insert a spare flash drive in to your computer.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Locate the device associated with your USB by using the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/lsblk.8.html&quot;&gt;lsblk(8)&lt;/a&gt; command.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ lsblk
-NAME             MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
-sda                8:0    0 465.8G  0 disk
-├─sda1             8:1    0   512M  0 part  /boot/efi
-├─sda2             8:2    0     2G  0 part
-│ └─cryptoswap   253:1    0     2G  0 crypt &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SWAP]
-├─sda3             8:3    0     2G  0 part
-└─sda4             8:4    0 461.3G  0 part
-sdb                8:16   1  29.9G  0 disk &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-└─sdb1             8:17   1  29.9G  0 part  /media/jordan/MyUSB
-zd0              230:0    0   500M  0 disk
-└─keystore-rpool 253:0    0   484M  0 crypt /run/keystore/rpool&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;&lt;em&gt;sdb&lt;/em&gt; here is the 32 Gigabyte flash drive I&amp;#8217;ve plugged in to my laptop.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Before proceeding, ensure that nothing important is on the flash drive since it will be overwritten in a minute.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Unmount any mounted partitions on the flash drive.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;As shown in the previous output, &lt;em&gt;sdb1&lt;/em&gt; is mounted at &lt;em&gt;/media/jordan/MyUSB&lt;/em&gt;.
-I unmount this partition with the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/udisksctl.1.html&quot;&gt;udisksctl(1)&lt;/a&gt; command here.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/sdb1 &lt;span class=&quot;nt&quot;&gt;--no-user-interaction&lt;/span&gt;
-Unmounted /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Wipe any existing partition tables on the flash drive and generate a new one.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The set of &lt;em&gt;gdisk&lt;/em&gt; commands, consisting of &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/cgdisk.8.html&quot;&gt;cgdisk(8)&lt;/a&gt;, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/gdisk.8.html&quot;&gt;gdisk(8)&lt;/a&gt;, and &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html&quot;&gt;sgdisk(8)&lt;/a&gt;, manipulate &lt;a href=&quot;https://en.wikipedia.org/wiki/GUID_Partition_Table&quot;&gt;GUID partition tables&lt;/a&gt;, also known as &lt;em&gt;GPT&lt;/em&gt;'s.
-Older &lt;a href=&quot;https://en.wikipedia.org/wiki/Master_boot_record&quot;&gt;master boot records&lt;/a&gt;, &lt;em&gt;MBR&lt;/em&gt;'s, are instead managed with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/fdisk.8.html&quot;&gt;fdisk(8)&lt;/a&gt; and its similarly named friends.
-Here, the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html&quot;&gt;sgdisk(8)&lt;/a&gt; command is used to partition the flash drive using the newer &lt;em&gt;GPT&lt;/em&gt; format without requiring any user interaction.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;sgdisk &lt;span class=&quot;nt&quot;&gt;-Z&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 0:0:0 /dev/sdb
-Creating new GPT entries &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;memory.
-GPT data structures destroyed! You may now partition the disk using fdisk or
-other utilities.
-The operation has completed successfully.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;-Z&lt;/code&gt; flag &lt;em&gt;zaps&lt;/em&gt; any existing MBR and GPT partition tables into oblivion.
-Then, the &lt;code&gt;-n&lt;/code&gt; flag creates a new partition given the partition number, starting sector, and ending sector separated by colons.
-Zeros used here represent default values.
-The first zero sets the partition number to the next available number, which is one since this is the first partition on the flash drive.
-The next two zeros designate the starting sector of the largest block and the last sector of that same block, creating a single partition which effectively takes up the entirety of the flash drive.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The program deceptively prints out what it does in the wrong order.
-Just know that it does indeed wipe the existing MBR and GPT partitions before creating the new one.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Format the partition as &lt;a href=&quot;https://en.wikipedia.org/wiki/NTFS&quot;&gt;NTFS&lt;/a&gt; with the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/mkntfs.8.html&quot;&gt;mkntfs(8)&lt;/a&gt; tool.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ mkntfs &lt;span class=&quot;nt&quot;&gt;-QL&lt;/span&gt; Windows10 /dev/sdb1
-Cluster size has been automatically &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;to 4096 bytes.
-Creating NTFS volume structures.
-mkntfs completed successfully. Have a &lt;span class=&quot;nb&quot;&gt;nice &lt;/span&gt;day.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Mount the newly created partition with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/udisksctl.1.html&quot;&gt;udisksctl(1)&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl mount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/sdb1 &lt;span class=&quot;nt&quot;&gt;--no-user-interaction&lt;/span&gt;
-Mounted /dev/sdb1 at /media/jordan/Windows10&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Download the &lt;a href=&quot;https://www.microsoft.com/en-gb/software-download/windows10ISO&quot;&gt;Windows 10 ISO&lt;/a&gt;.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Mount the Windows 10 ISO in order to access its contents.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man1/gnome-disk-image-mounter.1.html&quot;&gt;gnome-disk-image-mounter(1)&lt;/a&gt; makes this a piece of cake and only requires a single argument, the path to the ISO file to mount.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gnome-disk-image-mounter ~/Downloads/Win10_20H2_English_x64.iso&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Use &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/lsblk.8.html&quot;&gt;lsblk(8)&lt;/a&gt; again in order to find where the ISO is mounted.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ lsblk
-NAME            MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
-loop53            7:53   0   5.7G  1 loop  /media/jordan/CCCOMA_X64FRE_EN-US_DV9 &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-sda               8:0    0 465.8G  0 disk
-├─sda1            8:1    0   512M  0 part  /boot/efi
-├─sda2            8:2    0     2G  0 part
-│ └─cryptoswap  253:1    0     2G  0 crypt &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SWAP]
-├─sda3            8:3    0     2G  0 part
-└─sda4            8:4    0 461.3G  0 part
-zd0             230:0    0   500M  0 disk
-└─keystore-rpool
-                253:0    0   484M  0 crypt /run/keystore/rpool&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Yep, that&amp;#8217;s the ISO file mounted as a &lt;a href=&quot;https://en.wikipedia.org/wiki/Loop_device&quot;&gt;loop device&lt;/a&gt;.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Copy all files from the ISO to the flash drive.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; /media/jordan/CCCOMA_X64FRE_EN-US_DV9/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; /media/jordan/Windows10&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Unmount the ISO.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/loop53 &lt;span class=&quot;nt&quot;&gt;--no-user-interaction&lt;/span&gt;
-Unmounted /dev/loop53.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Unmount the flash drive.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/sdb1 &lt;span class=&quot;nt&quot;&gt;--no-user-interaction&lt;/span&gt;
-Unmounted /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You should now have a better idea of some of the underlying components at work when creating a Windows 10 USB installer.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Or, use &lt;code&gt;sudo fdisk -l&lt;/code&gt; if you prefer.
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Boot" /><category term="Disks" /><category term="gdisk" /><category term="GNOME" /><category term="gnome-disk-image-mounter" /><category term="Installer" /><category term="ISO" /><category term="Linux" /><category term="sgdisk" /><category term="Ubuntu" /><category term="Ubuntu2004" /><category term="udisks" /><category term="USB" /><category term="Windows" /><category term="Windows10" /><summary type="html">I needed a to install Windows 10 from a USB recently. I&amp;#8217;ve described my preferred method of accomplishing this in my recent post A Multi-Boot USB With Ventoy. Before I thought to use Ventoy, I created such an installer following this nifty article How to Create a Bootable Windows 10 USB Drive in Linux. I was surprised by how simple it is do this using functionality built into Ubuntu and GNOME. This made me curious. How exactly do the underlying components function to do this? So, I converted that tutorial to a command-line only version here.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Developer" /><category term="GNOME" /><category term="GPG" /><category term="KDE" /><category term="Keyring" /><category term="Manjaro" /><category term="PinebookPro" /><category term="Plasma" /><category term="SSH" /><summary type="html">I love GNOME, but on my Pinebook Pro, I use the extremely well-supported Manjaro Pinebook Pro KDE Plasma edition. One of the biggest gripes I have with KDE Plasma is that it doesn&amp;#8217;t automatically manage my OpenSSH and GPG keys. I&amp;#8217;m used to having my SSH and GPG key unlocked automatically when I login in. As a developer who uses these constantly, this is very convenient. KDE Plasma works very well on the Pinebook Pro, but this is one feature I just had to figure out. While I attempted to make this work with KWallet, I gave up and switched to using GNOME Keyring. If you wish to obtain this convenience within KDE then read on.</summary></entry></feed>

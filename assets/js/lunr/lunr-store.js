@@ -304,4 +304,10 @@ var store = [{
         "tags": ["backups","Btrfs","Cryptsetup","elementary","encryption","fstab","Linux","systemd","udisks2","Ubuntu"],
         "url": "/encrypt-an-external-disk-on-linux",
         "teaser": null
+      },{
+        "title": "Install udisks2 From Source",
+        "excerpt":"I recently posted Adjust Mount Options which explains in detail how to configure mount options for udisks2. Unfortunately, the reference operating system, Ubuntu 18.04, doesn&#8217;t use a new enough version of udisks2. In fact, even Ubuntu 20.04 doesn&#8217;t contain a new enough version. So, what should you do if you...","categories": ["Disks"],
+        "tags": ["Btrfs","elementary","Linux","mount","Ubuntu","udisks2"],
+        "url": "/install-udisks2-from-source",
+        "teaser": null
       }]

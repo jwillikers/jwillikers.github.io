@@ -1,0 +1,534 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Install udisks2 From Source - JWillikers</title>
+<meta name="description" content="I recently posted Adjust Mount Options which explains in detail how to configure mount options for udisks2. Unfortunately, the reference operating system, Ubuntu 18.04, doesn&#8217;t use a new enough version of udisks2. In fact, even Ubuntu 20.04 doesn&#8217;t contain a new enough version. So, what should you do if you want to try out these nifty, new features? Build from source, of course!">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Install udisks2 From Source">
+<meta property="og:url" content="https://www.jwillikers.com/install-udisks2-from-source">
+
+
+  <meta property="og:description" content="I recently posted Adjust Mount Options which explains in detail how to configure mount options for udisks2. Unfortunately, the reference operating system, Ubuntu 18.04, doesn&#8217;t use a new enough version of udisks2. In fact, even Ubuntu 20.04 doesn&#8217;t contain a new enough version. So, what should you do if you want to try out these nifty, new features? Build from source, of course!">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-23T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/install-udisks2-from-source">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>I recently posted <a href="adjust-mount-options.html">Adjust Mount Options</a> which explains in detail how to configure mount options for <a href="http://storaged.org/doc/udisks2-api/latest/">udisks2</a>.
+Unfortunately, the reference operating system, <a href="https://ubuntu.com/">Ubuntu</a> 18.04, doesn&#8217;t use a new enough version of udisks2.
+In fact, even Ubuntu 20.04 doesn&#8217;t contain a new enough version.
+So, what should you do if you want to try out these nifty, new features?
+Build from source, of course!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial describes how to install both udisks, version 2.9.2, and its dependency <a href="http://storaged.org/libblockdev/">libblockdev</a>, version 2.25, from source on an Ubuntu 18.04 system.
+A brief introduction to modifying the global mount options is also included.
+For reference, I&#8217;m building on <a href="https://elementary.io/">elementary OS</a> 5.1.
+I assume you&#8217;re familiar with building and installing software on Linux and udisks2.
+The instructions here are intended for the beloved <a href="https://fishshell.com/">fish shell</a> or <a href="https://www.gnu.org/software/bash/">Bash</a> or <a href="https://www.zsh.org/">ZSH</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the dependencies required to build libblockdev.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>build-essential libbytesize-dev libkeyutils-dev <span class="se">\</span>
+  libkmod-dev libcryptsetup-dev libglib2.0-dev libgirepository1.0-dev <span class="se">\</span>
+  libmount-dev libdmraid-dev libndctl-dev libnss3-dev libparted-dev <span class="se">\</span>
+  libudev-dev libvolume-key-dev libyaml-dev pkg-config</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Fetch the latest release tarball from GitHub.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-qO</span> - https://api.github.com/repos/storaged-project/libblockdev/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /libblockdev-[0-9]+\.[0-9]+\.tar\.gz/ \
+  {gsub(/"/, "", $(NF)); system("wget -qLP ~/Downloads/ " $(NF))}'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Extract the tarball.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">tar</span> <span class="nt">-C</span> ~/Downloads <span class="nt">-xvf</span> ~/Downloads/libblockdev-<span class="k">*</span>.tar.gz</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change to the extracted directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd</span> ~/Downloads/libblockdev-<span class="k">*</span>/</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Prepare the build.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Build libblockdev.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>fish</em></dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ make <span class="nt">-j</span><span class="o">(</span><span class="nb">nproc</span><span class="o">)</span></code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1"><em>Bash / ZSH</em></dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">➜ make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc</span><span class="si">)</span></code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</li>
+<li>
+<p>Install libblockdev.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>make <span class="nb">install</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install the dependencies required to build udisks2.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>libacl1-dev libatasmart-dev libgudev-1.0-dev <span class="se">\</span>
+  libpolkit-agent-1-dev libpolkit-gobject-1-dev libsystemd-dev</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Fetch the latest udisks release from GitHub.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-qO</span> - https://api.github.com/repos/storaged-project/udisks/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /\.tar\.bz2/ \
+  {gsub(/"/, "", $(NF)); system("wget -qLP ~/Downloads/ " $(NF))}'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Extract the archive.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">tar</span> <span class="nt">-C</span> ~/Downloads <span class="nt">-xvf</span> ~/Downloads/udisks-<span class="k">*</span>.tar.bz2</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change to the extracted directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd</span> ~/Downloads/udisks-<span class="k">*</span>/</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure the build.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ ./configure <span class="nt">--enable-btrfs</span> <span class="se">\</span>
+  <span class="nt">--with-systemdsystemunitdir</span><span class="o">=</span>/usr/local/lib/systemd/system <span class="se">\</span>
+  <span class="nt">--with-udevdir</span><span class="o">=</span>/usr/local/lib/udev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Installing udisks2 from source installs to the systemd and udev directories in <code>/usr</code>, overwriting files placed there by your system&#8217;s installation.
+To avoid interfering with those, the command here puts these files in their corresponding directories under <code>/usr/local</code>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Build away.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>fish</em></dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ make <span class="nt">-j</span><span class="o">(</span><span class="nb">nproc</span><span class="o">)</span></code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1"><em>Bash / ZSH</em></dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">➜ make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc</span><span class="si">)</span></code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</li>
+<li>
+<p>Install udisks2.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>make <span class="nb">install</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>On Ubuntu 18.04, symlink the udisks2 udev rules to <code>/etc/udev/rules.d/80-udisks2.rules</code></p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Ubuntu 18.04 uses an older version of udev which does not load rules from <code>/usr/local/lib/udev/rules.d/</code>.
+This functions as a workaround and isn&#8217;t necessary for newer Ubuntu LTS releases which support udev rules in <code>/usr/local</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo ln</span> <span class="nt">-s</span> /usr/local/lib/udev/rules.d/80-udisks2.rules /etc/udev/rules.d/</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Update the linker&#8217;s cache for the updated libraries now in <code>/usr/local/lib</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>ldconfig</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Reload the <a href="https://systemd.io/">systemd</a> unit files to refresh the updated udisks2 service unit.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl daemon-reload</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Restart the udisks2 service unit to load the new version.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl restart udisks2</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Cleanup the downloaded source files and residual build artifacts.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rm</span> <span class="nt">-rf</span> ~/Downloads/libblockdev-<span class="k">*</span> ~/Downloads/udisks-<span class="k">*</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To prefer the newer LUKS2 encryption, change the line <code>encryption=luks1</code> to <code>encryption=luks2</code> in the udisks2 configuration file, <code>/usr/local/etc/udisks2/udisks2.conf</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="mount_options">Mount Options</h3>
+<div class="paragraph">
+<p>To configure mount options for udisks2, copy the example template to <code>/usr/local/etc/udisks2/mount_options.conf</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo cp</span> /usr/local/etc/udisks2/mount_options.conf.example <span class="se">\</span>
+  /usr/local/etc/udisks2/mount_options.conf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now modify the configuration file to your liking.
+The template includes lots of helpful comments.
+I tweak the Btrfs defaults in my configuration shown below.</p>
+</div>
+<div class="listingblock">
+<div class="title">/usr/local/etc/udisks2/mount_options.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code>[defaults]
+btrfs_defaults=autodefrag,compress=zstd
+btrfs_allow=autodefrag,compress,compress-force,datacow,nodatacow,datasum,nodatasum,degraded,device,discard,nodiscard,subvol,subvolid,space_cache</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here, <code>autodefrag</code> is allowed by adding it to the default list of allowed options.
+Additionally, automatic defragmentation and zstd compression are enabled by default.
+To learn more check the post <a href="adjust-mount-options.html">Adjust Mount Options</a> and the <a href="http://storaged.org/doc/udisks2-api/latest/mount_options.html">udisks2 Mount Options</a> documentation.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>That&#8217;s a wrap.
+You can now enjoy the new features in udisks2 without having to wait for the next Ubuntu LTS release, 22.04.
+Hopefully this doesn&#8217;t break anything.
+😅</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/install-udisks2-from-source' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
