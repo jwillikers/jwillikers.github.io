@@ -294,14 +294,14 @@ var store = [{
         "teaser": null
       },{
         "title": "Adjust Mount Options",
-        "excerpt":"Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7) and udisks2 provide userspace access to devices. Imagine not having...","categories": ["Disks"],
-        "tags": ["Btrfs","elementary","fstab","Linux","mount","systemd","Ubuntu","udev","udisks2"],
+        "excerpt":"Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7), udisks2, and GIO provide userspace access to devices. Imagine not...","categories": ["Disks"],
+        "tags": ["Btrfs","elementary","fstab","GIO","Linux","mount","systemd","Ubuntu","udev","udisks2"],
         "url": "/adjust-mount-options",
         "teaser": null
       },{
         "title": "Encrypt an External Disk on Linux",
         "excerpt":"Encrypting your data is pretty much a must anyone who is privacy or security conscious. I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple. I keep local backups on an external hard drive,...","categories": ["Disks"],
-        "tags": ["backups","Btrfs","Cryptsetup","elementary","encryption","fstab","Linux","systemd","udisks2","Ubuntu"],
+        "tags": ["backups","Btrfs","Cryptsetup","elementary","encryption","fstab","GIO","Linux","systemd","udisks2","Ubuntu"],
         "url": "/encrypt-an-external-disk-on-linux",
         "teaser": null
       },{

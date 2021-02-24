@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Adjust Mount Options - JWillikers</title>
-<meta name="description" content="Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7) and udisks2 provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&#8217;re probably aware that root isn&#8217;t necessary for such a thing, but that&#8217;s because there&#8217;s tools that take care of that for you.">
+<meta name="description" content="Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7), udisks2, and GIO provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&#8217;re probably aware that root isn&#8217;t necessary for such a thing, but that&#8217;s because there&#8217;s tools that take care of that for you.">
 
 
   <meta name="author" content="Jordan Williams">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="https://www.jwillikers.com/adjust-mount-options">
 
 
-  <meta property="og:description" content="Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7) and udisks2 provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&#8217;re probably aware that root isn&#8217;t necessary for such a thing, but that&#8217;s because there&#8217;s tools that take care of that for you.">
+  <meta property="og:description" content="Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7), udisks2, and GIO provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&#8217;re probably aware that root isn&#8217;t necessary for such a thing, but that&#8217;s because there&#8217;s tools that take care of that for you.">
 
 
 
@@ -162,7 +162,7 @@
 <p>Mounting filesystems on Linux is simple, right?
 Just use <a href="https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html">mount(8)</a>, specify the recurring stuff in <a href="https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a>, and everything&#8217;s peachy.
 For both better and worse, there&#8217;s more to it than that.
-Filesystem dependencies are handled by <a href="https://systemd.io/">systemd</a> and tools like <a href="https://manpages.ubuntu.com/manpages/bionic/en/man7/udev.7.html">udev(7)</a> and <a href="http://storaged.org/doc/udisks2-api/latest/">udisks2</a> provide userspace access to devices.
+Filesystem dependencies are handled by <a href="https://systemd.io/">systemd</a> and tools like <a href="https://manpages.ubuntu.com/manpages/bionic/en/man7/udev.7.html">udev(7)</a>, <a href="http://storaged.org/doc/udisks2-api/latest/">udisks2</a>, and <a href="https://developer.gnome.org/gio/stable/">GIO</a> provide userspace access to devices.
 Imagine not having to be root to access your flash drive?
 Okay, you&#8217;re probably aware that root isn&#8217;t necessary for such a thing, but that&#8217;s because there&#8217;s tools that take care of that for you.</p>
 </div>
@@ -1197,6 +1197,40 @@ easystore_25FC
 </div>
 <div class="paragraph">
 <p>For more examples and information, refer to the udisks2 documentation.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="gio">GIO</h4>
+<div class="paragraph">
+<p><a href="https://developer.gnome.org/gio/stable/">GIO</a> is a filesystem layer abstraction <a href="https://www.gnome.org/">GNOME</a> and <a href="https://www.gtk.org/">GTK</a>.
+GTK and GNOME applications use GIO to interact with filesystems.
+GIO also bundles a command-line tool which can be used to mount and unmount filesystems.
+It can&#8217;t be used to control mount options directly.
+However, since it uses udisks2 to mount physical media, default mount options configured for udisks2 carry over.
+GIO has the added convenience of being able to unlock and mount an encrypted volume in a single command.
+It can also use encryption keys saved in a user&#8217;s keyring to unlock encrypted volumes without requiring a password every time.
+Follow the steps below to mount and unmount the <code>/dev/sdb1</code> volume.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Mount the volume by passing the device to GIO&#8217;s <em>mount</em> subcommand via the <code>-d</code> flag.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ gio mount <span class="nt">-d</span> /dev/sdb1
+Mounted /dev/sdb1 at /run/media/jordan/backups</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Unmount the volume with the <em>mount</em> command, the <code>-u</code> flag, and the mount point.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ gio mount <span class="nt">-u</span> /run/media/jordan/backups</code></pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>

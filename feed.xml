@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-24T06:34:42-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install udisks2 From Source</title><link href="https://www.jwillikers.com/install-udisks2-from-source" rel="alternate" type="text/html" title="Install udisks2 From Source" /><published>2021-02-23T00:00:00-06:00</published><updated>2021-02-23T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20udisks2%20From%20Source</id><content type="html" xml:base="https://www.jwillikers.com/install-udisks2-from-source">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-24T12:42:43-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install udisks2 From Source</title><link href="https://www.jwillikers.com/install-udisks2-from-source" rel="alternate" type="text/html" title="Install udisks2 From Source" /><published>2021-02-23T00:00:00-06:00</published><updated>2021-02-23T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20udisks2%20From%20Source</id><content type="html" xml:base="https://www.jwillikers.com/install-udisks2-from-source">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I recently posted &lt;a href=&quot;adjust-mount-options.html&quot;&gt;Adjust Mount Options&lt;/a&gt; which explains in detail how to configure mount options for &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt;.
@@ -293,7 +293,7 @@ Hopefully this doesn&amp;#8217;t break anything.
 &lt;p&gt;Mounting filesystems on Linux is simple, right?
 Just use &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html&quot;&gt;mount(8)&lt;/a&gt;, specify the recurring stuff in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt;, and everything&amp;#8217;s peachy.
 For both better and worse, there&amp;#8217;s more to it than that.
-Filesystem dependencies are handled by &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; and tools like &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/en/man7/udev.7.html&quot;&gt;udev(7)&lt;/a&gt; and &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt; provide userspace access to devices.
+Filesystem dependencies are handled by &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; and tools like &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/en/man7/udev.7.html&quot;&gt;udev(7)&lt;/a&gt;, &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt;, and &lt;a href=&quot;https://developer.gnome.org/gio/stable/&quot;&gt;GIO&lt;/a&gt; provide userspace access to devices.
 Imagine not having to be root to access your flash drive?
 Okay, you&amp;#8217;re probably aware that root isn&amp;#8217;t necessary for such a thing, but that&amp;#8217;s because there&amp;#8217;s tools that take care of that for you.&lt;/p&gt;
 &lt;/div&gt;
@@ -1330,6 +1330,40 @@ easystore_25FC
 &lt;p&gt;For more examples and information, refer to the udisks2 documentation.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;gio&quot;&gt;GIO&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.gnome.org/gio/stable/&quot;&gt;GIO&lt;/a&gt; is a filesystem layer abstraction &lt;a href=&quot;https://www.gnome.org/&quot;&gt;GNOME&lt;/a&gt; and &lt;a href=&quot;https://www.gtk.org/&quot;&gt;GTK&lt;/a&gt;.
+GTK and GNOME applications use GIO to interact with filesystems.
+GIO also bundles a command-line tool which can be used to mount and unmount filesystems.
+It can&amp;#8217;t be used to control mount options directly.
+However, since it uses udisks2 to mount physical media, default mount options configured for udisks2 carry over.
+GIO has the added convenience of being able to unlock and mount an encrypted volume in a single command.
+It can also use encryption keys saved in a user&amp;#8217;s keyring to unlock encrypted volumes without requiring a password every time.
+Follow the steps below to mount and unmount the &lt;code&gt;/dev/sdb1&lt;/code&gt; volume.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Mount the volume by passing the device to GIO&amp;#8217;s &lt;em&gt;mount&lt;/em&gt; subcommand via the &lt;code&gt;-d&lt;/code&gt; flag.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gio mount &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; /dev/sdb1
+Mounted /dev/sdb1 at /run/media/jordan/backups&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Unmount the volume with the &lt;em&gt;mount&lt;/em&gt; command, the &lt;code&gt;-u&lt;/code&gt; flag, and the mount point.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gio mount &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; /run/media/jordan/backups&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1344,7 +1378,7 @@ Interested in mounting encrypted volumes or automatically mounting devices?
 Keep an eye on this space for upcoming posts on these topics.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="elementary" /><category term="fstab" /><category term="Linux" /><category term="mount" /><category term="systemd" /><category term="Ubuntu" /><category term="udev" /><category term="udisks2" /><summary type="html">Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&amp;#8217;s peachy. For both better and worse, there&amp;#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7) and udisks2 provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&amp;#8217;re probably aware that root isn&amp;#8217;t necessary for such a thing, but that&amp;#8217;s because there&amp;#8217;s tools that take care of that for you.</summary></entry><entry><title type="html">Encrypt an External Disk on Linux</title><link href="https://www.jwillikers.com/encrypt-an-external-disk-on-linux" rel="alternate" type="text/html" title="Encrypt an External Disk on Linux" /><published>2021-02-22T00:00:00-06:00</published><updated>2021-02-22T00:00:00-06:00</updated><id>https://www.jwillikers.com/Encrypt%20an%20External%20Disk%20on%20Linux</id><content type="html" xml:base="https://www.jwillikers.com/encrypt-an-external-disk-on-linux">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="elementary" /><category term="fstab" /><category term="GIO" /><category term="Linux" /><category term="mount" /><category term="systemd" /><category term="Ubuntu" /><category term="udev" /><category term="udisks2" /><summary type="html">Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&amp;#8217;s peachy. For both better and worse, there&amp;#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7), udisks2, and GIO provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&amp;#8217;re probably aware that root isn&amp;#8217;t necessary for such a thing, but that&amp;#8217;s because there&amp;#8217;s tools that take care of that for you.</summary></entry><entry><title type="html">Encrypt an External Disk on Linux</title><link href="https://www.jwillikers.com/encrypt-an-external-disk-on-linux" rel="alternate" type="text/html" title="Encrypt an External Disk on Linux" /><published>2021-02-22T00:00:00-06:00</published><updated>2021-02-22T00:00:00-06:00</updated><id>https://www.jwillikers.com/Encrypt%20an%20External%20Disk%20on%20Linux</id><content type="html" xml:base="https://www.jwillikers.com/encrypt-an-external-disk-on-linux">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Encrypting your data is pretty much a must anyone who is privacy or security conscious.
@@ -1360,8 +1394,9 @@ It&amp;#8217;s even pretty straightforward on the command-line, and that&amp;#82
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;This tutorial describes the steps necessary to encrypt an external disk, such as a hard drive or flash drive, from the command-line using &lt;a href=&quot;https://gitlab.com/cryptsetup/cryptsetup&quot;&gt;Cryptsetup&lt;/a&gt;.
-Instructions for unlocking, mounting, unmounting, and locking the filesystem are provided for both Cryptsetup and &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt;.
-udisks2 provides userspace access to encrypted filesystems.
+Instructions for unlocking, mounting, unmounting, and locking the filesystem are provided for Cryptsetup, &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt;, and &lt;a href=&quot;https://developer.gnome.org/gio/stable/&quot;&gt;GIO&lt;/a&gt;.
+udisks2 allows users to access encrypted filesystems without superuser privileges.
+GIO builds on top of udisks2 to simplify mounting and utilize encryption passphrases from the user&amp;#8217;s keyring for convenience.
 The encrypted filesystem will use &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt;.
 The reference operating system is &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
 Root access on the machine is required.
@@ -1693,6 +1728,45 @@ Locked /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;gio&quot;&gt;GIO&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.gnome.org/gio/stable/&quot;&gt;GIO&lt;/a&gt; makes accessing encrypted volumes easier.
+It handles both unlocking and mounting the encrypted volume in one command.
+Plus, it can use an encryption passphrase from the user&amp;#8217;s keyring so that the user doesn&amp;#8217;t have to enter the passphrase ever again.
+The following instruction demonstrate how to use GIO to easily access your newly encrypted volume.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Unlock and mount the volume by passing the device to GIO&amp;#8217;s &lt;em&gt;mount&lt;/em&gt; subcommand via the &lt;code&gt;-d&lt;/code&gt; flag.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gio mount &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; /dev/sdb1
+Enter a passphrase to unlock the volume
+The passphrase is needed to access encrypted data on WD easystore 25FC &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1.0 TB Hard Disk&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+Password:
+Mounted /dev/sdb1 at /run/media/jordan/Private&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Unmount and lock the volume with the &lt;em&gt;mount&lt;/em&gt; command, the &lt;code&gt;-u&lt;/code&gt; flag, and the mount point.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gio mount &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; /run/media/jordan/Private&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To store the volume&amp;#8217;s passphrase in your keyring, the easiest method is to open the device in the Files application.
+This will prompt for a password.
+Enter the password and select the desired option for how long to save the password, and that&amp;#8217;s it.
+GIO will no longer prompt for a password when opening this drive from the command-line.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
@@ -1702,7 +1776,7 @@ Locked /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You can now create, open, and close an encrypted partition on Linux.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="backups" /><category term="Btrfs" /><category term="Cryptsetup" /><category term="elementary" /><category term="encryption" /><category term="fstab" /><category term="Linux" /><category term="systemd" /><category term="udisks2" /><category term="Ubuntu" /><summary type="html">Encrypting your data is pretty much a must anyone who is privacy or security conscious. I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple. I keep local backups on an external hard drive, which I keep encrypted. Encrypting a drive is pretty easy on Linux, especially with applications like GNOME Disks, which go so far as to make this possible without requiring superuser privileges. It&amp;#8217;s even pretty straightforward on the command-line, and that&amp;#8217;s what I demonstrate here.</summary></entry><entry><title type="html">Btrfs Snapshot Management With Snapper</title><link href="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper" rel="alternate" type="text/html" title="Btrfs Snapshot Management With Snapper" /><published>2021-02-15T00:00:00-06:00</published><updated>2021-02-15T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Snapshot%20Management%20With%20Snapper</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="backups" /><category term="Btrfs" /><category term="Cryptsetup" /><category term="elementary" /><category term="encryption" /><category term="fstab" /><category term="GIO" /><category term="Linux" /><category term="systemd" /><category term="udisks2" /><category term="Ubuntu" /><summary type="html">Encrypting your data is pretty much a must anyone who is privacy or security conscious. I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple. I keep local backups on an external hard drive, which I keep encrypted. Encrypting a drive is pretty easy on Linux, especially with applications like GNOME Disks, which go so far as to make this possible without requiring superuser privileges. It&amp;#8217;s even pretty straightforward on the command-line, and that&amp;#8217;s what I demonstrate here.</summary></entry><entry><title type="html">Btrfs Snapshot Management With Snapper</title><link href="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper" rel="alternate" type="text/html" title="Btrfs Snapshot Management With Snapper" /><published>2021-02-15T00:00:00-06:00</published><updated>2021-02-15T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Snapshot%20Management%20With%20Snapper</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Manually taking snapshots with &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; is easy.
