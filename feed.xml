@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-24T12:42:43-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install udisks2 From Source</title><link href="https://www.jwillikers.com/install-udisks2-from-source" rel="alternate" type="text/html" title="Install udisks2 From Source" /><published>2021-02-23T00:00:00-06:00</published><updated>2021-02-23T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20udisks2%20From%20Source</id><content type="html" xml:base="https://www.jwillikers.com/install-udisks2-from-source">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-24T13:13:04-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install udisks2 From Source</title><link href="https://www.jwillikers.com/install-udisks2-from-source" rel="alternate" type="text/html" title="Install udisks2 From Source" /><published>2021-02-23T00:00:00-06:00</published><updated>2021-02-23T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20udisks2%20From%20Source</id><content type="html" xml:base="https://www.jwillikers.com/install-udisks2-from-source">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I recently posted &lt;a href=&quot;adjust-mount-options.html&quot;&gt;Adjust Mount Options&lt;/a&gt; which explains in detail how to configure mount options for &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt;.
@@ -1879,7 +1879,7 @@ deb http://download.opensuse.org/repositories/filesystems:/snapper/xUbuntu_18.04
 This prevents snaphots being included in snapshots.
 Snapper uses a &lt;code&gt;.snapshots&lt;/code&gt; subvolume by convention.
 The steps below create a &lt;code&gt;.snapshots&lt;/code&gt; subvolume in which to keep snapshots of the root subvolume.
-The subvolume is created according to a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt;, so it exists at the top-level of the Btrfs volume and is mounted explicitly in &lt;code&gt;&lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;/etc/fstab&lt;/a&gt;&lt;/code&gt;.&lt;/p&gt;
+The subvolume is created according to a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt;, so it exists at the top-level of the Btrfs volume and is mounted explicitly in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;fstab(5)&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
@@ -1908,7 +1908,7 @@ If you prefer to prefix the name with &lt;code&gt;@&lt;/code&gt;, be my guest.&l
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Add an entry in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;/etc/fstab&lt;/a&gt; to mount the snapshots subvolume.&lt;/p&gt;
+&lt;p&gt;Add an entry in fstab to mount the snapshots subvolume.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; / | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; /.snapshots btrfs defaults,autodefrag,compress=zstd,commit=120,noatime,subvol=snapshots 0 0&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
@@ -1939,7 +1939,7 @@ If you prefer to prefix the name with &lt;code&gt;@&lt;/code&gt;, be my guest.&l
 &lt;h3 id=&quot;configure&quot;&gt;Configure&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Configuration of Snapper is done through a config file.
-One config file is used for each subvolume that Snapper will be snapshotting.
+One config file is used for each subvolume that Snapper will snapshot.
 Typically, a new Snapper configuration is generated with a single command given the name for the config and the path of the subvolume to snapshot.
 A configuration for the root subvolume, aptly named &lt;em&gt;root&lt;/em&gt;, would be generated as shown here.&lt;/p&gt;
 &lt;/div&gt;
@@ -2114,7 +2114,7 @@ This configuration assumes that the user&amp;#8217;s home directory resides on a
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There are two important distinctions from the root fileystem configuration.
+&lt;p&gt;There are two important distinctions from the root filesystem configuration.
 First, the &lt;code&gt;ALLOW_USERS&lt;/code&gt; parameter includes the name of the user.
 This permits the user to work with the config.
 Second, &lt;code&gt;SYNC_ACL&lt;/code&gt; is enabled, allowing the user to work with the snapshots in the &lt;code&gt;~.snapshots&lt;/code&gt; directory.&lt;/p&gt;
@@ -2267,13 +2267,13 @@ Checkout the &lt;a href=&quot;https://github.com/ricardomv/snapper-gui&quot;&gt;
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This post has given a walkthrough of managing Btrfs snapshots with Snapper.
+&lt;p&gt;This post has given a run down of managing Btrfs snapshots with Snapper.
 You should now be able to create Snapper configurations at both the system and user levels.
 Now you&amp;#8217;ll probably want to backup those snapshots in case there&amp;#8217;s a catastrophic failure or some such.
 Stay tuned for an upcoming tutorial on configuring backups plus more posts on getting the most out of Snapper!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="btrbk" /><category term="btrfs" /><category term="elementaryos" /><category term="linux" /><category term="snapper" /><category term="snapshots" /><category term="timeshift" /><category term="ubuntu" /><summary type="html">Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups. It doesn&amp;#8217;t handle rollbacks, however. Timeshift is only designed for rolling back a system&amp;#8217;s root subvolume and not arbitrary subvolumes. It is rather inflexible, but provides a fantastic graphical interface right out of the box and makes rollbacks quick and easy. Snapper is very configurable, makes rollbacks a breeze, has been around a while, and is quite popular. It&amp;#8217;s a bit biased towards openSUSE, it being their tool and all, but packaged for all major Linux distributions nonetheless. My choice was mostly between Btrbk and Snapper. Timeshift won&amp;#8217;t snapshot all of the subvolumes I have. I landed on Snapper because it allows users to control their own snapshots and rollbacks without superuser privileges. Btrbk&amp;#8217;s additional ability for managing backups makes it a very tempting alternative.</summary></entry><entry><title type="html">Btrfs Layout</title><link href="https://www.jwillikers.com/btrfs-layout" rel="alternate" type="text/html" title="Btrfs Layout" /><published>2021-02-13T00:00:00-06:00</published><updated>2021-02-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Layout</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-layout">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrbk" /><category term="Btrfs" /><category term="elementary" /><category term="Linux" /><category term="Snapper" /><category term="snapshots" /><category term="Timeshift" /><category term="Ubuntu" /><summary type="html">Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups. It doesn&amp;#8217;t handle rollbacks, however. Timeshift is only designed for rolling back a system&amp;#8217;s root subvolume and not arbitrary subvolumes. It is rather inflexible, but provides a fantastic graphical interface right out of the box and makes rollbacks quick and easy. Snapper is very configurable, makes rollbacks a breeze, has been around a while, and is quite popular. It&amp;#8217;s a bit biased towards openSUSE, it being their tool and all, but packaged for all major Linux distributions nonetheless. My choice was mostly between Btrbk and Snapper. Timeshift won&amp;#8217;t snapshot all of the subvolumes I have. I landed on Snapper because it allows users to control their own snapshots and rollbacks without superuser privileges. Btrbk&amp;#8217;s additional ability for managing backups makes it a very tempting alternative.</summary></entry><entry><title type="html">Btrfs Layout</title><link href="https://www.jwillikers.com/btrfs-layout" rel="alternate" type="text/html" title="Btrfs Layout" /><published>2021-02-13T00:00:00-06:00</published><updated>2021-02-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Layout</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-layout">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;One of the best features of &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; is the ability to produce snapshots of data instantaneously.

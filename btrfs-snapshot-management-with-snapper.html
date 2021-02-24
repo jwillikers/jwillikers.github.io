@@ -259,7 +259,7 @@ deb http://download.opensuse.org/repositories/filesystems:/snapper/xUbuntu_18.04
 This prevents snaphots being included in snapshots.
 Snapper uses a <code>.snapshots</code> subvolume by convention.
 The steps below create a <code>.snapshots</code> subvolume in which to keep snapshots of the root subvolume.
-The subvolume is created according to a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat layout</a>, so it exists at the top-level of the Btrfs volume and is mounted explicitly in <code><a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">/etc/fstab</a></code>.</p>
+The subvolume is created according to a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat layout</a>, so it exists at the top-level of the Btrfs volume and is mounted explicitly in <a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">fstab(5)</a>.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -288,7 +288,7 @@ If you prefer to prefix the name with <code>@</code>, be my guest.</p>
 </div>
 </li>
 <li>
-<p>Add an entry in <a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">/etc/fstab</a> to mount the snapshots subvolume.</p>
+<p>Add an entry in fstab to mount the snapshots subvolume.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="o">(</span><span class="nb">df</span> <span class="nt">--output</span><span class="o">=</span><span class="nb">source</span> / | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="o">)</span><span class="s2">" /.snapshots btrfs defaults,autodefrag,compress=zstd,commit=120,noatime,subvol=snapshots 0 0"</span> <span class="se">\</span>
@@ -319,7 +319,7 @@ If you prefer to prefix the name with <code>@</code>, be my guest.</p>
 <h3 id="configure">Configure</h3>
 <div class="paragraph">
 <p>Configuration of Snapper is done through a config file.
-One config file is used for each subvolume that Snapper will be snapshotting.
+One config file is used for each subvolume that Snapper will snapshot.
 Typically, a new Snapper configuration is generated with a single command given the name for the config and the path of the subvolume to snapshot.
 A configuration for the root subvolume, aptly named <em>root</em>, would be generated as shown here.</p>
 </div>
@@ -494,7 +494,7 @@ This configuration assumes that the user&#8217;s home directory resides on a ded
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>There are two important distinctions from the root fileystem configuration.
+<p>There are two important distinctions from the root filesystem configuration.
 First, the <code>ALLOW_USERS</code> parameter includes the name of the user.
 This permits the user to work with the config.
 Second, <code>SYNC_ACL</code> is enabled, allowing the user to work with the snapshots in the <code>~.snapshots</code> directory.</p>
@@ -647,7 +647,7 @@ Checkout the <a href="https://github.com/ricardomv/snapper-gui">snapper-gui</a> 
 <h2 id="conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This post has given a walkthrough of managing Btrfs snapshots with Snapper.
+<p>This post has given a run down of managing Btrfs snapshots with Snapper.
 You should now be able to create Snapper configurations at both the system and user levels.
 Now you&#8217;ll probably want to backup those snapshots in case there&#8217;s a catastrophic failure or some such.
 Stay tuned for an upcoming tutorial on configuring backups plus more posts on getting the most out of Snapper!</p>

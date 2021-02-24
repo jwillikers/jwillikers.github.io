@@ -289,7 +289,7 @@ var store = [{
       },{
         "title": "Btrfs Snapshot Management With Snapper",
         "excerpt":"Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups....","categories": ["Disks"],
-        "tags": ["btrbk","btrfs","elementaryos","linux","snapper","snapshots","timeshift","ubuntu"],
+        "tags": ["Btrbk","Btrfs","elementary","Linux","Snapper","snapshots","Timeshift","Ubuntu"],
         "url": "/btrfs-snapshot-management-with-snapper",
         "teaser": null
       },{
