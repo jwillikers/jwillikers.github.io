@@ -225,7 +225,7 @@ Enter passphrase <span class="k">for</span> /dev/sdb1:</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-mount /dev/mapper/backup_crypt
-Started unit run-media-system-Private.mount <span class="k">for </span>mount point: /run/media/system/Private</code></pre>
+Started unit run-media-system-System_Backups.mount <span class="k">for </span>mount point: /run/media/system/System_Backups</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -236,7 +236,7 @@ Started unit run-media-system-Private.mount <span class="k">for </span>mount poi
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The mount point here reflects the label of the Btrfs volume, which is "Private" in this case.</p>
+<p>The mount point here reflects the label of the Btrfs volume, which is "System Backups" in this case.</p>
 </div>
 </td>
 </tr>
@@ -249,8 +249,8 @@ Started unit run-media-system-Private.mount <span class="k">for </span>mount poi
 <p>Create a Btrfs subvolume to hold backups of the root filesystem.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs subvolume create /run/media/system/Private/root_backups
-Create subvolume <span class="s1">'/run/media/system/Private/root_backups'</span></code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs subvolume create /run/media/system/System_Backups/root_backups
+Create subvolume <span class="s1">'/run/media/system/System_Backups/root_backups'</span></code></pre>
 </div>
 </div>
 </li>
@@ -258,8 +258,8 @@ Create subvolume <span class="s1">'/run/media/system/Private/root_backups'</span
 <p>Unmount the Btrfs filesystem.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-umount /run/media/system/Private
-Stopped unit run-media-system-Private.mount <span class="k">for </span>mount point: /run/media/system/Private</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-umount /run/media/system/System_Backups
+Stopped unit run-media-system-System_Backups.mount <span class="k">for </span>mount point: /run/media/system/System_Backups</code></pre>
 </div>
 </div>
 </li>
@@ -338,28 +338,12 @@ The <a href="https://www.freedesktop.org/software/systemd/man/crypttab.html#disc
 </div>
 </li>
 <li>
-<p>Create a suitable mount point under <code>/media</code>.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo mkdir</span> <span class="nt">-p</span> /media/system/backup</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>To be on the safe side, restrict access to <code>/media/system</code> to the root user only.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo chmod </span>0700 /media/system/backup</code></pre>
-</div>
-</div>
-</li>
-<li>
 <p>Add an entry in <a href="https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a> to mount the Btrfs subvolume with the appropriate mount options.</p>
 <div class="openblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"/dev/mapper/backup_crypt /media/system/backup btrfs defaults,nofail,noauto,x-systemd.automount,noatime,autodefrag,compress=zstd,commit=120,subvol=root_backups 0 0"</span> <span class="se">\</span>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"/dev/mapper/backup_crypt /run/media/system/System_Backups btrfs defaults,nofail,noauto,x-systemd.automount,noatime,autodefrag,compress=zstd,commit=120,subvol=root_backups 0 0"</span> <span class="se">\</span>
   | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/fstab</code></pre>
 </div>
 </div>
@@ -368,7 +352,7 @@ The <a href="https://www.freedesktop.org/software/systemd/man/crypttab.html#disc
 With the options <a href="https://www.freedesktop.org/software/systemd/man/systemd.mount.html#noauto">noauto</a> and <a href="https://www.freedesktop.org/software/systemd/man/systemd.mount.html#x-systemd.automount">x-systemd.automount</a>, systemd automatically mounts the drive on-demand.</p>
 </div>
 <div class="paragraph">
-<p>systemd will generate the <a href="https://www.freedesktop.org/software/systemd/man/systemd.mount.html">systemd.mount</a> unit <code>media-system-backup.mount</code> and the <a href="https://www.freedesktop.org/software/systemd/man/systemd.automount.html">systemd.automount</a> unit <code>media-system-backup.automount</code> corresponding to this entry in fstab.</p>
+<p>systemd will generate the <a href="https://www.freedesktop.org/software/systemd/man/systemd.mount.html">systemd.mount</a> unit <code>run-media-system-System_Backups.mount</code> and the <a href="https://www.freedesktop.org/software/systemd/man/systemd.automount.html">systemd.automount</a> unit <code>run-media-system-System_Backups.automount</code> corresponding to this entry in fstab.</p>
 </div>
 </div>
 </div>
@@ -379,7 +363,7 @@ With the options <a href="https://www.freedesktop.org/software/systemd/man/syste
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>findmnt <span class="nt">--verify</span> <span class="nt">--verbose</span>
 ...
-/media/system/backup
+/run/media/system/System_Backups
    <span class="o">[</span> <span class="o">]</span> target exists
    <span class="o">[</span> <span class="o">]</span> VFS options: noatime
    <span class="o">[</span> <span class="o">]</span> FS options: autodefrag,compress<span class="o">=</span>zstd,commit<span class="o">=</span>120,subvol<span class="o">=</span>root_backups
@@ -437,7 +421,7 @@ With the options <a href="https://www.freedesktop.org/software/systemd/man/syste
 <p>Test that new volume is automatically mounted when accessed by creating a new file under the mount point.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo touch</span> /media/system/backup/file</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo touch</span> /run/media/system/System_Backups/file</code></pre>
 </div>
 </div>
 </li>
@@ -490,11 +474,11 @@ With the options <a href="https://www.freedesktop.org/software/systemd/man/syste
 <p>Likewise, the decrypted Btrfs filesystem has been mounted automatically because its mount unit is now active.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl status media-system-backup.mount
-● media-system-backup.mount - /media/system/backup
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl status run-media-system-System_Backups.mount
+● run-media-system-System_Backups.mount - /run/media/system/System_Backups
    Loaded: loaded <span class="o">(</span>/etc/fstab<span class="p">;</span> generated<span class="o">)</span>
    Active: active <span class="o">(</span>mounted<span class="o">)</span> since Thu 2021-02-25 09:38:03 CST<span class="p">;</span> 2min 1s ago
-    Where: /media/system/backup
+    Where: /run/media/system/System_Backups
      What: /dev/mapper/backup_crypt</code></pre>
 </div>
 </div>

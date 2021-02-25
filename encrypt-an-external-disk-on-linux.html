@@ -263,7 +263,7 @@ The operation has completed successfully.</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>cryptsetup luksFormat <span class="nt">--type</span> luks2 <span class="nt">--label</span> BlackWDEasyStore /dev/sdb1
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>cryptsetup luksFormat <span class="nt">--type</span> luks2 <span class="nt">--label</span> <span class="s2">"Black WD easystore"</span> /dev/sdb1
 
 WARNING!
 <span class="o">========</span>
@@ -342,11 +342,11 @@ In this case, the device appears at <code>/dev/mapper/MyUSB</code>.</p>
 <dd>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mkfs <span class="nt">-t</span> btrfs <span class="nt">-L</span> Private /dev/dm-1
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mkfs <span class="nt">-t</span> btrfs <span class="nt">-L</span> <span class="s2">"My Backups"</span> /dev/dm-1
 btrfs-progs v4.15.1
 See http://btrfs.wiki.kernel.org <span class="k">for </span>more information.
 
-Label:              Private
+Label:              My Backups
 UUID:               2eb01d94-9aa1-4bd1-8c99-950be806f449
 Node size:          16384
 Sector size:        4096
@@ -368,11 +368,11 @@ Devices:
 <dd>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mkfs <span class="nt">-t</span> btrfs <span class="nt">-L</span> Private /dev/mapper/MyUSB
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mkfs <span class="nt">-t</span> btrfs <span class="nt">-L</span> <span class="s2">"My Backups"</span> /dev/mapper/MyUSB
 btrfs-progs v4.15.1
 See http://btrfs.wiki.kernel.org <span class="k">for </span>more information.
 
-Label:              Private
+Label:              My Backups
 UUID:               2eb01d94-9aa1-4bd1-8c99-950be806f449
 Node size:          16384
 Sector size:        4096
@@ -404,7 +404,7 @@ Devices:
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ udisksctl mount <span class="nt">-b</span> /dev/mapper/MyUSB <span class="nt">-o</span> noatime
-Mounted /dev/dm-1 at /run/media/jordan/Private</code></pre>
+Mounted /dev/dm-1 at /run/media/jordan/My_Backups</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -432,7 +432,7 @@ Refer to <a href="install-udisks2-from-source.html">Install udisks2 From Source<
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-mount <span class="nt">-o</span> noatime,autodefrag,compress<span class="o">=</span>zstd /dev/mapper/MyUSB
-Started unit run-media-system-Private.mount <span class="k">for </span>mount point: /run/media/system/Private</code></pre>
+Started unit run-media-system-System_Backups.mount <span class="k">for </span>mount point: /run/media/system/System_Backups</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -472,8 +472,8 @@ Unmounted /dev/dm-1.</code></pre>
 <dd>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-umount /run/media/system/Private
-Stopped unit run-media-system-Private.mount <span class="k">for </span>mount point: /run/media/system/Private</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-umount /run/media/system/My_Backups
+Stopped unit run-media-system-System_Backups.mount <span class="k">for </span>mount point: /run/media/system/System_Backups</code></pre>
 </div>
 </div>
 </dd>
@@ -524,7 +524,7 @@ The following instruction demonstrate how to use GIO to easily access your newly
 Enter a passphrase to unlock the volume
 The passphrase is needed to access encrypted data on WD easystore 25FC <span class="o">(</span>1.0 TB Hard Disk<span class="o">)</span><span class="nb">.</span>
 Password:
-Mounted /dev/sdb1 at /run/media/jordan/Private</code></pre>
+Mounted /dev/sdb1 at /run/media/jordan/My_Backups</code></pre>
 </div>
 </div>
 </li>
@@ -532,7 +532,7 @@ Mounted /dev/sdb1 at /run/media/jordan/Private</code></pre>
 <p>Unmount and lock the volume with the <em>mount</em> command, the <code>-u</code> flag, and the mount point.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ gio mount <span class="nt">-u</span> /run/media/jordan/Private</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ gio mount <span class="nt">-u</span> /run/media/jordan/My_Backups</code></pre>
 </div>
 </div>
 </li>

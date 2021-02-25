@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-25T10:21:05-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Automount an Encrypted System Volume</title><link href="https://www.jwillikers.com/automount-an-encrypted-system-volume" rel="alternate" type="text/html" title="Automount an Encrypted System Volume" /><published>2021-02-25T00:00:00-06:00</published><updated>2021-02-25T00:00:00-06:00</updated><id>https://www.jwillikers.com/Automount%20an%20Encrypted%20System%20Volume</id><content type="html" xml:base="https://www.jwillikers.com/automount-an-encrypted-system-volume">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-25T12:30:31-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Automount an Encrypted System Volume</title><link href="https://www.jwillikers.com/automount-an-encrypted-system-volume" rel="alternate" type="text/html" title="Automount an Encrypted System Volume" /><published>2021-02-25T00:00:00-06:00</published><updated>2021-02-25T00:00:00-06:00</updated><id>https://www.jwillikers.com/Automount%20an%20Encrypted%20System%20Volume</id><content type="html" xml:base="https://www.jwillikers.com/automount-an-encrypted-system-volume">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;If you run an encrypted Linux system, it&amp;#8217;s helpful to understand how the system handles mounting and decrypting filesystems.
@@ -67,7 +67,7 @@ Enter passphrase &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; /dev/sdb1:&lt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-mount /dev/mapper/backup_crypt
-Started unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/Private&lt;/code&gt;&lt;/pre&gt;
+Started unit run-media-system-System_Backups.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/System_Backups&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;admonitionblock note&quot;&gt;
@@ -78,7 +78,7 @@ Started unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for 
 &lt;/td&gt;
 &lt;td class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The mount point here reflects the label of the Btrfs volume, which is &quot;Private&quot; in this case.&lt;/p&gt;
+&lt;p&gt;The mount point here reflects the label of the Btrfs volume, which is &quot;System Backups&quot; in this case.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
@@ -91,8 +91,8 @@ Started unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for 
 &lt;p&gt;Create a Btrfs subvolume to hold backups of the root filesystem.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs subvolume create /run/media/system/Private/root_backups
-Create subvolume &lt;span class=&quot;s1&quot;&gt;'/run/media/system/Private/root_backups'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs subvolume create /run/media/system/System_Backups/root_backups
+Create subvolume &lt;span class=&quot;s1&quot;&gt;'/run/media/system/System_Backups/root_backups'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -100,8 +100,8 @@ Create subvolume &lt;span class=&quot;s1&quot;&gt;'/run/media/system/Private/roo
 &lt;p&gt;Unmount the Btrfs filesystem.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-umount /run/media/system/Private
-Stopped unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/Private&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-umount /run/media/system/System_Backups
+Stopped unit run-media-system-System_Backups.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/System_Backups&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -180,28 +180,12 @@ The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/crypttab.h
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Create a suitable mount point under &lt;code&gt;/media&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /media/system/backup&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;To be on the safe side, restrict access to &lt;code&gt;/media/system&lt;/code&gt; to the root user only.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo chmod &lt;/span&gt;0700 /media/system/backup&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
 &lt;p&gt;Add an entry in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt; to mount the Btrfs subvolume with the appropriate mount options.&lt;/p&gt;
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/dev/mapper/backup_crypt /media/system/backup btrfs defaults,nofail,noauto,x-systemd.automount,noatime,autodefrag,compress=zstd,commit=120,subvol=root_backups 0 0&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/dev/mapper/backup_crypt /run/media/system/System_Backups btrfs defaults,nofail,noauto,x-systemd.automount,noatime,autodefrag,compress=zstd,commit=120,subvol=root_backups 0 0&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
   | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/fstab&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -210,7 +194,7 @@ The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/crypttab.h
 With the options &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.mount.html#noauto&quot;&gt;noauto&lt;/a&gt; and &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.mount.html#x-systemd.automount&quot;&gt;x-systemd.automount&lt;/a&gt;, systemd automatically mounts the drive on-demand.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;systemd will generate the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.mount.html&quot;&gt;systemd.mount&lt;/a&gt; unit &lt;code&gt;media-system-backup.mount&lt;/code&gt; and the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.automount.html&quot;&gt;systemd.automount&lt;/a&gt; unit &lt;code&gt;media-system-backup.automount&lt;/code&gt; corresponding to this entry in fstab.&lt;/p&gt;
+&lt;p&gt;systemd will generate the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.mount.html&quot;&gt;systemd.mount&lt;/a&gt; unit &lt;code&gt;run-media-system-System_Backups.mount&lt;/code&gt; and the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.automount.html&quot;&gt;systemd.automount&lt;/a&gt; unit &lt;code&gt;run-media-system-System_Backups.automount&lt;/code&gt; corresponding to this entry in fstab.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -221,7 +205,7 @@ With the options &lt;a href=&quot;https://www.freedesktop.org/software/systemd/m
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;findmnt &lt;span class=&quot;nt&quot;&gt;--verify&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;
 ...
-/media/system/backup
+/run/media/system/System_Backups
    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; target exists
    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; VFS options: noatime
    &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; FS options: autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd,commit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;120,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;root_backups
@@ -279,7 +263,7 @@ With the options &lt;a href=&quot;https://www.freedesktop.org/software/systemd/m
 &lt;p&gt;Test that new volume is automatically mounted when accessed by creating a new file under the mount point.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo touch&lt;/span&gt; /media/system/backup/file&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo touch&lt;/span&gt; /run/media/system/System_Backups/file&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -332,11 +316,11 @@ With the options &lt;a href=&quot;https://www.freedesktop.org/software/systemd/m
 &lt;p&gt;Likewise, the decrypted Btrfs filesystem has been mounted automatically because its mount unit is now active.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status media-system-backup.mount
-● media-system-backup.mount - /media/system/backup
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status run-media-system-System_Backups.mount
+● run-media-system-System_Backups.mount - /run/media/system/System_Backups
    Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/etc/fstab&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; generated&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
    Active: active &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;mounted&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; since Thu 2021-02-25 09:38:03 CST&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 2min 1s ago
-    Where: /media/system/backup
+    Where: /run/media/system/System_Backups
      What: /dev/mapper/backup_crypt&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1841,7 +1825,7 @@ The operation has completed successfully.&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup luksFormat &lt;span class=&quot;nt&quot;&gt;--type&lt;/span&gt; luks2 &lt;span class=&quot;nt&quot;&gt;--label&lt;/span&gt; BlackWDEasyStore /dev/sdb1
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup luksFormat &lt;span class=&quot;nt&quot;&gt;--type&lt;/span&gt; luks2 &lt;span class=&quot;nt&quot;&gt;--label&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Black WD easystore&quot;&lt;/span&gt; /dev/sdb1
 
 WARNING!
 &lt;span class=&quot;o&quot;&gt;========&lt;/span&gt;
@@ -1920,11 +1904,11 @@ In this case, the device appears at &lt;code&gt;/dev/mapper/MyUSB&lt;/code&gt;.&
 &lt;dd&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkfs &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; btrfs &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; Private /dev/dm-1
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkfs &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; btrfs &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;My Backups&quot;&lt;/span&gt; /dev/dm-1
 btrfs-progs v4.15.1
 See http://btrfs.wiki.kernel.org &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;more information.
 
-Label:              Private
+Label:              My Backups
 UUID:               2eb01d94-9aa1-4bd1-8c99-950be806f449
 Node size:          16384
 Sector size:        4096
@@ -1946,11 +1930,11 @@ Devices:
 &lt;dd&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkfs &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; btrfs &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; Private /dev/mapper/MyUSB
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkfs &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; btrfs &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;My Backups&quot;&lt;/span&gt; /dev/mapper/MyUSB
 btrfs-progs v4.15.1
 See http://btrfs.wiki.kernel.org &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;more information.
 
-Label:              Private
+Label:              My Backups
 UUID:               2eb01d94-9aa1-4bd1-8c99-950be806f449
 Node size:          16384
 Sector size:        4096
@@ -1982,7 +1966,7 @@ Devices:
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl mount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/mapper/MyUSB &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; noatime
-Mounted /dev/dm-1 at /run/media/jordan/Private&lt;/code&gt;&lt;/pre&gt;
+Mounted /dev/dm-1 at /run/media/jordan/My_Backups&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;admonitionblock tip&quot;&gt;
@@ -2010,7 +1994,7 @@ Refer to &lt;a href=&quot;install-udisks2-from-source.html&quot;&gt;Install udis
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-mount &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; noatime,autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd /dev/mapper/MyUSB
-Started unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/Private&lt;/code&gt;&lt;/pre&gt;
+Started unit run-media-system-System_Backups.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/System_Backups&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;admonitionblock note&quot;&gt;
@@ -2050,8 +2034,8 @@ Unmounted /dev/dm-1.&lt;/code&gt;&lt;/pre&gt;
 &lt;dd&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-umount /run/media/system/Private
-Stopped unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/Private&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-umount /run/media/system/My_Backups
+Stopped unit run-media-system-System_Backups.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/System_Backups&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/dd&gt;
@@ -2102,7 +2086,7 @@ The following instruction demonstrate how to use GIO to easily access your newly
 Enter a passphrase to unlock the volume
 The passphrase is needed to access encrypted data on WD easystore 25FC &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1.0 TB Hard Disk&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
 Password:
-Mounted /dev/sdb1 at /run/media/jordan/Private&lt;/code&gt;&lt;/pre&gt;
+Mounted /dev/sdb1 at /run/media/jordan/My_Backups&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -2110,7 +2094,7 @@ Mounted /dev/sdb1 at /run/media/jordan/Private&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Unmount and lock the volume with the &lt;em&gt;mount&lt;/em&gt; command, the &lt;code&gt;-u&lt;/code&gt; flag, and the mount point.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gio mount &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; /run/media/jordan/Private&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gio mount &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; /run/media/jordan/My_Backups&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
