@@ -310,4 +310,10 @@ var store = [{
         "tags": ["Btrfs","elementary","Linux","mount","Ubuntu","udisks2"],
         "url": "/install-udisks2-from-source",
         "teaser": null
+      },{
+        "title": "Automount an Encrypted System Volume",
+        "excerpt":"If you run an encrypted Linux system, it&#8217;s helpful to understand how the system handles mounting and decrypting filesystems. A Linux desktop user and tinkerer who runs on an encrypted root, might find this knowledge inevitably becomes practical. The general mechanics used for an encrypted root volume apply to encrypting...","categories": ["Disks"],
+        "tags": ["automount","Btrfs","Cryptsetup","crypttab","elementary","encryption","fstab","Linux","mount","systemd","Ubuntu"],
+        "url": "/automount-an-encrypted-system-volume",
+        "teaser": null
       }]

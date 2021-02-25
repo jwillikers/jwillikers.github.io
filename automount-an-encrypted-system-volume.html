@@ -1,0 +1,601 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Automount an Encrypted System Volume - JWillikers</title>
+<meta name="description" content="If you run an encrypted Linux system, it&#8217;s helpful to understand how the system handles mounting and decrypting filesystems. A Linux desktop user and tinkerer who runs on an encrypted root, might find this knowledge inevitably becomes practical. The general mechanics used for an encrypted root volume apply to encrypting other system volumes, such as an external hard drive for secure backups. While this tutorial won&#8217;t delve in to details specific to mounting an encrypted root filesystem during boot, it does go through everything necessary to automatically mount and decrypt an external hard drive.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Automount an Encrypted System Volume">
+<meta property="og:url" content="https://www.jwillikers.com/automount-an-encrypted-system-volume">
+
+
+  <meta property="og:description" content="If you run an encrypted Linux system, it&#8217;s helpful to understand how the system handles mounting and decrypting filesystems. A Linux desktop user and tinkerer who runs on an encrypted root, might find this knowledge inevitably becomes practical. The general mechanics used for an encrypted root volume apply to encrypting other system volumes, such as an external hard drive for secure backups. While this tutorial won&#8217;t delve in to details specific to mounting an encrypted root filesystem during boot, it does go through everything necessary to automatically mount and decrypt an external hard drive.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-25T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/automount-an-encrypted-system-volume">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you run an encrypted Linux system, it&#8217;s helpful to understand how the system handles mounting and decrypting filesystems.
+A Linux desktop user and tinkerer who runs on an encrypted root, might find this knowledge inevitably becomes <em>practical</em>.
+The general mechanics used for an encrypted root volume apply to encrypting other system volumes, such as an external hard drive for secure backups.
+While this tutorial won&#8217;t delve in to details specific to mounting an encrypted root filesystem during boot, it does go through everything necessary to automatically mount and decrypt an external hard drive.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial provides instructions for automatically mounting and decrypting encrypted filesystem volumes at the system level.
+To this end, the tutorial will automate mounting and decrypting a <a href="https://gitlab.com/cryptsetup/cryptsetup">Cryptsetup</a> encrypted volume residing on an external hard drive.
+A <a href="https://gitlab.com/cryptsetup/cryptsetup">Cryptsetup</a> encrypted volume on an external hard drive is required for this tutorial.
+One can be created by following the instructions in the post <a href="encrypt-an-external-disk-on-linux.html">Encrypt an External Disk on Linux</a>.
+This tutorial uses <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a> specifically but applies to Linux filesystem in general.
+This tutorial assumes familiarity with Linux, the command-line, encryption, systemd, and filesystem mounting.
+The commands shown use the <a href="https://fishshell.com/">fish shell</a>, so some syntax may be incompatible if you use a different shell.
+The reference system is <a href="https://elementary.io/">elementary OS</a> 5.1 which is based on <a href="https://ubuntu.com/">Ubuntu</a> 18.04.
+Let&#8217;s go!</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Plug in your external drive.</p>
+</li>
+<li>
+<p>Locate the drive&#8217;s device path with <a href="http://manpages.ubuntu.com/manpages/bionic/en/man8/lsblk.8.html">lsblk(8)</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ lsblk
+NAME           MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+sda              8:0    0   1.8T  0 disk
+├─sda1           8:1    0   976M  0 part  /boot
+└─sda2           8:2    0   1.8T  0 part
+  └─sda2_crypt 253:0    0   1.8T  0 crypt /usr/local
+sdb              8:16   0 931.5G  0 disk
+└─sdb1           8:17   0 931.5G  0 part  <i class="conum" data-value="1"></i><b>(1)</b>
+sr0             11:0    1  1024M  0 rom</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Yup, that&#8217;s the one.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Unlock the encrypted volume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>cryptsetup open /dev/sdb1 backup_crypt
+Enter passphrase <span class="k">for</span> /dev/sdb1:</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Mount the now decrypted volume.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-mount /dev/mapper/backup_crypt
+Started unit run-media-system-Private.mount <span class="k">for </span>mount point: /run/media/system/Private</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The mount point here reflects the label of the Btrfs volume, which is "Private" in this case.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Create a Btrfs subvolume to hold backups of the root filesystem.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs subvolume create /run/media/system/Private/root_backups
+Create subvolume <span class="s1">'/run/media/system/Private/root_backups'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Unmount the Btrfs filesystem.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemd-umount /run/media/system/Private
+Stopped unit run-media-system-Private.mount <span class="k">for </span>mount point: /run/media/system/Private</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure that the standard systemd directory for Cryptsetup keyfiles exists.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo mkdir</span> /etc/cryptsetup-keys.d</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This directory is specified in the <a href="https://www.freedesktop.org/software/systemd/man/systemd-cryptsetup@.service.html">systemd-cryptsetup@.service</a> man page.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Generate a new keyfile that will be used to decrypt the encrypted volume.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">of</span><span class="o">=</span>/etc/cryptsetup-keys.d/backup_crypt.key <span class="nv">bs</span><span class="o">=</span>1024 <span class="se">\</span>
+  <span class="nv">count</span><span class="o">=</span>4
+4+0 records <span class="k">in
+</span>4+0 records out
+4096 bytes <span class="o">(</span>4.1 kB, 4.0 KiB<span class="o">)</span> copied, 0.000453177 s, 9.0 MB/s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The keyfile should be named after the associated volume.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure that only <em>root</em> can read this file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo chmod </span>0400 /etc/cryptsetup-keys.d/backup_crypt.key</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the keyfile to the device.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>cryptsetup luksAddKey /dev/sdb1 /etc/cryptsetup-keys.d/backup_crypt.key
+Enter any existing passphrase:</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add an entry in <a href="https://www.freedesktop.org/software/systemd/man/crypttab.html">crypttab</a> for the device.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"backup_crypt UUID="</span><span class="o">(</span><span class="nb">sudo </span>blkid <span class="nt">-o</span> value <span class="nt">-s</span> UUID /dev/sdb1<span class="o">)</span><span class="s2">" /etc/cryptsetup-keys.d/backup_crypt.key luks,noauto,nofail,discard"</span> <span class="se">\</span>
+  | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/crypttab
+backup_crypt <span class="nv">UUID</span><span class="o">=</span>0cbab673-2b14-40c0-a1f2-522bc7ff7e18 /etc/cryptsetup-keys.d/backup_crypt.key luks,noauto,nofail,discard</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>crypttab is the equivalent of <a href="https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a> for encrypted volumes.
+The <a href="https://www.freedesktop.org/software/systemd/man/crypttab.html#nofail">nofail</a> option is necessary if you want your system to be able to boot without the external hard drive attached.
+To only decrypt the volume when it&#8217;s required and not at boot or when attached, the <a href="https://www.freedesktop.org/software/systemd/man/crypttab.html#noauto">noauto</a> option is included.
+The <a href="https://www.freedesktop.org/software/systemd/man/crypttab.html#discard">discard</a> option passes discard requests to the encrypted device, improving performance on SSD&#8217;s but not without its own security implications.</p>
+</div>
+<div class="paragraph">
+<p>systemd will generate the <a href="https://www.freedesktop.org/software/systemd/man/systemd-cryptsetup@.service.html">systemd-cryptsetup@.service</a> unit <code>systemd-cryptsetup@backup_crypt.service</code> corresponding to this entry in crypttab.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Create a suitable mount point under <code>/media</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo mkdir</span> <span class="nt">-p</span> /media/system/backup</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To be on the safe side, restrict access to <code>/media/system</code> to the root user only.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo chmod </span>0700 /media/system/backup</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add an entry in <a href="https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a> to mount the Btrfs subvolume with the appropriate mount options.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"/dev/mapper/backup_crypt /media/system/backup btrfs defaults,nofail,noauto,x-systemd.automount,noatime,autodefrag,compress=zstd,commit=120,subvol=root_backups 0 0"</span> <span class="se">\</span>
+  | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/fstab</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <a href="https://www.freedesktop.org/software/systemd/man/systemd.mount.html#nofail">nofail</a> option removes the requirement that the drive be attached at boot time.
+With the options <a href="https://www.freedesktop.org/software/systemd/man/systemd.mount.html#noauto">noauto</a> and <a href="https://www.freedesktop.org/software/systemd/man/systemd.mount.html#x-systemd.automount">x-systemd.automount</a>, systemd automatically mounts the drive on-demand.</p>
+</div>
+<div class="paragraph">
+<p>systemd will generate the <a href="https://www.freedesktop.org/software/systemd/man/systemd.mount.html">systemd.mount</a> unit <code>media-system-backup.mount</code> and the <a href="https://www.freedesktop.org/software/systemd/man/systemd.automount.html">systemd.automount</a> unit <code>media-system-backup.automount</code> corresponding to this entry in fstab.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Verify there aren&#8217;t any errors in fstab.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>findmnt <span class="nt">--verify</span> <span class="nt">--verbose</span>
+...
+/media/system/backup
+   <span class="o">[</span> <span class="o">]</span> target exists
+   <span class="o">[</span> <span class="o">]</span> VFS options: noatime
+   <span class="o">[</span> <span class="o">]</span> FS options: autodefrag,compress<span class="o">=</span>zstd,commit<span class="o">=</span>120,subvol<span class="o">=</span>root_backups
+   <span class="o">[</span> <span class="o">]</span> userspace options: nofail,noauto,x-systemd.automount
+   <span class="o">[</span> <span class="o">]</span> <span class="nb">source</span> /dev/mapper/backup_crypt exists
+   <span class="o">[</span> <span class="o">]</span> FS <span class="nb">type </span>is btrfs
+
+0 parse errors, 0 errors, 4 warnings</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Lock the encrypted volume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>cryptsetup close backup_crypt</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Reload the changes in fstab and crypttab and generate the corresponding unit files.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl daemon-reload</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Restart the Cryptsetup target in order to make sure that the volume isn&#8217;t decrypted automatically.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl restart cryptsetup.target</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now verify that the encrypted volume has not been decrypted yet.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl status systemd-cryptsetup@backup_crypt.service
+● systemd-cryptsetup@backup_crypt.service - Cryptography Setup <span class="k">for </span>backup_crypt
+   Loaded: loaded <span class="o">(</span>/etc/crypttab<span class="p">;</span> generated<span class="o">)</span>
+   Active: inactive <span class="o">(</span>dead<span class="o">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The cryptsetup unit is marked <em>inactive</em>, so volume has not been decrypted yet.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Test that new volume is automatically mounted when accessed by creating a new file under the mount point.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo touch</span> /media/system/backup/file</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>You can now see that the volume has been decrypted because its cryptsetup target is active.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl status systemd-cryptsetup@backup_crypt.service
+● systemd-cryptsetup@backup_crypt.service - Cryptography Setup <span class="k">for </span>backup_crypt
+   Loaded: loaded <span class="o">(</span>/etc/crypttab<span class="p">;</span> generated<span class="o">)</span>
+   Active: active <span class="o">(</span>exited<span class="o">)</span> since Thu 2021-02-25 09:38:03 CST<span class="p">;</span> 44s ago</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also check the status of the Cryptsetup volume using <code>cryptsetup status</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>cryptsetup status backup_crypt
+/dev/mapper/backup_crypt is active and is <span class="k">in </span>use.
+  <span class="nb">type</span>:    LUKS2
+  cipher:  aes-xts-plain64
+  keysize: 256 bits
+  key location: keyring
+  device:  /dev/sdb1
+  sector size:  512
+  offset:  8192 sectors
+  size:    1953447903 sectors
+  mode:    <span class="nb">read</span>/write
+  flags:   discards</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Likewise, the decrypted Btrfs filesystem has been mounted automatically because its mount unit is now active.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl status media-system-backup.mount
+● media-system-backup.mount - /media/system/backup
+   Loaded: loaded <span class="o">(</span>/etc/fstab<span class="p">;</span> generated<span class="o">)</span>
+   Active: active <span class="o">(</span>mounted<span class="o">)</span> since Thu 2021-02-25 09:38:03 CST<span class="p">;</span> 2min 1s ago
+    Where: /media/system/backup
+     What: /dev/mapper/backup_crypt</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now understand the general flow for how systemd manages encrypted filesystems.
+Specifically, you learned how to configure an external drive to be decrypted with a keyfile on demand by adding the necessary entries to crypttab and fstab.
+You also have an example of what this can look like using Btrfs on the encrypted volume.</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/automount-an-encrypted-system-volume' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

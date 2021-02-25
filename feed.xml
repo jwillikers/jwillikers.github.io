@@ -1,4 +1,360 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-24T13:13:04-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install udisks2 From Source</title><link href="https://www.jwillikers.com/install-udisks2-from-source" rel="alternate" type="text/html" title="Install udisks2 From Source" /><published>2021-02-23T00:00:00-06:00</published><updated>2021-02-23T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20udisks2%20From%20Source</id><content type="html" xml:base="https://www.jwillikers.com/install-udisks2-from-source">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-25T10:21:05-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Automount an Encrypted System Volume</title><link href="https://www.jwillikers.com/automount-an-encrypted-system-volume" rel="alternate" type="text/html" title="Automount an Encrypted System Volume" /><published>2021-02-25T00:00:00-06:00</published><updated>2021-02-25T00:00:00-06:00</updated><id>https://www.jwillikers.com/Automount%20an%20Encrypted%20System%20Volume</id><content type="html" xml:base="https://www.jwillikers.com/automount-an-encrypted-system-volume">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you run an encrypted Linux system, it&amp;#8217;s helpful to understand how the system handles mounting and decrypting filesystems.
+A Linux desktop user and tinkerer who runs on an encrypted root, might find this knowledge inevitably becomes &lt;em&gt;practical&lt;/em&gt;.
+The general mechanics used for an encrypted root volume apply to encrypting other system volumes, such as an external hard drive for secure backups.
+While this tutorial won&amp;#8217;t delve in to details specific to mounting an encrypted root filesystem during boot, it does go through everything necessary to automatically mount and decrypt an external hard drive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial provides instructions for automatically mounting and decrypting encrypted filesystem volumes at the system level.
+To this end, the tutorial will automate mounting and decrypting a &lt;a href=&quot;https://gitlab.com/cryptsetup/cryptsetup&quot;&gt;Cryptsetup&lt;/a&gt; encrypted volume residing on an external hard drive.
+A &lt;a href=&quot;https://gitlab.com/cryptsetup/cryptsetup&quot;&gt;Cryptsetup&lt;/a&gt; encrypted volume on an external hard drive is required for this tutorial.
+One can be created by following the instructions in the post &lt;a href=&quot;encrypt-an-external-disk-on-linux.html&quot;&gt;Encrypt an External Disk on Linux&lt;/a&gt;.
+This tutorial uses &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; specifically but applies to Linux filesystem in general.
+This tutorial assumes familiarity with Linux, the command-line, encryption, systemd, and filesystem mounting.
+The commands shown use the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt;, so some syntax may be incompatible if you use a different shell.
+The reference system is &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1 which is based on &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
+Let&amp;#8217;s go!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Plug in your external drive.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Locate the drive&amp;#8217;s device path with &lt;a href=&quot;http://manpages.ubuntu.com/manpages/bionic/en/man8/lsblk.8.html&quot;&gt;lsblk(8)&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ lsblk
+NAME           MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+sda              8:0    0   1.8T  0 disk
+├─sda1           8:1    0   976M  0 part  /boot
+└─sda2           8:2    0   1.8T  0 part
+  └─sda2_crypt 253:0    0   1.8T  0 crypt /usr/local
+sdb              8:16   0 931.5G  0 disk
+└─sdb1           8:17   0 931.5G  0 part  &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+sr0             11:0    1  1024M  0 rom&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Yup, that&amp;#8217;s the one.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Unlock the encrypted volume.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup open /dev/sdb1 backup_crypt
+Enter passphrase &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; /dev/sdb1:&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mount the now decrypted volume.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-mount /dev/mapper/backup_crypt
+Started unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/Private&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The mount point here reflects the label of the Btrfs volume, which is &quot;Private&quot; in this case.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a Btrfs subvolume to hold backups of the root filesystem.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs subvolume create /run/media/system/Private/root_backups
+Create subvolume &lt;span class=&quot;s1&quot;&gt;'/run/media/system/Private/root_backups'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Unmount the Btrfs filesystem.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-umount /run/media/system/Private
+Stopped unit run-media-system-Private.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/Private&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ensure that the standard systemd directory for Cryptsetup keyfiles exists.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo mkdir&lt;/span&gt; /etc/cryptsetup-keys.d&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This directory is specified in the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd-cryptsetup@.service.html&quot;&gt;systemd-cryptsetup@.service&lt;/a&gt; man page.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Generate a new keyfile that will be used to decrypt the encrypted volume.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo dd &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/dev/urandom &lt;span class=&quot;nv&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/etc/cryptsetup-keys.d/backup_crypt.key &lt;span class=&quot;nv&quot;&gt;bs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1024 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4
+4+0 records &lt;span class=&quot;k&quot;&gt;in
+&lt;/span&gt;4+0 records out
+4096 bytes &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;4.1 kB, 4.0 KiB&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; copied, 0.000453177 s, 9.0 MB/s&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The keyfile should be named after the associated volume.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ensure that only &lt;em&gt;root&lt;/em&gt; can read this file.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo chmod &lt;/span&gt;0400 /etc/cryptsetup-keys.d/backup_crypt.key&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the keyfile to the device.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup luksAddKey /dev/sdb1 /etc/cryptsetup-keys.d/backup_crypt.key
+Enter any existing passphrase:&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add an entry in &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/crypttab.html&quot;&gt;crypttab&lt;/a&gt; for the device.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;backup_crypt UUID=&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;blkid &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; value &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; UUID /dev/sdb1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; /etc/cryptsetup-keys.d/backup_crypt.key luks,noauto,nofail,discard&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/crypttab
+backup_crypt &lt;span class=&quot;nv&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0cbab673-2b14-40c0-a1f2-522bc7ff7e18 /etc/cryptsetup-keys.d/backup_crypt.key luks,noauto,nofail,discard&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;crypttab is the equivalent of &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt; for encrypted volumes.
+The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/crypttab.html#nofail&quot;&gt;nofail&lt;/a&gt; option is necessary if you want your system to be able to boot without the external hard drive attached.
+To only decrypt the volume when it&amp;#8217;s required and not at boot or when attached, the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/crypttab.html#noauto&quot;&gt;noauto&lt;/a&gt; option is included.
+The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/crypttab.html#discard&quot;&gt;discard&lt;/a&gt; option passes discard requests to the encrypted device, improving performance on SSD&amp;#8217;s but not without its own security implications.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;systemd will generate the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd-cryptsetup@.service.html&quot;&gt;systemd-cryptsetup@.service&lt;/a&gt; unit &lt;code&gt;systemd-cryptsetup@backup_crypt.service&lt;/code&gt; corresponding to this entry in crypttab.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a suitable mount point under &lt;code&gt;/media&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /media/system/backup&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To be on the safe side, restrict access to &lt;code&gt;/media/system&lt;/code&gt; to the root user only.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo chmod &lt;/span&gt;0700 /media/system/backup&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add an entry in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt; to mount the Btrfs subvolume with the appropriate mount options.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/dev/mapper/backup_crypt /media/system/backup btrfs defaults,nofail,noauto,x-systemd.automount,noatime,autodefrag,compress=zstd,commit=120,subvol=root_backups 0 0&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/fstab&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.mount.html#nofail&quot;&gt;nofail&lt;/a&gt; option removes the requirement that the drive be attached at boot time.
+With the options &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.mount.html#noauto&quot;&gt;noauto&lt;/a&gt; and &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.mount.html#x-systemd.automount&quot;&gt;x-systemd.automount&lt;/a&gt;, systemd automatically mounts the drive on-demand.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;systemd will generate the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.mount.html&quot;&gt;systemd.mount&lt;/a&gt; unit &lt;code&gt;media-system-backup.mount&lt;/code&gt; and the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.automount.html&quot;&gt;systemd.automount&lt;/a&gt; unit &lt;code&gt;media-system-backup.automount&lt;/code&gt; corresponding to this entry in fstab.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verify there aren&amp;#8217;t any errors in fstab.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;findmnt &lt;span class=&quot;nt&quot;&gt;--verify&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;
+...
+/media/system/backup
+   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; target exists
+   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; VFS options: noatime
+   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; FS options: autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd,commit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;120,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;root_backups
+   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; userspace options: nofail,noauto,x-systemd.automount
+   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; /dev/mapper/backup_crypt exists
+   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; FS &lt;span class=&quot;nb&quot;&gt;type &lt;/span&gt;is btrfs
+
+0 parse errors, 0 errors, 4 warnings&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Lock the encrypted volume.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup close backup_crypt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reload the changes in fstab and crypttab and generate the corresponding unit files.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl daemon-reload&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart the Cryptsetup target in order to make sure that the volume isn&amp;#8217;t decrypted automatically.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl restart cryptsetup.target&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now verify that the encrypted volume has not been decrypted yet.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status systemd-cryptsetup@backup_crypt.service
+● systemd-cryptsetup@backup_crypt.service - Cryptography Setup &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;backup_crypt
+   Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/etc/crypttab&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; generated&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   Active: inactive &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;dead&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The cryptsetup unit is marked &lt;em&gt;inactive&lt;/em&gt;, so volume has not been decrypted yet.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Test that new volume is automatically mounted when accessed by creating a new file under the mount point.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo touch&lt;/span&gt; /media/system/backup/file&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;You can now see that the volume has been decrypted because its cryptsetup target is active.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status systemd-cryptsetup@backup_crypt.service
+● systemd-cryptsetup@backup_crypt.service - Cryptography Setup &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;backup_crypt
+   Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/etc/crypttab&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; generated&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   Active: active &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;exited&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; since Thu 2021-02-25 09:38:03 CST&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 44s ago&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You can also check the status of the Cryptsetup volume using &lt;code&gt;cryptsetup status&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup status backup_crypt
+/dev/mapper/backup_crypt is active and is &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;use.
+  &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;:    LUKS2
+  cipher:  aes-xts-plain64
+  keysize: 256 bits
+  key location: keyring
+  device:  /dev/sdb1
+  sector size:  512
+  offset:  8192 sectors
+  size:    1953447903 sectors
+  mode:    &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt;/write
+  flags:   discards&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Likewise, the decrypted Btrfs filesystem has been mounted automatically because its mount unit is now active.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status media-system-backup.mount
+● media-system-backup.mount - /media/system/backup
+   Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/etc/fstab&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; generated&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   Active: active &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;mounted&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; since Thu 2021-02-25 09:38:03 CST&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 2min 1s ago
+    Where: /media/system/backup
+     What: /dev/mapper/backup_crypt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now understand the general flow for how systemd manages encrypted filesystems.
+Specifically, you learned how to configure an external drive to be decrypted with a keyfile on demand by adding the necessary entries to crypttab and fstab.
+You also have an example of what this can look like using Btrfs on the encrypted volume.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="automount" /><category term="Btrfs" /><category term="Cryptsetup" /><category term="crypttab" /><category term="elementary" /><category term="encryption" /><category term="fstab" /><category term="Linux" /><category term="mount" /><category term="systemd" /><category term="Ubuntu" /><summary type="html">If you run an encrypted Linux system, it&amp;#8217;s helpful to understand how the system handles mounting and decrypting filesystems. A Linux desktop user and tinkerer who runs on an encrypted root, might find this knowledge inevitably becomes practical. The general mechanics used for an encrypted root volume apply to encrypting other system volumes, such as an external hard drive for secure backups. While this tutorial won&amp;#8217;t delve in to details specific to mounting an encrypted root filesystem during boot, it does go through everything necessary to automatically mount and decrypt an external hard drive.</summary></entry><entry><title type="html">Install udisks2 From Source</title><link href="https://www.jwillikers.com/install-udisks2-from-source" rel="alternate" type="text/html" title="Install udisks2 From Source" /><published>2021-02-23T00:00:00-06:00</published><updated>2021-02-23T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20udisks2%20From%20Source</id><content type="html" xml:base="https://www.jwillikers.com/install-udisks2-from-source">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I recently posted &lt;a href=&quot;adjust-mount-options.html&quot;&gt;Adjust Mount Options&lt;/a&gt; which explains in detail how to configure mount options for &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt;.
@@ -1485,7 +1841,7 @@ The operation has completed successfully.&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup luksFormat &lt;span class=&quot;nt&quot;&gt;--type&lt;/span&gt; luks2 /dev/sdb1
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup luksFormat &lt;span class=&quot;nt&quot;&gt;--type&lt;/span&gt; luks2 &lt;span class=&quot;nt&quot;&gt;--label&lt;/span&gt; BlackWDEasyStore /dev/sdb1
 
 WARNING!
 &lt;span class=&quot;o&quot;&gt;========&lt;/span&gt;
@@ -3049,160 +3405,4 @@ This option is organizational and used for the &lt;a href=&quot;https://btrfs.wi
 &lt;p&gt;Hopefully you have a better idea of some of the available mount options for optimizing Btrfs for your particular use case.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="fstab" /><category term="Linux" /><category term="mount" /><summary type="html">So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on Btrfs. Now what? Well, Btrfs doesn&amp;#8217;t ship with optimal default settings. Many popular Linux distributions don&amp;#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.</summary></entry><entry><title type="html">GNOME Keyring in KDE Plasma</title><link href="https://www.jwillikers.com/gnome-keyring-in-kde-plasma" rel="alternate" type="text/html" title="GNOME Keyring in KDE Plasma" /><published>2021-01-01T00:00:00-06:00</published><updated>2021-01-01T00:00:00-06:00</updated><id>https://www.jwillikers.com/GNOME%20Keyring%20in%20KDE%20Plasma</id><content type="html" xml:base="https://www.jwillikers.com/gnome-keyring-in-kde-plasma">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I love &lt;a href=&quot;https://www.gnome.org/&quot;&gt;GNOME&lt;/a&gt;, but on my &lt;a href=&quot;https://www.pine64.org/pinebook-pro/&quot;&gt;Pinebook Pro&lt;/a&gt;, I use the extremely well-supported &lt;a href=&quot;https://manjaro.org/download/#pinebook-pro-kde-plasma&quot;&gt;Manjaro Pinebook Pro KDE Plasma edition&lt;/a&gt;.
-One of the biggest gripes I have with &lt;a href=&quot;https://kde.org/plasma-desktop/&quot;&gt;KDE Plasma&lt;/a&gt; is that it doesn&amp;#8217;t automatically manage my &lt;a href=&quot;https://www.openssh.com/&quot;&gt;OpenSSH&lt;/a&gt; and &lt;a href=&quot;https://gnupg.org/&quot;&gt;GPG&lt;/a&gt; keys.
-I&amp;#8217;m used to having my SSH and GPG key unlocked automatically when I login in.
-As a developer who uses these constantly, this is very convenient.
-KDE Plasma works very well on the Pinebook Pro, but this is one feature I just had to figure out.
-While I attempted to make this work with &lt;a href=&quot;https://github.com/KDE/kwallet&quot;&gt;KWallet&lt;/a&gt;, I gave up and switched to using &lt;a href=&quot;https://wiki.gnome.org/Projects/GnomeKeyring&quot;&gt;GNOME Keyring&lt;/a&gt;.
-If you wish to obtain this convenience within KDE then read on.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial describes how to enable GNOME Keyring within Manjaro KDE to automatically unlock your keyring, including SSH and GPG keys on login.
-For reference, this tutorial uses &lt;a href=&quot;https://manjaro.org/download/#pinebook-pro-kde-plasma&quot;&gt;Manjaro Pinebook Pro KDE Plasma edition&lt;/a&gt; version 20.12.
-This tutorial provides instructions specific to the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish&lt;/a&gt; shell.
-Most of the steps here were taken directly from the &lt;a href=&quot;https://wiki.archlinux.org/index.php/GNOME/Keyring&quot;&gt;Arch Wiki&amp;#8217;s GNOME/Keyring page&lt;/a&gt;.
-Refer there for more information.
-You should be familiar with Manjaro, KDE Plasma, and the fish shell to get the most out of this tutorial.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Install GNOME Keyring.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ pacman &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; gnome-keyring&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Optionally, install the graphical &lt;a href=&quot;https://wiki.gnome.org/Apps/Seahorse&quot;&gt;Seahorse&lt;/a&gt; application to help manage your GNOME Keyring.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ pacman &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt; seahorse&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add the GNOME Keyring PAM module to &lt;code&gt;/etc/pam.d/login&lt;/code&gt; to unlock the keyring at login.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/pam.d/login&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;#%PAM-1.0
-
-auth       required     pam_securetty.so
-auth       requisite    pam_nologin.so
-auth       include      system-local-login
-auth       optional     pam_gnome_keyring.so &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-account    include      system-local-login
-session    include      system-local-login
-session    optional     pam_gnome_keyring.so auto_start &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Add the &lt;code&gt;auth&lt;/code&gt; type here.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;And add the &lt;code&gt;session&lt;/code&gt; type here.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-For this to work, your keyring must use the same password you use to login.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Autostart SSH and Secrets components of the GNOME keyring on login by copying their autostart files to your &lt;code&gt;~/.config/autostart&lt;/code&gt; directory.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; /etc/xdg/autostart/&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;gnome-keyring-secrets.desktop,gnome-keyring-ssh.desktop&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; ~/.config/autostart/&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Strip out the &lt;code&gt;OnlyShowIn&lt;/code&gt; line from the autostart file for the Secrets component.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sed&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/^OnlyShowIn.*$/d'&lt;/span&gt; ~/.config/autostart/gnome-keyring-secrets.desktop&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Also strip out the &lt;code&gt;OnlyShowIn&lt;/code&gt; line from the autostart file for the SSH component.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sed&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/^OnlyShowIn.*$/d'&lt;/span&gt; ~/.config/autostart/gnome-keyring-ssh.desktop&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create the &lt;code&gt;conf.d&lt;/code&gt; configuration directory for fish startup scripts in order to keep things tidy.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; ~/.config/fish/conf.d&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Set the &lt;code&gt;SSH_AUTH_SOCK&lt;/code&gt; environment variable to the PID of the GNOME Keyring ssh-agent in a shell startup file to make it available in your terminal.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.config/fish/conf.d/gnome-keyring-ssh-agent.fish&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DESKTOP_SESSION&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;gnome-keyring-daemon &lt;span class=&quot;nt&quot;&gt;--start&lt;/span&gt; | string &lt;span class=&quot;nb&quot;&gt;split&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;=&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-end&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Configure GnuPG to use GNOME Keyring to manage passphrase prompts.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.gnupg/gpg-agent.conf&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;pinentry-program /usr/bin/pinentry-gnome3&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Log out and log back in for the changes to take effect.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;When asked to unlock your SSH and GPG keys, select the option to save them to your keyring and they&amp;#8217;ll be available for you on subsequent logins!&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You should now be able to have your GPG and SSH keys unlocked automatically when you login to your KDE environment.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Developer" /><category term="GNOME" /><category term="GPG" /><category term="KDE" /><category term="Keyring" /><category term="Manjaro" /><category term="PinebookPro" /><category term="Plasma" /><category term="SSH" /><summary type="html">I love GNOME, but on my Pinebook Pro, I use the extremely well-supported Manjaro Pinebook Pro KDE Plasma edition. One of the biggest gripes I have with KDE Plasma is that it doesn&amp;#8217;t automatically manage my OpenSSH and GPG keys. I&amp;#8217;m used to having my SSH and GPG key unlocked automatically when I login in. As a developer who uses these constantly, this is very convenient. KDE Plasma works very well on the Pinebook Pro, but this is one feature I just had to figure out. While I attempted to make this work with KWallet, I gave up and switched to using GNOME Keyring. If you wish to obtain this convenience within KDE then read on.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="fstab" /><category term="Linux" /><category term="mount" /><summary type="html">So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on Btrfs. Now what? Well, Btrfs doesn&amp;#8217;t ship with optimal default settings. Many popular Linux distributions don&amp;#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.</summary></entry></feed>
