@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-27T13:42:22-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Backup Snapper Snapshots With snap-sync</title><link href="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync" rel="alternate" type="text/html" title="Backup Snapper Snapshots With snap-sync" /><published>2021-02-27T00:00:00-06:00</published><updated>2021-02-27T00:00:00-06:00</updated><id>https://www.jwillikers.com/Backup%20Snapper%20Snapshots%20With%20snap-sync</id><content type="html" xml:base="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-27T13:55:28-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Backup Snapper Snapshots With snap-sync</title><link href="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync" rel="alternate" type="text/html" title="Backup Snapper Snapshots With snap-sync" /><published>2021-02-27T00:00:00-06:00</published><updated>2021-02-27T00:00:00-06:00</updated><id>https://www.jwillikers.com/Backup%20Snapper%20Snapshots%20With%20snap-sync</id><content type="html" xml:base="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;In &lt;a href=&quot;btrfs-snapshot-management-with-snapper.html&quot;&gt;Btrfs Snapshot Management With Snapper&lt;/a&gt;, the process is described for automating &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; snapshots with &lt;a href=&quot;http://snapper.io/&quot;&gt;Snapper&lt;/a&gt;.
@@ -75,11 +75,16 @@ As a matter of preference, the commands here use the &lt;a href=&quot;https://fi
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Verify the tarball&amp;#8217;s signature, automatically importing the GPG as necessary.&lt;/p&gt;
+&lt;p&gt;Verify the tarball&amp;#8217;s signature.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The command here does this with the added convenience of importing the signing key for you if you don&amp;#8217;t already have it.&lt;/p&gt;
+&lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--verify&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--auto-key-retrieve&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--keyserver&lt;/span&gt; keyserver.ubuntu.com snap-sync-0.7.tar.gz.sig
-gpg: assuming signed data &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'snap-sync-0.7.tar.gz'&lt;/span&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--verify&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--auto-key-retrieve&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--keyserver&lt;/span&gt; keyserver.ubuntu.com ~/Downloads/snap-sync-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.tar.gz.sig
+gpg: assuming signed data &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/home/jordan/Downloads/snap-sync-0.7.tar.gz'&lt;/span&gt;
 gpg: Signature made Fri 29 Jan 2021 09:19:24 PM CST
 gpg:                using EDDSA key F7B28C61944FE30DABEEB0B01070BCC98C18BD66
 gpg: requesting key 1070BCC98C18BD66 from hkp server keyserver.ubuntu.com
@@ -95,6 +100,12 @@ gpg:                 aka &lt;span class=&quot;s2&quot;&gt;&quot;Wes Barnett &amp
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: F7B2 8C61 944F E30D ABEE  B0B0 1070 BCC9 8C18 BD66&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;Good signature&lt;/code&gt; in the output signifies that the signature is indeed valid which indicates that the tarball has not been unduly tampered with.
+Assuming, of course, that no unauthorized persons have managed to get their hands on the private signing key.&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;

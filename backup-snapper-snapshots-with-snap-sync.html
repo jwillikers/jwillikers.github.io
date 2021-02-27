@@ -233,11 +233,16 @@ As a matter of preference, the commands here use the <a href="https://fishshell.
 </div>
 </li>
 <li>
-<p>Verify the tarball&#8217;s signature, automatically importing the GPG as necessary.</p>
+<p>Verify the tarball&#8217;s signature.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The command here does this with the added convenience of importing the signing key for you if you don&#8217;t already have it.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ gpg <span class="nt">--verify</span> <span class="nt">--auto-key-retrieve</span> <span class="nt">--keyserver</span> keyserver.ubuntu.com snap-sync-0.7.tar.gz.sig
-gpg: assuming signed data <span class="k">in</span> <span class="s1">'snap-sync-0.7.tar.gz'</span>
+<pre class="rouge highlight"><code data-lang="sh">➜ gpg <span class="nt">--verify</span> <span class="nt">--auto-key-retrieve</span> <span class="nt">--keyserver</span> keyserver.ubuntu.com ~/Downloads/snap-sync-<span class="k">*</span>.tar.gz.sig
+gpg: assuming signed data <span class="k">in</span> <span class="s1">'/home/jordan/Downloads/snap-sync-0.7.tar.gz'</span>
 gpg: Signature made Fri 29 Jan 2021 09:19:24 PM CST
 gpg:                using EDDSA key F7B28C61944FE30DABEEB0B01070BCC98C18BD66
 gpg: requesting key 1070BCC98C18BD66 from hkp server keyserver.ubuntu.com
@@ -253,6 +258,12 @@ gpg:                 aka <span class="s2">"Wes Barnett &lt;wes@wbarnett.us&gt;"<
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: F7B2 8C61 944F E30D ABEE  B0B0 1070 BCC9 8C18 BD66</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Good signature</code> in the output signifies that the signature is indeed valid which indicates that the tarball has not been unduly tampered with.
+Assuming, of course, that no unauthorized persons have managed to get their hands on the private signing key.</p>
+</div>
 </div>
 </div>
 </li>
