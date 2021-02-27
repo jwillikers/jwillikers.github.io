@@ -316,4 +316,10 @@ var store = [{
         "tags": ["automount","Btrfs","Cryptsetup","crypttab","elementary","encryption","fstab","Linux","mount","systemd","Ubuntu"],
         "url": "/automount-an-encrypted-system-volume",
         "teaser": null
+      },{
+        "title": "Backup Snapper Snapshots With snap-sync",
+        "excerpt":"In Btrfs Snapshot Management With Snapper, the process is described for automating Btrfs snapshots with Snapper. Why stop there when you can use these snapshots for incremental backups? This isn&#8217;t the most difficult thing to script yourself, but why do more work than you have to? The Bash script snap-sync...","categories": ["Disks"],
+        "tags": ["backups","Btrbk","Btrfs","elementary","encryption","Linux","snap-sync","Snapper","snapshots","systemd","Ubuntu"],
+        "url": "/backup-snapper-snapshots-with-snap-sync",
+        "teaser": null
       }]

@@ -1,4 +1,279 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-25T12:30:31-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Automount an Encrypted System Volume</title><link href="https://www.jwillikers.com/automount-an-encrypted-system-volume" rel="alternate" type="text/html" title="Automount an Encrypted System Volume" /><published>2021-02-25T00:00:00-06:00</published><updated>2021-02-25T00:00:00-06:00</updated><id>https://www.jwillikers.com/Automount%20an%20Encrypted%20System%20Volume</id><content type="html" xml:base="https://www.jwillikers.com/automount-an-encrypted-system-volume">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-27T13:42:22-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Backup Snapper Snapshots With snap-sync</title><link href="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync" rel="alternate" type="text/html" title="Backup Snapper Snapshots With snap-sync" /><published>2021-02-27T00:00:00-06:00</published><updated>2021-02-27T00:00:00-06:00</updated><id>https://www.jwillikers.com/Backup%20Snapper%20Snapshots%20With%20snap-sync</id><content type="html" xml:base="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In &lt;a href=&quot;btrfs-snapshot-management-with-snapper.html&quot;&gt;Btrfs Snapshot Management With Snapper&lt;/a&gt;, the process is described for automating &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; snapshots with &lt;a href=&quot;http://snapper.io/&quot;&gt;Snapper&lt;/a&gt;.
+Why stop there when you can use these snapshots for incremental backups?
+This isn&amp;#8217;t the most difficult thing to script yourself, but why do more work than you have to?
+The &lt;a href=&quot;https://www.gnu.org/software/bash/&quot;&gt;Bash&lt;/a&gt; script &lt;a href=&quot;https://github.com/wesbarnett/snap-sync&quot;&gt;snap-sync&lt;/a&gt; makes it easy to incrementally back up Snapper snapshots to another hard drive or a remote machine.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/digint/btrbk&quot;&gt;Btrbk&lt;/a&gt; already has this capability built-in but Snapper does not, though this may come some day in the future given &lt;a href=&quot;https://github.com/openSUSE/snapper/issues/368&quot;&gt;Snapper issue #368 - Incremental backups&lt;/a&gt;.
+If you don&amp;#8217;t need Snapper and want incremental backups of Btrfs snapshots, checkout Btrbk!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Bundled here is a lovely tutorial on how to use snap-sync to backup your Snapper snapshots to an external hard drive.
+Building on previous blog posts, this tutorial will demonstrate how to do this at the system level.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It&amp;#8217;s assumed that you have a Snapper configuration for the system&amp;#8217;s root filesystem.
+If you haven&amp;#8217;t set this up, refer to &lt;a href=&quot;btrfs-snapshot-management-with-snapper.html&quot;&gt;Btrfs Snapshot Management With Snapper&lt;/a&gt;.
+You will need a &lt;a href=&quot;https://gitlab.com/cryptsetup/cryptsetup&quot;&gt;Cryptsetup&lt;/a&gt; encrypted volume on an external hard drive.
+Backing up to an encrypted volume protects your backups in case something happens to your external drive.
+You can setup an encrypted volume on an external hard drive by following the steps in the post &lt;a href=&quot;encrypt-an-external-disk-on-linux.html&quot;&gt;Encrypt an External Disk on Linux&lt;/a&gt;.
+Furthermore, this post builds on the work in &lt;a href=&quot;automount-an-encrypted-system-volume.html&quot;&gt;Automount an Encrypted System Volume&lt;/a&gt;, which automates the process of unlocking and mounting the encrypted volume.
+For the purposes of this tutorial, we assume the configuration from these previous blog posts.
+The encrypted volume on the external hard drive is &lt;code&gt;/dev/sdb1&lt;/code&gt;.
+The system is configured to automatically unlock the encrypted volume and mount its Btrfs subvolume &lt;code&gt;root_backups&lt;/code&gt; at &lt;code&gt;/run/media/system/System_Backups&lt;/code&gt;.
+It&amp;#8217;s also recommended to mount the Btrfs filesystem with zstd compression and automatic defragmentation.
+See &lt;a href=&quot;btrfs-mount-options.html&quot;&gt;Btrfs Mount Options&lt;/a&gt; and &lt;a href=&quot;adjust-mount-options.html&quot;&gt;Adjust Mount Options&lt;/a&gt; for details on the subject.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The reference system is &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1 based on &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
+For this tutorial, you should understand the command-line on Linux, Btrfs, filesystems, Cryptsetup, &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt;, and Snapper.
+As a matter of preference, the commands here use the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt;'s syntax.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;snap-sync doesn&amp;#8217;t handle cleanup yet so you&amp;#8217;ll have to prune back snapshots on the backup drive yourself for now, or use a more robust tool like &lt;a href=&quot;https://github.com/digint/btrbk&quot;&gt;Btrbk&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Download the latest snap-sync release.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-nv&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://api.github.com/repos/wesbarnett/snap-sync/releases/latest &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;': '&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/browser_download_url/ &amp;amp;&amp;amp; /snap-sync-[0-9]\.[0-9]\.tar\.gz/ \
+  {gsub(/&quot;/, &quot;&quot;, $(NF)); system(&quot;wget -qLP ~/Downloads/ &quot; $(NF))}'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verify the tarball&amp;#8217;s signature, automatically importing the GPG as necessary.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gpg &lt;span class=&quot;nt&quot;&gt;--verify&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--auto-key-retrieve&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--keyserver&lt;/span&gt; keyserver.ubuntu.com snap-sync-0.7.tar.gz.sig
+gpg: assuming signed data &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'snap-sync-0.7.tar.gz'&lt;/span&gt;
+gpg: Signature made Fri 29 Jan 2021 09:19:24 PM CST
+gpg:                using EDDSA key F7B28C61944FE30DABEEB0B01070BCC98C18BD66
+gpg: requesting key 1070BCC98C18BD66 from hkp server keyserver.ubuntu.com
+gpg: key 1070BCC98C18BD66: 1 signature not checked due to a missing key
+gpg: key 1070BCC98C18BD66: 3 signatures reordered
+gpg: key 1070BCC98C18BD66: public key &lt;span class=&quot;s2&quot;&gt;&quot;Wes Barnett &amp;lt;wes@barnett.science&amp;gt;&quot;&lt;/span&gt; imported
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: Good signature from &lt;span class=&quot;s2&quot;&gt;&quot;Wes Barnett &amp;lt;wes@barnett.science&amp;gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;unknown]
+gpg:                 aka &lt;span class=&quot;s2&quot;&gt;&quot;Wes Barnett &amp;lt;wes@wbarnett.us&amp;gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: F7B2 8C61 944F E30D ABEE  B0B0 1070 BCC9 8C18 BD66&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Unpack the tarball.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; ~/Downloads &lt;span class=&quot;nt&quot;&gt;-xvf&lt;/span&gt; ~/Downloads/snap-sync-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.tar.gz&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install snap-sync.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;make &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; ~/Downloads/snap-sync &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Remove the snap-sync files since they are no longer needed.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ~/Downloads/snap-sync&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Plug in the external hard drive.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Trigger systemd to unlock and mount the encrypted volume.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl start run-media-system-System_Backups.mount&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This systemd mount unit comes from the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;fstab(5)&lt;/a&gt; entry added in &lt;a href=&quot;automount-an-encrypted-system-volume.html&quot;&gt;Automount an Encrypted System Volume&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sync the initial snapshot to the external hard drive.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;snap-sync is run manually here because it needs to be configured on the first run of any combination of Snapper config and backup location.
+Subsequent runs using the same configuration and destination won&amp;#8217;t require user input, allowing snap-sync to be run as a background service.
+The initial sync operation copies the entire root subvolume as part of the first snapshot.
+After this, it will only send the data that has changed since the previous sync operation.
+Some scripting in the command below determines the UUID of the Btrfs filesystem and the id of the subvolume where backups will stored.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;snap-sync &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; root &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--UUID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;blkid &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; value &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; UUID /dev/mapper/backup_crypt&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--subvolid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs subvolume show /run/media/system/System_Backups &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;:[ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;]*&quot;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/Subvolume ID:/ {gsub(//,&quot;&quot;); print $2}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+snap-sync version 0.7, Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;C&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 2016-2021 Wes Barnett
+snap-sync comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under certain conditions. See the license &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;more information.
+
+
+You selected the disk with &lt;span class=&quot;nv&quot;&gt;uuid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2eb01d94-9aa1-4bd1-8c99-950be806f449, &lt;span class=&quot;nv&quot;&gt;subvolid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;257.
+The disk is mounted at &lt;span class=&quot;s1&quot;&gt;'/run/media/system/System_Backups'&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+
+No backups have been performed &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'root'&lt;/span&gt; on this disk.
+Enter name of subvolume to store backups, relative to /run/media/system/System_Backups &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;to be created &lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;not existing&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
+This will be the initial backup &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;snapper configuration &lt;span class=&quot;s1&quot;&gt;'root'&lt;/span&gt; to this disk. This could take awhile.
+Creating new &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;snapshot &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'root'&lt;/span&gt; configuration...
+Will backup //.snapshots/204/snapshot to /run/media/system/System_Backups//root/204//snapshot
+Proceed with backup of &lt;span class=&quot;s1&quot;&gt;'root'&lt;/span&gt; configuration &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Y/n]? y
+
+Performing backups...
+
+Sending first snapshot &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'root'&lt;/span&gt; configuration...
+At subvol /.snapshots/204/snapshot
+Tagging &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;snapshot as latest backup &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'root'&lt;/span&gt; configuration...
+
+Done!&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Configure a &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.service.html&quot;&gt;systemd.service&lt;/a&gt; to backup the root filesystem with snap-sync.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;/etc/systemd/system/snap-sync-root.service&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;systemd&quot;&gt;&lt;span class=&quot;k&quot;&gt;[Unit]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;Backup Snapper snapshots of the root filesystem
+&lt;span class=&quot;nt&quot;&gt;BindsTo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;media-run-media-system-System_Backups.mount
+&lt;span class=&quot;nt&quot;&gt;After&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;media-run-media-system-System_Backups.mount
+
+&lt;span class=&quot;k&quot;&gt;[Install]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;multi-user.target
+
+&lt;span class=&quot;k&quot;&gt;[Service]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;simple
+&lt;span class=&quot;nt&quot;&gt;ExecStart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;/usr/bin/snap-sync -c root --UUID 2eb01d94-9aa1-4bd1-8c99-950be806f449 --subvolid 257 --noconfirm --quiet&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is a fairly straight-forward service unit.
+Of note are the &lt;code&gt;BindsTo&lt;/code&gt; and &lt;code&gt;After&lt;/code&gt; keys, which tell systemd that this service should only run while &lt;code&gt;/run/media/system/System_Backups&lt;/code&gt; is mounted.
+If you yank the drive&amp;#8217;s connection, the service won&amp;#8217;t keep running.
+The &lt;code&gt;UUID&lt;/code&gt; and &lt;code&gt;subvolid&lt;/code&gt;, taken from the output of the initial snap-sync run, are hard-coded here, and all notifications and prompts are disabled.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set up a &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.timer.html&quot;&gt;systemd.timer&lt;/a&gt; to run the snap-sync backup service every hour.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;/etc/systemd/system/snap-sync-root.timer&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;systemd&quot;&gt;&lt;span class=&quot;k&quot;&gt;[Unit]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;Backup Snapper snapshots of the root filesystem every hour
+
+&lt;span class=&quot;k&quot;&gt;[Timer]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;OnCalendar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;hourly
+&lt;span class=&quot;nt&quot;&gt;AccuracySec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;15min
+&lt;span class=&quot;nt&quot;&gt;Persistent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;true
+
+&lt;span class=&quot;k&quot;&gt;[Install]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;timers.target&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This timer will run the snap-sync systemd service unit configured in the previous step.
+It runs every hour within a 15 minute margin according to the value of &lt;code&gt;&lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.timer.html#AccuracySec=&quot;&gt;AccuracySec&lt;/a&gt;&lt;/code&gt;.
+This adds a bit of flexibility for how the timer is scheduled, which can reduce CPU wake-ups and save power.
+If the service can&amp;#8217;t be run for any reason when the timer fires, the &lt;code&gt;&lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.timer.html#Persistent=&quot;&gt;Persistent&lt;/a&gt;&lt;/code&gt; option ensures that the service will be run immediately when next possible.
+This comes in handy when backups can&amp;#8217;t happen while the drive is unplugged or the computer is powered down.
+Once the drive is plugged in or the computer is booted, the latest snapshot is synced to the backup drive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Start the timer now and automatically at boot.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl &lt;span class=&quot;nb&quot;&gt;enable&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--now&lt;/span&gt; snap-sync-root.timer
+Created symlink /etc/systemd/system/timers.target.wants/snap-sync-root.timer → /etc/systemd/system/snap-sync-root.timer.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Finally, feel free to check the status of the timer with &lt;code&gt;systemctl status&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status snap-sync-root.timer&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now have examples of everything you need to get up-and-running with automated Btrfs snapshots and backups to an encrypted, external hard drive.
+From here, it should be trivial to configure snapshots for more than just the root filesystem.
+If you want to configure backups over the network, that shouldn&amp;#8217;t be too hard with snap-sync, either.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="backups" /><category term="Btrbk" /><category term="Btrfs" /><category term="elementary" /><category term="encryption" /><category term="Linux" /><category term="snap-sync" /><category term="Snapper" /><category term="snapshots" /><category term="systemd" /><category term="Ubuntu" /><summary type="html">In Btrfs Snapshot Management With Snapper, the process is described for automating Btrfs snapshots with Snapper. Why stop there when you can use these snapshots for incremental backups? This isn&amp;#8217;t the most difficult thing to script yourself, but why do more work than you have to? The Bash script snap-sync makes it easy to incrementally back up Snapper snapshots to another hard drive or a remote machine.</summary></entry><entry><title type="html">Automount an Encrypted System Volume</title><link href="https://www.jwillikers.com/automount-an-encrypted-system-volume" rel="alternate" type="text/html" title="Automount an Encrypted System Volume" /><published>2021-02-25T00:00:00-06:00</published><updated>2021-02-25T00:00:00-06:00</updated><id>https://www.jwillikers.com/Automount%20an%20Encrypted%20System%20Volume</id><content type="html" xml:base="https://www.jwillikers.com/automount-an-encrypted-system-volume">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;If you run an encrypted Linux system, it&amp;#8217;s helpful to understand how the system handles mounting and decrypting filesystems.
@@ -16,7 +291,7 @@ While this tutorial won&amp;#8217;t delve in to details specific to mounting an 
 To this end, the tutorial will automate mounting and decrypting a &lt;a href=&quot;https://gitlab.com/cryptsetup/cryptsetup&quot;&gt;Cryptsetup&lt;/a&gt; encrypted volume residing on an external hard drive.
 A &lt;a href=&quot;https://gitlab.com/cryptsetup/cryptsetup&quot;&gt;Cryptsetup&lt;/a&gt; encrypted volume on an external hard drive is required for this tutorial.
 One can be created by following the instructions in the post &lt;a href=&quot;encrypt-an-external-disk-on-linux.html&quot;&gt;Encrypt an External Disk on Linux&lt;/a&gt;.
-This tutorial uses &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; specifically but applies to Linux filesystem in general.
+This tutorial uses &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; specifically but applies to Linux filesystems in general.
 This tutorial assumes familiarity with Linux, the command-line, encryption, systemd, and filesystem mounting.
 The commands shown use the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt;, so some syntax may be incompatible if you use a different shell.
 The reference system is &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1 which is based on &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
@@ -186,7 +461,8 @@ The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/crypttab.h
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/dev/mapper/backup_crypt /run/media/system/System_Backups btrfs defaults,nofail,noauto,x-systemd.automount,noatime,autodefrag,compress=zstd,commit=120,subvol=root_backups 0 0&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/fstab&lt;/code&gt;&lt;/pre&gt;
+  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/fstab
+/dev/mapper/backup_crypt /run/media/system/System_Backups btrfs defaults,nofail,noauto,x-systemd.automount,noatime,autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd,commit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;120,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;root_backups 0 0&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -3256,137 +3532,4 @@ More fodder for the blog, though.&lt;/p&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
 &lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. No. I&amp;#8217;m &lt;em&gt;not&lt;/em&gt; counting Darwin.
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="bcachefs" /><category term="Btrfs" /><category term="CoW" /><category term="filesystem" /><category term="Fedora" /><category term="FreeBSD" /><category term="Linux" /><category term="OpenZFS" /><category term="openSUSE" /><category term="NetBSD" /><category term="snapshots" /><category term="ZFS" /><summary type="html">There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and Btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.</summary></entry><entry><title type="html">Btrfs Mount Options</title><link href="https://www.jwillikers.com/btrfs-mount-options" rel="alternate" type="text/html" title="Btrfs Mount Options" /><published>2021-02-10T00:00:00-06:00</published><updated>2021-02-10T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-mount-options">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt;.
-Now what?
-Well, Btrfs doesn&amp;#8217;t ship with optimal default settings.
-Many popular Linux distributions don&amp;#8217;t improve the situation, either.
-That leaves it up to the administrator to fine tune Btrfs for its particular use case.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The primary way to tune Btrfs is through &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs(5)#MOUNT_OPTIONS&quot;&gt;mount options&lt;/a&gt; which are commonly enumerated in &lt;code&gt;&lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;/etc/fstab&lt;/a&gt;&lt;/code&gt; for each volume on the system.
-I use a flat layout in my &lt;code&gt;/etc/fstab&lt;/code&gt; for the separate Btrfs subvolumes on each system.
-Subvolumes within a user&amp;#8217;s home directory, besides perhaps a standard &lt;code&gt;.snapshots&lt;/code&gt; subvolume, are left out of my &lt;code&gt;/etc/fstab&lt;/code&gt; to give users greater flexibility in managing their own home subvolume.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I&amp;#8217;m planning on using Btrfs for all of my Linux machines, but these are all used as desktop computers and the mount options I selected reflect this.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;fstab&quot;&gt;fstab&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;First, let&amp;#8217;s look at the &lt;code&gt;/etc/fstab&lt;/code&gt; file on one of my machines.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/fstab&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;/dev/mapper/sda2_crypt /                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=root 0 0
-UUID=xxxxxxxxxxxxxxxxx /boot                btrfs   defaults,noatime,autodefrag,compress=lzo,commit=120 0 0
-/dev/mapper/sda2_crypt /.snapshots          btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=snapshots 0 0
-/dev/mapper/sda2_crypt /home                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home 0 0
-/dev/mapper/sda2_crypt /home/bob            btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob 0 0
-/dev/mapper/sda2_crypt /home/bob/.snapshots btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob_snapshots 0 0
-/dev/mapper/sda2_crypt /opt                 btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=opt 0 0
-/dev/mapper/sda2_crypt /root                btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_root 0 0
-/dev/mapper/sda2_crypt /srv                 btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=srv 0 0
-/dev/mapper/sda2_crypt /swap                btrfs   defaults,noatime,autodefrag,commit=120,subvol=swap 0 0
-/dev/mapper/sda2_crypt /tmp                 btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=tmp 0 0
-/dev/mapper/sda2_crypt /usr/local           btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=usr_local 0 0
-/dev/mapper/sda2_crypt /var                 btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=var 0 0
-/swap/swapfile         none                 swap    defaults 0 0&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Wow, there&amp;#8217;s a bunch going on here!
-This setup contains many separate subvolumes to facilitate snapshots of the root directory and users' home directories.
-It also includes a &lt;a href=&quot;btrfs-swapfile.html&quot;&gt;Btrfs Swapfile&lt;/a&gt;.
-These aspects of the file will be discussed in future posts. 😉&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Notice that each subvolume specified here, except for &lt;code&gt;/boot&lt;/code&gt;, explicitly states the mount options.
-These subvolumes use a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt; as opposed to a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested&quot;&gt;nested layout&lt;/a&gt;.
-With the exception of the &lt;code&gt;/boot&lt;/code&gt; subvolume which resides on a separate partition, they are all located at the root of &lt;code&gt;/dev/mapper/sda2_crypt&lt;/code&gt;.
-When using Btrfs, nested subvolumes inherit the mount options of their parents and are automatically mounted.
-They don&amp;#8217;t need to be included in &lt;code&gt;/etc/fstab&lt;/code&gt; but they are restricted to using the exact mount options of their parents.
-The &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt; used here has the advantage of making it easy to view how system subvolumes are organized.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Since Btrfs does it&amp;#8217;s own integrity checking, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;fsck&lt;/a&gt; should be disabled.
-The integer in the last column of each row indicates the fsck value and setting it to zero disables fsck.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;mount_options&quot;&gt;Mount Options&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Listed below are descriptions of each particular mount option.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Mount Options&lt;/div&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;defaults&lt;/em&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Use default options: &lt;em&gt;rw&lt;/em&gt;, &lt;em&gt;suid&lt;/em&gt;, &lt;em&gt;dev&lt;/em&gt;, &lt;em&gt;exec&lt;/em&gt;, &lt;em&gt;auto&lt;/em&gt;, &lt;em&gt;nouser&lt;/em&gt;, and &lt;em&gt;async&lt;/em&gt;.
-These are not Btrfs-specific.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;noatime&lt;/em&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Do  not  update  inode  access  times  on  this  filesystem.
-This speeds up reads since the access time metadata is not updated.
-This option isn&amp;#8217;t specific to Btrfs either.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;autodefrag&lt;/em&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Enable automatic file defragmentation.
-This will automatically defragment small random writes into files.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;compress&lt;/em&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Filesystem-level compression is a beautiful thing.
-It increases read and write speeds while saving disk space.
-The speed of &lt;em&gt;&lt;a href=&quot;https://facebook.github.io/zstd/&quot;&gt;zstd&lt;/a&gt;&lt;/em&gt; compression makes it my general preference.
-The &lt;code&gt;/boot&lt;/code&gt; subvolume above is mounted with &lt;em&gt;lzo&lt;/em&gt; compression to accommodate an older version of Grub predating &lt;em&gt;zstd&lt;/em&gt; support, which appeared in Grub 2.04.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;commit&lt;/em&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The number of seconds between periodic commits to the filesystem.
-This is 30 seconds by default.
-Increasing this value reduces the frequency of periodic writes which can reduce wear on the disk.
-However, this also increases the risk of data loss during the event of an untimely crash.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;em&gt;subvol&lt;/em&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Mount the subvolume from the given path rather than the top-level subvolume.
-This option is organizational and used for the &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt;.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;em&gt;ssd&lt;/em&gt; option is omitted since these settings are applied automatically when the underlying storage media is solid-state.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Hopefully you have a better idea of some of the available mount options for optimizing Btrfs for your particular use case.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="fstab" /><category term="Linux" /><category term="mount" /><summary type="html">So, let&amp;#8217;s say you&amp;#8217;ve installed a fresh system on Btrfs. Now what? Well, Btrfs doesn&amp;#8217;t ship with optimal default settings. Many popular Linux distributions don&amp;#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="bcachefs" /><category term="Btrfs" /><category term="CoW" /><category term="filesystem" /><category term="Fedora" /><category term="FreeBSD" /><category term="Linux" /><category term="OpenZFS" /><category term="openSUSE" /><category term="NetBSD" /><category term="snapshots" /><category term="ZFS" /><summary type="html">There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and Btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.</summary></entry></feed>

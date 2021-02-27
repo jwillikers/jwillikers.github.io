@@ -1,0 +1,520 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Backup Snapper Snapshots With snap-sync - JWillikers</title>
+<meta name="description" content="In Btrfs Snapshot Management With Snapper, the process is described for automating Btrfs snapshots with Snapper. Why stop there when you can use these snapshots for incremental backups? This isn&#8217;t the most difficult thing to script yourself, but why do more work than you have to? The Bash script snap-sync makes it easy to incrementally back up Snapper snapshots to another hard drive or a remote machine.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Backup Snapper Snapshots With snap-sync">
+<meta property="og:url" content="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync">
+
+
+  <meta property="og:description" content="In Btrfs Snapshot Management With Snapper, the process is described for automating Btrfs snapshots with Snapper. Why stop there when you can use these snapshots for incremental backups? This isn&#8217;t the most difficult thing to script yourself, but why do more work than you have to? The Bash script snap-sync makes it easy to incrementally back up Snapper snapshots to another hard drive or a remote machine.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-27T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In <a href="btrfs-snapshot-management-with-snapper.html">Btrfs Snapshot Management With Snapper</a>, the process is described for automating <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a> snapshots with <a href="http://snapper.io/">Snapper</a>.
+Why stop there when you can use these snapshots for incremental backups?
+This isn&#8217;t the most difficult thing to script yourself, but why do more work than you have to?
+The <a href="https://www.gnu.org/software/bash/">Bash</a> script <a href="https://github.com/wesbarnett/snap-sync">snap-sync</a> makes it easy to incrementally back up Snapper snapshots to another hard drive or a remote machine.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><a href="https://github.com/digint/btrbk">Btrbk</a> already has this capability built-in but Snapper does not, though this may come some day in the future given <a href="https://github.com/openSUSE/snapper/issues/368">Snapper issue #368 - Incremental backups</a>.
+If you don&#8217;t need Snapper and want incremental backups of Btrfs snapshots, checkout Btrbk!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bundled here is a lovely tutorial on how to use snap-sync to backup your Snapper snapshots to an external hard drive.
+Building on previous blog posts, this tutorial will demonstrate how to do this at the system level.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s assumed that you have a Snapper configuration for the system&#8217;s root filesystem.
+If you haven&#8217;t set this up, refer to <a href="btrfs-snapshot-management-with-snapper.html">Btrfs Snapshot Management With Snapper</a>.
+You will need a <a href="https://gitlab.com/cryptsetup/cryptsetup">Cryptsetup</a> encrypted volume on an external hard drive.
+Backing up to an encrypted volume protects your backups in case something happens to your external drive.
+You can setup an encrypted volume on an external hard drive by following the steps in the post <a href="encrypt-an-external-disk-on-linux.html">Encrypt an External Disk on Linux</a>.
+Furthermore, this post builds on the work in <a href="automount-an-encrypted-system-volume.html">Automount an Encrypted System Volume</a>, which automates the process of unlocking and mounting the encrypted volume.
+For the purposes of this tutorial, we assume the configuration from these previous blog posts.
+The encrypted volume on the external hard drive is <code>/dev/sdb1</code>.
+The system is configured to automatically unlock the encrypted volume and mount its Btrfs subvolume <code>root_backups</code> at <code>/run/media/system/System_Backups</code>.
+It&#8217;s also recommended to mount the Btrfs filesystem with zstd compression and automatic defragmentation.
+See <a href="btrfs-mount-options.html">Btrfs Mount Options</a> and <a href="adjust-mount-options.html">Adjust Mount Options</a> for details on the subject.</p>
+</div>
+<div class="paragraph">
+<p>The reference system is <a href="https://elementary.io/">elementary OS</a> 5.1 based on <a href="https://ubuntu.com/">Ubuntu</a> 18.04.
+For this tutorial, you should understand the command-line on Linux, Btrfs, filesystems, Cryptsetup, <a href="https://systemd.io/">systemd</a>, and Snapper.
+As a matter of preference, the commands here use the <a href="https://fishshell.com/">fish shell</a>'s syntax.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>snap-sync doesn&#8217;t handle cleanup yet so you&#8217;ll have to prune back snapshots on the backup drive yourself for now, or use a more robust tool like <a href="https://github.com/digint/btrbk">Btrbk</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download the latest snap-sync release.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-q</span> <span class="nt">-nv</span> <span class="nt">-O</span> - https://api.github.com/repos/wesbarnett/snap-sync/releases/latest <span class="se">\</span>
+  | <span class="nb">awk</span> <span class="nt">-F</span><span class="s1">': '</span> <span class="s1">'/browser_download_url/ &amp;&amp; /snap-sync-[0-9]\.[0-9]\.tar\.gz/ \
+  {gsub(/"/, "", $(NF)); system("wget -qLP ~/Downloads/ " $(NF))}'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify the tarball&#8217;s signature, automatically importing the GPG as necessary.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ gpg <span class="nt">--verify</span> <span class="nt">--auto-key-retrieve</span> <span class="nt">--keyserver</span> keyserver.ubuntu.com snap-sync-0.7.tar.gz.sig
+gpg: assuming signed data <span class="k">in</span> <span class="s1">'snap-sync-0.7.tar.gz'</span>
+gpg: Signature made Fri 29 Jan 2021 09:19:24 PM CST
+gpg:                using EDDSA key F7B28C61944FE30DABEEB0B01070BCC98C18BD66
+gpg: requesting key 1070BCC98C18BD66 from hkp server keyserver.ubuntu.com
+gpg: key 1070BCC98C18BD66: 1 signature not checked due to a missing key
+gpg: key 1070BCC98C18BD66: 3 signatures reordered
+gpg: key 1070BCC98C18BD66: public key <span class="s2">"Wes Barnett &lt;wes@barnett.science&gt;"</span> imported
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: Good signature from <span class="s2">"Wes Barnett &lt;wes@barnett.science&gt;"</span> <span class="o">[</span>unknown]
+gpg:                 aka <span class="s2">"Wes Barnett &lt;wes@wbarnett.us&gt;"</span> <span class="o">[</span>unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: F7B2 8C61 944F E30D ABEE  B0B0 1070 BCC9 8C18 BD66</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Unpack the tarball.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">tar</span> <span class="nt">-C</span> ~/Downloads <span class="nt">-xvf</span> ~/Downloads/snap-sync-<span class="k">*</span>.tar.gz</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install snap-sync.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>make <span class="nt">-C</span> ~/Downloads/snap-sync <span class="nb">install</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Remove the snap-sync files since they are no longer needed.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rm</span> <span class="nt">-rf</span> ~/Downloads/snap-sync<span class="k">*</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Plug in the external hard drive.</p>
+</li>
+<li>
+<p>Trigger systemd to unlock and mount the encrypted volume.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl start run-media-system-System_Backups.mount</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This systemd mount unit comes from the <a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">fstab(5)</a> entry added in <a href="automount-an-encrypted-system-volume.html">Automount an Encrypted System Volume</a>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Sync the initial snapshot to the external hard drive.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>snap-sync is run manually here because it needs to be configured on the first run of any combination of Snapper config and backup location.
+Subsequent runs using the same configuration and destination won&#8217;t require user input, allowing snap-sync to be run as a background service.
+The initial sync operation copies the entire root subvolume as part of the first snapshot.
+After this, it will only send the data that has changed since the previous sync operation.
+Some scripting in the command below determines the UUID of the Btrfs filesystem and the id of the subvolume where backups will stored.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>snap-sync <span class="nt">-c</span> root <span class="se">\</span>
+  <span class="nt">--UUID</span> <span class="o">(</span><span class="nb">sudo </span>blkid <span class="nt">-o</span> value <span class="nt">-s</span> UUID /dev/mapper/backup_crypt<span class="o">)</span> <span class="se">\</span>
+  <span class="nt">--subvolid</span> <span class="o">(</span><span class="nb">sudo </span>btrfs subvolume show /run/media/system/System_Backups <span class="se">\</span>
+    | <span class="nb">awk</span> <span class="nt">-F</span> <span class="s2">":[ </span><span class="se">\t</span><span class="s2">]*"</span> <span class="s1">'/Subvolume ID:/ {gsub(//,""); print $2}'</span><span class="o">)</span>
+
+snap-sync version 0.7, Copyright <span class="o">(</span>C<span class="o">)</span> 2016-2021 Wes Barnett
+snap-sync comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under certain conditions. See the license <span class="k">for </span>more information.
+
+
+You selected the disk with <span class="nv">uuid</span><span class="o">=</span>2eb01d94-9aa1-4bd1-8c99-950be806f449, <span class="nv">subvolid</span><span class="o">=</span>257.
+The disk is mounted at <span class="s1">'/run/media/system/System_Backups'</span><span class="nb">.</span>
+
+No backups have been performed <span class="k">for</span> <span class="s1">'root'</span> on this disk.
+Enter name of subvolume to store backups, relative to /run/media/system/System_Backups <span class="o">(</span>to be created <span class="k">if </span>not existing<span class="o">)</span>:
+This will be the initial backup <span class="k">for </span>snapper configuration <span class="s1">'root'</span> to this disk. This could take awhile.
+Creating new <span class="nb">local </span>snapshot <span class="k">for</span> <span class="s1">'root'</span> configuration...
+Will backup //.snapshots/204/snapshot to /run/media/system/System_Backups//root/204//snapshot
+Proceed with backup of <span class="s1">'root'</span> configuration <span class="o">[</span>Y/n]? y
+
+Performing backups...
+
+Sending first snapshot <span class="k">for</span> <span class="s1">'root'</span> configuration...
+At subvol /.snapshots/204/snapshot
+Tagging <span class="nb">local </span>snapshot as latest backup <span class="k">for</span> <span class="s1">'root'</span> configuration...
+
+Done!</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Configure a <a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">systemd.service</a> to backup the root filesystem with snap-sync.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">/etc/systemd/system/snap-sync-root.service</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Backup Snapper snapshots of the root filesystem
+<span class="nt">BindsTo</span><span class="p">=</span>media-run-media-system-System_Backups.mount
+<span class="nt">After</span><span class="p">=</span>media-run-media-system-System_Backups.mount
+
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>multi-user.target
+
+<span class="k">[Service]</span>
+<span class="nt">Type</span><span class="p">=</span>simple
+<span class="nt">ExecStart</span><span class="p">=</span>/usr/bin/snap-sync -c root --UUID 2eb01d94-9aa1-4bd1-8c99-950be806f449 --subvolid 257 --noconfirm --quiet</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is a fairly straight-forward service unit.
+Of note are the <code>BindsTo</code> and <code>After</code> keys, which tell systemd that this service should only run while <code>/run/media/system/System_Backups</code> is mounted.
+If you yank the drive&#8217;s connection, the service won&#8217;t keep running.
+The <code>UUID</code> and <code>subvolid</code>, taken from the output of the initial snap-sync run, are hard-coded here, and all notifications and prompts are disabled.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Set up a <a href="https://www.freedesktop.org/software/systemd/man/systemd.timer.html">systemd.timer</a> to run the snap-sync backup service every hour.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">/etc/systemd/system/snap-sync-root.timer</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Backup Snapper snapshots of the root filesystem every hour
+
+<span class="k">[Timer]</span>
+<span class="nt">OnCalendar</span><span class="p">=</span>hourly
+<span class="nt">AccuracySec</span><span class="p">=</span>15min
+<span class="nt">Persistent</span><span class="p">=</span>true
+
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>timers.target</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This timer will run the snap-sync systemd service unit configured in the previous step.
+It runs every hour within a 15 minute margin according to the value of <code><a href="https://www.freedesktop.org/software/systemd/man/systemd.timer.html#AccuracySec=">AccuracySec</a></code>.
+This adds a bit of flexibility for how the timer is scheduled, which can reduce CPU wake-ups and save power.
+If the service can&#8217;t be run for any reason when the timer fires, the <code><a href="https://www.freedesktop.org/software/systemd/man/systemd.timer.html#Persistent=">Persistent</a></code> option ensures that the service will be run immediately when next possible.
+This comes in handy when backups can&#8217;t happen while the drive is unplugged or the computer is powered down.
+Once the drive is plugged in or the computer is booted, the latest snapshot is synced to the backup drive.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Start the timer now and automatically at boot.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl <span class="nb">enable</span> <span class="nt">--now</span> snap-sync-root.timer
+Created symlink /etc/systemd/system/timers.target.wants/snap-sync-root.timer → /etc/systemd/system/snap-sync-root.timer.</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Finally, feel free to check the status of the timer with <code>systemctl status</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl status snap-sync-root.timer</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now have examples of everything you need to get up-and-running with automated Btrfs snapshots and backups to an encrypted, external hard drive.
+From here, it should be trivial to configure snapshots for more than just the root filesystem.
+If you want to configure backups over the network, that shouldn&#8217;t be too hard with snap-sync, either.</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
