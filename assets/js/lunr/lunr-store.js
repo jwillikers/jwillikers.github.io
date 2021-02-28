@@ -328,4 +328,10 @@ var store = [{
         "tags": ["Btrfs","containers","Docker","elementary","Kubernetes","Linux","Podman","systemd","Ubuntu","ZFS"],
         "url": "/install-podman-on-ubuntu-18-04",
         "teaser": null
+      },{
+        "title": "Podman With Btrfs and ZFS",
+        "excerpt":"Podman has storage backends for both Btrfs and ZFS. Using these backends allows Podman to take full advantage of the underlying CoW filesystem. This is a quick guide on enabling these storage drivers. Enable the Btrfs and ZFS Storage Drivers for Podman Below are the necessary steps to enable the...","categories": ["Disks"],
+        "tags": ["Btrfs","containers","CoW","filesystem","Linux","Podman","ZFS"],
+        "url": "/podman-with-btrfs-and-zfs",
+        "teaser": null
       }]

@@ -9,25 +9,24 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Docker - JWillikers</title>
-<meta name="description" content="Handy admin and dev guides from my myriad of tinkering">
+<!-- begin _includes/seo.html --><title>Podman With Btrfs and ZFS - JWillikers</title>
+<meta name="description" content="Podman has storage backends for both Btrfs and ZFS. Using these backends allows Podman to take full advantage of the underlying CoW filesystem. This is a quick guide on enabling these storage drivers.">
 
 
   <meta name="author" content="Jordan Williams">
   
+  <meta property="article:author" content="Jordan Williams">
+  
 
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="JWillikers">
-<meta property="og:title" content="Docker">
-<meta property="og:url" content="https://www.jwillikers.com/tags/docker/">
+<meta property="og:title" content="Podman With Btrfs and ZFS">
+<meta property="og:url" content="https://www.jwillikers.com/podman-with-btrfs-and-zfs">
 
 
-  <meta property="og:description" content="Handy admin and dev guides from my myriad of tinkering">
-
-
-
+  <meta property="og:description" content="Podman has storage backends for both Btrfs and ZFS. Using these backends allows Podman to take full advantage of the underlying CoW filesystem. This is a quick guide on enabling these storage drivers.">
 
 
 
@@ -35,9 +34,14 @@
 
 
 
+  <meta property="article:published_time" content="2021-02-28T00:00:00-06:00">
 
 
-<link rel="canonical" href="https://www.jwillikers.com/tags/docker/">
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/podman-with-btrfs-and-zfs">
 
 
 
@@ -100,7 +104,7 @@
 
   </head>
 
-  <body class="layout--archive-taxonomy">
+  <body class="layout--default">
     <nav class="skip-links">
   <h2 class="screen-reader-text">Skip links</h2>
   <ul>
@@ -152,147 +156,135 @@
 
 
     <div class="initial-content">
-      
-
-
-
-<div id="main" role="main">
-  
-
-
-  <div class="archive">
-    
-      <h1 id="page-title" class="page__title">Docker</h1>
-    
-    
-      
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/install-podman-on-ubuntu-18-04" rel="permalink">Install Podman on Ubuntu 18.04
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          6 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-Podman is a daemonless container runtime for Linux compatible with Docker.
-It offers several advantages over using Docker to manage and run containers.
-Firs...</p>
-  </article>
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://podman.io/">Podman</a> has storage backends for both <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a> and <a href="https://openzfs.org/wiki/Main_Page">ZFS</a>.
+Using these backends allows Podman to take full advantage of the underlying <em>CoW</em> filesystem.
+This is a quick guide on enabling these storage drivers.</p>
 </div>
-
-    
-      
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/backup-docker-data" rel="permalink">Backup Docker Data
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          9 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-Backups are super helpful, especially when you like to blow everything away fairly often.
-Backing up the data from a Docker container can help you quickly g...</p>
-  </article>
 </div>
-
-    
-      
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/unifi-controller" rel="permalink">UniFi Controller
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          5 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">
-For wi-fi, I use use a UniFi AP.
-One slightly annoying aspect of this is the UniFi Controller.
-If you don&#8217;t have a smartphone or need to manage more t...</p>
-  </article>
 </div>
-
-    
-  </div>
+<div class="sect1">
+<h2 id="enable_the_btrfs_and_zfs_storage_drivers_for_podman">Enable the Btrfs and ZFS Storage Drivers for Podman</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Below are the necessary steps to enable the <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a> and <a href="https://openzfs.org/wiki/Main_Page">ZFS</a> storage drivers.
+It is assumed that you are familiar with Linux, Podman, and the command-line and that you&#8217;re running on a Linux system with Podman installed.</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Reset Podman&#8217;s storage with <a href="https://docs.podman.io/en/latest/markdown/podman-system-reset.1.html">podman-system-reset(1)</a> before changing the storage driver.</p>
+<div class="openblock">
+<div class="content">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This will delete all existing containers and images.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">rootless</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ podman system reset</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">root</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>podman system reset</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Set the storage backend in <a href="https://github.com/containers/storage/blob/master/docs/containers-storage.conf.5.md">containers-storage.conf(5)</a>.
+To set the default storage driver system-wide, use the file <code>/etc/containers/storage.conf</code>.
+For a user running rootless containers, the system-wide option can be overridden in <code>~/.config/containers/storage.conf</code>.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When dealing with user configuration, you&#8217;ll need to create the <code>~/.config/containers/</code> directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/container</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Btrfs</dt>
+<dd>
+<div class="listingblock">
+<div class="title">storage.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="toml"><span class="nn">[storage]</span>
 
+<span class="py">driver</span> <span class="p">=</span> <span class="s">"btrfs"</span></code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">ZFS</dt>
+<dd>
+<div class="listingblock">
+<div class="title">storage.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="toml"><span class="nn">[storage]</span>
+
+<span class="py">driver</span> <span class="p">=</span> <span class="s">"zfs"</span></code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You have combined the ultimate powers of Podman and Btrfs or ZFS.
+World domination is that much closer.
+Enjoy!</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. To be accurate, the user&#8217;s config file is located at <code>$XDG_CONFIG_HOME/containers/storage.conf</code> when <code>XDG_CONFIG_HOME</code> is set but otherwise resides at the aforementioned location.
+</div>
+</div>
     </div>
 
     
@@ -355,6 +347,23 @@ If you don&#8217;t have a smartphone or need to manage more t...</p>
 <script src="/assets/js/lunr/lunr-en.js"></script>
 
 
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/podman-with-btrfs-and-zfs' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
 
 
 

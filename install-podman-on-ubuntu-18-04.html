@@ -177,7 +177,7 @@ For older Ubuntu LTS releases, the Kubic PPA can be used to get Podman which is 
 <h2 id="tutorial">Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial provides the necessary steps to install Podman on <a href="https://elementary.io/">elementary OS</a> 5.1 and <a href="https://ubuntu.com/">Ubuntu</a> 18.04 as well as the steps to enable the <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a> and <a href="https://openzfs.org/wiki/Main_Page">ZFS</a> storage drivers.
+<p>This tutorial provides the necessary steps to install Podman on <a href="https://elementary.io/">elementary OS</a> 5.1 and <a href="https://ubuntu.com/">Ubuntu</a> 18.04.
 It is assumed that you are familiar with Linux, Ubuntu, and the command-line.</p>
 </div>
 <div class="olist arabic">
@@ -236,78 +236,20 @@ deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stab
 </li>
 </ol>
 </div>
-<div class="sect2">
-<h3 id="btrfs_zfs">Btrfs / ZFS</h3>
-<div class="paragraph">
-<p>My systems use Btrfs, so I also enable the Btrfs storage driver for Podman.
-This permits Podman to take advantage of Btrfs-specific features.
-For anyone wanting to take advantage of the ZFS driver, the process is just the same!</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create the configuration directory.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/containers</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Set the storage driver in the storage configuration file.</p>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Btrfs</dt>
-<dd>
-<div class="listingblock">
-<div class="title">~/.config/containers/storage.conf</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[storage]</span>
-<span class="py">driver</span> <span class="p">=</span> <span class="s">"btrfs"</span></code></pre>
-</div>
-</div>
-</dd>
-<dt class="hdlist1">ZFS</dt>
-<dd>
-<div class="listingblock">
-<div class="title">~/.config/containers/storage.conf</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="ini"><span class="nn">[storage]</span>
-<span class="py">driver</span> <span class="p">=</span> <span class="s">"zfs"</span></code></pre>
-</div>
-</div>
-</dd>
-</dl>
-</div>
-</li>
-<li>
-<p>Reset Podman&#8217;s storage.</p>
-<div class="openblock">
-<div class="content">
-<div class="admonitionblock warning">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>This will delete all existing containers and images.</p>
+<p>If you&#8217;re using <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a> or <a href="https://openzfs.org/wiki/Main_Page">ZFS</a>, now is a good time to switch over to appropriate driver.
+Just follow the simple steps in <a href="podman-with-btrfs-and-zfs.html">Podman With Btrfs and ZFS</a>.</p>
 </div>
 </td>
 </tr>
 </table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ podman system reset</code></pre>
-</div>
-</div>
-</div>
-</div>
-</li>
-</ol>
-</div>
 </div>
 </div>
 </div>
@@ -315,7 +257,7 @@ For anyone wanting to take advantage of the ZFS driver, the process is just the 
 <h2 id="conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You should now have the power of Podman available to you plus the power of either Btrfs or ZFS.
+<p>You should now have the power of Podman available.
 When you want to use Podman, just use the same Docker command-line but substitute <code>podman</code> for <code>docker</code>.</p>
 </div>
 </div>
