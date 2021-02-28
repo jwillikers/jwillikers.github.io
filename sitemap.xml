@@ -217,6 +217,10 @@
 <lastmod>2021-02-27T00:00:00-06:00</lastmod>
 </url>
 <url>
+<loc>https://www.jwillikers.com/install-podman-on-ubuntu-18-04</loc>
+<lastmod>2021-02-28T00:00:00-06:00</lastmod>
+</url>
+<url>
 <loc>https://www.jwillikers.com/CODE_OF_CONDUCT</loc>
 </url>
 <url>
@@ -709,6 +713,12 @@
 <loc>https://www.jwillikers.com/tags/snap-sync/</loc>
 </url>
 <url>
+<loc>https://www.jwillikers.com/tags/containers/</loc>
+</url>
+<url>
+<loc>https://www.jwillikers.com/tags/kubernetes/</loc>
+</url>
+<url>
 <loc>https://www.jwillikers.com/categories/networking/</loc>
 </url>
 <url>
@@ -731,5 +741,8 @@
 </url>
 <url>
 <loc>https://www.jwillikers.com/categories/developer/</loc>
+</url>
+<url>
+<loc>https://www.jwillikers.com/categories/virtualization/</loc>
 </url>
 </urlset>

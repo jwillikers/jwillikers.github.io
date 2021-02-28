@@ -1,4 +1,167 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-28T05:55:27-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Backup Snapper Snapshots With snap-sync</title><link href="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync" rel="alternate" type="text/html" title="Backup Snapper Snapshots With snap-sync" /><published>2021-02-27T00:00:00-06:00</published><updated>2021-02-27T00:00:00-06:00</updated><id>https://www.jwillikers.com/Backup%20Snapper%20Snapshots%20With%20snap-sync</id><content type="html" xml:base="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-28T08:23:30-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install Podman on Ubuntu 18.04</title><link href="https://www.jwillikers.com/install-podman-on-ubuntu-18-04" rel="alternate" type="text/html" title="Install Podman on Ubuntu 18.04" /><published>2021-02-28T00:00:00-06:00</published><updated>2021-02-28T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20Podman%20on%20Ubuntu%2018.04</id><content type="html" xml:base="https://www.jwillikers.com/install-podman-on-ubuntu-18-04">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; is a &lt;em&gt;daemonless&lt;/em&gt; container runtime for Linux compatible with &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt;.
+It offers several advantages over using Docker to manage and run containers.
+First, there is no overhead associated with running a background service as is the case with Docker.
+Podman also allows users to run &lt;em&gt;rootless&lt;/em&gt; containers which provides a higher degree of protection for the system.
+Podman integrates deeply with Linux, taking advantage of a number of specific features.
+Notably, it uses namespaces for process isolation and integrates nicely with &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt;.
+Just like &lt;a href=&quot;https://kubernetes.io/&quot;&gt;Kubernetes&lt;/a&gt;, Podman is built on the concept of &lt;em&gt;pods&lt;/em&gt;, groups of one or more containers, instead of individual containers.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Podman is only available in the Ubuntu repositories as of &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.10.
+For older Ubuntu LTS releases, the Kubic PPA can be used to get Podman which is described here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial provides the necessary steps to install Podman on &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1 and &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04 as well as the steps to enable the &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; and &lt;a href=&quot;https://openzfs.org/wiki/Main_Page&quot;&gt;ZFS&lt;/a&gt; storage drivers.
+It is assumed that you are familiar with Linux, Ubuntu, and the command-line.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Add the Kubic repository for Podman to the system&amp;#8217;s sources list.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/ /&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/ /&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Import the Kubic repository&amp;#8217;s GPG key.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ wget &lt;span class=&quot;nt&quot;&gt;-qO&lt;/span&gt; - https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/Release.key &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | gpg &lt;span class=&quot;nt&quot;&gt;--dearmor&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/trusted.gpg.d/kubic_libcontainers.gpg &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /dev/null&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Refresh Aptitude.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt update&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Upgrade any installed packages to those from the Kubic repository.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; upgrade&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install Podman.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;podman&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;On Ubuntu 18.04, restart dbus in order to use rootless containers.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; restart dbus&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;btrfs_zfs&quot;&gt;Btrfs / ZFS&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;My systems use Btrfs, so I also enable the Btrfs storage driver for Podman.
+This permits Podman to take advantage of Btrfs-specific features.
+For anyone wanting to take advantage of the ZFS driver, the process is just the same!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Create the configuration directory.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/.config/containers&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set the storage driver in the storage configuration file.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Btrfs&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.config/containers/storage.conf&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[storage]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;btrfs&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;ZFS&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/.config/containers/storage.conf&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[storage]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;zfs&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reset Podman&amp;#8217;s storage.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;admonitionblock warning&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-warning&quot; title=&quot;Warning&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This will delete all existing containers and images.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ podman system reset&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now have the power of Podman available to you plus the power of either Btrfs or ZFS.
+When you want to use Podman, just use the same Docker command-line but substitute &lt;code&gt;podman&lt;/code&gt; for &lt;code&gt;docker&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="Btrfs" /><category term="containers" /><category term="Docker" /><category term="elementary" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="systemd" /><category term="Ubuntu" /><category term="ZFS" /><summary type="html">Podman is a daemonless container runtime for Linux compatible with Docker. It offers several advantages over using Docker to manage and run containers. First, there is no overhead associated with running a background service as is the case with Docker. Podman also allows users to run rootless containers which provides a higher degree of protection for the system. Podman integrates deeply with Linux, taking advantage of a number of specific features. Notably, it uses namespaces for process isolation and integrates nicely with systemd. Just like Kubernetes, Podman is built on the concept of pods, groups of one or more containers, instead of individual containers.</summary></entry><entry><title type="html">Backup Snapper Snapshots With snap-sync</title><link href="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync" rel="alternate" type="text/html" title="Backup Snapper Snapshots With snap-sync" /><published>2021-02-27T00:00:00-06:00</published><updated>2021-02-27T00:00:00-06:00</updated><id>https://www.jwillikers.com/Backup%20Snapper%20Snapshots%20With%20snap-sync</id><content type="html" xml:base="https://www.jwillikers.com/backup-snapper-snapshots-with-snap-sync">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;In &lt;a href=&quot;btrfs-snapshot-management-with-snapper.html&quot;&gt;Btrfs Snapshot Management With Snapper&lt;/a&gt;, the process is described for automating &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; snapshots with &lt;a href=&quot;http://snapper.io/&quot;&gt;Snapper&lt;/a&gt;.
@@ -3426,121 +3589,4 @@ vm.swappiness&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10&lt;/code&gt;&lt;/p
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
 &lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. How systemd handles swap is documented thoroughly in the corresponding man page: &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.swap.html&quot;&gt;systemd.swap(5)&lt;/a&gt;.
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="Linux" /><category term="swap" /><category term="swapfile" /><summary type="html">Swap space is a standard component of most operating systems. It&amp;#8217;s effectively reserved disk space for accommodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic.</summary></entry><entry><title type="html">Why Choose Btrfs</title><link href="https://www.jwillikers.com/why-choose-btrfs" rel="alternate" type="text/html" title="Why Choose Btrfs" /><published>2021-02-11T00:00:00-06:00</published><updated>2021-02-11T00:00:00-06:00</updated><id>https://www.jwillikers.com/Why%20Choose%20Btrfs</id><content type="html" xml:base="https://www.jwillikers.com/why-choose-btrfs">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There are many compelling reasons to use a modern &lt;a href=&quot;https://en.wikipedia.org/wiki/Copy-on-write&quot;&gt;Copy-on-Write&lt;/a&gt;, &lt;em&gt;CoW&lt;/em&gt; for short, filesystem.
-These include low-cost snapshots and incremental backups.
-If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, &lt;a href=&quot;https://openzfs.org/wiki/Main_Page&quot;&gt;OpenZFS&lt;/a&gt; and &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt;, offer many more features.
-Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;cow&quot;&gt;&lt;em&gt;CoW&lt;/em&gt;&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Making a case for &lt;em&gt;CoW&lt;/em&gt; is easy, but why make the change?
-Two key features made this change an inevitable one for me: bit rot protection and the ability to perform low-cost, incremental backups.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I&amp;#8217;ve been struck by bit rot on a couple of occasions leaving me with corrupted music files.
-Unfortunately at the time, all my previous backups held only the corrupted files so the data was lost.
-While this wasn&amp;#8217;t tragic by any means, it still bothered me.
-How would I know if a stray bit of radiation fried any of my other files?
-Would I notice in time to recover them?
-What are the odds of discovering my tax documents are corrupt during an audit by the IRS?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;em&gt;CoW&lt;/em&gt; solves this problem in two ways.
-It will detect such corruption at the time of reading the file or during a &lt;em&gt;scrub&lt;/em&gt;, where all data and metadata is verified against the stored checksums.
-In my circumstance, the issue would have been caught much sooner giving me the opportunity to restore the file from a recent backup.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To the other point, &lt;em&gt;CoW&lt;/em&gt; provides a robust backup solution through snapshots and incremental sends and receives.
-Taking a snapshot of an entire &lt;em&gt;CoW&lt;/em&gt; system is practically no cost.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
-While snapshots shouldn&amp;#8217;t be confused with backups, they provide the foundation for incremental sends and receives.
-This allows sending only the changes since the last snapshot to an external disk or offsite backup.
-If you want to have fresh backups every ten minutes, no problem.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;cow_filesystems&quot;&gt;&lt;em&gt;CoW&lt;/em&gt; Filesystems&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;But what filesystem to choose?
-If you read much of my blog, you&amp;#8217;ll know that I&amp;#8217;m going to be looking at open source solutions.
-This boils down to three serious contenders: OpenZFS, Btrfs, and &lt;a href=&quot;https://bcachefs.org/&quot;&gt;bcachefs&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;openzfs&quot;&gt;OpenZFS&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;OpenZFS has a proven track record of reliability and is by far the most mature candidate.
-It also benefits from native encryption, great defaults, and a robust, unified interface.
-Unfortunately, its &lt;a href=&quot;https://github.com/openzfs/zfs/blob/master/LICENSE&quot;&gt;CDDL license&lt;/a&gt; is incompatible with the &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;GPL&lt;/a&gt; license used by the Linux kernel.
-This has lead to the need for less-than ideal workarounds.
-Unless you&amp;#8217;re on &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;Ubuntu&lt;/a&gt;, &lt;a href=&quot;https://www.freebsd.org/&quot;&gt;FreeBSD&lt;/a&gt;, or &lt;a href=&quot;https://www.netbsd.org/&quot;&gt;NetBSD&lt;/a&gt;.
-Ubuntu ships ZFS in its own releases of the Linux kernel.
-Both FreeBSD and NetBSD, having a more permissive license, don&amp;#8217;t have issues with the CDDL license.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;btrfs&quot;&gt;Btrfs&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Btrfs is newer but has been around for over a decade at this point.
-It&amp;#8217;s suffered from reliability issues in the past and doesn&amp;#8217;t offer native encryption.
-It is licensed under the GPL, however, and therefore available in the kernel of every Linux distribution.
-Recently, &lt;a href=&quot;https://getfedora.org/&quot;&gt;Fedora&lt;/a&gt; has begun shipping it as the default filesystem and &lt;a href=&quot;https://www.opensuse.org/&quot;&gt;openSUSE&lt;/a&gt; has been using it as the default since 2014.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;bcachefs&quot;&gt;bcachefs&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;bcaches is new on the block and not yet mainlined in the Linux kernel.
-It does, however, have a promising feature set already and might offer some powerful performance improvements over Btrfs and ZFS.
-Time will tell with this one.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;the_choice&quot;&gt;The Choice&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Currently, I have a better familiarity and understanding of ZFS.
-That said, its unified approached to filesystem and storage management plus extensive documentation and literature make it very accessible.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;As for as operating systems go, I&amp;#8217;m only going to use one of the BSD&amp;#8217;s or Linux wherever I have the choice.
-As far as desktops go, Linux has significantly more polish in this respect to the *BSD.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt;
-I prefer to use &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; as my primary, stable desktop distribution.
-I&amp;#8217;m planning on also having a system running Fedora and want to use the same filesystem configuration on both.
-The idea of mixing filesystems seems unnecessarily complicated, though completely doable.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The prospect of vendor lock-in to Ubuntu ultimately lead me to Btrfs.
-I get the freedom of choice in regards to Linux distribution and only have to manage one filesystem on my machine.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;So far, I&amp;#8217;m pretty far into configuring my desktops with Btrfs, and I&amp;#8217;m happy with the outcomes.
-The default settings had to be tweaked quite a bit and getting all of the tooling in place for snapshot and backup management has been a pain.
-More fodder for the blog, though.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Read about the comparison to rsync in the Ars Technica article &lt;a href=&quot;https://arstechnica.com/information-technology/2015/12/rsync-net-zfs-replication-to-the-cloud-is-finally-here-and-its-fast/&quot;&gt;rsync.net: ZFS Replication to the cloud is finally here — and it’s fast&lt;/a&gt;.
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. Thank you &lt;a href=&quot;https://mwl.io/&quot;&gt;Michael W. Lucas&lt;/a&gt; and &lt;a href=&quot;https://github.com/allanjude&quot;&gt;Allan Jude&lt;/a&gt; for &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmzfs/&quot;&gt;FreeBSD Mastery: ZFS&lt;/a&gt;&lt;/em&gt; and &lt;em&gt;&lt;a href=&quot;https://www.tiltedwindmillpress.com/product/fmaz/&quot;&gt;FreeBSD Mastery: Advanced ZFS&lt;/a&gt;&lt;/em&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
-&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. No. I&amp;#8217;m &lt;em&gt;not&lt;/em&gt; counting Darwin.
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="bcachefs" /><category term="Btrfs" /><category term="CoW" /><category term="filesystem" /><category term="Fedora" /><category term="FreeBSD" /><category term="Linux" /><category term="OpenZFS" /><category term="openSUSE" /><category term="NetBSD" /><category term="snapshots" /><category term="ZFS" /><summary type="html">There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&amp;#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and Btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity checking on every read are just a few.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="Linux" /><category term="swap" /><category term="swapfile" /><summary type="html">Swap space is a standard component of most operating systems. It&amp;#8217;s effectively reserved disk space for accommodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic.</summary></entry></feed>

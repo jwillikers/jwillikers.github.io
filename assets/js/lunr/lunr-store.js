@@ -322,4 +322,10 @@ var store = [{
         "tags": ["backups","Btrbk","Btrfs","elementary","encryption","Linux","snap-sync","Snapper","snapshots","systemd","Ubuntu"],
         "url": "/backup-snapper-snapshots-with-snap-sync",
         "teaser": null
+      },{
+        "title": "Install Podman on Ubuntu 18.04",
+        "excerpt":"Podman is a daemonless container runtime for Linux compatible with Docker. It offers several advantages over using Docker to manage and run containers. First, there is no overhead associated with running a background service as is the case with Docker. Podman also allows users to run rootless containers which provides...","categories": ["Virtualization"],
+        "tags": ["Btrfs","containers","Docker","elementary","Kubernetes","Linux","Podman","systemd","Ubuntu","ZFS"],
+        "url": "/install-podman-on-ubuntu-18-04",
+        "teaser": null
       }]

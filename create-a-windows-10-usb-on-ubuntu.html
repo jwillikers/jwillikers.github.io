@@ -275,7 +275,7 @@ Just know that it does indeed wipe the existing MBR and GPT partitions before cr
 <p>Format the partition as <a href="https://en.wikipedia.org/wiki/NTFS">NTFS</a> with the <a href="https://manpages.ubuntu.com/manpages/focal/man8/mkntfs.8.html">mkntfs(8)</a> tool.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ mkntfs <span class="nt">-QL</span> Windows10 /dev/sdb1
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mkntfs <span class="nt">-QL</span> Windows10 /dev/sdb1
 Cluster size has been automatically <span class="nb">set </span>to 4096 bytes.
 Creating NTFS volume structures.
 mkntfs completed successfully. Have a <span class="nb">nice </span>day.</code></pre>
@@ -303,7 +303,7 @@ Mounted /dev/sdb1 at /media/jordan/Windows10</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ gnome-disk-image-mounter ~/Downloads/Win10_20H2_English_x64.iso</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ gnome-disk-image-mounter ~/Downloads/Win10_<span class="k">*</span>.iso</code></pre>
 </div>
 </div>
 </div>
