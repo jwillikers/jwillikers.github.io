@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-02-28T13:13:00-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install Podman on Ubuntu 18.04</title><link href="https://www.jwillikers.com/install-podman-on-ubuntu-18-04" rel="alternate" type="text/html" title="Install Podman on Ubuntu 18.04" /><published>2021-02-28T00:00:00-06:00</published><updated>2021-02-28T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20Podman%20on%20Ubuntu%2018.04</id><content type="html" xml:base="https://www.jwillikers.com/install-podman-on-ubuntu-18-04">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-01T08:15:32-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install Podman on Ubuntu 18.04</title><link href="https://www.jwillikers.com/install-podman-on-ubuntu-18-04" rel="alternate" type="text/html" title="Install Podman on Ubuntu 18.04" /><published>2021-02-28T00:00:00-06:00</published><updated>2021-02-28T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20Podman%20on%20Ubuntu%2018.04</id><content type="html" xml:base="https://www.jwillikers.com/install-podman-on-ubuntu-18-04">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; is a &lt;em&gt;daemonless&lt;/em&gt; container runtime for Linux compatible with &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt;.
@@ -120,21 +120,6 @@ This is a quick guide on enabling these storage drivers.&lt;/p&gt;
 It is assumed that you are familiar with Linux, Podman, and the command-line and that you&amp;#8217;re running on a Linux system with Podman installed.
 Instructions are provided for both rootless and root configurations.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Since these configurations are managed completely independent of each other, changing the system configuration will have no effect on users' rootless configurations.
-Defaults won&amp;#8217;t be inherited from configuration for containers run as root.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
@@ -182,6 +167,25 @@ Defaults won&amp;#8217;t be inherited from configuration for containers run as r
 &lt;p&gt;Set the storage backend in &lt;a href=&quot;https://github.com/containers/storage/blob/master/docs/containers-storage.conf.5.md&quot;&gt;containers-storage.conf(5)&lt;/a&gt;.
 To set the storage driver for containers run as root, use the file &lt;code&gt;/etc/containers/storage.conf&lt;/code&gt;.
 For a user running rootless containers, use &lt;code&gt;~/.config/containers/storage.conf&lt;/code&gt;.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Certain configuration options are inherited by rootless configurations from &lt;code&gt;/etc/containers/storage.conf&lt;/code&gt; while others are not.
+For details see the &lt;a href=&quot;https://github.com/containers/podman/blob/master/docs/tutorials/rootless_tutorial.md#storageconf&quot;&gt;storage.conf&lt;/a&gt; section in Podman&amp;#8217;s rootless tutorial.
+For some reason, the storage driver configured in &lt;code&gt;/etc/containers/storage.conf&lt;/code&gt; is not inherited by rootless configurations even though by all appearances it should be.
+I&amp;#8217;ve opened &lt;a href=&quot;https://github.com/containers/podman/issues/9547&quot;&gt;Podman issue #9574&lt;/a&gt; to determine the intended behavior.
+Regarding the current behavior, changing the storage driver in the system configuration will have no effect on users' rootless configurations.
+So, configure the storage driver for each independently.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;rootless&lt;/dt&gt;
@@ -252,6 +256,15 @@ For a user running rootless containers, use &lt;code&gt;~/.config/containers/sto
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;From here, you can configure various driver-specific options for either Btrfs or ZFS as defined in &lt;a href=&quot;https://github.com/containers/storage/blob/master/docs/containers-storage.conf.5.md&quot;&gt;containers-storage.conf(5)&lt;/a&gt;.
+The Btrfs driver doesn&amp;#8217;t have a &lt;code&gt;mountopt&lt;/code&gt; key for controlling mount options.
+This owes to the fact that Podman creates &lt;em&gt;nested&lt;/em&gt; Btrfs subvolumes, which inherit the mount options of parent subvolumes.
+Since my user&amp;#8217;s home directory is its own top-level subvolume mounted in fstab, the mount options used for it are inherited by my rootless containers.
+These options include &lt;code&gt;autodefrag&lt;/code&gt;, &lt;code&gt;compress=zstd&lt;/code&gt;, and &lt;code&gt;noatime&lt;/code&gt;, all of which I would recommend for your running containers.
+You can even go so far as to create dedicated, top-level subvolumes for your root and rootless containers to fine-tune the mount options.
+To learn more about Btrfs mount options and layouts, see &lt;a href=&quot;btrfs-mount-options.html&quot;&gt;Btrfs Mount Options&lt;/a&gt; and &lt;a href=&quot;btrfs-layout.html&quot;&gt;Btrfs Layout&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
