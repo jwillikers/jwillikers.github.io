@@ -179,6 +179,12 @@ Instructions are provided for both rootless and root configurations.</p>
 <p>Reset Podman&#8217;s storage with <a href="https://docs.podman.io/en/latest/markdown/podman-system-reset.1.html">podman-system-reset(1)</a> before changing the storage driver.</p>
 <div class="openblock">
 <div class="content">
+<div class="paragraph">
+<p>The storage driver may only be set before initializing Podman.
+It can&#8217;t be changed on-the-fly.
+This requires removing all storage <em>before</em> switching the storage driver.
+This must be done separately for a user&#8217;s rootless configuration and the root configuration.</p>
+</div>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -218,27 +224,13 @@ Instructions are provided for both rootless and root configurations.</p>
 </li>
 <li>
 <p>Set the storage backend in <a href="https://github.com/containers/storage/blob/master/docs/containers-storage.conf.5.md">containers-storage.conf(5)</a>.
-To set the storage driver for containers run as root, use the file <code>/etc/containers/storage.conf</code>.
-For a user running rootless containers, use <code>~/.config/containers/storage.conf</code>.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Certain configuration options are inherited by rootless configurations from <code>/etc/containers/storage.conf</code> while others are not.
-For details see the <a href="https://github.com/containers/podman/blob/master/docs/tutorials/rootless_tutorial.md#storageconf">storage.conf</a> section in Podman&#8217;s rootless tutorial.
-For some reason, the storage driver configured in <code>/etc/containers/storage.conf</code> is not inherited by rootless configurations even though by all appearances it should be.
-I&#8217;ve opened <a href="https://github.com/containers/podman/issues/9547">Podman issue #9574</a> to determine the intended behavior.
-Regarding the current behavior, changing the storage driver in the system configuration will have no effect on users' rootless configurations.
-So, configure the storage driver for each independently.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
+The system configuration file is <code>/etc/containers/storage.conf</code>.
+The driver set here applies to containers run as root.
+New rootless configurations will default to it if it is supported.
+Only certain drivers are supported for rootless containers.
+If the system configuration is set to use a driver not supported in rootless configurations, then the driver will default to the "overlay" driver if available, otherwise it will use the "vfs" driver.
+A user&#8217;s rootless configuration in <code>~/.config/containers/storage.conf</code> supersedes the driver in the system configuration.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
+While the Btrfs driver is supported in rootless configurations, the ZFS driver is not, at this moment.</p>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">rootless</dt>
@@ -249,32 +241,6 @@ So, configure the storage driver for each independently.</p>
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/container</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Btrfs</dt>
-<dd>
-<div class="listingblock">
-<div class="title">~/.config/containers/storage.conf</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="toml"><span class="nn">[storage]</span>
-
-<span class="py">driver</span> <span class="p">=</span> <span class="s">"btrfs"</span></code></pre>
-</div>
-</div>
-</dd>
-<dt class="hdlist1">ZFS</dt>
-<dd>
-<div class="listingblock">
-<div class="title">~/.config/containers/storage.conf</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="toml"><span class="nn">[storage]</span>
-
-<span class="py">driver</span> <span class="p">=</span> <span class="s">"zfs"</span></code></pre>
-</div>
-</div>
-</dd>
-</dl>
-</div>
 </dd>
 <dt class="hdlist1">root</dt>
 <dd>
@@ -282,8 +248,66 @@ So, configure the storage driver for each independently.</p>
 <dl>
 <dt class="hdlist1">Btrfs</dt>
 <dd>
+<div class="openblock">
+<div class="content">
 <div class="listingblock">
 <div class="title">/etc/containers/storage.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="toml"><span class="nn">[storage]</span>
+
+<span class="py">driver</span> <span class="p">=</span> <span class="s">"btrfs"</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Setting the Btrfs driver here sets it as the default for <em>new</em> rootless configurations.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">ZFS</dt>
+<dd>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">/etc/containers/storage.conf</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="toml"><span class="nn">[storage]</span>
+
+<span class="py">driver</span> <span class="p">=</span> <span class="s">"zfs"</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Setting the ZFS driver here sets it for root only.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Btrfs</dt>
+<dd>
+<div class="listingblock">
+<div class="title">~/.config/containers/storage.conf</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="toml"><span class="nn">[storage]</span>
 
@@ -293,12 +317,31 @@ So, configure the storage driver for each independently.</p>
 </dd>
 <dt class="hdlist1">ZFS</dt>
 <dd>
+<div class="openblock">
+<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This might work, but I haven&#8217;t tested the ZFS driver for rootless containers.
+Mileage may vary.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock">
-<div class="title">/etc/containers/storage.conf</div>
+<div class="title">~/.config/containers/storage.conf</div>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="toml"><span class="nn">[storage]</span>
 
 <span class="py">driver</span> <span class="p">=</span> <span class="s">"zfs"</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </dd>
@@ -313,8 +356,8 @@ So, configure the storage driver for each independently.</p>
 <div class="paragraph">
 <p>From here, you can configure various driver-specific options for either Btrfs or ZFS as defined in <a href="https://github.com/containers/storage/blob/master/docs/containers-storage.conf.5.md">containers-storage.conf(5)</a>.
 The Btrfs driver doesn&#8217;t have a <code>mountopt</code> key for controlling mount options.
-This owes to the fact that Podman creates <em>nested</em> Btrfs subvolumes, which inherit the mount options of parent subvolumes.
-Since my user&#8217;s home directory is its own top-level subvolume mounted in fstab, the mount options used for it are inherited by my rootless containers.
+This owes to the fact that Podman creates Btrfs subvolumes in a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested">nested layout</a> leading to subvolumes inheriting the mount options of their parent subvolumes.
+Since my user&#8217;s home directory is its own top-level subvolume mounted in <a href="http://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a>, the mount options used for it are inherited by my rootless containers.
 These options include <code>autodefrag</code>, <code>compress=zstd</code>, and <code>noatime</code>, all of which I would recommend for your running containers.
 You can even go so far as to create dedicated, top-level subvolumes for your root and rootless containers to fine-tune the mount options.
 To learn more about Btrfs mount options and layouts, see <a href="btrfs-mount-options.html">Btrfs Mount Options</a> and <a href="btrfs-layout.html">Btrfs Layout</a>.</p>
