@@ -337,7 +337,7 @@ var store = [{
       },{
         "title": "Install libvirt on elementary OS 5.1",
         "excerpt":"If you want to run virtual machines on Linux, chances are you&#8217;re going to use libvirt. I make use of it all the time, especially for testing these blog posts in a clean environment. libvirt provides a common interface around various underlying tools for virtual machine management. It not only...","categories": ["Virtualization"],
-        "tags": ["Boxes","Btrfs","elementary","KVM","libvirt","Linux","QEMU","systemd","Ubuntu","virt-manager","VM"],
+        "tags": ["Boxes","Btrfs","elementary","KVM","libvirt","Linux","QEMU","systemd","Ubuntu","virsh","virt-manager","VM"],
         "url": "/install-libvirt-on-elementary-os-5-1",
         "teaser": null
       }]
