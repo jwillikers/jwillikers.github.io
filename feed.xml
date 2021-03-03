@@ -1,4 +1,286 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-02T16:39:39-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install Podman on Ubuntu 18.04</title><link href="https://www.jwillikers.com/install-podman-on-ubuntu-18-04" rel="alternate" type="text/html" title="Install Podman on Ubuntu 18.04" /><published>2021-02-28T00:00:00-06:00</published><updated>2021-02-28T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20Podman%20on%20Ubuntu%2018.04</id><content type="html" xml:base="https://www.jwillikers.com/install-podman-on-ubuntu-18-04">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-03T07:23:28-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install libvirt on elementary OS 5.1</title><link href="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1" rel="alternate" type="text/html" title="Install libvirt on elementary OS 5.1" /><published>2021-03-03T00:00:00-06:00</published><updated>2021-03-03T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20libvirt%20on%20elementary%20OS%205.1</id><content type="html" xml:base="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you want to run virtual machines on Linux, chances are you&amp;#8217;re going to use &lt;a href=&quot;https://libvirt.org/&quot;&gt;libvirt&lt;/a&gt;.
+I make use of it all the time, especially for testing these blog posts in a clean environment.
+libvirt provides a common interface around various underlying tools for virtual machine management.
+It not only offers features for guest management but for networking and storage management as well.
+It&amp;#8217;s standard XML schema also makes for a powerful and versatile configuration format.
+On Linux, libvirt is typically utilizing &lt;a href=&quot;https://www.linux-kvm.org/page/Main_Page&quot;&gt;KVM&lt;/a&gt;, the virtualization layer in the kernel, and, in userspace, &lt;a href=&quot;https://www.qemu.org/&quot;&gt;QEMU&lt;/a&gt;, a generic machine emulator and virtualizer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial provides the necessary steps to verify your system supports hardware virtualization and install libvirt on &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1.
+Most of these steps are the same for &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
+This tutorial takes into account special considerations for systems using the &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; filesystem.
+There is also a brief section on installing the graphical user interface for libvirt, &lt;a href=&quot;https://virt-manager.org/&quot;&gt;virt-manager&lt;/a&gt;.
+It is assumed that you are familiar with installing software on Ubuntu, using the command-line, and the Btrfs filesystem.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;check&quot;&gt;Check&lt;/h3&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Check that the system supports hardware virtualization.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ egrep &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'(vmx|svm)'&lt;/span&gt; /proc/cpuinfo
+8&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If the output is not zero, then your CPU supports virtualization.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install the tool for checking that your CPU is compatible with KVM.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;cpu-checker&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verify that the system supports KVM.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ kvm-ok
+INFO: /dev/kvm exists
+KVM acceleration can be used&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If all checks passed, then you should be able to continue installation of libvirt without issue.
+Otherwise, you&amp;#8217;d better switch to some compatible hardware before proceeding.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;install&quot;&gt;Install&lt;/h3&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Install libvirt.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the current user to the &lt;em&gt;kvm&lt;/em&gt; and &lt;em&gt;libvirt&lt;/em&gt; groups.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;usermod &lt;span class=&quot;nt&quot;&gt;-aG&lt;/span&gt; kvm,libvirt &lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Reload the current user&amp;#8217;s group assignments.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ newgrp -&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;greeter&quot;&gt;Greeter&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;On elementary OS 5.1, there&amp;#8217;s a bit of a glitch after installing libvirt on the system.
+That is, a new &lt;em&gt;libvirt-qemu&lt;/em&gt; user appears as a logon option in Greeter.
+This isn&amp;#8217;t supposed to happen but luckily there&amp;#8217;s a workaround.
+The steps here hide the &lt;em&gt;libvirt-qemu&lt;/em&gt; login in Greeter.
+The steps were come from &lt;a href=&quot;https://askubuntu.com/a/940069&quot;&gt;this solution&lt;/a&gt; on Stack Overflow.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Set the libvirt-qemu user account as a system account for the accountsservices package to hide it in the login menu.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;[User]&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;SystemAccount=true&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /var/lib/AccountsService/users/libvirt-qemu&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Restart the accounts service.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl restart accounts-daemon.service&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;btrfs&quot;&gt;Btrfs&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you use Btrfs on your system like I do, then you&amp;#8217;ll want to avoid &lt;em&gt;CoW&lt;/em&gt; on &lt;em&gt;CoW&lt;/em&gt; when using virtual machine disk images.
+Using the default &lt;em&gt;CoW&lt;/em&gt; qcow2 format for virtual disk images on top of a Btrfs filesystem is asking for trouble.
+This section demonstrates the various ways of disabling &lt;em&gt;CoW&lt;/em&gt; for virtual disk images on Btrfs filesystems.
+If you snapshot your filesystem, take care to place virtual disk images in a subvolume that is excluded from snapshots.
+Snapshots for virtual disk images should be handled in the disk image itself as is the case with the &lt;a href=&quot;https://qemu.readthedocs.io/en/latest/system/images.html#cmdoption-image-formats-arg-qcow2&quot;&gt;qcow2&lt;/a&gt; format.
+At least, that&amp;#8217;s the way until a Btrfs storage driver appears for libvirt.
+I can hope.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;qemu_img&quot;&gt;qemu-img&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When creating a &lt;a href=&quot;https://qemu.readthedocs.io/en/latest/system/images.html#cmdoption-image-formats-arg-qcow2&quot;&gt;qcow2&lt;/a&gt; image directly with &lt;a href=&quot;https://qemu.readthedocs.io/en/latest/tools/qemu-img.html?highlight=qemu-img&quot;&gt;qemu-img(1)&lt;/a&gt;, the &lt;a href=&quot;https://qemu.readthedocs.io/en/latest/system/images.html#cmdoption-qcow2-arg-nocow&quot;&gt;nocow&lt;/a&gt; option can be used to disable &lt;em&gt;CoW&lt;/em&gt; for that file.
+The following command creates a 25 gigabyte qcow2 image named &lt;code&gt;my-vm-image.qcow2&lt;/code&gt; with &lt;em&gt;CoW&lt;/em&gt; disabled.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ qemu-img create &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; nocow my-vm-image.qcow2 25G&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;libvirt_storage_pool_features&quot;&gt;libvirt Storage Pool Features&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In &lt;a href=&quot;https://www.libvirt.org/news.html#v6-6-0-2020-08-02&quot;&gt;libvirt 6.6.0&lt;/a&gt;, &lt;a href=&quot;https://libvirt.org/formatstorage.html#StoragePoolFeatures&quot;&gt;Storage Pool Features&lt;/a&gt; and the &lt;em&gt;cow&lt;/em&gt; feature were added and &lt;em&gt;CoW&lt;/em&gt; was disabled by default on Btrfs filesystems.
+This default behavior was rescinded in &lt;a href=&quot;https://www.libvirt.org/news.html#v6-7-0-2020-09-01&quot;&gt;libvirt 6.7.0&lt;/a&gt; enabling &lt;em&gt;CoW&lt;/em&gt; by default and leaving this feature to the discretion of system administrators.
+The &lt;code&gt;cow&lt;/code&gt; feature can be set to &lt;code&gt;no&lt;/code&gt; to disable &lt;em&gt;CoW&lt;/em&gt; for the entire storage pool.
+The following snippet shows how to disable &lt;em&gt;CoW&lt;/em&gt; for a libvirt pool.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;features&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;cow&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;state=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'no'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/features&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;chattr&quot;&gt;chattr&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The simplest way to disable &lt;em&gt;CoW&lt;/em&gt; on a particular directory or file is with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man1/chattr.1.html&quot;&gt;chattr(1)&lt;/a&gt; as described in &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ#Can_copy-on-write_be_turned_off_for_data_blocks.3F&quot;&gt;Can copy-on-write be turned off for data blocks?&lt;/a&gt;.
+To do this, &lt;em&gt;add&lt;/em&gt; the &lt;em&gt;no copy on write&lt;/em&gt; attribute with the &lt;code&gt;+C&lt;/code&gt; option.
+The following commands disable &lt;em&gt;CoW&lt;/em&gt; on libvirt&amp;#8217;s image directory.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Disable &lt;em&gt;CoW&lt;/em&gt; on the &lt;code&gt;/var/lib/libvirt/images&lt;/code&gt; directory.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;chattr +C /var/lib/libvirt/images&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;a_flat_layout_subvolume&quot;&gt;A Flat Layout Subvolume&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A dedicated Btrfs subvolume for &lt;code&gt;/var/lib/libvirt/images&lt;/code&gt; is probably your best option since it excludes the disk images from snapshots.
+The subvolume can have &lt;em&gt;CoW&lt;/em&gt; disabled via chattr, but &lt;em&gt;CoW&lt;/em&gt; can also be disabled with the mount option &lt;code&gt;nodatacow&lt;/code&gt; when using a subvolume in a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt;.
+The steps here create a dedicated subvolume for libvirt&amp;#8217;s disk image directory and mount it with &lt;em&gt;CoW&lt;/em&gt; disabled.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Mount the root Btrfs filesystem to create a subvolume.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mount &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; / | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; /mnt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a dedicated Btrfs subvolume for libvirt&amp;#8217;s virtual disk images.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs subvolume create /mnt/var-lib-libvirt-images
+Create subvolume &lt;span class=&quot;s1&quot;&gt;'/mnt/var-lib-libvirt-images'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the subvolume to &lt;a href=&quot;http://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; / &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; /var/lib/libvirt/images btrfs defaults,nodatacow,noatime,subvol=var-lib-libvirt-images 0 0&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/fstab
+/dev/mapper/sda2_crypt /var/lib/libvirt/images btrfs defaults,nodatacow,noatime,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;var-lib-libvirt-images 0 0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verify there are no errors in fstab.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;findmnt &lt;span class=&quot;nt&quot;&gt;--verify&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now mount the subvolume according to the rule just added in fstab.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mount /var/lib/libvirt/images&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Don&amp;#8217;t forget to unmount &lt;code&gt;/mnt&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;umount /mnt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That&amp;#8217;s it!
+The default storage pool for libvirt will store virtual disk images in this subvolume.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;virt_manager&quot;&gt;virt-manager&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://virt-manager.org/&quot;&gt;virt-manager&lt;/a&gt; is an application for managing virtual machines with libvirt graphically.
+It&amp;#8217;s a handy one for the toolbox, though some might prefer the simplicity of &lt;a href=&quot;https://wiki.gnome.org/Apps/Boxes&quot;&gt;Boxes&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Install virt-manager.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;virt-manager&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you haven&amp;#8217;t logged out and back in since installing libvirt, you&amp;#8217;ll need to that before running virt-manager.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now be able to get virtual machines up and running without issue.
+Now that you have all the components in place for virtualization, why not make your life easier with &lt;a href=&quot;https://wiki.gnome.org/Apps/Boxes&quot;&gt;Boxes&lt;/a&gt;?
+I&amp;#8217;ll cover all the details of installing the GNOME Boxes Flatpak on Btrfs system in an upcoming post, so stay tuned!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="Boxes" /><category term="Btrfs" /><category term="elementary" /><category term="KVM" /><category term="libvirt" /><category term="Linux" /><category term="QEMU" /><category term="systemd" /><category term="Ubuntu" /><category term="virt-manager" /><category term="VM" /><summary type="html">If you want to run virtual machines on Linux, chances are you&amp;#8217;re going to use libvirt. I make use of it all the time, especially for testing these blog posts in a clean environment. libvirt provides a common interface around various underlying tools for virtual machine management. It not only offers features for guest management but for networking and storage management as well. It&amp;#8217;s standard XML schema also makes for a powerful and versatile configuration format. On Linux, libvirt is typically utilizing KVM, the virtualization layer in the kernel, and, in userspace, QEMU, a generic machine emulator and virtualizer.</summary></entry><entry><title type="html">Install Podman on Ubuntu 18.04</title><link href="https://www.jwillikers.com/install-podman-on-ubuntu-18-04" rel="alternate" type="text/html" title="Install Podman on Ubuntu 18.04" /><published>2021-02-28T00:00:00-06:00</published><updated>2021-02-28T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20Podman%20on%20Ubuntu%2018.04</id><content type="html" xml:base="https://www.jwillikers.com/install-podman-on-ubuntu-18-04">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; is a &lt;em&gt;daemonless&lt;/em&gt; container runtime for Linux compatible with &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt;.
@@ -3463,69 +3745,4 @@ Now that the ground-work is complete, next up is configuring system and user sna
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
 &lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. Have you &lt;em&gt;seen&lt;/em&gt; Inception?
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="AppImage" /><category term="AppImageLauncher" /><category term="asdf" /><category term="Btrfs" /><category term="CoW" /><category term="Cargo" /><category term="Conan" /><category term="elementary" /><category term="FHS" /><category term="filesystem" /><category term="Flatpak" /><category term="fstab" /><category term="Gnome-Boxes" /><category term="libvirt" /><category term="Linux" /><category term="openSUSE" /><category term="Podman" /><category term="Rust" /><category term="Snapper" /><category term="snapshots" /><category term="systemd" /><category term="Ubuntu" /><category term="xdg-base" /><summary type="html">One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&amp;#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&amp;#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&amp;#8217;t setup user home directory layouts if you wish to snapshot those. That&amp;#8217;s why I&amp;#8217;ve outlined my Btrfs filesystem configurations for both my system and my home directory here. 1. Ubuntu does this for you with ZFS and ZSYS, but I&amp;#8217;m talking about Btrfs here.</summary></entry><entry><title type="html">Power Management on Linux With TLP</title><link href="https://www.jwillikers.com/power-management-on-linux-with-tlp" rel="alternate" type="text/html" title="Power Management on Linux With TLP" /><published>2021-02-12T00:00:00-06:00</published><updated>2021-02-12T00:00:00-06:00</updated><id>https://www.jwillikers.com/Power%20Management%20on%20Linux%20With%20TLP</id><content type="html" xml:base="https://www.jwillikers.com/power-management-on-linux-with-tlp">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://linrunner.de/tlp/#&quot;&gt;TLP&lt;/a&gt; is a powerful power management utility for Linux.
-It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features.
-It&amp;#8217;s also super easy to add to a system and requires no extra configuration after installation.
-Though, it does expose quite a bit of configuration settings for those who want fine-grained control.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial will get &lt;a href=&quot;https://opensource.org/licenses/gpl-license&quot;&gt;Ubuntu&lt;/a&gt; and derivatives such as &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; setup with TLP.
-The instructions use the command-line and software-management utilities built into Ubuntu, so you should be familiar with these tools.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Install the necessary package for easily adding PPA&amp;#8217;s.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;software-properties-common&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add the TLP PPA to your system to get the latest version of TLP.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-add-repository &lt;span class=&quot;nt&quot;&gt;-uy&lt;/span&gt; ppa:linrunner/tlp&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Install TLP.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;tlp tlp-rdw&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;TLP will start automatically at boot, but to start it now without rebooting, do so manually.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;tlp start&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;That&amp;#8217;s it.
-Really.
-If you want to tweak the settings, I recommend checking out the graphical user interface provided by &lt;a href=&quot;https://github.com/d4nj1/TLPUI&quot;&gt;TLPUI&lt;/a&gt;.
-You now know how to quickly configure better power-savings on your Linux devices.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Systems" /><category term="elementary" /><category term="Linux" /><category term="TLP" /><category term="Ubuntu" /><summary type="html">TLP is a powerful power management utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&amp;#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration settings for those who want fine-grained control.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="AppImage" /><category term="AppImageLauncher" /><category term="asdf" /><category term="Btrfs" /><category term="CoW" /><category term="Cargo" /><category term="Conan" /><category term="elementary" /><category term="FHS" /><category term="filesystem" /><category term="Flatpak" /><category term="fstab" /><category term="Gnome-Boxes" /><category term="libvirt" /><category term="Linux" /><category term="openSUSE" /><category term="Podman" /><category term="Rust" /><category term="Snapper" /><category term="snapshots" /><category term="systemd" /><category term="Ubuntu" /><category term="xdg-base" /><summary type="html">One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&amp;#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&amp;#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&amp;#8217;t setup user home directory layouts if you wish to snapshot those. That&amp;#8217;s why I&amp;#8217;ve outlined my Btrfs filesystem configurations for both my system and my home directory here. 1. Ubuntu does this for you with ZFS and ZSYS, but I&amp;#8217;m talking about Btrfs here.</summary></entry></feed>

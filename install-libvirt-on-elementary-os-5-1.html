@@ -1,0 +1,527 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Install libvirt on elementary OS 5.1 - JWillikers</title>
+<meta name="description" content="If you want to run virtual machines on Linux, chances are you&#8217;re going to use libvirt. I make use of it all the time, especially for testing these blog posts in a clean environment. libvirt provides a common interface around various underlying tools for virtual machine management. It not only offers features for guest management but for networking and storage management as well. It&#8217;s standard XML schema also makes for a powerful and versatile configuration format. On Linux, libvirt is typically utilizing KVM, the virtualization layer in the kernel, and, in userspace, QEMU, a generic machine emulator and virtualizer.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Install libvirt on elementary OS 5.1">
+<meta property="og:url" content="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1">
+
+
+  <meta property="og:description" content="If you want to run virtual machines on Linux, chances are you&#8217;re going to use libvirt. I make use of it all the time, especially for testing these blog posts in a clean environment. libvirt provides a common interface around various underlying tools for virtual machine management. It not only offers features for guest management but for networking and storage management as well. It&#8217;s standard XML schema also makes for a powerful and versatile configuration format. On Linux, libvirt is typically utilizing KVM, the virtualization layer in the kernel, and, in userspace, QEMU, a generic machine emulator and virtualizer.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-03T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you want to run virtual machines on Linux, chances are you&#8217;re going to use <a href="https://libvirt.org/">libvirt</a>.
+I make use of it all the time, especially for testing these blog posts in a clean environment.
+libvirt provides a common interface around various underlying tools for virtual machine management.
+It not only offers features for guest management but for networking and storage management as well.
+It&#8217;s standard XML schema also makes for a powerful and versatile configuration format.
+On Linux, libvirt is typically utilizing <a href="https://www.linux-kvm.org/page/Main_Page">KVM</a>, the virtualization layer in the kernel, and, in userspace, <a href="https://www.qemu.org/">QEMU</a>, a generic machine emulator and virtualizer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial provides the necessary steps to verify your system supports hardware virtualization and install libvirt on <a href="https://elementary.io/">elementary OS</a> 5.1.
+Most of these steps are the same for <a href="https://ubuntu.com/">Ubuntu</a> 18.04.
+This tutorial takes into account special considerations for systems using the <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a> filesystem.
+There is also a brief section on installing the graphical user interface for libvirt, <a href="https://virt-manager.org/">virt-manager</a>.
+It is assumed that you are familiar with installing software on Ubuntu, using the command-line, and the Btrfs filesystem.</p>
+</div>
+<div class="sect2">
+<h3 id="check">Check</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that the system supports hardware virtualization.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ egrep <span class="nt">-c</span> <span class="s1">'(vmx|svm)'</span> /proc/cpuinfo
+8</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the output is not zero, then your CPU supports virtualization.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Install the tool for checking that your CPU is compatible with KVM.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>cpu-checker</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the system supports KVM.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ kvm-ok
+INFO: /dev/kvm exists
+KVM acceleration can be used</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If all checks passed, then you should be able to continue installation of libvirt without issue.
+Otherwise, you&#8217;d better switch to some compatible hardware before proceeding.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="install">Install</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install libvirt.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the current user to the <em>kvm</em> and <em>libvirt</em> groups.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>usermod <span class="nt">-aG</span> kvm,libvirt <span class="nv">$USER</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Reload the current user&#8217;s group assignments.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ newgrp -</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="greeter">Greeter</h3>
+<div class="paragraph">
+<p>On elementary OS 5.1, there&#8217;s a bit of a glitch after installing libvirt on the system.
+That is, a new <em>libvirt-qemu</em> user appears as a logon option in Greeter.
+This isn&#8217;t supposed to happen but luckily there&#8217;s a workaround.
+The steps here hide the <em>libvirt-qemu</em> login in Greeter.
+The steps were come from <a href="https://askubuntu.com/a/940069">this solution</a> on Stack Overflow.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set the libvirt-qemu user account as a system account for the accountsservices package to hide it in the login menu.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">printf</span> <span class="s2">"[User]</span><span class="se">\n</span><span class="s2">SystemAccount=true</span><span class="se">\n</span><span class="s2">"</span> <span class="se">\</span>
+  | <span class="nb">sudo tee</span> /var/lib/AccountsService/users/libvirt-qemu</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Restart the accounts service.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl restart accounts-daemon.service</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="btrfs">Btrfs</h3>
+<div class="paragraph">
+<p>If you use Btrfs on your system like I do, then you&#8217;ll want to avoid <em>CoW</em> on <em>CoW</em> when using virtual machine disk images.
+Using the default <em>CoW</em> qcow2 format for virtual disk images on top of a Btrfs filesystem is asking for trouble.
+This section demonstrates the various ways of disabling <em>CoW</em> for virtual disk images on Btrfs filesystems.
+If you snapshot your filesystem, take care to place virtual disk images in a subvolume that is excluded from snapshots.
+Snapshots for virtual disk images should be handled in the disk image itself as is the case with the <a href="https://qemu.readthedocs.io/en/latest/system/images.html#cmdoption-image-formats-arg-qcow2">qcow2</a> format.
+At least, that&#8217;s the way until a Btrfs storage driver appears for libvirt.
+I can hope.</p>
+</div>
+<div class="sect3">
+<h4 id="qemu_img">qemu-img</h4>
+<div class="paragraph">
+<p>When creating a <a href="https://qemu.readthedocs.io/en/latest/system/images.html#cmdoption-image-formats-arg-qcow2">qcow2</a> image directly with <a href="https://qemu.readthedocs.io/en/latest/tools/qemu-img.html?highlight=qemu-img">qemu-img(1)</a>, the <a href="https://qemu.readthedocs.io/en/latest/system/images.html#cmdoption-qcow2-arg-nocow">nocow</a> option can be used to disable <em>CoW</em> for that file.
+The following command creates a 25 gigabyte qcow2 image named <code>my-vm-image.qcow2</code> with <em>CoW</em> disabled.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ qemu-img create <span class="nt">-o</span> nocow my-vm-image.qcow2 25G</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="libvirt_storage_pool_features">libvirt Storage Pool Features</h4>
+<div class="paragraph">
+<p>In <a href="https://www.libvirt.org/news.html#v6-6-0-2020-08-02">libvirt 6.6.0</a>, <a href="https://libvirt.org/formatstorage.html#StoragePoolFeatures">Storage Pool Features</a> and the <em>cow</em> feature were added and <em>CoW</em> was disabled by default on Btrfs filesystems.
+This default behavior was rescinded in <a href="https://www.libvirt.org/news.html#v6-7-0-2020-09-01">libvirt 6.7.0</a> enabling <em>CoW</em> by default and leaving this feature to the discretion of system administrators.
+The <code>cow</code> feature can be set to <code>no</code> to disable <em>CoW</em> for the entire storage pool.
+The following snippet shows how to disable <em>CoW</em> for a libvirt pool.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="nt">&lt;features&gt;</span>
+  <span class="nt">&lt;cow</span> <span class="na">state=</span><span class="s">'no'</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/features&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="chattr">chattr</h4>
+<div class="paragraph">
+<p>The simplest way to disable <em>CoW</em> on a particular directory or file is with <a href="https://manpages.ubuntu.com/manpages/bionic/man1/chattr.1.html">chattr(1)</a> as described in <a href="https://btrfs.wiki.kernel.org/index.php/FAQ#Can_copy-on-write_be_turned_off_for_data_blocks.3F">Can copy-on-write be turned off for data blocks?</a>.
+To do this, <em>add</em> the <em>no copy on write</em> attribute with the <code>+C</code> option.
+The following commands disable <em>CoW</em> on libvirt&#8217;s image directory.</p>
+</div>
+<div class="paragraph">
+<p>Disable <em>CoW</em> on the <code>/var/lib/libvirt/images</code> directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>chattr +C /var/lib/libvirt/images</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="a_flat_layout_subvolume">A Flat Layout Subvolume</h4>
+<div class="paragraph">
+<p>A dedicated Btrfs subvolume for <code>/var/lib/libvirt/images</code> is probably your best option since it excludes the disk images from snapshots.
+The subvolume can have <em>CoW</em> disabled via chattr, but <em>CoW</em> can also be disabled with the mount option <code>nodatacow</code> when using a subvolume in a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat layout</a>.
+The steps here create a dedicated subvolume for libvirt&#8217;s disk image directory and mount it with <em>CoW</em> disabled.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Mount the root Btrfs filesystem to create a subvolume.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mount <span class="o">(</span><span class="nb">df</span> <span class="nt">--output</span><span class="o">=</span><span class="nb">source</span> / | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="o">)</span> /mnt</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a dedicated Btrfs subvolume for libvirt&#8217;s virtual disk images.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs subvolume create /mnt/var-lib-libvirt-images
+Create subvolume <span class="s1">'/mnt/var-lib-libvirt-images'</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the subvolume to <a href="http://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html">fstab(5)</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="o">(</span><span class="nb">df</span> <span class="nt">--output</span><span class="o">=</span><span class="nb">source</span> / <span class="se">\</span>
+  | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="o">)</span><span class="s2">" /var/lib/libvirt/images btrfs defaults,nodatacow,noatime,subvol=var-lib-libvirt-images 0 0"</span> <span class="se">\</span>
+  | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/fstab
+/dev/mapper/sda2_crypt /var/lib/libvirt/images btrfs defaults,nodatacow,noatime,subvol<span class="o">=</span>var-lib-libvirt-images 0 0</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify there are no errors in fstab.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>findmnt <span class="nt">--verify</span> <span class="nt">--verbose</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now mount the subvolume according to the rule just added in fstab.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>mount /var/lib/libvirt/images</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Don&#8217;t forget to unmount <code>/mnt</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>umount /mnt</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it!
+The default storage pool for libvirt will store virtual disk images in this subvolume.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="virt_manager">virt-manager</h3>
+<div class="paragraph">
+<p><a href="https://virt-manager.org/">virt-manager</a> is an application for managing virtual machines with libvirt graphically.
+It&#8217;s a handy one for the toolbox, though some might prefer the simplicity of <a href="https://wiki.gnome.org/Apps/Boxes">Boxes</a>.</p>
+</div>
+<div class="paragraph">
+<p>Install virt-manager.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>virt-manager</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you haven&#8217;t logged out and back in since installing libvirt, you&#8217;ll need to that before running virt-manager.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now be able to get virtual machines up and running without issue.
+Now that you have all the components in place for virtualization, why not make your life easier with <a href="https://wiki.gnome.org/Apps/Boxes">Boxes</a>?
+I&#8217;ll cover all the details of installing the GNOME Boxes Flatpak on Btrfs system in an upcoming post, so stay tuned!</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
