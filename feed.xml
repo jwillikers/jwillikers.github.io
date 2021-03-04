@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-03T08:37:36-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install libvirt on elementary OS 5.1</title><link href="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1" rel="alternate" type="text/html" title="Install libvirt on elementary OS 5.1" /><published>2021-03-03T00:00:00-06:00</published><updated>2021-03-03T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20libvirt%20on%20elementary%20OS%205.1</id><content type="html" xml:base="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-04T07:26:38-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install libvirt on elementary OS 5.1</title><link href="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1" rel="alternate" type="text/html" title="Install libvirt on elementary OS 5.1" /><published>2021-03-03T00:00:00-06:00</published><updated>2021-03-03T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20libvirt%20on%20elementary%20OS%205.1</id><content type="html" xml:base="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;If you want to run virtual machines on Linux, chances are you&amp;#8217;re going to use &lt;a href=&quot;https://libvirt.org/&quot;&gt;libvirt&lt;/a&gt;.
@@ -69,6 +69,29 @@ Otherwise, you&amp;#8217;d better switch to some compatible hardware before proc
 &lt;h3 id=&quot;install&quot;&gt;Install&lt;/h3&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;If you want to get a more up-to-date virtualization stack, add the &lt;a href=&quot;https://launchpad.net/~jacob/+archive/ubuntu/virtualisation&quot;&gt;virtualization PPA&lt;/a&gt; to your system.&lt;/p&gt;
+&lt;div class=&quot;olist loweralpha&quot;&gt;
+&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;The software-properties-common package includes a command for easily adding PPA&amp;#8217;s.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; software-properties-common&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add the &lt;a href=&quot;https://launchpad.net/~jacob/+archive/ubuntu/virtualisation&quot;&gt;virtualization PPA&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;add-apt-repository &lt;span class=&quot;nt&quot;&gt;-uy&lt;/span&gt; ppa:jacob/virtualisation&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Install libvirt.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;

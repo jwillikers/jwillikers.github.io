@@ -228,6 +228,29 @@ Otherwise, you&#8217;d better switch to some compatible hardware before proceedi
 <div class="olist arabic">
 <ol class="arabic">
 <li>
+<p>If you want to get a more up-to-date virtualization stack, add the <a href="https://launchpad.net/~jacob/+archive/ubuntu/virtualisation">virtualization PPA</a> to your system.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The software-properties-common package includes a command for easily adding PPA&#8217;s.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> software-properties-common</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the <a href="https://launchpad.net/~jacob/+archive/ubuntu/virtualisation">virtualization PPA</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>add-apt-repository <span class="nt">-uy</span> ppa:jacob/virtualisation</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
 <p>Install libvirt.</p>
 <div class="listingblock">
 <div class="content">
