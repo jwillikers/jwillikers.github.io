@@ -1,0 +1,625 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>GNOME Boxes on Btrfs - JWillikers</title>
+<meta name="description" content="So, you&#8217;ve got libvirt installed on your Linux box and your looking for a simple application for running virtual machines. Look no further than Boxes, so far as it meets your needs, of course. What&#8217;s that you ask? What do you need to figure out to run on this on a Btrfs filesystem? Well, you&#8217;ve come to the right place! This post describes how to install and accommodate Boxes on Btrfs.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="GNOME Boxes on Btrfs">
+<meta property="og:url" content="https://www.jwillikers.com/gnome-boxes-on-btrfs">
+
+
+  <meta property="og:description" content="So, you&#8217;ve got libvirt installed on your Linux box and your looking for a simple application for running virtual machines. Look no further than Boxes, so far as it meets your needs, of course. What&#8217;s that you ask? What do you need to figure out to run on this on a Btrfs filesystem? Well, you&#8217;ve come to the right place! This post describes how to install and accommodate Boxes on Btrfs.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-04T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/gnome-boxes-on-btrfs">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>So, you&#8217;ve got <a href="https://libvirt.org/">libvirt</a> installed on your Linux box and your looking for a simple application for running virtual machines.
+Look no further than <a href="https://wiki.gnome.org/Apps/Boxes">Boxes</a>, so far as it meets your needs, of course.
+What&#8217;s that you ask?
+What do you need to figure out to run on this on a <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a> filesystem?
+Well, you&#8217;ve come to the right place!
+This post describes how to install and accommodate Boxes on Btrfs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial describes how to install GNOME <a href="https://wiki.gnome.org/Apps/Boxes">Boxes</a> on a Btrfs filesystem on <a href="https://elementary.io/">elementary OS</a> 5.1 which is based on <a href="https://ubuntu.com/">Ubuntu</a> 18.04.
+You&#8217;ll need to have libvirt installed.
+Instructions for this are available in the post <a href="install-libvirt-on-elementary-os-5-1.html">Install libvirt on elementary OS 5.1</a>, which addresses Btrfs concerns.
+You should be familiar with installing software on Ubuntu and elementary OS, <a href="https://flatpak.org/">Flatpak</a>, the command-line, and Btrfs.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For more robust configurations and anything that doesn&#8217;t <em>just work</em> in Boxes, try <a href="https://virt-manager.org/">virt-manager</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="install">Install</h3>
+<div class="paragraph">
+<p>Boxes is readily available in two formats, as a Flatpak and a deb package from Ubuntu&#8217;s repositories.
+You can install in one or both ways.
+The Flatpak will receive updates to newer versions where the deb package won&#8217;t be updated beyond the minor version provided, currently 3.28.
+While the Flatpak will be a much newer version, development in Flatpak is still necessary to expose and connect all the necessary system components for virtualization.
+Some things may not work quite right yet with the Flatpak, but I&#8217;ve found it to work well enough.</p>
+</div>
+<div class="sect3">
+<h4 id="flatpak">Flatpak</h4>
+<div class="paragraph">
+<p>A Flatpak can be installed system-wide or for an individual user.
+The instructions below describe both methods.
+systemd,</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the Flathub remote.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ flatpak <span class="nt">--user</span> remote-add <span class="nt">--if-not-exists</span> flathub https://flathub.org/repo/flathub.flatpakrepo</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">System</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>flatpak <span class="nt">--system</span> remote-add <span class="nt">--if-not-exists</span> flathub https://flathub.org/repo/flathub.flatpakrepo</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</li>
+<li>
+<p>Install the GNOME Boxes Flatpak.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ flatpak <span class="nt">--user</span> <span class="nb">install</span> <span class="nt">-y</span> flathub org.gnome.Boxes</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">System</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>flatpak <span class="nt">--system</span> <span class="nb">install</span> <span class="nt">-y</span> flathub org.gnome.Boxes</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="system_package">System Package</h4>
+<div class="paragraph">
+<p>Install the GNOME Boxes Ubuntu package.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>gnome-boxes</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="btrfs">Btrfs</h3>
+<div class="paragraph">
+<p>By default, Boxes uses the copy-on-write <a href="https://qemu.readthedocs.io/en/latest/system/images.html#cmdoption-image-formats-arg-qcow2">qcow2</a> disk image format.
+If you use Btrfs on your system like I do, then you&#8217;ll want to avoid placing these <em>CoW</em> disk images on a <em>CoW</em> Btrfs filesystem.
+You&#8217;ll probably want to exclude the disk images from Btrfs snapshots as well and opt to manage you disk image snapshots independently using the built-in features of qcow2.
+In the future, perhaps libvirt will provide a native Btrfs storage pool making the qcow2 format unnecessary along with these workarounds.</p>
+</div>
+<div class="paragraph">
+<p>The sections here demonstrate a couple of ways to disable <em>CoW</em> for the disk image directory used by Boxes and how to create a separate subvolume for that directory.
+The location of the Boxes disk image directory depends on whether it is installed as a Flatpak or a deb package.
+Refer to {Where does Boxes store disk images} in the Boxes documentation for more information.
+Commands are provide for both locations where feasible.</p>
+</div>
+<div class="sect3">
+<h4 id="exclude_from_btrfs_snapshots">Exclude From Btrfs Snapshots</h4>
+<div class="paragraph">
+<p>If you snapshot your filesystem, take care to exclude the Boxes virtual disk image directory by making the directory a subvolume.
+Btrfs subvolumes are automatically excluded from snapshots of their parent subvolumes.
+Snapshots for virtual disk images should be handled in the disk image itself.
+Snapshots are provided by default qcow2 format used by Boxes.
+Here&#8217;s how to create the subvolume.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Delete the current images directory.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Flatpak</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rmdir</span> ~/.var/app/org.gnome.Boxes/data/gnome-boxes/images</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">System Package</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">rmdir</span> ~/.local/share/gnome-boxes/images</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</li>
+<li>
+<p>Create a subvolume in its place.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Flatpak</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ btrfs subvolume create ~/.var/app/org.gnome.Boxes/data/gnome-boxes/images
+Create subvolume <span class="s1">'/home/jordan/.var/app/org.gnome.Boxes/data/gnome-boxes/images'</span></code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">System Package</dt>
+</dl>
+</div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>➜ btrfs subvolume create ~/.local/share/gnome-boxes/images
+Create subvolume '/home/jordan/.local/share/gnome-boxes/images'</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="disable_cow">Disable <em>CoW</em></h4>
+<div class="paragraph">
+<p>The two most straightforward ways to disable <em>CoW</em> for a directory, or subvolume, are to use a file attribute or libvirt&#8217;s storage pool feature.
+Use whichever one you prefer.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>There&#8217;s also the <code>nodatacow</code> mount option, but a <a href="https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat">flat layout</a> in a home directory isn&#8217;t exactly the pinnacle of convenience.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="chattr">chattr</h5>
+<div class="paragraph">
+<p>The simplest way to disable <em>CoW</em> on a particular directory or file is with <a href="https://manpages.ubuntu.com/manpages/bionic/man1/chattr.1.html">chattr(1)</a> as described in <a href="https://btrfs.wiki.kernel.org/index.php/FAQ#Can_copy-on-write_be_turned_off_for_data_blocks.3F">Can copy-on-write be turned off for data blocks?</a>.
+This makes it easy to disable <em>CoW</em> on the Boxes disk image directory.
+To do this, <em>add</em> the <em>no copy on write</em> attribute with the <code>+C</code> option followed by the directory.
+The following commands disable <em>CoW</em> on Boxes' image directory.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Flatpak</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ chattr +C ~/.var/app/org.gnome.Boxes/data/gnome-boxes/images</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">System Package</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ chattr +C ~/.local/share/gnome-boxes/images</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="libvirt_storage_pool_feature">libvirt Storage Pool Feature</h5>
+<div class="paragraph">
+<p>Boxes creates a dedicated libvirt storage pool.
+libvirt uses the concept of storage pools to abstract the complexities involved in managing the underlying virtual machine disk images in a variety of situations.
+There&#8217;s a bit to it, but I&#8217;ll leave out the lengthy explanation for brevity.
+libvirt has fantastic documentation on its <a href="https://libvirt.org/storage.html">Storage Management</a> if you wish to learn more.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>elementary OS 5.1 and Ubuntu 18.04 only ship with access to libvirt 4.0.0, so you&#8217;ll need to get newer version by some external means for this to work.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><em>CoW</em> can be disabled on the libvirt storage pool by configuring the appropriate storage pool feature.
+libvirt stores pretty much all configuration in XML files.
+This is the case for storage pools and the XML can be viewed and edited with <a href="https://libvirt.org/manpages/virsh.html">virsh(1)</a>.
+The steps here walk through the steps to disable <em>CoW</em> on the Boxes storage pool.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find the Boxes storage pool with the <a href="https://libvirt.org/manpages/virsh.html#pool-list">pool-list</a> subcommand.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ virsh pool-list
+ Name                 State      Autostart
+<span class="nt">-------------------------------------------</span>
+ default              active     <span class="nb">yes
+ </span>gnome-boxes          active     <span class="nb">yes</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>libvirt&#8217;s default pool is simply called <em>default</em> while Boxes' pool is named <em>gnome-boxes</em>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>To view the current XML configuration for a pool, use the <a href="https://libvirt.org/manpages/virsh.html#pool-dumpxml">pool-dumpxml</a> subcommand followed by the pool&#8217;s name.
+Here I output the default pool&#8217;s XML configuration where you can verify <em>path</em> is as expected for the Flatpak.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ virsh pool-dumpxml gnome-boxes
+&lt;pool <span class="nb">type</span><span class="o">=</span><span class="s1">'dir'</span><span class="o">&gt;</span>
+  &lt;name&gt;images&lt;/name&gt;
+  &lt;uuid&gt;02814071-7a82-4444-80f1-295cfc6f947d&lt;/uuid&gt;
+  &lt;capacity <span class="nv">unit</span><span class="o">=</span><span class="s1">'bytes'</span><span class="o">&gt;</span>1999372288000&lt;/capacity&gt;
+  &lt;allocation <span class="nv">unit</span><span class="o">=</span><span class="s1">'bytes'</span><span class="o">&gt;</span>191017480192&lt;/allocation&gt;
+  &lt;available <span class="nv">unit</span><span class="o">=</span><span class="s1">'bytes'</span><span class="o">&gt;</span>1808354807808&lt;/available&gt;
+  &lt;<span class="nb">source</span><span class="o">&gt;</span>
+  &lt;/source&gt;
+  &lt;target&gt;
+    &lt;path&gt;/home/jordan/.var/app/org.gnome.Boxes/data/gnome-boxes/images&lt;/path&gt;
+    &lt;permissions&gt;
+      &lt;mode&gt;0775&lt;/mode&gt;
+      &lt;owner&gt;1001&lt;/owner&gt;
+      &lt;group&gt;1001&lt;/group&gt;
+    &lt;/permissions&gt;
+  &lt;/target&gt;
+&lt;/pool&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To edit a pool&#8217;s configuration, use the <a href="https://libvirt.org/manpages/virsh.html#pool-edit">pool-edit</a> subcommand.
+To modify the Boxes pool, the command would appear as follows.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ virsh pool-edit gnome-boxes</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To disable <em>CoW</em>, set the <em>cow</em> feature with <code>state=no</code> in the pool&#8217;s XML.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The snippet here illustrates the necessary XML.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="nt">&lt;features&gt;</span>
+  <span class="nt">&lt;cow</span> <span class="na">state=</span><span class="s">'no'</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/features&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For Boxes' storage pool, the resulting XML to disable <em>CoW</em> could appear like so.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="nt">&lt;pool</span> <span class="na">type=</span><span class="s">'dir'</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;name&gt;</span>gnome-boxes<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;uuid&gt;</span>02814071-7a82-4444-80f1-295cfc6f947d<span class="nt">&lt;/uuid&gt;</span>
+  <span class="nt">&lt;capacity</span> <span class="na">unit=</span><span class="s">'bytes'</span><span class="nt">&gt;</span>1999372288000<span class="nt">&lt;/capacity&gt;</span>
+  <span class="nt">&lt;allocation</span> <span class="na">unit=</span><span class="s">'bytes'</span><span class="nt">&gt;</span>191017480192<span class="nt">&lt;/allocation&gt;</span>
+  <span class="nt">&lt;available</span> <span class="na">unit=</span><span class="s">'bytes'</span><span class="nt">&gt;</span>1808354807808<span class="nt">&lt;/available&gt;</span>
+  <span class="nt">&lt;features&gt;</span>
+    <span class="nt">&lt;cow</span> <span class="na">state=</span><span class="s">'no'</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/features&gt;</span>
+  <span class="nt">&lt;source&gt;</span>
+  <span class="nt">&lt;/source&gt;</span>
+  <span class="nt">&lt;target&gt;</span>
+    <span class="nt">&lt;path&gt;</span>/home/jordan/.var/app/org.gnome.Boxes/data/gnome-boxes/images<span class="nt">&lt;/path&gt;</span>
+    <span class="nt">&lt;permissions&gt;</span>
+      <span class="nt">&lt;mode&gt;</span>0775<span class="nt">&lt;/mode&gt;</span>
+      <span class="nt">&lt;owner&gt;</span>1001<span class="nt">&lt;/owner&gt;</span>
+      <span class="nt">&lt;group&gt;</span>1001<span class="nt">&lt;/group&gt;</span>
+    <span class="nt">&lt;/permissions&gt;</span>
+  <span class="nt">&lt;/target&gt;</span>
+<span class="nt">&lt;/pool&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>That should be everything you need to get started with GNOME Boxes on a Btrfs filesystem.
+Enjoy that simple virtualization.</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/gnome-boxes-on-btrfs' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

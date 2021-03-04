@@ -1,4 +1,384 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-04T07:27:44-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Install libvirt on elementary OS 5.1</title><link href="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1" rel="alternate" type="text/html" title="Install libvirt on elementary OS 5.1" /><published>2021-03-03T00:00:00-06:00</published><updated>2021-03-03T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20libvirt%20on%20elementary%20OS%205.1</id><content type="html" xml:base="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-04T09:14:44-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">GNOME Boxes on Btrfs</title><link href="https://www.jwillikers.com/gnome-boxes-on-btrfs" rel="alternate" type="text/html" title="GNOME Boxes on Btrfs" /><published>2021-03-04T00:00:00-06:00</published><updated>2021-03-04T00:00:00-06:00</updated><id>https://www.jwillikers.com/GNOME%20Boxes%20on%20Btrfs</id><content type="html" xml:base="https://www.jwillikers.com/gnome-boxes-on-btrfs">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So, you&amp;#8217;ve got &lt;a href=&quot;https://libvirt.org/&quot;&gt;libvirt&lt;/a&gt; installed on your Linux box and your looking for a simple application for running virtual machines.
+Look no further than &lt;a href=&quot;https://wiki.gnome.org/Apps/Boxes&quot;&gt;Boxes&lt;/a&gt;, so far as it meets your needs, of course.
+What&amp;#8217;s that you ask?
+What do you need to figure out to run on this on a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; filesystem?
+Well, you&amp;#8217;ve come to the right place!
+This post describes how to install and accommodate Boxes on Btrfs.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial describes how to install GNOME &lt;a href=&quot;https://wiki.gnome.org/Apps/Boxes&quot;&gt;Boxes&lt;/a&gt; on a Btrfs filesystem on &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1 which is based on &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
+You&amp;#8217;ll need to have libvirt installed.
+Instructions for this are available in the post &lt;a href=&quot;install-libvirt-on-elementary-os-5-1.html&quot;&gt;Install libvirt on elementary OS 5.1&lt;/a&gt;, which addresses Btrfs concerns.
+You should be familiar with installing software on Ubuntu and elementary OS, &lt;a href=&quot;https://flatpak.org/&quot;&gt;Flatpak&lt;/a&gt;, the command-line, and Btrfs.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For more robust configurations and anything that doesn&amp;#8217;t &lt;em&gt;just work&lt;/em&gt; in Boxes, try &lt;a href=&quot;https://virt-manager.org/&quot;&gt;virt-manager&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;install&quot;&gt;Install&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Boxes is readily available in two formats, as a Flatpak and a deb package from Ubuntu&amp;#8217;s repositories.
+You can install in one or both ways.
+The Flatpak will receive updates to newer versions where the deb package won&amp;#8217;t be updated beyond the minor version provided, currently 3.28.
+While the Flatpak will be a much newer version, development in Flatpak is still necessary to expose and connect all the necessary system components for virtualization.
+Some things may not work quite right yet with the Flatpak, but I&amp;#8217;ve found it to work well enough.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;flatpak&quot;&gt;Flatpak&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A Flatpak can be installed system-wide or for an individual user.
+The instructions below describe both methods.
+systemd,&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Add the Flathub remote.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;User&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ flatpak &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; remote-add &lt;span class=&quot;nt&quot;&gt;--if-not-exists&lt;/span&gt; flathub https://flathub.org/repo/flathub.flatpakrepo&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;System&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;flatpak &lt;span class=&quot;nt&quot;&gt;--system&lt;/span&gt; remote-add &lt;span class=&quot;nt&quot;&gt;--if-not-exists&lt;/span&gt; flathub https://flathub.org/repo/flathub.flatpakrepo&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install the GNOME Boxes Flatpak.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;User&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ flatpak &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; flathub org.gnome.Boxes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;System&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;flatpak &lt;span class=&quot;nt&quot;&gt;--system&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; flathub org.gnome.Boxes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;system_package&quot;&gt;System Package&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Install the GNOME Boxes Ubuntu package.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;gnome-boxes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;btrfs&quot;&gt;Btrfs&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;By default, Boxes uses the copy-on-write &lt;a href=&quot;https://qemu.readthedocs.io/en/latest/system/images.html#cmdoption-image-formats-arg-qcow2&quot;&gt;qcow2&lt;/a&gt; disk image format.
+If you use Btrfs on your system like I do, then you&amp;#8217;ll want to avoid placing these &lt;em&gt;CoW&lt;/em&gt; disk images on a &lt;em&gt;CoW&lt;/em&gt; Btrfs filesystem.
+You&amp;#8217;ll probably want to exclude the disk images from Btrfs snapshots as well and opt to manage you disk image snapshots independently using the built-in features of qcow2.
+In the future, perhaps libvirt will provide a native Btrfs storage pool making the qcow2 format unnecessary along with these workarounds.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The sections here demonstrate a couple of ways to disable &lt;em&gt;CoW&lt;/em&gt; for the disk image directory used by Boxes and how to create a separate subvolume for that directory.
+The location of the Boxes disk image directory depends on whether it is installed as a Flatpak or a deb package.
+Refer to {Where does Boxes store disk images} in the Boxes documentation for more information.
+Commands are provide for both locations where feasible.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;exclude_from_btrfs_snapshots&quot;&gt;Exclude From Btrfs Snapshots&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you snapshot your filesystem, take care to exclude the Boxes virtual disk image directory by making the directory a subvolume.
+Btrfs subvolumes are automatically excluded from snapshots of their parent subvolumes.
+Snapshots for virtual disk images should be handled in the disk image itself.
+Snapshots are provided by default qcow2 format used by Boxes.
+Here&amp;#8217;s how to create the subvolume.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Delete the current images directory.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Flatpak&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;rmdir&lt;/span&gt; ~/.var/app/org.gnome.Boxes/data/gnome-boxes/images&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;System Package&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;rmdir&lt;/span&gt; ~/.local/share/gnome-boxes/images&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a subvolume in its place.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Flatpak&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ btrfs subvolume create ~/.var/app/org.gnome.Boxes/data/gnome-boxes/images
+Create subvolume &lt;span class=&quot;s1&quot;&gt;'/home/jordan/.var/app/org.gnome.Boxes/data/gnome-boxes/images'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;System Package&lt;/dt&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;➜ btrfs subvolume create ~/.local/share/gnome-boxes/images
+Create subvolume '/home/jordan/.local/share/gnome-boxes/images'&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;disable_cow&quot;&gt;Disable &lt;em&gt;CoW&lt;/em&gt;&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The two most straightforward ways to disable &lt;em&gt;CoW&lt;/em&gt; for a directory, or subvolume, are to use a file attribute or libvirt&amp;#8217;s storage pool feature.
+Use whichever one you prefer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There&amp;#8217;s also the &lt;code&gt;nodatacow&lt;/code&gt; mount option, but a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt; in a home directory isn&amp;#8217;t exactly the pinnacle of convenience.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect4&quot;&gt;
+&lt;h5 id=&quot;chattr&quot;&gt;chattr&lt;/h5&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The simplest way to disable &lt;em&gt;CoW&lt;/em&gt; on a particular directory or file is with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man1/chattr.1.html&quot;&gt;chattr(1)&lt;/a&gt; as described in &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/FAQ#Can_copy-on-write_be_turned_off_for_data_blocks.3F&quot;&gt;Can copy-on-write be turned off for data blocks?&lt;/a&gt;.
+This makes it easy to disable &lt;em&gt;CoW&lt;/em&gt; on the Boxes disk image directory.
+To do this, &lt;em&gt;add&lt;/em&gt; the &lt;em&gt;no copy on write&lt;/em&gt; attribute with the &lt;code&gt;+C&lt;/code&gt; option followed by the directory.
+The following commands disable &lt;em&gt;CoW&lt;/em&gt; on Boxes' image directory.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Flatpak&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ chattr +C ~/.var/app/org.gnome.Boxes/data/gnome-boxes/images&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;System Package&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ chattr +C ~/.local/share/gnome-boxes/images&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect4&quot;&gt;
+&lt;h5 id=&quot;libvirt_storage_pool_feature&quot;&gt;libvirt Storage Pool Feature&lt;/h5&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Boxes creates a dedicated libvirt storage pool.
+libvirt uses the concept of storage pools to abstract the complexities involved in managing the underlying virtual machine disk images in a variety of situations.
+There&amp;#8217;s a bit to it, but I&amp;#8217;ll leave out the lengthy explanation for brevity.
+libvirt has fantastic documentation on its &lt;a href=&quot;https://libvirt.org/storage.html&quot;&gt;Storage Management&lt;/a&gt; if you wish to learn more.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;elementary OS 5.1 and Ubuntu 18.04 only ship with access to libvirt 4.0.0, so you&amp;#8217;ll need to get newer version by some external means for this to work.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;CoW&lt;/em&gt; can be disabled on the libvirt storage pool by configuring the appropriate storage pool feature.
+libvirt stores pretty much all configuration in XML files.
+This is the case for storage pools and the XML can be viewed and edited with &lt;a href=&quot;https://libvirt.org/manpages/virsh.html&quot;&gt;virsh(1)&lt;/a&gt;.
+The steps here walk through the steps to disable &lt;em&gt;CoW&lt;/em&gt; on the Boxes storage pool.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Find the Boxes storage pool with the &lt;a href=&quot;https://libvirt.org/manpages/virsh.html#pool-list&quot;&gt;pool-list&lt;/a&gt; subcommand.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ virsh pool-list
+ Name                 State      Autostart
+&lt;span class=&quot;nt&quot;&gt;-------------------------------------------&lt;/span&gt;
+ default              active     &lt;span class=&quot;nb&quot;&gt;yes
+ &lt;/span&gt;gnome-boxes          active     &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;libvirt&amp;#8217;s default pool is simply called &lt;em&gt;default&lt;/em&gt; while Boxes' pool is named &lt;em&gt;gnome-boxes&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To view the current XML configuration for a pool, use the &lt;a href=&quot;https://libvirt.org/manpages/virsh.html#pool-dumpxml&quot;&gt;pool-dumpxml&lt;/a&gt; subcommand followed by the pool&amp;#8217;s name.
+Here I output the default pool&amp;#8217;s XML configuration where you can verify &lt;em&gt;path&lt;/em&gt; is as expected for the Flatpak.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ virsh pool-dumpxml gnome-boxes
+&amp;lt;pool &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'dir'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+  &amp;lt;name&amp;gt;images&amp;lt;/name&amp;gt;
+  &amp;lt;uuid&amp;gt;02814071-7a82-4444-80f1-295cfc6f947d&amp;lt;/uuid&amp;gt;
+  &amp;lt;capacity &lt;span class=&quot;nv&quot;&gt;unit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'bytes'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;1999372288000&amp;lt;/capacity&amp;gt;
+  &amp;lt;allocation &lt;span class=&quot;nv&quot;&gt;unit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'bytes'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;191017480192&amp;lt;/allocation&amp;gt;
+  &amp;lt;available &lt;span class=&quot;nv&quot;&gt;unit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'bytes'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;1808354807808&amp;lt;/available&amp;gt;
+  &amp;lt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+  &amp;lt;/source&amp;gt;
+  &amp;lt;target&amp;gt;
+    &amp;lt;path&amp;gt;/home/jordan/.var/app/org.gnome.Boxes/data/gnome-boxes/images&amp;lt;/path&amp;gt;
+    &amp;lt;permissions&amp;gt;
+      &amp;lt;mode&amp;gt;0775&amp;lt;/mode&amp;gt;
+      &amp;lt;owner&amp;gt;1001&amp;lt;/owner&amp;gt;
+      &amp;lt;group&amp;gt;1001&amp;lt;/group&amp;gt;
+    &amp;lt;/permissions&amp;gt;
+  &amp;lt;/target&amp;gt;
+&amp;lt;/pool&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To edit a pool&amp;#8217;s configuration, use the &lt;a href=&quot;https://libvirt.org/manpages/virsh.html#pool-edit&quot;&gt;pool-edit&lt;/a&gt; subcommand.
+To modify the Boxes pool, the command would appear as follows.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ virsh pool-edit gnome-boxes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To disable &lt;em&gt;CoW&lt;/em&gt;, set the &lt;em&gt;cow&lt;/em&gt; feature with &lt;code&gt;state=no&lt;/code&gt; in the pool&amp;#8217;s XML.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The snippet here illustrates the necessary XML.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;features&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;cow&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;state=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'no'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/features&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For Boxes' storage pool, the resulting XML to disable &lt;em&gt;CoW&lt;/em&gt; could appear like so.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;pool&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'dir'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;gnome-boxes&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;uuid&amp;gt;&lt;/span&gt;02814071-7a82-4444-80f1-295cfc6f947d&lt;span class=&quot;nt&quot;&gt;&amp;lt;/uuid&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;capacity&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;unit=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bytes'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;1999372288000&lt;span class=&quot;nt&quot;&gt;&amp;lt;/capacity&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;allocation&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;unit=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bytes'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;191017480192&lt;span class=&quot;nt&quot;&gt;&amp;lt;/allocation&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;available&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;unit=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bytes'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;1808354807808&lt;span class=&quot;nt&quot;&gt;&amp;lt;/available&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;features&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;cow&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;state=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'no'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/features&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;source&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/source&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;target&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;path&amp;gt;&lt;/span&gt;/home/jordan/.var/app/org.gnome.Boxes/data/gnome-boxes/images&lt;span class=&quot;nt&quot;&gt;&amp;lt;/path&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;permissions&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;mode&amp;gt;&lt;/span&gt;0775&lt;span class=&quot;nt&quot;&gt;&amp;lt;/mode&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;owner&amp;gt;&lt;/span&gt;1001&lt;span class=&quot;nt&quot;&gt;&amp;lt;/owner&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;group&amp;gt;&lt;/span&gt;1001&lt;span class=&quot;nt&quot;&gt;&amp;lt;/group&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/permissions&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/target&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/pool&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That should be everything you need to get started with GNOME Boxes on a Btrfs filesystem.
+Enjoy that simple virtualization.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="Boxes" /><category term="Btrfs" /><category term="elementary" /><category term="GNOME" /><category term="KVM" /><category term="libvirt" /><category term="Linux" /><category term="QEMU" /><category term="Ubuntu" /><category term="virt-manager" /><category term="VM" /><summary type="html">So, you&amp;#8217;ve got libvirt installed on your Linux box and your looking for a simple application for running virtual machines. Look no further than Boxes, so far as it meets your needs, of course. What&amp;#8217;s that you ask? What do you need to figure out to run on this on a Btrfs filesystem? Well, you&amp;#8217;ve come to the right place! This post describes how to install and accommodate Boxes on Btrfs.</summary></entry><entry><title type="html">Install libvirt on elementary OS 5.1</title><link href="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1" rel="alternate" type="text/html" title="Install libvirt on elementary OS 5.1" /><published>2021-03-03T00:00:00-06:00</published><updated>2021-03-03T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20libvirt%20on%20elementary%20OS%205.1</id><content type="html" xml:base="https://www.jwillikers.com/install-libvirt-on-elementary-os-5-1">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;If you want to run virtual machines on Linux, chances are you&amp;#8217;re going to use &lt;a href=&quot;https://libvirt.org/&quot;&gt;libvirt&lt;/a&gt;.
@@ -3649,239 +4029,4 @@ Now you&amp;#8217;ll probably want to backup those snapshots in case there&amp;#
 Stay tuned for an upcoming tutorial on configuring backups plus more posts on getting the most out of Snapper!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrbk" /><category term="Btrfs" /><category term="elementary" /><category term="Linux" /><category term="Snapper" /><category term="snapshots" /><category term="Timeshift" /><category term="Ubuntu" /><summary type="html">Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups. It doesn&amp;#8217;t handle rollbacks, however. Timeshift is only designed for rolling back a system&amp;#8217;s root subvolume and not arbitrary subvolumes. It is rather inflexible, but provides a fantastic graphical interface right out of the box and makes rollbacks quick and easy. Snapper is very configurable, makes rollbacks a breeze, has been around a while, and is quite popular. It&amp;#8217;s a bit biased towards openSUSE, it being their tool and all, but packaged for all major Linux distributions nonetheless. My choice was mostly between Btrbk and Snapper. Timeshift won&amp;#8217;t snapshot all of the subvolumes I have. I landed on Snapper because it allows users to control their own snapshots and rollbacks without superuser privileges. Btrbk&amp;#8217;s additional ability for managing backups makes it a very tempting alternative.</summary></entry><entry><title type="html">Btrfs Layout</title><link href="https://www.jwillikers.com/btrfs-layout" rel="alternate" type="text/html" title="Btrfs Layout" /><published>2021-02-13T00:00:00-06:00</published><updated>2021-02-13T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Layout</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-layout">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One of the best features of &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; is the ability to produce snapshots of data instantaneously.
-Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update.
-This is an extremely valuable feature.
-Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally.
-Certain directories need to be left alone during a rollback.
-You don&amp;#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs.
-Unless your on &lt;a href=&quot;https://www.opensuse.org/&quot;&gt;openSUSE&lt;/a&gt;, this just isn&amp;#8217;t done for you on most popular Linux distributions or at least not yet.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
-Even if you are using openSUSE, it doesn&amp;#8217;t setup user home directory layouts if you wish to snapshot those.
-That&amp;#8217;s why I&amp;#8217;ve outlined my Btrfs filesystem configurations for both my system and my home directory here.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;subvolumes_and_snapshots&quot;&gt;Subvolumes and Snapshots&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Btrfs uses subvolumes to organize data akin to directories.
-Well, subvolumes are directories, practically speaking.
-Subvolumes have the added benefit of allowing specific Btrfs characteristics to be applied.
-They also provide the only method to exclude data from snapshots.
-When taking a snapshot of a particular subvolume, all subvolumes nested within that subvolume are excluded from the snapshot.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;system_layout&quot;&gt;System Layout&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The best reference for organizing your system&amp;#8217;s subvolumes is openSUSE&amp;#8217;s &lt;a href=&quot;https://en.opensuse.org/SDB:BTRFS#Default_Subvolumes&quot;&gt;Default Subvolumes&lt;/a&gt; documentation.
-I diverge from this layout only slightly.
-For a complete overview of the various system directories and their purposes, the &lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html&quot;&gt;Filesystem Hierarchy Standard&lt;/a&gt; is your best friend.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Currently, my systems keep &lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#bootStaticFilesOfTheBootLoader&quot;&gt;/boot&lt;/a&gt;&lt;/code&gt; on a separate partition so that my root filesystem can be encrypted via LUKS.
-In &lt;code&gt;/boot&lt;/code&gt;, the architecture-specific Grub directories are placed in their own subvolumes.
-To be explicit these directories are &lt;code&gt;/boot/grub/i386-pc&lt;/code&gt;, &lt;code&gt;/boot/grub/x86_64-efi&lt;/code&gt;, &lt;code&gt;/boot/grub/powerpc-ieee1275&lt;/code&gt;, and &lt;code&gt;/boot/grub/s390x-emu&lt;/code&gt;.
-This is a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested&quot;&gt;nested layout&lt;/a&gt; for simplicity.
-For the root subvolume, I use a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt; which allows me to use different mount options for certain subvolumes and also to provide an obvious map of the filesystem.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;System Subvolumes&lt;/div&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#purpose2&quot;&gt;/&lt;/a&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The root directory is its own subvolume.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;/.snapshots&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The &lt;code&gt;.snapshots&lt;/code&gt; subvolume will contain snapshots of the root filesystem and including snapshots within snapshots is not a good idea.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#homeUserHomeDirectories&quot;&gt;/home&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The home directories are stored on a separate subvolume to avoid rolling back important user data.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;/home/bob&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Each user&amp;#8217;s home directory is a separate subvolume so that they can be managed separately.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#optAddonApplicationSoftwarePackages&quot;&gt;/opt&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The &lt;code&gt;/opt&lt;/code&gt; directory commonly contains third-party applications which should not be uninstalled during a rollback of the root filesystem.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#rootHomeDirectoryForTheRootUser&quot;&gt;/root&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The &lt;code&gt;/root&lt;/code&gt; directory is really just root user&amp;#8217;s home directory and should be preserved during a rollback just like the other users' home directories.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#srvDataForServicesProvidedBySystem&quot;&gt;/srv&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The &lt;code&gt;/srv&lt;/code&gt; directory contains content for web and FTP servers, so it is excluded from rollbacks.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;/swap&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The &lt;code&gt;/swap&lt;/code&gt; subvolume contains the system swapfile which must be excluded from snapshots.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#tmpTemporaryFiles&quot;&gt;/tmp&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;It&amp;#8217;s not necessary to save temporary files or caches in snapshots so &lt;code&gt;/tmp&lt;/code&gt; is excluded.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#usrlocalLocalHierarchy&quot;&gt;/usr/local&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The &lt;code&gt;/usr/local&lt;/code&gt; directory is excluded from rollbacks to avoid uninstalling manually installed software.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html#purpose31&quot;&gt;/var&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The &lt;code&gt;/var&lt;/code&gt; directory contains &quot;variable&quot; data which equates to all sorts of things from logs and caches to virtual machine images and databases.
-The openSUSE project disables Copy-on-Write on this subvolume by default.
-I don&amp;#8217;t because I prefer not to lose compression and checksums on everything in here, especially for log files.
-Instead, I disable certain features on subdirectories of &lt;code&gt;/var&lt;/code&gt; where necessary.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;/var/lib/containers&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;This is where &lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; stores its containers, so it is given a dedicated subvolume to allow for rollbacks on this directory.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;/var/lib/libvirt/images&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The &lt;code&gt;/var/lib/libvirt/images&lt;/code&gt; directory is where &lt;a href=&quot;https://libvirt.org/&quot;&gt;libvirt&lt;/a&gt; stores its virtual machine disk images.
-This directory has Copy-on-Write disabled by mounting the subvolume with the &lt;code&gt;nodatacow&lt;/code&gt; mount option.
-This avoids &lt;em&gt;CoW&lt;/em&gt; on &lt;em&gt;CoW&lt;/em&gt; per the caution in the &lt;a href=&quot;https://wiki.debian.org/Btrfs&quot;&gt;Debian Wiki&amp;#8217;s page on Btrfs&lt;/a&gt;.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;etcfstab&quot;&gt;&lt;code&gt;/etc/fstab&lt;/code&gt;&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;An example &lt;code&gt;&lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;/etc/fstab&lt;/a&gt;&lt;/code&gt; file is provided here as a reference.
-Refer to the post &lt;a href=&quot;btrfs-mount-options.html&quot;&gt;Btrfs Mount Options&lt;/a&gt; for more information about the various mount options and why they are used.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/fstab&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;/dev/mapper/sda2_crypt /                       btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=root 0 0
-UUID=xxxxxxxxxxxxxxxxx /boot                   btrfs   defaults,noatime,autodefrag,compress=lzo,commit=120 0 0
-/dev/mapper/sda2_crypt /.snapshots             btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=snapshots 0 0
-/dev/mapper/sda2_crypt /home                   btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home 0 0
-/dev/mapper/sda2_crypt /home/bob               btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_bob 0 0
-/dev/mapper/sda2_crypt /opt                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=opt 0 0
-/dev/mapper/sda2_crypt /root                   btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=home_root 0 0
-/dev/mapper/sda2_crypt /srv                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=srv 0 0
-/dev/mapper/sda2_crypt /swap                   btrfs   defaults,noatime,autodefrag,commit=120,subvol=swap 0 0
-/dev/mapper/sda2_crypt /tmp                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=tmp 0 0
-/dev/mapper/sda2_crypt /usr/local              btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=usr_local 0 0
-/dev/mapper/sda2_crypt /var                    btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=var 0 0
-/dev/mapper/sda2_crypt /var/lib/containers     btrfs   defaults,noatime,autodefrag,compress=zstd,commit=120,subvol=var 0 0
-/dev/mapper/sda2_crypt /var/lib/libvirt/images btrfs   defaults,noatime,nodatacow,commit=120,subvol=var 0 0
-/swap/swapfile         none                    swap    defaults 0 0&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;user_layout&quot;&gt;User Layout&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;How to layout a user&amp;#8217;s home directory should be considered carefully based on the desired functionality required.
-Do you want to be able to rollback a user&amp;#8217;s home directory, perhaps in the case a botched configuration file won&amp;#8217;t allow them to login?
-If so, it is critical to separate out the configuration and system software from the user&amp;#8217;s important data so that such a rollback doesn&amp;#8217;t undo hours of hard work.
-Do you just want to backup that important user data?
-Well then, go ahead and just create subvolumes for the necessary directories and forget about all the disparate directories that need to be subvolumes just so they can be excluded from snapshots of the entire home directory.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;My user layout described here attempts to cover both user configuration and data within home directory snapshots, making this a bad candidate for doing rollbacks of the home directory.
-However, it is a good base for doing exactly that.
-Just separate the important directories such as &lt;code&gt;Documents&lt;/code&gt; and &lt;code&gt;Pictures&lt;/code&gt; into their own subvolumes and manage their snapshots separately.
-The layout here is a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested&quot;&gt;nested layout&lt;/a&gt; in contrast to the system&amp;#8217;s flat layout.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;a href=&quot;https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html&quot;&gt;XDG Base Directory Specification&lt;/a&gt; and the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/file-hierarchy.html#Home%20Directory&quot;&gt;Home Directory section&lt;/a&gt; from the &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/file-hierarchy.html&quot;&gt;file-hierarchy(7)&lt;/a&gt; are the best references for the standard directories within a user&amp;#8217;s home directory.
-Home directory structures can be a bit more chaotic compared to the organization of the system&amp;#8217;s directories, though.
-They tend to be a bit less standardized.
-In addition to the standard directories, my setup accounts for per-user &lt;a href=&quot;https://flatpak.org/&quot;&gt;flatpak&lt;/a&gt; and &lt;a href=&quot;https://appimage.org/&quot;&gt;AppImage&lt;/a&gt; applications, local virtual machine disk images, and a host of non-compliant development tooling as well my own development workflow.
-I choose to exclude most of these from my home directory snapshots, but you might have good reason to include some of these in your own snapshots.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;User Subvolumes&lt;/div&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;&lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/file-hierarchy.html#~/.cache/&quot;&gt;.cache&lt;/a&gt;&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Local cache files don&amp;#8217;t need to be included in snapshots, so they aren&amp;#8217;t.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.local&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;This directory contains both user-specific data directories, executables, and libraries.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.local/share/containers/storage/&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Non-root Podman containers are stored in this directory for a particular user so this directory is given a dedicated subvolume in case I want to create snapshots of it at some point in the future.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.local/share/gnome-boxes/images/&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;This directory should have &lt;em&gt;CoW&lt;/em&gt; disabled as it contains virtual machine disk images for GNOME Boxes.
-The &lt;code&gt;chattr +C&lt;/code&gt; command can set this on the directory without the need for the mount option and this doesn&amp;#8217;t require it be a separate subvolume within &lt;code&gt;.local&lt;/code&gt;.
-I still make it a separate subvolume for good measure.
-You would do this like so: &lt;code&gt;chattr +C ~/.local/share/gnome-boxes/images/&lt;/code&gt;.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.snapshots&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The obligatory snapshots directory for the user&amp;#8217;s home directory.
-For Snapper, this subvolume must be owned by the root user.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.var&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Per-user Flatpak installations are kept in &lt;code&gt;.var&lt;/code&gt; and so this entire directory excluded from snapshots.
-This is documented in the Flatpak documentation &lt;a href=&quot;https://docs.flatpak.org/en/latest/conventions.html?highlight=.var#xdg-base-directories&quot;&gt;here&lt;/a&gt;.
-The config files for each application might be valuable, but I prefer to use Git to save these files out-of-band.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;.xdg-non-compliant&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;This directory holds everything that violates the XDG specification and should be excluded from snapshots.
-This includes various language-specific package managers such as &lt;a href=&quot;https://asdf-vm.com/#/&quot;&gt;asdf&lt;/a&gt;, &lt;a href=&quot;https://doc.rust-lang.org/stable/cargo/&quot;&gt;Cargo&lt;/a&gt;, and &lt;a href=&quot;https://conan.io/&quot;&gt;Conan&lt;/a&gt;.
-Their package caches are an obvious and unfortunate source of snapshot bloat.
-Creating a subvolume for each one&amp;#8217;s default location is too much work so I configure them to reside in this directory until they are fixed to properly support the XDG Base Directory Specification.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;Applications&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;I use &lt;a href=&quot;https://assassinate-you.net/tags/appimagelauncher/&quot;&gt;AppImageLauncher&lt;/a&gt; to integrate AppImages with my desktop.
-These applications are stored in an &lt;code&gt;Applications&lt;/code&gt; directory by default and these shouldn&amp;#8217;t be rolled back with the home directory.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;Downloads&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;The &lt;code&gt;Downloads&lt;/code&gt; directory doesn&amp;#8217;t usually contain important files but may contain large files occasionally, so I exclude it from snapshots.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;Projects&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;I use a &lt;code&gt;Projects&lt;/code&gt; directory for pulling down source code and building all sorts of software.
-While I take snapshots of this subvolume, the snapshots are kept for much shorter periods of time to avoid filling my disk with old build artifacts.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;&lt;code&gt;Projects/.snapshots&lt;/code&gt;&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;Of course the &lt;code&gt;Projects&lt;/code&gt; subvolume needs its own subvolume dedicated to snapshots.
-For Snapper, this subvolume must be owned by the root user.&lt;/p&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This post has laid out examples of Btrfs filesystem layouts.
-You should now have a better grasp of the various considerations in configuring a system with Btrfs.
-This includes what directories to exclude from snapshots by making them separate subvolumes and particular edge cases such as disk image storage for virtual machines.
-There are also several practical use cases here that can inform you if you have similar circumstances.
-Now that the ground-work is complete, next up is configuring system and user snapshots with Snapper!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Ubuntu does this for you with &lt;a href=&quot;https://openzfs.org/wiki/Main_Page&quot;&gt;ZFS&lt;/a&gt; and &lt;a href=&quot;https://github.com/ubuntu/zsys&quot;&gt;ZSYS&lt;/a&gt;, but I&amp;#8217;m talking about Btrfs here.
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. Have you &lt;em&gt;seen&lt;/em&gt; Inception?
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="AppImage" /><category term="AppImageLauncher" /><category term="asdf" /><category term="Btrfs" /><category term="CoW" /><category term="Cargo" /><category term="Conan" /><category term="elementary" /><category term="FHS" /><category term="filesystem" /><category term="Flatpak" /><category term="fstab" /><category term="Gnome-Boxes" /><category term="libvirt" /><category term="Linux" /><category term="openSUSE" /><category term="Podman" /><category term="Rust" /><category term="Snapper" /><category term="snapshots" /><category term="systemd" /><category term="Ubuntu" /><category term="xdg-base" /><summary type="html">One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a snapshots and rollbacks properly, the filesystem must be layed out intentionally. Certain directories need to be left alone during a rollback. You don&amp;#8217;t want to rollback your system and have your hard-work lost nor do you want to inadvertently destroy critical system logs. Unless your on openSUSE, this just isn&amp;#8217;t done for you on most popular Linux distributions or at least not yet.[1] Even if you are using openSUSE, it doesn&amp;#8217;t setup user home directory layouts if you wish to snapshot those. That&amp;#8217;s why I&amp;#8217;ve outlined my Btrfs filesystem configurations for both my system and my home directory here. 1. Ubuntu does this for you with ZFS and ZSYS, but I&amp;#8217;m talking about Btrfs here.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrbk" /><category term="Btrfs" /><category term="elementary" /><category term="Linux" /><category term="Snapper" /><category term="snapshots" /><category term="Timeshift" /><category term="Ubuntu" /><summary type="html">Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups. It doesn&amp;#8217;t handle rollbacks, however. Timeshift is only designed for rolling back a system&amp;#8217;s root subvolume and not arbitrary subvolumes. It is rather inflexible, but provides a fantastic graphical interface right out of the box and makes rollbacks quick and easy. Snapper is very configurable, makes rollbacks a breeze, has been around a while, and is quite popular. It&amp;#8217;s a bit biased towards openSUSE, it being their tool and all, but packaged for all major Linux distributions nonetheless. My choice was mostly between Btrbk and Snapper. Timeshift won&amp;#8217;t snapshot all of the subvolumes I have. I landed on Snapper because it allows users to control their own snapshots and rollbacks without superuser privileges. Btrbk&amp;#8217;s additional ability for managing backups makes it a very tempting alternative.</summary></entry></feed>

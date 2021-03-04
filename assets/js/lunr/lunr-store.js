@@ -340,4 +340,10 @@ var store = [{
         "tags": ["Boxes","Btrfs","elementary","KVM","libvirt","Linux","QEMU","systemd","Ubuntu","virsh","virt-manager","VM"],
         "url": "/install-libvirt-on-elementary-os-5-1",
         "teaser": null
+      },{
+        "title": "GNOME Boxes on Btrfs",
+        "excerpt":"So, you&#8217;ve got libvirt installed on your Linux box and your looking for a simple application for running virtual machines. Look no further than Boxes, so far as it meets your needs, of course. What&#8217;s that you ask? What do you need to figure out to run on this on...","categories": ["Virtualization"],
+        "tags": ["Boxes","Btrfs","elementary","GNOME","KVM","libvirt","Linux","QEMU","Ubuntu","virt-manager","VM"],
+        "url": "/gnome-boxes-on-btrfs",
+        "teaser": null
       }]
