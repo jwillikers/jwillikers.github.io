@@ -1,4 +1,237 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-05T07:56:11-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">GNOME Boxes on Btrfs</title><link href="https://www.jwillikers.com/gnome-boxes-on-btrfs" rel="alternate" type="text/html" title="GNOME Boxes on Btrfs" /><published>2021-03-04T00:00:00-06:00</published><updated>2021-03-04T00:00:00-06:00</updated><id>https://www.jwillikers.com/GNOME%20Boxes%20on%20Btrfs</id><content type="html" xml:base="https://www.jwillikers.com/gnome-boxes-on-btrfs">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-05T13:37:04-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Btrfs Scrub</title><link href="https://www.jwillikers.com/btrfs-scrub" rel="alternate" type="text/html" title="Btrfs Scrub" /><published>2021-03-05T00:00:00-06:00</published><updated>2021-03-05T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Scrub</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-scrub">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You probably want to take advantage of the data integrity checking offered by &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt;.
+Btrfs calculates checksums for all data written to disk.
+These checksums are used to verify the data hasn&amp;#8217;t been unduly altered.
+While data is verified every time it is read, what about the data that isn&amp;#8217;t read often?
+How long may bit rot go unnoticed in that case?
+That&amp;#8217;s the crux of this blog post which will explain how to best preserve your data on Btrfs and detect corruption early.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;scrub&quot;&gt;Scrub&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To scrub you filesystem is to have all the data read from disk and validated against the stored checksums.
+This detects corrupt data.
+When coupled with redundancy such as a raid configuration, self-healing fully restores the damaged data on the disk.
+If you don&amp;#8217;t use redundancy, then the scrub will alert you to the corruption so that you can restore the data manually from backups.
+Both Btrfs and &lt;a href=&quot;https://openzfs.org/wiki/Main_Page&quot;&gt;ZFS&lt;/a&gt; handle scrubs in this manner.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To scrub a Btrfs filesystem use &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs-scrub&quot;&gt;btrfs-scrub(8)&lt;/a&gt;, and in case your interested, the equivalent ZFS command is &lt;a href=&quot;https://openzfs.github.io/openzfs-docs/man/8/zpool-scrub.8.html&quot;&gt;zpool-scrub(8)&lt;/a&gt;.
+Both of them also offer ways to cancel, pause, resume, and monitor scrubs.
+Btrfs scrubs entire filesystems at a time which is provided by a device or just any directory&amp;#8217;s path on the target filesystem.
+I&amp;#8217;m not exactly sure why it takes a directory path to anywhere on the filesystem since that seems a bit arbitrary.
+You should probably use either a mount point or device path to make the intended target clear.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;Even if the `btrfs-scrub` command accepts a directory path, it doesn't necessarily just scrub that directory.
+It will scrub the entire filesystem where that directory resides.&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To initiate a scrub in the background, use the start subcommand followed by the path or device.
+Here I initiate a scrub on the device on which my root filesystem resides.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs scrub start &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; / | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+scrub started on /dev/mapper/sda2_crypt, fsid 175792e7-4167-40d1-aebc-78b948d6d378 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10555&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To check on the status of a scrub, use the status subcommand and the path or device.
+Check the status of the previous scrub like so.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs scrub status &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; / | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+scrub status &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;175792e7-4167-40d1-aebc-78b948d6d378
+	scrub started at Fri Mar  5 06:07:42 2021, running &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;00:01:25
+	total bytes scrubbed: 26.19GiB with 0 errors&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In many circumstances, you might want the scrub to block and return once it finishes.
+This is ideal for people like me who don&amp;#8217;t want to type a status command constantly and it&amp;#8217;s ideal for running the scrub as a command in systemd.
+Use the &lt;code&gt;-B&lt;/code&gt; flag to scrub in the foreground.
+This command scrubs my boot partition and returns once the scrub is complete.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs scrub start &lt;span class=&quot;nt&quot;&gt;-B&lt;/span&gt; /boot
+scrub &lt;span class=&quot;k&quot;&gt;done for &lt;/span&gt;264b42a6-a09c-40cc-b754-88926d43b395
+	scrub started at Fri Mar  5 06:13:23 2021 and finished after 00:00:01
+	total bytes scrubbed: 159.55MiB with 0 errors&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That didn&amp;#8217;t take long!
+There&amp;#8217;s also subcommands to pause, resume, and cancel scrubs as needed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;schedule&quot;&gt;Schedule&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Scheduling regular scrubs is a necessary component of proper maintenance
+You can regularly run scrubs manually or automate the process of running them yet it&amp;#8217;s critical that you monitor the results either way.
+If you go to the trouble to automate your scrubs you&amp;#8217;ll want to make sure to regularly check the results.
+Ideally you&amp;#8217;d use something like www.nagios.org[Nagios] for monitoring this aspect of your systems.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;Don't rely on alerts whether that is through email or desktop notifications.
+If they fail silently, you won't realize when something has gone horribly wrong.
+Set aside time regularly to check your systems' status and health.&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Arch Linux provides a handy &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.service.html&quot;&gt;systemd.service&lt;/a&gt; and &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.timer.html&quot;&gt;systemd.timer&lt;/a&gt; to automate scrubs.
+The &lt;a href=&quot;https://github.com/kdave/btrfsmaintenance&quot;&gt;Btrfs maintenance toolbox&lt;/a&gt; provides similar functionality.
+We&amp;#8217;ll take a look at the instantiable systemd units provided by Arch Linux for how to make scheduling regular scrubs a breeze.
+The Arch Linux Wiki&amp;#8217;s Btrfs Scrub section has a subsection on these systemd units, &lt;a href=&quot;https://wiki.archlinux.org/index.php/btrfs#Start_with_a_service_or_timer&quot;&gt;Start with a service or timer&lt;/a&gt;.
+The systemd units here should be dropped in the standard system directory &lt;code&gt;/etc/systemd/system&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;service&quot;&gt;Service&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Below is the &lt;a href=&quot;https://github.com/archlinux/svntogit-packages/blob/packages/btrfs-progs/trunk/btrfs-scrub%40.service&quot;&gt;Arch Linux systemd Btrfs scrub service&lt;/a&gt; with just two tweaks of my own.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;/etc/systemd/system/btrfs-scrub@.service&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;systemd&quot;&gt;&lt;span class=&quot;k&quot;&gt;[Unit]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;Btrfs scrub on %f
+&lt;span class=&quot;nt&quot;&gt;ConditionPathIsMountPoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;%f
+&lt;span class=&quot;nt&quot;&gt;BindsTo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;%i.mount
+&lt;span class=&quot;nt&quot;&gt;After&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;%i.mount
+
+&lt;span class=&quot;k&quot;&gt;[Service]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;Nice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;19
+&lt;span class=&quot;nt&quot;&gt;IOSchedulingClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;idle
+&lt;span class=&quot;nt&quot;&gt;KillSignal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;SIGINT
+&lt;span class=&quot;nt&quot;&gt;ExecStart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;/usr/bin/btrfs scrub start -B %f&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.service.html&quot;&gt;systemd.service&lt;/a&gt; is an &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.service.html#Service%20Templates&quot;&gt;instantiated service&lt;/a&gt; which expects that a properly escaped path is provided after the &lt;code&gt;@&lt;/code&gt; and before the &lt;code&gt;.service&lt;/code&gt; extension.
+systemd uses special escaping rules to map filesystem paths to unit file names.
+The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd-escape.html&quot;&gt;systemd-escape(1)&lt;/a&gt; tool makes it quite easy to convert a given path.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This service requires that the path of the service unit is indeed a mount point and that it exists with &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.unit.html#ConditionPathIsMountPoint=&quot;&gt;ConditionPathIsMountPoint&lt;/a&gt;.
+The argument &lt;code&gt;%f&lt;/code&gt; represents the unescaped path used to instantiate this systemd unit.
+The &lt;code&gt;%i&lt;/code&gt; flag is the escaped version of the path used to instantiate this unit, that is the string between &lt;code&gt;@&lt;/code&gt; and before &lt;code&gt;.service&lt;/code&gt; when starting the unit.
+{BindsTo} and {After} define the relationship with the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.mount.html&quot;&gt;systemd.mount&lt;/a&gt; unit responsible for mounting the filesystem at the given mount point.
+systemd mount units are usually generated automatically from entries in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;/etc/fstab&lt;/a&gt;.
+For this dependency relationship to work, a corresponding systemd mount unit needs to exist.
+You&amp;#8217;ll want the filesystem your scrubbing to have an entry in fstab or otherwise provide the mount unit in some other way.
+&lt;code&gt;BindsTo&lt;/code&gt; requires that the filesystem at the mount point be available the entire time this unit is running.
+If it becomes unavailable for some reason, the mount unit fails and the scrub service is killed along with it.
+The &lt;code&gt;After&lt;/code&gt; keyword requires that the target be mounted before this service runs.
+These two keywords are my addition to the unit to make it friendlier with filesystems which are hot-plugged and not always present, such as my external backup drive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.exec.html#Nice=&quot;&gt;Nice&lt;/a&gt; directive sets the scheduling priority to the lowest possible value, &lt;em&gt;19&lt;/em&gt;, giving the scrub a very low priority to avoid hogging the system CPU time.
+The {&lt;code&gt;IOSchedulingClass} directive is set to `idle&lt;/code&gt; which effectively means that the IO activity of the process shouldn&amp;#8217;t impact normal system activity.
+the scrub will only use the disk when no other programs are using it.
+&lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.kill.html#KillSignal=&quot;&gt;KillSignal&lt;/a&gt; sets the signal used to kill the process to SIGINT, i.e. &lt;kbd&gt;Ctrl-C&lt;/kbd&gt;.
+Finally, the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.service.html#ExecStart=&quot;&gt;ExecStart&lt;/a&gt; executes the scrub command on the unescaped path used to instantiate the service but uses &lt;code&gt;-B&lt;/code&gt; to avoid immediately returning.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemctl.html#&quot;&gt;systemctl(1)&lt;/a&gt; command handles interacting with systemd services and units.
+To start a scrub directly with the systemd service, start the the systemd unit with &lt;code&gt;&lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemctl.html#start%20PATTERN%E2%80%A6&quot;&gt;systemctl start&lt;/a&gt;&lt;/code&gt;.
+Here, I start the unit on the root path of the filesystem which is converted by systemd to &lt;code&gt;-&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl start btrfs-scrub@&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;systemd-escape &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.service&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You can then check the status of the systemd service with &lt;code&gt;&lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemctl.html#status%20PATTERN%E2%80%A6%7CPID%E2%80%A6%5D&quot;&gt;systemctl status&lt;/a&gt;&lt;/code&gt; as follows.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status btrfs-scrub@&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;systemd-escape &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.service
+● btrfs-scrub@-.service - Btrfs scrub on /
+   Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/etc/systemd/system/btrfs-scrub@.service&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; static&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; vendor preset: enabled&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   Active: inactive &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;dead&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;timer&quot;&gt;Timer&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Below is the &lt;a href=&quot;https://github.com/archlinux/svntogit-packages/blob/packages/btrfs-progs/trunk/btrfs-scrub%40.timer&quot;&gt;Arch Linux systemd Btrfs scrub timer&lt;/a&gt; albeit with a small modification on my part.
+The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.timer.html&quot;&gt;systemd.timer&lt;/a&gt; runs on the first and fifteenth of every month instead of only once a month.
+Weekly is also a good option which can be configured by setting &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.timer.html#OnCalendar=&quot;&gt;OnCalendar&lt;/a&gt; to &lt;code&gt;weekly&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;/etc/systemd/system/btrfs-scrub@.timer&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;systemd&quot;&gt;&lt;span class=&quot;k&quot;&gt;[Unit]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;Btrfs scrub on %f twice per month
+
+&lt;span class=&quot;k&quot;&gt;[Timer]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;OnCalendar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;*-*-1,15
+&lt;span class=&quot;nt&quot;&gt;AccuracySec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;1d
+&lt;span class=&quot;nt&quot;&gt;RandomizedDelaySec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;1w
+&lt;span class=&quot;nt&quot;&gt;Persistent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;true
+
+&lt;span class=&quot;k&quot;&gt;[Install]&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;timers.target&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd.timer.html#Persistent=&quot;&gt;Persistent&lt;/a&gt; keyword ensures the service runs even if the timer would have fired previously but the system was not available.
+If you miss a scrub due to your machine being powered off, the scrub will happen the next time you boot up.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Use &lt;code&gt;&lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemctl.html#enable%20UNIT%E2%80%A6&quot;&gt;systemctl enable&lt;/a&gt;&lt;/code&gt; to activate the timer.
+Here I set the timer to scrub the root filesystem automatically activate at boot while starting the timer immediately with &lt;code&gt;&lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemctl.html#--now&quot;&gt;--now&lt;/a&gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl &lt;span class=&quot;nb&quot;&gt;enable&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--now&lt;/span&gt; btrfs-scrub@&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;systemd-escape &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.timer
+Created symlink /etc/systemd/system/timers.target.wants/btrfs-scrub@-.timer → /etc/systemd/system/btrfs-scrub@.timer.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As with the service, you can check the status of the systemd timer which is shown here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl status btrfs-scrub@&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;systemd-escape &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.timer
+● btrfs-scrub@boot.timer - Btrfs scrub on / twice per month
+   Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/etc/systemd/system/btrfs-scrub@.timer&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; indirect&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; vendor preset: enabled&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That&amp;#8217;s a scrub!
+Hopefully you&amp;#8217;ve got some valuable insight into scrubbing and managing scrubs with Btrfs.
+Happy scrubbing!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. I&amp;#8217;ve submitted &lt;a href=&quot;https://bugs.archlinux.org/task/69887?project=1&amp;amp;string=btrfs-progs&quot;&gt;bug #69887&lt;/a&gt; to have this functionality added to the Btrfs scrub service in Arch Linux.
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Arch" /><category term="Btrfs" /><category term="Linux" /><category term="scrub" /><category term="systemd" /><category term="ZFS" /><summary type="html">You probably want to take advantage of the data integrity checking offered by Btrfs. Btrfs calculates checksums for all data written to disk. These checksums are used to verify the data hasn&amp;#8217;t been unduly altered. While data is verified every time it is read, what about the data that isn&amp;#8217;t read often? How long may bit rot go unnoticed in that case? That&amp;#8217;s the crux of this blog post which will explain how to best preserve your data on Btrfs and detect corruption early.</summary></entry><entry><title type="html">GNOME Boxes on Btrfs</title><link href="https://www.jwillikers.com/gnome-boxes-on-btrfs" rel="alternate" type="text/html" title="GNOME Boxes on Btrfs" /><published>2021-03-04T00:00:00-06:00</published><updated>2021-03-04T00:00:00-06:00</updated><id>https://www.jwillikers.com/GNOME%20Boxes%20on%20Btrfs</id><content type="html" xml:base="https://www.jwillikers.com/gnome-boxes-on-btrfs">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;So, you&amp;#8217;ve got &lt;a href=&quot;https://libvirt.org/&quot;&gt;libvirt&lt;/a&gt; installed on your Linux box and your looking for a simple application for running virtual machines.
@@ -3532,501 +3765,4 @@ GIO will no longer prompt for a password when opening this drive from the comman
 &lt;p&gt;You can now create, open, and close an encrypted partition on Linux.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="backups" /><category term="Btrfs" /><category term="Cryptsetup" /><category term="elementary" /><category term="encryption" /><category term="fstab" /><category term="GIO" /><category term="Linux" /><category term="systemd" /><category term="udisks2" /><category term="Ubuntu" /><summary type="html">Encrypting your data is pretty much a must anyone who is privacy or security conscious. I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple. I keep local backups on an external hard drive, which I keep encrypted. Encrypting a drive is pretty easy on Linux, especially with applications like GNOME Disks, which go so far as to make this possible without requiring superuser privileges. It&amp;#8217;s even pretty straightforward on the command-line, and that&amp;#8217;s what I demonstrate here.</summary></entry><entry><title type="html">Btrfs Snapshot Management With Snapper</title><link href="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper" rel="alternate" type="text/html" title="Btrfs Snapshot Management With Snapper" /><published>2021-02-15T00:00:00-06:00</published><updated>2021-02-15T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Snapshot%20Management%20With%20Snapper</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-snapshot-management-with-snapper">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Manually taking snapshots with &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; is easy.
-Managing said snapshots is not.
-This is why several tools exist for the task.
-The most prominent are &lt;a href=&quot;https://github.com/digint/btrbk&quot;&gt;Btrbk&lt;/a&gt;, &lt;a href=&quot;http://snapper.io/&quot;&gt;Snapper&lt;/a&gt;, and &lt;a href=&quot;https://github.com/teejee2008/timeshift&quot;&gt;Timeshift&lt;/a&gt;.
-Each of these automate taking, naming, and cleaning up snapshots.
-Btrbk is highly configurable and flexible while also offering incremental backups.
-It doesn&amp;#8217;t handle rollbacks, however.
-Timeshift is &lt;em&gt;only&lt;/em&gt; designed for rolling back a system&amp;#8217;s root subvolume and not arbitrary subvolumes.
-It is rather inflexible, but provides a fantastic graphical interface right out of the box and makes rollbacks quick and easy.
-Snapper is very configurable, makes rollbacks a breeze, has been around a while, and is quite popular.
-It&amp;#8217;s a bit biased towards openSUSE, it being their tool and all, but packaged for all major Linux distributions nonetheless.
-My choice was mostly between Btrbk and Snapper.
-Timeshift won&amp;#8217;t snapshot all of the subvolumes I have.
-I landed on Snapper because it allows users to control their own snapshots and rollbacks without superuser privileges.
-Btrbk&amp;#8217;s additional ability for managing backups makes it a very tempting alternative.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial contains the necessary steps to setup a recent version of Snapper to take automatic snapshots of a system&amp;#8217;s root directory and a user&amp;#8217;s home directory using Btrfs.
-The reference system is running &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1 and uses a {flat-btrfs-layout} for the system&amp;#8217;s subvolumes.
-The layout is discussed extensively in &lt;a href=&quot;btrfs-layout.html&quot;&gt;Btrfs Layout&lt;/a&gt;.
-For this tutorial, you should understand the command-line, Btrfs, and the filesystem layout used in Linux.
-As a matter of preference, the commands here use the &lt;a href=&quot;https://fishshell.com/&quot;&gt;fish shell&lt;/a&gt;'s syntax.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;installation&quot;&gt;Installation&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The version of Snapper packaged by my distribution lags significantly behind the upstream version.
-Fortunately, Snapper makes newer versions readily available through its own PPA.
-To install Snapper this way, follow these instructions.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Install the necessary package for easily adding PPA&amp;#8217;s.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;software-properties-common&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add the Snapper repository for Ubuntu 18.04, off which elementaryOS Hera 5.1 is based, to the system&amp;#8217;s sources.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'deb http://download.opensuse.org/repositories/filesystems:/snapper/xUbuntu_18.04/ /'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/sources.list.d/filesystems:snapper.list
-deb http://download.opensuse.org/repositories/filesystems:/snapper/xUbuntu_18.04/ /&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Trust the repository&amp;#8217;s GPG key.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ wget &lt;span class=&quot;nt&quot;&gt;-qO&lt;/span&gt; - https://download.opensuse.org/repositories/filesystems:/snapper/xUbuntu_18.04/Release.key &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | gpg &lt;span class=&quot;nt&quot;&gt;--dearmor&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/trusted.gpg.d/filesystems_snapper.gpg &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /dev/null&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Refresh the package sources.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt update&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Install Snapper.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;snapper&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;To avoid potential slowdowns, exclude any &lt;code&gt;.snapshots&lt;/code&gt; subvolumes in &lt;code&gt;&lt;a href=&quot;http://manpages.ubuntu.com/manpages/xenial/en/man5/updatedb.conf.5.html&quot;&gt;updatedb.conf(5)&lt;/a&gt;&lt;/code&gt; so that they aren&amp;#8217;t indexed by &lt;code&gt;&lt;a href=&quot;http://manpages.ubuntu.com/manpages/bionic/en/man1/mlocate.1.html&quot;&gt;mlocate(1)&lt;/a&gt;&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/updatedb.conf&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;PRUNENAMES = &quot;.snapshots&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;snapshots_subvolume&quot;&gt;Snapshots Subvolume&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For each subvolume you want to snapshot, create a separate subvolume within it to hold the snapshots.
-This prevents snaphots being included in snapshots.
-Snapper uses a &lt;code&gt;.snapshots&lt;/code&gt; subvolume by convention.
-The steps below create a &lt;code&gt;.snapshots&lt;/code&gt; subvolume in which to keep snapshots of the root subvolume.
-The subvolume is created according to a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Flat&quot;&gt;flat layout&lt;/a&gt;, so it exists at the top-level of the Btrfs volume and is mounted explicitly in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html&quot;&gt;fstab(5)&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Mount the volume containing the root subvolume to &lt;code&gt;/mnt&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mount &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; / | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; /mnt&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create a btrfs subvolume where the snapshots will be stored.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here the subvolume will be named &lt;code&gt;snapshots&lt;/code&gt;.
-If you prefer to prefix the name with &lt;code&gt;@&lt;/code&gt;, be my guest.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs subvolume create /mnt/snapshots&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add an entry in fstab to mount the snapshots subvolume.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; / | &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot; /.snapshots btrfs defaults,autodefrag,compress=zstd,commit=120,noatime,subvol=snapshots 0 0&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/fstab&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Mount the snapshots subvolume.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mount /.snapshots&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Unmount &lt;em&gt;/mnt&lt;/em&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;umount /mnt&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;configure&quot;&gt;Configure&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Configuration of Snapper is done through a config file.
-One config file is used for each subvolume that Snapper will snapshot.
-Typically, a new Snapper configuration is generated with a single command given the name for the config and the path of the subvolume to snapshot.
-A configuration for the root subvolume, aptly named &lt;em&gt;root&lt;/em&gt;, would be generated as shown here.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;snapper &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; root create-config /&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Due to some sort of misconfiguration or bug, the &lt;code&gt;create-config&lt;/code&gt; subcommand fails.
-The instructions below create a config manually as a workaround.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Create a &lt;em&gt;root&lt;/em&gt; config file by copying the template file to the configs directory.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; /etc/snapper/config-templates/default /etc/snapper/configs/root&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Edit the config file to your liking.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Below is an example of a root config which uses the timeline features of Snapper to create and cleanup snapshots.
-The entire configuration file is included but the &lt;code&gt;TIMELINE_&lt;/code&gt; variables are the most important.
-They enable automatically creating and removing snapshots and designate how many snapshots to retain for a particular period.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/snapper/configs/root&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;# subvolume to snapshot
-SUBVOLUME=&quot;/&quot;
-
-# filesystem type
-FSTYPE=&quot;btrfs&quot;
-
-
-# btrfs qgroup for space aware cleanup algorithms
-QGROUP=&quot;&quot;
-
-
-# fraction of the filesystems space the snapshots may use
-SPACE_LIMIT=&quot;0.5&quot;
-
-# fraction of the filesystems space that should be free
-FREE_LIMIT=&quot;0.2&quot;
-
-
-# users and groups allowed to work with config
-ALLOW_USERS=&quot;&quot;
-ALLOW_GROUPS=&quot;&quot;
-
-# sync users and groups from ALLOW_USERS and ALLOW_GROUPS to .snapshots
-# directory
-SYNC_ACL=&quot;no&quot;
-
-
-# start comparing pre- and post-snapshot in background after creating
-# post-snapshot
-BACKGROUND_COMPARISON=&quot;yes&quot;
-
-
-# run daily number cleanup
-NUMBER_CLEANUP=&quot;yes&quot;
-
-# limit for number cleanup
-NUMBER_MIN_AGE=&quot;1800&quot;
-NUMBER_LIMIT=&quot;50&quot;
-NUMBER_LIMIT_IMPORTANT=&quot;10&quot;
-
-
-# create hourly snapshots
-TIMELINE_CREATE=&quot;yes&quot;
-
-# cleanup hourly snapshots after some time
-TIMELINE_CLEANUP=&quot;yes&quot;
-
-# limits for timeline cleanup
-TIMELINE_MIN_AGE=&quot;1800&quot;
-TIMELINE_LIMIT_HOURLY=&quot;24&quot;
-TIMELINE_LIMIT_DAILY=&quot;10&quot;
-TIMELINE_LIMIT_WEEKLY=&quot;3&quot;
-TIMELINE_LIMIT_MONTHLY=&quot;0&quot;
-TIMELINE_LIMIT_YEARLY=&quot;0&quot;
-
-
-# cleanup empty pre-post-pairs
-EMPTY_PRE_POST_CLEANUP=&quot;yes&quot;
-
-# limits for empty pre-post-pair cleanup
-EMPTY_PRE_POST_MIN_AGE=&quot;1800&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This configuration keeps one snapshot for each of the previous 24 hours, 10 days, and 3 weeks.
-I could retain snapshots for months and years, but for my desktop&amp;#8217;s root filesystem this just isn&amp;#8217;t unnecessary.
-Refer to &lt;a href=&quot;https://github.com/kdave/btrfsmaintenance#tuning-periodic-snapshotting&quot;&gt;Tuning Periodic Snapshotting&lt;/a&gt; from the &lt;a href=&quot;https://github.com/kdave/btrfsmaintenance&quot;&gt;Btrfs maintenance toolbox&lt;/a&gt; for good rules of thumb.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Now that the config is ready, enable it by adding it to the list of Snapper configs in &lt;code&gt;/etc/sysconfig/snapper&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/sysconfig/snapper&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;SNAPPER_CONFIGS=&quot;root&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;user_snapshots&quot;&gt;User Snapshots&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One of the features of Snapper is that users can manage snapshots within their home directory.
-This introduces a nice separation of concerns and responsibilities.
-A PAM module is also provided which can take snapshots whenever a user logs in and subsequently logs out.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;snapshots_subvolume_2&quot;&gt;Snapshots Subvolume&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In contrast to the previous configuration, the snapshots directory created for the user&amp;#8217;s home directory follows a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested&quot;&gt;nested layout&lt;/a&gt;.
-This is much simpler.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Create a subvolume for snapshots in the user&amp;#8217;s home directory.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs subvolume create ~/.snapshots&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;~/.snapshots&lt;/code&gt; subvolume must be owned by root otherwise Snapper will throw an error.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;configure_2&quot;&gt;Configure&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The steps outlined here configure snapshots for a user&amp;#8217;s home directory.
-This configuration assumes that the user&amp;#8217;s home directory resides on a dedicated subvolume.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Create a Snapper configuration file for the user&amp;#8217;s home directory.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo cp&lt;/span&gt; /etc/snapper/config-templates/default /etc/snapper/configs/home_jordan&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Edit the template as necessary.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There are two important distinctions from the root filesystem configuration.
-First, the &lt;code&gt;ALLOW_USERS&lt;/code&gt; parameter includes the name of the user.
-This permits the user to work with the config.
-Second, &lt;code&gt;SYNC_ACL&lt;/code&gt; is enabled, allowing the user to work with the snapshots in the &lt;code&gt;~.snapshots&lt;/code&gt; directory.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/snapper/configs/home_jordan&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;# subvolume to snapshot
-SUBVOLUME=&quot;/home/jordan&quot;
-
-# filesystem type
-FSTYPE=&quot;btrfs&quot;
-
-
-# btrfs qgroup for space aware cleanup algorithms
-QGROUP=&quot;&quot;
-
-
-# fraction of the filesystems space the snapshots may use
-SPACE_LIMIT=&quot;0.5&quot;
-
-# fraction of the filesystems space that should be free
-FREE_LIMIT=&quot;0.2&quot;
-
-
-# users and groups allowed to work with config
-ALLOW_USERS=&quot;jordan&quot;
-ALLOW_GROUPS=&quot;&quot;
-
-# sync users and groups from ALLOW_USERS and ALLOW_GROUPS to .snapshots
-# directory
-SYNC_ACL=&quot;yes&quot;
-
-
-# start comparing pre- and post-snapshot in background after creating
-# post-snapshot
-BACKGROUND_COMPARISON=&quot;yes&quot;
-
-
-# run daily number cleanup
-NUMBER_CLEANUP=&quot;yes&quot;
-
-# limit for number cleanup
-NUMBER_MIN_AGE=&quot;1800&quot;
-NUMBER_LIMIT=&quot;50&quot;
-NUMBER_LIMIT_IMPORTANT=&quot;10&quot;
-
-
-# create hourly snapshots
-TIMELINE_CREATE=&quot;yes&quot;
-
-# cleanup hourly snapshots after some time
-TIMELINE_CLEANUP=&quot;yes&quot;
-
-# limits for timeline cleanup
-TIMELINE_MIN_AGE=&quot;1800&quot;
-TIMELINE_LIMIT_HOURLY=&quot;48&quot;
-TIMELINE_LIMIT_DAILY=&quot;14&quot;
-TIMELINE_LIMIT_WEEKLY=&quot;8&quot;
-TIMELINE_LIMIT_MONTHLY=&quot;12&quot;
-TIMELINE_LIMIT_YEARLY=&quot;2&quot;
-
-
-# cleanup empty pre-post-pairs
-EMPTY_PRE_POST_CLEANUP=&quot;yes&quot;
-
-# limits for empty pre-post-pair cleanup
-EMPTY_PRE_POST_MIN_AGE=&quot;1800&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This configuration keeps one snapshot for each of the previous 48 hours, 14 days, 8 weeks, 12 months, and 2 years.
-This is quite extensive, but for preserving critical data in a user&amp;#8217;s home directory it&amp;#8217;s sensible.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enable the &lt;code&gt;home_jordan&lt;/code&gt; Snapper config by adding to the &lt;code&gt;SNAPPER_CONFIGS&lt;/code&gt; list.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/sysconfig/snapper&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;SNAPPER_CONFIGS=&quot;root home_jordan&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;snapper_pam&quot;&gt;Snapper PAM&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you wish to take snapshots of a user&amp;#8217;s home directory upon log in and log out, you&amp;#8217;ll need to install the PAM module.
-The user&amp;#8217;s home directory must be its own subvolume and must have an enabled Snapper config such as the one created previously.
-The steps necessary to install Snapper&amp;#8217;s PAM module follow.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Install Snapper&amp;#8217;s PAM module.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;libpam-snapper&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add the &lt;code&gt;pam_snapper.so&lt;/code&gt; module to the PAM configuration for the &lt;code&gt;session&lt;/code&gt; type.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/pam.d/common-session&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;session    optional    pam_snapper.so ignoreroot cleanup=timeline&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock caution&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You will almost certainly want to set a cleanup algorithm as done here otherwise old snapshots won&amp;#8217;t be deleted automatically.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;a_graphical_interface&quot;&gt;A Graphical Interface&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Snapper doesn&amp;#8217;t provide a graphical user interface, but that doesn&amp;#8217;t mean there isn&amp;#8217;t one.
-Checkout the &lt;a href=&quot;https://github.com/ricardomv/snapper-gui&quot;&gt;snapper-gui&lt;/a&gt; project if you&amp;#8217;d like one!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This post has given a run down of managing Btrfs snapshots with Snapper.
-You should now be able to create Snapper configurations at both the system and user levels.
-Now you&amp;#8217;ll probably want to backup those snapshots in case there&amp;#8217;s a catastrophic failure or some such.
-Stay tuned for an upcoming tutorial on configuring backups plus more posts on getting the most out of Snapper!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrbk" /><category term="Btrfs" /><category term="elementary" /><category term="Linux" /><category term="Snapper" /><category term="snapshots" /><category term="Timeshift" /><category term="Ubuntu" /><summary type="html">Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups. It doesn&amp;#8217;t handle rollbacks, however. Timeshift is only designed for rolling back a system&amp;#8217;s root subvolume and not arbitrary subvolumes. It is rather inflexible, but provides a fantastic graphical interface right out of the box and makes rollbacks quick and easy. Snapper is very configurable, makes rollbacks a breeze, has been around a while, and is quite popular. It&amp;#8217;s a bit biased towards openSUSE, it being their tool and all, but packaged for all major Linux distributions nonetheless. My choice was mostly between Btrbk and Snapper. Timeshift won&amp;#8217;t snapshot all of the subvolumes I have. I landed on Snapper because it allows users to control their own snapshots and rollbacks without superuser privileges. Btrbk&amp;#8217;s additional ability for managing backups makes it a very tempting alternative.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="backups" /><category term="Btrfs" /><category term="Cryptsetup" /><category term="elementary" /><category term="encryption" /><category term="fstab" /><category term="GIO" /><category term="Linux" /><category term="systemd" /><category term="udisks2" /><category term="Ubuntu" /><summary type="html">Encrypting your data is pretty much a must anyone who is privacy or security conscious. I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple. I keep local backups on an external hard drive, which I keep encrypted. Encrypting a drive is pretty easy on Linux, especially with applications like GNOME Disks, which go so far as to make this possible without requiring superuser privileges. It&amp;#8217;s even pretty straightforward on the command-line, and that&amp;#8217;s what I demonstrate here.</summary></entry></feed>

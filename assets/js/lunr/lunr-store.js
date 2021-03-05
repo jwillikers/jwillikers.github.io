@@ -346,4 +346,10 @@ var store = [{
         "tags": ["Boxes","Btrfs","elementary","GNOME","KVM","libvirt","Linux","QEMU","Ubuntu","virt-manager","VM"],
         "url": "/gnome-boxes-on-btrfs",
         "teaser": null
+      },{
+        "title": "Btrfs Scrub",
+        "excerpt":"You probably want to take advantage of the data integrity checking offered by Btrfs. Btrfs calculates checksums for all data written to disk. These checksums are used to verify the data hasn&#8217;t been unduly altered. While data is verified every time it is read, what about the data that isn&#8217;t...","categories": ["Disks"],
+        "tags": ["Arch","Btrfs","Linux","scrub","systemd","ZFS"],
+        "url": "/btrfs-scrub",
+        "teaser": null
       }]

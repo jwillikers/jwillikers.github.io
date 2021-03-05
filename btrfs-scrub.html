@@ -1,0 +1,478 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Btrfs Scrub - JWillikers</title>
+<meta name="description" content="You probably want to take advantage of the data integrity checking offered by Btrfs. Btrfs calculates checksums for all data written to disk. These checksums are used to verify the data hasn&#8217;t been unduly altered. While data is verified every time it is read, what about the data that isn&#8217;t read often? How long may bit rot go unnoticed in that case? That&#8217;s the crux of this blog post which will explain how to best preserve your data on Btrfs and detect corruption early.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Btrfs Scrub">
+<meta property="og:url" content="https://www.jwillikers.com/btrfs-scrub">
+
+
+  <meta property="og:description" content="You probably want to take advantage of the data integrity checking offered by Btrfs. Btrfs calculates checksums for all data written to disk. These checksums are used to verify the data hasn&#8217;t been unduly altered. While data is verified every time it is read, what about the data that isn&#8217;t read often? How long may bit rot go unnoticed in that case? That&#8217;s the crux of this blog post which will explain how to best preserve your data on Btrfs and detect corruption early.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-05T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/btrfs-scrub">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>You probably want to take advantage of the data integrity checking offered by <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">Btrfs</a>.
+Btrfs calculates checksums for all data written to disk.
+These checksums are used to verify the data hasn&#8217;t been unduly altered.
+While data is verified every time it is read, what about the data that isn&#8217;t read often?
+How long may bit rot go unnoticed in that case?
+That&#8217;s the crux of this blog post which will explain how to best preserve your data on Btrfs and detect corruption early.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scrub">Scrub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To scrub you filesystem is to have all the data read from disk and validated against the stored checksums.
+This detects corrupt data.
+When coupled with redundancy such as a raid configuration, self-healing fully restores the damaged data on the disk.
+If you don&#8217;t use redundancy, then the scrub will alert you to the corruption so that you can restore the data manually from backups.
+Both Btrfs and <a href="https://openzfs.org/wiki/Main_Page">ZFS</a> handle scrubs in this manner.</p>
+</div>
+<div class="paragraph">
+<p>To scrub a Btrfs filesystem use <a href="https://btrfs.wiki.kernel.org/index.php/Manpage/btrfs-scrub">btrfs-scrub(8)</a>, and in case your interested, the equivalent ZFS command is <a href="https://openzfs.github.io/openzfs-docs/man/8/zpool-scrub.8.html">zpool-scrub(8)</a>.
+Both of them also offer ways to cancel, pause, resume, and monitor scrubs.
+Btrfs scrubs entire filesystems at a time which is provided by a device or just any directory&#8217;s path on the target filesystem.
+I&#8217;m not exactly sure why it takes a directory path to anywhere on the filesystem since that seems a bit arbitrary.
+You should probably use either a mount point or device path to make the intended target clear.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Even if the `btrfs-scrub` command accepts a directory path, it doesn't necessarily just scrub that directory.
+It will scrub the entire filesystem where that directory resides.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To initiate a scrub in the background, use the start subcommand followed by the path or device.
+Here I initiate a scrub on the device on which my root filesystem resides.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs scrub start <span class="o">(</span><span class="nb">df</span> <span class="nt">--output</span><span class="o">=</span><span class="nb">source</span> / | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="o">)</span>
+scrub started on /dev/mapper/sda2_crypt, fsid 175792e7-4167-40d1-aebc-78b948d6d378 <span class="o">(</span><span class="nv">pid</span><span class="o">=</span>10555<span class="o">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To check on the status of a scrub, use the status subcommand and the path or device.
+Check the status of the previous scrub like so.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs scrub status <span class="o">(</span><span class="nb">df</span> <span class="nt">--output</span><span class="o">=</span><span class="nb">source</span> / | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="o">)</span>
+scrub status <span class="k">for </span>175792e7-4167-40d1-aebc-78b948d6d378
+	scrub started at Fri Mar  5 06:07:42 2021, running <span class="k">for </span>00:01:25
+	total bytes scrubbed: 26.19GiB with 0 errors</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In many circumstances, you might want the scrub to block and return once it finishes.
+This is ideal for people like me who don&#8217;t want to type a status command constantly and it&#8217;s ideal for running the scrub as a command in systemd.
+Use the <code>-B</code> flag to scrub in the foreground.
+This command scrubs my boot partition and returns once the scrub is complete.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>btrfs scrub start <span class="nt">-B</span> /boot
+scrub <span class="k">done for </span>264b42a6-a09c-40cc-b754-88926d43b395
+	scrub started at Fri Mar  5 06:13:23 2021 and finished after 00:00:01
+	total bytes scrubbed: 159.55MiB with 0 errors</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That didn&#8217;t take long!
+There&#8217;s also subcommands to pause, resume, and cancel scrubs as needed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="schedule">Schedule</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Scheduling regular scrubs is a necessary component of proper maintenance
+You can regularly run scrubs manually or automate the process of running them yet it&#8217;s critical that you monitor the results either way.
+If you go to the trouble to automate your scrubs you&#8217;ll want to make sure to regularly check the results.
+Ideally you&#8217;d use something like www.nagios.org[Nagios] for monitoring this aspect of your systems.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Don't rely on alerts whether that is through email or desktop notifications.
+If they fail silently, you won't realize when something has gone horribly wrong.
+Set aside time regularly to check your systems' status and health.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Arch Linux provides a handy <a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">systemd.service</a> and <a href="https://www.freedesktop.org/software/systemd/man/systemd.timer.html">systemd.timer</a> to automate scrubs.
+The <a href="https://github.com/kdave/btrfsmaintenance">Btrfs maintenance toolbox</a> provides similar functionality.
+We&#8217;ll take a look at the instantiable systemd units provided by Arch Linux for how to make scheduling regular scrubs a breeze.
+The Arch Linux Wiki&#8217;s Btrfs Scrub section has a subsection on these systemd units, <a href="https://wiki.archlinux.org/index.php/btrfs#Start_with_a_service_or_timer">Start with a service or timer</a>.
+The systemd units here should be dropped in the standard system directory <code>/etc/systemd/system</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="service">Service</h3>
+<div class="paragraph">
+<p>Below is the <a href="https://github.com/archlinux/svntogit-packages/blob/packages/btrfs-progs/trunk/btrfs-scrub%40.service">Arch Linux systemd Btrfs scrub service</a> with just two tweaks of my own.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/systemd/system/btrfs-scrub@.service</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Btrfs scrub on %f
+<span class="nt">ConditionPathIsMountPoint</span><span class="p">=</span>%f
+<span class="nt">BindsTo</span><span class="p">=</span>%i.mount
+<span class="nt">After</span><span class="p">=</span>%i.mount
+
+<span class="k">[Service]</span>
+<span class="nt">Nice</span><span class="p">=</span>19
+<span class="nt">IOSchedulingClass</span><span class="p">=</span>idle
+<span class="nt">KillSignal</span><span class="p">=</span>SIGINT
+<span class="nt">ExecStart</span><span class="p">=</span>/usr/bin/btrfs scrub start -B %f</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This <a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">systemd.service</a> is an <a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html#Service%20Templates">instantiated service</a> which expects that a properly escaped path is provided after the <code>@</code> and before the <code>.service</code> extension.
+systemd uses special escaping rules to map filesystem paths to unit file names.
+The <a href="https://www.freedesktop.org/software/systemd/man/systemd-escape.html">systemd-escape(1)</a> tool makes it quite easy to convert a given path.</p>
+</div>
+<div class="paragraph">
+<p>This service requires that the path of the service unit is indeed a mount point and that it exists with <a href="https://www.freedesktop.org/software/systemd/man/systemd.unit.html#ConditionPathIsMountPoint=">ConditionPathIsMountPoint</a>.
+The argument <code>%f</code> represents the unescaped path used to instantiate this systemd unit.
+The <code>%i</code> flag is the escaped version of the path used to instantiate this unit, that is the string between <code>@</code> and before <code>.service</code> when starting the unit.
+{BindsTo} and {After} define the relationship with the <a href="https://www.freedesktop.org/software/systemd/man/systemd.mount.html">systemd.mount</a> unit responsible for mounting the filesystem at the given mount point.
+systemd mount units are usually generated automatically from entries in <a href="https://manpages.ubuntu.com/manpages/focal/man8/fsck.8.html">/etc/fstab</a>.
+For this dependency relationship to work, a corresponding systemd mount unit needs to exist.
+You&#8217;ll want the filesystem your scrubbing to have an entry in fstab or otherwise provide the mount unit in some other way.
+<code>BindsTo</code> requires that the filesystem at the mount point be available the entire time this unit is running.
+If it becomes unavailable for some reason, the mount unit fails and the scrub service is killed along with it.
+The <code>After</code> keyword requires that the target be mounted before this service runs.
+These two keywords are my addition to the unit to make it friendlier with filesystems which are hot-plugged and not always present, such as my external backup drive.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://www.freedesktop.org/software/systemd/man/systemd.exec.html#Nice=">Nice</a> directive sets the scheduling priority to the lowest possible value, <em>19</em>, giving the scrub a very low priority to avoid hogging the system CPU time.
+The {<code>IOSchedulingClass} directive is set to `idle</code> which effectively means that the IO activity of the process shouldn&#8217;t impact normal system activity.
+the scrub will only use the disk when no other programs are using it.
+<a href="https://www.freedesktop.org/software/systemd/man/systemd.kill.html#KillSignal=">KillSignal</a> sets the signal used to kill the process to SIGINT, i.e. <kbd>Ctrl-C</kbd>.
+Finally, the <a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html#ExecStart=">ExecStart</a> executes the scrub command on the unescaped path used to instantiate the service but uses <code>-B</code> to avoid immediately returning.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://www.freedesktop.org/software/systemd/man/systemctl.html#">systemctl(1)</a> command handles interacting with systemd services and units.
+To start a scrub directly with the systemd service, start the the systemd unit with <code><a href="https://www.freedesktop.org/software/systemd/man/systemctl.html#start%20PATTERN%E2%80%A6">systemctl start</a></code>.
+Here, I start the unit on the root path of the filesystem which is converted by systemd to <code>-</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl start btrfs-scrub@<span class="o">(</span>systemd-escape <span class="nt">-p</span> /<span class="o">)</span>.service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can then check the status of the systemd service with <code><a href="https://www.freedesktop.org/software/systemd/man/systemctl.html#status%20PATTERN%E2%80%A6%7CPID%E2%80%A6%5D">systemctl status</a></code> as follows.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl status btrfs-scrub@<span class="o">(</span>systemd-escape <span class="nt">-p</span> /<span class="o">)</span>.service
+● btrfs-scrub@-.service - Btrfs scrub on /
+   Loaded: loaded <span class="o">(</span>/etc/systemd/system/btrfs-scrub@.service<span class="p">;</span> static<span class="p">;</span> vendor preset: enabled<span class="o">)</span>
+   Active: inactive <span class="o">(</span>dead<span class="o">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="timer">Timer</h3>
+<div class="paragraph">
+<p>Below is the <a href="https://github.com/archlinux/svntogit-packages/blob/packages/btrfs-progs/trunk/btrfs-scrub%40.timer">Arch Linux systemd Btrfs scrub timer</a> albeit with a small modification on my part.
+The <a href="https://www.freedesktop.org/software/systemd/man/systemd.timer.html">systemd.timer</a> runs on the first and fifteenth of every month instead of only once a month.
+Weekly is also a good option which can be configured by setting <a href="https://www.freedesktop.org/software/systemd/man/systemd.timer.html#OnCalendar=">OnCalendar</a> to <code>weekly</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/systemd/system/btrfs-scrub@.timer</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="systemd"><span class="k">[Unit]</span>
+<span class="nt">Description</span><span class="p">=</span>Btrfs scrub on %f twice per month
+
+<span class="k">[Timer]</span>
+<span class="nt">OnCalendar</span><span class="p">=</span>*-*-1,15
+<span class="nt">AccuracySec</span><span class="p">=</span>1d
+<span class="nt">RandomizedDelaySec</span><span class="p">=</span>1w
+<span class="nt">Persistent</span><span class="p">=</span>true
+
+<span class="k">[Install]</span>
+<span class="nt">WantedBy</span><span class="p">=</span>timers.target</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <a href="https://www.freedesktop.org/software/systemd/man/systemd.timer.html#Persistent=">Persistent</a> keyword ensures the service runs even if the timer would have fired previously but the system was not available.
+If you miss a scrub due to your machine being powered off, the scrub will happen the next time you boot up.</p>
+</div>
+<div class="paragraph">
+<p>Use <code><a href="https://www.freedesktop.org/software/systemd/man/systemctl.html#enable%20UNIT%E2%80%A6">systemctl enable</a></code> to activate the timer.
+Here I set the timer to scrub the root filesystem automatically activate at boot while starting the timer immediately with <code><a href="https://www.freedesktop.org/software/systemd/man/systemctl.html#--now">--now</a></code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl <span class="nb">enable</span> <span class="nt">--now</span> btrfs-scrub@<span class="o">(</span>systemd-escape <span class="nt">-p</span> /<span class="o">)</span>.timer
+Created symlink /etc/systemd/system/timers.target.wants/btrfs-scrub@-.timer → /etc/systemd/system/btrfs-scrub@.timer.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As with the service, you can check the status of the systemd timer which is shown here.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl status btrfs-scrub@<span class="o">(</span>systemd-escape <span class="nt">-p</span> /<span class="o">)</span>.timer
+● btrfs-scrub@boot.timer - Btrfs scrub on / twice per month
+   Loaded: loaded <span class="o">(</span>/etc/systemd/system/btrfs-scrub@.timer<span class="p">;</span> indirect<span class="p">;</span> vendor preset: enabled<span class="o">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>That&#8217;s a scrub!
+Hopefully you&#8217;ve got some valuable insight into scrubbing and managing scrubs with Btrfs.
+Happy scrubbing!</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. I&#8217;ve submitted <a href="https://bugs.archlinux.org/task/69887?project=1&amp;string=btrfs-progs">bug #69887</a> to have this functionality added to the Btrfs scrub service in Arch Linux.
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/btrfs-scrub' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
