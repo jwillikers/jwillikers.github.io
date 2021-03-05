@@ -185,11 +185,20 @@ Btrfs scrubs entire filesystems at a time which is provided by a device or just 
 I&#8217;m not exactly sure why it takes a directory path to anywhere on the filesystem since that seems a bit arbitrary.
 You should probably use either a mount point or device path to make the intended target clear.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>Even if the `btrfs-scrub` command accepts a directory path, it doesn't necessarily just scrub that directory.
-It will scrub the entire filesystem where that directory resides.</pre>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Even if the <code>btrfs-scrub</code> command accepts a directory path, it doesn&#8217;t necessarily just scrub that directory.
+It will scrub the entire filesystem where that directory resides.</p>
 </div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>To initiate a scrub in the background, use the start subcommand followed by the path or device.
@@ -242,12 +251,21 @@ You can regularly run scrubs manually or automate the process of running them ye
 If you go to the trouble to automate your scrubs you&#8217;ll want to make sure to regularly check the results.
 Ideally you&#8217;d use something like www.nagios.org[Nagios] for monitoring this aspect of your systems.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>Don't rely on alerts whether that is through email or desktop notifications.
-If they fail silently, you won't realize when something has gone horribly wrong.
-Set aside time regularly to check your systems' status and health.</pre>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Don&#8217;t rely on alerts whether that is through email or desktop notifications.
+If they fail silently, you won&#8217;t realize when something has gone horribly wrong.
+Set aside time regularly to check your systems' status and health.</p>
 </div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Arch Linux provides a handy <a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">systemd.service</a> and <a href="https://www.freedesktop.org/software/systemd/man/systemd.timer.html">systemd.timer</a> to automate scrubs.
