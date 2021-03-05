@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-05T13:37:04-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Btrfs Scrub</title><link href="https://www.jwillikers.com/btrfs-scrub" rel="alternate" type="text/html" title="Btrfs Scrub" /><published>2021-03-05T00:00:00-06:00</published><updated>2021-03-05T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Scrub</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-scrub">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-05T13:42:05-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Btrfs Scrub</title><link href="https://www.jwillikers.com/btrfs-scrub" rel="alternate" type="text/html" title="Btrfs Scrub" /><published>2021-03-05T00:00:00-06:00</published><updated>2021-03-05T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Scrub</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-scrub">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;You probably want to take advantage of the data integrity checking offered by &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt;.
@@ -1032,7 +1032,7 @@ Now that you have all the components in place for virtualization, why not make y
 I&amp;#8217;ll cover all the details of installing the GNOME Boxes Flatpak on a Btrfs system in an upcoming post, so stay tuned!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="Boxes" /><category term="Btrfs" /><category term="elementary" /><category term="KVM" /><category term="libvirt" /><category term="Linux" /><category term="QEMU" /><category term="systemd" /><category term="Ubuntu" /><category term="virsh" /><category term="virt-manager" /><category term="VM" /><summary type="html">If you want to run virtual machines on Linux, chances are you&amp;#8217;re going to use libvirt. I make use of it all the time, especially for testing these blog posts in a clean environment. libvirt provides a common interface around various underlying tools for virtual machine management. It not only offers features for guest management but for networking and storage management as well. It&amp;#8217;s standard XML schema also makes for a powerful and versatile configuration format. On Linux, libvirt is typically utilizing KVM, the virtualization layer in the kernel, and, in userspace, QEMU, a generic machine emulator and virtualizer.</summary></entry><entry><title type="html">Install Podman on Ubuntu 18.04</title><link href="https://www.jwillikers.com/install-podman-on-ubuntu-18-04" rel="alternate" type="text/html" title="Install Podman on Ubuntu 18.04" /><published>2021-02-28T00:00:00-06:00</published><updated>2021-02-28T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20Podman%20on%20Ubuntu%2018.04</id><content type="html" xml:base="https://www.jwillikers.com/install-podman-on-ubuntu-18-04">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="Boxes" /><category term="Btrfs" /><category term="elementary" /><category term="KVM" /><category term="libvirt" /><category term="Linux" /><category term="QEMU" /><category term="systemd" /><category term="Ubuntu" /><category term="virsh" /><category term="virt-manager" /><category term="VM" /><summary type="html">If you want to run virtual machines on Linux, chances are you&amp;#8217;re going to use libvirt. I make use of it all the time, especially for testing these blog posts in a clean environment. libvirt provides a common interface around various underlying tools for virtual machine management. It not only offers features for guest management but for networking and storage management as well. It&amp;#8217;s standard XML schema also makes for a powerful and versatile configuration format. On Linux, libvirt is typically utilizing KVM, the virtualization layer in the kernel, and, in userspace, QEMU, a generic machine emulator and virtualizer.</summary></entry><entry><title type="html">Install Podman on Ubuntu</title><link href="https://www.jwillikers.com/install-podman-on-ubuntu" rel="alternate" type="text/html" title="Install Podman on Ubuntu" /><published>2021-02-28T00:00:00-06:00</published><updated>2021-02-28T00:00:00-06:00</updated><id>https://www.jwillikers.com/Install%20Podman%20on%20Ubuntu</id><content type="html" xml:base="https://www.jwillikers.com/install-podman-on-ubuntu">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; is a &lt;em&gt;daemonless&lt;/em&gt; container runtime for Linux compatible with &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt;.
@@ -1044,7 +1044,7 @@ Notably, it uses namespaces for process isolation and integrates nicely with &lt
 Just like &lt;a href=&quot;https://kubernetes.io/&quot;&gt;Kubernetes&lt;/a&gt;, Podman is built on the concept of &lt;em&gt;pods&lt;/em&gt;, groups of one or more containers, instead of individual containers.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Podman is only available in the Ubuntu repositories as of &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.10.
+&lt;p&gt;Podman is only available in the Ubuntu repositories as of &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 20.10, making it just an apt install away.
 For older Ubuntu LTS releases, the Kubic PPA can be used to get Podman which is described here.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1053,13 +1053,17 @@ For older Ubuntu LTS releases, the Kubic PPA can be used to get Podman which is 
 &lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial provides the necessary steps to install Podman on &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1 and &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
+&lt;p&gt;This tutorial provides the necessary steps to install Podman on &lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1, i.e. &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04, as well as Ubuntu 20.04 proper.
 It is assumed that you are familiar with Linux, Ubuntu, and the command-line.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
 &lt;p&gt;Add the Kubic repository for Podman to the system&amp;#8217;s sources list.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Ubuntu 18.04&lt;/dt&gt;
+&lt;dd&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/ /&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
@@ -1067,15 +1071,45 @@ It is assumed that you are familiar with Linux, Ubuntu, and the command-line.&lt
 deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/ /&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Ubuntu 20.04&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Import the Kubic repository&amp;#8217;s GPG key.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Ubuntu 18.04&lt;/dt&gt;
+&lt;dd&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ wget &lt;span class=&quot;nt&quot;&gt;-qO&lt;/span&gt; - https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/Release.key &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
   | gpg &lt;span class=&quot;nt&quot;&gt;--dearmor&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
   | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/trusted.gpg.d/kubic_libcontainers.gpg &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /dev/null&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Ubuntu 20.04&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ wget &lt;span class=&quot;nt&quot;&gt;-qO&lt;/span&gt; - https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/Release.key &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | gpg &lt;span class=&quot;nt&quot;&gt;--dearmor&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/trusted.gpg.d/kubic_libcontainers.gpg &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /dev/null&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;

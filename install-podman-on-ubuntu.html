@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Install Podman on Ubuntu 18.04 - JWillikers</title>
+<!-- begin _includes/seo.html --><title>Install Podman on Ubuntu - JWillikers</title>
 <meta name="description" content="Podman is a daemonless container runtime for Linux compatible with Docker. It offers several advantages over using Docker to manage and run containers. First, there is no overhead associated with running a background service as is the case with Docker. Podman also allows users to run rootless containers which provides a higher degree of protection for the system. Podman integrates deeply with Linux, taking advantage of a number of specific features. Notably, it uses namespaces for process isolation and integrates nicely with systemd. Just like Kubernetes, Podman is built on the concept of pods, groups of one or more containers, instead of individual containers.">
 
 
@@ -22,8 +22,8 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="JWillikers">
-<meta property="og:title" content="Install Podman on Ubuntu 18.04">
-<meta property="og:url" content="https://www.jwillikers.com/install-podman-on-ubuntu-18-04">
+<meta property="og:title" content="Install Podman on Ubuntu">
+<meta property="og:url" content="https://www.jwillikers.com/install-podman-on-ubuntu">
 
 
   <meta property="og:description" content="Podman is a daemonless container runtime for Linux compatible with Docker. It offers several advantages over using Docker to manage and run containers. First, there is no overhead associated with running a background service as is the case with Docker. Podman also allows users to run rootless containers which provides a higher degree of protection for the system. Podman integrates deeply with Linux, taking advantage of a number of specific features. Notably, it uses namespaces for process isolation and integrates nicely with systemd. Just like Kubernetes, Podman is built on the concept of pods, groups of one or more containers, instead of individual containers.">
@@ -41,7 +41,7 @@
 
 
 
-<link rel="canonical" href="https://www.jwillikers.com/install-podman-on-ubuntu-18-04">
+<link rel="canonical" href="https://www.jwillikers.com/install-podman-on-ubuntu">
 
 
 
@@ -168,7 +168,7 @@ Notably, it uses namespaces for process isolation and integrates nicely with <a 
 Just like <a href="https://kubernetes.io/">Kubernetes</a>, Podman is built on the concept of <em>pods</em>, groups of one or more containers, instead of individual containers.</p>
 </div>
 <div class="paragraph">
-<p>Podman is only available in the Ubuntu repositories as of <a href="https://ubuntu.com/">Ubuntu</a> 20.10.
+<p>Podman is only available in the Ubuntu repositories as of <a href="https://ubuntu.com/">Ubuntu</a> 20.10, making it just an apt install away.
 For older Ubuntu LTS releases, the Kubic PPA can be used to get Podman which is described here.</p>
 </div>
 </div>
@@ -177,13 +177,17 @@ For older Ubuntu LTS releases, the Kubic PPA can be used to get Podman which is 
 <h2 id="tutorial">Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial provides the necessary steps to install Podman on <a href="https://elementary.io/">elementary OS</a> 5.1 and <a href="https://ubuntu.com/">Ubuntu</a> 18.04.
+<p>This tutorial provides the necessary steps to install Podman on <a href="https://elementary.io/">elementary OS</a> 5.1, i.e. <a href="https://ubuntu.com/">Ubuntu</a> 18.04, as well as Ubuntu 20.04 proper.
 It is assumed that you are familiar with Linux, Ubuntu, and the command-line.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Add the Kubic repository for Podman to the system&#8217;s sources list.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Ubuntu 18.04</dt>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/ /"</span> <span class="se">\</span>
@@ -191,15 +195,45 @@ It is assumed that you are familiar with Linux, Ubuntu, and the command-line.</p
 deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/ /</code></pre>
 </div>
 </div>
+</dd>
+<dt class="hdlist1">Ubuntu 20.04</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /"</span> <span class="se">\</span>
+  | <span class="nb">sudo tee</span> /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
 </li>
 <li>
 <p>Import the Kubic repository&#8217;s GPG key.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Ubuntu 18.04</dt>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-qO</span> - https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/Release.key <span class="se">\</span>
   | gpg <span class="nt">--dearmor</span> <span class="se">\</span>
   | <span class="nb">sudo tee</span> /etc/apt/trusted.gpg.d/kubic_libcontainers.gpg <span class="o">&gt;</span> /dev/null</code></pre>
 </div>
+</div>
+</dd>
+<dt class="hdlist1">Ubuntu 20.04</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ wget <span class="nt">-qO</span> - https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/Release.key <span class="se">\</span>
+  | gpg <span class="nt">--dearmor</span> <span class="se">\</span>
+  | <span class="nb">sudo tee</span> /etc/apt/trusted.gpg.d/kubic_libcontainers.gpg <span class="o">&gt;</span> /dev/null</code></pre>
+</div>
+</div>
+</dd>
+</dl>
 </div>
 </li>
 <li>
@@ -330,7 +364,7 @@ When you want to use Podman, just use the same Docker command-line but substitut
 
 <script type="text/javascript">
     DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
-                       discourseEmbedUrl: 'https://www.jwillikers.com/install-podman-on-ubuntu-18-04' };
+                       discourseEmbedUrl: 'https://www.jwillikers.com/install-podman-on-ubuntu' };
    (function () {
      var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
      d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
