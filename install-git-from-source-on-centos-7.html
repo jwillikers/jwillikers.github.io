@@ -465,10 +465,7 @@ The configure script will arrange for installation under the <code>/usr/local</c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.config/fish/conf.d<span class="p">;</span> and <span class="se">\</span>
-  <span class="nb">echo</span> <span class="s1">'set -p fish_user_paths ~/.local/(gcc -dumpmachine)/bin'</span> <span class="o">&gt;</span> <span class="se">\</span>
-    ~/.config/fish/conf.d/machine_paths.fish
-➜ <span class="nb">exec </span>fish</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ fish_add_path <span class="nt">-p</span> ~/.local/<span class="o">(</span>gcc <span class="nt">-dumpmachine</span><span class="o">)</span>/bin</code></pre>
 </div>
 </div>
 <div class="dlist">

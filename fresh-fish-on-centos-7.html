@@ -267,10 +267,25 @@ Shell changed.</code></pre>
 </li>
 <li>
 <p>Because it is CentOS, add <code>/usr/local/bin</code> to your <code>PATH</code>.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Version 3.2.0 and newer</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ fish_add_path <span class="nt">-p</span> /usr/local/bin</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Versions prior to 3.2.0</dt>
+<dd>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">set</span> <span class="nt">-pU</span> fish_user_paths /usr/local/bin</code></pre>
 </div>
+</div>
+</dd>
+</dl>
 </div>
 </li>
 </ol>
