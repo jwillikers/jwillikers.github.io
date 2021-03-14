@@ -355,7 +355,7 @@ var store = [{
       },{
         "title": "podman-compose",
         "excerpt":"Podman supports the Kubernetes YAML format for configuring pods. Unfortunately, I&#8217;m coming to the Podman scene from Docker where the Docker Compose format is common. The Docker Compose format isn&#8217;t supported by Podman. I don&#8217;t really want to invest the time in learning a new configuration file format right now,...","categories": ["Virtualization"],
-        "tags": ["containers","Docker","Docker-Compose","filesystem","Kubernetes","Linux","Podman","podman-compose"],
+        "tags": ["containers","Docker","Docker-Compose","filesystem","Kubernetes","Linux","Podman","podman-compose","Ubuntu"],
         "url": "/podman-compose",
         "teaser": null
       }]
