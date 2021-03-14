@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-14T08:13:47-05:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">podman-compose</title><link href="https://www.jwillikers.com/podman-compose" rel="alternate" type="text/html" title="podman-compose" /><published>2021-03-14T00:00:00-06:00</published><updated>2021-03-14T00:00:00-06:00</updated><id>https://www.jwillikers.com/podman-compose</id><content type="html" xml:base="https://www.jwillikers.com/podman-compose">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-14T08:19:59-05:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Podman Compose</title><link href="https://www.jwillikers.com/podman-compose" rel="alternate" type="text/html" title="Podman Compose" /><published>2021-03-14T00:00:00-06:00</published><updated>2021-03-14T00:00:00-06:00</updated><id>https://www.jwillikers.com/Podman%20Compose</id><content type="html" xml:base="https://www.jwillikers.com/podman-compose">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; supports the &lt;a href=&quot;https://kubernetes.io/&quot;&gt;Kubernetes&lt;/a&gt; YAML format for configuring pods.
 Unfortunately, I&amp;#8217;m coming to the Podman scene from &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; where the &lt;a href=&quot;https://docs.docker.com/compose/&quot;&gt;Docker Compose&lt;/a&gt; format is common.
 The Docker Compose format isn&amp;#8217;t supported by Podman.
 I don&amp;#8217;t really want to invest the time in learning a new configuration file format right now, so what should I do?
-Use &lt;a href=&quot;https://github.com/containers/podman-compose&quot;&gt;podman-compose&lt;/a&gt;!&lt;/p&gt;
+Use &lt;a href=&quot;https://github.com/containers/podman-compose&quot;&gt;Podman Compose&lt;/a&gt;!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -21,7 +21,7 @@ You&amp;#8217;ll need to have Podman installed on your machine, which can be ins
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
-&lt;p&gt;Since podman-compose is a Python tool, install Python 3 and pip.&lt;/p&gt;
+&lt;p&gt;Since Podman Compose is a Python tool, install Python 3 and pip.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;python3 python3-pip&lt;/code&gt;&lt;/pre&gt;
@@ -29,7 +29,7 @@ You&amp;#8217;ll need to have Podman installed on your machine, which can be ins
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Now using pip, install the latest development version of podman-compose.&lt;/p&gt;
+&lt;p&gt;Now using pip, install the latest development version of Podman Compose.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ pip3 &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; https://github.com/containers/podman-compose/archive/devel.tar.gz&lt;/code&gt;&lt;/pre&gt;
@@ -133,7 +133,7 @@ The volume dubbed &lt;em&gt;data&lt;/em&gt; here will use a Podman volume named 
 &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;From within the project directory, run podman-compose to create the &lt;em&gt;unifi-controller&lt;/em&gt; pod.&lt;/p&gt;
+&lt;p&gt;From within the project directory, run Podman Compose to create the &lt;em&gt;unifi-controller&lt;/em&gt; pod.&lt;/p&gt;
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -178,7 +178,7 @@ The volume dubbed &lt;em&gt;data&lt;/em&gt; here will use a Podman volume named 
 &lt;h2 id=&quot;see_also&quot;&gt;See Also&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you&amp;#8217;d like to learn more about using podman-compose, checkout the article &lt;a href=&quot;https://fedoramagazine.org/manage-containers-with-podman-compose/&quot;&gt;Manage containers with Podman Compose&lt;/a&gt; from &lt;a href=&quot;https://fedoramagazine.org/&quot;&gt;Fedora Magazine&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you&amp;#8217;d like to learn more about using Podman Compose, checkout the article &lt;a href=&quot;https://fedoramagazine.org/manage-containers-with-podman-compose/&quot;&gt;Manage containers with Podman Compose&lt;/a&gt; from &lt;a href=&quot;https://fedoramagazine.org/&quot;&gt;Fedora Magazine&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -192,7 +192,7 @@ If you want to simplify your workflow, you can generate a Kubernetes configurati
 Blog posts on these topics will be available soon!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="containers" /><category term="Docker" /><category term="Docker-Compose" /><category term="filesystem" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="podman-compose" /><category term="Ubuntu" /><summary type="html">Podman supports the Kubernetes YAML format for configuring pods. Unfortunately, I&amp;#8217;m coming to the Podman scene from Docker where the Docker Compose format is common. The Docker Compose format isn&amp;#8217;t supported by Podman. I don&amp;#8217;t really want to invest the time in learning a new configuration file format right now, so what should I do? Use podman-compose!</summary></entry><entry><title type="html">Btrfs Scrub</title><link href="https://www.jwillikers.com/btrfs-scrub" rel="alternate" type="text/html" title="Btrfs Scrub" /><published>2021-03-05T00:00:00-06:00</published><updated>2021-03-05T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Scrub</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-scrub">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="containers" /><category term="Docker" /><category term="DockerCompose" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="PodmanCompose" /><category term="Ubuntu" /><summary type="html">Podman supports the Kubernetes YAML format for configuring pods. Unfortunately, I&amp;#8217;m coming to the Podman scene from Docker where the Docker Compose format is common. The Docker Compose format isn&amp;#8217;t supported by Podman. I don&amp;#8217;t really want to invest the time in learning a new configuration file format right now, so what should I do? Use Podman Compose!</summary></entry><entry><title type="html">Btrfs Scrub</title><link href="https://www.jwillikers.com/btrfs-scrub" rel="alternate" type="text/html" title="Btrfs Scrub" /><published>2021-03-05T00:00:00-06:00</published><updated>2021-03-05T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Scrub</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-scrub">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;You probably want to take advantage of the data integrity checking offered by &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt;.
