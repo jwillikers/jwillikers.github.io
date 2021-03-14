@@ -1,4 +1,190 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-13T07:56:10-06:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Btrfs Scrub</title><link href="https://www.jwillikers.com/btrfs-scrub" rel="alternate" type="text/html" title="Btrfs Scrub" /><published>2021-03-05T00:00:00-06:00</published><updated>2021-03-05T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Scrub</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-scrub">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-14T07:26:14-05:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">podman-compose</title><link href="https://www.jwillikers.com/podman-compose" rel="alternate" type="text/html" title="podman-compose" /><published>2021-03-14T00:00:00-06:00</published><updated>2021-03-14T00:00:00-06:00</updated><id>https://www.jwillikers.com/podman-compose</id><content type="html" xml:base="https://www.jwillikers.com/podman-compose">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; supports the &lt;a href=&quot;https://kubernetes.io/&quot;&gt;Kubernetes&lt;/a&gt; YAML format for configuring pods.
+Unfortunately, I&amp;#8217;m coming to the Podman scene from &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; where the &lt;a href=&quot;https://docs.docker.com/compose/&quot;&gt;Docker Compose&lt;/a&gt; format is common.
+The Docker Compose format isn&amp;#8217;t supported by Podman.
+I don&amp;#8217;t really want to invest the time in learning a new configuration file format right now, so what should I do?
+Use &lt;a href=&quot;https://github.com/containers/podman-compose&quot;&gt;podman-compose&lt;/a&gt;!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial describes how to use a Docker Compose file with Podman to create a rootless container.
+It uses the Docker Compose for the UniFi Controller described in the &lt;a href=&quot;unifi-controller.html&quot;&gt;UniFi Controller&lt;/a&gt; post.
+This tutorial targets &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04, and you should be familiar with Linux Containers, Docker Compose, Podman, &lt;a href=&quot;https://www.python.org/&quot;&gt;Python&lt;/a&gt;, and the command-line.
+You&amp;#8217;ll need to have Podman installed on your machine, which can be installed on Ubuntu 18.04 by following the instructions in the post &lt;a href=&quot;install-podman-on-ubuntu.html&quot;&gt;Install Podman on Ubuntu&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Since podman-compose is a Python tool, install Python 3 and pip.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;python3 python3-pip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now using pip, install the latest development version of podman-compose.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ pip3 &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; https://github.com/containers/podman-compose/archive/devel.tar.gz&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add &lt;code&gt;~/.local/bin&lt;/code&gt; to your &lt;code&gt;PATH&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;fish&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ fish_add_path ~/.local/bin&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;ZSH&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;set PATH=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/.local/bin:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; ~/.zshrc&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.zshrc&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Bash&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;set PATH=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/.local/bin:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; ~/.bashrc&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.bashrc&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a directory for the Docker Compose file.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/Projects/unifi-controller&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Change to the new directory.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/Projects/unifi-controller&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create the Docker Compose file.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/Projects/unifi-controller/docker-compose.yml&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2.1&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;unifi-controller&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ghcr.io/linuxserver/unifi-controller&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;MEM_LIMIT=1024M&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#optional&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;data:/config&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;3478:3478/udp&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;10001:10001/udp&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;8080:8080&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;8443:8443&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;1900:1900/udp&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#optional&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;8843:8843&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#optional&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;8880:8880&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#optional&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;6789:6789&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#optional&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;5514:5514/udp&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#optional&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unless-stopped&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;io.containers.autoupdate&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;image&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+&lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Spoiler! I&amp;#8217;ll be describing how to automatically update container images with Podman in an upcoming blog post.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This Docker Compose uses the &lt;a href=&quot;https://github.com/linuxserver/docker-unifi-controller&quot;&gt;docker-unifi-controller&lt;/a&gt; image provided by &lt;a href=&quot;https://www.linuxserver.io/&quot;&gt;LinuxServer.io&lt;/a&gt; and is very close to the provided Docker Compose file.
+It uses a volume to store persistent data.
+The volume dubbed &lt;em&gt;data&lt;/em&gt; here will use a Podman volume named &lt;code&gt;unifi-controller_data&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;From within the project directory, run podman-compose to create the &lt;em&gt;unifi-controller&lt;/em&gt; pod.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Just like when using Docker Compose, the &lt;code&gt;up&lt;/code&gt; subcommand creates and starts the container, and the &lt;code&gt;-d&lt;/code&gt; flag backgrounds the process.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ podman-compose up &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Access the controller&amp;#8217;s web console at &lt;a href=&quot;https://127.0.0.1:8443/&quot; class=&quot;bare&quot;&gt;https://127.0.0.1:8443/&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;fish&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ open http://127.0.0.1:8443&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Other shells&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ xdg-open http://127.0.0.1:8443&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That was fast, wasn&amp;#8217;t it?
+Love Podman yet?
+If you want to simplify your workflow, you can generate a Kubernetes configuration from the Podman container, and even setup this container as a &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; service.
+Blog posts on these topics will be available soon!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="containers" /><category term="Docker" /><category term="Docker-Compose" /><category term="filesystem" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="podman-compose" /><summary type="html">Podman supports the Kubernetes YAML format for configuring pods. Unfortunately, I&amp;#8217;m coming to the Podman scene from Docker where the Docker Compose format is common. The Docker Compose format isn&amp;#8217;t supported by Podman. I don&amp;#8217;t really want to invest the time in learning a new configuration file format right now, so what should I do? Use podman-compose!</summary></entry><entry><title type="html">Btrfs Scrub</title><link href="https://www.jwillikers.com/btrfs-scrub" rel="alternate" type="text/html" title="Btrfs Scrub" /><published>2021-03-05T00:00:00-06:00</published><updated>2021-03-05T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Scrub</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-scrub">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;You probably want to take advantage of the data integrity checking offered by &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt;.
@@ -3415,402 +3601,4 @@ Interested in mounting encrypted volumes or automatically mounting devices?
 Keep an eye on this space for upcoming posts on these topics.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="elementary" /><category term="fstab" /><category term="GIO" /><category term="Linux" /><category term="mount" /><category term="systemd" /><category term="Ubuntu" /><category term="udev" /><category term="udisks2" /><summary type="html">Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&amp;#8217;s peachy. For both better and worse, there&amp;#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7), udisks2, and GIO provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&amp;#8217;re probably aware that root isn&amp;#8217;t necessary for such a thing, but that&amp;#8217;s because there&amp;#8217;s tools that take care of that for you.</summary></entry><entry><title type="html">Encrypt an External Disk on Linux</title><link href="https://www.jwillikers.com/encrypt-an-external-disk-on-linux" rel="alternate" type="text/html" title="Encrypt an External Disk on Linux" /><published>2021-02-22T00:00:00-06:00</published><updated>2021-02-22T00:00:00-06:00</updated><id>https://www.jwillikers.com/Encrypt%20an%20External%20Disk%20on%20Linux</id><content type="html" xml:base="https://www.jwillikers.com/encrypt-an-external-disk-on-linux">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Encrypting your data is pretty much a must anyone who is privacy or security conscious.
-I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple.
-I keep local backups on an external hard drive, which I keep encrypted.
-Encrypting a drive is pretty easy on Linux, especially with applications like &lt;a href=&quot;https://wiki.gnome.org/Apps/Disks&quot;&gt;GNOME Disks&lt;/a&gt;, which go so far as to make this possible without requiring superuser privileges.
-It&amp;#8217;s even pretty straightforward on the command-line, and that&amp;#8217;s what I demonstrate here.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial describes the steps necessary to encrypt an external disk, such as a hard drive or flash drive, from the command-line using &lt;a href=&quot;https://gitlab.com/cryptsetup/cryptsetup&quot;&gt;Cryptsetup&lt;/a&gt;.
-Instructions for unlocking, mounting, unmounting, and locking the filesystem are provided for Cryptsetup, &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt;, and &lt;a href=&quot;https://developer.gnome.org/gio/stable/&quot;&gt;GIO&lt;/a&gt;.
-udisks2 allows users to access encrypted filesystems without superuser privileges.
-GIO builds on top of udisks2 to simplify mounting and utilize encryption passphrases from the user&amp;#8217;s keyring for convenience.
-The encrypted filesystem will use &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt;.
-The reference operating system is &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
-Root access on the machine is required.
-Knowledge of Linux, filesystems, and the command-line is assumed.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Install the Cryptsetup package.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;cryptsetup&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Locate the disk&amp;#8217;s device path.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ lsblk
-NAME           MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
-sda              8:0    0   1.8T  0 disk
-├─sda1           8:1    0   976M  0 part  /boot
-└─sda2           8:2    0   1.8T  0 part
-  └─sda2_crypt 253:0    0   1.8T  0 crypt /var
-sdb              8:16   0 931.5G  0 disk
-└─sdb1           8:17   0 931.5G  0 part  &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-sr0             11:0    1  1024M  0 rom&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;sdb&lt;/code&gt; is the 1 TB external drive I&amp;#8217;m going to encrypt.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If your device appears under a different name, use that name instead of &lt;code&gt;sdb&lt;/code&gt; in the following commands.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Overwrite any existing partition tables on the disk with a new one.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;admonitionblock warning&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-warning&quot; title=&quot;Warning&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The following command will effectively obfuscate any data on the drive making it very difficult or impossible to recover.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here, I instruct &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html&quot;&gt;sgdisk(8)&lt;/a&gt; to completely destroy any existing partition tables and create a new {GPT} partition table.
-The partition table includes a singular partition taking up the entirety of the disk.
-A descriptive label, &lt;em&gt;BlackWDExtHDD&lt;/em&gt;, is attached to the partition.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;sgdisk &lt;span class=&quot;nt&quot;&gt;-Z&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 0:0:0 &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; 0:&lt;span class=&quot;s2&quot;&gt;&quot;BlackWDExtHDD&quot;&lt;/span&gt; /dev/sdb
-GPT data structures destroyed! You may now partition the disk using fdisk or
-other utilities.
-Setting name!
-partNum is 0
-The operation has completed successfully.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Encrypt the partition.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup luksFormat &lt;span class=&quot;nt&quot;&gt;--type&lt;/span&gt; luks2 &lt;span class=&quot;nt&quot;&gt;--label&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Black WD easystore&quot;&lt;/span&gt; /dev/sdb1
-
-WARNING!
-&lt;span class=&quot;o&quot;&gt;========&lt;/span&gt;
-This will overwrite data on /dev/sdb irrevocably.
-
-Are you sure? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Type uppercase &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: YES
-Enter passphrase &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; /dev/sdb:
-Verify passphrase:&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Only versions of Cryptsetup prior to version 2.3.4 need to explicitly specify the type as &lt;code&gt;luks2&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Open the encrypted volume.&lt;/p&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;udisks2&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unlock &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/sdb1
-Passphrase:
-Unlocked /dev/sdb1 as /dev/dm-1.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;udisks2&amp;#8217;s &lt;code&gt;unlock&lt;/code&gt; subcommand creates a new device in the device tree under &lt;code&gt;/dev/mapper&lt;/code&gt; using the the prefix &lt;code&gt;luks-&lt;/code&gt; followed by the volume&amp;#8217;s UUID.
-The device here appears at &lt;code&gt;/dev/mapper/luks-0cbab673-2b14-40c0-a1f2-522bc7ff7e18&lt;/code&gt;.
-An additional symlink is created at &lt;code&gt;/dev/dm-1&lt;/code&gt; as mentioned in the command&amp;#8217;s output.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;Cryptsetup&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup open /dev/sdb1 MyUSB
-Enter passphrase &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; /dev/sdb1:&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Cryptsetup&amp;#8217;s &lt;code&gt;open&lt;/code&gt; subcommand creates a new device in the device tree under &lt;code&gt;/dev/mapper&lt;/code&gt; using the name provided.
-In this case, the device appears at &lt;code&gt;/dev/mapper/MyUSB&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create a Btrfs filesystem on top of the encrypted volume.&lt;/p&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;udisks2&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkfs &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; btrfs &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;My Backups&quot;&lt;/span&gt; /dev/dm-1
-btrfs-progs v4.15.1
-See http://btrfs.wiki.kernel.org &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;more information.
-
-Label:              My Backups
-UUID:               2eb01d94-9aa1-4bd1-8c99-950be806f449
-Node size:          16384
-Sector size:        4096
-Filesystem size:    931.48GiB
-Block group profiles:
-  Data:             single            8.00MiB
-  Metadata:         DUP               1.00GiB
-  System:           DUP               8.00MiB
-SSD detected:       no
-Incompat features:  extref, skinny-metadata
-Number of devices:  1
-Devices:
-   ID        SIZE  PATH
-    1   931.48GiB  /dev/dm-1&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;Cryptsetup&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkfs &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; btrfs &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;My Backups&quot;&lt;/span&gt; /dev/mapper/MyUSB
-btrfs-progs v4.15.1
-See http://btrfs.wiki.kernel.org &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;more information.
-
-Label:              My Backups
-UUID:               2eb01d94-9aa1-4bd1-8c99-950be806f449
-Node size:          16384
-Sector size:        4096
-Filesystem size:    931.48GiB
-Block group profiles:
-  Data:             single            8.00MiB
-  Metadata:         DUP               1.00GiB
-  System:           DUP               8.00MiB
-SSD detected:       no
-Incompat features:  extref, skinny-metadata
-Number of devices:  1
-Devices:
-   ID        SIZE  PATH
-    1   931.48GiB  /dev/mapper/MyUSB&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Now mount the Btrfs volume.&lt;/p&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;udisks2&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl mount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/mapper/MyUSB &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; noatime
-Mounted /dev/dm-1 at /run/media/jordan/My_Backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock tip&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To mount with more desirable Btrfs mount options such as &lt;code&gt;autodefrag&lt;/code&gt; and &lt;code&gt;compress=zstd&lt;/code&gt;, a newer version of udisks2 is necessary.
-Refer to &lt;a href=&quot;install-udisks2-from-source.html&quot;&gt;Install udisks2 From Source&lt;/a&gt; if you want to install such a version.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;Cryptsetup&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-mount &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; noatime,autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd /dev/mapper/MyUSB
-Started unit run-media-system-System_Backups.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/System_Backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For more information on mounting, see the post &lt;a href=&quot;adjust-mount-options.html&quot;&gt;Adjust Mount Options&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Unmount the Btrfs volume.&lt;/p&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;udisks2&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/dm-1
-Unmounted /dev/dm-1.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;Cryptsetup&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-umount /run/media/system/My_Backups
-Stopped unit run-media-system-System_Backups.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/System_Backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Use the &lt;code&gt;close&lt;/code&gt; subcommand to remove the existing device mapping lock the encrypted device.&lt;/p&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;udisks2&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl lock &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/sdb1
-Locked /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;Cryptsetup&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cryptsetup close MyUSB&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;gio&quot;&gt;GIO&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://developer.gnome.org/gio/stable/&quot;&gt;GIO&lt;/a&gt; makes accessing encrypted volumes easier.
-It handles both unlocking and mounting the encrypted volume in one command.
-Plus, it can use an encryption passphrase from the user&amp;#8217;s keyring so that the user doesn&amp;#8217;t have to enter the passphrase ever again.
-The following instruction demonstrate how to use GIO to easily access your newly encrypted volume.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Unlock and mount the volume by passing the device to GIO&amp;#8217;s &lt;em&gt;mount&lt;/em&gt; subcommand via the &lt;code&gt;-d&lt;/code&gt; flag.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gio mount &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; /dev/sdb1
-Enter a passphrase to unlock the volume
-The passphrase is needed to access encrypted data on WD easystore 25FC &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1.0 TB Hard Disk&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-Password:
-Mounted /dev/sdb1 at /run/media/jordan/My_Backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Unmount and lock the volume with the &lt;em&gt;mount&lt;/em&gt; command, the &lt;code&gt;-u&lt;/code&gt; flag, and the mount point.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gio mount &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; /run/media/jordan/My_Backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To store the volume&amp;#8217;s passphrase in your keyring, the easiest method is to open the device in the Files application.
-This will prompt for a password.
-Enter the password and select the desired option for how long to save the password, and that&amp;#8217;s it.
-GIO will no longer prompt for a password when opening this drive from the command-line.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You can now create, open, and close an encrypted partition on Linux.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="backups" /><category term="Btrfs" /><category term="Cryptsetup" /><category term="elementary" /><category term="encryption" /><category term="fstab" /><category term="GIO" /><category term="Linux" /><category term="systemd" /><category term="udisks2" /><category term="Ubuntu" /><summary type="html">Encrypting your data is pretty much a must anyone who is privacy or security conscious. I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple. I keep local backups on an external hard drive, which I keep encrypted. Encrypting a drive is pretty easy on Linux, especially with applications like GNOME Disks, which go so far as to make this possible without requiring superuser privileges. It&amp;#8217;s even pretty straightforward on the command-line, and that&amp;#8217;s what I demonstrate here.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="elementary" /><category term="fstab" /><category term="GIO" /><category term="Linux" /><category term="mount" /><category term="systemd" /><category term="Ubuntu" /><category term="udev" /><category term="udisks2" /><summary type="html">Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&amp;#8217;s peachy. For both better and worse, there&amp;#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7), udisks2, and GIO provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&amp;#8217;re probably aware that root isn&amp;#8217;t necessary for such a thing, but that&amp;#8217;s because there&amp;#8217;s tools that take care of that for you.</summary></entry></feed>

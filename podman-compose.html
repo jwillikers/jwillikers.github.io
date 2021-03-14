@@ -1,0 +1,431 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>podman-compose - JWillikers</title>
+<meta name="description" content="Podman supports the Kubernetes YAML format for configuring pods. Unfortunately, I&#8217;m coming to the Podman scene from Docker where the Docker Compose format is common. The Docker Compose format isn&#8217;t supported by Podman. I don&#8217;t really want to invest the time in learning a new configuration file format right now, so what should I do? Use podman-compose!">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="podman-compose">
+<meta property="og:url" content="https://www.jwillikers.com/podman-compose">
+
+
+  <meta property="og:description" content="Podman supports the Kubernetes YAML format for configuring pods. Unfortunately, I&#8217;m coming to the Podman scene from Docker where the Docker Compose format is common. The Docker Compose format isn&#8217;t supported by Podman. I don&#8217;t really want to invest the time in learning a new configuration file format right now, so what should I do? Use podman-compose!">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-14T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/podman-compose">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://podman.io/">Podman</a> supports the <a href="https://kubernetes.io/">Kubernetes</a> YAML format for configuring pods.
+Unfortunately, I&#8217;m coming to the Podman scene from <a href="https://www.docker.com/">Docker</a> where the <a href="https://docs.docker.com/compose/">Docker Compose</a> format is common.
+The Docker Compose format isn&#8217;t supported by Podman.
+I don&#8217;t really want to invest the time in learning a new configuration file format right now, so what should I do?
+Use <a href="https://github.com/containers/podman-compose">podman-compose</a>!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial describes how to use a Docker Compose file with Podman to create a rootless container.
+It uses the Docker Compose for the UniFi Controller described in the <a href="unifi-controller.html">UniFi Controller</a> post.
+This tutorial targets <a href="https://ubuntu.com/">Ubuntu</a> 18.04, and you should be familiar with Linux Containers, Docker Compose, Podman, <a href="https://www.python.org/">Python</a>, and the command-line.
+You&#8217;ll need to have Podman installed on your machine, which can be installed on Ubuntu 18.04 by following the instructions in the post <a href="install-podman-on-ubuntu.html">Install Podman on Ubuntu</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Since podman-compose is a Python tool, install Python 3 and pip.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>python3 python3-pip</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now using pip, install the latest development version of podman-compose.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ pip3 <span class="nb">install</span> <span class="nt">--user</span> https://github.com/containers/podman-compose/archive/devel.tar.gz</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add <code>~/.local/bin</code> to your <code>PATH</code>.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">fish</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ fish_add_path ~/.local/bin</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">ZSH</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"set PATH=</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.zshrc<span class="p">;</span> <span class="nb">source</span> ~/.zshrc</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Bash</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">echo</span> <span class="s2">"set PATH=</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> ~/.bashrc<span class="p">;</span> <span class="nb">source</span> ~/.bashrc</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</li>
+<li>
+<p>Create a directory for the Docker Compose file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">mkdir</span> <span class="nt">-p</span> ~/Projects/unifi-controller</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change to the new directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd</span> ~/Projects/unifi-controller</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create the Docker Compose file.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">~/Projects/unifi-controller/docker-compose.yml</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="nn">---</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2.1"</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">unifi-controller</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/linuxserver/unifi-controller</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">MEM_LIMIT=1024M</span> <span class="c1">#optional</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">data:/config</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">3478:3478/udp</span>
+      <span class="pi">-</span> <span class="s">10001:10001/udp</span>
+      <span class="pi">-</span> <span class="s">8080:8080</span>
+      <span class="pi">-</span> <span class="s">8443:8443</span>
+      <span class="pi">-</span> <span class="s">1900:1900/udp</span> <span class="c1">#optional</span>
+      <span class="pi">-</span> <span class="s">8843:8843</span> <span class="c1">#optional</span>
+      <span class="pi">-</span> <span class="s">8880:8880</span> <span class="c1">#optional</span>
+      <span class="pi">-</span> <span class="s">6789:6789</span> <span class="c1">#optional</span>
+      <span class="pi">-</span> <span class="s">5514:5514/udp</span> <span class="c1">#optional</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">unless-stopped</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="s">io.containers.autoupdate</span><span class="pi">:</span> <span class="s">image</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">data</span><span class="pi">:</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Spoiler! I&#8217;ll be describing how to automatically update container images with Podman in an upcoming blog post.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This Docker Compose uses the <a href="https://github.com/linuxserver/docker-unifi-controller">docker-unifi-controller</a> image provided by <a href="https://www.linuxserver.io/">LinuxServer.io</a> and is very close to the provided Docker Compose file.
+It uses a volume to store persistent data.
+The volume dubbed <em>data</em> here will use a Podman volume named <code>unifi-controller_data</code>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>From within the project directory, run podman-compose to create the <em>unifi-controller</em> pod.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Just like when using Docker Compose, the <code>up</code> subcommand creates and starts the container, and the <code>-d</code> flag backgrounds the process.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ podman-compose up <span class="nt">-d</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Access the controller&#8217;s web console at <a href="https://127.0.0.1:8443/" class="bare">https://127.0.0.1:8443/</a>.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">fish</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ open http://127.0.0.1:8443</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Other shells</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ xdg-open http://127.0.0.1:8443</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>That was fast, wasn&#8217;t it?
+Love Podman yet?
+If you want to simplify your workflow, you can generate a Kubernetes configuration from the Podman container, and even setup this container as a <a href="https://systemd.io/">systemd</a> service.
+Blog posts on these topics will be available soon!</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/podman-compose' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
