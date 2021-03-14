@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-14T12:24:46-05:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Podman Compose</title><link href="https://www.jwillikers.com/podman-compose" rel="alternate" type="text/html" title="Podman Compose" /><published>2021-03-14T00:00:00-06:00</published><updated>2021-03-14T00:00:00-06:00</updated><id>https://www.jwillikers.com/Podman%20Compose</id><content type="html" xml:base="https://www.jwillikers.com/podman-compose">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-14T12:58:09-05:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Podman Compose</title><link href="https://www.jwillikers.com/podman-compose" rel="alternate" type="text/html" title="Podman Compose" /><published>2021-03-14T00:00:00-06:00</published><updated>2021-03-14T00:00:00-06:00</updated><id>https://www.jwillikers.com/Podman%20Compose</id><content type="html" xml:base="https://www.jwillikers.com/podman-compose">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; supports the &lt;a href=&quot;https://kubernetes.io/&quot;&gt;Kubernetes&lt;/a&gt; YAML format for configuring pods.
@@ -1996,6 +1996,19 @@ Since my user&amp;#8217;s home directory is its own top-level subvolume mounted 
 These options include &lt;code&gt;autodefrag&lt;/code&gt;, &lt;code&gt;compress=zstd&lt;/code&gt;, and &lt;code&gt;noatime&lt;/code&gt;, all of which I would recommend for your running containers.
 You can even go so far as to create dedicated, top-level subvolumes for your root and rootless containers to fine-tune the mount options.
 To learn more about Btrfs mount options and layouts, see &lt;a href=&quot;btrfs-mount-options.html&quot;&gt;Btrfs Mount Options&lt;/a&gt; and &lt;a href=&quot;btrfs-layout.html&quot;&gt;Btrfs Layout&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To really capitalize on using Btrfs and ZFS for your containers, you&amp;#8217;ll want to take advantage of their snapshot and incremental backup capabilities.
+Containers, images, and named volumes are all stored in &lt;code&gt;~/.local/share/containers/storage&lt;/code&gt; for rootless runtimes and &lt;code&gt;/var/lib/containers/storage/&lt;/code&gt; for root.
+For Btrfs, these directories contain the subdirectory &lt;code&gt;btrfs/subvolumes&lt;/code&gt; which contains individual subvolumes for each container.
+I assume that the ZFS driver uses a similar procedure for creating individual datasets for each container.
+Snapshots can be taken of these containers and they can be backed up incrementally.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You probably use named volumes for persisting any important data in your containers such as databases and configuration.
+These named volumes are located in the &lt;code&gt;volumes&lt;/code&gt; subdirectory.
+You might make this directory - or any of its subdirectories for that matter - a subvolume or dataset and snapshot it and back it up.
+For Btrfs users, the blog posts &lt;a href=&quot;btrfs-snapshot-management-with-snapper.html&quot;&gt;Btrfs Snapshot Management With Snapper&lt;/a&gt; and &lt;a href=&quot;backup-snapper-snapshots-with-snap-sync.html&quot;&gt;Backup Snapper Snapshots With snap-sync&lt;/a&gt; can be applied to create automated snapshots and backups of these directories.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;

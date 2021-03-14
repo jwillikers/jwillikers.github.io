@@ -362,6 +362,19 @@ These options include <code>autodefrag</code>, <code>compress=zstd</code>, and <
 You can even go so far as to create dedicated, top-level subvolumes for your root and rootless containers to fine-tune the mount options.
 To learn more about Btrfs mount options and layouts, see <a href="btrfs-mount-options.html">Btrfs Mount Options</a> and <a href="btrfs-layout.html">Btrfs Layout</a>.</p>
 </div>
+<div class="paragraph">
+<p>To really capitalize on using Btrfs and ZFS for your containers, you&#8217;ll want to take advantage of their snapshot and incremental backup capabilities.
+Containers, images, and named volumes are all stored in <code>~/.local/share/containers/storage</code> for rootless runtimes and <code>/var/lib/containers/storage/</code> for root.
+For Btrfs, these directories contain the subdirectory <code>btrfs/subvolumes</code> which contains individual subvolumes for each container.
+I assume that the ZFS driver uses a similar procedure for creating individual datasets for each container.
+Snapshots can be taken of these containers and they can be backed up incrementally.</p>
+</div>
+<div class="paragraph">
+<p>You probably use named volumes for persisting any important data in your containers such as databases and configuration.
+These named volumes are located in the <code>volumes</code> subdirectory.
+You might make this directory - or any of its subdirectories for that matter - a subvolume or dataset and snapshot it and back it up.
+For Btrfs users, the blog posts <a href="btrfs-snapshot-management-with-snapper.html">Btrfs Snapshot Management With Snapper</a> and <a href="backup-snapper-snapshots-with-snap-sync.html">Backup Snapper Snapshots With snap-sync</a> can be applied to create automated snapshots and backups of these directories.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
