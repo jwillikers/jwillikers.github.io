@@ -36,7 +36,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Automatically Detect and Report Hard Drive Failure",
-        "excerpt":"I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard...","categories": ["Disks"],
+        "excerpt":"I recently fixed my mother-in-law&#8217;s laptop. Long story short, the hard disk was toast. When I repaired the computer, I decided it would be best to avoid the frustration and confusion of a failing hard drive in the future. So, how does one know if his or her mother-in-law&#8217;s hard...","categories": ["Data Storage"],
         "tags": ["Email","Linux","OpenSMTPD","SMART","smartd","SmartMonTools","SMTP","Ubuntu","Ubuntu2004"],
         "url": "/automatically-detect-and-report-hard-drive-failure",
         "teaser": null
@@ -48,49 +48,49 @@ var store = [{
         "teaser": null
       },{
         "title": "UniFi Controller",
-        "excerpt":"For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this is the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with...","categories": ["Networking"],
+        "excerpt":"For wi-fi, I use use a UniFi AP. One slightly annoying aspect of this is the UniFi Controller. If you don&#8217;t have a smartphone or need to manage more than one device, you&#8217;ll need to set one up. I provide a brief tutorial for setting up the UniFi Controller with...","categories": ["Virtualization"],
         "tags": ["Containers","Docker","DockerCompose","Linux","UniFi","UniFiController","Ubuntu","Ubuntu2004"],
         "url": "/unifi-controller",
         "teaser": null
       },{
         "title": "Install ZFS on the Pinebook Pro",
-        "excerpt":"Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&#8217;s becoming my main machine, and I&#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it....","categories": ["Disks"],
+        "excerpt":"Recently, I obtained a 64-bit ARM, budget Linux laptop, the Pinebook Pro. It&#8217;s a wonderful, sleek little notebook, boasting great convenience and power-efficiency. I enjoy using it so much, it&#8217;s becoming my main machine, and I&#8217;d love love to put all of my music, audiobooks, pictures, and ebooks on it....","categories": ["Data Storage"],
         "tags": ["ArchLinux","Linux","Manjaro","PinebookPro","ZFS"],
         "url": "/install-zfs-on-the-pinebook-pro",
         "teaser": null
       },{
         "title": "Backup Docker Data",
-        "excerpt":"Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again. Tutorial My recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses...","categories": ["Systems"],
+        "excerpt":"Backups are super helpful, especially when you like to blow everything away fairly often. Backing up the data from a Docker container can help you quickly get things up and running again. Tutorial My recent post detailed how to setup a UniFi Controller in a Docker container. This tutorial uses...","categories": ["Virtualization"],
         "tags": ["Containers","Docker","Linux","Ubuntu","Ubuntu2004"],
         "url": "/backup-docker-data",
         "teaser": null
       },{
         "title": "External Storage on the Pinebook Pro With ZFS",
-        "excerpt":"This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro. The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections....","categories": ["Disks"],
+        "excerpt":"This tutorial is out-of-date and will be updated when I get ZFS working again on the Pinebook Pro. The Pinebook Pro comes with a small amount of internal disk space, only 64 GB. While this is upgradeable to 128 GB, that still isn&#8217;t enough for those with large media collections....","categories": ["Data Storage"],
         "tags": ["ArchLinux","Linux","Manjaro","PinebookPro","ZFS"],
         "url": "/external-storage-on-the-pinebook-pro-with-zfs",
         "teaser": null
       },{
         "title": "Update U-Boot on the Pinebook Pro",
-        "excerpt":"The other day, Elementary announced elementaryOS 6 preview builds for the Pinebook Pro. I went ahead and flashed an SD card with a build image to try it out. Instead of booting to elmentaryOS on the SD card as the system should have, it booted to Manjaro. While a quick...","categories": ["Systems"],
+        "excerpt":"The other day, Elementary announced elementaryOS 6 preview builds for the Pinebook Pro. I went ahead and flashed an SD card with a build image to try it out. Instead of booting to elmentaryOS on the SD card as the system should have, it booted to Manjaro. While a quick...","categories": ["Admin"],
         "tags": ["ArchLinux","Boot","Linux","Manjaro","PinebookPro","UBoot"],
         "url": "/update-u-boot-on-the-pinebook-pro",
         "teaser": null
       },{
         "title": "Update U-Boot on the PinePhone",
-        "excerpt":"As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&#8217;s why I opted for running Manjaro ARM's alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&#8217;s been running from the SD card great so far, but I thought to update the...","categories": ["Systems"],
+        "excerpt":"As I big fan of GNOME, I really wanted a similar experience on the PinePhone. That&#8217;s why I opted for running Manjaro ARM's alpha for the PinePhone, which comes in a GNOME-like Phosh flavor. It&#8217;s been running from the SD card great so far, but I thought to update the...","categories": ["Admin"],
         "tags": ["ArchLinux","Boot","Linux","Manjaro","PinePhone","UBoot"],
         "url": "/update-u-boot-on-the-pinephone",
         "teaser": null
       },{
         "title": "Virtualize Ubuntu Desktop on macOS with QEMU",
-        "excerpt":"The Focal Fossa nestles in on Santa Catalina Island Recently, I discovered that QEMU is available on macOS, with support for Apple&#8217;s native Hypervisor framework. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on...","categories": ["Systems"],
+        "excerpt":"The Focal Fossa nestles in on Santa Catalina Island Recently, I discovered that QEMU is available on macOS, with support for Apple&#8217;s native Hypervisor framework. This is particularly exciting because I have to spin-up Linux VMs on macs at my day job, and I&#8217;ve wanted to get some more hands-on...","categories": ["Virtualization"],
         "tags": ["Homebrew","Linux","macOS","MacPorts","QEMU","Ubuntu","Ubuntu2004","virtio","Virtualization"],
         "url": "/virtualize-ubuntu-desktop-on-macos-with-qemu",
         "teaser": null
       },{
         "title": "Easily Virtualize Ubuntu MATE on macOS With Multipass",
-        "excerpt":"It&#8217;s Always Greener on the MATE Side While I was working on my recent post Virtualize Ubuntu Desktop on macOS with QEMU, I came across Canonical&#8217;s Multipass utility. Multipass makes it extremely simple to spin up Ubuntu instances on the fly whether your on Linux, macOS, and Windows. While your...","categories": ["Systems"],
+        "excerpt":"It&#8217;s Always Greener on the MATE Side While I was working on my recent post Virtualize Ubuntu Desktop on macOS with QEMU, I came across Canonical&#8217;s Multipass utility. Multipass makes it extremely simple to spin up Ubuntu instances on the fly whether your on Linux, macOS, and Windows. While your...","categories": ["Virtualization"],
         "tags": ["Homebrew","Linux","macOS","MacPorts","MATE","Multipass","Ubuntu","Ubuntu2004","Virtualization"],
         "url": "/easily-virtualize-ubuntu-mate-on-macos-with-multipass",
         "teaser": null
@@ -102,7 +102,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Password-Less Sudo",
-        "excerpt":"Typing a password to login is repetitive enough, isn&#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it&#8217;s...","categories": ["Command-Line"],
+        "excerpt":"Typing a password to login is repetitive enough, isn&#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it&#8217;s...","categories": ["Admin"],
         "tags": ["Linux","macOS","sudo"],
         "url": "/password-less-sudo",
         "teaser": null
@@ -114,7 +114,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Automatically Update Antigen",
-        "excerpt":"There&#8217;s a catch when it comes to managing plugins with Antigen as done in Configure ZSH. According to the Antigen documentation: This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins. &#8212; Antigen Wiki: Commands - antigen update I hate...","categories": ["Service Management"],
+        "excerpt":"There&#8217;s a catch when it comes to managing plugins with Antigen as done in Configure ZSH. According to the Antigen documentation: This is something you might not want to put in your .zshrc. Instead, run it occasionally to update your plugins. &#8212; Antigen Wiki: Commands - antigen update I hate...","categories": ["Admin"],
         "tags": ["Antigen","CentOS","Linux","oh-my-zsh","RedHat","systemd","Ubuntu","ZSH"],
         "url": "/automatically-update-antigen",
         "teaser": null
@@ -174,13 +174,13 @@ var store = [{
         "teaser": null
       },{
         "title": "Generate an SSH Key",
-        "excerpt":"Entering passwords is a pain. I know you agree. Why not enter passwords less by using SSH? You&#8217;ll just need a key and a little know-how to get started. Generate an SSH Key SSH is ubiquitous. It&#8217;s used by developers and systems administrators every day all across the globe to...","categories": ["Command-Line"],
+        "excerpt":"Entering passwords is a pain. I know you agree. Why not enter passwords less by using SSH? You&#8217;ll just need a key and a little know-how to get started. Generate an SSH Key SSH is ubiquitous. It&#8217;s used by developers and systems administrators every day all across the globe to...","categories": ["Networking"],
         "tags": ["BSD","Linux","macOS","OpenSSH","SSH"],
         "url": "/generate-an-ssh-key",
         "teaser": null
       },{
         "title": "Grow Disk Space on a CentOS 7 VM Using QEMU, LVM, and XFS",
-        "excerpt":"Sometimes you just need some more disk space. Expanding the size of a virtual disk, though, is not necessarily as easy as you&#8217;d hope. Having just done this on a CentOS 7 virtual machine, I document how to do so here. Thanks goes to the article How to extend Linux...","categories": ["Disks"],
+        "excerpt":"Sometimes you just need some more disk space. Expanding the size of a virtual disk, though, is not necessarily as easy as you&#8217;d hope. Having just done this on a CentOS 7 virtual machine, I document how to do so here. Thanks goes to the article How to extend Linux...","categories": ["Data Storage"],
         "tags": ["CentOS","disk","filesystem","Linux","LVM","QEMU","XFS"],
         "url": "/grow-disk-space-on-a-centos-7-vm-using-qemu-lvm-and-xfs",
         "teaser": null
@@ -210,13 +210,13 @@ var store = [{
         "teaser": null
       },{
         "title": "Backup and Restore a GPG Key",
-        "excerpt":"Gnu Privacy Guard, also known as GnuPG and GPG, is a handy tool for managing OpenPGP keys. While don&#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using Git. PGP keys can be a bit nastier to...","categories": ["Systems"],
+        "excerpt":"Gnu Privacy Guard, also known as GnuPG and GPG, is a handy tool for managing OpenPGP keys. While don&#8217;t use PGP keys for email encryption as many people do, I do use a PGP key to sign my work when using Git. PGP keys can be a bit nastier to...","categories": ["Security"],
         "tags": ["Backups","GnuPG","GPG","OpenPGP","Ubuntu"],
         "url": "/backup-and-restore-a-gpg-key",
         "teaser": null
       },{
         "title": "Generate a GPG Key",
-        "excerpt":"GPG keys can be used to cryptographically sign Git commits, pushes, and tags. This associates your work with a particular identity. GPG is also used for encrypting and signing emails. To do these things, you first need a GPG key. Tutorial The instructions here describe the steps to generate a...","categories": ["Systems"],
+        "excerpt":"GPG keys can be used to cryptographically sign Git commits, pushes, and tags. This associates your work with a particular identity. GPG is also used for encrypting and signing emails. To do these things, you first need a GPG key. Tutorial The instructions here describe the steps to generate a...","categories": ["Security"],
         "tags": ["Backups","GnuPG","GPG","OpenPGP","Ubuntu"],
         "url": "/generate-a-gpg-key",
         "teaser": null
@@ -228,97 +228,97 @@ var store = [{
         "teaser": null
       },{
         "title": "Snapping on the Pinebook Pro",
-        "excerpt":"Snaps are an incredible new packaging format for Linux from Canonical.[1] They offer application confinement and increased portability while also simplifying the development workflow. Recently I submitted a pull-request to extend the Sublime Merge snap with support for arm64 so that I could use it on my Pinebook Pro. Testing...","categories": ["Packaging"],
+        "excerpt":"Snaps are an incredible new packaging format for Linux from Canonical.[1] They offer application confinement and increased portability while also simplifying the development workflow. Recently I submitted a pull-request to extend the Sublime Merge snap with support for arm64 so that I could use it on my Pinebook Pro. Testing...","categories": ["Development"],
         "tags": ["arm64","Armbian","Linux","LXC","PinebookPro","Snapcraft","Ubuntu"],
         "url": "/snapping-on-the-pinebook-pro",
         "teaser": null
       },{
         "title": "Backup Git Repositories",
-        "excerpt":"If you have any source code repositories hosted online, you probably don&#8217;t want to lose those. Just yesterday I converted my professional resume from the OpenDocument Format to a version controlled Asciidoctor project. This prompted me to do an important task I&#8217;d been putting off for some time, backing up...","categories": ["Systems"],
+        "excerpt":"If you have any source code repositories hosted online, you probably don&#8217;t want to lose those. Just yesterday I converted my professional resume from the OpenDocument Format to a version controlled Asciidoctor project. This prompted me to do an important task I&#8217;d been putting off for some time, backing up...","categories": ["Data Storage"],
         "tags": ["Backup","fish","Git","Linux","SSH","systemd","Ubuntu"],
         "url": "/backup-git-repositories",
         "teaser": null
       },{
         "title": "A Multi-Boot USB With Ventoy",
-        "excerpt":"My daily driver predates Dell&#8217;s support for the Linux Vendor Firmware Service, usually abbreviated LVFS. The only way to update my motherboard&#8217;s UEFI is through Windows, which I means I&#8217;ll need a Windows 10 USB installer. Creating a USB installer on Ubuntu is typically as easy as opening GNOME Disks,...","categories": ["Disks"],
+        "excerpt":"My daily driver predates Dell&#8217;s support for the Linux Vendor Firmware Service, usually abbreviated LVFS. The only way to update my motherboard&#8217;s UEFI is through Windows, which I means I&#8217;ll need a Windows 10 USB installer. Creating a USB installer on Ubuntu is typically as easy as opening GNOME Disks,...","categories": ["Data Storage"],
         "tags": ["Boot","Disk","GNOME","Linux","Installer","ISO","Ubuntu","Ubuntu2004","udisks","USB","Ventoy","Windows","Windows10"],
         "url": "/a-multi-boot-usb-with-ventoy",
         "teaser": null
       },{
         "title": "Create a Windows 10 USB on Ubuntu",
-        "excerpt":"I needed a to install Windows 10 from a USB recently. I&#8217;ve described my preferred method of accomplishing this in my recent post A Multi-Boot USB With Ventoy. Before I thought to use Ventoy, I created such an installer following this nifty article How to Create a Bootable Windows 10...","categories": ["Disks"],
+        "excerpt":"I needed a to install Windows 10 from a USB recently. I&#8217;ve described my preferred method of accomplishing this in my recent post A Multi-Boot USB With Ventoy. Before I thought to use Ventoy, I created such an installer following this nifty article How to Create a Bootable Windows 10...","categories": ["Data Storage"],
         "tags": ["Boot","Disks","gdisk","GNOME","gnome-disk-image-mounter","Installer","ISO","Linux","sgdisk","Ubuntu","Ubuntu2004","udisks","USB","Windows","Windows10"],
         "url": "/create-a-windows-10-usb-on-ubuntu",
         "teaser": null
       },{
         "title": "GNOME Keyring in KDE Plasma",
-        "excerpt":"I love GNOME, but on my Pinebook Pro, I use the extremely well-supported Manjaro Pinebook Pro KDE Plasma edition. One of the biggest gripes I have with KDE Plasma is that it doesn&#8217;t automatically manage my OpenSSH and GPG keys. I&#8217;m used to having my SSH and GPG key unlocked...","categories": ["Developer"],
+        "excerpt":"I love GNOME, but on my Pinebook Pro, I use the extremely well-supported Manjaro Pinebook Pro KDE Plasma edition. One of the biggest gripes I have with KDE Plasma is that it doesn&#8217;t automatically manage my OpenSSH and GPG keys. I&#8217;m used to having my SSH and GPG key unlocked...","categories": ["Development"],
         "tags": ["GNOME","GPG","KDE","Keyring","Manjaro","PinebookPro","Plasma","SSH"],
         "url": "/gnome-keyring-in-kde-plasma",
         "teaser": null
       },{
         "title": "Btrfs Mount Options",
-        "excerpt":"So, let&#8217;s say you&#8217;ve installed a fresh system on Btrfs. Now what? Well, Btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case. The primary way to tune...","categories": ["Disks"],
+        "excerpt":"So, let&#8217;s say you&#8217;ve installed a fresh system on Btrfs. Now what? Well, Btrfs doesn&#8217;t ship with optimal default settings. Many popular Linux distributions don&#8217;t improve the situation, either. That leaves it up to the administrator to fine tune Btrfs for its particular use case. The primary way to tune...","categories": ["Data Storage"],
         "tags": ["Btrfs","fstab","Linux","mount"],
         "url": "/btrfs-mount-options",
         "teaser": null
       },{
         "title": "Btrfs Swapfile",
-        "excerpt":"Swap space is a standard component of most operating systems. It&#8217;s effectively reserved disk space for accommodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic. There are...","categories": ["Disks"],
+        "excerpt":"Swap space is a standard component of most operating systems. It&#8217;s effectively reserved disk space for accommodating a system when it needs more RAM than it has available. I recommend the opensource.com article An Introduction to Swap Space on Linux Systems as a great primer on the topic. There are...","categories": ["Data Storage"],
         "tags": ["Btrfs","Linux","swap","swapfile"],
         "url": "/btrfs-swapfile",
         "teaser": null
       },{
         "title": "Why Choose Btrfs",
-        "excerpt":"There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and Btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity...","categories": ["Disks"],
+        "excerpt":"There are many compelling reasons to use a modern Copy-on-Write, CoW for short, filesystem. These include low-cost snapshots and incremental backups. If that&#8217;s not compelling, the two most popular open source CoW filesystems, OpenZFS and Btrfs, offer many more features. Compression, redundancy, deduplication, native encryption, online defragmentation, and data integrity...","categories": ["Data Storage"],
         "tags": ["bcachefs","Btrfs","CoW","filesystem","Fedora","FreeBSD","Linux","OpenZFS","openSUSE","NetBSD","snapshots","ZFS"],
         "url": "/why-choose-btrfs",
         "teaser": null
       },{
         "title": "Power Management on Linux With TLP",
-        "excerpt":"TLP is a powerful power management utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration...","categories": ["Systems"],
+        "excerpt":"TLP is a powerful power management utility for Linux. It helps conserve battery life on mobile Linux devices by taking advantage of various kernel features. It&#8217;s also super easy to add to a system and requires no extra configuration after installation. Though, it does expose quite a bit of configuration...","categories": ["Admin"],
         "tags": ["elementary","Linux","TLP","Ubuntu"],
         "url": "/power-management-on-linux-with-tlp",
         "teaser": null
       },{
         "title": "Btrfs Layout",
-        "excerpt":"One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a...","categories": ["Disks"],
+        "excerpt":"One of the best features of Btrfs is the ability to produce snapshots of data instantaneously. Rollbacks take advantage of Btrfs to revert the system, or any subvolume, to a previous state like before that major kernel update. This is an extremely valuable feature. Unfortunately, to take advantage of a...","categories": ["Data Storage"],
         "tags": ["AppImage","AppImageLauncher","asdf","Btrfs","CoW","Cargo","Conan","elementary","FHS","filesystem","Flatpak","fstab","Gnome-Boxes","libvirt","Linux","openSUSE","Podman","Rust","Snapper","snapshots","systemd","Ubuntu","xdg-base"],
         "url": "/btrfs-layout",
         "teaser": null
       },{
         "title": "Btrfs Snapshot Management With Snapper",
-        "excerpt":"Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups....","categories": ["Disks"],
+        "excerpt":"Manually taking snapshots with Btrfs is easy. Managing said snapshots is not. This is why several tools exist for the task. The most prominent are Btrbk, Snapper, and Timeshift. Each of these automate taking, naming, and cleaning up snapshots. Btrbk is highly configurable and flexible while also offering incremental backups....","categories": ["Data Storage"],
         "tags": ["Btrbk","Btrfs","elementary","Linux","Snapper","snapshots","Timeshift","Ubuntu"],
         "url": "/btrfs-snapshot-management-with-snapper",
         "teaser": null
       },{
         "title": "Adjust Mount Options",
-        "excerpt":"Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7), udisks2, and GIO provide userspace access to devices. Imagine not...","categories": ["Disks"],
+        "excerpt":"Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&#8217;s peachy. For both better and worse, there&#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7), udisks2, and GIO provide userspace access to devices. Imagine not...","categories": ["Data Storage"],
         "tags": ["Btrfs","elementary","fstab","GIO","Linux","mount","systemd","Ubuntu","udev","udisks2"],
         "url": "/adjust-mount-options",
         "teaser": null
       },{
         "title": "Encrypt an External Disk on Linux",
-        "excerpt":"Encrypting your data is pretty much a must anyone who is privacy or security conscious. I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple. I keep local backups on an external hard drive,...","categories": ["Disks"],
+        "excerpt":"Encrypting your data is pretty much a must anyone who is privacy or security conscious. I find it quite handy for not only protecting my data in use, but also the best way to make recycling old disks secure and simple. I keep local backups on an external hard drive,...","categories": ["Data Storage"],
         "tags": ["backups","Btrfs","Cryptsetup","elementary","encryption","fstab","GIO","Linux","systemd","udisks2","Ubuntu"],
         "url": "/encrypt-an-external-disk-on-linux",
         "teaser": null
       },{
         "title": "Install udisks2 From Source",
-        "excerpt":"I recently posted Adjust Mount Options which explains in detail how to configure mount options for udisks2. Unfortunately, the reference operating system, Ubuntu 18.04, doesn&#8217;t use a new enough version of udisks2. In fact, even Ubuntu 20.04 doesn&#8217;t contain a new enough version. So, what should you do if you...","categories": ["Disks"],
+        "excerpt":"I recently posted Adjust Mount Options which explains in detail how to configure mount options for udisks2. Unfortunately, the reference operating system, Ubuntu 18.04, doesn&#8217;t use a new enough version of udisks2. In fact, even Ubuntu 20.04 doesn&#8217;t contain a new enough version. So, what should you do if you...","categories": ["Data Storage"],
         "tags": ["Btrfs","elementary","Linux","mount","Ubuntu","udisks2"],
         "url": "/install-udisks2-from-source",
         "teaser": null
       },{
         "title": "Automount an Encrypted System Volume",
-        "excerpt":"If you run an encrypted Linux system, it&#8217;s helpful to understand how the system handles mounting and decrypting filesystems. A Linux desktop user and tinkerer who runs on an encrypted root, might find this knowledge inevitably becomes practical. The general mechanics used for an encrypted root volume apply to encrypting...","categories": ["Disks"],
+        "excerpt":"If you run an encrypted Linux system, it&#8217;s helpful to understand how the system handles mounting and decrypting filesystems. A Linux desktop user and tinkerer who runs on an encrypted root, might find this knowledge inevitably becomes practical. The general mechanics used for an encrypted root volume apply to encrypting...","categories": ["Data Storage"],
         "tags": ["automount","Btrfs","Cryptsetup","crypttab","elementary","encryption","fstab","Linux","mount","systemd","Ubuntu"],
         "url": "/automount-an-encrypted-system-volume",
         "teaser": null
       },{
         "title": "Backup Snapper Snapshots With snap-sync",
-        "excerpt":"In Btrfs Snapshot Management With Snapper, the process is described for automating Btrfs snapshots with Snapper. Why stop there when you can use these snapshots for incremental backups? This isn&#8217;t the most difficult thing to script yourself, but why do more work than you have to? The Bash script snap-sync...","categories": ["Disks"],
+        "excerpt":"In Btrfs Snapshot Management With Snapper, the process is described for automating Btrfs snapshots with Snapper. Why stop there when you can use these snapshots for incremental backups? This isn&#8217;t the most difficult thing to script yourself, but why do more work than you have to? The Bash script snap-sync...","categories": ["Data Storage"],
         "tags": ["backups","Btrbk","Btrfs","elementary","encryption","Linux","snap-sync","Snapper","snapshots","systemd","Ubuntu"],
         "url": "/backup-snapper-snapshots-with-snap-sync",
         "teaser": null
@@ -330,7 +330,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Podman With Btrfs and ZFS",
-        "excerpt":"Podman has storage backends for both Btrfs and ZFS. Using these backends allows Podman to take full advantage of the underlying CoW filesystem. This is a quick guide on enabling these storage drivers. Enable the Btrfs and ZFS Storage Drivers for Podman Below are the necessary steps to enable the...","categories": ["Disks"],
+        "excerpt":"Podman has storage backends for both Btrfs and ZFS. Using these backends allows Podman to take full advantage of the underlying CoW filesystem. This is a quick guide on enabling these storage drivers. Enable the Btrfs and ZFS Storage Drivers for Podman Below are the necessary steps to enable the...","categories": ["Data Storage"],
         "tags": ["Btrfs","containers","CoW","filesystem","Linux","Podman","ZFS"],
         "url": "/podman-with-btrfs-and-zfs",
         "teaser": null
@@ -348,7 +348,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Btrfs Scrub",
-        "excerpt":"You probably want to take advantage of the data integrity checking offered by Btrfs. Btrfs calculates checksums for all data written to disk. These checksums are used to verify the data hasn&#8217;t been unduly altered. While data is verified every time it is read, what about the data that isn&#8217;t...","categories": ["Disks"],
+        "excerpt":"You probably want to take advantage of the data integrity checking offered by Btrfs. Btrfs calculates checksums for all data written to disk. These checksums are used to verify the data hasn&#8217;t been unduly altered. While data is verified every time it is read, what about the data that isn&#8217;t...","categories": ["Data Storage"],
         "tags": ["Arch","Btrfs","Linux","scrub","systemd","ZFS"],
         "url": "/btrfs-scrub",
         "teaser": null
