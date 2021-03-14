@@ -358,4 +358,10 @@ var store = [{
         "tags": ["containers","Docker","DockerCompose","Kubernetes","Linux","Podman","PodmanCompose","Ubuntu"],
         "url": "/podman-compose",
         "teaser": null
+      },{
+        "title": "Translate Docker Compose to Kubernetes With Podman",
+        "excerpt":"Podman ships with built-in support for Kubernetes configuration files but not for Docker Compose. As described in Podman Compose, the Podman Compose utility can use Docker Compose files to create Podman containers. However, you might want to migrate to the Kubernetes format, eschewing Podman Compose and Docker Compose entirely. This...","categories": ["Virtualization"],
+        "tags": ["containers","Docker","Docker-Compose","Kubernetes","Linux","Podman","podman-compose","Ubuntu"],
+        "url": "/translate-docker-compose-to-kubernetes-with-podman",
+        "teaser": null
       }]

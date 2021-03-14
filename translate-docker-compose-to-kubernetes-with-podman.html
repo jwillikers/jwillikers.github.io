@@ -1,0 +1,658 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Translate Docker Compose to Kubernetes With Podman - JWillikers</title>
+<meta name="description" content="Podman ships with built-in support for Kubernetes configuration files but not for Docker Compose. As described in Podman Compose, the Podman Compose utility can use Docker Compose files to create Podman containers. However, you might want to migrate to the Kubernetes format, eschewing Podman Compose and Docker Compose entirely. This is what I ended up doing, and I describe the process here.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Translate Docker Compose to Kubernetes With Podman">
+<meta property="og:url" content="https://www.jwillikers.com/translate-docker-compose-to-kubernetes-with-podman">
+
+
+  <meta property="og:description" content="Podman ships with built-in support for Kubernetes configuration files but not for Docker Compose. As described in Podman Compose, the Podman Compose utility can use Docker Compose files to create Podman containers. However, you might want to migrate to the Kubernetes format, eschewing Podman Compose and Docker Compose entirely. This is what I ended up doing, and I describe the process here.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-14T00:00:00-06:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/translate-docker-compose-to-kubernetes-with-podman">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://podman.io/">Podman</a> ships with built-in support for <a href="https://kubernetes.io/">Kubernetes</a> configuration files but not for <a href="https://docs.docker.com/compose/">Docker Compose</a>.
+As described in <a href="podman-compose.html">Podman Compose</a>, the <a href="https://github.com/containers/podman-compose">Podman Compose</a> utility can use Docker Compose files to create Podman containers.
+However, you might want to migrate to the Kubernetes format, eschewing Podman Compose and Docker Compose entirely.
+This is what I ended up doing, and I describe the process here.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial provides the steps necessary to convert a simple Docker Compose file to an equivalent Kubernetes configuration using Podman Compose and Podman.
+It continues where <a href="podman-compose.html">Podman Compose</a> left off, having created a Podman container from the Docker Compose for the UniFi Controller from the <a href="unifi-controller.html">UniFi Controller</a> post.
+So, complete this tutorial before following the steps below.
+This tutorial targets <a href="https://ubuntu.com/">Ubuntu</a> 18.04, and you should be familiar with Linux Containers, Docker Compose, Podman, the command-line, and the Kubernetes configuration format.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Change into the directory containing the UniFi Controller&#8217;s Docker Compose file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd</span> ~/Projects/unifi-controller</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check for the previously created UniFi Controller pod with <a href="https://docs.podman.io/en/latest/markdown/podman-pod-ps.1.html">podman-pod-ps(1)</a>.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ podman pod ps
+POD ID        NAME              STATUS   CREATED      INFRA ID      <span class="c"># OF CONTAINERS</span>
+241f0bf222a3  unifi-controller  Running  2 hours ago  d5eaaf6d5625  2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Okay, it&#8217;s present and accounted for!</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>To generate the Kubernetes configuration from a Podman container, use <a href="https://docs.podman.io/en/latest/markdown/podman-generate-kube.1.html">podman-generate-kube(1)</a>.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Here I output the configuration to the file <em>unifi-controller.yml</em> using the <code>-f</code> flag.
+The <code>-s</code> flag produces the necessary network service configuration.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ podman generate kube <span class="nt">-s</span> <span class="nt">-f</span> unifi-controller.yml unifi-controller</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Examine the generated YAML file, reproduced below.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">~/Projects/unifi-controller/unifi-controller.yml</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="c1"># Generation of Kubernetes YAML is still under development!</span>
+<span class="c1">#</span>
+<span class="c1"># Save the output of this file and use kubectl create -f to import</span>
+<span class="c1"># it into Kubernetes.</span>
+<span class="c1">#</span>
+<span class="c1"># Created with podman-3.0.1</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">creationTimestamp</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2021-03-14T15:41:03Z"</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">unifi-controller</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">unifi-controller</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">containers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">command</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">/init</span>
+    <span class="na">env</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">PATH</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">TERM</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">xterm</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">container</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">podman</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">HOME</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">/root</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">LANGUAGE</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">en_US.UTF-8</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">LANG</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">en_US.UTF-8</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">MEM_LIMIT</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">1024M</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">ghcr.io/linuxserver/unifi-controller</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">unifi-controllerunifi-controller1</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">6789</span>
+      <span class="na">hostPort</span><span class="pi">:</span> <span class="m">6789</span>
+      <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">3478</span>
+      <span class="na">hostPort</span><span class="pi">:</span> <span class="m">3478</span>
+      <span class="na">protocol</span><span class="pi">:</span> <span class="s">UDP</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">5514</span>
+      <span class="na">hostPort</span><span class="pi">:</span> <span class="m">5514</span>
+      <span class="na">protocol</span><span class="pi">:</span> <span class="s">UDP</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">8880</span>
+      <span class="na">hostPort</span><span class="pi">:</span> <span class="m">8880</span>
+      <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">8080</span>
+      <span class="na">hostPort</span><span class="pi">:</span> <span class="m">8080</span>
+      <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">8443</span>
+      <span class="na">hostPort</span><span class="pi">:</span> <span class="m">8443</span>
+      <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">10001</span>
+      <span class="na">hostPort</span><span class="pi">:</span> <span class="m">10001</span>
+      <span class="na">protocol</span><span class="pi">:</span> <span class="s">UDP</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">8843</span>
+      <span class="na">hostPort</span><span class="pi">:</span> <span class="m">8843</span>
+      <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">1900</span>
+      <span class="na">hostPort</span><span class="pi">:</span> <span class="m">1900</span>
+      <span class="na">protocol</span><span class="pi">:</span> <span class="s">UDP</span>
+    <span class="na">resources</span><span class="pi">:</span> <span class="pi">{}</span>
+    <span class="na">securityContext</span><span class="pi">:</span>
+      <span class="na">allowPrivilegeEscalation</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">capabilities</span><span class="pi">:</span>
+        <span class="na">drop</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">CAP_MKNOD</span>
+        <span class="pi">-</span> <span class="s">CAP_NET_RAW</span>
+        <span class="pi">-</span> <span class="s">CAP_AUDIT_WRITE</span>
+      <span class="na">privileged</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">readOnlyRootFilesystem</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">seLinuxOptions</span><span class="pi">:</span> <span class="pi">{}</span>
+    <span class="na">workingDir</span><span class="pi">:</span> <span class="s">/usr/lib/unifi</span>
+  <span class="na">dnsConfig</span><span class="pi">:</span> <span class="pi">{}</span>
+  <span class="na">restartPolicy</span><span class="pi">:</span> <span class="s">Never</span>
+<span class="na">status</span><span class="pi">:</span> <span class="pi">{}</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">creationTimestamp</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2021-03-14T15:41:03Z"</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">unifi-controller</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">unifi-controller</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">ports</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">6789"</span>
+    <span class="na">nodePort</span><span class="pi">:</span> <span class="m">32062</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">6789</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3478"</span>
+    <span class="na">nodePort</span><span class="pi">:</span> <span class="m">32030</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">3478</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">UDP</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">5514"</span>
+    <span class="na">nodePort</span><span class="pi">:</span> <span class="m">30747</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">5514</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">UDP</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">8880"</span>
+    <span class="na">nodePort</span><span class="pi">:</span> <span class="m">30295</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">8880</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">8080"</span>
+    <span class="na">nodePort</span><span class="pi">:</span> <span class="m">32396</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">8080</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">8443"</span>
+    <span class="na">nodePort</span><span class="pi">:</span> <span class="m">32319</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">8443</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">10001"</span>
+    <span class="na">nodePort</span><span class="pi">:</span> <span class="m">30786</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">10001</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">UDP</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">8843"</span>
+    <span class="na">nodePort</span><span class="pi">:</span> <span class="m">31695</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">8843</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1900"</span>
+    <span class="na">nodePort</span><span class="pi">:</span> <span class="m">31076</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">1900</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">UDP</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">0</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">unifi-controller</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">NodePort</span>
+<span class="na">status</span><span class="pi">:</span>
+  <span class="na">loadBalancer</span><span class="pi">:</span> <span class="pi">{}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This generated file warrants some additional attention.
+Most importantly, the generated Kubernetes configuration is conspicuously lacking any volumes.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Add a section for an associated named volume that will hold the persistent data.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>In the Docker Compose file, a volume was created like so.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2.1"</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">unifi-controller</span><span class="pi">:</span>
+  <span class="s">...</span>
+    <span class="s">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">data:/config</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="s">...</span>
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">data</span><span class="pi">:</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Associate the <em>unifi-controller</em> with the volume dubbed <em>data</em> which is mounted at <code>/config</code> inside the container.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Declare the named volume <em>data</em> which will be created automatically if it doesn&#8217;t exist.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The way to accomplish the same behavior in the Kubernetes YAML is to use a <em>Persistent Volume Claim</em>.
+Podman has recently added support for using <em>Persistent Volume Claims</em> to associate Podman containers with named Podman volumes.
+See Podman pull request <a href="https://github.com/containers/podman/pull/8497">#8497</a> for details.
+This wasn&#8217;t in the generated YAML because the functionality to generate the corresponding YAML is still outstanding per Podman issue <a href="https://github.com/containers/podman/issues/5788">#5788</a>.</p>
+</div>
+<div class="paragraph">
+<p>For the time being, we&#8217;ll just have to add this manually.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">spec</span><span class="pi">:</span>
+  <span class="na">containers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">command</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">/init</span>
+    <span class="s">...</span>
+    <span class="na">volumeMounts</span><span class="pi">:</span> <i class="conum" data-value="1"></i><b>(1)</b>
+      <span class="pi">-</span> <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/config</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">unifi-data</span>
+  <span class="na">volumes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">unifi-data</span> <i class="conum" data-value="2"></i><b>(2)</b>
+      <span class="na">persistentVolumeClaim</span><span class="pi">:</span>
+        <span class="na">claimName</span><span class="pi">:</span> <span class="s">unifi-controller-data</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Mount the volume dubbed <em>unifi-data</em> at <code>/config</code> inside the container.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Declare the <em>Persistent Volume Claim</em>, <em>unifi-data</em>, using the claim name <em>unifi-controller-data</em>.
+Podman associates the claim name with the name of the Podman named volume to use for this particular pod.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In an attempt to preserve what little sanity remains in my possession in this moment, I named the volume using <code>-</code> as the separator.
+This is inconsistent with the volume created by Podman Compose which is named <em>unifi-controller_data</em>.
+Notice that underscore instead of a hyphen at the end?
+You might already be using the volume <em>unifi-controller_data</em>.
+If you want to keep using it with the container created from the Kubernetes YAML, change the claim name accordingly.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Optionally, you can remove some of the environment variable cruft in the <code>env</code> section.
+I reduced this to just the values below.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">env</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">container</span>
+    <span class="na">value</span><span class="pi">:</span> <span class="s">podman</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">MEM_LIMIT</span>
+    <span class="na">value</span><span class="pi">:</span> <span class="s">1024M</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you want to allow automatic updates of the image, add the appropriate label.</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">creationTimestamp</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2021-03-13T17:21:54Z"</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">unifi-controller</span>
+    <span class="s">io.containers.autoupdate</span><span class="pi">:</span> <span class="s">image</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">unifi-controller</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Add the label <code>io.containers.autoupdate</code> and set it to <code>image</code> to enable automatic updates for the containers herein.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This is a bit of a tease for an upcoming blog post which will describe this in more detail.
+You&#8217;ll need to make sure that Podman&#8217;s auto-update systemd timer is enabled.
+Details forthcoming.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Before starting this pod up, use podman-compose to destroy the existing <em>unifi-controller</em> pod.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ podman-compose down</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Provide the generated Kubernetes YAML to <a href="https://docs.podman.io/en/latest/markdown/podman-play-kube.1.html">podman-play-kube(1)</a> to create and launch the pod.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ podman play kube ~/Projects/unifi-controller/unifi-controller.yml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Access the controller&#8217;s web console at <a href="https://127.0.0.1:8443/" class="bare">https://127.0.0.1:8443/</a>.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">fish</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ open http://127.0.0.1:8443</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Other shells</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ xdg-open http://127.0.0.1:8443</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see_also">See Also</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I have a <a href="https://github.com/jwillikers/unifi-controller">GitHub repository</a> for this Kubernetes configuration file which you might find helpful.
+RedHat has several blog posts related to Podman and Kubernetes YAML including <a href="https://developers.redhat.com/blog/2019/01/29/podman-kubernetes-yaml/">Podman can now ease the transition to Kubernetes and CRI-O</a>, <a href="https://www.redhat.com/sysadmin/compose-kubernetes-podman">From Docker Compose to Kubernetes with Podman</a>, and <a href="https://www.redhat.com/sysadmin/podman-play-kube">The podman play kube command now supports deployments</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should now have a better idea of how the Docker Compose format translates to the Kubernetes format plus how to get the conversion started with Podman and Podman Compose.
+This also sets the stage for transitioning to using Kubernetes for managing container deployments.
+Hopefully you&#8217;ve found this post helpful.
+Posts on automatic image updates and setting up a Podman container as a <a href="https://systemd.io/">systemd</a> service to follow.</p>
+</div>
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/translate-docker-compose-to-kubernetes-with-podman' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

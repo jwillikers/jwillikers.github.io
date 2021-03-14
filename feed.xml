@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-14T08:19:59-05:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Podman Compose</title><link href="https://www.jwillikers.com/podman-compose" rel="alternate" type="text/html" title="Podman Compose" /><published>2021-03-14T00:00:00-06:00</published><updated>2021-03-14T00:00:00-06:00</updated><id>https://www.jwillikers.com/Podman%20Compose</id><content type="html" xml:base="https://www.jwillikers.com/podman-compose">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-14T12:24:46-05:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Podman Compose</title><link href="https://www.jwillikers.com/podman-compose" rel="alternate" type="text/html" title="Podman Compose" /><published>2021-03-14T00:00:00-06:00</published><updated>2021-03-14T00:00:00-06:00</updated><id>https://www.jwillikers.com/Podman%20Compose</id><content type="html" xml:base="https://www.jwillikers.com/podman-compose">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; supports the &lt;a href=&quot;https://kubernetes.io/&quot;&gt;Kubernetes&lt;/a&gt; YAML format for configuring pods.
@@ -188,11 +188,423 @@ The volume dubbed &lt;em&gt;data&lt;/em&gt; here will use a Podman volume named 
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;That was fast, wasn&amp;#8217;t it?
 Love Podman yet?
-If you want to simplify your workflow, you can generate a Kubernetes configuration from the Podman container, and even setup this container as a &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; service.
-Blog posts on these topics will be available soon!&lt;/p&gt;
+If you want to simplify your workflow, checkout &lt;a href=&quot;translate-docker-compose-to-kubernetes-with-podman.html&quot;&gt;Translate Docker Compose to Kubernetes With Podman&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="containers" /><category term="Docker" /><category term="DockerCompose" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="PodmanCompose" /><category term="Ubuntu" /><summary type="html">Podman supports the Kubernetes YAML format for configuring pods. Unfortunately, I&amp;#8217;m coming to the Podman scene from Docker where the Docker Compose format is common. The Docker Compose format isn&amp;#8217;t supported by Podman. I don&amp;#8217;t really want to invest the time in learning a new configuration file format right now, so what should I do? Use Podman Compose!</summary></entry><entry><title type="html">Btrfs Scrub</title><link href="https://www.jwillikers.com/btrfs-scrub" rel="alternate" type="text/html" title="Btrfs Scrub" /><published>2021-03-05T00:00:00-06:00</published><updated>2021-03-05T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Scrub</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-scrub">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="containers" /><category term="Docker" /><category term="DockerCompose" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="PodmanCompose" /><category term="Ubuntu" /><summary type="html">Podman supports the Kubernetes YAML format for configuring pods. Unfortunately, I&amp;#8217;m coming to the Podman scene from Docker where the Docker Compose format is common. The Docker Compose format isn&amp;#8217;t supported by Podman. I don&amp;#8217;t really want to invest the time in learning a new configuration file format right now, so what should I do? Use Podman Compose!</summary></entry><entry><title type="html">Translate Docker Compose to Kubernetes With Podman</title><link href="https://www.jwillikers.com/translate-docker-compose-to-kubernetes-with-podman" rel="alternate" type="text/html" title="Translate Docker Compose to Kubernetes With Podman" /><published>2021-03-14T00:00:00-06:00</published><updated>2021-03-14T00:00:00-06:00</updated><id>https://www.jwillikers.com/Translate%20Docker%20Compose%20to%20Kubernetes%20With%20Podman</id><content type="html" xml:base="https://www.jwillikers.com/translate-docker-compose-to-kubernetes-with-podman">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; ships with built-in support for &lt;a href=&quot;https://kubernetes.io/&quot;&gt;Kubernetes&lt;/a&gt; configuration files but not for &lt;a href=&quot;https://docs.docker.com/compose/&quot;&gt;Docker Compose&lt;/a&gt;.
+As described in &lt;a href=&quot;podman-compose.html&quot;&gt;Podman Compose&lt;/a&gt;, the &lt;a href=&quot;https://github.com/containers/podman-compose&quot;&gt;Podman Compose&lt;/a&gt; utility can use Docker Compose files to create Podman containers.
+However, you might want to migrate to the Kubernetes format, eschewing Podman Compose and Docker Compose entirely.
+This is what I ended up doing, and I describe the process here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial provides the steps necessary to convert a simple Docker Compose file to an equivalent Kubernetes configuration using Podman Compose and Podman.
+It continues where &lt;a href=&quot;podman-compose.html&quot;&gt;Podman Compose&lt;/a&gt; left off, having created a Podman container from the Docker Compose for the UniFi Controller from the &lt;a href=&quot;unifi-controller.html&quot;&gt;UniFi Controller&lt;/a&gt; post.
+So, complete this tutorial before following the steps below.
+This tutorial targets &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04, and you should be familiar with Linux Containers, Docker Compose, Podman, the command-line, and the Kubernetes configuration format.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Change into the directory containing the UniFi Controller&amp;#8217;s Docker Compose file.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/Projects/unifi-controller&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Check for the previously created UniFi Controller pod with &lt;a href=&quot;https://docs.podman.io/en/latest/markdown/podman-pod-ps.1.html&quot;&gt;podman-pod-ps(1)&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ podman pod ps
+POD ID        NAME              STATUS   CREATED      INFRA ID      &lt;span class=&quot;c&quot;&gt;# OF CONTAINERS&lt;/span&gt;
+241f0bf222a3  unifi-controller  Running  2 hours ago  d5eaaf6d5625  2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Okay, it&amp;#8217;s present and accounted for!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;To generate the Kubernetes configuration from a Podman container, use &lt;a href=&quot;https://docs.podman.io/en/latest/markdown/podman-generate-kube.1.html&quot;&gt;podman-generate-kube(1)&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here I output the configuration to the file &lt;em&gt;unifi-controller.yml&lt;/em&gt; using the &lt;code&gt;-f&lt;/code&gt; flag.
+The &lt;code&gt;-s&lt;/code&gt; flag produces the necessary network service configuration.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ podman generate kube &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; unifi-controller.yml unifi-controller&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Examine the generated YAML file, reproduced below.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/Projects/unifi-controller/unifi-controller.yml&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# Generation of Kubernetes YAML is still under development!&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Save the output of this file and use kubectl create -f to import&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# it into Kubernetes.&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Created with podman-3.0.1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Pod&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;creationTimestamp&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2021-03-14T15:41:03Z&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unifi-controller&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unifi-controller&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;containers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/init&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;PATH&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TERM&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;xterm&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;container&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;podman&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;HOME&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/root&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;LANGUAGE&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;en_US.UTF-8&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;LANG&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;en_US.UTF-8&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;MEM_LIMIT&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;1024M&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ghcr.io/linuxserver/unifi-controller&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unifi-controllerunifi-controller1&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6789&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;hostPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6789&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3478&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;hostPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3478&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;UDP&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5514&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;hostPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5514&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;UDP&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8880&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;hostPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8880&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;hostPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8443&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;hostPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8443&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10001&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;hostPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10001&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;UDP&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8843&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;hostPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8843&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;containerPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1900&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;hostPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1900&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;UDP&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;resources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{}&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;securityContext&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;allowPrivilegeEscalation&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;capabilities&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;drop&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;CAP_MKNOD&lt;/span&gt;
+        &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;CAP_NET_RAW&lt;/span&gt;
+        &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;CAP_AUDIT_WRITE&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;privileged&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;readOnlyRootFilesystem&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;seLinuxOptions&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{}&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;workingDir&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/usr/lib/unifi&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;dnsConfig&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{}&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;restartPolicy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Never&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Service&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;creationTimestamp&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2021-03-14T15:41:03Z&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unifi-controller&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unifi-controller&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;6789&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nodePort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;32062&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6789&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;targetPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;3478&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nodePort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;32030&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3478&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;UDP&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;targetPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;5514&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nodePort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30747&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5514&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;UDP&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;targetPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;8880&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nodePort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30295&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8880&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;targetPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;8080&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nodePort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;32396&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8080&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;targetPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;8443&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nodePort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;32319&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8443&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;targetPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;10001&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nodePort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30786&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10001&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;UDP&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;targetPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;8843&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nodePort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;31695&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8843&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TCP&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;targetPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1900&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;nodePort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;31076&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1900&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;protocol&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;UDP&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;targetPort&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unifi-controller&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;NodePort&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;loadBalancer&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This generated file warrants some additional attention.
+Most importantly, the generated Kubernetes configuration is conspicuously lacking any volumes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add a section for an associated named volume that will hold the persistent data.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the Docker Compose file, a volume was created like so.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2.1&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;unifi-controller&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;data:/config&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+  &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Associate the &lt;em&gt;unifi-controller&lt;/em&gt; with the volume dubbed &lt;em&gt;data&lt;/em&gt; which is mounted at &lt;code&gt;/config&lt;/code&gt; inside the container.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Declare the named volume &lt;em&gt;data&lt;/em&gt; which will be created automatically if it doesn&amp;#8217;t exist.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The way to accomplish the same behavior in the Kubernetes YAML is to use a &lt;em&gt;Persistent Volume Claim&lt;/em&gt;.
+Podman has recently added support for using &lt;em&gt;Persistent Volume Claims&lt;/em&gt; to associate Podman containers with named Podman volumes.
+See Podman pull request &lt;a href=&quot;https://github.com/containers/podman/pull/8497&quot;&gt;#8497&lt;/a&gt; for details.
+This wasn&amp;#8217;t in the generated YAML because the functionality to generate the corresponding YAML is still outstanding per Podman issue &lt;a href=&quot;https://github.com/containers/podman/issues/5788&quot;&gt;#5788&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For the time being, we&amp;#8217;ll just have to add this manually.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;containers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/init&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;volumeMounts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;mountPath&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/config&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unifi-data&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unifi-data&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+      &lt;span class=&quot;na&quot;&gt;persistentVolumeClaim&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;claimName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unifi-controller-data&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Mount the volume dubbed &lt;em&gt;unifi-data&lt;/em&gt; at &lt;code&gt;/config&lt;/code&gt; inside the container.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Declare the &lt;em&gt;Persistent Volume Claim&lt;/em&gt;, &lt;em&gt;unifi-data&lt;/em&gt;, using the claim name &lt;em&gt;unifi-controller-data&lt;/em&gt;.
+Podman associates the claim name with the name of the Podman named volume to use for this particular pod.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In an attempt to preserve what little sanity remains in my possession in this moment, I named the volume using &lt;code&gt;-&lt;/code&gt; as the separator.
+This is inconsistent with the volume created by Podman Compose which is named &lt;em&gt;unifi-controller_data&lt;/em&gt;.
+Notice that underscore instead of a hyphen at the end?
+You might already be using the volume &lt;em&gt;unifi-controller_data&lt;/em&gt;.
+If you want to keep using it with the container created from the Kubernetes YAML, change the claim name accordingly.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Optionally, you can remove some of the environment variable cruft in the &lt;code&gt;env&lt;/code&gt; section.
+I reduced this to just the values below.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;container&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;podman&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;MEM_LIMIT&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;1024M&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If you want to allow automatic updates of the image, add the appropriate label.&lt;/p&gt;
+&lt;div class=&quot;openblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Pod&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;creationTimestamp&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;2021-03-13T17:21:54Z&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unifi-controller&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;io.containers.autoupdate&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;image&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unifi-controller&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Add the label &lt;code&gt;io.containers.autoupdate&lt;/code&gt; and set it to &lt;code&gt;image&lt;/code&gt; to enable automatic updates for the containers herein.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is a bit of a tease for an upcoming blog post which will describe this in more detail.
+You&amp;#8217;ll need to make sure that Podman&amp;#8217;s auto-update systemd timer is enabled.
+Details forthcoming.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Before starting this pod up, use podman-compose to destroy the existing &lt;em&gt;unifi-controller&lt;/em&gt; pod.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ podman-compose down&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Provide the generated Kubernetes YAML to &lt;a href=&quot;https://docs.podman.io/en/latest/markdown/podman-play-kube.1.html&quot;&gt;podman-play-kube(1)&lt;/a&gt; to create and launch the pod.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ podman play kube ~/Projects/unifi-controller/unifi-controller.yml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Access the controller&amp;#8217;s web console at &lt;a href=&quot;https://127.0.0.1:8443/&quot; class=&quot;bare&quot;&gt;https://127.0.0.1:8443/&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;fish&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ open http://127.0.0.1:8443&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Other shells&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ xdg-open http://127.0.0.1:8443&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;see_also&quot;&gt;See Also&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I have a &lt;a href=&quot;https://github.com/jwillikers/unifi-controller&quot;&gt;GitHub repository&lt;/a&gt; for this Kubernetes configuration file which you might find helpful.
+RedHat has several blog posts related to Podman and Kubernetes YAML including &lt;a href=&quot;https://developers.redhat.com/blog/2019/01/29/podman-kubernetes-yaml/&quot;&gt;Podman can now ease the transition to Kubernetes and CRI-O&lt;/a&gt;, &lt;a href=&quot;https://www.redhat.com/sysadmin/compose-kubernetes-podman&quot;&gt;From Docker Compose to Kubernetes with Podman&lt;/a&gt;, and &lt;a href=&quot;https://www.redhat.com/sysadmin/podman-play-kube&quot;&gt;The podman play kube command now supports deployments&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You should now have a better idea of how the Docker Compose format translates to the Kubernetes format plus how to get the conversion started with Podman and Podman Compose.
+This also sets the stage for transitioning to using Kubernetes for managing container deployments.
+Hopefully you&amp;#8217;ve found this post helpful.
+Posts on automatic image updates and setting up a Podman container as a &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; service to follow.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="containers" /><category term="Docker" /><category term="Docker-Compose" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="podman-compose" /><category term="Ubuntu" /><summary type="html">Podman ships with built-in support for Kubernetes configuration files but not for Docker Compose. As described in Podman Compose, the Podman Compose utility can use Docker Compose files to create Podman containers. However, you might want to migrate to the Kubernetes format, eschewing Podman Compose and Docker Compose entirely. This is what I ended up doing, and I describe the process here.</summary></entry><entry><title type="html">Btrfs Scrub</title><link href="https://www.jwillikers.com/btrfs-scrub" rel="alternate" type="text/html" title="Btrfs Scrub" /><published>2021-03-05T00:00:00-06:00</published><updated>2021-03-05T00:00:00-06:00</updated><id>https://www.jwillikers.com/Btrfs%20Scrub</id><content type="html" xml:base="https://www.jwillikers.com/btrfs-scrub">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;You probably want to take advantage of the data integrity checking offered by &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt;.
@@ -2518,1095 +2930,4 @@ Hopefully this doesn&amp;#8217;t break anything.
 😅&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="elementary" /><category term="Linux" /><category term="mount" /><category term="Ubuntu" /><category term="udisks2" /><summary type="html">I recently posted Adjust Mount Options which explains in detail how to configure mount options for udisks2. Unfortunately, the reference operating system, Ubuntu 18.04, doesn&amp;#8217;t use a new enough version of udisks2. In fact, even Ubuntu 20.04 doesn&amp;#8217;t contain a new enough version. So, what should you do if you want to try out these nifty, new features? Build from source, of course!</summary></entry><entry><title type="html">Adjust Mount Options</title><link href="https://www.jwillikers.com/adjust-mount-options" rel="alternate" type="text/html" title="Adjust Mount Options" /><published>2021-02-22T00:00:00-06:00</published><updated>2021-02-22T00:00:00-06:00</updated><id>https://www.jwillikers.com/Adjust%20Mount%20Options</id><content type="html" xml:base="https://www.jwillikers.com/adjust-mount-options">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Mounting filesystems on Linux is simple, right?
-Just use &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html&quot;&gt;mount(8)&lt;/a&gt;, specify the recurring stuff in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt;, and everything&amp;#8217;s peachy.
-For both better and worse, there&amp;#8217;s more to it than that.
-Filesystem dependencies are handled by &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; and tools like &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/en/man7/udev.7.html&quot;&gt;udev(7)&lt;/a&gt;, &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt;, and &lt;a href=&quot;https://developer.gnome.org/gio/stable/&quot;&gt;GIO&lt;/a&gt; provide userspace access to devices.
-Imagine not having to be root to access your flash drive?
-Okay, you&amp;#8217;re probably aware that root isn&amp;#8217;t necessary for such a thing, but that&amp;#8217;s because there&amp;#8217;s tools that take care of that for you.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I&amp;#8217;ve been working through understanding the different components of this for a while now, but recently put most of it together addressing an important concept.
-That is mount options.
-Switching to &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; as my default filesystem and using it for my backups, I wanted to improve the default mount options.
-And, I wanted do have these defaults applied in userspace, not just in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt; or when using &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html&quot;&gt;mount(8)&lt;/a&gt;.
-I&amp;#8217;ve accumulated my knowledge on the subject here and describe exactly how to set Btrfs mount options to your liking, whichever way you might want.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial walks through the menagerie of methods for mounting a Btrfs volume with a specific set of mount options.
-The reference operating system is &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
-It will underscore several available approaches specific to the kernel and userspace levels.
-You should have a fairly strong understanding of Linux, the command-line, and filesystems.
-I expect you to understand mount options.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;setup&quot;&gt;Setup&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This walk-through uses a mount point under the standard mount directory for your user.
-The mount point is &lt;code&gt;/run/media/$USER/backups&lt;/code&gt;.
-This mount point must exist before we begin.
-Create this directory as follows.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The rest of the tutorial will use &lt;code&gt;$USER&lt;/code&gt; to substitute your username on the command-line.
-Command-line output will use my username, &lt;em&gt;jordan&lt;/em&gt;, instead to reflect the output when I run the command.
-Your username will appear instead of &lt;em&gt;jordan&lt;/em&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This tutorial also uses a USB connected storage device which appears as &lt;code&gt;sdb&lt;/code&gt;.
-Your device could be under the same name in the device tree or it might use a different name.
-To locate your USB device, examine the output of lsblk.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ lsblk
-NAME           MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
-sda              8:0    0   1.8T  0 disk
-├─sda1           8:1    0   976M  0 part  /boot
-└─sda2           8:2    0   1.8T  0 part
-  └─sda2_crypt 253:0    0   1.8T  0 crypt /opt
-sdb              8:16   0 931.5G  0 disk  &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-└─sdb1           8:17   0 931.5G  0 part
-sr0             11:0    1  1024M  0 rom&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;This is my 1 TB external hard drive.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The device used in the examples has a single partition, &lt;code&gt;sdb1&lt;/code&gt;, formatted as Btrfs.
-If you would like to follow along with your own device, you can format your device as follows.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock warning&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-warning&quot; title=&quot;Warning&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This will effectively obfuscate any data on the drive making it very difficult or impossible to recover.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Wipe any existing partition tables on the flash drive and generate a new one.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The set of &lt;em&gt;gdisk&lt;/em&gt; commands, consisting of &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/cgdisk.8.html&quot;&gt;cgdisk(8)&lt;/a&gt;, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/gdisk.8.html&quot;&gt;gdisk(8)&lt;/a&gt;, and &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html&quot;&gt;sgdisk(8)&lt;/a&gt;, manipulate &lt;a href=&quot;https://en.wikipedia.org/wiki/GUID_Partition_Table&quot;&gt;GUID partition tables&lt;/a&gt;, also known as &lt;em&gt;GPT&lt;/em&gt;'s.
-Older {master-boot-records}, &lt;em&gt;MBR&lt;/em&gt;'s, are instead managed with &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/fdisk.8.html&quot;&gt;fdisk(8)&lt;/a&gt; and its similarly named friends.
-Here, the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/focal/en/man8/sgdisk.8.html&quot;&gt;sgdisk(8)&lt;/a&gt; command is used to partition the flash drive using the newer &lt;em&gt;GPT&lt;/em&gt; format without requiring any user interaction.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;sgdisk &lt;span class=&quot;nt&quot;&gt;-Z&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 0:0:0 &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; 0:&lt;span class=&quot;s2&quot;&gt;&quot;Black WD HDD&quot;&lt;/span&gt; /dev/sdb
-GPT data structures destroyed! You may now partition the disk using fdisk or
-other utilities.
-Setting name!
-partNum is 0
-The operation has completed successfully.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;-Z&lt;/code&gt; flag &lt;em&gt;zaps&lt;/em&gt; any existing MBR and GPT partition tables into oblivion.
-Then, the &lt;code&gt;-n&lt;/code&gt; flag creates a new partition given the partition number, starting sector, and ending sector separated by colons.
-Zeros used here represent default values.
-The first zero sets the partition number to the next available number, which is one since this is the first partition on the flash drive.
-The next two zeros designate the starting sector of the largest block and the last sector of that same block, creating a single partition which effectively takes up the entirety of the flash drive.
-The &lt;code&gt;-c&lt;/code&gt; flag labels the new partition which is indicated by the &lt;code&gt;0:&lt;/code&gt;.
-The label here provides a basic description of the disk.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Format the partition with Btrfs.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here I label the volume with a descriptive name of the disk and its purpose.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mkfs &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; btrfs &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Black WD EasyStore External HDD - My Backups&quot;&lt;/span&gt; /dev/sdb1
-btrfs-progs v4.15.1
-See http://btrfs.wiki.kernel.org &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;more information.
-
-Label:              Black WD EasyStore External HDD - My Backups
-UUID:               13177899-cb85-45b7-99b6-b76e2fc41f44 &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-Node size:          16384
-Sector size:        4096
-Filesystem size:    931.48GiB
-Block group profiles:
-  Data:             single            8.00MiB
-  Metadata:         DUP               1.00GiB
-  System:           DUP               8.00MiB
-SSD detected:       no
-Incompat features:  extref, skinny-metadata
-Number of devices:  1
-Devices:
-   ID        SIZE  PATH
-    1   931.48GiB  /dev/sdb1&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;Note the &lt;em&gt;UUID&lt;/em&gt; here for use in later examples.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Then mount the volume.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mount &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; noatime,autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd,commit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;120 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  /dev/sdb1 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create a subvolume for storing backups.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;btrfs subvolume create /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups/my-backups
-Create subvolume &lt;span class=&quot;s1&quot;&gt;'/run/media/jordan/backups/my-backups'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Set the current user as the owner of the subvolume.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo chown&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;:&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt; /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups/my-backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Umount the volume.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;umount /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;If you didn&amp;#8217;t note your volume&amp;#8217;s UUID, you can do so with the following command.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ lsblk &lt;span class=&quot;nt&quot;&gt;-no&lt;/span&gt; uuid /dev/sdb1
-13177899-cb85-45b7-99b6-b76e2fc41f44&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;system_level_mounting&quot;&gt;System-level Mounting&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;At the system-level, the primary ways to management mounts are &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html&quot;&gt;mount(8)&lt;/a&gt;, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt;, and &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt;.
-Each of these is discussed below.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;mount&quot;&gt;mount&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Old faithful and ever present, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html&quot;&gt;mount(8)&lt;/a&gt; is ubiquitous.
-Use it to mount a filesystem as root giving it a comma-separated list of options preceded by the &lt;code&gt;-o&lt;/code&gt; flag, the device, and the mountpoint.
-To mount the Btrfs subvolume named &lt;code&gt;backups&lt;/code&gt; on the block device &lt;code&gt;/dev/sdb1&lt;/code&gt; to &lt;code&gt;/run/media/$USER/backups&lt;/code&gt; with several mount options, use the following command.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mount &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; noatime,autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd,commit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;120,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;my-backups &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;'/dev/disk/by-label/Black\x20WD\x20EasyStore\x20External\x20HDD\x20-\x20My\x20Backups'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To unmount the device, use the umount command with the device path or the path of the mount point.
-Here, the previously mounted device is unmounted.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;umount /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Easy, right?&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;fstab&quot;&gt;fstab&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To automatically mount something, &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt; is the de facto standard.
-The previous command can be translated to the following entry in fstab.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;UUID=13177899-cb85-45b7-99b6-b76e2fc41f44 /run/media/jordan/backups btrfs defaults,nofail,noauto,noatime,autodefrag,compress=zstd,commit=120,subvol=my-backups 0 0&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock tip&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To avoid throwing a wrench in the entire boot process, include the &lt;code&gt;nofail&lt;/code&gt; mount option if this is a removable drive of some kind.
-This tells the system it&amp;#8217;s okay if the drive is missing when its booting up.
-The &lt;code&gt;defaults&lt;/code&gt; option includes the &lt;code&gt;auto&lt;/code&gt; option which mounts the volume automatically while booting.
-Adding the &lt;code&gt;noauto&lt;/code&gt; option disables this.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now this subvolume will be mounted with the appropriate options when the system is booted up.
-Or, at least, it should&amp;#8230;&amp;#8203;
-Always verify your fstab file after modifying it with &lt;code&gt;findmnt --verify&lt;/code&gt;.
-Here I include the &lt;code&gt;--verbose&lt;/code&gt; flag as well and abbreviate the output.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ findmnt &lt;span class=&quot;nt&quot;&gt;--verify&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;
-/
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; target exists
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; VFS options: noatime
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; FS options: autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd,commit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;120,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;root
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; /dev/mapper/sda2_crypt exists
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;W] cannot detect on-disk filesystem &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;W] recommended root FS passno is 1 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;current is 0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-...
-
-/run/media/jordan/backups
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; target exists
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; VFS options: noatime
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; FS options: autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd,commit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;120,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;my-backups
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; userspace options: nofail,noauto
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;13177899-cb85-45b7-99b6-b76e2fc41f44 translated to /dev/sdb1
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; /dev/sdb1 exists
-   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;W] cannot detect on-disk filesystem &lt;span class=&quot;nb&quot;&gt;type
-
-&lt;/span&gt;0 parse errors, 0 errors, 17 warnings&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There&amp;#8217;s no errors and the warnings don&amp;#8217;t appear to be anything serious.
-Everything should be alright.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Previously when using the mount command, each mount option had to be specified.
-When mounting a matching entry in fstab, the mount options in fstab are applied automatically.
-The following command will mount the volume using the mount options specified in fstab for &lt;code&gt;/run/media/$USER/backups&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mount /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;systemd&quot;&gt;systemd&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This is where things start to get complicated.
-systemd handles dependencies among all sorts of services whether that&amp;#8217;s during boot or during runtime.
-Some things require mounting filesystems, so systemd exposes an interface for specifying and managing these dependencies.
-The primary unit file for this is the &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/systemd.mount.5.html&quot;&gt;systemd.mount(5)&lt;/a&gt; unit.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A companion unit file type exists &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/systemd.automount.5.html&quot;&gt;systemd.automount(5)&lt;/a&gt; which, if created, controls automatically mounting the mount point.
-The automount functionality will automatically mount a volume in an on-demand fashion.
-When the volume is first accessed, it is mounted as necessary.
-A timeout may be specified to automatically unmount the volume after a period of time.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;An important aspect the mount unit convention is the required naming scheme.
-The file names of mount and automount units must correspond to the mount point of where the volume will be mounted.
-The file name is appropriately transformed to remove troublesome characters.
-Most notably, `/&amp;#8217;s are replaced with `-&amp;#8217;s.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect4&quot;&gt;
-&lt;h5 id=&quot;generated&quot;&gt;Generated&lt;/h5&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;systemd integrates nicely enough with fstab such that it automatically generates these mount units from their entries.
-Being able to inspect the mount units on a system can come in handy, so here&amp;#8217;s how.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Having just edited fstab, systemd will not generate an entry for &lt;code&gt;/run/media/jordan/backups&lt;/code&gt; until the system reboots.
-I don&amp;#8217;t want to reboot, so I&amp;#8217;ll just reload the necessary components before examining the generated unit files.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Reload systemd.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl daemon-reload&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Restart the &lt;em&gt;local-fs&lt;/em&gt; target.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl restart local-fs.target&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Use the &lt;code&gt;systemctl&lt;/code&gt; subcommand &lt;code&gt;list-unit-files&lt;/code&gt; and specify the &lt;code&gt;mount&lt;/code&gt; type with the &lt;code&gt;-t&lt;/code&gt; flag to list all mount unit files.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl list-unit-files &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; mount
-UNIT FILE                      STATE
--.mount                        generated
-&lt;span class=&quot;se&quot;&gt;\x&lt;/span&gt;2esnapshots.mount            generated
-boot.mount                     generated
-dev-hugepages.mount            static
-dev-mqueue.mount               static
-home.mount                     generated
-run-media-jordan-backups.mount generated &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-opt.mount                      generated
-proc-sys-fs-binfmt_misc.mount  static
-root.mount                     generated
-srv.mount                      generated
-swap.mount                     generated
-sys-fs-fuse-connections.mount  static
-sys-kernel-config.mount        static
-sys-kernel-debug.mount         static
-tmp.mount                      generated
-usr-local.mount                generated
-var.mount                      generated
-
-18 unit files listed.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;The mount unit &lt;code&gt;run-media-jordan-backups.mount&lt;/code&gt; corresponds to the mount point &lt;code&gt;/run/media/jordan/backups&lt;/code&gt; and the corresponding fstab entry added previously.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To view the contents of a mount unit file, pass the name of the unit to &lt;code&gt;systemctl&lt;/code&gt; after the subcommand &lt;code&gt;cat&lt;/code&gt;.
-The following command displays the contents of the mount unit file generated for &lt;code&gt;/dev/sdb1&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;run-media-&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-backups&lt;/span&gt;.mount
-&lt;span class=&quot;c&quot;&gt;# /run/systemd/generator/run-media-jordan-backups.mount&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Automatically generated by systemd-fstab-generator&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Unit]
-&lt;span class=&quot;nv&quot;&gt;SourcePath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/etc/fstab
-&lt;span class=&quot;nv&quot;&gt;Documentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;man:fstab&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;5&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; man:systemd-fstab-generator&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;8&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;Before&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;local-fs.target
-
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Mount]
-&lt;span class=&quot;nv&quot;&gt;Where&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/run/media/jordan/backups
-&lt;span class=&quot;nv&quot;&gt;What&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/dev/disk/by-uuid/13177899-cb85-45b7-99b6-b76e2fc41f44
-&lt;span class=&quot;nv&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;btrfs
-&lt;span class=&quot;nv&quot;&gt;Options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;defaults,nofail,noauto,noatime,autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd,commit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;120,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;my-backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock tip&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/systemd.automount.5.html&quot;&gt;systemd.automount(5)&lt;/a&gt; can be generated automatically for an entry in &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt; by adding the &lt;code&gt;x-systemd.automount&lt;/code&gt; mount option.
-You can pair this option with &lt;code&gt;noauto&lt;/code&gt; if you wish to prevent the volume from being mounted automatically at boot.
-The &lt;code&gt;x-systemd.idle-timeout&lt;/code&gt; mount option for automount units is handy for specifying how many seconds before an idle drive should be unmounted from the filesystem.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect4&quot;&gt;
-&lt;h5 id=&quot;systemd_mount&quot;&gt;systemd-mount&lt;/h5&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Mount units can be generated on the fly by mounting volumes with &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd-mount.html&quot;&gt;systemd-mount(1)&lt;/a&gt;.
-The systemd-mount command to mount &lt;code&gt;/dev/sdb1&lt;/code&gt; with the desired Btrfs options appears suspiciously like the corresponding mount command.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-mount &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; noatime,autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd,commit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;120,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;my-backups /dev/sdb1 /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups
-Started unit run-media-jordan-backups.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/jordan/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It&amp;#8217;s possible to eschew the mount point and let systemd decide where to mount the volume.
-By default, this will mount the volume underneath the directory &lt;code&gt;/run/media/system/&amp;lt;label&amp;gt;&lt;/code&gt; where &lt;code&gt;&amp;lt;label&amp;gt;&lt;/code&gt; is a placeholder for the filesystem label or other identifier.
-Mount &lt;code&gt;/dev/sdb1&lt;/code&gt; to the default systemd location as follows.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-mount &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; noatime,autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd,commit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;120,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;my-backups /dev/sdb1
-Started unit run-media-system-backups.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock tip&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Use the &lt;code&gt;-A&lt;/code&gt; flag to generate a corresponding systemd automount unit when mounting a volume.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Likewise, use &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd-umount.html&quot;&gt;systemd.mount(5)&lt;/a&gt; to unmount the volume by providing either the device or the path to the mount point.
-This command unmounts the device &lt;code&gt;/dev/sdb1&lt;/code&gt; mounted with either or both of the previous two commands.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-umount /dev/sdb1
-Stopped unit run-media-system-backups.mount &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;mount point: /run/media/system/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect4&quot;&gt;
-&lt;h5 id=&quot;manual&quot;&gt;Manual&lt;/h5&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Practically speaking, it shouldn&amp;#8217;t be necessary to create mount units outright.
-It&amp;#8217;s still completely possible.
-The steps to do so our outlined below.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Create a mount unit to mount the volume.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/systemd/system/run-media-jordan-backups.mount&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;systemd&quot;&gt;&lt;span class=&quot;k&quot;&gt;[Unit]&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;Additional drive
-
-&lt;span class=&quot;k&quot;&gt;[Mount]&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;What&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;/dev/sdb1
-&lt;span class=&quot;nt&quot;&gt;Where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;/run/media/jordan/backups
-&lt;span class=&quot;nt&quot;&gt;Type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;btrfs
-&lt;span class=&quot;nt&quot;&gt;Options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;defaults,nofail,noauto,noatime,autodefrag,compress=zstd,commit=120,subvol=my-backups
-
-&lt;span class=&quot;k&quot;&gt;[Install]&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;multi-user.target&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock important&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The name of the mount unit must reflect the path of the mount point.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Enable the mount unit with &lt;code&gt;systemctl&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;run-media-&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-backups&lt;/span&gt;.mount&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A corresponding automount unit for the mount unit defined above would be as follows.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/systemd/system/run-media-jordan-backups.automount&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;systemd&quot;&gt;&lt;span class=&quot;nt&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;Automount drive
-
-&lt;span class=&quot;k&quot;&gt;[Automount]&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;Where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;/run/media/jordan/backups
-
-&lt;span class=&quot;k&quot;&gt;[Install]&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;multi-user.target&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;usesrpace_mounting&quot;&gt;Usesrpace Mounting&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Mounting filesystems without root privileges is less straightforward.
-While accommodations can be made for mount and systemd offers such functionality, the best tool to use is &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/&quot;&gt;udisks2&lt;/a&gt; which ships with most mainstream distributions.
-Each of these is discussed below.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;mount_2&quot;&gt;mount&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Given that fstab contains an entry with the &lt;code&gt;user&lt;/code&gt; or &lt;code&gt;users&lt;/code&gt; mount options, that entry can be mounted by the user without root privileges.
-This still requires support from someone with superuser access on the system, which is impractical for those users who just want to be able to mount a flash drive.
-This method doesn&amp;#8217;t allow the user to mount the filesystem with any special mount options on the command-line.
-Mount options may only be specified within fstab.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The fstab entry below allows a user to mount &lt;code&gt;/dev/sdb1&lt;/code&gt; to &lt;code&gt;/run/media/$USER/backups&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/fstab&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;/dev/sdb1 /run/media/jordan/backups btrfs defaults,user,nofail,noauto,noatime,autodefrag,compress=zstd,commit=120,subvol=my-backups 0 0&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now, a user can mount the volume with the device path &lt;em&gt;or&lt;/em&gt; the mount point as done here.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ mount /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Attempting to provide &lt;em&gt;both&lt;/em&gt; the device and mount point to the mount command as a user will result in an error.
-Here mount doesn&amp;#8217;t like the fact that I gave it the device and the mount point.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ mount /dev/sdb1 /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups
-mount: only root can &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;that&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A user can also unmount the entry they have mounted when it is set with the &lt;code&gt;user&lt;/code&gt; option.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ umount /run/media/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When the &lt;code&gt;users&lt;/code&gt; option is provided, it allows any user to unmount the drive regardless of which user mounted it.
-This differs from the &lt;code&gt;user&lt;/code&gt; option which only allows the user that mounted the volume to unmount it.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;systemd_2&quot;&gt;systemd&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;While systemd provides user-level services, including mounting, its abilities are limited to that of the mount command.
-And to that end, its practically usesless for userspace mounting.
-After trying all sorts of workarounds, the mount command just isn&amp;#8217;t called correctly to allow non-root users the ability to mount filesystems.
-A corresponding fstab entry with the &lt;code&gt;user&lt;/code&gt; or &lt;code&gt;users&lt;/code&gt; mount option has no effect.
-This is because systemd hard-codes the mount command with both the device and the mount point.
-This was shown to end with an error when run as a normal user previously.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;em&gt;only&lt;/em&gt; sensible way to make this possible is by using a {systemd-service} unit rather than a systemd mount unit.
-A correctly formed mount command will succeed when executed by the user.
-Given the entry for &lt;code&gt;/run/media/jordan/backups&lt;/code&gt; has the &lt;code&gt;user&lt;/code&gt; or &lt;code&gt;users&lt;/code&gt; mount option set in fstab, a user service file to mount it would look like the following.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.config/systemd/user/mount-run-media-jordan-backups.service&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;systemd&quot;&gt;&lt;span class=&quot;k&quot;&gt;[Unit]&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;Mount my backups
-
-&lt;span class=&quot;k&quot;&gt;[Service]&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;ExecStart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;/bin/mount /run/media/jordan/backups
-&lt;span class=&quot;nt&quot;&gt;ExecStop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;/bin/umount /run/media/jordan/backups
-&lt;span class=&quot;nt&quot;&gt;RemainAfterExit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;yes
-
-&lt;span class=&quot;k&quot;&gt;[Install]&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;default.target&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;User units are placed in different directories than system units.
-The &lt;code&gt;~/.config/systemd/user/&lt;/code&gt; directory is a standard directory for user units.
-No root privileges are required to create units here.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To mount the volume, start the service.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; start mount-run-media-&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-backups&lt;/span&gt;.service&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Unmounting the volume is just a matter of stopping the service.
-Do this like so.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; stop mount-run-media-&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-backups&lt;/span&gt;.service&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you want to mount automatically when logging in, use the &lt;code&gt;enable&lt;/code&gt; subcommand instead of &lt;code&gt;start&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;mount-run-media-&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-backups&lt;/span&gt;.service&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To take this a step, further, it&amp;#8217;s possible to create an instantiable systemd unit.
-This is a fancy way of saying that variable information can be provided in the file name after the &lt;code&gt;@&lt;/code&gt; symbol and before the units extension.
-This allows creating a single unit file to accommodate a variety of situations.
-It effectively introduces a variable which can be used to customize the unit.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The previous unit can be made into a generic, instantiable unit which allows mounting a variety of volumes.
-Thanks goes to &lt;a href=&quot;https://unix.stackexchange.com/a/316991/395084&quot;&gt;&lt;em&gt;byly&amp;#8217;s&lt;/em&gt; answer&lt;/a&gt; on the &lt;a href=&quot;https://unix.stackexchange.com/&quot;&gt;Unix &amp;amp; Linux Stack Exchange&lt;/a&gt; for introducing me to this nifty approach.
-To follow conventions, the unit will mount the volume under &lt;code&gt;/run/media/$USER&lt;/code&gt;.
-The mount point will be encoded in the name of the service, i.e. sandwiched between the &lt;code&gt;@&lt;/code&gt; and &lt;code&gt;.service&lt;/code&gt; suffix.
-This user service unit, dubbed &lt;code&gt;mount@&lt;/code&gt;, looks like this.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.config/systemd/user/mount@.service&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Unit]
-&lt;span class=&quot;nv&quot;&gt;Description&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Mount volumes &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;a user which have the &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;user&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; or &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; mount options defined
-
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Service]
-&lt;span class=&quot;nv&quot;&gt;ExecStart&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/bin/mount /run/media/%u/%I
-&lt;span class=&quot;nv&quot;&gt;ExecStop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/bin/umount /run/media/%u/%I
-&lt;span class=&quot;nv&quot;&gt;RemainAfterExit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Install]
-&lt;span class=&quot;nv&quot;&gt;WantedBy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;default.target&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This unit uses wildcards, letters prefixed with &lt;code&gt;%&lt;/code&gt;.
-Wildcards are substituted with the appropriate information when the unit is enabled.
-&lt;code&gt;%u&lt;/code&gt; stands for the username of the user using the unit.
-&lt;code&gt;%I&lt;/code&gt; represents the instantiable component provided in the unit&amp;#8217;s name.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock tip&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;With superuser access, the file can placed in the directory &lt;code&gt;/etc/systemd/user/&lt;/code&gt; instead of &lt;code&gt;~/.config/systemd/user/&lt;/code&gt; to provide this user service to all users.
-Of course, you&amp;#8217;ll probably want to use a path which doesn&amp;#8217;t include the username, &lt;code&gt;/run/media&lt;/code&gt; for instance, if you want to avoid creating an entry for each individual user in fstab.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To use the instantiable unit, the directory for the mount point must exist in &lt;code&gt;/run/media/$USER&lt;/code&gt;.
-Additionally, an entry in fstab that mounts to that mount point must set the &lt;code&gt;user&lt;/code&gt; or &lt;code&gt;users&lt;/code&gt; mount option.
-Given those requirements, use the instantiable service as demonstrated here.
-To mount &lt;code&gt;/run/media/run/$USER/backups&lt;/code&gt;, start the service with the name &lt;code&gt;mount@backups&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; start mount@backups.service&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Unmount it by stopping the service of the same name.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; stop mount@backups.service&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now it&amp;#8217;s time to move on to a more practical tool for mounting volumes from userspace.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;udisks2&quot;&gt;udisks2&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There&amp;#8217;s a tool for easily mounting volumes in userspace.
-It&amp;#8217;s udisks2 and it streamlines userspace mounting and changing up those default mount options.
-If you&amp;#8217;re accustomed to a desktop environment on Linux, you&amp;#8217;ve likely benefitted from udisks2.
-That&amp;#8217;s because it&amp;#8217;s what graphical applications such as file managers use to mount drives on your behalf.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Mounting and unmounting are done with the &lt;code&gt;udisksctl&lt;/code&gt; command.
-To mount a volume, use the &lt;code&gt;mount&lt;/code&gt; subcommand.
-Unlike the mount program, only the block device is specified.
-The mount point is determined by udisks2.
-Depending on how udisks2 was compiled, the volume will be mounted in a subdirectory of either be &lt;code&gt;/run/media/&lt;/code&gt; or &lt;code&gt;/media/&lt;/code&gt;.
-Use the &lt;code&gt;-b&lt;/code&gt; flag before the block device.
-Mount options should be provided as a comma-separated list following the &lt;code&gt;--options&lt;/code&gt; flag.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here, I mount &lt;code&gt;/dev/sdb1&lt;/code&gt; with specific Btrfs mount options.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl mount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/sdb1 &lt;span class=&quot;nt&quot;&gt;--options&lt;/span&gt; noatime,autodefrag,compress&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;zstd,commit&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;120,subvol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;my-backups
-Error mounting /dev/sdb1: GDBus.Error:org.freedesktop.UDisks2.Error.OptionNotPermitted: Mount option &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;autodefrag&lt;span class=&quot;s1&quot;&gt;' is not allowed&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Drat.
-udisks2 doesn&amp;#8217;t allow the options I want.
-In version 2.9.0 of udisks2, a newer version than ships with Ubuntu 18.04, it&amp;#8217;s possible to configure the allowed and default mount options as described in the following sections.
-A newer version of udisks2 can be installed on Ubuntu 18.04 by following the instructions in the post &lt;a href=&quot;install-udisks2-from-source.html&quot;&gt;Install udisks2 From Source&lt;/a&gt;.
-It turns out the only allowed mount option here is &lt;code&gt;noatime&lt;/code&gt;, so the simpler command below will still mount the volume.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl mount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/sdb1 &lt;span class=&quot;nt&quot;&gt;--options&lt;/span&gt; noatime
-Mounted /dev/sdb1 at /run/media/jordan/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Unmount the volume using the &lt;code&gt;unmount&lt;/code&gt; subcommand followed by the &lt;code&gt;-b&lt;/code&gt; flag and the block device.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The subcommand is the word &lt;em&gt;unmount&lt;/em&gt; not &lt;em&gt;umount&lt;/em&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udisksctl unmount &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; /dev/sdb1
-Unmounted /dev/sdb1.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect4&quot;&gt;
-&lt;h5 id=&quot;changing_the_default_and_allowed_mount_options&quot;&gt;Changing the Default and Allowed Mount Options&lt;/h5&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The udisks2 exposes the ability to change the default mount options since version 2.9.0.
-Unfortunately, Ubuntu 18.04 doesn&amp;#8217;t ship with a new enough version.
-To install a version with these capabilities, follow the instructions in the post &lt;a href=&quot;install-udisks2-from-source.html&quot;&gt;Install udisks2 From Source&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you installed from source into the default destination under &lt;code&gt;/usr/local&lt;/code&gt;, then the configuration file and udev rules will be under &lt;code&gt;/usr/local&lt;/code&gt; instead of &lt;code&gt;/usr&lt;/code&gt;.
-Adjust the file paths used in the following examples accordingly.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The configuration of mount options udisks2 is done through a global configuration file or udev rules.
-Options can be tweaked for specific filesystems, device classes, and individual devices.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect5&quot;&gt;
-&lt;h6 id=&quot;global_config_file&quot;&gt;Global Config File&lt;/h6&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The easiest way to change the default mount options for all devices is through the global configuration file which lives at &lt;code&gt;/etc/udisks2/mount_options.conf&lt;/code&gt;.
-The file uses a simple INI format.
-The section &lt;code&gt;[defaults]&lt;/code&gt; contains settings for the default and allowed mount options.
-These settings are further divided among default and allowed mount options for all filesystems and for each particular type of filesystem.
-The default and allowed options for all filesystems are set with the &lt;code&gt;defaults&lt;/code&gt; and &lt;code&gt;allow&lt;/code&gt; keys respectively.
-The filesystem-specific versions of these keys come from prefixing &lt;code&gt;_defaults&lt;/code&gt; and &lt;code&gt;_allow&lt;/code&gt; with the filesystem type used by &lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/man8/mount.8.html&quot;&gt;mount(8)&lt;/a&gt;, such as &lt;code&gt;vfat&lt;/code&gt;, &lt;code&gt;ntfs&lt;/code&gt;, &lt;code&gt;ext4&lt;/code&gt;, and &lt;code&gt;btrfs&lt;/code&gt;.
-Thus, the default mount options for btrfs use the key &lt;code&gt;btrfs_defaults&lt;/code&gt; and the allowed options use the key &lt;code&gt;btrfs_allow&lt;/code&gt;.
-The sample configuration here demonstrates how to modify the default and allowed options used for Btrfs.
-The other settings are simply the defaults used by udisks2.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/udisks2/mount_options.conf&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[defaults]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;exec,noexec,nodev,nosuid,atime,noatime,nodiratime,relatime,strictatime,lazytime,ro,rw,sync,dirsync,noload,acl,nosymfollow&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;vfat_defaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,shortname=mixed,utf8=1,showexec,flush&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;vfat_allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,flush,utf8,shortname,umask,dmask,fmask,codepage,iocharset,usefree,showexec&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# common options for both the native kernel driver and exfat-fuse
-&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;exfat_defaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,iocharset=utf8,errors=remount-ro&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;exfat_allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,dmask,errors,fmask,iocharset,namecase,umask&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;ntfs_defaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,windows_names&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;ntfs_allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,umask,dmask,fmask,locale,norecover,ignore_case,windows_names,compression,nocompression,big_writes&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;iso9660_defaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,iocharset=utf8,mode=0400,dmode=0500&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;iso9660_allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,norock,nojoliet,iocharset,mode,dmode&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;udf_defaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,iocharset=utf8&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;udf_allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,iocharset,utf8,umask,mode,dmode,unhide,undelete&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;hfsplus_defaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,nls=utf8&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;hfsplus_allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;uid=$UID,gid=$GID,creator,type,umask,session,part,decompose,nodecompose,force,nls&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;btrfs_defaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;autodefrag,compress=zstd&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;btrfs_allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;autodefrag,compress,compress-force,datacow,nodatacow,datasum,nodatasum,degraded,device,discard,nodiscard,subvol,subvolid,space_cache&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;f2fs_allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;discard,nodiscard,compress_algorithm,compress_log_size,compress_extension,alloc_mode&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;xfs_allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;discard,nodiscard,inode32,largeio,wsync&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;reiserfs_allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;hashed_relocation,no_unhashed_relocation,noborder,notail&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Generally, you should start with the default settings stated in the documentation for udisks2&amp;#8217;s &lt;a href=&quot;http://storaged.org/doc/udisks2-api/latest/mount_options.html&quot;&gt;udisks2 Mount Options&lt;/a&gt;.
-You&amp;#8217;ll also need to make sure that any default options are specified in the corresponding allowed set.
-The Btrfs notably allows the &lt;code&gt;autodefrag&lt;/code&gt; option in addition to the default udisks2 settings and defaults to using it and zstd compression.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The configuration file also provides functionality to specify defaults for particular devices.
-To do so, a device section named after the block device is followed by the general and filesystem-specific &lt;code&gt;default&lt;/code&gt; keys discussed previously.
-Here, the defaults for the vfat filesystem are modified for two devices.
-One device is specified by its UUID and another the other by its label.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/udisks2/mount_options.conf&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[/dev/disk/by-uuid/13177899-cb85-45b7-99b6-b76e2fc41f44]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;btrfs_defaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;autodefrag,compress=zstd&lt;/span&gt;
-
-&lt;span class=&quot;nn&quot;&gt;[/dev/disk/by-label/Black\\x20WD\\x20EasyStore\\x20External\\x20HDD\\x20-\\x20My\\x20Backups]&lt;/span&gt;
-&lt;span class=&quot;py&quot;&gt;btrfs_defaults&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;autodefrag,compress=zstd&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock caution&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-caution&quot; title=&quot;Caution&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For security reasons, prefer udev rules for setting device-specific mount options.
-It&amp;#8217;s easy to falsify the device symlinks used to define the sections.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;udev_rules&quot;&gt;udev Rules&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://manpages.ubuntu.com/manpages/bionic/en/man7/udev.7.html&quot;&gt;udev(7)&lt;/a&gt; is the subsystem for handling device events on Linux.
-It is a robust method for triggering certain actions when devices are detected.
-udev rules can be used with udisks2 to specify the allowed or default mount options for specific devices.
-This can be for an individual device, a class of devices or some other subset of devices.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A system&amp;#8217;s udev rules reside in &lt;em&gt;rules&lt;/em&gt; files in standard directories, such as &lt;code&gt;/etc/udev/rules.d&lt;/code&gt;.
-To create a new rule, create a new file in this directory.
-udisks2 recommends using the prefix &lt;code&gt;99-&lt;/code&gt; to ensure that the rule runs last.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;udev rules pretty much boil down to matching on a device on certain criteria.
-To work with udisks2, there is a required format including a specific header for block devices and a closing &lt;code&gt;LABEL&lt;/code&gt;.
-Modifying the mount options is done through a few variables used in the same way as the keys in the configuration file.
-The variables are named differently than the keys, but follow the same naming convention.
-Defaults are set with the variable &lt;code&gt;UDISKS_MOUNT_OPTIONS_DEFAULTS&lt;/code&gt; and allowed options with &lt;code&gt;UDISKS_MOUNT_OPTIONS_ALLOW&lt;/code&gt;.
-Filesystem-specific variables place the filesystem type in all caps in between the &lt;code&gt;UDISKS_MOUNT_OPTIONS&lt;/code&gt; portion at the beginning and the &lt;code&gt;_ALLOW&lt;/code&gt; or &lt;code&gt;_DEFAULTS&lt;/code&gt; part at the end.
-Btrfs defaults can be changed by setting the variable &lt;code&gt;UDISKS_MOUNT_OPTIONS_BTRFS_DEFAULTS&lt;/code&gt;.
-When setting filesystem-specific options, you should match the rule on the filesystem type provided by the variable &lt;code&gt;ID_FS_TYPE&lt;/code&gt;.
-There&amp;#8217;s more to it that that, but this isn&amp;#8217;t supposed to be a udev tutorial so I&amp;#8217;ll show a couple of examples.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The udev rule here applies specific Btrfs default mount options to all USB devices.
-These are the same defaults set above in the global configuration file.
-This also mounts USB devices as read-write.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/udev/rules.d/99-udisks2-btrfs-usb.rules&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;# Skip if not a block device or if requested by other rules
-#
-SUBSYSTEM!=&quot;block&quot;, GOTO=&quot;udisks_mount_options_end&quot;
-ENV{DM_MULTIPATH_DEVICE_PATH}==&quot;1&quot;, GOTO=&quot;udisks_mount_options_end&quot;
-ENV{DM_UDEV_DISABLE_OTHER_RULES_FLAG}==&quot;?*&quot;, GOTO=&quot;udisks_mount_options_end&quot;
-
-# Mount all USB devices read-only
-SUBSYSTEMS=&quot;usb&quot;, ENV{ID_FS_USAGE}==&quot;filesystem&quot;, \
-    ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&quot;rw&quot;, \
-    ENV{ID_FS_TYPE}==&quot;btrfs&quot;, \
-    ENV{UDISKS_MOUNT_OPTIONS_BTRFS_DEFAULTS}=&quot;autodefrag,compress=zstd&quot;, \
-    ENV{UDISKS_MOUNT_OPTIONS_BTRFS_ALLOW}=&quot;autodefrag,compress,compress-force,datacow,nodatacow,datasum,nodatasum,degraded,device,discard,nodiscard,subvol,subvolid,space_cache&quot;
-
-LABEL=&quot;udisks_mount_options_end&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To enable a new rule, either reboot your system or reload the udev daemon as demonstrated by the command here.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udevadm control &lt;span class=&quot;nt&quot;&gt;--reload-rules&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The following rule matches on an exact USB device and applies the same default Btrfs options.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/udev/rules.d/99-udisks2-btrfs-backups-usb.rules&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code&gt;SUBSYSTEM!=&quot;block&quot;, GOTO=&quot;udisks_mount_options_end&quot;
-ENV{DM_MULTIPATH_DEVICE_PATH}==&quot;1&quot;, GOTO=&quot;udisks_mount_options_end&quot;
-ENV{DM_UDEV_DISABLE_OTHER_RULES_FLAG}==&quot;?*&quot;, GOTO=&quot;udisks_mount_options_end&quot;
-
-ENV{ID_VENDOR}==&quot;WD&quot;, ENV{ID_MODEL}==&quot;easystore_25FC&quot;, \
-    ENV{ID_SERIAL_SHORT}==&quot;000000000000000000000001&quot;, \
-    ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&quot;rw&quot;, \
-    ENV{UDISKS_MOUNT_OPTIONS_BTRFS_DEFAULTS}=&quot;autodefrag,compress=zstd&quot;,subvol=my-backups, \
-    ENV{UDISKS_MOUNT_OPTIONS_BTRFS_ALLOW}=&quot;autodefrag,compress,compress-force,datacow,nodatacow,datasum,nodatasum,degraded,device,discard,nodiscard,subvol,subvolid,space_cache&quot;
-
-LABEL=&quot;udisks_mount_options_end&quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To determine the id attributes for your hardware, query the information with udevadm.
-Here I filter the output of such a query for &lt;code&gt;/dev/sdb1&lt;/code&gt; to just show the &lt;code&gt;ID_VENDOR&lt;/code&gt;, &lt;code&gt;ID_MODEL&lt;/code&gt;, and &lt;code&gt;ID_SERIAL_SHORT&lt;/code&gt; attributes.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ udevadm info &lt;span class=&quot;nt&quot;&gt;--query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;all &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/dev/sdb &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'='&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/ID_VENDOR=/ || /ID_MODEL=/ || /ID_SERIAL_SHORT=/ {print $2}'&lt;/span&gt;
-WD
-easystore_25FC
-000000000000000000000001&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For more examples and information, refer to the udisks2 documentation.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;gio&quot;&gt;GIO&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://developer.gnome.org/gio/stable/&quot;&gt;GIO&lt;/a&gt; is a filesystem layer abstraction &lt;a href=&quot;https://www.gnome.org/&quot;&gt;GNOME&lt;/a&gt; and &lt;a href=&quot;https://www.gtk.org/&quot;&gt;GTK&lt;/a&gt;.
-GTK and GNOME applications use GIO to interact with filesystems.
-GIO also bundles a command-line tool which can be used to mount and unmount filesystems.
-It can&amp;#8217;t be used to control mount options directly.
-However, since it uses udisks2 to mount physical media, default mount options configured for udisks2 carry over.
-GIO has the added convenience of being able to unlock and mount an encrypted volume in a single command.
-It can also use encryption keys saved in a user&amp;#8217;s keyring to unlock encrypted volumes without requiring a password every time.
-Follow the steps below to mount and unmount the &lt;code&gt;/dev/sdb1&lt;/code&gt; volume.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Mount the volume by passing the device to GIO&amp;#8217;s &lt;em&gt;mount&lt;/em&gt; subcommand via the &lt;code&gt;-d&lt;/code&gt; flag.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gio mount &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; /dev/sdb1
-Mounted /dev/sdb1 at /run/media/jordan/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Unmount the volume with the &lt;em&gt;mount&lt;/em&gt; command, the &lt;code&gt;-u&lt;/code&gt; flag, and the mount point.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ gio mount &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; /run/media/jordan/backups&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you&amp;#8217;ve made it this far, you now understand way more about mounting filesystems in Linux then you probably ever wanted too.
-You should now know the different ways to control mounting a filesystem whether that&amp;#8217;s as a normal user or as the superuser.
-If you&amp;#8217;re using Btrfs, you should now be able to specify those pesky mount options properly now, too.
-Interested in mounting encrypted volumes or automatically mounting devices?
-Keep an eye on this space for upcoming posts on these topics.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="elementary" /><category term="fstab" /><category term="GIO" /><category term="Linux" /><category term="mount" /><category term="systemd" /><category term="Ubuntu" /><category term="udev" /><category term="udisks2" /><summary type="html">Mounting filesystems on Linux is simple, right? Just use mount(8), specify the recurring stuff in fstab(5), and everything&amp;#8217;s peachy. For both better and worse, there&amp;#8217;s more to it than that. Filesystem dependencies are handled by systemd and tools like udev(7), udisks2, and GIO provide userspace access to devices. Imagine not having to be root to access your flash drive? Okay, you&amp;#8217;re probably aware that root isn&amp;#8217;t necessary for such a thing, but that&amp;#8217;s because there&amp;#8217;s tools that take care of that for you.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Disks" /><category term="Btrfs" /><category term="elementary" /><category term="Linux" /><category term="mount" /><category term="Ubuntu" /><category term="udisks2" /><summary type="html">I recently posted Adjust Mount Options which explains in detail how to configure mount options for udisks2. Unfortunately, the reference operating system, Ubuntu 18.04, doesn&amp;#8217;t use a new enough version of udisks2. In fact, even Ubuntu 20.04 doesn&amp;#8217;t contain a new enough version. So, what should you do if you want to try out these nifty, new features? Build from source, of course!</summary></entry></feed>
