@@ -364,4 +364,10 @@ var store = [{
         "tags": ["containers","Docker","Docker-Compose","Kubernetes","Linux","Podman","podman-compose","Ubuntu"],
         "url": "/translate-docker-compose-to-kubernetes-with-podman",
         "teaser": null
+      },{
+        "title": "Automate Flatpak Updates With systemd",
+        "excerpt":"elementary OS 5.1 doesn&#8217;t automatically update Flatpak applications. Given the arbitrary appearance of updates, it&#8217;s a bit bothersome to be nagged about updates all day. Flatpak doesn&#8217;t provide an auto-update mechanism but instead leaves this up to software apps. GNOME Software has had this functionality baked-in since GNOME 3.30, for...","categories": ["Admin"],
+        "tags": ["elementary","Flatpak","Linux","systemd","Ubuntu"],
+        "url": "/automate-flatpak-updates-with-systemd",
+        "teaser": null
       }]
