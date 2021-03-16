@@ -1,0 +1,477 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.22.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Unattended Upgrades - JWillikers</title>
+<meta name="description" content="Suffering from obsessive updating syndrome? Are you making frequent trips to the App Center or terminal to apply updates? Do update notifications haunt you all day long? If your on a Debian-based system, unattended upgrades can help.[1]     1. Side-effects may include sudden, irreversible blue-screen of death, failure to boot, changes in behavior, obscure glitches, and an increase in log messages. Talk to your system administrator before using unattended upgrades, especially for production systems. Use as prescribed.">
+
+
+  <meta name="author" content="Jordan Williams">
+  
+  <meta property="article:author" content="Jordan Williams">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="JWillikers">
+<meta property="og:title" content="Unattended Upgrades">
+<meta property="og:url" content="https://www.jwillikers.com/unattended-upgrades">
+
+
+  <meta property="og:description" content="Suffering from obsessive updating syndrome? Are you making frequent trips to the App Center or terminal to apply updates? Do update notifications haunt you all day long? If your on a Debian-based system, unattended upgrades can help.[1]     1. Side-effects may include sudden, irreversible blue-screen of death, failure to boot, changes in behavior, obscure glitches, and an increase in log messages. Talk to your system administrator before using unattended upgrades, especially for production systems. Use as prescribed.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-16T00:00:00-05:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/unattended-upgrades">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Jordan Williams <br /> <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"> <img alt=\"Creative Commons License\" style=\"border-width:0\"\n  src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /></a>\n<br /> <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\"\n  property=\"dct:title\" rel=\"dct:type\">JWillikers</span> by \n  <a xmlns:cc=\"http://creativecommons.org/ns#\" href=\"https://jwillikers.com\"\n  property=\"cc:attributionName\" rel=\"cc:attributionURL\">Jordan Williams</a>\n  is licensed under a \n  <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">\n  Creative Commons Attribution-ShareAlike 4.0 International License</a>",
+      "url": "https://www.jwillikers.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="JWillikers Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          JWillikers
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Suffering from obsessive updating syndrome?
+Are you making frequent trips to the App Center or terminal to apply updates?
+Do update notifications haunt you all day long?
+If your on a Debian-based system, <em>unattended upgrades</em> can help.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorial">Tutorial</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Systems based on <a href="https://www.debian.org/">Debian</a> systems such as <a href="https://ubuntu.com/">Ubuntu</a> and <a href="https://elementary.io/">elementary OS</a> can use the <a href="https://github.com/mvo5/unattended-upgrades">unattended-upgrades</a> package to automate system updates with <a href="https://wiki.debian.org/Aptitude">Aptitude</a>.
+The package provides a <a href="https://www.python.org/">Python</a> script by the same name.
+This tutorial provides a quick run through to install and configure the package for those familiar with Linux, Debian, Aptitude, and the command-line.
+The tutorial uses elementary OS 5.1 as the reference system.
+My configuration choices were based off my preferences for a system I use as a general desktop workstation.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This won&#8217;t update <a href="https://flatpak.org/">Flatpak</a> applications for you.
+To do this, see <a href="automate-flatpak-updates-with-systemd.html">Automate Flatpak Updates With systemd</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the unattended-upgrades package.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>unattended-upgrades</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Refine the update behavior in the configuration file <code>/etc/apt/apt.conf.d/50unattended-upgrades</code>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Apply updates from all repositories.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>Unattended-Upgrade::Allowed-Origins</code> block contains specific repositories from which to update automatically.
+Lines are commented with <code>//</code>.
+Only Ubuntu repositories are listed in this file and some of the repositories are commented out.
+Uncomment these to use them.
+The following example enables <code>"Ubuntu:bionic-updates";</code> and <code>"Ubuntu:bionic-backports"</code> enabling Ubuntu updates and backports.
+The lines for security updates were already uncommented, so I left those as they were.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/apt/apt.conf.d/50unattended-upgrades</div>
+<div class="content">
+<pre class="rouge highlight"><code>Unattended-Upgrade::Allowed-Origins {
+        "Ubuntu:bionic";
+        "Ubuntu:bionic-security";
+        // Extended Security Maintenance; doesn't necessarily exist for
+        // every release and this system may not have it installed, but if
+        // available, the policy for updates is such that unattended-upgrades
+        // should also install from here by default.
+        "UbuntuESMApps:bionic-apps-security";
+        "UbuntuESM:bionic-infra-security";
+        "Ubuntu:bionic-updates";
+//      "Ubuntu:bionic-proposed";
+        "Ubuntu:bionic-backports";
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For my particular use case, I want to allow updates from all repositories I have configured.
+I could add these manually to the <code>Allowed-Origins</code> block, but that&#8217;s more work than I&#8217;d like to do.
+Instead, my configuration replaces the <code>Allowed-Origins</code> block with an <code>Origins-Pattern</code> block which allows any origin with the <code>*</code> wildcard.
+This is shown in the following snippet.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/apt/apt.conf.d/50unattended-upgrades</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">Unattended-Upgrade::Origins-Pattern <span class="o">{</span>
+        <span class="s2">"origin=*"</span><span class="p">;</span>
+<span class="o">}</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Remove unused dependencies.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>I don&#8217;t want to keep old or unused dependencies around, so I uncommented the following lines and set them each to <em>true</em>.
+The included comments are fairly self-explanatory.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/apt/apt.conf.d/50unattended-upgrades</div>
+<div class="content">
+<pre class="rouge highlight"><code>// Remove unused automatically installed kernel-related packages
+// (kernel images, kernel headers and kernel version locked tools).
+Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
+
+// Do automatic removal of new unused dependencies after the upgrade
+// (equivalent to apt-get autoremove)
+Unattended-Upgrade::Remove-Unused-Dependencies "true";</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Automatically reboot after upgrades when required.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>I don&#8217;t think anyone appreciates their desktop suddenly rebooting immediately after it applies some updates.
+I rarely leave my computer on for more than a few hours at a time.
+However, I figured it&#8217;s good to make sure the computer reboots eventually if necessary.
+The configuration below will automatically reboot but it does this at two in the morning to remain unobtrusive.
+To further reduce the chance of unexpected interruptions I&#8217;ve disallowed the computer from rebooting so long as users are logged in.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/apt/apt.conf.d/50unattended-upgrades</div>
+<div class="content">
+<pre class="rouge highlight"><code>// Automatically reboot *WITHOUT CONFIRMATION*
+//  if the file /var/run/reboot-required is found after the upgrade
+Unattended-Upgrade::Automatic-Reboot "true";
+
+// If automatic reboot is enabled and needed, reboot at the specific
+// time instead of immediately
+//  Default: "now"
+Unattended-Upgrade::Automatic-Reboot-Time "02:00";
+
+// Automatically reboot even if users are logged in
+Unattended-Upgrade::Automatic-Reboot-WithUsers "false";</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Configure Aptitude&#8217;s schedule for unattended-upgrades and related functions.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Aptitude has it&#8217;s own scheduling configuration activated by systemd timers, namely <code>apt-daily.timer</code> and <code>apt-daily-upgrade.timer</code>.
+Aptitude configuration resides under the <code>/etc/apt</code> directory.
+The unattended-upgrades script should be enabled here.</p>
+</div>
+<div class="paragraph">
+<p>The package <code>update-notifier-common</code> is installed on my elementary OS system, so I simply updated the existing configuration file <code>/etc/apt/apt.conf.d/10periodic</code> with the appropriate settings to enable unattended-upgrades.
+Alternatively, you might create a new file with a higher precedence such as <code>/etc/apt/apt.conf.d/20auto-upgrades</code> or <code>/etc/apt/apt.conf</code> and put the configuration there.</p>
+</div>
+<div class="paragraph">
+<p>The options shown below use numbers to indicate the frequency to apply the corresponding operation in days.
+<code>Unattended-Upgrade</code> is set to one so that the unattended-upgrades script is run every day.
+Similarly, <code>Update-Package-Lists</code> is set to one because the package lists should be updated from their repositories each day.
+If the package lists aren&#8217;t updated automatically then packages wont be upgraded because updates won&#8217;t be detected, so enabling this is important.
+In addition to setting these two variables, I also set <code>AutocleanInterval</code> to automatically clean out the package cache every week.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/apt/apt.conf.d/10periodic</div>
+<div class="content">
+<pre class="rouge highlight"><code>APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::Update-Package-Lists "1";</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These variables and more are described in detail in the script <code>/usr/lib/apt/apt.systemd.daily</code>.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Test the behavior of unattended upgrades by running the script manually with the <code>--dry-run</code> and <code>--debug</code> flags.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>unattended-upgrades <span class="nt">--dry-run</span> <span class="nt">--debug</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Monitor unattended upgrades by perusing the log files in <code>/var/log/unattended-upgrades/</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see_also">See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/mvo5/unattended-upgrades">The README from the unattended-upgrades GitHub repository</a></p>
+</li>
+<li>
+<p><a href="https://wiki.debian.org/UnattendedUpgrades">Debian Wiki - UnattendedUpgrades</a></p>
+</li>
+<li>
+<p><a href="https://debian-handbook.info/browse/stable/sect.regular-upgrades.html">The Debian Administrator&#8217;s Handbook - 6.8. Keeping a System Up to Date</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should know everything you need to get started automating package updates on Debian systems.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Side-effects may include sudden, irreversible blue-screen of death, failure to boot, changes in behavior, obscure glitches, and an increase in log messages. Talk to your system administrator before using <em>unattended upgrades</em>, especially for production systems. Use as prescribed.
+</div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/jwillikers/blog" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Jordan Williams <br /> <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> <img alt="Creative Commons License" style="border-width:0"
+  src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+<br /> <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+  property="dct:title" rel="dct:type">JWillikers</span> by 
+  <a xmlns:cc="http://creativecommons.org/ns#" href="https://jwillikers.com"
+  property="cc:attributionName" rel="cc:attributionURL">Jordan Williams</a>
+  is licensed under a 
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+  Creative Commons Attribution-ShareAlike 4.0 International License</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+
+<script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
+                       discourseEmbedUrl: 'https://www.jwillikers.com/unattended-upgrades' };
+   (function () {
+     var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+     d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="https://www.discourse.org/">Discourse.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

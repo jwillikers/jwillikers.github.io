@@ -370,4 +370,10 @@ var store = [{
         "tags": ["elementary","Flatpak","Linux","systemd","Ubuntu"],
         "url": "/automate-flatpak-updates-with-systemd",
         "teaser": null
+      },{
+        "title": "Unattended Upgrades",
+        "excerpt":"Suffering from obsessive updating syndrome? Are you making frequent trips to the App Center or terminal to apply updates? Do update notifications haunt you all day long? If your on a Debian-based system, unattended upgrades can help.[1] Tutorial Systems based on Debian systems such as Ubuntu and elementary OS can...","categories": ["Admin"],
+        "tags": ["Aptitude","Debian","elementary","Linux","systemd","Ubuntu","unattended-upgrades"],
+        "url": "/unattended-upgrades",
+        "teaser": null
       }]

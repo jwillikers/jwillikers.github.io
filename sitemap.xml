@@ -249,6 +249,10 @@
 <lastmod>2021-03-16T00:00:00-05:00</lastmod>
 </url>
 <url>
+<loc>https://www.jwillikers.com/unattended-upgrades</loc>
+<lastmod>2021-03-16T00:00:00-05:00</lastmod>
+</url>
+<url>
 <loc>https://www.jwillikers.com/CODE_OF_CONDUCT</loc>
 </url>
 <url>
@@ -775,6 +779,12 @@
 </url>
 <url>
 <loc>https://www.jwillikers.com/tags/podman-compose/</loc>
+</url>
+<url>
+<loc>https://www.jwillikers.com/tags/aptitude/</loc>
+</url>
+<url>
+<loc>https://www.jwillikers.com/tags/unattended-upgrades/</loc>
 </url>
 <url>
 <loc>https://www.jwillikers.com/categories/networking/</loc>
