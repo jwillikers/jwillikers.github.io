@@ -376,4 +376,10 @@ var store = [{
         "tags": ["Aptitude","Debian","elementary","Linux","systemd","Ubuntu","unattended-upgrades"],
         "url": "/unattended-upgrades",
         "teaser": null
+      },{
+        "title": "Automatically Update Podman Containers",
+        "excerpt":"Podman can automatically update your containers and hopefully make you&#8217;re life easier at the same time. Setting this up for Podman is actually pretty straightforward. Read on to learn how to set this up. Tutorial This tutorial will guide you through the steps to configure automatic updates for a Podman...","categories": ["Virtualization"],
+        "tags": ["auto-update","containers","Docker","Kubernetes","Linux","Podman","Ubuntu"],
+        "url": "/automatically-update-podman-containers",
+        "teaser": null
       }]
