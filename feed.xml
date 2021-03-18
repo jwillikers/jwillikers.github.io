@@ -1,4 +1,194 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-17T07:50:50-05:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">Automatically Update Podman Containers</title><link href="https://www.jwillikers.com/automatically-update-podman-containers" rel="alternate" type="text/html" title="Automatically Update Podman Containers" /><published>2021-03-17T00:00:00-05:00</published><updated>2021-03-17T00:00:00-05:00</updated><id>https://www.jwillikers.com/Automatically%20Update%20Podman%20Containers</id><content type="html" xml:base="https://www.jwillikers.com/automatically-update-podman-containers">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://www.jwillikers.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.jwillikers.com/" rel="alternate" type="text/html" /><updated>2021-03-18T07:59:21-05:00</updated><id>https://www.jwillikers.com/feed.xml</id><title type="html">JWillikers</title><subtitle>Handy admin and dev guides from my myriad of tinkering</subtitle><author><name>Jordan Williams</name></author><entry><title type="html">A Podman Pod as a systemd Service</title><link href="https://www.jwillikers.com/a-podman-pod-as-a-systemd-service" rel="alternate" type="text/html" title="A Podman Pod as a systemd Service" /><published>2021-03-18T00:00:00-05:00</published><updated>2021-03-18T00:00:00-05:00</updated><id>https://www.jwillikers.com/A%20Podman%20Pod%20as%20a%20systemd%20Service</id><content type="html" xml:base="https://www.jwillikers.com/a-podman-pod-as-a-systemd-service">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ever wanted to run a container, or pod, as a &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; service on Linux?
+This allows the container to be started automatically and even restarted on failure.
+I&amp;#8217;m got a container running like this right now thanks to &lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; which makes this incredibly easy and a bit more secure.
+If managing your containers as services is something you&amp;#8217;re interested in, then this tutorial is for you.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tutorial lays out the steps to manage a Podman container as a &lt;a href=&quot;https://systemd.io/&quot;&gt;systemd&lt;/a&gt; service.
+A UniFi Controller container, derived from a &lt;a href=&quot;https://kubernetes.io/&quot;&gt;Kubernetes&lt;/a&gt; YAML file, will be used as an example.
+Steps are provided for both rootless and root configurations.
+This tutorial continues the series on Podman.
+Previous tutorials include &lt;a href=&quot;podman-compose.html&quot;&gt;Podman Compose&lt;/a&gt;, &lt;a href=&quot;translate-docker-compose-to-kubernetes-with-podman.html&quot;&gt;Translate Docker Compose to Kubernetes With Podman&lt;/a&gt;, and &lt;a href=&quot;automatically-update-podman-containers.html&quot;&gt;Automatically Update Podman Containers&lt;/a&gt;.
+The target system is elementary OS 5.1, based on &lt;a href=&quot;https://ubuntu.com/&quot;&gt;Ubuntu&lt;/a&gt; 18.04.
+You&amp;#8217;ll need to have Podman installed, of course.
+To install Podman on an Ubuntu system, follow the instructions in &lt;a href=&quot;install-podman-on-ubuntu.html&quot;&gt;Install Podman on Ubuntu&lt;/a&gt;.
+You are expected to be familiar with Linux containers, Podman, the command-line, the Kubernetes configuration format, {Git}, systemd, and anything else I forgot to mention&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Clone the repository with the Kubernetes YAML file for the UniFi Controller.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ git clone git@github.com:jwillikers/unifi-controller.git ~/Projects/unifi-controller&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Provide the generated Kubernetes YAML to &lt;a href=&quot;https://docs.podman.io/en/latest/markdown/podman-play-kube.1.html&quot;&gt;podman-play-kube(1)&lt;/a&gt; to create and launch the pod.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Rootless&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ podman play kube ~/Projects/unifi-controller/unifi-controller.yml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Root&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;podman play kube ~/Projects/unifi-controller/unifi-controller.yml&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Change into the directory where you want the systemd unit files to be placed.
+Below are common locations for these files.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Rootless&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/.config/systemd/user&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Root&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /etc/systemd/system&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Generate the systemd service unit files using &lt;a href=&quot;https://docs.podman.io/en/latest/markdown/podman-generate-systemd.1.html&quot;&gt;podman-generate-systemd(1)&lt;/a&gt;.
+The following commands use a couple of extra options.
+By default, podman-generate-systemd will output the content of the units to the console.
+&lt;code&gt;--files&lt;/code&gt; places the output in the appropriate files.
+In this particular situation, it will create a service unit file for the pod and a service unit file for the single container.
+The &lt;code&gt;--name&lt;/code&gt; option will use the names of the pod and containers instead of their hash id&amp;#8217;s.
+The &lt;code&gt;--new&lt;/code&gt; option causes the pods and containers to be created each time the service starts or restarts.
+When running containers as systemd services, this option is required for Podman&amp;#8217;s auto-update functionality to work.
+For details on auto-update, checkout &lt;a href=&quot;automatically-update-podman-containers.html&quot;&gt;Automatically Update Podman Containers&lt;/a&gt;.
+The last argument to the command is the pod&amp;#8217;s identifier.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Rootless&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ podman generate systemd &lt;span class=&quot;nt&quot;&gt;--files&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--new&lt;/span&gt; unifi-controller&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Root&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;podman generate systemd &lt;span class=&quot;nt&quot;&gt;--files&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--new&lt;/span&gt; unifi-controller&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enable the systemd service.
+For the rootless configuration, the service will start upon the user logging in.
+For the root configuration, the service will be activated on boot.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Rootless&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ systemctl &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enable&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--now&lt;/span&gt; pod-unifi-controller.service
+Created symlink /home/jordan/.config/systemd/user/multi-user.target.wants/pod-unifi-controller.service → /home/jordan/.config/systemd/user/pod-unifi-controller.service.
+Created symlink /home/jordan/.config/systemd/user/default.target.wants/pod-unifi-controller.service → /home/jordan/.config/systemd/user/pod-unifi-controller.service.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Root&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl &lt;span class=&quot;nb&quot;&gt;enable&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--now&lt;/span&gt; pod-unifi-controller.service
+Created symlink /etc/systemd/system/multi-user.target.wants/pod-unifi-controller.service → /etc/systemd/system/pod-unifi-controller.service.
+Created symlink /etc/systemd/system/default.target.wants/pod-unifi-controller.service → /etc/systemd/system/pod-unifi-controller.service.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Access the controller&amp;#8217;s web console at &lt;a href=&quot;https://127.0.0.1:8443/&quot; class=&quot;bare&quot;&gt;https://127.0.0.1:8443/&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;fish&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ open http://127.0.0.1:8443&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;Other shells&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ xdg-open http://127.0.0.1:8443&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;see_also&quot;&gt;See Also&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;On Red Hat&amp;#8217;s Enable Sysadmin publication, the article &lt;a href=&quot;https://www.redhat.com/sysadmin/improved-systemd-podman&quot;&gt;Improved systemd integration with Podman 2.0&lt;/a&gt; delves into Podman&amp;#8217;s systemd and auto-update functionality.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;An article on Red Hat&amp;#8217;s Developer Blog, &lt;a href=&quot;https://developers.redhat.com/blog/2019/04/24/how-to-run-systemd-in-a-container/How&quot; class=&quot;bare&quot;&gt;https://developers.redhat.com/blog/2019/04/24/how-to-run-systemd-in-a-container/How&lt;/a&gt; to run systemd in a container], describes how to run systemd from within containers.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/containers/toolbox/&quot;&gt;Toolbox&lt;/a&gt; is a simplified wrapper for using Podman containers for development.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Given the simplicity of managing Podman containers as systemd services, why not use them yourself if they fit your use case?&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="containers" /><category term="elementary" /><category term="Docker" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="systemd" /><category term="Ubuntu" /><summary type="html">Ever wanted to run a container, or pod, as a systemd service on Linux? This allows the container to be started automatically and even restarted on failure. I&amp;#8217;m got a container running like this right now thanks to Podman which makes this incredibly easy and a bit more secure. If managing your containers as services is something you&amp;#8217;re interested in, then this tutorial is for you.</summary></entry><entry><title type="html">Automatically Update Podman Containers</title><link href="https://www.jwillikers.com/automatically-update-podman-containers" rel="alternate" type="text/html" title="Automatically Update Podman Containers" /><published>2021-03-17T00:00:00-05:00</published><updated>2021-03-17T00:00:00-05:00</updated><id>https://www.jwillikers.com/Automatically%20Update%20Podman%20Containers</id><content type="html" xml:base="https://www.jwillikers.com/automatically-update-podman-containers">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; can automatically update your containers and hopefully make you&amp;#8217;re life easier at the same time.
@@ -33,6 +223,7 @@ You should also be familiar with Linux containers, Podman, the command-line, the
 &lt;div class=&quot;openblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;~/Projects/unifi-controller/unifi-controller.yml&lt;/div&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Pod&lt;/span&gt;
@@ -123,7 +314,8 @@ This tutorial uses the rootless runtime, but the necessary command is provided f
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;When using &lt;a href=&quot;https://docs.podman.io/en/latest/markdown/podman-generate-systemd.1.html&quot;&gt;podman-generate-systemd(1)&lt;/a&gt; to create systemd units for a pod, make sure to use the &lt;code&gt;--new&lt;/code&gt; flag.
-This will create, start, and remove containers as part of the systemd units, which is necessary for applying automatic updates to running containers.&lt;/p&gt;
+This will create, start, and remove containers as part of the systemd units, which is necessary for applying automatic updates to running containers.
+To learn more about running a pod or container as a systemd service, refer to &lt;a href=&quot;a-podman-pod-as-a-systemd-service.html&quot;&gt;A Podman Pod as a systemd Service&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;It&amp;#8217;s also possible to trigger auto-updates manually with &lt;a href=&quot;https://docs.podman.io/en/latest/markdown/podman-auto-update.1.html&quot;&gt;podman-auto-update(1)&lt;/a&gt;.&lt;/p&gt;
@@ -175,7 +367,7 @@ This will create, start, and remove containers as part of the systemd units, whi
 &lt;p&gt;You have learned how to enable automatic updates for Podman containers.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="auto-update" /><category term="containers" /><category term="Docker" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="Ubuntu" /><summary type="html">Podman can automatically update your containers and hopefully make you&amp;#8217;re life easier at the same time. Setting this up for Podman is actually pretty straightforward. Read on to learn how to set this up.</summary></entry><entry><title type="html">Automate Flatpak Updates With systemd</title><link href="https://www.jwillikers.com/automate-flatpak-updates-with-systemd" rel="alternate" type="text/html" title="Automate Flatpak Updates With systemd" /><published>2021-03-16T00:00:00-05:00</published><updated>2021-03-16T00:00:00-05:00</updated><id>https://www.jwillikers.com/Automate%20Flatpak%20Updates%20With%20systemd</id><content type="html" xml:base="https://www.jwillikers.com/automate-flatpak-updates-with-systemd">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="auto-update" /><category term="containers" /><category term="elementary" /><category term="Docker" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="Ubuntu" /><summary type="html">Podman can automatically update your containers and hopefully make you&amp;#8217;re life easier at the same time. Setting this up for Podman is actually pretty straightforward. Read on to learn how to set this up.</summary></entry><entry><title type="html">Automate Flatpak Updates With systemd</title><link href="https://www.jwillikers.com/automate-flatpak-updates-with-systemd" rel="alternate" type="text/html" title="Automate Flatpak Updates With systemd" /><published>2021-03-16T00:00:00-05:00</published><updated>2021-03-16T00:00:00-05:00</updated><id>https://www.jwillikers.com/Automate%20Flatpak%20Updates%20With%20systemd</id><content type="html" xml:base="https://www.jwillikers.com/automate-flatpak-updates-with-systemd">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;https://elementary.io/&quot;&gt;elementary OS&lt;/a&gt; 5.1 doesn&amp;#8217;t automatically update &lt;a href=&quot;https://flatpak.org/&quot;&gt;Flatpak&lt;/a&gt; applications.
@@ -2359,240 +2551,4 @@ Just follow the simple steps in &lt;a href=&quot;podman-with-btrfs-and-zfs.html&
 When you want to use Podman, just use the same Docker command-line but substitute &lt;code&gt;podman&lt;/code&gt; for &lt;code&gt;docker&lt;/code&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="Btrfs" /><category term="containers" /><category term="Docker" /><category term="elementary" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="systemd" /><category term="Ubuntu" /><category term="ZFS" /><summary type="html">Podman is a daemonless container runtime for Linux compatible with Docker. It offers several advantages over using Docker to manage and run containers. First, there is no overhead associated with running a background service as is the case with Docker. Podman also allows users to run rootless containers which provides a higher degree of protection for the system. Podman integrates deeply with Linux, taking advantage of a number of specific features. Notably, it uses namespaces for process isolation and integrates nicely with systemd. Just like Kubernetes, Podman is built on the concept of pods, groups of one or more containers, instead of individual containers.</summary></entry><entry><title type="html">Podman With Btrfs and ZFS</title><link href="https://www.jwillikers.com/podman-with-btrfs-and-zfs" rel="alternate" type="text/html" title="Podman With Btrfs and ZFS" /><published>2021-02-28T00:00:00-06:00</published><updated>2021-02-28T00:00:00-06:00</updated><id>https://www.jwillikers.com/Podman%20With%20Btrfs%20and%20ZFS</id><content type="html" xml:base="https://www.jwillikers.com/podman-with-btrfs-and-zfs">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://podman.io/&quot;&gt;Podman&lt;/a&gt; has storage backends for both &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; and &lt;a href=&quot;https://openzfs.org/wiki/Main_Page&quot;&gt;ZFS&lt;/a&gt;.
-Using these backends allows Podman to take full advantage of the underlying &lt;em&gt;CoW&lt;/em&gt; filesystem.
-This is a quick guide on enabling these storage drivers.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;enable_the_btrfs_and_zfs_storage_drivers_for_podman&quot;&gt;Enable the Btrfs and ZFS Storage Drivers for Podman&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Below are the necessary steps to enable the &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/Main_Page&quot;&gt;Btrfs&lt;/a&gt; and &lt;a href=&quot;https://openzfs.org/wiki/Main_Page&quot;&gt;ZFS&lt;/a&gt; storage drivers.
-It is assumed that you are familiar with Linux, Podman, and the command-line and that you&amp;#8217;re running on a Linux system with Podman installed.
-Instructions are provided for both rootless and root configurations.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Reset Podman&amp;#8217;s storage with &lt;a href=&quot;https://docs.podman.io/en/latest/markdown/podman-system-reset.1.html&quot;&gt;podman-system-reset(1)&lt;/a&gt; before changing the storage driver.&lt;/p&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The storage driver may only be set before initializing Podman.
-It can&amp;#8217;t be changed on-the-fly.
-This requires removing all storage &lt;em&gt;before&lt;/em&gt; switching the storage driver.
-This must be done separately for a user&amp;#8217;s rootless configuration and the root configuration.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock warning&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-warning&quot; title=&quot;Warning&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This will delete all existing containers and images.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;rootless&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ podman system reset&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;root&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;podman system reset&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Set the storage backend in &lt;a href=&quot;https://github.com/containers/storage/blob/master/docs/containers-storage.conf.5.md&quot;&gt;containers-storage.conf(5)&lt;/a&gt;.
-The system configuration file is &lt;code&gt;/etc/containers/storage.conf&lt;/code&gt;.
-The driver set here applies to containers run as root.
-New rootless configurations will default to it if it is supported.
-Only certain drivers are supported for rootless containers.
-If the system configuration is set to use a driver not supported in rootless configurations, then the driver will default to the &quot;overlay&quot; driver if available, otherwise it will use the &quot;vfs&quot; driver.
-A user&amp;#8217;s rootless configuration in &lt;code&gt;~/.config/containers/storage.conf&lt;/code&gt; supersedes the driver in the system configuration.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
-While the Btrfs driver is supported in rootless configurations, the ZFS driver is not, at this moment.&lt;/p&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;rootless&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;When dealing with user configuration, you&amp;#8217;ll need to create the &lt;code&gt;~/.config/containers/&lt;/code&gt; directory first.&lt;/p&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;➜ &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/.config/container&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;root&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;Btrfs&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/containers/storage.conf&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[storage]&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;btrfs&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Setting the Btrfs driver here sets it as the default for &lt;em&gt;new&lt;/em&gt; rootless configurations.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;ZFS&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;/etc/containers/storage.conf&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[storage]&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;zfs&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Setting the ZFS driver here sets it for root only.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;Btrfs&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.config/containers/storage.conf&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[storage]&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;btrfs&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;ZFS&lt;/dt&gt;
-&lt;dd&gt;
-&lt;div class=&quot;openblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This might work, but I haven&amp;#8217;t tested the ZFS driver for rootless containers.
-Mileage may vary.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;~/.config/containers/storage.conf&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot;&gt;&lt;code data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;[storage]&lt;/span&gt;
-
-&lt;span class=&quot;py&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;zfs&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;From here, you can configure various driver-specific options for either Btrfs or ZFS as defined in &lt;a href=&quot;https://github.com/containers/storage/blob/master/docs/containers-storage.conf.5.md&quot;&gt;containers-storage.conf(5)&lt;/a&gt;.
-The Btrfs driver doesn&amp;#8217;t have a &lt;code&gt;mountopt&lt;/code&gt; key for controlling mount options.
-This owes to the fact that Podman creates Btrfs subvolumes in a &lt;a href=&quot;https://btrfs.wiki.kernel.org/index.php/SysadminGuide#Nested&quot;&gt;nested layout&lt;/a&gt; leading to subvolumes inheriting the mount options of their parent subvolumes.
-Since my user&amp;#8217;s home directory is its own top-level subvolume mounted in &lt;a href=&quot;http://manpages.ubuntu.com/manpages/bionic/man5/fstab.5.html&quot;&gt;fstab(5)&lt;/a&gt;, the mount options used for it are inherited by my rootless containers.
-These options include &lt;code&gt;autodefrag&lt;/code&gt;, &lt;code&gt;compress=zstd&lt;/code&gt;, and &lt;code&gt;noatime&lt;/code&gt;, all of which I would recommend for your running containers.
-You can even go so far as to create dedicated, top-level subvolumes for your root and rootless containers to fine-tune the mount options.
-To learn more about Btrfs mount options and layouts, see &lt;a href=&quot;btrfs-mount-options.html&quot;&gt;Btrfs Mount Options&lt;/a&gt; and &lt;a href=&quot;btrfs-layout.html&quot;&gt;Btrfs Layout&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To really capitalize on using Btrfs and ZFS for your containers, you&amp;#8217;ll want to take advantage of their snapshot and incremental backup capabilities.
-Containers, images, and named volumes are all stored in &lt;code&gt;~/.local/share/containers/storage&lt;/code&gt; for rootless runtimes and &lt;code&gt;/var/lib/containers/storage/&lt;/code&gt; for root.
-For Btrfs, these directories contain the subdirectory &lt;code&gt;btrfs/subvolumes&lt;/code&gt; which contains individual subvolumes for each container.
-I assume that the ZFS driver uses a similar procedure for creating individual datasets for each container.
-Snapshots can be taken of these containers and they can be backed up incrementally.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You probably use named volumes for persisting any important data in your containers such as databases and configuration.
-These named volumes are located in the &lt;code&gt;volumes&lt;/code&gt; subdirectory.
-You might make this directory - or any of its subdirectories for that matter - a subvolume or dataset and snapshot it and back it up.
-For Btrfs users, the blog posts &lt;a href=&quot;btrfs-snapshot-management-with-snapper.html&quot;&gt;Btrfs Snapshot Management With Snapper&lt;/a&gt; and &lt;a href=&quot;backup-snapper-snapshots-with-snap-sync.html&quot;&gt;Backup Snapper Snapshots With snap-sync&lt;/a&gt; can be applied to create automated snapshots and backups of these directories.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You have combined the ultimate powers of Podman and Btrfs or ZFS.
-World domination is that much closer.
-Enjoy!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. To be accurate, the user&amp;#8217;s config file is located at &lt;code&gt;$XDG_CONFIG_HOME/containers/storage.conf&lt;/code&gt; when &lt;code&gt;XDG_CONFIG_HOME&lt;/code&gt; is set but otherwise resides at the aforementioned location.
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Data Storage" /><category term="Btrfs" /><category term="containers" /><category term="CoW" /><category term="filesystem" /><category term="Linux" /><category term="Podman" /><category term="ZFS" /><summary type="html">Podman has storage backends for both Btrfs and ZFS. Using these backends allows Podman to take full advantage of the underlying CoW filesystem. This is a quick guide on enabling these storage drivers.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Jordan Williams</name></author><category term="Virtualization" /><category term="Btrfs" /><category term="containers" /><category term="Docker" /><category term="elementary" /><category term="Kubernetes" /><category term="Linux" /><category term="Podman" /><category term="systemd" /><category term="Ubuntu" /><category term="ZFS" /><summary type="html">Podman is a daemonless container runtime for Linux compatible with Docker. It offers several advantages over using Docker to manage and run containers. First, there is no overhead associated with running a background service as is the case with Docker. Podman also allows users to run rootless containers which provides a higher degree of protection for the system. Podman integrates deeply with Linux, taking advantage of a number of specific features. Notably, it uses namespaces for process isolation and integrates nicely with systemd. Just like Kubernetes, Podman is built on the concept of pods, groups of one or more containers, instead of individual containers.</summary></entry></feed>

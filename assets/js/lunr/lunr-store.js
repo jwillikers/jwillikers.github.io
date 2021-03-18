@@ -379,7 +379,13 @@ var store = [{
       },{
         "title": "Automatically Update Podman Containers",
         "excerpt":"Podman can automatically update your containers and hopefully make you&#8217;re life easier at the same time. Setting this up for Podman is actually pretty straightforward. Read on to learn how to set this up. Tutorial This tutorial will guide you through the steps to configure automatic updates for a Podman...","categories": ["Virtualization"],
-        "tags": ["auto-update","containers","Docker","Kubernetes","Linux","Podman","Ubuntu"],
+        "tags": ["auto-update","containers","elementary","Docker","Kubernetes","Linux","Podman","Ubuntu"],
         "url": "/automatically-update-podman-containers",
+        "teaser": null
+      },{
+        "title": "A Podman Pod as a systemd Service",
+        "excerpt":"Ever wanted to run a container, or pod, as a systemd service on Linux? This allows the container to be started automatically and even restarted on failure. I&#8217;m got a container running like this right now thanks to Podman which makes this incredibly easy and a bit more secure. If...","categories": ["Virtualization"],
+        "tags": ["containers","elementary","Docker","Kubernetes","Linux","Podman","systemd","Ubuntu"],
+        "url": "/a-podman-pod-as-a-systemd-service",
         "teaser": null
       }]

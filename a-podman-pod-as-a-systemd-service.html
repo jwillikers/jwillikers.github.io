@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Automatically Update Podman Containers - JWillikers</title>
-<meta name="description" content="Podman can automatically update your containers and hopefully make you&#8217;re life easier at the same time. Setting this up for Podman is actually pretty straightforward. Read on to learn how to set this up.">
+<!-- begin _includes/seo.html --><title>A Podman Pod as a systemd Service - JWillikers</title>
+<meta name="description" content="Ever wanted to run a container, or pod, as a systemd service on Linux? This allows the container to be started automatically and even restarted on failure. I&#8217;m got a container running like this right now thanks to Podman which makes this incredibly easy and a bit more secure. If managing your containers as services is something you&#8217;re interested in, then this tutorial is for you.">
 
 
   <meta name="author" content="Jordan Williams">
@@ -22,26 +22,26 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="JWillikers">
-<meta property="og:title" content="Automatically Update Podman Containers">
-<meta property="og:url" content="https://www.jwillikers.com/automatically-update-podman-containers">
+<meta property="og:title" content="A Podman Pod as a systemd Service">
+<meta property="og:url" content="https://www.jwillikers.com/a-podman-pod-as-a-systemd-service">
 
 
-  <meta property="og:description" content="Podman can automatically update your containers and hopefully make you&#8217;re life easier at the same time. Setting this up for Podman is actually pretty straightforward. Read on to learn how to set this up.">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2021-03-17T00:00:00-05:00">
+  <meta property="og:description" content="Ever wanted to run a container, or pod, as a systemd service on Linux? This allows the container to be started automatically and even restarted on failure. I&#8217;m got a container running like this right now thanks to Podman which makes this incredibly easy and a bit more secure. If managing your containers as services is something you&#8217;re interested in, then this tutorial is for you.">
 
 
 
 
 
 
-<link rel="canonical" href="https://www.jwillikers.com/automatically-update-podman-containers">
+
+  <meta property="article:published_time" content="2021-03-18T00:00:00-05:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.jwillikers.com/a-podman-pod-as-a-systemd-service">
 
 
 
@@ -159,9 +159,10 @@
       <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://podman.io/">Podman</a> can automatically update your containers and hopefully make you&#8217;re life easier at the same time.
-Setting this up for Podman is actually pretty straightforward.
-Read on to learn how to set this up.</p>
+<p>Ever wanted to run a container, or pod, as a <a href="https://systemd.io/">systemd</a> service on Linux?
+This allows the container to be started automatically and even restarted on failure.
+I&#8217;m got a container running like this right now thanks to <a href="https://podman.io/">Podman</a> which makes this incredibly easy and a bit more secure.
+If managing your containers as services is something you&#8217;re interested in, then this tutorial is for you.</p>
 </div>
 </div>
 </div>
@@ -169,17 +170,20 @@ Read on to learn how to set this up.</p>
 <h2 id="tutorial">Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial will guide you through the steps to configure automatic updates for a Podman container.
-Specifically, the tutorial will walk through automating updates for a UniFi Controller container using a <a href="https://kubernetes.io/">Kubernetes</a> YAML file.
-It&#8217;s a continuation of the <a href="podman-compose.html">Podman Compose</a> and <a href="translate-docker-compose-to-kubernetes-with-podman.html">Translate Docker Compose to Kubernetes With Podman</a> posts.
-The target system is <a href="https://ubuntu.com/">Ubuntu</a> 18.04.
+<p>This tutorial lays out the steps to manage a Podman container as a <a href="https://systemd.io/">systemd</a> service.
+A UniFi Controller container, derived from a <a href="https://kubernetes.io/">Kubernetes</a> YAML file, will be used as an example.
+Steps are provided for both rootless and root configurations.
+This tutorial continues the series on Podman.
+Previous tutorials include <a href="podman-compose.html">Podman Compose</a>, <a href="translate-docker-compose-to-kubernetes-with-podman.html">Translate Docker Compose to Kubernetes With Podman</a>, and <a href="automatically-update-podman-containers.html">Automatically Update Podman Containers</a>.
+The target system is elementary OS 5.1, based on <a href="https://ubuntu.com/">Ubuntu</a> 18.04.
 You&#8217;ll need to have Podman installed, of course.
-You should also be familiar with Linux containers, Podman, the command-line, the Kubernetes configuration format, <a href="https://git-scm.com/">Git</a>, and <a href="https://systemd.io/">systemd</a>.</p>
+To install Podman on an Ubuntu system, follow the instructions in <a href="install-podman-on-ubuntu.html">Install Podman on Ubuntu</a>.
+You are expected to be familiar with Linux containers, Podman, the command-line, the Kubernetes configuration format, {Git}, systemd, and anything else I forgot to mention&#8230;&#8203;</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Clone the GitHub repository with the Kubernetes configuration file for the UniFi controller.</p>
+<p>Clone the repository with the Kubernetes YAML file for the UniFi Controller.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="sh">➜ git clone git@github.com:jwillikers/unifi-controller.git ~/Projects/unifi-controller</code></pre>
@@ -187,85 +191,14 @@ You should also be familiar with Linux containers, Podman, the command-line, the
 </div>
 </li>
 <li>
-<p>Inspect the YAML file.</p>
-<div class="openblock">
-<div class="content">
-<div class="listingblock">
-<div class="title">~/Projects/unifi-controller/unifi-controller.yml</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="yaml"><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">creationTimestamp</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2021-03-13T17:21:54Z"</span>
-  <span class="na">labels</span><span class="pi">:</span>
-    <span class="na">app</span><span class="pi">:</span> <span class="s">unifi-controller</span>
-    <span class="s">io.containers.autoupdate</span><span class="pi">:</span> <span class="s">image</span> <i class="conum" data-value="1"></i><b>(1)</b>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">unifi-controller</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Add the label <code>io.containers.autoupdate</code> and set it to <code>image</code> to enable automatic updates for the containers herein.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>When using the <code>podman create</code> command, the <code>--label</code> or <code>-l</code> flag can be followed by the label, <code>"io.containers.autoupdate=image"</code> to enable auto-updates for the container.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The image name must be fully qualified for auto-update to update the image.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</li>
-<li>
 <p>Provide the generated Kubernetes YAML to <a href="https://docs.podman.io/en/latest/markdown/podman-play-kube.1.html">podman-play-kube(1)</a> to create and launch the pod.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ podman play kube ~/Projects/unifi-controller/unifi-controller.yml</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Check the labels attached to the UniFi Controller container with <code>podman ps</code>.</p>
-<div class="openblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ podman ps <span class="nt">-a</span> <span class="nt">--filter</span> <span class="nv">name</span><span class="o">=</span>unifi-controller <span class="nt">--format</span> <span class="s2">"{{.Names}}  {{.Labels}}"</span>
-unifi-controller_unifi-controller_1  map[PODMAN_SYSTEMD_UNIT:container-unifi-controller_unifi-controller_1.service build_version:Linuxserver.io version:- 6.0.45-ls100 Build-date:- 2021-03-02T04:05:16+00:00 com.docker.compose.container-number:1 com.docker.compose.service:unifi-controller io.containers.autoupdate:image io.podman.compose.config-hash:123 io.podman.compose.project:unifi-controller io.podman.compose.version:0.0.1 maintainer:aptalca]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>There are quite a few labels present, but one of them is the correct label, <code>io.containers.autoupdate:image</code>.
-This confirms that the container is labelled correctly.</p>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>Enable the Podman&#8217;s auto-update systemd timer.
-This tutorial uses the rootless runtime, but the necessary command is provided for enabling the auto-update timer for containers run as root.</p>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Rootless</dt>
 <dd>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nt">--user</span> <span class="nb">enable</span> <span class="nt">--now</span> podman-auto-update.timer</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ podman play kube ~/Projects/unifi-controller/unifi-controller.yml</code></pre>
 </div>
 </div>
 </dd>
@@ -273,7 +206,7 @@ This tutorial uses the rootless runtime, but the necessary command is provided f
 <dd>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl <span class="nb">enable</span> <span class="nt">--now</span> podman-auto-update.timer</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>podman play kube ~/Projects/unifi-controller/unifi-controller.yml</code></pre>
 </div>
 </div>
 </dd>
@@ -281,20 +214,92 @@ This tutorial uses the rootless runtime, but the necessary command is provided f
 </div>
 </li>
 <li>
-<p>When using <a href="https://docs.podman.io/en/latest/markdown/podman-generate-systemd.1.html">podman-generate-systemd(1)</a> to create systemd units for a pod, make sure to use the <code>--new</code> flag.
-This will create, start, and remove containers as part of the systemd units, which is necessary for applying automatic updates to running containers.
-To learn more about running a pod or container as a systemd service, refer to <a href="a-podman-pod-as-a-systemd-service.html">A Podman Pod as a systemd Service</a>.</p>
-</li>
-<li>
-<p>It&#8217;s also possible to trigger auto-updates manually with <a href="https://docs.podman.io/en/latest/markdown/podman-auto-update.1.html">podman-auto-update(1)</a>.</p>
+<p>Change into the directory where you want the systemd unit files to be placed.
+Below are common locations for these files.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Rootless</dt>
+<dd>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sh">➜ podman auto-update</code></pre>
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd</span> ~/.config/systemd/user</code></pre>
 </div>
+</div>
+</dd>
+<dt class="hdlist1">Root</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">cd</span> /etc/systemd/system</code></pre>
+</div>
+</div>
+</dd>
+</dl>
 </div>
 </li>
 <li>
-<p>In case you&#8217;re interested in accessing the UniFi controller container, the controller&#8217;s web console is at <a href="https://127.0.0.1:8443/" class="bare">https://127.0.0.1:8443/</a>.</p>
+<p>Generate the systemd service unit files using <a href="https://docs.podman.io/en/latest/markdown/podman-generate-systemd.1.html">podman-generate-systemd(1)</a>.
+The following commands use a couple of extra options.
+By default, podman-generate-systemd will output the content of the units to the console.
+<code>--files</code> places the output in the appropriate files.
+In this particular situation, it will create a service unit file for the pod and a service unit file for the single container.
+The <code>--name</code> option will use the names of the pod and containers instead of their hash id&#8217;s.
+The <code>--new</code> option causes the pods and containers to be created each time the service starts or restarts.
+When running containers as systemd services, this option is required for Podman&#8217;s auto-update functionality to work.
+For details on auto-update, checkout <a href="automatically-update-podman-containers.html">Automatically Update Podman Containers</a>.
+The last argument to the command is the pod&#8217;s identifier.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Rootless</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ podman generate systemd <span class="nt">--files</span> <span class="nt">--name</span> <span class="nt">--new</span> unifi-controller</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Root</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>podman generate systemd <span class="nt">--files</span> <span class="nt">--name</span> <span class="nt">--new</span> unifi-controller</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</li>
+<li>
+<p>Enable the systemd service.
+For the rootless configuration, the service will start upon the user logging in.
+For the root configuration, the service will be activated on boot.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Rootless</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ systemctl <span class="nt">--user</span> <span class="nb">enable</span> <span class="nt">--now</span> pod-unifi-controller.service
+Created symlink /home/jordan/.config/systemd/user/multi-user.target.wants/pod-unifi-controller.service → /home/jordan/.config/systemd/user/pod-unifi-controller.service.
+Created symlink /home/jordan/.config/systemd/user/default.target.wants/pod-unifi-controller.service → /home/jordan/.config/systemd/user/pod-unifi-controller.service.</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Root</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sh">➜ <span class="nb">sudo </span>systemctl <span class="nb">enable</span> <span class="nt">--now</span> pod-unifi-controller.service
+Created symlink /etc/systemd/system/multi-user.target.wants/pod-unifi-controller.service → /etc/systemd/system/pod-unifi-controller.service.
+Created symlink /etc/systemd/system/default.target.wants/pod-unifi-controller.service → /etc/systemd/system/pod-unifi-controller.service.</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</li>
+<li>
+<p>Access the controller&#8217;s web console at <a href="https://127.0.0.1:8443/" class="bare">https://127.0.0.1:8443/</a>.</p>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">fish</dt>
@@ -324,7 +329,13 @@ To learn more about running a pod or container as a systemd service, refer to <a
 <h2 id="see_also">See Also</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>On Red Hat&#8217;s Enable Sysadmin publication, the article <a href="https://www.redhat.com/sysadmin/improved-systemd-podman">Improved systemd integration with Podman 2.0</a> delves into Podman&#8217;s auto-update functionality.</p>
+<p>On Red Hat&#8217;s Enable Sysadmin publication, the article <a href="https://www.redhat.com/sysadmin/improved-systemd-podman">Improved systemd integration with Podman 2.0</a> delves into Podman&#8217;s systemd and auto-update functionality.</p>
+</div>
+<div class="paragraph">
+<p>An article on Red Hat&#8217;s Developer Blog, <a href="https://developers.redhat.com/blog/2019/04/24/how-to-run-systemd-in-a-container/How" class="bare">https://developers.redhat.com/blog/2019/04/24/how-to-run-systemd-in-a-container/How</a> to run systemd in a container], describes how to run systemd from within containers.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/containers/toolbox/">Toolbox</a> is a simplified wrapper for using Podman containers for development.</p>
 </div>
 </div>
 </div>
@@ -332,7 +343,7 @@ To learn more about running a pod or container as a systemd service, refer to <a
 <h2 id="conclusion">Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You have learned how to enable automatic updates for Podman containers.</p>
+<p>Given the simplicity of managing Podman containers as systemd services, why not use them yourself if they fit your use case?</p>
 </div>
 </div>
 </div>
@@ -404,7 +415,7 @@ To learn more about running a pod or container as a systemd service, refer to <a
 
 <script type="text/javascript">
     DiscourseEmbed = { discourseUrl: '//forum.jwillikers.com/',
-                       discourseEmbedUrl: 'https://www.jwillikers.com/automatically-update-podman-containers' };
+                       discourseEmbedUrl: 'https://www.jwillikers.com/a-podman-pod-as-a-systemd-service' };
    (function () {
      var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
      d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
