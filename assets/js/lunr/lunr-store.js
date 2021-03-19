@@ -103,7 +103,7 @@ var store = [{
       },{
         "title": "Password-Less Sudo",
         "excerpt":"Typing a password to login is repetitive enough, isn&#8217;t it? Entering the password for Sudo on the command-line can be downright irritating. If you don&#8217;t need that extra bit of protection, why enter your password more than you have to?[1] You can forever skip entering your sudo password, and it&#8217;s...","categories": ["Admin"],
-        "tags": ["Linux","macOS","sudo"],
+        "tags": ["Linux","macOS","Sudo"],
         "url": "/password-less-sudo",
         "teaser": null
       },{
