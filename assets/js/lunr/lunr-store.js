@@ -247,7 +247,7 @@ var store = [{
       },{
         "title": "Create a Windows 10 USB on Ubuntu",
         "excerpt":"I needed a to install Windows 10 from a USB recently. I&#8217;ve described my preferred method of accomplishing this in my recent post A Multi-Boot USB With Ventoy. Before I thought to use Ventoy, I created such an installer following this nifty article How to Create a Bootable Windows 10...","categories": ["Data Storage"],
-        "tags": ["Boot","Disks","gdisk","GNOME","gnome-disk-image-mounter","Installer","ISO","Linux","sgdisk","Ubuntu","Ubuntu2004","udisks","USB","Windows","Windows10"],
+        "tags": ["Boot","Disks","Fedora","gdisk","GNOME","gnome-disk-image-mounter","Installer","ISO","Linux","sgdisk","Ubuntu","Ubuntu2004","udisks","USB","Windows","Windows10"],
         "url": "/create-a-windows-10-usb-on-ubuntu",
         "teaser": null
       },{
